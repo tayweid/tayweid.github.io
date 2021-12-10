@@ -32,15 +32,13 @@ function loop_from_previous() {
 function check_key(e) {
 
     e = e || window.event;
-    
-    //if (e.keyCode == '32') { // Space Bar: Play/Pause
-    //    if (video.paused) {
-    //        video.play();
-    //    } else {
-    //        video.pause();
-    //    }
-    //}
-    
+    if (e.keyCode == '32') { // Space Bar: Play/Pause
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    }
     else if (e.keyCode == '38') { // Up Arrow: Skip to Next Pause Point
         if (point < pause_points.length-1) {
             point = point + 1;
