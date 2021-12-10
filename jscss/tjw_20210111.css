@@ -1,0 +1,358 @@
+/* Body Definitions */
+* {
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    }
+a {text-decoration: none;
+    color: black;
+    display: inline-block;
+    }
+section {
+    background: var(--sectionColor);
+    height: 100%;
+    left: 0px;
+    right:100px;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    }
+:root {
+    --backgroundColor: grey;
+    --sectionColor: grey;
+    --homeColor: #A9A9A9;
+    --researchColor: #3a4591;
+    --teachingColor:#247322;
+    --cvColor:#9c892a;
+    --contactColor:#8c41a6;
+    --elseColor:#9c342a;
+}
+.heading {
+    text-align: center;
+    text-transform: uppercase;
+    }
+
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.flex-item-left {
+  padding: 10px;
+  flex: 50%;
+}
+
+.flex-item-right {
+  padding: 10px;
+  flex: 50%;
+}
+
+@media (max-width: 800px) {
+    .flex-item-right, .flex-item-left {
+        flex: 100%;
+    }
+    .titleWrap {
+        display: none;
+    }
+}
+@media (max-width: 1400px) {
+    .homeLabel, .researchLabel, .teachingLabel, .cvLabel, .contactLabel, .elseLabel {
+        display: none;
+    }
+}
+
+.headerWrap a {
+    width: 15vw;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 30px;
+    border-radius: 5px;
+}
+
+
+/* Header Definitions */
+.header {
+    margin: auto;
+    padding: 5px;
+    padding-left: 65px;
+    padding-right: 20px;
+    width:100%;
+    background: var(--backgroundColor);
+    }
+.headerWrap {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+    }
+.header a {
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    font-size:30px;
+    }
+.header div {
+    }
+
+/* Sidebar */
+.sideBar {
+    height: 100%;
+    width: 150px;
+    position: fixed;
+    z-index: 1;
+    background-color: black;
+    }
+.headerBarWrap {
+    justify-content: space-between;
+    }
+.headerBar {
+    height: 100%;
+    width: 45px;
+    position: fixed;
+    background-color: black;
+    }
+
+
+/* Home Definitions */
+#home {
+    font-size: 30px;
+    height: 100%;
+    }
+.homeLink:hover {
+    color: var(--homeColor);
+    transition: 0.2s;
+    }
+.headerWrap .homeLink:hover {
+  background-color: #000;
+    }
+.homeActive {
+  background-color: #000;
+    }
+.homeSection div {
+    clear: none;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:1.8vw;
+    width:90%;
+    }
+.homeSection img {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px; 
+    height:150%;
+    }
+
+/* Research Definitions */
+#research {
+    height: 100%;
+    font-size:30px;
+    }
+.researchLink:hover {
+    color: var(--researchColor);
+    transition: 0.2s;
+    }
+.researchActive {
+    background-color: var(--researchColor);
+    border-color: #000;
+    }
+.headerWrap .researchLink:hover {
+  background-color: var(--researchColor);
+    }
+.paperCard {
+    display: flex;
+    overflow:hidden;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    height: 30%;
+    width:80%;
+    margin: auto;
+    border-radius: 5px;
+    }
+.paperFlex {
+    display: flex;
+    height: 100%;
+    width:97%;
+    margin: auto;
+    border-radius: 5px;
+    }
+.paperCard:hover {
+    box-shadow: 1px 4px 8px 1px var(--researchColor);
+    }
+.paperBlock {
+    margin: auto;
+    text-align: left;
+    width: 65%;
+    padding-left:2%;
+    }
+.paperBlock a {
+    font-weight: bold;
+    }
+.paperBlock p {
+    text-indent: 20px;
+    font-size: 80%;
+    }
+.paperImage {
+    margin: auto;
+    border-radius: 5px;
+    height:100%;
+    max-width:100%;
+    }
+@media (max-width: 800px) {
+    .paperCard {
+        height:70%;
+        width:90%;
+    }
+    .paperFlex {
+        display:block;
+        height:100%;
+    }
+    .paperBlock {
+        padding-top:10px;
+        height:30%;
+        width:95%;
+    }
+    .paperImage {
+        display: block;
+        height:370px;
+        max-width:370px;
+    }
+}
+
+/* Teaching Definitions */
+#teaching {
+    height: 100%;
+    font-size:30px;
+    }
+.teachingLink:hover {
+    color: var(--teachingColor);
+    transition: 0.2s;
+    }
+.teachingActive {
+    background-color: var(--teachingColor);
+    }
+.headerWrap .teachingLink:hover {
+    background-color: var(--teachingColor);
+    }
+.teachingSection div {
+    margin: auto;
+    font-size:30px;
+    width:80%;
+    }
+.classCard {
+    text-align:center;
+    overflow:hidden;
+    font-size:30px;
+    display: flex;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    height: 40%;
+    border-radius: 5px;
+    }
+.classCard:hover {
+    box-shadow: 1px 4px 8px 1px var(--teachingColor);
+    }
+.classCard a,span {
+    font-size:30px;
+    }
+.classCard p {
+    font-weight: bold;
+    }
+.classBlock {
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: auto;
+    width:80%;
+    }
+.videoBlock {
+    height: 100%;
+    overflow-y: scroll
+    }
+.videoLink {
+    height: 10vw;
+    padding: 0.1vw;
+    width:18vw;
+    }
+@media (max-width: 1200px) {
+    .videoLink {
+        height: 20vw;
+        padding: 0.1vw;
+        width:36vw;
+    }
+}
+
+/* CV Definitions */
+#cv {
+    height: 100%;
+    font-size:30px;
+    }
+.cvLink:hover {
+    color: #000;
+    transition: 0.2s;
+    }
+.headerWrap .cvLink:hover {
+  background-color: var(--cvColor);
+    }
+.cvActive {
+    background-color: var(--cvColor);
+    }
+.cvSection div {
+    margin: auto;
+    width:70%;
+    }
+.cvWrap div {
+    float: left;
+    clear: none;
+    display: table;
+    text-align: left;
+    }
+.cvSection li {
+    text-indent: -1em;
+    margin-left:2em;
+    }
+
+/* Contact Definitions */
+#contact {
+    height: 100%;
+    font-size:1.6vw;
+    }
+.contactLink:hover {
+    color: #000;
+    transition: 0.2s;
+    }
+.headerWrap .contactLink:hover {
+  background-color: var(--contactColor);
+    }
+.contactActive {
+    background-color: var(--contactColor);
+    }
+.contactCard {
+    padding-top:10px;
+    box-shadow: 1px 4px 8px 1px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    height: 15vw;
+    width: 20vw;
+    text-align: center;
+    border-radius: 5px;
+    }
+.contactCard:hover {
+    box-shadow: 3px 8px 16px 3px var(--contactColor);
+    }
+
+/* Else Definitions */
+.elseLink:hover {
+    color: #000;
+    transition: 0.2s;
+    }
+.headerWrap .elseLink:hover {
+  background-color: var(--elseColor);
+    }
+.elseActive {
+    background-color: var(--elseColor);
+    }
+

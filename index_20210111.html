@@ -1,0 +1,317 @@
+<html>
+    
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./jscss/tjw.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <!--
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    -->
+    <script src="jscss/tjw.js"></script>
+<style>
+
+</style>
+</head>
+
+<!-- To Do:
+Content!
+switch to vertically aligned paperCard when small enough
+paper pages
+class pages
+active button on refresh
+-->
+
+<body style="background: grey; height: 100%; width: 100%; overflow: hidden">
+
+<title>Taylor J Weidman</title>
+
+<div style="display: flex; flex-direction: column; height: 100%;">
+<div class="sideBar" style="text-align:center; font-size:30px; writing-mode: tb-rl; transform: rotate(-180deg)">
+    <a href="https://github.com/taylorjweidman"  target="_blank">
+        <span style="font-size:15px; color:white">
+            (designed and written by)
+        </span>
+        <span style="color:white">
+            Taylor J Weidman | <img src="i/icons/github.png" style="height:40px; writing-mode: tb-rl; transform: rotate(90deg)">
+        </span>
+    </a>
+</div>
+<!--
+<div class="headerBar" style="text-align:center; font-size:30px;">
+    <div class="headerBarWrap">
+        <a id="homeButton" class="homeLink homeActive" href="#home" onclick="switchPage('home')"><div style="display: flex; margin: 0 auto;"><div class="fa fa-home"></div><div class="homeLabel" style="padding-left:10px"> HOME</div></div></a>
+        <a id="researchButton" class="researchLink" href="#research" onclick="switchPage('research')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-lightbulb-o"></i><div class="researchLabel" style="padding-left:10px"> RESEARCH</div></div></a>
+        <a id="teachingButton" class="teachingLink" href="#teaching" onclick="switchPage('teaching')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-university"></i> <div class="teachingLabel" style="padding-left:10px"> TEACHING</div></div></a>
+        <a id="cvButton" class="cvLink" href="#cv" onclick="switchPage('cv')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-birthday-cake"></i> <div class="cvLabel" style="padding-left:10px"> CV</div></div></a>
+        <a id="contactButton" class="contactLink" href="#contact" onclick="switchPage('contact')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-envelope"></i> <div class="contactLabel" style="padding-left:10px"> CONTACT</div></div></a>
+        <a id="elseButton" class="elseLink" href="#else" onclick="switchPage('else')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-paper-plane"></i> <div class="elseLabel" style="padding-left:10px"> ELSE</div></div></a>
+    </div>
+</div> -->
+<div class="header">
+    <div class="headerWrap">
+        <a id="homeButton" class="homeLink homeActive" href="#home" onclick="switchPage('home')"><div style="display: flex; margin: 0 auto;"><div class="fa fa-home"></div><div class="homeLabel" style="padding-left:10px"> HOME</div></div></a>
+        <a id="researchButton" class="researchLink" href="#research" onclick="switchPage('research')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-lightbulb-o"></i><div class="researchLabel" style="padding-left:10px"> RESEARCH</div></div></a>
+        <a id="teachingButton" class="teachingLink" href="#teaching" onclick="switchPage('teaching')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-university"></i> <div class="teachingLabel" style="padding-left:10px"> TEACHING</div></div></a>
+        <a id="cvButton" class="cvLink" href="#cv" onclick="switchPage('cv')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-birthday-cake"></i> <div class="cvLabel" style="padding-left:10px"> CV</div></div></a>
+        <a id="contactButton" class="contactLink" href="#contact" onclick="switchPage('contact')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-envelope"></i> <div class="contactLabel" style="padding-left:10px"> CONTACT</div></div></a>
+        <a id="elseButton" class="elseLink" href="#else" onclick="switchPage('else')"><div style="display: flex; margin: 0 auto;"><i class="fa fa-paper-plane"></i> <div class="elseLabel" style="padding-left:10px"> ELSE</div></div></a>
+    </div>
+</div>
+
+
+
+<div style="flex:1; overflow-y: hidden; height: 100%;"> <!-- Wrap Content -->
+
+<section class="homeSection" id="home"> <!-- Home Page -->
+    <br><br><br>
+    <div>
+        <div class="flex-container">
+            <div class="flex-item-left">
+                <p class="heading"><b>ABOUT ME</b></p>
+                <hr color="black" style="margin: auto;"><br>
+                <p> 
+                    I am a PhD student in the Department of Economics, at the University of Pittsburgh. 
+                    <br><br>
+                    I specialize in public, urban, behavioral, and political economy. 
+                    My main research interests focus on belief formation, equalibrium selection, and spatial sorting, and their social and political impacts and economic drivers.
+                </p>
+            </div>
+            <div class="flex-item-right">
+                <a target="_blank">
+                    <img src="i/weidman_1.jpg">
+                </a>
+            </div>
+        </div>
+    </div>
+</section> <!-- End Home Page -->
+
+<section class="researchSection" id="research"> <!-- Research Page -->
+    <br><br>
+
+    <div class="paperCard" id="herding_to_the_polls" onclick="window.open('research/herding_to_the_polls/paper.html','mywindow');" style="cursor: pointer;">
+        <div class="paperBanner" style="text-align:center; font-size:1.8vw; background-color:var(--researchColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <p><i>Current</i></p>
+        </div>
+        <div class="paperFlex">
+            <div class="paperBlock">
+                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/paper.html">Herding to the Polls</a>
+                <hr color="black" style="width:96%">
+                <p><i><b>tl;dr. </b>Voters condition their turnout decision on the political preferences of their neighbors.</i></p>
+            </div>
+            <div>
+                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="paperCard" id="the_small_sort" onclick="window.open('https://taylorjweidman.github.io/research/the_small_sort/paper.html','mywindow');" style="cursor: pointer;">
+        <div class="paperBanner" style="text-align:center; font-size:1.8vw; background-color:var(--researchColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <p><i>Current</i></p>
+        </div>
+        <div class="paperFlex">
+            <div class="paperBlock">
+                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/the_small_sort/paper.html">The Small Sort</a>
+                <hr color="black" style="width:96%">
+                <p><i><b>tl;dr. </b> Voters have a preference for living near politically aligned neighbors.</i></p>
+            </div>
+            <div>
+                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="paperCard" id="the_great_electoral_divergence" onclick="window.open('https://taylorjweidman.github.io/research/the_great_electoral_divergence/paper.html','mywindow');" style="cursor: pointer;">
+        <div class="paperBanner" style="text-align:center; font-size:1.8vw; background-color:var(--researchColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <p><i>Current</i></p>
+        </div>
+        <div class="paperFlex">
+            <div class="paperBlock">
+                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/the_great_electoral_divergence/paper.html">The Great Electoral Divergence</a>
+                <hr color="black" style="width:96%">
+                <p><i><b>tl;dr. </b>The changing urban wage gradient has led to increasinly partisan cities. </i></p>
+            </div>
+            <div>
+                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="paperCard" id="equilibrium_selection" onclick="window.open('https://taylorjweidman.github.io/research/equilibrium_selection/paper.html','mywindow');" style="cursor: pointer;">
+        <div class="paperBanner" style="text-align:center; font-size:1.8vw; background-color:var(--researchColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <p><i>Current</i></p>
+        </div>
+        <div class="paperFlex">
+            <div class="paperBlock">
+                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/equilibrium_selection/paper.html">Equilibrium Selection Over Dynamic Strategies</a>
+                <hr color="black">
+                <p><i><b>tl;dr. </b> </i></p>
+            </div>
+            <div>
+                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    <br>
+    
+    <div class="paperCard" id="tiebout_and_the_city" onclick="window.open('https://taylorjweidman.github.io/research/tiebout_and_the_city/paper.html','mywindow');" style="cursor: pointer;">
+        <div class="paperBanner" style="text-align:center; font-size:1.8vw; background-color:var(--researchColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <p><i>Current</i></p>
+        </div>
+        <div class="paperFlex">
+            <div class="paperBlock">
+                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/tiebout_and_the_city/paper.html">Tiebout and the City</a>
+                <hr color="black" style="width:96%">
+                <p><i><b>tl;dr. </b></i></p>
+            </div>
+            <div>
+                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    <br>
+</section> <!-- End Research Page -->
+
+<section class="teachingSection" id="teaching"> <!-- Teaching Page -->
+    <br>   
+    <div class="classCard" id="intro_micro_2020">
+        <div style="text-align:center; font-size:1.8vw; background-color:var(--teachingColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <i>Summer 2020</i>
+        </div>
+        <div class="classBlock">
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/class.html"><p>Intro to Microeconomics</p></a>
+            <hr color="black">
+            <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
+            <span> | Lectures </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/Lecture1.pdf"> 0 </a>
+            <span> | </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/Lecture2.pdf"> 1 </a>
+            <span> | </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/Lecture3.pdf"> 2 </a>
+        </div>
+        <div class="videoBlock">
+            <iframe class="videoLink" src="https://www.youtube.com/embed/kIg_nQrGChE" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/N0mbUXYMwdw" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/YN4ZkPBS_O8" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/W0eAtssLxmk" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/uxPoYbtzYbM" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/Kxq2E69dpCA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div><br>
+    
+    <div class="classCard" id="intermediate_micro_2021">
+        <div style="text-align:center; font-size:1.8vw; background-color:var(--teachingColor); width:2.5%; height:101%; margin:0; writing-mode: tb-rl; transform: rotate(-180deg);">
+            <i>Summer 2021</i>
+        </div>
+        <div class="classBlock">
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/class.html"><p>Intermediate Microeconomics</p></a>
+            <hr color="black">
+            <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/syllabus.pdf">Syllabus</a>
+            <span> | Lectures </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/Lecture1.pdf"> 0 </a>
+            <span> | </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/Lecture2.pdf"> 1 </a>
+            <span> | </span>
+            <a class="teachingLink" target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/Lecture3.pdf"> 2 </a>
+        </div>
+        <div class="videoBlock">
+            <iframe class="videoLink" src="https://www.youtube.com/embed/kIg_nQrGChE" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/N0mbUXYMwdw" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/YN4ZkPBS_O8" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/W0eAtssLxmk" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/uxPoYbtzYbM" frameborder="0" allowfullscreen></iframe>
+            <iframe class="videoLink" src="https://www.youtube.com/embed/Kxq2E69dpCA" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div><br>
+</section> <!-- End Teaching Page -->
+
+<section class="cvSection" id="cv">  <!-- CV Page -->
+    <br><br>
+    <div>
+        <h3>Education</h3>
+        <ul style="list-style-type:none;">
+            <li>PhD. Economics, University of Pittsburgh</li>
+            <li>M.S. Economics, Iowa State University</li>
+            <li>B.A. Economics & Environmental Sustainability, Eastern Mennonite University</li>
+        </ul>
+        <br><hr color="black"><br>
+    </div>
+    <div>
+        <h3>Employment</h3>
+        <ul style="list-style-type:none;">
+            <li>Teaching Assistant, Department of Economics, University of Pittsburgh <br>(August 2017 - current)</li>
+            <li>Research Assistant, Pittsburgh Experimental Economics Lab, University of Pittsburgh <br>(May 2018 - current)</li>
+            <li>Research Assistant to Elizabeth Hoffman, Iowa State University <br>(2015 - 2016)</li>
+            <li>Research Assistant to Chad Hart, Iowa State University <br>(2014 - 2015)</li>
+        </ul>
+        <br><hr color="black"><br>
+    </div>
+    <div>
+        <h3>Research & Teaching Interests</h3>
+        <br><hr color="black"><br>
+    </div>
+    <div>
+        <h3>Fellowships and Awards</h3>
+        <ul style="list-style-type:none;">
+            <li>Something Here</li>
+        </ul>
+        <br><br>
+    </div>
+</section>  <!-- End CV Page -->
+
+<section class="contactSection" id="contact">  <!-- Contact Page -->
+    <br><br>
+    <div style="display:flex; margin: auto; width:60%;">
+    <div class="contactCard">
+            <div>
+                <h4><b>EMAIL</b></h4>
+            </div>
+            <div>
+                <hr color="black" width="50%" style="margin: auto; opacity:50%"> <br>
+                <a class="contactLink" href="mailto:taylorjweidman@pitt.edu" target="_blank">taylorjweidman@pitt.edu</a>
+            </div>
+    </div>
+    <div class="contactCard">
+            <div>
+                <h4><b>OFFICE</b></h4>
+            </div>
+            <div>
+                <hr color="black" width="50%" style="margin: auto; opacity:50%"> <br>
+                <a class="contactLink" href="https://goo.gl/maps/84UWTxDSwe4q9NgK6" target="_blank">5422, Department of Economics<br>
+                    230 S Bouquet St<br>
+                    Pittsburgh, PA 15213
+                </a>
+            </div>
+    </div>
+    <div class="contactCard">
+            <div>
+                <h4><b>PHONE</b></h4>
+            </div>
+            <div>
+                <hr color="black" width="50%" style="margin: auto; opacity:50%"> <br>
+                <a class="contactLink" href="tel:540.929.0242" target="_blank">540.929.0242</a>
+            </div>
+    </div>
+    </div>
+</section>  <!-- End Contact Page -->
+
+<section class="elseSection" id="else">  <!-- Contact Page -->
+    <div>
+        <div class="flex-container">
+          <div class="flex-item-left">1</div>
+          <div class="flex-item-right">2</div>
+        </div>
+    </div>
+</section>  <!-- End Contact Page -->
+
+</div>
+</div>
+    
+</body>
+</html>

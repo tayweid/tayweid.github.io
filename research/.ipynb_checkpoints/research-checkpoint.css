@@ -1,0 +1,83 @@
+/* Body Definitions */
+* {
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background: grey;
+    }
+a {text-decoration: none;
+    color: black;
+    display: inline-block;
+    }
+section {
+    height: 100%;
+    left: 0px;
+    right:100px;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    }
+:root {
+    --sectionColor: grey;
+    --researchColor: #3a4591;
+}
+
+/* Toggle */
+.toggleWrap {
+    justify-content: space-between;
+    width:100%;
+    }
+.toggleWrap a {
+    width: 200px;
+    text-align: center;
+    padding: 12px 0;
+    transition: all 0.3s ease;
+    color: #000;
+    }
+.toggle:hover {
+    color: white;
+    transition: 0.2s;
+    border-radius: 5px;
+    background-color: var(--researchColor);
+    }
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.flex-item-left {
+  padding: 10px;
+  flex: 50%;
+}
+
+.flex-item-right {
+  padding: 10px;
+  flex: 50%;
+}
+
+@media (max-width: 800px) {
+    .flex-item-right, .flex-item-left {
+        flex: 100%;
+    }
+    .titleWrap {
+        display: none;
+    }
+}
+
+/* Home Definitions */
+#home {
+    font-size: 30px;
+    height: 100%;
+    }
+.homeSection div {
+    clear: none;
+    margin-left: auto;
+    margin-right: auto;
+    font-size:1.8vw;
+    width:90%;
+    }
