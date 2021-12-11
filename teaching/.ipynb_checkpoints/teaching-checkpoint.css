@@ -1,0 +1,63 @@
+/* Body Definitions */
+* {
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background: grey;
+    }
+a {text-decoration: none;
+    color: black;
+    display: inline-block;
+    }
+section {
+    height: 100%;
+    left: 0px;
+    right:100px;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+    }
+:root {
+    --sectionColor: grey;
+    --teachingColor: #3a4591;
+}
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.flex-item-left {
+  padding: 10px;
+  flex: 50%;
+}
+
+.flex-item-right {
+  padding: 10px;
+  flex: 50%;
+}
+
+@media (max-width: 800px) {
+    .flex-item-right, .flex-item-left {
+        flex: 100%;
+    }
+    .titleWrap {
+        display: none;
+    }
+}
+
+/* Home Definitions */
+#home {
+    font-size: 36px;
+    height: 100%;
+    }
+.homeSection div {
+    clear: none;
+    margin-left: auto;
+    margin-right: auto;
+    width:90%;
+    }
