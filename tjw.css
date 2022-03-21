@@ -1,0 +1,144 @@
+/* https://www.w3schools.com/howto/howto_css_sidebar_responsive.asp */
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidebar_responsive */
+
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+    
+:root {
+    --sidebar_color: #303030;
+    --section_color: #BEBEBE;
+    --home_color: #A9A9A9;
+    --research_color: #3a4591;
+    --teaching_color:#247322;
+    --cv_color:#9c892a;
+    --else_color:#9c342a;
+    --contact_color:#8c41a6;
+}
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  background-color: var(--sidebar_color);
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+}
+
+    
+.home_head {
+    color: white;
+    transition: 0.2s;
+    font-size:36px;
+}
+.home_head:hover {
+    color: var(--home_color);
+    transition: 0.2s;
+}
+.research_head {
+    color: white;
+    transition: 0.2s;
+}
+.research_head:hover {
+    color: #000;
+    background-color: var(--research_color);
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.research_head.active {
+    background-color: var(--research_color);
+}
+.teaching_head {
+    color: white;
+    transition: 0.2s;
+    }
+.teaching_head:hover {
+    color: #000;
+    background-color: var(--teaching_color);
+    border-radius: 5px;
+    transition: 0.2s;
+    }
+.teaching_head.active {
+    background-color: var(--teaching_color);
+    }
+.cv_head {
+    color: white;
+    transition: 0.2s;
+}
+.cv_head:hover {
+    color: #000;
+    background-color: var(--cv_color);
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.cv_head.active {
+    background-color: var(--cv_color);
+}
+.else_head {
+    color: white;
+    transition: 0.2s;
+}
+.else_head:hover {
+    color: #000;
+    background-color: var(--else_color);
+    border-radius: 5px;
+    transition: 0.2s;
+}
+.else_head.active {
+    background-color: var(--else_color);
+}
+
+.sidebar_break {
+    height:1px; 
+    background-color:#404040;
+    }
+    
+
+
+div.content {
+    background-color: var(--section_color);
+    color:black;
+    margin-left: 250px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+    
+@media screen and (min-width: 701px) {
+    .home_small {display: none}
+}
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: 50px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+    
+    .home_large {display: none}
+    .home_small {font-size:24px;}
+    .research_large {display: none}
+    .teaching_large {display: none}
+    .cv_large {display: none}
+    .else_large {display: none}
+}
+    
+.heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+    }

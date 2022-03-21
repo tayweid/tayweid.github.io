@@ -15,14 +15,15 @@
 </head>
 
 <!-- To Do:
-Content!
-nav bar on bottom when small
-switch to vertically aligned classCard when small enough
+homepage like yucheng
+hide instead of moving between pages, maybe just have separate pages ...?
+nav bar on top and remove text when small
+vertically align card content. research should be title, tldr, thumbnail, status. teaching should be title, thumbnail, date.
 paper pages
 class pages
 -->
 
-<body style="overflow: hidden">
+<body style="overflow: hidden; background-color:grey">
 
 <div style="display: flex; flex-direction: column; height: 100%">
 
@@ -106,22 +107,22 @@ class pages
     <br><br><br>
     <div>
         <div class="flex-container">
-            <div class="flex-item-left">
+            <div class="flex-item-left" style="margin: auto; width:70%">
                 <p class="heading"><b>ABOUT ME</b></p>
-                <hr color="black" style="margin: auto;"><br>
+                <hr color="black" style="margin: auto"><br>
                 <p> 
-                    PhD Candidate | Econ | University of Pittsburgh
+                    PhD Candidate | University of Pittsburgh
                     <br><br>
-                    My work typically involves individual-level panel data, aiming at questions about individuals in groups, using both administrative data and experimental methods. 
+                    My work typically aims at questions about individual behavior and beliefs in groups, using administrative panels and experimental methods. 
                     <br><br>
-                    My research agenda lives in the sub-fields of political economy, urban, and behavioral economics, how changing economic conditions interact with the democratic process, exploiting a geocoded administrative panel of voters, their neighborhoods, and their turnout decisions.
+                    My research agenda lives in the sub-fields of behavioral economics, political economy, and urban economics, how changing economic conditions interact with the democratic process, exploiting a geocoded administrative panel of voters, their neighborhoods, and their turnout decisions.
                     <br><br>
                     I enjoy communicating both simple and complex concepts clearly and have a tendency to stray from under the street lamp.
                 </p>
             </div>
-            <div class="flex-item-right">
+            <div class="flex-item-right" style="margin: auto; width:20%">
                 <a target="_blank">
-                    <img src="i/weidman_1.jpg">
+                    <img src="i/weidman_1.jpg" width="500" height="600">
                 </a>
             </div>
         </div>
@@ -142,10 +143,10 @@ class pages
             <div class="paperBlock">
                 <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/paper.html">Herding to the Polls</a>
                 <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b>Voters condition their turnout decision on the political preferences of their neighbors.</i></p>
+                <p><i><b>tl;dr. </b>Voters turnout at higher rates in neighborhoods with more copartisans. This appears in every major election in North Carolina between 2010 and 2020, most strongly among a voter's closest 50 neighboring voters, and is responsive to neighborhood changes.</i></p>
             </div>
             <div>
-                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
+                <img class="paperImage" src="research/herding_to_the_polls/figure_3_2016.png">
             </div>
         </div>
     </div>
@@ -184,7 +185,7 @@ class pages
             <div class="paperBlock">
                 <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/the_small_sort/paper.html">The Small Sort</a>
                 <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b> Voters have a preference for living near politically aligned neighbors.</i></p>
+                <p><i><b>tl;dr. </b> Voters leave less politically aligned for more politically aligned neighborhoods.</i></p>
             </div>
             <div>
                 <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
@@ -235,24 +236,25 @@ class pages
 </section> <!-- End Research Page -->
 
 <section class="teachingSection" id="teaching"> <!-- Teaching Page -->
+    
     <br>
     <p class="heading"><b>Teaching</b></p>
     <hr color="black" style="margin: auto; width:90%">
     <br><br>
-    
+
     <div class="classCard" id="honors_intro_micro_2021">
         <div class="classBanner">
             Fall 2021
         </div>
         <div class="classFlex">
-            <div class="classBlock"><!-- https://taylorjweidman.github.io -->
-                <a class="teachingLink" onclick="window.open('teaching/honors_intro_micro/class.html','mywindow');"><p>Honors Intro to Microeconomics</p></a>
+            <div class="classBlock">
+                <a class="teachingLink" onclick="window.open('teaching/honors_intro_micro/class.html','mywindow');"><p>Honors Intro Micro</p></a>
                 <hr color="black">
                 <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/honors_intro_micro/syllabus.pdf">Syllabus</a>
                 <span> | Class Material </span>
             </div>
-            <div class="videoBlock">
-                <iframe class="videoLink" src="https://www.youtube.com/embed/kIg_nQrGChE" frameborder="0" allowfullscreen></iframe>
+            <div class="classVideo">
+                <iframe src="https://www.youtube.com/embed/kIg_nQrGChE" width="560" height="315" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div><br>
@@ -263,21 +265,11 @@ class pages
         </div>
         <div class="classFlex">
             <div class="classBlock">
-                <a class="teachingLink" onclick="window.open('teaching/intermediate_micro/class.html','mywindow');"><p>Intermediate Microeconomics</p></a>
+                <a class="teachingLink" onclick="window.open('teaching/intermediate_micro/class.html','mywindow');"><p>Intermediate Micro</p></a>
                 <hr color="black">
                 <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
                 <span> | Class Material </span>
             </div>
-            <!--
-            <div class="videoBlock">
-                <iframe class="videoLink" src="https://www.youtube.com/embed/kIg_nQrGChE" frameborder="0" allowfullscreen></iframe>
-                <iframe class="videoLink" src="https://www.youtube.com/embed/N0mbUXYMwdw" frameborder="0" allowfullscreen></iframe>
-                <iframe class="videoLink" src="https://www.youtube.com/embed/YN4ZkPBS_O8" frameborder="0" allowfullscreen></iframe>
-                <iframe class="videoLink" src="https://www.youtube.com/embed/W0eAtssLxmk" frameborder="0" allowfullscreen></iframe>
-                <iframe class="videoLink" src="https://www.youtube.com/embed/uxPoYbtzYbM" frameborder="0" allowfullscreen></iframe>
-                <iframe class="videoLink" src="https://www.youtube.com/embed/Kxq2E69dpCA" frameborder="0" allowfullscreen></iframe>
-            </div>
-            -->
         </div>
     </div><br>
     
@@ -292,8 +284,8 @@ class pages
                 <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
                 <span> | Class Material </span>
             </div>
-            <div class="videoBlock">
-                <iframe class="videoLink" src="https://www.youtube.com/embed/videoseries?list=PLdSrYNq5W-M0EQeUjVc7nYY3qPO8XgmDK" frameborder="0" allowfullscreen></iframe>
+            <div class="classVideo">
+                <iframe src="https://www.youtube.com/embed/videoseries?list=PLdSrYNq5W-M0EQeUjVc7nYY3qPO8XgmDK" width="560" height="315" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div><br>

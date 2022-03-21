@@ -16,11 +16,12 @@
 
 <section class="homeSection" id="home"> <!-- Home Page -->
     <div style="text-align:center">
+        <br>
         <h1>Herding to the Polls</h1>
         <hr color="black" style="margin: auto; width:60%">
         <a target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/paper.pdf"> Paper </a>
         |
-        <a target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/supplemental_materials"> Supplemental Materials </a>
+        <a target="_blank" href="https://github.com/taylorjweidman"> Replication Materials </a>
         <br><br>
         
         <!--<div class="toggleWrap">
@@ -48,8 +49,6 @@
                                   Your browser does not support HTML5 video.
                                 </video>
                             </div>
-                            <br>
-                            <p><i><b>tl;dr. </b>Voters condition their turnout decision on the political preferences of their neighbors.</i></p>
                         </div>
                     </div>
                 </div>
@@ -61,8 +60,22 @@
         <br><hr color="black" style="margin: auto; width:80%"><br>
         
         <div class="figures">
-            This is where interactive figures will go.
+            <h3> Geocoding </h3>
+            <br>
+            <p> I used the Census Bereau's Geocoder to geocoded the majority of voters in North Carolina, with a success rate roughly 70%. This interactive map shows the geocoded location of major party voters, color coded by party affiliation. I've shown here only the voters in the Charlotte area for computational reasons. Zoom in to inspect the accuracy. </p>
+            <iframe src="data_2_geocode.html" height="500" width="100%" style="border:none;"></iframe>
         </div>
+        <br><br>
+        <div class="figures">
+            <h3> Square Partitions </h3>
+            <br>
+            <p> Before running the spatial k-nearest neighbors algrithm, I partitioned the state into squares of equal size. This is mainly to optimize the KNN algorithm, but also makes it easy to check that density is geographically related to party share. This map plots the centroid of every populated square partition, with the size of the point representing the log population and color representing the share associated with each of the two parties. </p>
+            <iframe src="data_3_neighborhoods.html" height="500" width="100%" style="border:none;"></iframe>
+        </div>
+        
+        <br><br><br><br>
+        
+        <!--
         
         <br><hr color="black" style="margin: auto; width:80%"><br>
         
@@ -95,6 +108,7 @@
 
             </div>
         </div>
+        -->
     </div>
 </section> <!-- End Home Page -->
 <script src="../research.js"></script>
