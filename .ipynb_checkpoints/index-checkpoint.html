@@ -1,312 +1,333 @@
+<!DOCTYPE html>
 <html>
     
 <title>Taylor J Weidman</title>
     
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./jscss/tjw.css">
+    <script src="tjw.js"></script>
+    <link rel="stylesheet" href="tjw.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <!--<script src="jscss/tjw.js"></script>-->
-<style>
-
-</style>
 </head>
 
-<!-- To Do:
-homepage like yucheng
-hide instead of moving between pages, maybe just have separate pages ...?
-nav bar on top and remove text when small
-vertically align card content. research should be title, tldr, thumbnail, status. teaching should be title, thumbnail, date.
-paper pages
-class pages
--->
+<body>
 
-<body style="overflow: hidden; background-color:grey">
+<!-- SIDEBAR/HEADER -->
 
-<div style="display: flex; flex-direction: column; height: 100%">
-
-<div class="sideBar" style="text-align:center;">
-    <div class="sideBarWrap">
-        <a id="homeButton" class="homeLink homeActive" href="#home" onclick="switchPage('home')">
-            <div style="font-size:30px; margin:auto">
-                <!--<i class="fa fa-home" style="display:none"></i>-->
-                <div class="homeLabel" style="text-align: center;"> TAYLOR WEIDMAN</div>
-            </div>
-        </a>
-        
-        <div style="height:10%"></div>
-        
-        <div class="sideBarLine"></div>
-        <a id="researchButton" class="researchLink" href="#research" onclick="switchPage('research')" style="padding-left:10px; padding-right:10px">
-            <div style="display: flex; margin: 0 auto;">
-                <div style="width:10%"><i class="fa fa-lightbulb-o"></i></div>
-                <div class="researchLabel" style="width:80%; padding-left:20px; text-align:left"> RESEARCH</div>
-            </div>
-        </a>
-        <div class="sideBarLine"></div>
-        <a id="teachingButton" class="teachingLink" href="#teaching" onclick="switchPage('teaching')" style="padding-left:10px; padding-right:10px">
-            <div style="display: flex; margin: 0 auto;">
-                <div style="width:10%"><i class="fa fa-university"></i></div>
-                <div class="teachingLabel" style="width:80%; padding-left:20px; text-align:left"> TEACHING</div>
-            </div>
-        </a>
-        <div class="sideBarLine"></div>
-        <a id="cvButton" class="cvLink" href="#cv" onclick="switchPage('cv')" style="padding-left:10px; padding-right:10px">
-            <div style="display: flex; margin: 0 auto;">
-                <div style="width:10%"><i class="fa fa-birthday-cake"></i></div>
-                <div class="cvLabel" style="width:80%; padding-left:20px; text-align:left"> CV</div>
-            </div>
-        </a>
-        <div class="sideBarLine"></div>
-        <a id="elseButton" class="elseLink" href="#else" onclick="switchPage('else')" style="padding-left:10px; padding-right:10px">
-            <div style="display: flex; margin: 0 auto;">
-                <div style="width:10%"><i class="fa fa-paper-plane"></i></div>
-                <div class="elseLabel" style="width:80%; padding-left:20px; text-align:left"> ELSE</div>
-            </div>
-        </a>
-        <div class="sideBarLine"></div>
-        
-        <div class="contactLink">
-            <a class="contactLinkLabel" style="padding-left:10px; padding-right:10px">
-                <div style="display: flex; margin: 0 auto;">
-                    <div style="width:10%"><i class="fa fa-envelope"></i></div>
-                    <div class="elseLabel" style="width:80%; padding-left:20px; text-align:left"> CONTACT</div>
-                </div>
-            </a>
-            <div class="sideBarLine"></div>
-            <a class="contactLinkElement" href="mailto:taylorjweidman@pitt.edu" target="_blank" style="color:#000; font-size:16px">taylorjweidman@pitt.edu</a>
-            <div class="contactBarLine"></div>
-            <a class="contactLinkElement" href="tel:540.929.0242" target="_blank" style="color:#000; font-size:16px">540.929.0242</a>
-            <div class="contactBarLine"></div>
-            <a class="contactLinkElement" href="https://goo.gl/maps/84UWTxDSwe4q9NgK6" target="_blank" style="color:#000; font-size:16px">
-                5422 Wesley Posvar Hall<br>
-                230 S Bouquet St<br>
-                Pittsburgh, PA 15260
-            </a>
-            <div class="contactLinkElement"></div>
+<div class="sidebar">
+    <a class="home_head" href="#home" onclick="switch_page('#home')">
+        <div class="home_large">
+            TAYLOR J. WEIDMAN
         </div>
-        
+        <div class="home_small">
+            T.J.W.
+        </div>
+    </a>
+    <a class="research_head" href="#research" onclick="switch_page('#research')">
+        <div style="display: flex; margin: 10 10 10 10">
+            <div style="width:10%"><i class="fa fa-lightbulb-o"></i></div>
+            <div class="research_large" style="width:80%; padding-left:20px; text-align:left">
+                RESEARCH
+            </div>
+        </div>
+    </a>
+    <div class="sidebar_break"></div>
+    <a class="teaching_head" href="#teaching" onclick="switch_page('#teaching')">
+        <div style="display: flex; margin: 10 10 10 10">
+            <div style="width:10%"><i class="fa fa-university"></i></div>
+            <div class="teaching_large" style="width:80%; padding-left:20px; text-align:left">
+                TEACHING
+            </div>
+        </div>
+    </a>
+    <div class="sidebar_break"></div>
+    <a class="cv_head" href="#cv" onclick="switch_page('#cv')">
+        <div style="display: flex; margin: 10 10 10 10">
+            <div style="width:10%"><i class="fa fa-birthday-cake"></i></div>
+            <div class="cv_large" style="width:80%; padding-left:20px; text-align:left">
+                CV
+            </div>
+        </div>
+    </a>
+    <div class="sidebar_break"></div>
+    <a class="else_head" href="#else" onclick="switch_page('#else')">
+        <div style="display: flex; margin: 10 10 10 10">
+            <div style="width:10%"><i class="fa fa-paper-plane"></i></div>
+            <div class="else_large" style="width:80%; padding-left:20px; text-align:left">
+                ELSE
+            </div>
+        </div>
+    </a>
+</div>
+    
+
+<!-- BODY CONTENT -->
+
+<div class="content">
+    
+    
+<!-- HOME -->
+
+<div class="home_section" id="home_section"> 
+    <div class="heading">
+        About Me <hr>
+    </div>
+
+    <div class="home_flex">
+        <div class="home_block">
+            <p> 
+                I am a Ph.D. candidate in Economics at the University of Pittsburgh. My work typically aims at questions about individual behavior and beliefs in groups, using administrative panels and experimental methods.
+            </p>
+            <p>
+                I enjoy communicating both simple and complex concepts clearly and have a tendency to stray from under the street lamp.
+            </p>
+
+        </div>
+        <img class="home_image" src="i/weidman_1.jpg" width="300">
+    </div>
+    <img class="home_image_small" src="i/weidman_1.jpg" width="300">
+    
+</div>
+
+
+<!-- RESEARCH -->
+<!-- Evenutally have a hover-over on the thumbnail and on-click open the abstract. -->
+
+<div id="research_section">
+    <div class="heading">
+        Working Papers <hr>
     </div>
     
-    <div class="sideBarFooter">
-        <a href="https://github.com/taylorjweidman" target="_blank">
-            <div>
-                <span>by taylor | </span>
-                <img src="i/icons/github.png">
+    <!-- herding_to_the_polls -->
+    
+    <div class="paper_card">
+        <div class="paper_banner_empty"></div>
+        <div class="paper_flex">
+            <div class="paper_block">
+                <a class="paper_title" target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/paper.html">
+                    Herding to the Polls
+                </a>
+                
+                <p class="tldr"><b>tl;dr.</b>
+                    Voter turnout rates are higher in neighborhoods with more in-party members.
+                </p>
             </div>
-        </a>
+            <div onclick="window.open('https://taylorjweidman.github.io/research/herding_to_the_polls/paper.pdf','mywindow');">
+                <img class="paper_image" src="research/herding_to_the_polls/thumbnail.png">
+            </div>
+        </div>
+    </div>
+    
+    <!-- equilibrium_selection -->
+    
+    <div class="paper_card">
+        <div class="paper_flex">
+        <div class="paper_banner">
+            R & R at JEEA
+        </div>
+            <div class="paper_block">
+                <a class="paper_title" target="_blank" href="https://taylorjweidman.github.io/research/equilibrium_selection/paper.pdf">
+                    Testing Models of Strategic Uncertainty
+                </a>
+                <p class="coauthors">
+                    with <a target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</a> and <a  target="_blank" href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</a>
+                </p>
+                
+                <p class="tldr"><b>tl;dr.</b>
+                    An index using the notion of risk dominance organizes cooperation across social dilemmas in the lab.
+                </p>
+            </div>
+            <div onclick="window.open('https://taylorjweidman.github.io/research/equilibrium_selection/paper.pdf','mywindow');">
+                <img class="paper_image" src="research/equilibrium_selection/thumbnail.jpg">
+            </div>
+        </div>
+    </div>
+    
+    <!-- excuse_me -->
+    
+    <div class="paper_card">
+        <div class="paper_banner">
+            Submitted
+        </div>
+        <div class="paper_flex">
+            <div class="paper_block">
+                <a class="paper_title" target="_blank" href="https://taylorjweidman.github.io/research/excuse_me/paper.pdf">
+                    Well Excuse Me!
+                </a>
+                <p class="coauthors">
+                    with 
+                    <a target="_blank" href="mailto:bea46@pitt.edu">Beatriz Ahumada</a>,
+                    <a target="_blank" href="mailto:yuc97@pitt.edu">Yufei Chen</a>,
+                    <a target="_blank" href="mailto:neg38@pitt.edu">Neeraja Gupta</a>,
+                    <a target="_blank" href="mailto:KDH50@pitt.edu">Kelly Hyde</a>,
+                    <a target="_blank" href="mailto:m.lepper@pitt.edu">Marissa Lepper</a>,
+                    <a target="_blank" href="mailto:WIM31@pitt.edu">Will Mathews</a>,
+                    <a target="_blank" href="mailto:NAS233@pitt.edu">Neil Silveus</a>,
+                    <a target="_blank" href="mailto:vester@pitt.edu">Lise Vesterlund</a>,
+                    <a target="_blank" href="mailto:alistair@pitt.edu">Alistair Wilson</a>,
+                    <a target="_blank" href="mailto:KPW18@pitt.edu">K. Pun Winichakul</a>,
+                    <a target="_blank" href="mailto:liz113@pitt.edu">Liyang Zhou</a>
+                </p>
+                
+                <p class="tldr"><b>tl;dr.</b>
+                    Three excuse-seeking behaviors replicate but show no relationship across domains.
+                </p>
+            </div>
+            <div onclick="window.open('https://taylorjweidman.github.io/research/excuse_me/paper.pdf','mywindow');">
+                <img class="paper_image" src="research/excuse_me/thumbnail.png">
+            </div>
+        </div>
+    </div>
+    
+    <!-- urban_spatial_sorting -->
+    
+    <div class="paper_card">
+        <div class="paper_banner_empty"></div>
+        <div class="paper_flex">
+            <div class="paper_block">
+                <a class="paper_title" target="_blank" href="https://taylorjweidman.github.io/research/urban_spatial_sorting/paper.pdf">
+                    Urabn Spatial Sorting During the Era of Mass Migration
+                </a>
+                
+                <p class="tldr"><b>tl;dr.</b>
+                    Immigrant segregation in the early 1900’s was driven by both white out-sorting and immigrant in-sorting.
+                </p>
+            </div>
+            <div onclick="window.open('https://taylorjweidman.github.io/research/urban_spatial_sorting/paper.pdf','mywindow');">
+                <img class="paper_image" src="research/urban_spatial_sorting/thumbnail.png">
+            </div>
+        </div>
+    </div>
+    
+    <!-- lab_vs_mturk -->
+    
+    <div class="paper_card">
+        <div class="paper_banner_empty"></div>
+        <div class="paper_flex">
+            <div class="paper_block">
+                <a class="paper_title" target="_blank" href="https://taylorjweidman.github.io/research/lab_vs_mturk/paper.pdf">
+                    The Lab vs. MTurk
+                </a>
+                
+                <p class="tldr"><b>tl;dr.</b>
+                    Subjects in dynamic trust games respond to the behavioral factors and in the same ways in the lab and on MTurk.
+                </p>
+            </div>
+            <div onclick="window.open('https://taylorjweidman.github.io/research/lab_vs_mturk/paper.pdf','mywindow');">
+                <img class="paper_image" src="research/lab_vs_mturk/thumbnail.png">
+            </div>
+        </div>
+    </div>
+    
+    <br><br>
+    
+    <div class="heading">
+        Works in Progress <hr>
     </div>
     
 </div>
 
-<div class="wrapContent"> <!-- Wrap Content -->
 
-<section class="homeSection" id="home"> <!-- Home Page -->
-    <br><br><br>
-    <div>
-        <div class="flex-container">
-            <div class="flex-item-left" style="margin: auto; width:70%">
-                <p class="heading"><b>ABOUT ME</b></p>
-                <hr color="black" style="margin: auto"><br>
-                <p> 
-                    PhD Candidate | University of Pittsburgh
-                    <br><br>
-                    My work typically aims at questions about individual behavior and beliefs in groups, using administrative panels and experimental methods. 
-                    <br><br>
-                    My research agenda lives in the sub-fields of behavioral economics, political economy, and urban economics, how changing economic conditions interact with the democratic process, exploiting a geocoded administrative panel of voters, their neighborhoods, and their turnout decisions.
-                    <br><br>
-                    I enjoy communicating both simple and complex concepts clearly and have a tendency to stray from under the street lamp.
-                </p>
-            </div>
-            <div class="flex-item-right" style="margin: auto; width:20%">
-                <a target="_blank">
-                    <img src="i/weidman_1.jpg" width="500" height="600">
-                </a>
-            </div>
-        </div>
-    </div>
-</section> <!-- End Home Page -->
+<!-- TEACHING -->
 
-<section class="researchSection" id="research"> <!-- Research Page -->
-    <br>
-    <p class="heading"><b>Research</b></p>
-    <hr color="black" style="margin: auto; width:90%">
-    <br><br>
-
-    <div class="paperCard" id="herding_to_the_polls" onclick="window.open('research/herding_to_the_polls/paper.html','mywindow');">
-        <div class="paperBanner">
-            <p><i>Current</i></p>
-        </div>
-        <div class="paperFlex">
-            <div class="paperBlock">
-                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/herding_to_the_polls/paper.html">Herding to the Polls</a>
-                <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b>Voters turnout at higher rates in neighborhoods with more copartisans. This appears in every major election in North Carolina between 2010 and 2020, most strongly among a voter's closest 50 neighboring voters, and is responsive to neighborhood changes.</i></p>
-            </div>
-            <div>
-                <img class="paperImage" src="research/herding_to_the_polls/figure_3_2016.png">
-            </div>
-        </div>
+<div id="teaching_section">
+    
+    <div class="heading">
+        Teaching <hr>
     </div>
-    <br>
     
-    <div class="paperCard" id="equilibrium_selection">
-        <div class="paperBanner">
-            <p><i>R & R at JEEA </i></p>
-        </div>
-        <div class="paperFlex">
-            <div class="paperBlock">
-                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/equilibrium_selection/paper.html">
-                    Testing Models of Strategic Uncertainty: <br>
-                    Equilibrium Selection in Repeated Games 
-                </a>
-                <br>
-                <p>
-                    (with <span target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</span> and <span href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</span>)
-                </p>
-                
-                <hr color="black">
-                <p><i><b>tl;dr. </b> </i></p>
-            </div>
-            <div onclick="window.open('https://taylorjweidman.github.io/research/equilibrium_selection/paper.html','mywindow');">
-                <img class="paperImage" src="research/equilibrium_selection/thumbnail.jpg">
-            </div>
-        </div>
-    </div>
-    <br>
+    <!-- honors_intro_micro_2021 -->
     
-    <div class="paperCard" id="the_small_sort" onclick="window.open('https://taylorjweidman.github.io/research/the_small_sort/paper.html','mywindow');">
-        <div class="paperBanner">
-            <p><i>Current</i></p>
-        </div>
-        <div class="paperFlex">
-            <div class="paperBlock">
-                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/the_small_sort/paper.html">The Small Sort</a>
-                <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b> Voters leave less politically aligned for more politically aligned neighborhoods.</i></p>
-            </div>
-            <div>
-                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
-            </div>
-        </div>
-    </div>
-    <br>
-    
-    <!--
-    <div class="paperCard" id="the_great_electoral_divergence" onclick="window.open('https://taylorjweidman.github.io/research/the_great_electoral_divergence/paper.html','mywindow');">
-        <div class="paperBanner">
-            <p><i>Current</i></p>
-        </div>
-        <div class="paperFlex">
-            <div class="paperBlock">
-                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/the_great_electoral_divergence/paper.html">The Great Electoral Divergence</a>
-                <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b>The changing urban wage gradient has led to increasinly partisan cities. </i></p>
-            </div>
-            <div>
-                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
-            </div>
-        </div>
-    </div>
-    <br>
-    -->
-    
-
-    
-    <!--
-    <div class="paperCard" id="tiebout_and_the_city" onclick="window.open('https://taylorjweidman.github.io/research/tiebout_and_the_city/paper.html','mywindow');">
-        <div class="paperBanner">
-            <p><i>Current</i></p>
-        </div>
-        <div class="paperFlex">
-            <div class="paperBlock">
-                <a class="researchLink" target="_blank" href="https://taylorjweidman.github.io/research/tiebout_and_the_city/paper.html">Tiebout and the City</a>
-                <hr color="black" style="width:96%">
-                <p><i><b>tl;dr. </b></i></p>
-            </div>
-            <div>
-                <img class="paperImage" src="research/herding_to_the_polls/thumbnail.jpg">
-            </div>
-        </div>
-    </div>
-    <br>
-    -->
-</section> <!-- End Research Page -->
-
-<section class="teachingSection" id="teaching"> <!-- Teaching Page -->
-    
-    <br>
-    <p class="heading"><b>Teaching</b></p>
-    <hr color="black" style="margin: auto; width:90%">
-    <br><br>
-
-    <div class="classCard" id="honors_intro_micro_2021">
-        <div class="classBanner">
+    <div class="class_card">
+        <div class="class_banner">
             Fall 2021
         </div>
-        <div class="classFlex">
-            <div class="classBlock">
-                <a class="teachingLink" onclick="window.open('teaching/honors_intro_micro/class.html','mywindow');"><p>Honors Intro Micro</p></a>
-                <hr color="black">
-                <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/honors_intro_micro/syllabus.pdf">Syllabus</a>
-                <span> | Class Material </span>
+        <div class="class_flex">
+            <div class="class_block">
+                <div class="class_link">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/honors_intro_micro/class.html">Honors Intro Microeconomics</a>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/honors_intro_micro/syllabus.pdf">Syllabus</a>
+                </div>
+                <div class="class_materials">
+                    <hr>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/honors_intro_micro/class.html">Class Materials</a>
+                </div>
             </div>
-            <div class="classVideo">
-                <iframe src="https://www.youtube.com/embed/kIg_nQrGChE" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            <div class="class_video">
+                <iframe src="https://www.youtube.com/embed/kIg_nQrGChE" width="560" height="100%" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-    </div><br>
+    </div>
     
-    <div class="classCard" id="intro_micro_2020">
-        <div class="classBanner">
+    <!-- intermediate_micro_2021 -->
+
+    <div class="class_card">
+        <div class="class_banner">
             Summer 2021
         </div>
-        <div class="classFlex">
-            <div class="classBlock">
-                <a class="teachingLink" onclick="window.open('teaching/intermediate_micro/class.html','mywindow');"><p>Intermediate Micro</p></a>
-                <hr color="black">
-                <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
-                <span> | Class Material </span>
+        <div class="class_flex">
+            <div class="class_block">
+                <div class="class_link">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/class.html">Intermediate Microeconomics</a>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/syllabus.pdf">Syllabus</a>
+                </div>
+                <div class="class_materials">
+                    <hr>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intermediate_micro_2021/class.html">Class Materials</a>
+                </div>
+            </div>
+            <div class="class_video">
+                <iframe src="https://www.youtube.com/embed/7ZPuuziFuKk" width="560" height="100%" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-    </div><br>
+    </div>
     
-    <div class="classCard" id="intro_micro_2020">
-        <div class="classBanner">
+    <!-- intro_micro_2020 -->
+
+    <div class="class_card">
+        <div class="class_banner">
             Summer 2020
         </div>
-        <div class="classFlex">
-            <div class="classBlock">
-                <a class="teachingLink" onclick="window.open('teaching/honors_intro_micro/class.html','mywindow');"><p>Intro to Microeconomics</p></a>
-                <hr color="black">
-                <a class="teachingLink" style="text-indent: 20px;" target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
-                <span> | Class Material </span>
+        <div class="class_flex">
+            <div class="class_block">
+                <div class="class_link">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/class.html">Intro Microeconomics</a>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/syllabus.pdf">Syllabus</a>
+                </div>
+                <div class="class_materials">
+                    <hr>
+                </div>
+                <div class="class_materials">
+                    <a target="_blank" href="https://taylorjweidman.github.io/teaching/intro_micro_2020/class.html">Class Materials</a>
+                </div>
             </div>
-            <div class="classVideo">
-                <iframe src="https://www.youtube.com/embed/videoseries?list=PLdSrYNq5W-M0EQeUjVc7nYY3qPO8XgmDK" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            <div class="class_video">
+                <iframe src="https://www.youtube.com/embed/videoseries?list=PLdSrYNq5W-M0EQeUjVc7nYY3qPO8XgmDK" width="560" height="100%" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
-    </div><br>
-    
-</section> <!-- End Teaching Page -->
-
-<section class="cvSection" id="cv">  <!-- CV Page -->
-    <br>
-    <p class="heading"><b>CV</b></p>
-    <hr color="black" style="margin: auto; width:90%">
-    <br><br>
-    
-    <div>
-        <h3>Education</h3>
-        <ul style="list-style-type:none;">
-            <li>PhD. Economics, University of Pittsburgh <br>(expected: spring 2022)</li>
-            <li>M.S. Economics, Iowa State University (grad. spring 2016) </li>
-            <li>B.A. Economics, Eastern Mennonite University (grad. spring 2013)</li>
-        </ul>
-        <br><hr color="black"><br>
     </div>
+    
+    
+    
+    
+</div>
+
+
+<!-- CV -->
+
+<div id="cv_section">
     <!--
     <div>
         <h3>Employment</h3>
@@ -330,46 +351,37 @@ class pages
         <br><br>
     </div>
     -->
-</section>  <!-- End CV Page -->
-
-<section class="elseSection" id="else">  <!-- Else Page -->
-    <br>
-    <p class="heading"><b>Nothing Here Yet...</b></p>
-    <hr color="black" style="margin: auto; width:90%">
-    <br><br>
-    <!--
-    <div>
-        <div class="flex-container">
-            <div class="flex-item-left">
-                <a href="https://shoupdogg.com">Donald Shoup</a><br>
-                <a href="https://urban.uconn.edu/stephen-ross/#">Stephen Ross</a>
-            </div>
-            <div class="flex-item-right">
-                2
-            </div>
-        </div>
-    </div>
     
-    <br>
-    <p class="heading"><b>Some Interesting Things</b></p>
-    <hr color="black" style="margin: auto; width:90%">
-    <br><br>
-
     <div>
-        <div class="flex-container">
-            <div class="flex-item-left">
-                <p>Here are some other things I've been working on and thinking about.</p>
-            </div>
-            <div class="flex-item-right">
-                2
-            </div>
-        </div>
+        <embed class="cv" src="cv/cv.pdf#toolbar=0&navpanes=0&scrollbar=0&view=fitH" type="application/pdf"/>
     </div>
-    -->
-</section>  <!-- End Else Page -->
 
 </div>
+
+
+<!-- ELSE -->
+
+<div id="else_section">
+    
+    <div class="heading">
+        Else <hr>
+    </div>
+    
+    <p style="text-align:center">Nothing to see here ... yet.</p>
+    
+    
+    
+    
+    
+    
 </div>
     
+
+</div>
+    
+<script>
+    switch_page(window.location.hash)
+</script>
+
 </body>
 </html>
