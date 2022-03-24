@@ -411,9 +411,6 @@ div.content {
 /* RESPONSIVENESS */
 
 @media screen  and (max-device-width: 480px) and (orientation: portrait) {
-    .class_banner {
-        font-size:20px;
-    }
 }
 
 @media screen  and (max-device-width: 640px) and (orientation: landscape) {
@@ -437,9 +434,14 @@ div.content {
     div.content {margin-left: 0;}
     
     .home_large {display: none}
-    .home_small {font-size:24px;}
+    .home_small {font-size:24px}
+    .home_section {font-size:20px}
+    
     .research_large {display: none}
+    
     .teaching_large {display: none}
+    .class_banner {font-size:20px}
+    
     .cv_large {display: none}
     .else_large {display: none}
 }
