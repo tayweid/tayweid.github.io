@@ -81,12 +81,7 @@ function check_key(e) {
         }
     }
     else if (e.key == 'f') { // Enter: Fullscreen
-        if (video.requestFullscreen) {
-            video.requestFullscreen();
-        } else if (video.webkitRequestFullscreen) { // Safari
-            video.webkitRequestFullscreen();
-        } else if (video.msRequestFullscreen) { // IE11
-            video.msRequestFullscreen();
-        }
+        video.webkitEnterFullscreen();
+        video.enterFullscreen();
     }
 }
