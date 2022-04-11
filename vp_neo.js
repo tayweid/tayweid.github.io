@@ -32,6 +32,8 @@ function loop_from_previous() {
 function check_key(e) {
 
     e = e || window.event;
+    console.log(e.keyCode);
+    
     if (e.keyCode == '32') { // Space Bar: Play/Pause
         if (video.paused) {
             video.play();
@@ -81,7 +83,6 @@ function check_key(e) {
     else if (e.key == 'f') { // Enter: Fullscreen
         if (video.requestFullscreen) {
             video.requestFullscreen();
-            console.log(e.keyCode);
         } else if (video.webkitRequestFullscreen) { // Safari
             video.webkitRequestFullscreen();
         } else if (video.msRequestFullscreen) { // IE11
