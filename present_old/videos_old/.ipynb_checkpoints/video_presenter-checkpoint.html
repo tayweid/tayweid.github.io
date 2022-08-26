@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html> 
+<body> 
+<!-- Play in Reverse: https://forums.tumult.com/t/playing-video-in-reverse/17928 -->
+
+<div align="center" style="width:100%">
+<div>
+    <h1> Video Presentation Software </h1>
+    <h2> Description of the presentation </h2>
+    <video id="the_video" width="640" height="400">
+      <source src="22.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    
+</div>
+
+</div>
+
+<p id="demo"></p>
+    
+<script src="jscss/vp_neo.js"></script>
+<style>
+    /* This turns off controls in full screen */
+    video::-webkit-media-controls-enclosure { display:none !important; }
+</style>
+</body> 
+</html>
