@@ -156,6 +156,10 @@ hr.sep {
     text-align: center;
 }
 .animation_wrap {
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+    
     width: 600px;
     height: 300px;
     overflow: hidden;
