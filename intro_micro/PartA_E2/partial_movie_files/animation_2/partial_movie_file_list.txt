@@ -1,0 +1,10 @@
+# This file is used internally by FFMPEG.
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/3449834382_3493041802_295657580.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_686077055_1741522145.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_3493041802_1779518540.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_260790532_3343753231.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_3493041802_313707173.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_3853391810_883936927.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_3493041802_666573093.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_2275062855_4110291804.mp4'
+file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/animation_2/2684455830_3493041802_1467771950.mp4'
