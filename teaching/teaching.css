@@ -71,7 +71,7 @@ hr.sep {
     font-size:30px;
 }
 .description {
-    width:90%;
+    width:50%;
     margin: auto;
     font-size:30px;
 }
@@ -119,12 +119,12 @@ hr.sep {
 .subheader > hr {
     border: 1px solid black;
     margin: auto;
-    width: 60%;
+    width: 40%;
     margin-top:-40px;
     transition: 0.3s;
 }
 .subheader:hover > hr {
-    width: 65%;
+    width: 45%;
     transition: 0.1s;
 }
 
@@ -152,9 +152,6 @@ hr.sep {
 
 /* ANIMATION CONTENT */
 
-.animation_content {
-    text-align: center;
-}
 .animation_wrap {
     -moz-border-radius:20px;
     -webkit-border-radius:20px;
