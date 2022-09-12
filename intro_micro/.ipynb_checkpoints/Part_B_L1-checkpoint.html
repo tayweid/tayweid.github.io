@@ -1,0 +1,159 @@
+<!DOCTYPE html> 
+<html> 
+<body style="background-color:black"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Play in Reverse: https://forums.tumult.com/t/playing-video-in-reverse/17928 -->
+
+<div class="Header">
+    <p class="Title">Part B | Lecture 1</p>
+</div>
+
+<div class="OuterContent">
+<div class="Content">
+    <div class="Body_Container">
+        
+        <div class="Control_Group">
+            <div class="Play_Forward" onclick="Point_Forward()"><i class="fa fa-step-forward"></i></div>
+            <div class="Play_Backward" onclick="Point_Backward()"><i class="fa fa-step-backward"></i></div>
+        </div>
+        
+        <div class="Video_Container">
+            <video class="The_Video" id="The_Video">
+              <source src="Videos/PartB_E1.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+        </div>
+
+        <div class="Control_Group">
+            <div class="Skip_Forward" onclick="Skip_Forward()"><i class="fa fa-forward"></i></div>
+            <div class="Skip_Backward" onclick="Skip_Backward()"><i class="fa fa-backward"></i></div>
+        </div>
+        
+    </div>
+    
+    <hr color="grey">
+
+    <div class="Footer_Container">
+        <div class="Description" id="Description"></div>        
+    </div>
+</div>
+<p class="Timekeeper" id="Timekeeper"></p>
+</div>
+
+<script src="Present/Present.js"></script>
+<script src="Present/Part_B_L1.js"></script>
+<style>
+    :root {
+        --Sidebar_Color: #CDA200;
+        --Description_Color: #181818;
+        --Active_Color: #BEBEBE;
+        --Timer_Color: black;
+        --Button_Color: grey;
+    }
+    body {
+        font-family: "Roboto", sans-serif;
+    }
+    .Header {
+        margin:-3%;
+        text-align: center; 
+        font-size:56px; 
+    }
+    .Title {
+        color:var(--Sidebar_Color); 
+        text-align: center;
+    }
+    
+    .OuterContent {
+        padding-left:15%;
+        padding-right:15%;
+        overflow: hidden;
+    }
+    .Content {
+        border-radius:20px;
+        border: 1px solid grey;
+        overflow: hidden;
+        background-color:var(--Description_Color); 
+    }
+    .Content:hover {
+        box-shadow: 0.5px 1px 2px 0.5px var(--Sidebar_Color);
+        transition: 0.2s;
+    }
+    .Content > hr {
+        margin-top:0px; 
+    }
+    .Body_Container {
+        display: flex;
+        overflow: hidden;
+    }
+    .Video_Container {
+        width:94%;
+    }
+    .The_Video {
+        width:100%;
+        border-radius:0px;
+    }
+    .Control_Group {
+        color:black; 
+        background-color:var(--Button_Color); 
+        font-size:24px;
+        width:4%;
+    }
+    .Control_Group > div {
+        text-align:center;
+        height:50%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+    }
+    
+    .Play_Forward:hover {
+        background-color: var(--Active_Color);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .Play_Backward:hover {
+        background-color: var(--Active_Color);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .Skip_Forward:hover {
+        background-color: var(--Active_Color);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .Skip_Backward:hover {
+        background-color: var(--Active_Color);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    
+    .Footer_Container {
+        display: flex;
+    }
+    .Description {
+        width:100%;
+        background-color:var(--Description_Color); 
+        font-size:24px;
+        padding:3%;
+        color:white;
+    }
+    .Timekeeper {
+        background-color:var(--Timer_Color); 
+        text-align:center;
+        border-radius:20px;
+        color:black;
+    }
+    
+    
+    /* This turns off controls in full screen */
+    video::-webkit-media-controls-enclosure { display:none !important; }
+    
+    video {	
+        -moz-border-radius:20px;
+        -webkit-border-radius:20px;
+        border-radius:20px;
+    }
+</style>
+</body>
+</html>
