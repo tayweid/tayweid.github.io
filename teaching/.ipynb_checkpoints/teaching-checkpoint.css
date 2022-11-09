@@ -5,7 +5,7 @@ body, section, h1 {
     margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
-    background: grey;
+    background: white;
     }
 a {text-decoration: none;
     color: black;
@@ -15,6 +15,7 @@ section {
     height: 100%;
     left: 0px;
     right:100px;
+    width: 50%;
     position: relative;
     overflow: auto;
     overflow-x: hidden;
