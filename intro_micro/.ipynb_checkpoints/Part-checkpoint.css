@@ -1,0 +1,112 @@
+/* BODY */
+
+body, section {
+    padding: 0; 
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: white;
+    }
+a {text-decoration: none;
+    color: black;
+    display: inline-block;
+    }
+:root {
+    --section_color: grey;
+    --teaching_color: blue;
+    --hover_color: rgba(0,0,0,0.5);
+}
+
+/* TITLE */
+
+.title {
+    font-size: 40px;
+    margin-bottom:2%;
+    margin-top:2%
+}
+.subtitle {
+    font-size: 40px;
+    margin-bottom:2%;
+    margin-top:2%
+}
+
+a {
+    font-weight: bold;
+}
+a:hover {
+    font-weight: bold;
+    color: var(--teaching_color);
+}
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+}
+.btn:hover {
+    color: var(--teaching_color);
+}
+div > p {
+    font-size: 20px;
+}
+
+
+div {
+    margin-bottom: 0%;
+    margin-left:20%;
+    margin-right:15%;
+    padding:1px 16px;
+}
+
+.active {
+    color: blue;
+    font-weight: bold;
+    font-size:20px;
+
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 15%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li span {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  color: blue;
+}
+
+li a:hover {
+  color: grey;
+}
+
+nav.right_bar {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+
+.vl {
+  border-left: 6px solid green;
+  height: 50px;
+}
+
+.lefttitle {
+    font-size: 40px;
+}

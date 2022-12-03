@@ -1,0 +1,17 @@
+nav {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+}
+
+div {
+    height: 2000px;
+}
+
+div > h1 {
+    height: 200px;
+}
+
+.active {
+    color: red;
+}
