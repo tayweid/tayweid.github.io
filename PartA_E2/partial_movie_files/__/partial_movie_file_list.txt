@@ -1,5 +1,0 @@
-# This file is used internally by FFMPEG.
-file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/__/2561380078_310868520_34847087.mp4'
-file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/__/3948129267_3493041802_1080659305.mp4'
-file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/__/3948129267_55825173_2802603689.mp4'
-file 'file:/media/taylor/Main/Dropbox/Videos/PartA_E2/videos/Videos/1080p10/partial_movie_files/__/3948129267_3493041802_1656565653.mp4'
