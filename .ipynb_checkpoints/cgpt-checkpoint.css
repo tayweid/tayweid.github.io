@@ -1,0 +1,50 @@
+/* set the width and height of the sidebars and main content */
+#left-sidebar {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+#right-sidebar {
+  width: 25%;
+  height: 100%;
+  float: right;
+}
+#main-content {
+  width: 50%;
+  height: 100%;
+  float: left;
+}
+
+/* style the header, main content, and footer sections */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  clear: both;
+}
+
+/* style the left and right sidebars */
+#left-sidebar {
+  background-color: #ddd;
+  color: #000;
+  padding: 20px;
+}
+
+#right-sidebar {
+  background-color: #ddd;
+  color: #000;
+  padding: 20px;
+}
+
+/* style the main content */
+#main-content {
+  background-color: #fff;
+  color: #000;
+  padding: 20px;
+}
