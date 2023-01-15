@@ -1,0 +1,185 @@
+:root {
+    --sidebar_color: #303030;
+    --section_color: #ebebf0;
+
+    --home_color: #A9A9A9;
+    --research_color: #3a4591;
+    --teaching_color:#247322;
+    --cv_color:#9c892a;
+    --else_color:#9c342a;
+    --contact_color:#8c41a6;
+}
+body {
+    margin: 0;
+    color: black;
+    font-family: "Roboto", sans-serif;
+}
+
+/* PAPER CARD */
+
+.paper_card {
+    display: flex;
+    overflow:hidden;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    transition: 0.05s;
+    height: 300px;
+    width:100%;
+    margin: auto;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+.paper_card:hover {
+    box-shadow: 0.5px 1px 2px 0.5px var(--research_color);
+}
+.paper_banner {
+    text-align:center;
+    font-size:30px;
+    background-color:var(--research_color);
+    color:white;
+    font-style: italic;
+    width:35px;
+    height:101%;
+    margin:0;
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+}
+.paper_banner_empty {
+    text-align:center;
+    font-size:30px;
+    background-color:var(--research_color);
+    color:white;
+    font-style: italic;
+    width:5px;
+    height:101%;
+    margin:0;
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+}
+.paper_flex {
+    display: flex;
+    height: 100%;
+    width:100%;
+    margin: auto;
+    border-radius: 5px;
+}
+.paper_block {
+    margin: auto;
+    margin-left: 2%;
+    margin-right: 5%;
+    text-align: left;
+    width: 70%;
+}
+.paper_title {
+    color:var(--research_color);
+    text-decoration:none;
+    text-transform: uppercase;
+}
+.paper_title:hover {
+    font-weight: bold;
+}
+.coauthors {
+    font-size:20px;
+    color: grey;
+    margin-left: 10%;
+}
+.coauthors a {
+    font-size:20px;
+    cursor: pointer;
+    text-decoration:none;
+    color: black;
+}
+.coauthors a:hover {
+    font-weight: bold;
+    color:var(--research_color);
+    text-decoration:none;
+}
+.tldr {
+    font-size:24px;
+    font-style: italic;
+}
+.paper_image {
+    margin: 0px;
+    border-radius: 5px;
+    height:100%;
+    background-color:white;
+}
+.paper_image:hover {
+    cursor: pointer;
+}
+
+/* CLASS CARD */
+
+.class_card {
+    display: flex;
+    overflow:hidden;
+    box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+    transition: 0.05s;
+    height: 325px;
+    width:100%;
+    margin: auto;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+.class_card:hover {
+    box-shadow: 0.5px 1px 2px 0.5px var(--teaching_color);
+}
+.class_banner {
+    text-align:center;
+    font-size:30px;
+    background-color:var(--teaching_color);
+    font-style: italic;
+    width:35px;
+    height:101%;
+    margin:0;
+    writing-mode: tb-rl;
+    transform: rotate(-180deg);
+}
+.class_flex {
+    display: flex;
+    height: 100%;
+    width:100%;
+    margin: auto;
+    border-radius: 5px;
+}
+.class_block {
+    margin: auto;
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: left;
+    width: 70%;
+}
+.class_link {
+    margin-bottom: 30px;
+    margin-left:5%;
+}
+.class_link:hover {
+    font-weight: bold;
+}
+.class_link a {
+    font-size:30px;
+    color:var(--teaching_color);
+    text-decoration:none;
+    text-transform: uppercase;
+}
+.class_materials {
+    text-indent: 15%;
+}
+.class_materials:hover {
+    font-weight: bold;
+}
+.class_materials a {
+    font-size:30px;
+    color:black;
+    text-decoration:none;
+}
+.class_materials hr {
+    border: 1px solid black;
+    margin: auto;
+    margin-left:15%;
+    width:40%;
+}
+.class_video {
+    margin-right: 0px;
+    border-radius: 5px;
+    height:100%;
+}
