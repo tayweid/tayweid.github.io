@@ -117,6 +117,15 @@ p > a:hover {
     font-size:20px;
 }
 
+@media screen and (max-width: 1000px) {
+    .right_div {
+        display: none;
+    }
+    .left_div {
+        display: none;
+    }
+}
+
 
 /* LISTS */
 
