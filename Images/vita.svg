@@ -1,0 +1,16 @@
+<svg width="193.1818181818182" height="250" xmlns="http://www.w3.org/2000/svg">
+<g>
+<g>
+<polygon points="3.8636363636363638,5.0 124.51818181818182,5.0 189.3181818181818,69.80000000000001 189.3181818181818,245.0 3.8636363636363638,245.0" fill="none" stroke="#bbbbbb" stroke-width="10" />
+<g>
+<g>
+<line x1="31.6818181818182" y1="53" x2="161.5" y2="53" stroke="#bbbbbb" stroke-width="12" />
+<line x1="31.6818181818182" y1="101" x2="161.5" y2="101" stroke="#bbbbbb" stroke-width="12" />
+<line x1="31.6818181818182" y1="149" x2="161.5" y2="149" stroke="#bbbbbb" stroke-width="12" />
+<line x1="31.6818181818182" y1="197" x2="161.5" y2="197" stroke="#bbbbbb" stroke-width="12" />
+</g>
+</g>
+<polygon points="124.51818181818182,5.0 124.51818181818182,69.80000000000001 189.3181818181818,69.80000000000001" fill="#bbbbbb" stroke="#bbbbbb" stroke-width="0" />
+</g>
+</g>
+</svg>

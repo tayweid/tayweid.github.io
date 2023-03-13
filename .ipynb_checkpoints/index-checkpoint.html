@@ -1,116 +1,95 @@
-<!--
-Need to add col to make space for thumbnails
-make the nav bar more responsive and on the side like part pages
-add abtracts to papers when clicked on
-maybe do a greying out of the non-highlighted divs?
--->
-
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Taylor J Weidman</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+<title>Taylor J Weidman</title>
+
+<link href="Index/index.css" rel="stylesheet">
 
 </head>
-<body>
-    
-<!-- NAVIGATION -->
 
-<div class="container">
-    <div class="row">
-        <nav class="navbar-expand-lg navbar-light">
-            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">-->
-            <ul class="navbar-nav nav">
-                <li><a class="nav-link" href="#about">About</a></li>
-                <li><a class="nav-link" href="#research">Research</a></li>
-                <li><a class="nav-link" href="#teaching">Teaching</a></li>
-                <li><a class="nav-link" href="#codebase">Codebase</a></li>
-                <li><a class="nav-link" href="#else">Else</a></li>
-            </ul>
-        </nav>
-    </div>
+<body role="document">
+
+<div id="outer">
+
+<div id="inner">
+
+<div id="header">
+
+<div id="portrait">
+<img src="./Images/library.jpg">
 </div>
 
+<div id="biograph">
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container content">
-        <div class="row">
-
-            <div class="col-8">
-                <div class="title">
-                    <h1 class="display-4">Taylor J Weidman</h1>
-                    <p class="lead">::economist; data scientist; teacher; curious human</p>
-                    <p class="lead">I study decisions in groups with externalities.</p>
-                </div>
-            </div>
-            <div class="col-4">
-                <img src="Images/weidman_1.jpg" style="height:100px">
-            </div>
-            
-        </div>
-    </div>
+<div class="mec-name-box">
+<div class="mec-name-text">Taylor J Weidman</div>
+<div>tweidman@richmond.edu</div>
 </div>
 
-<!-- RESEARCH -->
+<div class="mec-stats-box">
+<span class="mec-stats-line"><a href="https://tayweid.github.io/cv/cv.html"><img src="./Images/vita.svg" class="icon vita"><span class="mec-stat-tag">vita</span></a></span>
+<span class="mec-stats-line"><a href="https://twitter.com/taylorjweidman"><img src="./Images/twitter.svg" class="icon twitter"><span class="mec-stat-tag">twitter</span></a></span>
+<span class="mec-stats-line"><a href="https://github.com/tayweid"><img src="./Images/github_white.png" class="icon github"><span class="mec-stat-tag">github</span></a></span>
+</div>
 
-<div class="container content" id="research">
-    <h1>Research</h1>
+</div>
 
-    <!-- homophily_turnout -->
+</div>
 
-    <div class="card_block" onclick="window.open('Papers/homophily_turnout.pdf','mywindow');">
-        <p class="card_title">
-            <a class="title" href="https://taylorjweidman.github.io/Papers/herding_to_the_polls.pdf">Herding to the Polls</a>
-        </p>
-        <p class="tldr"><b>tl;dr.</b>
-            Voters turnout more when a new same-party voter moves in next door.
-        </p>
-    </div>
+<div id="output">
+
+<p class="mec-greetings">Hi! I'm an economist at the University of Richmond studying decisions in groups with externalities. These days, I'm using voter panels to study geographic public choice questions and laboratory experiments for belief updating. I'm also working on a few small open-source software projects.</p>
+
+<!-- Research -->
+
+<div class="paper-list">
+
+<span class="paper-list-title">Working Papers (click for abstract)</span>
+
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">Herding to the Polls: Aggregate Impacts of Homophily Turnout and Geographic Sorting</span>
+<a href="https://tayweid.github.io/Working_Papers/homophily_turnout.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+Voters increase turnout when a new same-party voter moves in next door.
+<br><br>
+Some stuff here
+<br><br>
+Some stuff here
+</p>
+</div>
+
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">Turnout Clustering</span>
+<a href="https://tayweid.github.io/Working_Papers/turnout_clusters.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+Voter turnout rates are higher in neighborhoods with more in-party members.
+<br><br>
+Some stuff here
+<br><br>
+Some stuff here
+</p>
+</div>
+
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">Testing Models of Strategic Uncertainty (with <a target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</a> and <a target="_blank" href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</a>) (R & R at JEEA) </span>
+<a href="https://tayweid.github.io/Working_Papers/turnout_clusters.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+An index using the notion of risk dominance organizes cooperation across social dilemmas in the lab.
+<br><br>
+Some stuff here
+<br><br>
+Some stuff here
+</p>
+</div>
     
-    <!-- turnout_clusters -->
-
-    <div class="card_block" onclick="window.open('Papers/turnout_clusters.pdf','mywindow');">
-        <p class="card_title">
-            <a class="title" href="https://taylorjweidman.github.io/Papers/turnout_clusters.pdf">Turnout Clusters</a>
-        </p>
-        <p class="tldr"><b>tl;dr.</b>
-            Voter turnout rates are higher in neighborhoods with more in-party members.
-        </p>
-    </div>
-
-    <!-- equilibrium_selection -->
-
-    <div class="card_block" onclick="window.open('','mywindow');">
-        <p class="card_title">
-            <a class="title" href="https://taylorjweidman.github.io/Papers/equilibrium_selection.pdf">Testing Models of Strategic Uncertainty</a>
-            <span class="journal">(R & R at JEEA)</span>
-        </p>
-        <p class="tldr"><b>tl;dr.</b>
-            An index using the notion of risk dominance organizes cooperation across social dilemmas in the lab.
-        </p>
-        <p class="coauthors">
-            with <a target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</a> and <a target="_blank" href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</a>
-        </p>
-    </div>
-
-    <!-- excuse_me -->
-
-    <div class="card_block">
-        <a class="card_title">
-            <span class="title">Well Excuse Me!</span>
-        </a>
-        <p class="tldr"><b>tl;dr.</b>
-            Three excuse-seeking behaviors replicate but show no relationship across domains.
-        </p>
-        <p class="coauthors">
-            with 
-            <a target="_blank" href="mailto:bea46@pitt.edu">Beatriz Ahumada</a>,
-            <a target="_blank" href="mailto:yuc97@pitt.edu">Yufei Chen</a>,
-            <a target="_blank" href="mailto:neg38@pitt.edu">Neeraja Gupta</a>,
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">Well Excuse Me! (with
+    <a target="_blank" href="mailto:bea46@pitt.edu">Beatriz Ahumada</a>,
+    <a target="_blank" href="mailto:yuc97@pitt.edu">Yufei Chen</a>,
+    <a target="_blank" href="mailto:neg38@pitt.edu">Neeraja Gupta</a>,
             <a target="_blank" href="mailto:KDH50@pitt.edu">Kelly Hyde</a>,
             <a target="_blank" href="mailto:m.lepper@pitt.edu">Marissa Lepper</a>,
             <a target="_blank" href="mailto:WIM31@pitt.edu">Will Mathews</a>,
@@ -118,188 +97,144 @@ maybe do a greying out of the non-highlighted divs?
             <a target="_blank" href="mailto:vester@pitt.edu">Lise Vesterlund</a>,
             <a target="_blank" href="mailto:alistair@pitt.edu">Alistair Wilson</a>,
             <a target="_blank" href="mailto:KPW18@pitt.edu">K. Pun Winichakul</a>,
-            <a target="_blank" href="mailto:liz113@pitt.edu">Liyang Zhou</a>
-        </p>
-    </div>
-
-    <!-- urban_spatial_sorting -->
-
-    <div class="card_block">
-        <a class="card_title">
-            <span class="title">Urabn Spatial Sorting During the Era of Mass Migration</span>
-        </a>
-
-        <p class="tldr"><b>tl;dr.</b>
-            Immigrant segregation in the early 1900’s was driven by both white out-sorting and immigrant in-sorting.
-        </p>
-    </div>
-
-    <!-- lab_vs_mturk -->
-
-    <div class="card_block">
-        <a class="card_title">
-            <span class="title">The Lab vs. MTurk</span>
-        </a>
-
-        <p class="tldr"><b>tl;dr.</b>
-            Subjects in dynamic trust games respond to the behavioral factors and in the same ways in the lab and on MTurk.
-        </p>
-    </div>
-    
-    <hr>
-</div>
-
-<!-- TEACHING -->
-
-<div class="container content" id="teaching">
-    <h1>Teaching</h1>
-
-    <!-- Econ 101 -->
-
-    <div class="card_block">
-        <p class="card_title">
-            <span class="title">Intro Microeconomics</span>
-            <span class="dates">(Spring 2023, Fall 2022, Fall 2021, Summer 2020)</span>
-        </p>
-        <p class="dates">
-
-        </p>
-        <div class="class_materials">
-            <a href="https://taylorjweidman.github.io/Econ_101/syllabus.pdf">Syllabus</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_A.html">Part A</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_B.html">Part B</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_C.html">Part C</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_D.html">Part D</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_E.html">Part E</a>
-            |
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_101/Part_F.html">Part F</a>
-        </div>
-        <div>
-
-        </div>
-    </div>
-
-    <!-- Econ 201 -->
-
-    <div class="card_block">
-        <p class="card_title">
-            <span class="title">Intermediate Microeconomics</span>
-            <span class="dates">(Summer 2021)</span>
-        </p>
-        <div class="class_materials">
-            <a target="_blank" href="https://taylorjweidman.github.io/Econ_201/syllabus.pdf">Syllabus</a>
-            |
-            <a>Materials</a>
-        </div>
-    </div>
-    <hr>
+            <a target="_blank" href="mailto:liz113@pitt.edu">Liyang Zhou</a>) </span>
+<a href="https://tayweid.github.io/Working_Papers/turnout_clusters.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+Three excuse-seeking behaviors replicate but show no relationship across domains.
+</p>
 </div>
     
-
-<!-- CODEBASE -->
-    
-<div class="container content" id="codebase">
-    <h1>Codebase</h1>
-
-    <div class="card_block" onclick="window.open('Papers/herding_to_the_polls.pdf','mywindow');">
-        <p class="card_title">
-            <span class="title">oTree Repositories</span>
-            <span class="dates">(maintained since 2016)</span>
-        </p>
-        <p class="tldr">
-            oTree is flexible software for running experiments in the lab and online. These experiments have been run at Iowa State University, University of Pittsburgh, and Leheigh University.
-        </p>
-    </div>
-
-    <div class="card_block" onclick="window.open('Papers/herding_to_the_polls.pdf','mywindow');">
-        <p class="card_title">
-            <span class="title">Voter Data Pipeline</span>
-            <span class="dates">(maintained since 2019)</span>
-        </p>
-        <p class="tldr">
-            I use voter data in some recent work. This pipeline generates the main datasets.
-        </p>
-    </div>
-
-    <div class="card_block" onclick="window.open('Papers/herding_to_the_polls.pdf','mywindow');">
-        <p class="card_title">
-            <span class="title">Video Presenter</span>
-            <span class="dates">(maintained since 2020)</span>
-        </p>
-        <p class="tldr">
-            I couldn't find software to present using video files, so I wrote a scrappy little script to make it possible. I use this to present my work and for teaching.
-        </p>
-    </div>
-
-    <div class="card_block" onclick="window.open('Papers/herding_to_the_polls.pdf','mywindow');">
-        <p class="card_title">
-            <span class="title">Economics Animations</span>
-            <span class="dates">(maintained since 2020)</span>
-        </p>
-        <p class="tldr">
-            Some things are more obvious when visualized. Animations can often go one step further. These notebooks generate animations I use regularly to present my work and as a classroom tool.
-        </p>
-    </div>
-     
-    <hr>
-</div>
-    
-
-<!-- ELSE -->
-    
-<div class="container content" id="else">
-        <h1>Else</h1>
-    
-        <h3>Blogs on Statistics, ML, and Causal Inference</h3>
-
-        <a target="_blank" href="https://nickchk.com/causalgraphs.html">Animating Causal Inference</a><br>
-        <a target="_blank" href="https://matheusfacure.github.io/python-causality-handbook">Causality Handbook</a><br>
-        <a target="_blank" href="https://towardsdatascience.com/controls-b63dc69e3d8c">Directed Acyclic Graphs</a><br>
-        <a target="_blank" href="https://towardsdatascience.com/the-fwl-theorem-or-how-to-make-all-regressions-intuitive-59f801eb3299">Frisch-Waugh-Lovell Theorem</a><br>
-        <a target="_blank" href="https://www.aeaweb.org/articles?id=10.1257/jep.31.2.3">The State of Applied Econometrics</a><br>
-        <a target="_blank" href="https://www.washingtonpost.com/news/wonk/wp/2015/10/30/how-to-measure-things-in-a-world-of-competing-claims/">Sythetic Controlls in WaPo</a><br>
-        <a target="_blank" href="https://towardsdatascience.com/causal-inference-with-synthetic-control-in-python-4a79ee636325#:~:text=The%20synthetic%20control%20method%20is,the%20treatment%20group%20is%20compared.">Sythetic Controlls in Python</a><br>
-        <a target="_blank" href="https://www.nber.org/papers/w29873?utm_campaign=ntwh&utm_medium=email&utm_source=ntwg27">Intertemporal Diff-in-Diff</a><br>
-        <a target="_blank" href="https://www.tandfonline.com/doi/abs/10.1080/1350178X.2022.2088085?journalCode=rjec20">Directed Analytical Graphs and Judea Pearl</a>
-
-        <h3>Panel Data in Python</h3>
-        <a target="_blank" href="https://towardsdatascience.com/a-guide-to-panel-data-regression-theoretics-and-implementation-with-python-4c84c5055cf8">Fixed Effects and Random Effects Models</a>
-        <a target="_blank" href="https://towardsdatascience.com/fixed-effect-regression-simply-explained-ab690bd885cf">Fixed Effects in Python</a>
-        <a target="_blank" href="https://www.youtube.com/watch?v=EbdBHJYbOrg&list=PLwJRxp3blEvb7P-7po9AxuBwquPv75LjU&index=25">Random Effects</a>
-        <a target="_blank" href="https://towardsdatascience.com/a-guide-to-panel-data-regression-theoretics-and-implementation-with-python-4c84c5055cf8">More Panel Data</a>
-
-        <h3>Educational YouTube Channels</h3>
-
-        <a target="_blank" href="https://www.youtube.com/channel/UC8bvGUlaTahF0lHhMsZFhfw">Jazon Jiao</a><br>
-        <a target="_blank" href="https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw">The Coding Train</a><br>
-
-        <h3>Writing</h3>
-        I watxhed this at 1.5 speed ... and it was a little "dramatic" but (and?) very helpful 😂 
-        <a target="_blank" href="https://youtu.be/vtIzMaLkCaM">Leadership Lab: The Craft of Writing Effectively</a><br>
-
-        <h3>Interesting Code</h3>
-
-        <a target="_blank" href="https://mermaid-js.github.io/mermaid/#/">Mermaid for Diagramming</a><br>
-        <a target="_blank" href="https://julia.quantecon.org/getting_started_julia/getting_started.html">Quant Econ in Julia</a><br>
-        <a target="_blank" href="https://www.jazonjiao.com/demo/prim/">Manim.js</a><br>
-
-    
-    <hr>
-        <h3>p.s.</h3>
-
-        <p>Jumping from failure to failure with undiminished enthusiasm is the big secret to success. - Riccardo Barbieri, theoretical physicist</p>
-                    
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">Urabn Spatial Sorting During the Era of Mass Migration </span>
+<a href="https://tayweid.github.io/Working_Papers/turnout_clusters.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+Immigrant segregation in the early 1900’s was driven by both white out-sorting and immigrant in-sorting.
+</p>
 </div>
 
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.12.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-      
-</body>
-</html>
+<div class="paper expand">
+<span class="paper-caret">➔</span><span class="paper-title">The Lab vs. MTurk </span>
+<a href="https://tayweid.github.io/Working_Papers/turnout_clusters.pdf" class="tag">PDF</a>
+<p class="popup" style="display: none;">
+Subjects in dynamic trust games respond to the behavioral factors and in the same ways in the lab and on MTurk.
+</p>
+</div>
+
+</div>
+
+<div class="paper-list">
+
+<span class="paper-list-title">Work in Progress</span>
+
+<div class="paper">
+<span class="paper-caret">➔</span><span class="paper-title">Spatial Inconsistency: Availability Heuristic in Downsian Voting</span>
+</div>
+
+<div class="paper">
+<span class="paper-caret">➔</span><span class="paper-title">The Electoral Divergence: The effects of the Great Divergence on the electorate's geography</span>
+</div>
+
+<div class="paper">
+<span class="paper-caret">➔</span><span class="paper-title">Party Dependence: The role of the neighbors in changing preferences</span>
+</div>
+
+<div class="paper">
+<span class="paper-caret">➔</span><span class="paper-title">Rise of the Independents: The role of the neighbors in </span>
+</div>
+
+</div>
+
+<!-- Teaching -->
+
+<div class="mec-title-box">
+<span class="mec-title-text">Teaching</span>
+</div>
+
+<p>Below are material for some of the classes that I've taught over the years at the University of Pittsburgh and the University of Richmond.</p>
+
+<div class="course">
+<span class="course-title">Intro Microeconomics</span>
+    <p><i>(Spring 2023, Fall 2022, Fall 2021, Summer 2020)</i></p>
+    <div class="class_materials">
+        <a href="https://tayweid.github.io/Econ_101/syllabus.pdf">Syllabus</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_A.html">Part A</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_B.html">Part B</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_C.html">Part C</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_D.html">Part D</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_E.html">Part E</a>
+        |
+        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_F.html">Part F</a>
+    </div>
+
+<div class="course">
+<span class="course-title">Intermediate Microeconomics</span>
+<p><i>(Summer 2021)</i></p>
+<p><a href="http://tayweid.github.io/Econ_201/syllabus.pdf">Syllabus</a></p>
+</div>
+
+</div>
+
+
+<!-- Projects -->
+
+<div class="mec-title-box">
+<span class="mec-title-text">Projects</span>
+</div>
+
+<p>First off, check out my <a href="https://github.com/tayweid">GitHub</a> page! There you can find code relating to the above papers, the below listed projects, and other side projects.</p>
+
+<div class="project">
+<span class="project-title">Geographic Voter Panel <i>(since 2019)</i> <a href="https://github.com/tayweid/Geographic_Voter_Panel" class="tag">GitHub</a></span>
+<p>I use voter data in some recent work. This data pipeline generates the main geographic panel used in many current and upcoming projects, and is the product of many problems solved. I'm immensely proud of this code and the number of technical solutions that make it possible.</p>
+</div>
+
+<div class="project">
+<span class="project-title">Experiments in oTree</span>
+<p><a href="https://www.otree.org/">oTree</a> is flexible software for running experiments in the lab and online. Here are some experiments I've written over the years, run at Iowa State University, University of Pittsburgh, and Leheigh University. </p>
+    <div>
+        <span class="paper-caret">➔</span><span>Dynamic Regret Experiment <i>(2021)</i> <a href="https://github.com/tayweid/Dynamic_Regret_Experiment" class="tag">GitHub</a></span>
+    </div>
+    <div>
+        <span class="paper-caret">➔</span><span>Repeated Prisoner's Dilemma <i>(2019)</i> <a href="https://github.com/tayweid/Repeated_Prisoners_Dilemma" class="tag">GitHub</a></span>
+    </div>
+    <div>
+        <span class="paper-caret">➔</span><span>Protective Technology <i>(2018)</i> <a href="https://github.com/tayweid/Protective_Tech_Experiment" class="tag">GitHub</a></span>
+    </div>
+    <div>
+        <span class="paper-caret">➔</span><span>Repeated Trust Game <i>(2016)</i> <a href="https://github.com/tayweid/Repeated_Trust_Game" class="tag">GitHub</a></span>
+    </div>
+</div>
+
+<div class="project">
+<span class="project-title">T+1 Presenter <i>(since 2020)</i> <a href="https://github.com/tayweid/T+1" class="tag">GitHub</a></span>
+<p>Some ideas are better understood when animated. I started using <a href="https://www.manim.community/">Manim</a> animations for my students during Covid but couldn't find open source software for presenting animations live. So I wrote a simple javascript apt I use for presenting visualizable research and course material.</p>
+</div>
+
+<div class="project">
+<span class="project-title">Economics Animations <i>(since 2020)</i> <a href="https://github.com/tayweid/Videos" class="tag">GitHub</a></span>
+<p>Some things are clearer when visualized. Animations can often go one step further. These notebooks generate animations I use regularly to present my research, as a classroom tool, and for my youtube channel.</p>
+
+<div class="project">
+<span class="project-title">Open Grader <i>(since 2022)</i> <a href="https://github.com/tayweid/Open_Grader" class="tag">GitHub</a></span>
+<p>I like giving my student's detailed feedback on their work but I don't like hard copies of my students' assignments. By the fall of 2022 I hadn't found free software with an easy interface for students to both submit their assignments and receive feedback on their phones. So for I wrote a scrapy JupyterLab program to collect, grade, comment on, return, and store student assignments for the Fall 2022 semester. Students simply scan their work into a filesystem like Dropbox/Box using the mobile app and receive a unique pdf with comments and grades in the same folder. Evenutally this will be a javascript app. This has saved me hours of the boring stuff.</p>
+</div>
+
+</div>
+</div>
+
+<div class="footer" style="text-align:center">
+    <br>
+    <hr>
+    <p>maintained with love | <a href="https://github.com/tayweid/tayweid.github.io">source code</a></p>
+</div>
+
+<script src="./Index/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="./Index/d3.v4.min.js" type="text/javascript"></script>
+<script src="./Index/index.js" type="text/javascript"></script>
+
+</body></html>
