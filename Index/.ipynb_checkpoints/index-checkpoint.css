@@ -205,6 +205,11 @@ img.small {
     padding-left: 2px;
     padding-right: 4px;
 }
+.paper-coauthors {
+    margin-left: 40px; 
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
 .paper.expand {
 }
