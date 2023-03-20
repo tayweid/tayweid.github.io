@@ -185,6 +185,82 @@ img.small {
     margin-bottom: 30px;
 }
 
+/* NAVIGATION */
+.left_div {
+    display: table-cell;
+    background: var(--main-fg-color);
+    width: auto;
+    height:150%;
+    margin-right: 0%;
+}
+.left_div > nav {
+    position: fixed;
+    top: 10%;
+    width: auto;
+    height:150%;
+    text-align: right;
+}
+.right_div {
+    display: table-cell;
+    background: var(--main-fg-color);
+    width: auto;
+    height:150%;
+}
+.right_div > nav {
+    position: fixed;
+    top: 10%;
+    width: auto;
+    height:150%;
+    margin-left: 1%;
+    color: var(--main-fg-color);
+}
+.active {
+    color: var(--main-fg-color);
+    font-weight: bold;
+    font-size:20px;
+}
+.nameplate {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--main-fg-color);
+}
+
+@media screen and (max-width: 1000px) {
+    .right_div {
+        display: none;
+    }
+    .left_div {
+        display: none;
+    }
+}
+
+/* LISTS */
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+}
+ul > span {
+    font-weight:bold;
+    margin-top:5%;
+    margin-bottom:2%;
+    font-size:36px;
+    display: block;
+}
+li a {
+  display: block;
+  padding: 4px 4px;
+}
+li a.active {
+  color: var(--main-fg-color);
+}
+li a:hover {
+  color: var(--main-fg-color);
+}
+
 /* paper list */
 
 .paper-list-title {
