@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+<html> 
+<body style="background-color:black"> 
+<link rel="stylesheet" href="Present.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Play in Reverse: https://forums.tumult.com/t/playing-video-in-reverse/17928 -->
+
+<div class="Header">
+    <p class="Title">Part B | Episode 0</p>
+</div>
+
+<div class="OuterContent">
+<div class="Content">
+    <div class="Body_Container">
+        
+        <div class="Control_Group">
+            <div class="Play_Forward" onclick="Point_Forward()"><i class="fa fa-step-forward"></i></div>
+            <div class="Play_Backward" onclick="Point_Backward()"><i class="fa fa-step-backward"></i></div>
+        </div>
+        
+        <div class="Video_Container">
+            <video class="The_Video" id="The_Video">
+              <source src="../../Videos/PartB_E0/media.mp4" type="video/mp4">
+              Your browser does not support HTML5 video.
+            </video>
+        </div>
+
+        <div class="Control_Group">
+            <div class="Skip_Forward" onclick="Skip_Forward()"><i class="fa fa-forward"></i></div>
+            <div class="Skip_Backward" onclick="Skip_Backward()"><i class="fa fa-backward"></i></div>
+        </div>
+        
+    </div>
+    
+    <hr color="grey">
+
+    <div class="Footer_Container">
+        <div class="Description" id="Description"></div>        
+    </div>
+</div>
+<p class="Timekeeper" id="Timekeeper"></p>
+</div>
+
+<script src="Present.js"></script>
+<script src="PartB_E0.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+
+:root {
+    --Sidebar_Color: #CDA200;
+    --Description_Color: #181818;
+    --Active_Color: #BEBEBE;
+    --Timer_Color: black;
+    --Button_Color: grey;
+}
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+.Header {
+    margin-top:-10px;
+    margin-bottom:-30px;
+    display: flex;
+    font-size: 40px;
+}
+  
+.left {
+    flex: 50%;
+}
+.rigth {
+    flex: 50%;
+}
+
+.Title {
+    color:var(--Sidebar_Color); 
+    text-align: left;
+}
+.Timekeeper {
+    text-align:right;
+    color:var(--Sidebar_Color); 
+    opacity: 0.2;
+}
+.OuterContent {
+    padding-left:5%;
+    padding-right:5%;
+    overflow: hidden;
+}
+.Inner {
+    display: flex;
+}
+.Content {
+    border-radius:20px;
+    border: 1px solid grey;
+    overflow: hidden;
+    background-color:var(--Description_Color); 
+}
+.Content > hr {
+    margin-top:0px; 
+}
+.Video_Container {
+    width:100%;
+}
+.The_Video {
+    width:100%;
+    border-radius:0px;
+}
+
+
+/* This turns off controls in full screen */
+video::-webkit-media-controls-enclosure { display:none !important; }
+
+video {	
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+}
+
+video:-webkit-full-screen {
+  cursor: crosshair;
+}
