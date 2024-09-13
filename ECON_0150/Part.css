@@ -19,7 +19,6 @@ a {text-decoration: none;
     display: inline-block;
     }
 
-
 .dark-mode {
   background-color: black;
   color: white;
@@ -122,6 +121,33 @@ p > a:hover {
     .left_div {
         display: none;
     }
+}
+
+.video_wrap iframe {
+    width: 500px; /* Set your desired width */
+    height: 315px; /* Set your desired height */
+    border-radius: 15px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensures corners are actually rounded */
+    border: none; /* Removes the frame border */
+}
+
+.rounded-box {
+    border: 2px solid #333; /* Border color and thickness */
+    border-radius: 15px;    /* Rounded corners */
+    padding: 20px;          /* Space inside the box */
+    width: 100%;     /* Adjust the width to fit the content */
+    background-color: black; /* Optional: Background color */
+    transition: background-color 0.2s, border-color 0.2s; /* Slower transition */
+    align: center;
+}
+.rounded-box > p {
+    border-left: 0px solid var(--background_color);
+}
+.rounded-box > p:hover {
+    border-left: 0px solid var(--background_color);
+}
+.rounded-box:hover {
+        background-color: #181818; /* Background color on hover */
 }
 
 
