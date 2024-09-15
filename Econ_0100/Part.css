@@ -125,6 +125,38 @@ p > a:hover {
     }
 }
 
+.video_wrap iframe {
+    width: 500px; /* Set your desired width */
+    height: 315px; /* Set your desired height */
+    border-radius: 15px; /* Adjust the value as needed */
+    overflow: hidden; /* Ensures corners are actually rounded */
+    border: none; /* Removes the frame border */
+}
+
+.rounded-box {
+    border: 2px solid #333;        /* Border color and thickness */
+    border-radius: 15px;           /* Rounded corners */
+    padding: 1em;                  /* Padding that scales with the text */
+    width: 100%;                   /* Ensure it fills the full width of the parent */
+    background-color: black;       /* Optional: Background color */
+    transition: background-color 0.2s, border-color 0.2s; /* Smooth transition */
+    margin: 5px 0;                 /* Vertical margins, no horizontal margin */
+    box-sizing: border-box;        /* Include padding and border in width calculation */
+    color: white;                  /* Text color inside the box */
+}
+.rounded-box > p {
+    border-left: 0px solid var(--background_color);
+    margin-bottom: 0px;
+}
+.rounded-box > h2 {
+    margin-top: 0px;
+}
+.rounded-box > p:hover {
+    border-left: 0px solid var(--background_color);
+}
+.rounded-box:hover {
+        background-color: #181818; /* Background color on hover */
+}
 
 /* LISTS */
 
