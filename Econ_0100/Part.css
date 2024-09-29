@@ -1,5 +1,19 @@
 /* BODY */
 
+@import url('source-sans-pro.css');
+
+body {
+    /*
+
+    */
+    font-family: 'Roboto', sans-serif; font-weight: 100;
+    font-family: 'Open Dyslexic', sans-serif;
+
+    font-family: 'Roboto Slab', serif; font-weight: 100;
+
+    font-weight: 100
+  }
+
 :root {
     --background_color: #181818; /* #f1f1f1; */
     --section_color: grey;
@@ -10,7 +24,6 @@
 body, section {
     padding: 0; 
     margin: 0;
-    font-family: 'Roboto', sans-serif;
     background: var(--background_color);;
     color: white;
     }
