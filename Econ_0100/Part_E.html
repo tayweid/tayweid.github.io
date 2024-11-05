@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     
 <title>Microeconomics | Part E</title>
 
 <link rel="stylesheet" href="Part.css">
-    
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
 
 <body>
 
@@ -21,12 +25,16 @@
         <ul>
             <span>MICRO</span>
             <span>-ECON</span>
-            <li><a href="https://tayweid.github.io/Econ_101/Part_A">Part A</a></li>
-            <li><a href="https://tayweid.github.io/Econ_101/Part_B">Part B</a></li>
-            <li><a href="https://tayweid.github.io/Econ_101/Part_C">Part C</a></li>
-            <li><a href="https://tayweid.github.io/Econ_101/Part_D">Part D</a></li>
+            <li><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
+            <hr style="width: 50%; margin: 10px 0 10px auto; border: 0; border-top: 1px solid #ccc;">
+            <li><a href="https://tayweid.github.io/Econ_0100/Part_A">Part A</a></li>
+            <li><a href="https://tayweid.github.io/Econ_0100/Part_B">Part B</a></li>
+            <li><a href="https://tayweid.github.io/Econ_0100/Part_C">Part C</a></li>
+            <li><a href="https://tayweid.github.io/Econ_0100/Part_D">Part D</a></li>
             <li><a class="active" href="">Part E</a></li>
-            <li><a href="https://tayweid.github.io/Econ_101/Part_F">Part F</a></li>
+            <!--
+            <li><a href="https://tayweid.github.io/Econ_0100/Part_F">Part F</a></li>
+            -->
         </ul>
     </nav>
 </div>
@@ -34,264 +42,290 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title"> Part E | Sellers decisions and the supply curve</h1>
-        <!--<button onclick="myFunction()">Toggle dark mode</button>-->
+        <h1 class="title"> Part E | Sellers and market power</h1>
         
         <p>
-           <a>Part E</a> is about how market power changes the firm's decisions and how these decisions impact society. So far we've examined how to coordinate groups to minimize opportunity cost. In <a>Part A</a> we motivated this search using the realization that minimizing opportunity cost can make everyone better off simultaneously. In <a>Part B</a> we showed that in some cases markets can be an effective coordination device. In <a>Part C</a> we showed that externalities undermine the efficiency of markets but that we could correct this type of market failure using correctly calibrated <a>Government Policies</a>. In <a>Part D</a> we introduced game theory to help understand the strategic interaction that leads to market failure around <a>Public Goods</a> and <a>Common Resources</a>. We even developed some tools like voting and enforceable permits which can go a long way to minimizing market failure. 
+            In Part A through Part D we've explored why we would want to coordinate and how to make coordination possible.
+            Markets can organize economic activity efficiently in some contexts and fail in other contexts.
+            But we've taken a simplified view of how buyers and sellers make decisions.
+            Now we turn to a crucial question: What happens when sellers have market power? 
+            To understand this, we first need to examine how firms actually make production decisions. 
+            We'll start with the basics: how inputs become outputs, how this generates costs (ATC and MC), 
+            and how firms maximize profits (by setting MC = MR). 
+            This foundation will reveal how market power fundamentally changes firms' decisions and ultimately affects society's wellbeing.
         </p>
-        <p>
-            So far we've relied on loose models of why buyers and sellers choose to interact. In <a>Part A</a> we introduced buyers' preferences with the demand curve and sellers' costs with the supply curve. Before investigating where buyers' preferences come from, in <a>Part E</a> we make the turn to examine the seller's incentives.
-        </p>
-        <p>
-            We first start with the production function. Labor inputs generate output. Inputs are costly. As we increase inputs we increase output but we also increase cost. This relationship between quantity and costs gives us our core cost measures: <a>Average Total Cost (ATC)</a> and <a>Marginal Cost (MC)</a>.
-        </p>
-        <p>
-            We assume that seller's aim to maximize their <a>Profits</a>, simply Total Revenue minus Total Cost. And we found that the solution to the <a>Firm's Profit Maximization Problem</a> is to set quantity where <a>MC = MR</a>. The shape of MC depends on the shape of the production function. The shape of MR depends on how much power the firm exerts over the market. <a>Part E</a> is about how this market power changes the firm's decisions and how these decisions impact society.
-        </p>
-        
     </div>
-    
-    <!-- VIDEOS -->
-    
-    <div id="videos">
-        <h1 class="subtitle" id="videos">Videos</h1>
-        
-        <p>
-            Part E Episode 1 (labeled as Tutorial 5.1) introduces the costs of production, similar to what we covered in class.
-        </p>
-        <div class="video_content">
 
-            <div align="center">
-                <div class="video_wrap">
+    <div id="episodes">
+    <h1 class="subtitle">Videos</h1>
 
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/J0Y6XzwSfls" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-    
-        <p>
-            Part E Episode 2 (labeled as Tutorial 5.2) examines perfect competition from the firm's perspective, generating the supply curve.
-        </p>
-        <div class="video_content">
+    <div class="box-container">
 
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/YN4ZkPBS_O8" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-        
-        <p>
-            Part E Episode 3 (labeled as Tutorial 5.3) examines the monopolist.
-        </p>
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/N0mbUXYMwdw" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
+    <div class="rounded-box">
+        <h2>Episode E1:</h2>
+        <h3>The costs of production</h3>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/J0Y6XzwSfls"
+                frameborder="0" 
+                allowfullscreen
+            ></iframe>
         </div>
     </div>
-    
+
+    <div class="rounded-box">
+        <h2>Episode E2:</h2>
+        <h3>Competitive firms</h3>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/YN4ZkPBS_O8"
+                frameborder="0" 
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+
+    <div class="rounded-box">
+        <h2>Episode D1:</h2>
+        <h3>Monopoly firms</h3>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/N0mbUXYMwdw"
+                frameborder="0" 
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
     <!-- READING -->
     
     <div id="reading">
         <h1 class="subtitle" id="reading">Reading</h1>
-        
         <p>
-            Start Part E by skimming the reading to develop an understanding of the scope of what's being discussed. 
+            ... skim the reading to understand the main ideas before doing practice problems.
         </p>
-        <p> 
-            Then once you've finished reading, take a look at the practice material, and use the text as a resource when you need help. This way, you know what's most important, get to practicing quickly, and know where to find help when you innevitably get stuck.
-        </p>
-        
-        <h2> Cluster 1 | Ch. 13 <a class="btn" href="Reading/Ch_13.pdf" target="_blank"><i class="fa fa-download"></i></a> Ch. 15 <a class="btn" href="Reading/Ch_15.pdf" target="_blank"><i class="fa fa-download"></i></a> Ch. 16 <a class="btn" href="Reading/Ch_16.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
 
-        <h2 class="subtitle" id="reading">Cluster 2 | Ch. 17 <a class="btn" href="Reading/Ch_17.pdf" target="_blank"><i class="fa fa-download"></i></a> Ch. 18 <a class="btn" href="Reading/Ch_18.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+        <div class="rounded-box-textbook">
+            <h2>
+                Chapter 13: Costs of production (
+                File <span><a class="btn" href="Reading/Ch_13.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+        </div>
+
+        <p>
+            This looks like a lot of different ideas but they are all variations of the same problem. Each is important and interesting in its own right, but they all share the same core problem: how to maximize profit.
+        </p>
+
+        <div class="rounded-box-textbook">
+            <h2>
+                Chapter 14: Competitive Markets (
+                File <span><a class="btn" href="Reading/Ch_14.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+        </div>
+        <div class="rounded-box-textbook">
+            <h2>
+                Chapter 15: Monopoly (
+                File <span><a class="btn" href="Reading/Ch_15.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+        </div>
+        <div class="rounded-box-textbook">
+            <h2>
+                Chapter 16: Monopolistic Competition (
+                File <span><a class="btn" href="Reading/Ch_16.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+        </div>
+        <div class="rounded-box-textbook">
+            <h2>
+                Chapter 17: Monopolistic Competition (
+                File <span><a class="btn" href="Reading/Ch_17.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+        </div>
     </div>
 
-    <!-- CLASSWORK -->
-    
-    <div id="classwork">
-        <h1 class="subtitle" id="classwork">Classwork</h1>
-        <p>
-            Classwork are a set of problems we examine in recitation. 
-        </p>
-        <h2 class="subtitle" id="classwork">Classwork E1 <a class="btn" href="Classwork/Classwork_E1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Classwork/Classwork_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Recitation on November 2/3 covered Classwork E1. 
-        </p>
-        <h2 class="subtitle" id="classwork">Classwork E2 <a class="btn" href="Classwork/Classwork_E2.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Classwork/Classwork_E2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Recitation on November 9/10 covered Classwork E2. There is a bonus question in the solutions that we didn't cover in recitation. Feel free to ask your TA about it! :)
-        </p>
-    </div>
-    
-    <!-- VIGNETTE E1 -->
-    
+
     <div id="vignette">
-        <h1 class="subtitle" id="vignette">Vignettes</h1>
-        <p>Vignettes are a bit of extra practice. They're not required, but like Demos they're great practice, and look very similar to Classwork.</p>
+        <h1>Vignettes</h1>
 
-        <h2>Vignette E1 <a class="btn" href="Vignettes/Vignette_E1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Vignette/Vignette_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
         <p>
-            Vignette E1 does Economic Sudoku, building intuition for the relationships between cost variables. 
-        </p>
-        
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/C011G361DWQ" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-        
-        <!-- I want a vignette here that shows the relationships between costs and different types of taxes before we talk about the revenue side. -->
-        <!-- I want a pure perfect competition and pure monopoly question here. Maybe save the complicated ones for the demos. -->
-        
-        <!-- VIGNETTE E2 -->
-    
-        <h2 class="subtitle" id="vignette">Vignette E2 <a class="btn" href="Vignettes/Vignette_E2.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Vignette/Vignette_E2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Vignette E2 covers the transition of a market from Monopoly to Perfect Competition. This requires understanding market structures and being able to describe the impacts of this change using the tools and methods developed in class.
-        </p>
-        
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/uGSwp0sTpv8" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-        
-        <!-- VIGNETTE E3 -->
-    
-        <h2 class="subtitle" id="vignette">Vignette E3 <a class="btn" href="Vignettes/Vignette_E3.pdf" target="_blank"><i class="fa fa-download"></i></a><!-- Solutions <a class="btn" href="Vignette/Vignette_E3_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>--></h2>
-        <!--<p>
-            Vignette E3 examines the impact of a subsidy on a perfectly competitive firm and the market in which they operate in the short run, and uses long run analysis to anticipate long run effects.
-        </p>-->
-        <p>
-            Vignette E3 extends the concepts and tools of game theory to examine markets with few sellers, Oligopoly, in which strategic interaction governs the solution to the firm's problem. 
-        </p>
-        
-        <!-- VIGNETTE E4 -->
-    
-        <!--<h2 class="subtitle" id="vignette">Vignette E4 <a class="btn" href="Vignettes/Vignette_E4.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Vignette/Vignette_E4_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Vignette E4 develops a model of an asymetric Duopoly and the impact of taxes. 
-        </p>-->
-    
-        <!-- VIGNETTE E5 -->
-    
-        <!--<h1 class="subtitle" id="vignette">Vignette E5 <!--<a class="btn" href="Vignettes/Vignette_E5.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Vignette/Vignette_E5_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h1>-->
-        <!--<p>
-            Vignette E5 examines the impact of a new entrant into a Monopolistically Competitive market on a representative firm in the short run and long run. 
-        </p>-->
-    </div>
-    
-    <!-- DEMO -->
-
-    <div id="demo">
-        <h1 class="subtitle" id="demo">Demos</h1>
-        
-        <p>
-            Demos are very similar to what you'll see on MiniExam E. This is a resource for you to use as you'd like. But here's my advice. Start by trying to solve the Demos on your own. Then once you've worked through everything as best you're able, use the video and solutions to check your work. You're more than welcome to watch this video first, but you're not going to catch your weak points as easily, which is the main point.
-        </p>
-        
-        <h2 class="subtitle" id="demo">Demo E1 <a class="btn" href="Demos/Demo_E1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Demo E1 discusses the impact of a subsidy in a perfectly competitive market in the long run.
+            ... small examples done in recitation practicing the concepts we cover in class. 
         </p>
 
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/UZDvSTNbv0w" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-        
-        <h2 class="subtitle" id="demo">Demo E2 <a class="btn" href="Demos/Demo_E2.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Demo E2 walks through a mathematical solution to the Monopolist and uses a lump sum tax to capture some profit.
-        </p>
-
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/JpAfyhAxiVE" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
+        <div class="rounded-box">
+            <h2>Vignette E1 <!--(
+                File <span><a class="btn" href="Vignettes/Vignette_D1.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Solutions <span><a class="btn" href="Vignettes/Vignette_D1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )</h2>-->
+            <h3>Vignette E1 is a set of problems we examine in Week 11 Recitation. </h3>
+            <!--<div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/C011G361DWQ"
+                    frameborder="0" 
+                    allowfullscreen
+                ></iframe>
+            </div>-->
         </div>
 
-        <h2 class="subtitle" id="demo">Demo E3 <a class="btn" href="Demos/Demo_E3.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E3_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Demo E3 is adapted from a MiniExam from a previous semester and examines the market impact of a merger of two Duopolist firms. 
-        </p>
-
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/jwxiRNAPBLc" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
+        <div class="rounded-box">
+            <h2>Vignette E2 <!--(
+                File <span><a class="btn" href="Vignettes/Vignette_D2.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Solutions <span><a class="btn" href="Vignettes/Vignette_D2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )</h2>-->
+            <h3>Vignette E2 is a set of problems we examine in Week 12 Recitation. </h3>
+            <!--<div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/uGSwp0sTpv8"
+                    frameborder="0" 
+                    allowfullscreen
+                ></iframe>
+            </div>-->
         </div>
-        
-        <h2 class="subtitle" id="demo">Demo E4 <a class="btn" href="Demos/Demo_E4.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E4_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
-        <p>
-            Demo E4 is adapted from Homework from a previous semester and examines a subsidy in two regulatory environments.
-        </p>
-
-        <div class="video_content">
-
-            <div align="center">
-                <div class="video_wrap">
-
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/SIwcx2GgCFE" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <!-- HOMEWORK -->
     
     <div id="homework">
-        <h1 class="subtitle" id="homework">Homeworks E</h1>
-        <h2>Homework E1<a class="btn" href="Homework/HW_E1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Homework/HW_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+        <h1>Homework</h1>
         <p>
-            Homework E1 is a set of problems you'll do on your own, due on Gradescope on Friday November 17. 
+            ... sets of problems you'll do with your study group.
         </p>
-        <h2>Homework E2 <a class="btn" href="Homework/HW_E2.pdf" target="_blank"><i class="fa fa-download"></i></a><!--Solutions <a class="btn" href="Homework/HW_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>--></h2>
-        <p>
-            Homework E2 is a set of problems you'll do on your own, due on Gradescope on Wednesday November 29. I don't expect you to work on this over Thanksgiving break. :) Wait until you're back.
-        </p>
+
+        <div class="rounded-box">
+            <h2>
+                Homework E1 <!--(
+                File <span><a class="btn" href="Homework/HW_D.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Solutions <span><a class="btn" href="Homework/HW_D_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )-->
+            </h2>
+            <h3>Homework E1 is due on Gradescope on <i>Sunday November 10st</i>. </h3>
+
+            <!--
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/qSgYsnrFiEw?si=kLcU4QpEvObDHceQ"
+                    frameborder="0" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+            -->
+        </div>
+
+        <div class="rounded-box">
+            <h2>
+                Homework E2 <!--(
+                File <span><a class="btn" href="Homework/HW_D.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Solutions <span><a class="btn" href="Homework/HW_D_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )-->
+            </h2>
+            <h3>Homework E2 is due on Gradescope on <i>Sunday November 17st</i>. </h3>
+
+            <!--
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/qSgYsnrFiEw?si=kLcU4QpEvObDHceQ"
+                    frameborder="0" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+            -->
+        </div>
+
     </div>
     
     <!-- MINIEXAM -->
 
     <div id="miniexam">
-        <h1 class="subtitle" id="miniexam">MiniExam E <a class="btn" href="MiniExams/ME_E_v1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="MiniExams/ME_E_v1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h1>
+        <h1 class="subtitle" id="miniexam">MiniExam and Demo</h1>
         <p>
-            If you understand the concepts and do the work in the Vignettes, Classwork, and Demos, you're going to be in good shape on the MiniExam.
+            MiniExam E will be held on <i>Wednesday November 20th</i> and covers everything in Part E. You will begin to learn that if you understand the concepts and do the work in the Vignettes, Homework, and Demo, you're going to be in good shape on the MiniExam.
         </p>
+
+        <div class="rounded-box">
+            <h2>
+                Demo E <!--(
+                File <span><a class="btn" href="Demos/Demo_D2.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Solutions <span><a class="btn" href="Demos/Demo_D2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )-->
+            </h2>
+            <h3>Demo E is very similar to what you'll see on MiniExam E. </h3>
+            <!--
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/BYrsSbLdJuQ?si=LWgjKFx5RuW_EEjO"
+                    frameborder="0" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+            -->
+        </div>
+
         <p>
-            MiniExam E will be held on November 27 and covers everything in Part E.
+            The Demos below were used in past semesters and are a resource for you to use as you'd like. But my advice is to start by trying to solve it on your own and only then use the video and solutions to check your work. You're more than welcome to watch this video first, but you're not going to catch your weak points as easily, which is the main point.
         </p>
+
+        <div class="box-container">
+
+            <div class="rounded-box">
+                <h2 class="subtitle" id="demo">Demo E1 <a class="btn" href="Demos/Demo_E1.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+                <h3>A subsidy in a competitive market</h3>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/UZDvSTNbv0w"
+                        frameborder="0" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+        
+            <div class="rounded-box">
+                <h2 class="subtitle" id="demo">Demo E2 <a class="btn" href="Demos/Demo_E2.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+                <h3>A lump sum tax on a Monopolist</h3>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/JpAfyhAxiVE"
+                        frameborder="0" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+
+            <div class="rounded-box">
+                <h2 class="subtitle" id="demo">Demo E3 <a class="btn" href="Demos/Demo_E3.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E3_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+                <h3>A merger of two Duopolist firms</h3>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/jwxiRNAPBLc"
+                        frameborder="0" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+        
+            <div class="rounded-box">
+                <h2 class="subtitle" id="demo">Demo E4 <a class="btn" href="Demos/Demo_E4.pdf" target="_blank"><i class="fa fa-download"></i></a> Solutions <a class="btn" href="Demos/Demo_E4_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></h2>
+                <h3>A subsidy in two environments</h3>
+                <div class="video-container">
+                    <iframe 
+                        src="https://www.youtube.com/embed/SIwcx2GgCFE"
+                        frameborder="0" 
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+            
+        </div>
     </div>
     
     <div style="margin-bottom:50%"></div>
@@ -304,13 +338,11 @@
     <nav>
         <ul>
             <span>Contents</span>
-            <li><a href="#videos">Videos</a></li>
+            <li><a href="#episodes">Videos</a></li>
             <li><a href="#reading">Reading</a></li>
             <li><a href="#vignette">Vignettes</a></li>
-            <li><a href="#demo">Demos</a></li>
-            <li><a href="#classwork">Classwork</a></li>
             <li><a href="#homework">Homework</a></li>
-            <li><a href="#miniexam">MiniExams</a></li>
+            <li><a href="#miniexam">MiniExam+Demos</a></li>
         </ul>
         <!--<div class="vl"></div>-->
     </nav>
