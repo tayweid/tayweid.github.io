@@ -10,7 +10,14 @@
 
 </head>
 
-<body role="document">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+
+<body>
 
 <!-- RIGHT NAVIGATION -->
     
@@ -41,14 +48,15 @@
 
 <div id="biograph">
 
-<div class="mec-name-box">
-<div class="mec-name-text">Taylor J Weidman</div>
+<div class="name_box">
+<div class="name_text">Taylor J Weidman</div>
 <div><a target="_blank" href="mailto:taylorjweidman@pitt.edu">taylorjweidman@pitt.edu</a></div>
 </div>
 
-<div class="mec-stats-box">
-<span class="mec-stats-line"><a href="https://tayweid.github.io/cv/cv.pdf"><img src="./Images/vita.svg" class="icon vita"><span class="mec-stat-tag">vita</span></a></span>
-<span class="mec-stats-line"><a href="https://github.com/tayweid"><img src="./Images/github_white.png" class="icon github"><span class="mec-stat-tag">github</span></a></span>
+<div class="link_box">
+<span class="link_box_line"><a href="https://tayweid.github.io/cv/cv.pdf" target="_blank"><img src="./Images/vita.svg" class="icon vita"><span class="link_tag">vita</span></a></span>
+<span class="link_box_line"><a href="https://github.com/tayweid" target="_blank"><img src="./Images/github_white.png" class="icon github"><span class="link_tag">github</span></a></span>
+<span class="link_box_line"><a href="https://youtube.com/@taylorjweidman?si=hR60wiwP5QPyIAup" target="_blank"><img src="./Images/youtube.png" class="icon github"><span class="link_tag">youtube</span></a></span>
 </div>
 
 </div>
@@ -56,71 +64,69 @@
 
 <div id="output">
 
-<p class="mec-greetings">Hi! I'm an economist at the University of Pittsburgh studying decisions in groups with externalities. These days I'm using voter panels to study geographic public choice and laboratory experiments for coordination games. I'm also working on a few small open-source software projects.</p>
+<p>Hi! I'm an economist at the University of Pittsburgh. These days I'm using voter panels to study residential networks and information spillovers and laboratory experiments to study coordination games. I'm also working on a few small open-source software projects.</p>
 
 <!-- Research -->
-    
+
 <div id="research">
+<br>
+<hr>
 
-<div class="paper-list">
-    
-<div class="mec-title-box">
-<span class="mec-title-text">Research</span>
-</div>
+<h2>Research</h2>
 
-<span class="paper-list-title">Working Papers (click for summary)</span>
+<p style="margin-top:0px">... current working papers.</p>
 
-<div class="paper expand">
-<span class="paper-caret">➔</span><span class="paper-title">Homophily Turnout: network effects and voter behavior</span>
-<a href="https://tayweid.github.io/Working_Papers/Paper_HT.pdf" class="tag">PDF</a>
-<p class="popup" style="display: none;">
-Voters increase their turnout when a new same-party voter moves in next door.
-</p>
-</div>
+<div class="box_container">
 
-<div class="paper expand">
-<span class="paper-caret">➔</span><span class="paper-title">Panel Nearest Neighbors: A new algorithm applied to a realigning electorate</span>
-<a href="https://tayweid.github.io/Working_Papers/Paper_PNN.pdf" class="tag">PDF</a>
-<p class="popup" style="display: none;">
-A new algorithm resolves the tradeoff between panels and kNN. Applied to voter registration shows how turnout rates are higher in neighborhoods with more in-party members, intensified by residential sorting, party switching, and changes in turnout.
-</p>
-</div>
+    <div class="rounded_box">
+        <h3>Homophily Turnout: network effects and voter behavior <a href="https://tayweid.github.io/Papers/Paper_HT.pdf" class="tag" target="_blank">PDF</a></h3>
+        <h4>
+            Voters increase their turnout when a new same-party voter moves in next door.
+        </h4>
+    </div>
 
-<div class="paper expand">
-<span class="paper-caret">➔</span>
-<span class="paper-title">Testing Models of Strategic Uncertainty <i>(R & R at JEEA)</i> </span><a href="https://tayweid.github.io/Papers/strategic_uncertainty.pdf" class="tag">PDF</a>
-<p class="paper-coauthors"> with
-    <a target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</a> and 
-    <a target="_blank" href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</a>
-</p>
-<p class="popup" style="display: none;">
-An index using the notion of risk dominance organizes cooperation across social dilemmas in the lab.
-</p>
-</div>
-    
-<div class="paper expand">
-<span class="paper-caret">➔</span>
-<span class="paper-title">Well Excuse Me! </span>
-<a href="https://tayweid.github.io/Papers/excuse_me.pdf" class="tag">PDF</a>
-<p class="paper-coauthors"> with
-    <a target="_blank" href="mailto:bea46@pitt.edu">Beatriz Ahumada</a>,
-    <a target="_blank" href="mailto:yuc97@pitt.edu">Yufei Chen</a>,
-    <a target="_blank" href="mailto:neg38@pitt.edu">Neeraja Gupta</a>,
-    <a target="_blank" href="mailto:KDH50@pitt.edu">Kelly Hyde</a>,
-    <a target="_blank" href="mailto:m.lepper@pitt.edu">Marissa Lepper</a>,
-    <a target="_blank" href="mailto:WIM31@pitt.edu">Will Mathews</a>,
-    <a target="_blank" href="mailto:NAS233@pitt.edu">Neil Silveus</a>,
-    <a target="_blank" href="mailto:vester@pitt.edu">Lise Vesterlund</a>,
-    <a target="_blank" href="mailto:alistair@pitt.edu">Alistair Wilson</a>,
-    <a target="_blank" href="mailto:KPW18@pitt.edu">K. Pun Winichakul</a>,
-    <a target="_blank" href="mailto:liz113@pitt.edu">Liyang Zhou</a>
-</p>
-<p class="popup" style="display: none;">
-Three excuse-seeking behaviors replicate but show no relationship across domains.
-</p>
-</div>
+    <div class="rounded_box">
+        <h3>Panel Nearest Neighbors: A new algorithm applied to voter files <a href="https://tayweid.github.io/Papers/Paper_PNN.pdf" class="tag" target="_blank">PDF</a></h3>
+        <h4>
+            A new algorithm resolves the tradeoff between panels and kNN, applied to voter files.
+        </h4>
+    </div>
+
+    <div class="rounded_box">
+        <h3>Testing Models of Strategic Uncertainty <i>(R & R at JEEA) </i><a href="https://tayweid.github.io/Papers/strategic_uncertainty.pdf" class="tag" target="_blank">PDF</a></h3>
+        <h4> with
+            <a target="_blank" href="http://www.pitt.edu/~alistair/">Alistair Wilson</a> and 
+            <a target="_blank" href="https://sites.google.com/site/emanuelvespa/">Emanuel Vespa</a>
+        </h4>
+        <h4>
+            An index using risk dominance to organize cooperation across social dilemmas in the lab.
+        </h4>
+    </div>
+
+    <div class="rounded_box">
+        <h3>Well Excuse Me! </i><a href="https://tayweid.github.io/Papers/excuse_me.pdf" class="tag" target="_blank">PDF</a></h3>
+        <h4> with
+            <a target="_blank" href="mailto:bea46@pitt.edu">Beatriz Ahumada</a>,
+            <a target="_blank" href="mailto:yuc97@pitt.edu">Yufei Chen</a>,
+            <a target="_blank" href="mailto:neg38@pitt.edu">Neeraja Gupta</a>,
+            <a target="_blank" href="mailto:KDH50@pitt.edu">Kelly Hyde</a>,
+            <a target="_blank" href="mailto:m.lepper@pitt.edu">Marissa Lepper</a>,
+            <a target="_blank" href="mailto:WIM31@pitt.edu">Will Mathews</a>,
+            <a target="_blank" href="mailto:NAS233@pitt.edu">Neil Silveus</a>,
+            <a target="_blank" href="mailto:vester@pitt.edu">Lise Vesterlund</a>,
+            <a target="_blank" href="mailto:alistair@pitt.edu">Alistair Wilson</a>,
+            <a target="_blank" href="mailto:KPW18@pitt.edu">K. Pun Winichakul</a>,
+            <a target="_blank" href="mailto:liz113@pitt.edu">Liyang Zhou</a>
+        </h4>
+        <h4>
+            Three excuse-seeking behaviors replicate but show no relationship across domains.
+        </h4>
+    </div>
 
 </div>
+
+
+<!--
 
 <div class="paper-list">
 
@@ -138,107 +144,119 @@ Three excuse-seeking behaviors replicate but show no relationship across domains
 <span class="paper-caret">➔</span><span class="paper-title">Party Dependence: the role of the neighbors in voter preferences</span>
 </div>
 
-</div>
+-->
+
 </div>
 
 <!-- Teaching -->
 
 <div id="teaching">
-<div class="mec-title-box">
-<span class="mec-title-text">Teaching</span>
-</div>
+<br>
+<hr>
 
-<p>Below are material for some of the classes that I've taught over the years at the University of Pittsburgh and the University of Richmond.</p>
+<h2>Teaching</h2>
 
-<div class="course">
-<span class="course-title">Intro Microeconomics</span>
-    <p><i>(Fall 2023, Spring 2023, Fall 2022, Fall 2021, Summer 2020)</i></p>
-    <div class="class_materials">
-        <a href="https://tayweid.github.io/Econ_0100/Syllabus.pdf">Syllabus</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_A.html">Part A</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_B.html">Part B</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_C.html">Part C</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_D.html">Part D</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_E.html">Part E</a>
-        |
-        <a target="_blank" href="https://tayweid.github.io/Econ_101/Part_F.html">Part F</a>
+<p style="margin-top:0px">... some material from courses I've taught at the University of Pittsburgh and the University of Richmond.</p>
+
+<div class="box_container">
+
+    <div class="rounded_box">
+        <h3>Intro Microeconomics <i>(F24, F23, S23, F22, F21, S20)</i></h3>
+        <h4>
+            <a href="https://tayweid.github.io/Econ_0100/Syllabus.pdf" target="_blank">Syllabus</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_A.html">Part A</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_B.html">Part B</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_C.html">Part C</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_D.html">Part D</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_E.html">Part E</a>
+            |
+            <a target="_blank" href="https://tayweid.github.io/Econ_0100/Part_F.html">Part F</a>
+            | 
+            <a target="_blank" href="https://tayweid.github.io/o/we_voted.html">"We voted" project</a>
+        </h4>
     </div>
 
-<div class="course">
-<span class="course-title">Intermediate Microeconomics</span>
-<p><i>(Spring 2024, Fall 2023, Summer 2021)</i></p>
-<p><a href="http://tayweid.github.io/Econ_1100/Syllabus.pdf">Syllabus</a></p>
-</div>
+    <div class="rounded_box">
+        <h3>Intermediate Microeconomics <i>(S24, F23, S21)</i></h3>
+        <h4><a href="http://tayweid.github.io/Econ_1100/Syllabus.pdf" target="_blank">Syllabus</a></h4>
+    </div>
 
-<div class="course">
-<span class="course-title">Game Theory Principles</span>
-<p><i>(Spring 2024)</i></p>
-<p><a href="http://tayweid.github.io/Econ_0200/Syllabus.pdf">Syllabus</a></p>
-</div>
-
+    <div class="rounded_box">
+        <h3>Game Theory Principles <i>(Spring 2024)</i></h3>
+        <h4><a href="http://tayweid.github.io/Econ_0200/Syllabus.pdf" target="_blank">Syllabus</a></h4>
+    </div>
 </div>
 </div>
-
 
 <!-- Projects -->
-    
+
 <div id="projects">
+<br>
+<hr>
 
-<div class="mec-title-box">
-<span class="mec-title-text">Projects</span>
-</div>
+<h2>Projects</h2>
 
-<p>First off, check out my <a href="https://github.com/tayweid">GitHub</a> page! There you can find code relating to the above papers, the below listed projects, and other side projects.</p>
+<p style="margin-top:0px">... check out my <a href="https://github.com/tayweid" target="_blank">GitHub</a> for code relating to the papers aboves and the projects below.</p>
 
-<div class="project">
-<span class="project-title">Geographic Voter Panel <i>(since 2019)</i> <!--<a href="https://github.com/tayweid/Geographic_Voter_Panel" class="tag">GitHub</a></span>-->
-<p>I use voter data in some recent work. This data pipeline generates the main geographic panel used in many current and upcoming projects, and is the product of many problems solved. I'm immensely proud of this code and the number of technical solutions that make it possible.</p>
-</div>
-
-<div class="project">
-<span class="project-title">Experiments in oTree</span>
-<p><a href="https://www.otree.org/">oTree</a> is flexible software for running experiments in the lab and online. Here are some experiments I've written over the years, run at Iowa State University, University of Pittsburgh, and Leheigh University. </p>
-    <div>
-        <span class="paper-caret">➔</span><span>Dynamic Regret Experiment <i>(2021)</i> <a href="https://github.com/tayweid/Dynamic_Regret_Experiment" class="tag">GitHub</a></span>
+<div class="box_container">
+    <div class="rounded_box">
+        <h3>Geographic Voter Panel <i>(since 2019)</i></h3>
+        <h4>I use voter data in some recent work. This data pipeline generates the main geographic panel used in many current and upcoming projects, and is the product of many problems solved. I'm immensely proud of this code and the number of technical solutions that make it possible.</h4>
     </div>
-    <div>
-        <span class="paper-caret">➔</span><span>Repeated Prisoner's Dilemma <i>(2019)</i> <a href="https://github.com/tayweid/Repeated_Prisoners_Dilemma" class="tag">GitHub</a></span>
+
+    <div class="rounded_box">
+        <h3>Experiments in oTree</h3>
+        <h4><a href="https://www.otree.org/" target="_blank">oTree</a> is flexible software for running experiments in the lab and online. Here are some experiments I've written over the years, run at Iowa State University, University of Pittsburgh, and Leheigh University. </h4>
+        <h4>
+            <span class="paper-caret">➔</span><span>Dynamic Regret Experiment <i>(2021)</i> <a href="https://github.com/tayweid/Dynamic_Regret_Experiment" class="tag" target="_blank">GitHub</a></span>
+        </h4>
+        <h4>
+            <span class="paper-caret">➔</span><span>Repeated Prisoner's Dilemma <i>(2019)</i> <a href="https://github.com/tayweid/Repeated_Prisoners_Dilemma" class="tag" target="_blank">GitHub</a></span>
+        </h4>
+        <h4>
+            <span class="paper-caret">➔</span><span>Protective Technology <i>(2018)</i> <a href="https://github.com/tayweid/Protective_Tech_Experiment" class="tag" target="_blank">GitHub</a></span>
+        </h4>
+        <h4>
+            <span class="paper-caret">➔</span><span>Repeated Trust Game <i>(2016)</i> <a href="https://github.com/tayweid/Repeated_Trust_Game" class="tag" target="_blank">GitHub</a></span>
+        </h4>
     </div>
-    <div>
-        <span class="paper-caret">➔</span><span>Protective Technology <i>(2018)</i> <a href="https://github.com/tayweid/Protective_Tech_Experiment" class="tag">GitHub</a></span>
+
+    <div class="rounded_box">
+        <h3>T+1 Presenter <i>(since 2020)</i> <a href="https://github.com/tayweid/T1_Presenter" class="tag" target="_blank">GitHub</a></h3>
+        <h4>
+            Some ideas are better understood when animated. 
+            I started using <a href="https://www.manim.community/" target="_blank">Manim</a> animations for my students during Covid but couldn't find open source software for presenting animations live. 
+            So I wrote a simple javascript apt I use for presenting visualizable research and course material.</h4>
     </div>
-    <div>
-        <span class="paper-caret">➔</span><span>Repeated Trust Game <i>(2016)</i> <a href="https://github.com/tayweid/Repeated_Trust_Game" class="tag">GitHub</a></span>
+
+    <div class="rounded_box">
+        <h3>Economics Animations <i>(since 2020)</i></h3>
+        <h4>
+            Some things are clearer when visualized. Animations can often go one step further. 
+            These notebooks generate animations I use regularly to present my research, as a classroom tool, and for my youtube channel.
+        </h4>
+    </div>
+
+    <div class="rounded_box">
+        <h3>Open Grader <i>(since 2022)</i> <a href="https://github.com/tayweid/Open_Grader" class="tag" target="_blank">GitHub</a></h3>
+        <h4>
+            I created a simple program that lets students submit photos of their work through Dropbox and automatically receive graded PDFs with detailed feedback. 
+            Built with JupyterLab, it saves me hours of grading time while giving students easy access to assignments and comments on their phones.
+        </h4>
     </div>
 </div>
 
-<div class="project">
-<span class="project-title">T+1 Presenter <i>(since 2020)</i> <a href="https://github.com/tayweid/T1_Presenter" class="tag">GitHub</a></span>
-<p>Some ideas are better understood when animated. I started using <a href="https://www.manim.community/">Manim</a> animations for my students during Covid but couldn't find open source software for presenting animations live. So I wrote a simple javascript apt I use for presenting visualizable research and course material.</p>
-</div>
-
-<div class="project">
-<span class="project-title">Economics Animations <i>(since 2020)</i> <!--<a href="https://github.com/tayweid/Videos" class="tag">GitHub</a>--></span>
-<p>Some things are clearer when visualized. Animations can often go one step further. These notebooks generate animations I use regularly to present my research, as a classroom tool, and for my youtube channel.</p>
-
-<div class="project">
-<span class="project-title">Open Grader <i>(since 2022)</i> <a href="https://github.com/tayweid/Open_Grader" class="tag">GitHub</a></span>
-<p>I like giving my student's detailed feedback on their work but I don't like hard copies of my students' assignments. By the fall of 2022 I hadn't found free software with an easy interface for students to both submit their assignments and receive feedback on their phones. So I wrote a scrapy JupyterLab program to collect, grade, comment on, return, and store student assignments for the Fall 2022 semester. Students simply scan their work into a filesystem like Dropbox/Box using the mobile app and receive a unique pdf with comments and grades in a folder. This might become a javascript app someday. This has saved me hours of the boring stuff.</p>
-</div>
-
-</div>
-</div>
 </div>
 
 <div class="footer" style="text-align:center">
     <br>
     <hr>
-    <p>maintained with love, on earth, by taylor | <a href="https://github.com/tayweid/tayweid.github.io">source code</a></p>
+    <p>maintained with love, on earth, by taylor | <a href="https://github.com/tayweid/tayweid.github.io" target="_blank">source code</a></p>
 </div>
     
 </div>

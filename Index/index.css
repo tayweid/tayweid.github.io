@@ -2,10 +2,6 @@
 
 @import url('source-sans-pro.css');
 
-body {
-    font-family: 'Times New Roman', Times, serif;
-  }
-
 * {
     box-sizing: border-box;
 }
@@ -37,6 +33,17 @@ body {
     color: var(--main-fg-color);
     padding: 0;
     margin: 0;
+}
+
+body {
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    font-style: bold;
+    font-weight: 500;  /* Bold */
+    color: #f1f1f1;
+    /* line separation */
+    line-height: 1.2;
+
 }
 
 #header {
@@ -106,34 +113,25 @@ img.small {
     opacity: 0.9;
 }
 
-.mec-name-box {
-    margin-left: 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /* border-top: 1px solid var(--main-fg-color); */
-    border-bottom: 1px solid var(--main-fg-color);
-}
-
-.mec-name-text {
-    font-size: 22px;
+.name_text {
+    font-size: 34px;
     margin-bottom: 5px;
 }
 
-.mec-title-box {
+.title_box {
     font-size: 25px;
     border-bottom: 1px solid var(--main-fg-color);
     padding-left: 1px;
     padding-right: 1px;
 }
 
-.mec-stats-box {
-    margin-left: 5px;
+.link_box {
+    margin-left: 0px;
+    margin-top: 10px;
     line-height: 28px;
 }
 
-.mec-stats-line {
+.link_box_line {
     font-size: 16px;
     margin-bottom: 5px;
     margin-right: 5px;
@@ -144,11 +142,11 @@ img.small {
     padding-bottom: 3px;
 }
 
-.mec-stats-line:hover {
+.link_box_line:hover {
     opacity: 0.7;
 }
 
-.mec-stat-tag {
+.link_tag {
     padding-left: 0px;
     padding-right: 5px;
     color: var(--main-cool-white);
@@ -184,9 +182,15 @@ img.small {
 
 /* headings */
 
-.mec-title-box {
+.title_box {
     margin-top: 50px;
     margin-bottom: 30px;
+}
+
+.title_text {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 /* NAVIGATION */
@@ -265,7 +269,7 @@ li a:hover {
   color: var(--main-fg-color);
 }
 
-/* paper list */
+/* PAPERS */
 
 .paper-list-title {
     padding-bottom: 1px;
@@ -289,9 +293,6 @@ li a:hover {
     margin-left: 40px; 
     margin-top: 0px;
     margin-bottom: 0px;
-}
-
-.paper.expand {
 }
 
 .paper > .popup {
@@ -341,12 +342,11 @@ li a:hover {
 
 /* biographical info */
 
-/* desktop rules */
-
-@media (min-width: 800px) {
+@media (min-width: 1000px) {
     #outer {
-        max-width: 750px;
-        margin: auto;
+        max-width: 1000px;
+        margin-left: 250px;  /* Increased from 200px to 250px to move it right */
+        margin-right: auto;
     }
 
     #inner {
@@ -358,17 +358,81 @@ li a:hover {
 }
 
 /* mobile rules */
-
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     #outer {
-        margin: 10px;
+        margin: 30px;
     }
 
     #header {
         padding-bottom: 0px;
     }
 
-    .mec-stat-tag {
+    .link_tag {
         font-size: 18px;
     }
+}
+
+/* Rounded Box */
+
+@media screen and (max-width: 768px) {
+    .rounded_box {
+        padding: 0.5em;
+        flex: 0 1 100%;
+    }
+}
+
+.box_container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.rounded_box {
+    border: 2px solid #333;
+    border-radius: 15px;
+    padding: 0em 0em 0em 0em;
+    padding-bottom: 0.5em;
+    width: 100%;  /* Changed from 96% to 100% */
+    max-width: 1000px;  /* Increased from 800px to 1000px */
+    background-color:var(--main-bg-color);
+    color: white;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.rounded_box h3 {
+    margin-left: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+    text-align: left;
+    font-size: 24px;
+}
+
+.rounded_box h4 {
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 0.5em;
+    margin-bottom: 0em;
+    text-align: left;
+    font-size: 20px;
+    font-style: italic;
+    /* dark color */
+    color: #a6a6a6;
+}
+
+.rounded_box a:hover {
+    color: grey;
+}
+
+.rounded_box:hover {
+    background-color: #181818; /* Background color on hover */
+}
+
+
+h2 {
+    margin-bottom: 0px;
 }
