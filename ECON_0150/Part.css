@@ -144,6 +144,13 @@ p > a:hover {
 }
 .rounded-box > p {
     border-left: 0px solid var(--background_color);
+    margin-left: 5px;
+    margin-bottom: 0px;
+    font-style: italic;
+}
+.rounded-box > h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .rounded-box > p:hover {
     border-left: 0px solid var(--background_color);
