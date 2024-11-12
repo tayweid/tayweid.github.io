@@ -57,8 +57,11 @@ a {text-decoration: none;
     margin-top:2%
 }
 .subtitle {
-    margin-bottom:2%;
-    margin-top:2%
+    margin-top:2%;
+    margin-bottom: 0px;
+}
+.sub_description {
+    margin-top:0px
 }
 .lefttitle {
     font-size: 40px;
@@ -85,7 +88,6 @@ p > a:hover {
 .btn:hover {
     color: var(--teaching_color);
 }
-
 
 /* NAVIGATION */
 
