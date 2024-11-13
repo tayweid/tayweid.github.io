@@ -43,8 +43,8 @@ a {text-decoration: none;
     margin-top:2%
 }
 .subtitle {
-    margin-bottom:2%;
-    margin-top:2%
+    margin-top:2%;
+    margin-bottom: 0px;
 }
 .lefttitle {
     font-size: 40px;
@@ -159,6 +159,17 @@ p > a:hover {
         background-color: #181818; /* Background color on hover */
 }
 
+.rounded-box h2 {
+    margin-bottom: 0.5em;
+}
+
+.rounded-box h3 {
+    margin-top: -.5em;
+    margin-bottom: 0em;
+    margin-left: 1em;
+    font-style: italic;
+}
+
 
 /* LISTS */
 
@@ -204,4 +215,9 @@ p:hover {
 p > span {
     margin-left:10px; 
     margin-right: 10px;
+}
+
+
+.sub_description {
+    margin-top:0px
 }
