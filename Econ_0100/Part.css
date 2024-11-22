@@ -365,7 +365,7 @@ p:hover {
     border: 2px solid #333;
     border-radius: 15px;
     padding: 1em 1em 1em 1em; /* Remove bottom padding */
-    width: 96%;
+    width: 95%;
     max-width: 800px; /* Adjust as needed */
     background-color: black;
     color: white;
