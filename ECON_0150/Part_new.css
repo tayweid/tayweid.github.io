@@ -86,9 +86,16 @@ p > a:hover {
 
 /* NAVIGATION */
 
+@media screen and (max-width: 1000px) {
+    .right_div, .left_div {
+        display: none;
+    }
+}
 .content {
-    width: 60%; 
-    display: table-cell;
+    display: block;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
 }
 .content > div {
     margin: 5%;
@@ -124,15 +131,6 @@ p > a:hover {
     color: blue;
     font-weight: bold;
     font-size:20px;
-}
-
-@media screen and (max-width: 1000px) {
-    .right_div {
-        display: none;
-    }
-    .left_div {
-        display: none;
-    }
 }
 
 .video_wrap iframe {
