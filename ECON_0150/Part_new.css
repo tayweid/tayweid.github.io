@@ -231,3 +231,10 @@ p > span {
 .sub_description {
     margin-top:0px
 }
+
+a.container-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+}

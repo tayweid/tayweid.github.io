@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     
-<title>Economic Data Analysis | Part 2</title>
+<title>Economic Data Analysis | Part 1</title>
 
 <link rel="stylesheet" href="Part.css">
 
@@ -13,6 +13,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
 <body>
 
 <div class="body_table"><div>
@@ -22,9 +25,12 @@
             <span>ECONOMIC</span>
             <span>DATA</span>
             <span>ANALYSIS</span>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_1">Part 1</a></li>
+            <li><a>Part 1</a></li>
             <li><a class="active" href="">Part 2</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_3">Part 3</a></li>
+            <li><a>Part 3</a></li>
+            <li><a>Part 4</a></li>
+            <li><a>Part 5</a></li>
+            <li><a>Part 6</a></li>
         </ul>
     </nav>
 </div>
@@ -32,30 +38,26 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title"> Part 2 | Basic Probability and Statistics</h1>
-        <!--<button onclick="myFunction()">Toggle dark mode</button>-->
+        <h1 class="title"> Part 2 | Multivariate EDA</h1>
         <p>
-            In this part we will refresh/introduce core probability and statistics concepts, implementing them using data in Excel. Topics include random variables, conditional probability, sampling, normal distribution, and a simple model of causal relationships. 
+            ... we developing the core skills in exploratory data analysis of relationships. 
         </p>
     </div>
 
-    <!-- EPISODES -->
+    <div id="week_01">
 
-    <div id="episodes">
-
-    </div>
-
-    <div id="demo">
-        <h1 class="subtitle">Classwork</h1>
-        <p>This is a collection of class slides and exercises.</p>
-
-        <h2>Part 2.1 // Probability Theory (Slides <span><a class="btn" href="Slides/Part 2.1 Probability.pdf" target="_blank"><i class="fa fa-download"></i></a></span>)</h2>
+        <h2>Part 2.1 // Exploring Relationships (Slides <span><a class="btn" href="Slides/Part_1_6.pdf" target="_blank"><i class="fa fa-download"></i></a></span>)</h2>
 
         <div align="center" style="text-align: left;">
             <div class="rounded-box">
-                <h2>Excel Exercise: Premier League Matches (
-                    Data <span><a class="btn" href="Data/Part_2_1_Premier_League_Matches_all.csv" target="_blank"><i class="fa fa-download"></i></a></span>
-                )</h2>
+                <h2>Excel Exercise: Scatterplots (
+                    Data <span><a class="btn" href="Data/Part_1_6_Beans_GDP.csv" target="_blank"><i class="fa fa-download"></i></a></span>
+                    <!--|
+                    <a class="btn" href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version" target="_blank" style="font-size: 10;">Source</a>
+                    |
+                    Example <span><a class="btn" href="Data/Coffee_Sales_Reciepts.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>-->
+                    )</h2>
+                <p>This exercise uses a scatterplot to explore the relationship between two variables in a dataset on the GDP and coffee production of some coffee producing countries.</p>
                 <!--<div align="center">
                     <div class="video_wrap">
                     <iframe height="315" src="https://www.youtube.com/embed/A1EsdgZCzUg?si=7XlbG0Uz8-TpPv11" frameborder="0" allowfullscreen></iframe>
@@ -64,61 +66,44 @@
             </div>
         </div>
 
-        <h2>Part 2.2 // Basic Statistics (Slides <span><a class="btn" href="Slides/Class on Oct 17.pdf" target="_blank"><i class="fa fa-download"></i></a></span>)</h2>
-
-        <h1 class="subtitle">Bayes Rule</h1>
-        
         <div align="center" style="text-align: left;">
             <div class="rounded-box">
-                <h2>Bayes With Marbles</h2>
-                <p>This video develops the intuition for Bayes Rule using marbles.</p>
-                
-                <div align="center">
+                <h2>Excel Exercise: Boxplots (
+                    Data <span><a class="btn" href="Data/Part_1_6_Coffee_Per_Cap.csv" target="_blank"><i class="fa fa-download"></i></a></span>
+                    <!--|
+                    <a class="btn" href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version" target="_blank" style="font-size: 10;">Source</a>
+                    |
+                    Example <span><a class="btn" href="Data/Coffee_Sales_Reciepts.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>-->
+                    )</h2>
+                <p>This exercise uses a boxplot to explore the distribution of coffee consumption over time in a dataset on the coffee consumption per capita.</p>
+                <!--<div align="center">
                     <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/-l5HgeEnY14?si=qxZgaTK8ZvsGaMJ7" frameborder="0" allowfullscreen></iframe>
+                    <iframe height="315" src="https://www.youtube.com/embed/A1EsdgZCzUg?si=7XlbG0Uz8-TpPv11" frameborder="0" allowfullscreen></iframe>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Bayes With Excel</h2>
-                <p>This video develops the intuition for Bayes Rule using English Premier League matches in Excel.</p>
-                
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/vOACH7l3aL0?si=cvKGzw8vnH__c1wS" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2>Part 1.7 // Data Connected Through Time (Slides <span><a class="btn" href="Slides/Part_1_7.pdf" target="_blank"><i class="fa fa-download"></i></a></span>)</h2>
 
         <div align="center" style="text-align: left;">
             <div class="rounded-box">
-                <h2>External Video: 3Blue1Brown</h2>
-                <p>This is an excelent video on Bayes from one of my favorite YouTube Channels.</p>
-                
-                <div align="center">
+                <h2>Excel Exercise: Timeseries (
+                    Data <span><a class="btn" href="Data/Part_1_7_Coffee_Prices_CPI.csv" target="_blank"><i class="fa fa-download"></i></a></span>
+                    |
+                    <a class="btn" href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version" target="_blank" style="font-size: 10;">Source</a>
+                    |
+                    Example <span><a class="btn" href="Data/Part_1_7_Coffee_Prices_CPI.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
+                    )</h2>
+                <p>This exercise uses coffee price data to build a timeseries plot of coffee prices in today's dollars.</p>
+                <!--<div align="center">
                     <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/HZGCoVF3YvM?si=XKrJ7FaDvEdyCKdg" frameborder="0" allowfullscreen></iframe>
+                    <iframe height="315" src="https://www.youtube.com/embed/A1EsdgZCzUg?si=7XlbG0Uz8-TpPv11" frameborder="0" allowfullscreen></iframe>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>External Video: 3Blue1Brown</h2>
-                <p>This is a suplemental video to the main video on Bayes above.</p>
-                
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/U_85TaXbeIo?si=SKONMiUc6KmypwKT" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     
     <!-- HOMEWORK -->
@@ -128,68 +113,27 @@
 
         <div align="center" style="text-align: left;">
             <div class="rounded-box">
-                <h2 class="subtitle">Homework 3 (
-                    <a class="btn" href="Homework/HW_3.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                <h2 class="subtitle">Homework 2 (
+                    File <a class="btn" href="Homework/HW_2.pdf" target="_blank"><i class="fa fa-download"></i></a>
                     |
-                    Solutions <a class="btn" href="Homework/HW_3_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    Q1 Data <span><a class="btn" href="Homework/HW2_Q1_Marriage_Rates.csv" target="_blank"><i class="fa fa-download"></i></a></span>
                     |
-                    Extra Sols <a class="btn" href="Homework/HW_3_extra_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
-                    )</h2>
-                <p>Homework 3 is a set of problems you'll do on your own, due on <i>Sunday October 13</i> on the Gradescope portal.</p>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/sCVqabfFdpo?si=4ekdRu0mpd8jmGUa" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 4 (
-                    <a class="btn" href="Homework/HW_4.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    Q2 Data <span><a class="btn" href="Homework/HW2_Q2_Amazon_Books.csv" target="_blank"><i class="fa fa-download"></i></a></span>
                     |
-                    Q1 Data <span><a class="btn" href="Homework/HW4_Question1.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
-                    |
-                    Q2 Data <span><a class="btn" href="Homework/HW4_Question2.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
-                    |
-                    Q3 Data <span><a class="btn" href="Homework/HW4_Question3.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
+                    Solutions <a class="btn" href="Homework/HW_2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
                 )</h2>
-                <p>Homework 4 is a set of problems you'll do on your own, due on <i>Tuesday October 22</i> on the Gradescope portal.</p>
+                <h2 class="subtitle">Solutions (
+                    File <a class="btn" href="Homework/HW_2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    |
+                    Q1 Data <span><a class="btn" href="Homework/HW2_Q1_Marriage_Rates.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
+                    |
+                    Q2 Data <span><a class="btn" href="Homework/HW2_Q2_Amazon_Books.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
+                )</h2>
+                <p>Homework 2 is a set of problems you'll do on your own, due on Friday September 20 on the Gradescope portal.</p>
             </div>
         </div>
-        
     </div>
     
-    <!-- MINIEXAM -->
-
-    <div id="miniexam">
-        <h1 class="subtitle" id="miniexam">Exam 2</h1>
-        <div class="rounded-box">
-            <h2>Exam 2 (
-                <a class="btn" href="Exam/Exam_2.pdf" target="_blank"><i class="fa fa-download"></i></a>
-                |
-                Solutions <a class="btn" href="Exam/Exam_2_rubric.pdf" target="_blank"><i class="fa fa-download"></i></a>
-            )
-            </h2>
-            <p>
-                Exam 2 will be held on <i>Thursday October 24th</i> and covers everything in Part 2.
-            </p>
-        </div>
-
-        <div align="center" style="text-align: left;">
-        <div class="rounded-box">
-
-        <h2 class="subtitle">Exam 2 Example (
-            <a class="btn" href="Exam/Exam_2_Example.pdf" target="_blank"><i class="fa fa-download"></i></a>
-            |
-            Solutions <span><a class="btn" href="Exam/Exam_2_Example_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-        )</h2>
-        </div>
-    </div>
-
-    </div>
-
     <div style="margin-bottom:50%"></div>
 
 </div>
@@ -200,9 +144,9 @@
     <nav>
         <ul>
             <span>Contents</span>
-            <li><a href="#demo">Classwork</a></li>
-            <li><a href="#homework">Homework</a></li>
-            <li><a href="#miniexam">Exam</a></li>
+            <li><a href="#week_01">Week 01</a></li>
+            <li><a href="#week_02">Week 02</a></li>
+            <li><a href="#week_03">Week 03</a></li>
         </ul>
         <!--<div class="vl"></div>-->
     </nav>
