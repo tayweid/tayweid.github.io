@@ -1,0 +1,473 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    footer: "Taylor | ECON 0150 | Week 2"
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+
+<br> <br>
+
+Taylor
+
+---
+
+## Variable Types
+<p class="subheader">Categorical variable types</p>
+
+**Binary**: two categories (yes/no; true/false)
+
+- *Employment Status (Employed, Unemployed)*
+
+**Nominal**: no inherent order
+  
+- *Employment Sector (Agriculture, Services, Unemployed).*
+
+**Ordinal**: meaningful order without consistent interval.
+  
+- *Economic Optimism (Very Pessimistic to Very Optimistic).*
+
+---
+
+## Variable Types
+<p class="subheader">Numerical/Quantitative variable types</p>
+
+**Discrete**: countable numbers with meaningful intervals
+
+- *Number of Children in a Household.*
+
+**Continuous**: quantities measurable on the reals.
+
+- *Household Income in USD.*
+
+---
+
+## Example: Household Employment
+<p class="subheader">Analyze the distribution of a binary categorical variable.</p>
+
+**Dataset**: Household Employment Survey
+
+**Key Variables**:
+
+- `Household ID`: Unique identifier for each household.
+- `Employment Status`: Binary variable indicating employment status (Employed, Unemployed).
+
+---
+
+## Frequency Counts
+
+```text
+Employment Status:
+Employed: 65
+Unemployed: 35
+```
+
+- **Most Common Status**: Employed
+- **Least Common Status**: Unemployed
+
+---
+
+# Proportions
+
+- **Proportional Breakdown**:
+  - Employed: 65%
+  - Unemployed: 35%
+
+- Insights:
+  - Most households have an employed member.
+  - Unemployment rate is 35% in this dataset.
+
+---
+
+# Visualization
+
+- **Bar Chart**: Employment Status Distribution
+
+```python
+# Code for Bar Chart (Python)
+import matplotlib.pyplot as plt
+
+# Data for the chart
+statuses = ["Employed", "Unemployed"]
+counts = [65, 35]
+
+# Create the bar chart
+plt.bar(statuses, counts, color="skyblue")
+plt.title("Employment Status Distribution")
+plt.xlabel("Employment Status")
+plt.ylabel("Count")
+plt.show()
+```
+
+---
+
+# Summary
+
+- **Key Takeaways**:
+  - Employed households dominate the dataset (65%).
+  - Unemployment is relatively high at 35%.
+
+
+# Introduction
+
+- **Dataset**: Employment Sectors of 100 Individuals
+- **Purpose**: Understand the distribution of employment sectors (nominal categorical variable).
+- **Key Variables**:
+  - `ID`: Unique identifier for each individual.
+  - `Sector`: Employment category (Agriculture, Manufacturing, Services, Unemployed).
+
+---
+
+# Dataset Overview
+
+- **Data Summary**:
+  - Number of observations: 100
+  - Categories:
+    - Agriculture
+    - Manufacturing
+    - Services
+    - Unemployed
+
+```text
+Sample Data:
+| ID   | Sector        |
+|------|---------------|
+| A001 | Agriculture   |
+| A002 | Services      |
+| A003 | Manufacturing |
+| A004 | Unemployed    |
+```
+
+---
+
+# Frequency Counts
+
+```text
+Agriculture: 25
+Manufacturing: 20
+Services: 40
+Unemployed: 15
+```
+
+- **Most Common Sector**: Services
+- **Least Common Sector**: Unemployed
+
+---
+
+# Proportions
+
+- **Proportional Breakdown**:
+  - Agriculture: 25%
+  - Manufacturing: 20%
+  - Services: 40%
+  - Unemployed: 15%
+
+- Insights:
+  - Nearly half of individuals are in the Services sector.
+  - Unemployment is relatively low.
+
+---
+
+# Visualization
+
+- **Bar Chart**: Employment Sectors Distribution
+
+```{python}
+
+# Code for Bar Chart (Python)
+import matplotlib.pyplot as plt
+
+# Data for the chart
+sectors = ["Agriculture", "Manufacturing", "Services", "Unemployed"]
+counts = [25, 20, 40, 15]
+
+# Create the bar chart
+plt.bar(sectors, counts, color="skyblue")
+plt.title("Employment Sector Distribution")
+plt.xlabel("Sector")
+plt.ylabel("Count")
+plt.show()
+```
+
+---
+
+# Summary
+
+- **Key Takeaways**:
+  - Services dominate the dataset (40%).
+  - Agriculture and Manufacturing are relatively balanced (25% and 20%).
+  - Unemployed individuals form the smallest group (15%).
+
+# Introduction
+
+- **Dataset**: Economic Optimism Survey of 100 Individuals
+- **Purpose**: Understand perceptions of economic conditions using an ordinal categorical variable.
+- **Key Variables**:
+  - `ID`: Unique identifier for each individual.
+  - `Economic Optimism`: Likert-scale rankings ranging from "Very Pessimistic" to "Very Optimistic."
+
+---
+
+# Dataset Overview
+
+- **Data Summary**:
+  - Number of observations: 100
+  - Categories (Ordered):
+    - Very Pessimistic
+    - Somewhat Pessimistic
+    - Neutral
+    - Somewhat Optimistic
+    - Very Optimistic
+
+```text
+Sample Data:
+| ID   | Economic Optimism    |
+|------|----------------------|
+| B001 | Very Optimistic      |
+| B002 | Neutral              |
+| B003 | Somewhat Pessimistic |
+| B004 | Somewhat Optimistic  |
+```
+
+---
+
+# Frequency Counts
+
+```text
+Very Pessimistic: 10
+Somewhat Pessimistic: 20
+Neutral: 30
+Somewhat Optimistic: 25
+Very Optimistic: 15
+```
+
+- **Most Common Response**: Neutral
+- **Least Common Response**: Very Pessimistic
+
+---
+
+# Proportions
+
+- **Proportional Breakdown**:
+  - Very Pessimistic: 10%
+  - Somewhat Pessimistic: 20%
+  - Neutral: 30%
+  - Somewhat Optimistic: 25%
+  - Very Optimistic: 15%
+
+- Insights:
+  - Most respondents feel Neutral or Somewhat Optimistic.
+  - Very Pessimistic responses are rare.
+
+---
+
+# Visualization
+
+- **Bar Chart**: Economic Optimism Distribution
+
+```python
+# Code for Bar Chart (Python)
+import matplotlib.pyplot as plt
+
+# Data for the chart
+categories = ["Very Pessimistic", "Somewhat Pessimistic", "Neutral", "Somewhat Optimistic", "Very Optimistic"]
+counts = [10, 20, 30, 25, 15]
+
+# Create the bar chart
+plt.bar(categories, counts, color="skyblue")
+plt.title("Economic Optimism Distribution")
+plt.xlabel("Economic Optimism Level")
+plt.ylabel("Count")
+plt.xticks(rotation=45)
+plt.show()
+```
+
+---
+
+# Summary
+
+- **Key Takeaways**:
+  - Neutral responses dominate the dataset (30%).
+  - Responses are skewed slightly toward optimism (25% Somewhat Optimistic, 15% Very Optimistic).
+  - Very Pessimistic responses are the least frequent (10%).
+
+# Introduction
+
+- **Dataset**: Household Survey on Number of Children
+- **Purpose**: Analyze the distribution of a discrete numerical variable.
+- **Key Variables**:
+  - `Household ID`: Unique identifier for each household.
+  - `Number of Children`: Count of children in each household (0 to 5).
+
+---
+
+# Dataset Overview
+
+- **Data Summary**:
+  - Number of observations: 100
+  - Variable of interest: Number of Children (Discrete Numerical)
+
+```text
+Sample Data:
+| Household ID | Number of Children |
+|--------------|--------------------|
+| H001         | 3                  |
+| H002         | 0                  |
+| H003         | 2                  |
+| H004         | 4                  |
+```
+
+---
+
+# Frequency Counts
+
+```text
+Number of Children:
+0: 15
+1: 20
+2: 25
+3: 20
+4: 10
+5: 10
+```
+
+- **Most Common Value**: 2 children
+- **Least Common Values**: 4 and 5 children
+
+---
+
+# Proportions
+
+- **Proportional Breakdown**:
+  - 0 children: 15%
+  - 1 child: 20%
+  - 2 children: 25%
+  - 3 children: 20%
+  - 4 children: 10%
+  - 5 children: 10%
+
+- Insights:
+  - Households with 2 children are the most frequent.
+  - Larger families (4-5 children) are less common.
+
+---
+
+# Visualization
+
+- **Bar Chart**: Distribution of Number of Children
+
+```python
+# Code for Bar Chart (Python)
+import matplotlib.pyplot as plt
+
+# Data for the chart
+children = [0, 1, 2, 3, 4, 5]
+counts = [15, 20, 25, 20, 10, 10]
+
+# Create the bar chart
+plt.bar(children, counts, color="skyblue")
+plt.title("Distribution of Number of Children")
+plt.xlabel("Number of Children")
+plt.ylabel("Count")
+plt.xticks(children)
+plt.show()
+```
+
+---
+
+# Summary
+
+- **Key Takeaways**:
+  - Most households have 2 children (25%).
+  - 0, 1, and 3 children are fairly common (15-20% each).
+  - Larger families (4-5 children) make up a smaller proportion (10% each).
+
+# Introduction
+
+- **Dataset**: Household Income Survey
+- **Purpose**: Analyze the distribution of a continuous numerical variable.
+- **Key Variables**:
+  - `Household ID`: Unique identifier for each household.
+  - `Household Income (USD)`: Annual income of each household (in USD).
+
+---
+
+# Dataset Overview
+
+- **Data Summary**:
+  - Number of observations: 100
+  - Variable of interest: Household Income (Continuous Numerical)
+
+```text
+Sample Data:
+| Household ID | Household Income (USD) |
+|--------------|-------------------------|
+| C001         | 45,230.50              |
+| C002         | 110,450.75             |
+| C003         | 32,000.00              |
+| C004         | 85,560.25              |
+```
+
+---
+
+# Descriptive Statistics
+
+```text
+Summary Statistics:
+- Minimum: $30,200.15
+- Maximum: $119,800.90
+- Mean: $72,530.40
+- Median: $73,000.00
+- Standard Deviation: $20,350.25
+```
+
+- Insights:
+  - The mean and median are close, indicating a relatively symmetric distribution.
+  - There is a wide range of incomes, with some households earning nearly $120,000.
+
+---
+
+# Visualization
+
+- **Histogram**: Distribution of Household Income
+
+```python
+# Code for Histogram (Python)
+import matplotlib.pyplot as plt
+
+# Data for the chart
+income = [round(random.uniform(30000, 120000), 2) for _ in range(100)]  # Example data
+
+# Create the histogram
+plt.hist(income, bins=10, color="skyblue", edgecolor="black")
+plt.title("Distribution of Household Income")
+plt.xlabel("Income (USD)")
+plt.ylabel("Frequency")
+plt.show()
+```
+
+---
+
+# Box Plot
+
+- **Box Plot**: Identify Outliers and Spread
+
+```python
+# Code for Box Plot (Python)
+plt.boxplot(income, vert=False, patch_artist=True, boxprops=dict(facecolor="lightblue"))
+plt.title("Household Income Distribution")
+plt.xlabel("Income (USD)")
+plt.show()
+```
+
+---
+
+# Summary
+
+- **Key Takeaways**:
+  - Income distribution is fairly symmetric, centered around $72,530.
+  - There are no extreme outliers, but there is significant variability.
+
