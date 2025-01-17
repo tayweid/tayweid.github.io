@@ -150,7 +150,7 @@ p > a:hover {
     width: 100%;                   /* Ensure it fills the full width of the parent */
     background-color: black;       /* Optional: Background color */
     transition: background-color 0.2s, border-color 0.2s; /* Smooth transition */
-    margin: 5px 0;                 /* Vertical margins, no horizontal margin */
+    margin: 15px 0;                 /* Vertical margins, no horizontal margin */
     box-sizing: border-box;        /* Include padding and border in width calculation */
     color: white;                  /* Text color inside the box */
 }
