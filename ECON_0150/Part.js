@@ -16,3 +16,12 @@ function myFunction() {
     element.classList.toggle("dark-mode");
     
 }
+
+function downloadNotebook() {
+    const link = document.createElement('a');
+    link.href = 'notebook.ipynb';
+    link.download = 'notebook.ipynb';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}

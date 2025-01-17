@@ -173,16 +173,22 @@ p > a:hover {
 }
 
 .rounded-box h2 {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.2em;
 }
 
 .rounded-box h3 {
-    margin-top: -.5em;
+    margin-top: 0em;
     margin-bottom: 0em;
-    margin-left: 1em;
-    font-style: italic;
+    margin-left: 0em;
 }
-
+.rounded-box > h4 {
+    border-left: 0px solid var(--background_color);
+    margin-left: 5px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-style: italic;
+    font-size: 16px;
+}
 
 /* LISTS */
 
@@ -240,4 +246,8 @@ p > span {
     padding-left: 20px;
 }
 
-h
+hr {
+    border: none;
+    border-top: 1px solid #ccc;  /* Lighter color and thinner line */
+    margin: 15px 0;
+}
