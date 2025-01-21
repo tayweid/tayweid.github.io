@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
+.reveal, .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { 
+    font-family: Times New Roman}
+
+/*
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;700&display=swap');
+
+.reveal, .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 { 
+    font-family: 'Roboto Slab', serif;
+    font-weight: 100;
+}
+*/
+
+.subheader {
+    font-style: italic;
+    color: #666;
+    font-size: 0.8em;
+    transform: translateY(-25px) translateX(40px);
+    padding-bottom: 10px;
+}
+
+.subheader-center {
+    font-style: italic;
+    color: #666;
+    font-size: 1.2em;
+    transform: translateY(-25px);
+}
+
+.center {
+    text-align: center;
+}
+.left {
+    text-align: left;
+}
+
+.small {
+  font-size: 0.7em !important;
+}
+
+.course-parts {
+    line-height: 1.5;
+}
+
+ul {
+   transform: translateY(-20px);
+   margin-top: 0;
+   margin-bottom: 0;
+   line-height: 1;
+}
+
+ol {
+   transform: translateY(-20px);
+   margin-top: 0;
+   margin-bottom: 0;
+   line-height: 1;
+}
+
+li {
+   margin-bottom: 0;
+}
+
+.reveal .footer {
+  font-size: 32px !important;;
+}
