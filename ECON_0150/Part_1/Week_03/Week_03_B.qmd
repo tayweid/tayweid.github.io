@@ -1,0 +1,208 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    footer: "Taylor | ECON 0150 | Week 3 | Class B"
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists analyze data.</p>
+
+<br> 
+
+### Part 1.5 | Filtering Data
+
+---
+
+## Example 1.5 | Starbucks Hours
+<p class="subheader">Examine opening times in Starbucks_Location_Hours.csv</p>
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+![](../Figures/Part_1_5_Starbucks_Opening_Times.png){fig-align="center"}
+
+. . .
+
+*> maybe there's something specific about the US though?*
+
+. . .
+
+*> filter only the US locations*
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter only the US locations*
+
+<br>
+
+. . .
+
+```{.python}
+# Find the data in the US
+df[df['COUNTRY_CODE'] == 'US']
+```
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+![](../Figures/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
+
+. . .
+
+*> is there something different between the US and Canada?*
+
+. . .
+
+*> filter for **BOTH** countries*
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Lets us some Boolian Logic.</p>
+
+![](../Figures/Part_0_Bool.png){fig-align="center"}
+
+. . .
+
+*> is there something different between the US and Canada?*
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter for **BOTH** countries*
+
+. . .
+
+```{.python code-line-numbers="4,7"}
+# Find the data in either the US or in Canada
+
+# Method 1: Using isin()
+df[df['COUNTRY_CODE'].isin(['US', 'CN'])]
+
+# Method 2: Using OR operator
+df[(df['COUNTRY_CODE'] == 'US') | (df['COUNTRY_CODE'] == 'CN')]
+```
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+![](../Figures/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
+
+---
+
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+![](../Figures/Part_1_5_Starbucks_Opening_Times_US_CA.png){fig-align="center"}
+
+---
+
+## Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What would the histogram for the following filtered data look like?</p>
+
+<br>
+
+```{.python code-line-numbers="4,7"}
+df[(df['COUNTRY_CODE'] == 'US') & (df['COUNTRY_CODE'] == 'CN')]
+```
+
+. . .
+
+*> it would contain no data!*
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Filtering continuous data requires using inequalities.</p>
+
+. . .
+
+| Symbol | Python | | Example |
+|--------|--------------|--------------|---------|
+| = | == | | `df[df['age'] == 25]` |
+| ≠ | != | | `df[df['age'] != 25]` |
+| < | < | | `df[df['age'] < 25]` |
+| > | > | | `df[df['age'] > 25]` |
+| ≤ | <= | | `df[df['age'] <= 25]` |
+| ≥ | >= | | `df[df['age'] >= 25]` |
+
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. How long do locations stay open?</p>
+
+. . .
+
+![](../Figures/Part_1_5_Starbucks_Time_Open.png){fig-align="center"}
+
+. . .
+
+*> but is it different by opening time?*
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
+
+![](../Figures/Part_1_5_Starbucks_Time_Open_7AM.png){fig-align="center"}
+
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
+
+![](../Figures/Part_1_5_Starbucks_Time_Open_7AM_early.png){fig-align="center"}
+
+. . .
+
+*> but maybe this differs country?*
+
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+
+![](../Figures/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png){fig-align="center"}
+
+. . .
+
+*> maybe there's a more systematic way of showing these differences*
+
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+
+![](../Figures/Part_1_5_Starbucks_Duration_Line.png){fig-align="center"}
+
+. . .
+
+*> normalizing gives us a better picture of the distribution*
+
+---
+
+## Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+
+![](../Figures/Part_1_5_Starbucks_Duration_Line_Normalized.png){fig-align="center"}
+
+. . .
+
+*>*

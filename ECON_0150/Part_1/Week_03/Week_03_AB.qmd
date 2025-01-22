@@ -1,0 +1,93 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    footer: "Taylor | ECON 0150 | Week 3 | Class AB"
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists analyze data.</p>
+
+<br> 
+
+### *Part 1.4 | Numerical Variables by Category*
+
+---
+
+### *Example 1.4 | Coffee Shop Transaction*
+<p class="subheader">Examine Coffee_Sales_Receips.csv</p>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+![](../Figures/Part_1_4_Coffee_Shop_Transations.png){fig-align="center"}
+
+<div class="fragment">
+*> a bar chart makes it easy to compare between categories*
+</div>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. What time of day is the busiest?</p>
+
+<div class="fragment">
+![](../Figures/Part_1_4_Coffee_Shop_Transations_All_Hist.png){fig-align="center"}
+</div>
+
+<div class="fragment">
+*> a histogram makes it easy to compare time of day*
+</div>
+
+<div class="fragment">
+*> does this mean the morning shift at Shop A is the busiest?*
+</div>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> an overlaid histogram can show all three groups*
+
+<div class="fragment">
+![](../Figures/Part_1_4_Coffee_Shop_Transations_Shops_Hist.png){fig-align="center"}
+</div>
+
+<div class="fragment">
+*> does this show the data clearly?*
+</div>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> instead, lets use a line graph*
+
+<div class="fragment">
+![](../Figures/Part_1_4_Coffee_Shop_Transactions_Shops_Line.png){fig-align="center"}
+</div>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+
+<br><br>
+
+#### *Summary*
+
+::: {.incremental}
+- Categorical variables and continuous variables can give us different views of the same data.
+- Often we can visualize both views on the same graph using visualization techniques for continuous variables within the category.
+- Line graphs help simplify the visualization of multiple categories.
+:::
+

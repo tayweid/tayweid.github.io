@@ -9,6 +9,9 @@ format:
 ## ECON 0150 | Economic Data Analysis {.center}
 <p class="subheader-center">How economists analyze data.</p>
 
+<br> 
+
+### *Part 1.1-1.3 | Variable Types & Data Structures*
 ---
 
 ## Part 1.1 | Categorical Variables
@@ -45,7 +48,7 @@ format:
 :::
 
 ::: {.column width="60%"}
-![](Part_1_1_Binary_Categorical_Exercise.png)
+![](../Exercises/Figures/Part_1_1_Binary_Categorical_Exercise.png)
 
 :::
 :::
@@ -64,13 +67,13 @@ format:
 
 #### Summary
 
-- Similar to Binary
 - Use a ***Bar Plot***
+- Similar to Binary
 - More categories
 :::
 
 ::: {.column width="60%"}
-![](Part_1_1_Nominal_Categorical_Exercise.png)
+![](../Exercises/Figures/Part_1_1_Nominal_Categorical_Exercise.png)
 
 :::
 :::
@@ -89,13 +92,13 @@ format:
 
 #### Summary
 
-- Similar to categorical
 - Use a ***Bar Plot***
-- Order the axis
+- Similar to nominal
+- The axis is ordered
 :::
 
 ::: {.column width="60%"}
-![](Part_1_1_Ordinal_Categorical_Exercise.png)
+![](../Exercises/Figures/Part_1_1_Ordinal_Categorical_Exercise.png)
 
 :::
 :::
@@ -127,13 +130,13 @@ format:
 
 #### Summary
 
+- Use a ***Histogram*** or a ***Summary Table***
 - Similar to Ordinal Cat.
-- Use a ***Histogram***
-- Use a ***Summary Table***
+
 :::
 
 ::: {.column width="60%"}
-![](Part_1_2_Discrete_Numerical_Exercise.png)
+![](../Exercises/Figures/Part_1_2_Discrete_Numerical_Exercise.png)
 
 :::
 :::
@@ -153,15 +156,36 @@ format:
 #### Summary
 
 - Similar to Discrete
-- Use a ***Summary Table***
-- Use a ***Histogram***
-- Other visualizations
-  - *Boxplots*
-  - *Jittered Scatters*
+- Use a *Summary Table*, ***Histogram***, *Boxplot*, or *Jitter*
 :::
 
 ::: {.column width="60%"}
-![](Part_1_2_Continuous_Numerical_Exercise.png)
+![](../Exercises/Figures/Part_1_2_Continuous_Numerical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Part 1.2 | Continuous Numerical
+<p class="subheader">Exercise: Summarize continuous_numerical_dataset.csv</p>
+
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Similar to Discrete
+- Use a *Summary Table*, *Histogram*, ***Boxplot***, or ***Jitter***
+
+:::
+
+::: {.column width="60%"}
+<br>
+![](../Exercises/Figures/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
 
 :::
 :::
@@ -193,14 +217,40 @@ The way we understand data depends on the relationship between the data points.
 
 #### Summary
 
-- Focus on the distribution
-  - *Histogram*
+- Focus: distribution
+  - ***Histogram***
   - *Boxplots*
-  - *Jittered Scatters*
+  - *Jitters*
 :::
 
 ::: {.column width="60%"}
-![](Part_1_2_Continuous_Numerical_Exercise.png)
+![](../Exercises/Figures/Part_1_2_Continuous_Numerical_Exercise.png)
+
+:::
+:::
+
+
+---
+
+## Part 1.3 | Cross-Sec. Numerical
+<p class="subheader">Exercise: Summarize cross_sectional_numerical_dataset.csv</p>
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Focus: distribution
+  - *Histogram*
+  - ***Boxplots***
+  - ***Jitters***
+:::
+
+::: {.column width="60%"}
+<br>
+![](../Exercises/Figures/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
 
 :::
 :::
@@ -219,17 +269,69 @@ The way we understand data depends on the relationship between the data points.
 
 #### Summary
 
-- Show the distribution
-  - *Histogram*
+- Show: distribution
+  - ***Histogram***
   - *Boxplots*
   - *Jittered Scatters*
-- Link data in time
-  - Linegraph
+- Focus: time-path
+  - *Linegraph*
 :::
 
 ::: {.column width="60%"}
-![](Part_1_2_Continuous_Numerical_Exercise.png)
+![](../Exercises/Figures/Part_1_3_Time_Series_Histogram.png)
 
+:::
+:::
+
+---
+
+## Part 1.3 | Time-Series Numerical
+<p class="subheader">Exercise: Summarize time_series_numerical_dataset.csv</p>
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Show: distribution
+  - *Histogram*
+  - ***Boxplots***
+  - ***Jittered Scatters***
+- Focus: time-path
+  - *Linegraph*
+:::
+
+::: {.column width="60%"}
+<br><br>
+![](../Exercises/Figures/Part_1_3_Time_Series_Box_Scatter.png)
+:::
+:::
+
+---
+
+## Part 1.3 | Time-Series Numerical
+<p class="subheader">Exercise: Summarize time_series_numerical_dataset.csv</p>
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Show: distribution
+  - *Histogram*
+  - *Boxplots*
+  - *Jittered Scatters*
+- Focus: time-path
+  - ***Linegraph***
+:::
+
+::: {.column width="60%"}
+<br>
+![](../Exercises/Figures/Part_1_3_Time_Series_Line_Smooth.png)
 :::
 :::
 
@@ -240,13 +342,42 @@ The way we understand data depends on the relationship between the data points.
 
 ---
 
+## Part 1.3 | Panel Numerical
+<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
 
+![](../Exercises/Figures/Part_1_3_Panel_Line.png){fig-align="center"}
 
+. . . 
 
+*> not so great*
 
+---
 
+## Part 1.3 | Panel Numerical
+<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
 
+![](../Exercises/Figures/Part_1_3_Panel_Line_Highlight.png){fig-align="center"}
 
+*> a little better*
 
+---
 
+## Part 1.3 | Panel Numerical
+<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
 
+![](../Exercises/Figures/Part_1_3_Panel_Boxplot_Year.png){fig-align="center"}
+
+. . . 
+
+*> shows cross sectional variation through time*
+
+---
+
+## Part 1.3 | Panel Numerical
+<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
+
+![](../Exercises/Figures/Part_1_3_Panel_Boxplot_Household.png){fig-align="center"}
+
+. . . 
+
+*> shows variation within the household*
