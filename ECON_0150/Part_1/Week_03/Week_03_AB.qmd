@@ -18,10 +18,36 @@ format:
 ### *Example 1.4 | Coffee Shop Transaction*
 <p class="subheader">Examine Coffee_Sales_Receips.csv</p>
 
+<div class='fragment'>
+```{.python}
+# Load the data
+sales = pd.read_csv(file_path + file_name)
+```
+</div>
+
 ---
 
 ### *Part 1.4 | Numerical Variables by Category*
 <p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+<div class='fragment'>
+```{.python code-line-numbers="1-2|3-5"}
+# Count by category
+sales_counts = sales['sales_outlet_id'].value_counts()
+
+# Bar graph
+plt.bar(['A','B','C'], sales_counts.values)
+```
+</div>
+
+<div class='fragment'>
+![](../Figures/Part_1_4_Coffee_Shop_Transations.png){fig-align="center"}
+</div>
 
 ---
 
@@ -30,8 +56,25 @@ format:
 
 ![](../Figures/Part_1_4_Coffee_Shop_Transations.png){fig-align="center"}
 
-<div class="fragment">
 *> a bar chart makes it easy to compare between categories*
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. What time of day is the busiest?</p>
+
+<div class='fragment'>
+```{.python code-line-numbers="1-2|3-5"}
+# Create bins from 0 to 24
+bins = range(0, 24, 1)
+
+# Create a histogram
+plt.hist(sales['Hours'], bins=bins)
+```
+</div>
+
+<div class="fragment">
+![](../Figures/Part_1_4_Coffee_Shop_Transations_All_Hist.png){fig-align="center"}
 </div>
 
 ---
@@ -39,9 +82,7 @@ format:
 ### *Part 1.4 | Numerical Variables by Category*
 <p class="subheader">Q. What time of day is the busiest?</p>
 
-<div class="fragment">
 ![](../Figures/Part_1_4_Coffee_Shop_Transations_All_Hist.png){fig-align="center"}
-</div>
 
 <div class="fragment">
 *> a histogram makes it easy to compare time of day*
@@ -74,8 +115,31 @@ format:
 *> instead, lets use a line graph*
 
 <div class="fragment">
-![](../Figures/Part_1_4_Coffee_Shop_Transactions_Shops_Line.png){fig-align="center"}
+```{.python code-line-numbers="1-2|4-5|7-9|11-13"}
+# Select Shop A data, summarize, and sort
+shop_A = sales[sales.Shop == 'A'].Hours.value_counts().sort_index()
+
+# Plot Shop A
+plt.plot(shop_A, label='Shop A')
+
+# Shop B
+shop_B = sales[sales.Shop == 'B'].Hours.value_counts().sort_index()
+plt.plot(shop_B, label='Shop B')
+
+# Shop C
+shop_C = sales[sales.Shop == 'C'].Hours.value_counts().sort_index()
+plt.plot(shop_C, label='Shop C')
+```
 </div>
+
+---
+
+### *Part 1.4 | Numerical Variables by Category*
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> instead, lets use a line graph*
+
+![](../Figures/Part_1_4_Coffee_Shop_Transactions_Shops_Line.png){fig-align="center"}
 
 ---
 

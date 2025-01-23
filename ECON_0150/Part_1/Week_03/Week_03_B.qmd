@@ -15,93 +15,226 @@ format:
 
 ---
 
-## Example 1.5 | Starbucks Hours
+### Example 1.5 | Starbucks Hours
 <p class="subheader">Examine opening times in Starbucks_Location_Hours.csv</p>
 
+```{.python}
+# Load the data
+data = pd.read_csv(file_path + file_name)
+```
 ---
 
-## Part 1.5 | Filtering Data by Category
-<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+### Example 1.5 | Starbucks Hours
+<p class="subheader">Examine opening times in Starbucks_Location_Hours.csv</p>
+
+```{.python}
+# Load the data
+data = pd.read_csv(file_path + file_name)
+
+# Create histogram
+plt.hist(data['open'], bins=20)
+```
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
+::: {.fragment}
 ![](../Figures/Part_1_5_Starbucks_Opening_Times.png){fig-align="center"}
+:::
 
-. . .
-
+::: {.fragment}
 *> maybe there's something specific about the US though?*
+:::
 
-. . .
-
+::: {.fragment}
 *> filter only the US locations*
+:::
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter only the US locations*
 
 <br>
 
-. . .
+::: {.fragment}
+```{.python}
+# Decide whether each row's country code is 'US'
+data['COUNTRY_CODE'] == 'US'
+```
+:::
+
+---
+
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter only the US locations*
+
+<br>
 
 ```{.python}
-# Find the data in the US
-df[df['COUNTRY_CODE'] == 'US']
+# Decide whether each row's country code is 'US'
+# data['COUNTRY_CODE'] == 'US'
 ```
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter only the US locations*
+
+<br>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+# data['COUNTRY_CODE'] == 'US'
+
+# Select the rows with True
+us_data = data[data['COUNTRY_CODE'] == 'US']
+```
+
+---
+
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter only the US locations*
+
+<br>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+# data['COUNTRY_CODE'] == 'US'
+
+# Select the rows with True
+us_data = data[data['COUNTRY_CODE'] == 'US']
+
+# Create histogram
+plt.hist(us_data['open'], bins=20)
+```
+
+---
+
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
 
-. . .
-
+<div class="fragment">
 *> is there something different between the US and Canada?*
+</div>
 
-. . .
-
+<div class="fragment">
 *> filter for **BOTH** countries*
+</div>
 
 ---
 
-## Part 1.5 | Filtering Data by Category
-<p class="subheader">Lets us some Boolian Logic.</p>
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Lets us some Boolian logic :)</p>
 
 ![](../Figures/Part_0_Bool.png){fig-align="center"}
 
-. . .
-
+<div class="fragment">
 *> is there something different between the US and Canada?*
+</div>
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
 
-. . .
+<div class="fragment">
+```{.python code-line-numbers="4,7"}
+# Find the data in either the US or in Canada (CA)
+
+# Method 1: Using OR operator
+data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+```
+</div>
+
+---
+
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter for **BOTH** countries*
 
 ```{.python code-line-numbers="4,7"}
-# Find the data in either the US or in Canada
+# Find the data in either the US or in Canada (CA)
 
-# Method 1: Using isin()
-df[df['COUNTRY_CODE'].isin(['US', 'CN'])]
+# Method 1: Using OR operator
+data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
 
-# Method 2: Using OR operator
-df[(df['COUNTRY_CODE'] == 'US') | (df['COUNTRY_CODE'] == 'CN')]
+# Method 2: Using isin()
+data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
 ```
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter for **BOTH** countries*
+
+```{.python code-line-numbers="4,7"}
+# Find the data in either the US or in Canada (CA)
+
+# Method 1: Using OR operator
+# data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+
+# Method 2: Using isin()
+data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+```
+
+---
+
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter for **BOTH** countries*
+
+```{.python code-line-numbers="7"}
+# Find the data in either the US or in Canada (CA)
+
+# Method 1: Using OR operator
+# data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+
+# Method 2: Using isin() and define a new dataset
+us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+```
+
+---
+
+### Part 1.5 | Filtering Data by Category
+<p class="subheader">Q. What hours should a US coffee shop operate?</p>
+
+*> filter for **BOTH** countries*
+
+```{.python code-line-numbers="7,10"}
+# Find the data in either the US or in Canada (CA)
+
+# Method 1: Using OR operator
+# data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+
+# Method 2: Using isin() and define a new dataset
+us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+
+# Create histogram
+plt.hist(us_ca_data['open'], bins=20)
+```
+
+---
+
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
@@ -109,31 +242,30 @@ df[(df['COUNTRY_CODE'] == 'US') | (df['COUNTRY_CODE'] == 'CN')]
 ---
 
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Opening_Times_US_CA.png){fig-align="center"}
 
 ---
 
-## Part 1.5 | Filtering Data by Category
+### Part 1.5 | Filtering Data by Category
 <p class="subheader">Q. What would the histogram for the following filtered data look like?</p>
 
 <br>
 
 ```{.python code-line-numbers="4,7"}
-df[(df['COUNTRY_CODE'] == 'US') & (df['COUNTRY_CODE'] == 'CN')]
+data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 ```
 
-. . .
-
+<div class="fragment">
 *> it would contain no data!*
+</div>
+
 ---
 
-## Part 1.5 | Filtering Data by Inequality
+### Part 1.5 | Filtering Data by Inequality
 <p class="subheader">Filtering continuous data requires using inequalities.</p>
-
-. . .
 
 | Symbol | Python | | Example |
 |--------|--------------|--------------|---------|
@@ -146,63 +278,81 @@ df[(df['COUNTRY_CODE'] == 'US') & (df['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-## Part 1.5 | Filtering Data by Inequality
-<p class="subheader">Q. How long do locations stay open?</p>
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. How long do locations stay open?</p> 
 
-. . .
+---
+
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. How long do locations stay open?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Time_Open.png){fig-align="center"}
 
-. . .
-
+<div class="fragment">
 *> but is it different by opening time?*
+</div>
+
 ---
 
-## Part 1.5 | Filtering Data by Inequality
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
+
+![](../Figures/Part_1_5_Starbucks_Time_Open.png){fig-align="center"}
+
+---
+
+### Part 1.5 | Filtering Data by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Time_Open_7AM.png){fig-align="center"}
 
 ---
 
-## Part 1.5 | Filtering Data by Inequality
+### Part 1.5 | Filtering Data by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Time_Open_7AM_early.png){fig-align="center"}
 
-. . .
+*> we can also compare to locations that open early*
+
+---
+
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
+
+![](../Figures/Part_1_5_Starbucks_Time_Open_7AM_early.png){fig-align="center"}
 
 *> but maybe this differs country?*
 
 ---
 
-## Part 1.5 | Filtering Data by Inequality
-<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png){fig-align="center"}
 
-. . .
-
+<div class="fragment">
 *> maybe there's a more systematic way of showing these differences*
+</div>
 
 ---
 
-## Part 1.5 | Filtering Data by Inequality
-<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Duration_Line.png){fig-align="center"}
 
-. . .
-
+<div class="fragment">
 *> normalizing gives us a better picture of the distribution*
+</div>
 
 ---
 
-## Part 1.5 | Filtering Data by Inequality
-<p class="subheader">Q. Does the hours open at early open locations differ country?</p>
+### Part 1.5 | Filtering Data by Inequality
+<p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
 ![](../Figures/Part_1_5_Starbucks_Duration_Line_Normalized.png){fig-align="center"}
 
-. . .
-
-*>*
+<div class="fragment">
+*> normalizing the distributions allows us to compare filter*
+</div>
