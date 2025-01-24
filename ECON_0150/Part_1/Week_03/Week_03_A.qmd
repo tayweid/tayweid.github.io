@@ -2,7 +2,6 @@
 format:
   revealjs:
     css: custom.css
-    footer: "Taylor | ECON 0150 | Week 3 | Class A"
     transition: none
 ---
 
