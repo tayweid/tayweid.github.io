@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+    
+<title>Economic Data Analysis | Part 3</title>
+
+<link rel="stylesheet" href="Part.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+<body>
+
+<div class="body_table"><div>
+<div class="left_div" align="right">
+    <nav>
+        <ul>
+            <span>ECONOMIC</span>
+            <span>DATA</span>
+            <span>ANALYSIS</span>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_1">Part 1</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_2">Part 2</a></li>
+            <li><a class="active" href="">Part 3</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="content">
+    
+    <div class="description">
+        <h1 class="title"> Part 3 | Building Models</h1>
+        <!--<button onclick="myFunction()">Toggle dark mode</button>-->
+        <span style="font-size:20px; margin-left:10px; padding-bottom:20px; margin-top:-10px"><i>
+            "All models are wrong. Some are useful." - George Box
+        </i></span>
+        <p>
+            Part 3 is about building useful models. 
+            We start by building intuition for the distribution of the sample mean with the Central Limit Theorem.
+            Then we introduce the idea of a regression model, which is a way to predict the value of one variable based on the value of another.
+            We discuss how to understand when relationships are causal and how to estimate the effect of one variable on another.
+            Then we close by discussing how to visualize, test, and interpret the results of a regression model.
+        </p>
+    </div>
+
+    <div align="center" style="text-align: left;">
+        <div class="rounded-box">
+            <h2 class="subtitle">Final Project (
+                Description <a class="btn" href="Final/ECON_0150_Final_Project.pdf" target="_blank"><i class="fa fa-download"></i></a> 
+                | 
+                Ideas <a class="btn" href="Final/ECON_0150_Project_Proposals.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                )
+            </h2>
+            <h3>... a description of the final project and some example proposal ideas.</h3>
+        </div>
+    </div>
+
+    <!-- EPISODES -->
+
+    <div id="demo">
+        <h1 class="subtitle">Classwork</h1>
+        <p class="sub_description">
+            ... a collection of class slides and exercises.
+        </p>
+
+        <div class="rounded-box">
+
+        <h2>Part 3.1
+            (
+            Slides <span><a class="btn" href="Slides/Part_3_1_CLT.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            |
+            Notebook <span><a class="btn" href="https://colab.research.google.com/drive/1Y1wIHAhFHWACG5mPNdwHkyq8N-qsxXkJ?usp=drive_link" target="_blank"><i class="fa fa-download"></i></a></span>
+            )
+        </h2>
+        <h3>
+            Normal Distribution and CLT
+        </h3>
+        </div>
+
+        <div class="rounded-box">
+        <h2>Part 3.2
+            (
+            Slides <span><a class="btn" href="Slides/Part_3_2_Confidence.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            |
+            Notes <span><a class="btn" href="Slides/Part_3_2_Confidence_Intervals_Notes.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+            )
+        </h2>
+        <h3>
+            Confidence Intervals and Hypothesis Testing
+        </h3>
+        </div>
+
+        <div class="rounded-box">
+            <h2>Part 3.3
+                (
+                Slides <span><a class="btn" href="Slides/Part_3_3_Regression.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                |
+                Notebook and Data <span><a class="btn" href="https://drive.google.com/drive/folders/1gWpH3X2hLxqdQoH_9KlaHWdVAkMbqRHv?usp=sharing" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+            <h3>
+                Regression Models
+            </h3>
+        </div>
+        <div class="rounded-box">
+            <h2>Part 3.4
+                (
+                Slides <span><a class="btn" href="Slides/Part_3_4_Presentations.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
+                )
+            </h2>
+            <h3>
+                Presenting Results to a Live Audience
+            </h3>
+        </div>
+
+    </div>
+    
+    <!-- HOMEWORK -->
+    
+    <div id="homework">
+        <h1 class="subtitle">Homework</h1>
+        <p class="sub_description">
+            ... a set of problems you'll do on your own.
+        </p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 5 (
+                    <a class="btn" href="Homework/HW_5.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    |
+                    Data <span><a class="btn" href="Homework/HW5_Q5.csv" target="_blank"><i class="fa fa-download"></i></a></span>
+                    |
+                    Solutions <a class="btn" href="Homework/HW_5_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                )</h2>
+                <h3>
+                    ... a set of problems you'll do on your own, due on <i>Friday November 8</i> on the Gradescope portal.
+                </h3>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 6 (
+                    <a class="btn" href="Homework/HW_6.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    |
+                    Data <span><a class="btn" href="Homework/HW6_Q5.xlsx" target="_blank"><i class="fa fa-download"></i></a></span>
+                    |
+                    Solutions <a class="btn" href="Homework/HW_6_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                )</h2>
+                <h3>
+                    ... is due on <i>Tuesday November 19</i> on the Gradescope portal.
+                </h3>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 7 (
+                    <a class="btn" href="Homework/HW_7.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                    |
+                    Data <span><a class="btn" href="Homework/HW_7_Q2.csv" target="_blank"><i class="fa fa-download"></i></a></span>
+                    |
+                    Code <a class="btn" href="https://drive.google.com/drive/folders/1AAQ-sLBjTGZh20F9aX22RFE77STl6V-M?usp=sharing" target="_blank"><i class="fa fa-download"></i></a>
+                )</h2>
+                <h3>
+                    ... is due on <i>Sunday December 8</i> on the Gradescope portal.
+                </h3>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/QspxlAqcIHg?si=JX2JWieAeChF__Ne" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- MINIEXAM -->
+
+    <div id="miniexam">
+        <h1 class="subtitle" id="miniexam">Exams</h1>
+        <p class="sub_description">
+            ... are open book and open note.
+        </p>
+        <div class="rounded-box">
+            <h2 class="subtitle">Exam 3</h2>
+            <h3>
+                ... will be held on <i>Thursday November 21</i> and covers everything in Part 3.
+            </h3>
+        </div>
+
+        <div class="rounded-box">
+            <h2 class="subtitle">Exam 3 Example (
+                <a class="btn" href="Exam/Exam_3_Example.pdf" target="_blank"><i class="fa fa-download"></i></a>
+                |
+                Solutions <a class="btn" href="Exam/Exam_3_Example_sols.pdf" target="_blank"><i class="fa fa-download"></i></a>
+            )
+            </h2>
+            <h3>
+                ... will be held on <i>Thursday November 21</i> and covers everything in Part 3.
+            </h3>
+        </div>
+
+        <div align="center" style="text-align: left;"></div>
+    </div>
+
+    <div style="margin-bottom:50%"></div>
+
+</div>
+
+<!-- RIGHT NAVIGATION -->
+    
+<div  class="right_div">
+    <nav>
+        <ul>
+            <span>Contents</span>
+            <li><a href="#demo">Classwork</a></li>
+            <li><a href="#homework">Homework</a></li>
+            <li><a href="#miniexam">Exam</a></li>
+        </ul>
+        <!--<div class="vl"></div>-->
+    </nav>
+</div>
+
+</div></div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="Part.js"></script>

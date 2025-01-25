@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    
+<title>Economic Data Analysis | Part 1</title>
+
+<link rel="stylesheet" href="Part.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+<body>
+
+<div class="body_table"><div>
+<div class="left_div" align="right">
+    <nav>
+        <ul>
+            <a href="https://tayweid.github.io/ECON_0150/ECON_0150.html" class="title-link">
+                <span>ECONOMIC</span><br>
+                <span>DATA</span><br>
+                <span>ANALYSIS</span>
+            </a>
+            <br>
+            <li><a href="https://tayweid.github.io/ECON_0150/Web/Data.html">Data Hub</a></li>
+            <li><a class="active" href="">Part 1</a></li>
+            <li><a>Part 2</a></li>
+            <li><a>Part 3</a></li>
+            <li><a>Part 4</a></li>
+            <li><a>Part 5</a></li>
+            <li><a>Part 6</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="content">
+    
+    <div class="description">
+        <h1 class="title" style="margin-bottom:-5px"> Part 1 | Univariate EDA</h1>
+        <i style="font-size:20px; margin-left:20px">// start by summarizing your variables //</i>
+    </div>
+
+    <div id="week_02">
+        <h1 class="subtitle">Week 02 <i>(Jan 13 - Jan 17)</i></h1>
+        <p class="subtitle_description">... no MiniExam this week.</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 01 ( 
+                    <a class="btn" href="../HW/HW_01.pdf" download target="_blank">File</a> 
+                    )
+                </h2>
+                <p>> due on Friday January 17 at 5PM on Gradescope</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.0 // Data Types ( 
+                <a class="btn" href="../Slides/Part_1_0.pdf" target="_blank">Slides</a> 
+                )</h2>
+                <p>> variables are either categorical or numerical</p>
+                <hr>
+                <h3>
+                    Examples // Categorical Data
+                    ( 
+                    <a class="btn" href="https://drive.google.com/file/d/1OFCntgDuWrbvf9YPTLU7KNY3O-oKZp2N/view?usp=sharing">Notebook</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/binary_categorical_dataset.csv" target="_blank">Binary</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/nominal_categorical_dataset.csv" target="_blank">Nominal</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/ordinal_categorical_dataset.csv" target="_blank">Ordinal</a> 
+                    )
+                </h3>
+                <h4>> synthetic data and code to summarize the three main categorical variables</h4>
+                <hr>
+                <h3>
+                    Examples // Numerical Data
+                    ( 
+                    <a class="btn" href="https://drive.google.com/file/d/1ON6wOBes19Q1l1p9_jSoJ9hhTEbAaWZ0/view?usp=sharing">Notebook</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/discrete_numerical_dataset.csv" target="_blank">Discrete</a>
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/continuous_numerical_dataset.csv" target="_blank">Continuous</a> 
+                    )
+                </h3>
+                <h4>> synthetic data and code to summarize the two main numerical variables</h4>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.1 // Categorical Variables ( 
+                    <a class="btn" href="../Slides/Part_1_1.pdf" target="_blank">Slides</a> 
+                )
+                </h2>
+                <p>> summarizing categorical variables</p>
+                <hr>
+                <h3 class="subtitle">Example // Coffee Shop Locations ( 
+                    <a class="btn" href="../Examples/Part_1_1/Coffee_Shops.csv" target="_blank">Data</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_1/Coffee_Shops.xlsx" target="_blank">Excel</a> 
+                    )
+                </h3>
+                <h4>> the locations of a small (fictional) coffee shop chain</h4>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/nkNQBJfBmP4?si=c56lj0z0_VW4vn28" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.2 // Numerical Variables ( 
+                    <a class="btn" href="../Slides/Part_1_2.pdf" target="_blank">Slides</a> 
+                )
+                </h2>
+                <p>> summarizing numerical variables</p>
+                <hr>
+                <h3 class="subtitle">Example // Starbucks Customers ( 
+                    <a class="btn" href="../Examples/Part_1_2/Starbucks_Customer_Profiles.csv" target="_blank">Data</a>
+                    | 
+                    <a class="btn" href="../Examples/Part_1_2/Starbucks_Customer_Profiles.xlsx" target="_blank">Excel</a> 
+                    | 
+                    <a class="btn" href="https://www.kaggle.com/datasets/ylchang/coffee-shop-sample-data-1113" target="_blank">Source</a> 
+                    )
+                </h3>
+                <h4>> data on Starbucks customers</h4>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/FWprEGuPf-Y?si=thD3AjztVj1V-Vu6" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_03">
+        <h1 class="subtitle">Week 03 <i>(Jan 20 - Jan 24)</i></h1>
+        <p class="subtitle_description">... no class on Jan 20 and no MiniExam this week.</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 02 ( 
+                    <a class="btn" href="../HW/HW_02.pdf" download target="_blank">File</a> 
+                    )
+                </h2>
+                <p>> due on Friday January 24 at 5PM on Gradescope</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.3 // Data Structures ( 
+                <a class="btn" href="../Slides/Part_1_3.pdf" target="_blank">Slides</a> 
+                )</h2>
+                <p>> visualizing relationships between data points</p>
+                <hr>
+                <h3>
+                    Examples // Data Structures
+                    ( 
+                    <a class="btn" href="https://drive.google.com/file/d/1YVc0_Kj6M6ymej1JZXMqFlOyFsXXKKv1/view?usp=sharing">Notebook</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/continuous_numerical_dataset.csv" target="_blank">Cross-Sectional</a>
+                    |  
+                    <a class="btn" href="../Examples/Part_1_0/time_series_numerical_dataset.csv" target="_blank">Time-Series</a>
+                    | 
+                    <a class="btn" href="../Examples/Part_1_0/panel_numerical_dataset.csv" target="_blank">Panel</a> 
+                    )
+                </h3>
+                <h4>> three univariate data structures</h4>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.4 // Numerical Variables by Cateogry ( 
+                <a class="btn" href="../Slides/Part_1_4.pdf" target="_blank">Slides</a> 
+                | 
+                <a class="btn" href="../Slides/Part_1_4.html" target="_blank">Interactive</a> 
+                )</h2>
+                <p>> visualizing continuous variables by category</p>
+                <hr>
+                <h3>Example // Transations by Shop Location ( 
+                    <!--<a class="btn" href="https://drive.google.com/file/d/1X2RbA2DvbStiTPZUH8XDiorCNu86XRZI/view?usp=sharing" target="_blank">Notebook</a> 
+                    | -->
+                    <a class="btn" href="../Examples/Part_1_4/Coffee_Sales_Reciepts.csv" target="_blank">Data</a> 
+                    | 
+                    <a class="btn" href="https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data" target="_blank">Source</a> 
+                    | 
+                    <a class="btn" href="../Examples/Part_1_4/Coffee_Sales_Reciepts.xlsx" target="_blank">Excel</a>
+                    )</h3>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/5g3Wc6L4jcg?si=43ijfFFnUNAHEmWS" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.5 // Filtering Data ( 
+                <a class="btn" href="../Slides/Part_1_5.pdf" target="_blank">Slides</a> 
+                | 
+                <a class="btn" href="../Slides/Part_1_5.html" target="_blank">Interactive</a> 
+                )</h2>
+                <p>> understand subsets of the data with logical conditions</p>
+                <hr>
+                <h3>Example // Starbucks Hours ( 
+                    <!--<a class="btn" href="https://drive.google.com/file/d/1XCJBbyVj7klR9Q2w8qk-XYG9gsE2WlvP/view?usp=sharing" target="_blank">Notebook</a> 
+                    | -->
+                    <a class="btn" href="../Examples/Part_1_5/Starbucks_Location_Hours.csv" target="_blank">Data</a> 
+                )</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_04">
+        <h1 class="subtitle">Week 04 <i>(Jan 27 - Jan 31)</i></h1>
+        <p class="subtitle_description">... MiniExam at the start of the week.</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.6 // Grouping Data</h2>
+                <p>> summarizing data by group</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 1.7 // Transforming Data</h2>
+                <p>> making a variable more informative</p>
+            </div>
+        </div>
+
+    </div>
+    
+    <div style="margin-bottom:50%"></div>
+
+</div>
+
+<!-- RIGHT NAVIGATION -->
+    
+<div  class="right_div">
+    <nav>
+        <ul>
+            <span>Contents</span>
+            <li><a href="#week_02">Week 02 ( HW )</a></li>
+            <li><a href="#week_03">Week 03 ( HW )</a></li>
+            <li><a href="#week_04">Week 04 ( HW | ME )</a></li>
+        </ul>
+        <!--<div class="vl"></div>-->
+    </nav>
+</div>
+
+</div></div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="Part.js"></script>
