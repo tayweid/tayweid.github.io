@@ -149,7 +149,7 @@ p > a:hover {
     max-width: 100%;
 }
 
-.video_wrap iframe {
+.video_wrap > iframe {
     position: absolute;
     top: 0;
     left: 0;
