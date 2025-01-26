@@ -142,8 +142,11 @@ p > a:hover {
 }
 
 .video_wrap {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    transform: translateZ(0); /* Forces hardware acceleration */
+    backface-visibility: hidden; /* Reduces flickering */
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
     max-width: 100%;
