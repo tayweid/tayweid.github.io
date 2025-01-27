@@ -1,0 +1,308 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.6 | Grouping Data*
+
+---
+
+## Example 1.6 | Starbucks Offers
+<p class="subheader-center">In starbucks_promotions.csv, which offers are most effective?</p>
+
+. . .
+
+<br>
+
+```{.python code-line-numbers="2|5"}
+# Import packages
+import pandas as pd
+
+# Load data
+data = pd.read_csv("starbucks_offers.csv")
+```
+
+---
+
+## Starbucks Offers | The Original Table
+<p class="subheader-center">Which offers are most effective?</p>
+
+We have a table of events ...
+
+<br><br><br>
+
+<div class='fragment'>
+*>not straightforward to see which offers are most effective*
+</div>
+
+---
+
+## Starbucks Offers | Grouping and Summing
+<p class="subheader-center">Which offers are most effective?</p>
+
+#### Summarize total revenue by `Offer ID`:
+
+<div class='fragment'>
+1. Filter (if needed; keep all rows for now)
+</div>
+<div class='fragment'>
+```{.python code-line-numbers="2"}
+# Filter (no filter here yet)
+#data = data[filter]
+```
+</div>
+
+<br>
+
+<div class='fragment'>
+2. Group by `Offer ID`
+</div>
+
+<div class='fragment'>
+```{.python code-line-numbers="2"}
+# Group by ID
+grouped_by_id = data.groupby("Offer ID")
+```
+</div>
+
+<br>
+
+<div class='fragment'>
+3. Sum revenue by group
+</div>
+
+<div class='fragment'>
+```{.python code-line-numbers="2"}
+# Sum revenue by group
+grouped_revenue = grouped_by_id["Revenue"].sum()
+```
+</div>
+
+::: notes
+Notice we now get a table with 5 rows (one for each offer).
+This helps us see total revenue per offer, but not average revenue yet.
+:::
+
+---
+
+## Starbucks Offers | Grouping and Summing
+<p class="subheader-center">Which offers are most effective?</p>
+
+![](../Examples/Part_1_6/i/1.png)
+
+
+---
+
+## Starbucks Offers | Grouping
+<p class="subheader-center">Which offers are most effective?</p>
+
+We can group on any cateogrical variable, like `Event`:
+
+<div class='fragment'>
+```{.python code-line-numbers="2"}
+# Summarize total revenue by 'Event'
+event_summary = data.groupby("Event")["Revenue"].sum()
+```
+</div>
+
+<div class='fragment'>
+![](../Examples/Part_1_6/i/2.png)
+</div>
+
+<div class='fragment'>
+*> "Offer" and "Offer Completed" events have 0 revenue, so you’ll see zeros for those rows*
+</div>
+
+---
+
+## Starbucks Offers | Use Grouping to Count
+<p class="subheader-center">But how many offers are there per group?</p>
+
+<div class='fragment'>
+Instead of summing, count how many rows there are for each event type:
+
+```{.python code-line-numbers="2"}
+# Count number of each event
+event_count = data.groupby("Event")["Event"].count()
+```
+</div>
+
+<div class='fragment'>
+![](../Examples/Part_1_6/i/3.png)
+</div>
+
+---
+
+## Starbucks Offers | Filtering + Grouping
+<p class="subheader-center">What is the average transaction amount per offer type?</p>
+
+#### Mean Revenue per Transaction
+
+<div class='fragment'>
+1. Filter `Event == "transaction"` (exclude zero-revenue "Offer" rows)
+```{.python}
+# Filter for transactions only
+transactions_only = data[data["Event"] == "transaction"]
+```
+</div>
+
+<br>
+
+<div class='fragment'>
+2. Group by Offer ID
+</div>
+
+<div class='fragment'>
+```{.python}
+# Group by Offer ID
+transaction_groups = transactions_only.groupby("Offer ID")
+```
+</div>
+
+<br>
+
+<div class='fragment'>
+3. Take the mean of the revenue column
+```{.python}
+# Take the mean revenue
+mean_revenue = transaction_groups["Revenue"].mean()
+```
+</div>
+
+---
+
+## Starbucks Offers | Filtering + Grouping
+<p class="subheader-center">What is the average transaction amount per offer type?</p>
+
+![](../Examples/Part_1_6/i/4.png)
+
+<div class='fragment'>
+*> this often gives a better picture of how much people spend per transaction when they use the offer*
+</div>
+
+---
+
+## Starbucks Offers | Drawing Conclusions
+<p class="subheader-center">Which offers are truly most effective?</p>
+
+1. How many times was each offer sent?
+```{.python}
+# Count offers by Offer ID
+offers_only = data[data["Event"] == "offer"] # Filter for Offer
+offers_count = offers_only.groupby("Offer ID")["Event"].count()
+```
+<br>
+
+2. How many times was each offer actually used?
+
+```{.python}
+# Count transactions by Offer ID
+transactions_only = data[data["Event"] == "transaction"] # Filter for Transaction
+transactions_count = transactions_only.groupby("Offer ID")["Event"].count()
+```
+
+<br> 
+
+3. Total revenue or average revenue from those used offers.
+```{.python}
+# Sum revenue by Offer ID
+grouped_revenue = data.groupby("Offer ID")["Revenue"].sum()
+```
+
+---
+
+## Starbucks Offers | Combining Results
+<p class="subheader-center">Which offers are truly most effective?</p>
+
+Combine into a single data frame:
+
+- `offers_count`
+- `transactions_count`
+- `grouped_revenue`
+
+```{.python}
+summary = pd.DataFrame({
+    "Offers": offers_count,
+    "Transactions": transactions_count,
+    "Revenue": grouped_revenue
+})
+```
+
+Create new columns
+
+```{.python}
+# Create a "Revenue per Offer" column
+summary["Revenue_per_Offer"] = summary["Revenue"] / summary["Offers"]
+
+# Create a "Transactions per Offer" column
+summary["Transactions_per_Offer"] = summary["Transactions"] / summary["Offers"]
+```
+
+---
+
+## Starbucks Offers | Revenue Figure
+<p class="subheader-center">Which offers are truly most effective?</p>
+
+```{.python}
+# Plot revenue per offer
+summary_df["Revenue_per_Offer"].plot(kind='barh', title="Revenue per Offer")
+```
+
+<div class='fragment'>
+![](../Examples/Part_1_6/i/5.png)
+</div>
+
+---
+
+## Starbucks Offers | Transaction Figure
+<p class="subheader-center">Which offers are truly most effective?</p>
+
+```{.python}
+# Plot transactions per offer
+summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per Offer")
+```
+
+<div class='fragment'>
+![](../Examples/Part_1_6/i/6.png)
+</div>
+
+---
+
+## Starbucks Offers | Both Figures
+
+![](../Examples/Part_1_6/i/5.png)
+
+![](../Examples/Part_1_6/i/6.png)
+
+---
+
+## Starbucks Offers | Interpretation
+<p class="subheader-center">Which offers are most effective?</p>
+
+<br><br>
+
+- The offer 5off20 has the highest **revenue** but a lower **redemption rate**.
+- The offer 3off7 has a high **redemption rate** but the discount may be costly to Starbucks.
+- The offer 2off10 lands solidly in the top on both metrics and represents a more modest discount.
+
+---
+
+## Part 1.6 | Summary
+
+<br><br>
+
+::: {.incremental}
+- **Group and Aggregate**: Group by relevant columns to quickly summarize data <br>
+- **Filtering Matters**: Filter out irrelevant rows before grouping
+- **Common Aggregations**: Use summaries like **sum**, **count**, **mean**, or **max**
+- **Widespread Use**: This technique is core to data analysis in nearly every field
+- **Next Steps**: Combine grouping and filtering with joins, pivots, or merges for even richer analysis and visualization.
+:::
+
