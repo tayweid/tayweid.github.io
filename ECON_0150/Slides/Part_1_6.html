@@ -230,7 +230,7 @@ Which offers are most effective?
 <p class="subheader-center">
 Which offers are most effective?
 </p>
-<h4 id="summarize-total-revenue-by-offer-id">Summarize total revenue by <code>Offer ID</code>:</h4>
+<p>We could start by summarizing total revenue by <code>Offer ID</code>.</p>
 <div class="fragment">
 <ol type="1">
 <li>Filter (if needed; keep all rows for now)</li>
@@ -317,7 +317,7 @@ But how many offers are there per group?
 <p class="subheader-center">
 What is the average transaction amount per offer type?
 </p>
-<h4 id="mean-revenue-per-transaction">Mean Revenue per Transaction</h4>
+<p>Lets account for these zero revenue events by filtering for transactions.</p>
 <div class="fragment">
 <ol type="1">
 <li>Filter <code>Event == "transaction"</code> (exclude zero-revenue “Offer” rows)</li>
@@ -359,48 +359,60 @@ What is the average transaction amount per offer type?
 <p class="subheader-center">
 Which offers are truly most effective?
 </p>
+<div class="fragment">
 <ol type="1">
 <li>How many times was each offer sent?</li>
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Count offers by Offer ID</span></span>
 <span id="cb10-2"><a href=""></a>offers_only <span class="op">=</span> data[data[<span class="st">"Event"</span>] <span class="op">==</span> <span class="st">"offer"</span>] <span class="co"># Filter for Offer</span></span>
 <span id="cb10-3"><a href=""></a>offers_count <span class="op">=</span> offers_only.groupby(<span class="st">"Offer ID"</span>)[<span class="st">"Event"</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p><br></p>
+<div class="fragment">
 <ol start="2" type="1">
 <li>How many times was each offer actually used?</li>
 </ol>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Count transactions by Offer ID</span></span>
 <span id="cb11-2"><a href=""></a>transactions_only <span class="op">=</span> data[data[<span class="st">"Event"</span>] <span class="op">==</span> <span class="st">"transaction"</span>] <span class="co"># Filter for Transaction</span></span>
 <span id="cb11-3"><a href=""></a>transactions_count <span class="op">=</span> transactions_only.groupby(<span class="st">"Offer ID"</span>)[<span class="st">"Event"</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p><br></p>
+<div class="fragment">
 <ol start="3" type="1">
 <li>Total revenue or average revenue from those used offers.</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Sum revenue by Offer ID</span></span>
 <span id="cb12-2"><a href=""></a>grouped_revenue <span class="op">=</span> data.groupby(<span class="st">"Offer ID"</span>)[<span class="st">"Revenue"</span>].<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="starbucks-offers-combining-results" class="slide level2">
 <h2>Starbucks Offers | Combining Results</h2>
 <p class="subheader-center">
 Which offers are truly most effective?
 </p>
-<p>Combine into a single data frame:</p>
-<ul>
-<li><code>offers_count</code></li>
-<li><code>transactions_count</code></li>
-<li><code>grouped_revenue</code></li>
-</ul>
+<div class="fragment">
+<p><em>&gt; shouldn’t we instead find the value for each offer?</em></p>
+</div>
+<div class="fragment">
+<p>Combine <code>offers_count</code>, <code>transactions_count</code>, and <code>grouped_revenue</code> into a single data frame.</p>
+</div>
+<div class="fragment">
 <div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>summary <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb13-2"><a href=""></a>    <span class="st">"Offers"</span>: offers_count,</span>
 <span id="cb13-3"><a href=""></a>    <span class="st">"Transactions"</span>: transactions_count,</span>
 <span id="cb13-4"><a href=""></a>    <span class="st">"Revenue"</span>: grouped_revenue</span>
 <span id="cb13-5"><a href=""></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Create new columns</p>
+</div>
+<div class="fragment">
+<p>Use this combined dataframe to construct new columns.</p>
+</div>
+<div class="fragment">
 <div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Create a "Revenue per Offer" column</span></span>
 <span id="cb14-2"><a href=""></a>summary[<span class="st">"Revenue_per_Offer"</span>] <span class="op">=</span> summary[<span class="st">"Revenue"</span>] <span class="op">/</span> summary[<span class="st">"Offers"</span>]</span>
 <span id="cb14-3"><a href=""></a></span>
 <span id="cb14-4"><a href=""></a><span class="co"># Create a "Transactions per Offer" column</span></span>
 <span id="cb14-5"><a href=""></a>summary[<span class="st">"Transactions_per_Offer"</span>] <span class="op">=</span> summary[<span class="st">"Transactions"</span>] <span class="op">/</span> summary[<span class="st">"Offers"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="starbucks-offers-revenue-figure" class="slide level2">
 <h2>Starbucks Offers | Revenue Figure</h2>
@@ -428,6 +440,18 @@ Which offers are truly most effective?
 <h2>Starbucks Offers | Both Figures</h2>
 <p><img data-src="../Examples/Part_1_6/i/5.png"></p>
 <p><img data-src="../Examples/Part_1_6/i/6.png"></p>
+</section>
+<section id="starbucks-offers-grouped-bar" class="slide level2">
+<h2>Starbucks Offers | Grouped Bar</h2>
+
+<img data-src="../Examples/Part_1_6/i/5_6_a.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; different axis scales make it difficult to interpret</em></p>
+</div>
+</section>
+<section id="starbucks-offers-dual-axis-grouped-bar" class="slide level2">
+<h2>Starbucks Offers | Dual-Axis Grouped Bar</h2>
+
+<img data-src="../Examples/Part_1_6/i/5_6_b.png" class="r-stretch"><p><em>&gt; maybe a bit better</em></p>
 </section>
 <section id="starbucks-offers-interpretation" class="slide level2">
 <h2>Starbucks Offers | Interpretation</h2>

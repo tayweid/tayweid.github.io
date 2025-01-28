@@ -47,7 +47,7 @@ We have a table of events ...
 ## Starbucks Offers | Grouping and Summing
 <p class="subheader-center">Which offers are most effective?</p>
 
-#### Summarize total revenue by `Offer ID`:
+We could start by summarizing total revenue by `Offer ID`.
 
 <div class='fragment'>
 1. Filter (if needed; keep all rows for now)
@@ -143,7 +143,7 @@ event_count = data.groupby("Event")["Event"].count()
 ## Starbucks Offers | Filtering + Grouping
 <p class="subheader-center">What is the average transaction amount per offer type?</p>
 
-#### Mean Revenue per Transaction
+Lets account for these zero revenue events by filtering for transactions.
 
 <div class='fragment'>
 1. Filter `Event == "transaction"` (exclude zero-revenue "Offer" rows)
@@ -192,14 +192,18 @@ mean_revenue = transaction_groups["Revenue"].mean()
 ## Starbucks Offers | Drawing Conclusions
 <p class="subheader-center">Which offers are truly most effective?</p>
 
+<div class='fragment'>
 1. How many times was each offer sent?
 ```{.python}
 # Count offers by Offer ID
 offers_only = data[data["Event"] == "offer"] # Filter for Offer
 offers_count = offers_only.groupby("Offer ID")["Event"].count()
 ```
+</div>
+
 <br>
 
+<div class='fragment'>
 2. How many times was each offer actually used?
 
 ```{.python}
@@ -207,26 +211,32 @@ offers_count = offers_only.groupby("Offer ID")["Event"].count()
 transactions_only = data[data["Event"] == "transaction"] # Filter for Transaction
 transactions_count = transactions_only.groupby("Offer ID")["Event"].count()
 ```
+</div>
 
 <br> 
 
+<div class='fragment'>
 3. Total revenue or average revenue from those used offers.
 ```{.python}
 # Sum revenue by Offer ID
 grouped_revenue = data.groupby("Offer ID")["Revenue"].sum()
 ```
+</div>
 
 ---
 
 ## Starbucks Offers | Combining Results
 <p class="subheader-center">Which offers are truly most effective?</p>
 
-Combine into a single data frame:
+<div class='fragment'>
+*> shouldn't we instead find the value for each offer?*
+</div>
 
-- `offers_count`
-- `transactions_count`
-- `grouped_revenue`
+<div class='fragment'>
+Combine `offers_count`, `transactions_count`, and `grouped_revenue` into a single data frame.
+</div>
 
+<div class='fragment'>
 ```{.python}
 summary = pd.DataFrame({
     "Offers": offers_count,
@@ -234,9 +244,13 @@ summary = pd.DataFrame({
     "Revenue": grouped_revenue
 })
 ```
+</div>
 
-Create new columns
+<div class='fragment'>
+Use this combined dataframe to construct new columns.
+</div>
 
+<div class='fragment'>
 ```{.python}
 # Create a "Revenue per Offer" column
 summary["Revenue_per_Offer"] = summary["Revenue"] / summary["Offers"]
@@ -244,6 +258,7 @@ summary["Revenue_per_Offer"] = summary["Revenue"] / summary["Offers"]
 # Create a "Transactions per Offer" column
 summary["Transactions_per_Offer"] = summary["Transactions"] / summary["Offers"]
 ```
+</div>
 
 ---
 
@@ -280,6 +295,24 @@ summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per O
 ![](../Examples/Part_1_6/i/5.png)
 
 ![](../Examples/Part_1_6/i/6.png)
+
+---
+
+## Starbucks Offers | Grouped Bar
+
+![](../Examples/Part_1_6/i/5_6_a.png)
+
+<div class='fragment'>
+*> different axis scales make it difficult to interpret*
+</div>
+
+---
+
+## Starbucks Offers | Dual-Axis Grouped Bar
+
+![](../Examples/Part_1_6/i/5_6_b.png)
+
+*> maybe a bit better*
 
 ---
 
