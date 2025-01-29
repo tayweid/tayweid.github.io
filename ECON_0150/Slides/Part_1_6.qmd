@@ -117,7 +117,7 @@ event_summary = data.groupby("Event")["Revenue"].sum()
 </div>
 
 <div class='fragment'>
-*> "Offer" and "Offer Completed" events have 0 revenue, so you’ll see zeros for those rows*
+*> "Offer" has 0 revenue, so you’ll see zeros for those rows*
 </div>
 
 ---
@@ -126,7 +126,7 @@ event_summary = data.groupby("Event")["Revenue"].sum()
 <p class="subheader-center">But how many offers are there per group?</p>
 
 <div class='fragment'>
-Instead of summing, count how many rows there are for each event type:
+We can also use groups to count how many rows there are for each event type:
 
 ```{.python code-line-numbers="2"}
 # Count number of each event
@@ -137,6 +137,11 @@ event_count = data.groupby("Event")["Event"].count()
 <div class='fragment'>
 ![](../Examples/Part_1_6/i/3.png)
 </div>
+
+. . .
+
+*> lets use counting approach to help us determine effectiveness*
+
 
 ---
 
@@ -187,41 +192,64 @@ mean_revenue = transaction_groups["Revenue"].mean()
 *> this often gives a better picture of how much people spend per transaction when they use the offer*
 </div>
 
+. . .
+
+*> but we might also want to account for how many times the offer was sent out in the first place*
+
 ---
 
 ## Starbucks Offers | Drawing Conclusions
 <p class="subheader-center">Which offers are truly most effective?</p>
 
-<div class='fragment'>
-1. How many times was each offer sent?
+1. How many times was each offer type sent?
+
+. . .
+
 ```{.python}
 # Count offers by Offer ID
-offers_only = data[data["Event"] == "offer"] # Filter for Offer
-offers_count = offers_only.groupby("Offer ID")["Event"].count()
+offers_count = data.groupby("Offer ID")["Event"].count()
 ```
-</div>
 
-<br>
+. . .
 
-<div class='fragment'>
+![](../Examples/Part_1_6/i/4_1.png)
+
+---
+
+## Starbucks Offers | Drawing Conclusions
+<p class="subheader-center">Which offers are truly most effective?</p>
+
 2. How many times was each offer actually used?
+
+. . .
 
 ```{.python}
 # Count transactions by Offer ID
 transactions_only = data[data["Event"] == "transaction"] # Filter for Transaction
 transactions_count = transactions_only.groupby("Offer ID")["Event"].count()
 ```
-</div>
 
-<br> 
+. . .
 
-<div class='fragment'>
-3. Total revenue or average revenue from those used offers.
+![](../Examples/Part_1_6/i/4_2.png)
+
+---
+
+## Starbucks Offers | Drawing Conclusions
+<p class="subheader-center">Which offers are truly most effective?</p>
+
+3. Revenue by group.
+
+. . .
+
 ```{.python}
 # Sum revenue by Offer ID
 grouped_revenue = data.groupby("Offer ID")["Revenue"].sum()
 ```
-</div>
+
+. . .
+
+![](../Examples/Part_1_6/i/4_3.png)
 
 ---
 
@@ -229,7 +257,7 @@ grouped_revenue = data.groupby("Offer ID")["Revenue"].sum()
 <p class="subheader-center">Which offers are truly most effective?</p>
 
 <div class='fragment'>
-*> shouldn't we instead find the value for each offer?*
+*> lets find the value for each offer type*
 </div>
 
 <div class='fragment'>
@@ -291,6 +319,7 @@ summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per O
 ---
 
 ## Starbucks Offers | Both Figures
+<p class="subheader-center">Which offers are truly most effective?</p>
 
 ![](../Examples/Part_1_6/i/5.png)
 
@@ -299,6 +328,7 @@ summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per O
 ---
 
 ## Starbucks Offers | Grouped Bar
+<p class="subheader-center">Which offers are truly most effective?</p>
 
 ![](../Examples/Part_1_6/i/5_6_a.png)
 
@@ -309,6 +339,7 @@ summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per O
 ---
 
 ## Starbucks Offers | Dual-Axis Grouped Bar
+<p class="subheader-center">Which offers are truly most effective?</p>
 
 ![](../Examples/Part_1_6/i/5_6_b.png)
 

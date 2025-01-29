@@ -26,7 +26,7 @@ format:
 import pandas as pd
 
 # Load data
-hours = pd.read_csv("Starbucks_Location_Hours.csv")
+hours = pd.read_csv(file_path + "Starbucks_Location_Hours.csv")
 ```
 
 . . .
@@ -64,10 +64,10 @@ plt.hist(hours.open)
 
 ```{.python code-line-numbers="2,5"}
 # Normalize to GMT
-hours['open_GMT'] = hours['open'] - hours['timezone']
+hours['open_GMT_simple'] = hours['open'] - hours['timezone']
 
 # Histogram of opening times (GMT)
-plt.hist(hours.open_GMT)
+plt.hist(hours.open_GMT_simple)
 ```
 
 . . .
@@ -92,7 +92,7 @@ plt.hist(hours.open_GMT)
 
 ```{.python code-line-numbers="2,5"}
 # Normalize to 24 hours
-hours['open_GMT'] = hours['open_GMT'].mod(24)
+hours['open_GMT'] = hours['open_GMT_simple'].mod(24)
 ```
 
 . . .
@@ -106,10 +106,10 @@ hours['open_GMT'] = hours['open_GMT'].mod(24)
 
 ```{.python code-line-numbers="2,5"}
 # Normalize to GMT
-hours['close_GMT'] = hours['close'] - hours['timezone']
+hours['close_GMT_simple'] = hours['close'] - hours['timezone']
 
 # Histogram of opening times (GMT)
-plt.hist(hours.close_GMT)
+plt.hist(hours.close_GMT_simple)
 ```
 
 ![](../Examples/Part_1_7/i/4.png)
@@ -123,7 +123,7 @@ plt.hist(hours.close_GMT)
 
 ```{.python code-line-numbers="2"}
 # Normalize to 24 hours
-hours['close_GMT'] = hours['close_GMT'].mod(24)
+hours['close_GMT'] = hours['close_GMT_simple'].mod(24)
 ```
 
 . . .
@@ -150,11 +150,13 @@ hours['close_GMT'] = hours['close_GMT'].mod(24)
 ## Location Hours
 <p class="subheader-center">So, how many locations are open at each hour of the day? </p>
 
+*> lets sum up all the shops that have opened <b>that day</b>*
+
 . . .
 
 ```{.python code-line-numbers="2|5"}
 # Construct values by bin
-opened_values = hours['open_GMT'].value_counts(bins=24, sort=False)
+opened_values = hours['open_GMT'].value_counts().sort_index()
 
 # Cumulative sum
 total_opened = opened_values.cumsum()
