@@ -19,3 +19,11 @@ Maybe Part 1.0 is about organizing data into structures and types. Then call the
 Then I'll call Part 0 the survey demo that we'll do on day one. This demo would include discussion of data types and structures, univariate data, multivariate data, a t-test, a regression, and a fixed effect. 
 
 Then Day Two would start on Part 1.0 with the exercises. 
+
+#### Part 6
+
+use this for visualization by category https://youtu.be/ZUeWXNK-9yA?si=LEYkZq8h0wSB9ckt
+
+economist charts https://www.youtube.com/watch?v=cGGkAGBre3A&t=0s
+
+more on fixing slides https://youtu.be/zZ4dmIMlHvI?si=zlwtZDPEseH9prup
