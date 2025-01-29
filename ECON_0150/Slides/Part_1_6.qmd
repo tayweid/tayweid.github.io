@@ -352,9 +352,9 @@ summary_df["Transactions_per_Offer"].plot(kind='barh', title="Transactions per O
 
 <br><br>
 
-- The offer 5off20 has the highest **revenue** but a lower **redemption rate**.
-- The offer 3off7 has a high **redemption rate** but the discount may be costly to Starbucks.
-- The offer 2off10 lands solidly in the top on both metrics and represents a more modest discount.
+1. The offer 5off20 has the highest **revenue** but a lower **redemption rate**.
+2. The offer 3off7 has a high **redemption rate** but the discount may be costly to Starbucks.
+3. The offer 2off10 lands solidly in the top on both metrics and represents a more modest discount.
 
 ---
 
