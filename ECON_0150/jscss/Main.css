@@ -5,13 +5,20 @@ body {
     /*
 
     */
-    font-family: 'Roboto', sans-serif; font-weight: 100;
+    font-family: 'Roboto', sans-serif;
     font-family: 'Open Dyslexic', sans-serif;
 
-    font-family: 'Roboto Slab', serif; font-weight: 100;
-
+    font-family: 'Roboto Slab', serif;
+    font-family: 'JetBrains Mono', monospace;
     font-weight: 100
   }
+
+/* jetbrains mono font styling */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 100;
+}
 
 :root {
     --background_color: #181818; /* #f1f1f1; */
