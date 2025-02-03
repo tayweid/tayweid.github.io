@@ -31,3 +31,19 @@ Anyway, I hope this offers some extra guidance for the first MiniExam this comin
 Yours,
 
 Taylor
+
+#### Economic Data Analysis: Week 5 (starting Part 2; MiniExam 02; Homework 04)
+
+Hi folks,
+
+Welcome to week 5. We're on a direct path toward building statistical models of behavior. We've nearly wrapped up Part 1, exploring univariate data, exploring variable types and data structures, and filtering, grouping, and transforming variables. Before building the intuition for all the models that will come later, this week we'll start exploring multivariate data in Part 2.
+
+Also, MiniExam 02 will be the first thing we do this week, focusing on filtering, grouping, and transforming data. While ME 01 tested your ability to identify data types and choose visualizations, ME 02 will ask you to apply the data manipulation skills we've been practicing.
+
+Just like our previous homework and in-class examples prepared you for ME 01, our recent exercises have given you direct practice with the skills you'll need for ME 02. You've already worked with these concepts – now you'll show what you've learned. Remember, it's 8 minutes, so not hugely taxing.
+
+Anyway, I hope the weekend has been lovely! See ya soon.
+
+Yours,
+
+Taylor
