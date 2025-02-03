@@ -32,20 +32,19 @@ def Weid_Fig(rows=1, widths=10, height=6, dpi=400, fontsize=10):
         'axes.labelsize': fontsize
     })
     
-    total_width = 10
+    total_width = widths
     if type(widths) == list:
         widths = [w/total_width for w in widths]
         cols = len(widths)
     if type(widths) in [int, int]:
-        widths = [1]
         cols = 1
     
     fig, axes = plt.subplots(
         rows, 
         cols, 
-        figsize=(10, height), 
+        figsize=(widths, height), 
         dpi=dpi,
-        gridspec_kw={'width_ratios': widths}
+        gridspec_kw={'width_ratios': [widths]}
         )
     
     return fig, axes
