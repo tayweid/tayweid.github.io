@@ -3,10 +3,11 @@ format:
   revealjs:
     css: custom.css
     transition: none
+    aspect-ratio: "16:9"
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader-center">The economist's data analysis pipeline.</p>
+<p class="subheader">The economist's data analysis pipeline.</p>
 
 <br> 
 
@@ -15,7 +16,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Q. Is there a relationship between GDP and coffee production?</p>
+<p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](../Examples/Part_2_1/i/1.png){fig-align="center"}
 
@@ -30,7 +31,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Q. Is there a relationship between GDP and coffee production?</p>
+<p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](../Examples/Part_2_1/i/2.png){fig-align="center"}
 
@@ -41,7 +42,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Q. Is there a relationship between GDP and coffee production?</p>
+<p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](../Examples/Part_2_1/i/3.png){fig-align="center"}
 
@@ -52,7 +53,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries have a GDP above $2 trillion?</p>
+<p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 ![](../Examples/Part_2_1/i/3.png){fig-align="center"}
 
@@ -61,7 +62,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries have a GDP above $2 trillion?</p>
+<p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 
 ![](../Examples/Part_2_1/i/4.png){fig-align="center"}
@@ -71,7 +72,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries have a production above ½ billion kg?</p>
+<p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](../Examples/Part_2_1/i/3.png){fig-align="center"}
 
@@ -80,7 +81,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries have a production above ½ billion kg?</p>
+<p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](../Examples/Part_2_1/i/5.png){fig-align="center"}
 
@@ -89,7 +90,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries produce less coffee per dollar than Brazil?</p>
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](../Examples/Part_2_1/i/3.png){fig-align="center"}
 
@@ -98,7 +99,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries produce less coffee per dollar than Brazil?</p>
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](../Examples/Part_2_1/i/6.png){fig-align="center"}
 
@@ -107,7 +108,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries produce less coffee per dollar than Brazil?</p>
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](../Examples/Part_2_1/i/7.png){fig-align="center"}
 
@@ -116,7 +117,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries produce less coffee per dollar than Brazil?</p>
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](../Examples/Part_2_1/i/8.png){fig-align="center"}
 
@@ -125,7 +126,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which countries produce more coffee per dollar than Brazil?</p>
+<p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
 ![](../Examples/Part_2_1/i/9.png){fig-align="center"}
 
@@ -134,7 +135,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Do the GDPs of the upper or lower pair differ by a larger amount?</p>
+<p class="subheader">Do the GDPs of the upper or lower pair differ by a larger amount?</p>
 
 ![](../Examples/Part_2_1/i/10.png){fig-align="center"}
 
@@ -145,7 +146,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
+<p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](../Examples/Part_2_1/i/10.png){fig-align="center"}
 
@@ -156,7 +157,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
+<p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](../Examples/Part_2_1/i/11.png){fig-align="center"}
 
@@ -165,7 +166,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country produces the second highest output of coffee?</p>
+<p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](../Examples/Part_2_1/i/11.png){fig-align="center"}
 
@@ -176,7 +177,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country produces the second highest output of coffee?</p>
+<p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](../Examples/Part_2_1/i/12.png){fig-align="center"}
 
@@ -187,7 +188,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">How does GDP relate to coffee production in the Americas?</p>
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
 ![](../Examples/Part_2_1/i/13.png){fig-align="center"}
 
@@ -198,7 +199,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">How does GDP relate to coffee production in the Americas?</p>
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
 ![](../Examples/Part_2_1/i/14.png){fig-align="center"}
 
@@ -209,7 +210,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country in the Americas produces the most coffee?</p>
+<p class="subheader">Which country in the Americas produces the most coffee?</p>
 
 ![](../Examples/Part_2_1/i/14.png){fig-align="center"}
 
@@ -218,7 +219,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country in the Americas produces the most coffee?</p>
+<p class="subheader">Which country in the Americas produces the most coffee?</p>
 
 ![](../Examples/Part_2_1/i/15.png){fig-align="center"}
 
@@ -227,7 +228,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country’s GDP is closest to Brazil’s GDP?</p>
+<p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
 ![](../Examples/Part_2_1/i/15.png){fig-align="center"}
 
@@ -236,7 +237,7 @@ format:
 ---
 
 ## Relationships Between Variables
-<p class="subheader-center">Which country’s GDP is closest to Brazil’s GDP?</p>
+<p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
 ![](../Examples/Part_2_1/i/16.png){fig-align="center"}
 
@@ -244,391 +245,23 @@ format:
 
 ---
 
+## Summary
+
+<br><br>
+
+::: {.incremental}
+- Relationships between two variables can be easily summarized in scatterplots.
+- Scatterplots make it easy to visually filter either axis.
+- Scatterplots make it easy to compare absolute differences by axis.
+- A log-scale transformation makes it easy to compare ratios.
+- A log-log-scale makes it easy to see variation in both large and small values.
+:::
+
+---
+
 ## Exercise: Scatterplots
-<p class="subheader-center">Visualizing GDP and Coffee Production Relationships</p>
+<p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
 
 We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.
 
 - **Data:** `Beans_GDP.csv`
-
----
-
-## Relationships Between Variables
-<p class="subheader-center"> Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/17.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center"> Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/18.png){fig-align="center"}
-
-. . .
-
-*> this is still pretty unclear*
-
-. . .
-
-*> lets focus on one year for a sec*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center"> Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/19.png){fig-align="center"}
-
-*> boxplots can tell us about quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center"> Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-*> adding a jittered scatter makes it even clearer*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which countries consume more than 8 kg per capita?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which countries consume more than 8 kg per capita?</p>
-
-![](../Examples/Part_2_1/i/21.png){fig-align="center"}
-
-. . .
-
-*> we can highlight the relevant subsets of the data*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes the most coffee per capita?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-. . .
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes the most coffee per capita?</p>
-
-![](../Examples/Part_2_1/i/22.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">How about the least consumption per capita?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">How about the least consumption per capita?</p>
-
-![](../Examples/Part_2_1/i/23.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">How about the median?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">How about the median?</p>
-
-![](../Examples/Part_2_1/i/24.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes more than exactly 25% of countries?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes more than exactly 25% of countries?</p>
-
-![](../Examples/Part_2_1/i/25.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes more than exactly 75% of countries?</p>
-
-![](../Examples/Part_2_1/i/20.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which country consumes more than exactly 75% of countries?</p>
-
-![](../Examples/Part_2_1/i/26.png){fig-align="center"}
-
-*> we can find the exact values according to quartiles*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/27.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/28.png){fig-align="center"}
-
-*> no - boxplots can visualize the distribution of the data, but we need something else for comparison through time*
-
----
-
-## Exercise: Boxplots
-<p class="subheader-center">Exploring Coffee Consumption Distribution</p>
-
-We’re going to use a boxplot to visually examine the distribution of coffee consumption per capita among coffee-importing countries.
-
-- **Data:** `Coffee_Per_Cap.csv`
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
-. . .
-
-*> lets maybe start with a smaller question*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years show at least half consuming less than 5 kg per cap?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years show at least half consuming less than 5 kg per cap?</p>
-
-![](../Examples/Part_2_1/i/30.png){fig-align="center"}
-
-*> focus on the medians*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years show at least half consuming less than 5 kg per cap?</p>
-
-![](../Examples/Part_2_1/i/34.png){fig-align="center"}
-
-*> ... when the median is above 5 kg per cap*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Between which two years was there the largest jump in the median?</p>
-
-![](../Examples/Part_2_1/i/30.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Between which two years was there the largest jump in the median?</p>
-
-![](../Examples/Part_2_1/i/31.png){fig-align="center"}
-
-*> it's maybe a little difficult to see*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Is the country with the lowest consumption consuming more today?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Is the country with the lowest consumption consuming more today?</p>
-
-![](../Examples/Part_2_1/i/32.png){fig-align="center"}
-
-*> focus on the minimums*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">What patterns do we observe about the maximums?</p>
-
-![](../Examples/Part_2_1/i/33.png){fig-align="center"}
-
-*> same with the maximums*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years did more than 25% consume less than 5 kg?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
-. . .
-
-*> loook at the 25%*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years did more than 25% consume less than 5 kg?</p>
-
-![](../Examples/Part_2_1/i/35.png){fig-align="center"}
-
-*> loook at the 25% and compare it to 5 kg per cap*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which years did more than 25% consume less than 5 kg?</p>
-
-![](../Examples/Part_2_1/i/36.png){fig-align="center"}
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which year saw the greatest difference between any two countries?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
-. . .
-
-*> loook at the range*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which year saw the greatest difference between any two countries?</p>
-
-![](../Examples/Part_2_1/i/37.png){fig-align="center"}
-
-*> loook at the range*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which year saw the greatest difference between any two countries?</p>
-
-![](../Examples/Part_2_1/i/38.png){fig-align="center"}
-
-*> loook at the range and select the largest*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">In which year did all countries increase their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/29.png){fig-align="center"}
-
-. . .
-
-*> not visible in the figure!*
-
----
-
-## Exercise: Boxplots
-
-We're going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries. 
-- **Data:** `Coffee_Per_Cap.csv`
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Did all countries increase their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/39.png){fig-align="center"}
-
-. . .
-
-*> a scatter plot can visualize changes between two points in time*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Did all countries increase their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/40.png){fig-align="center"}
-
-*> a 45 degree line shows all the possible points with no change*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which countries increased their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/40.png){fig-align="center"}
-
-*> a 45 degree line shows all the possible points with no change*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which countries decreased their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/42.png){fig-align="center"}
-
-*> points below the line show decreases*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Which countries decreased their coffee consumption?</p>
-
-![](../Examples/Part_2_1/i/42.png){fig-align="center"}
-
-*> this might also benefit from a log scale*
-
----
-
-## Relationships Between Variables
-<p class="subheader-center">Does the data confirm that the world is drinking more coffee?</p>
-
-![](../Examples/Part_2_1/i/43.png){fig-align="center"}
-
-*> colors can visualize both increases and decreases*

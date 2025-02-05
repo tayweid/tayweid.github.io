@@ -69,3 +69,10 @@ li {
 .reveal .footer {
   font-size: 32px !important;;
 }
+
+.reveal h2 {
+    font-weight: normal;  /* or 400 */
+}
+.reveal h3 {
+    font-weight: normal;  /* or 400 */
+}
