@@ -19,7 +19,8 @@
     color: #666;
     font-size: 0.8em;
     transform: translateY(-25px) translateX(40px);
-    padding-bottom: 10px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .subheader-center {

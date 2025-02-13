@@ -1,4 +1,4 @@
-,date,nominal_price,date_column,year,today,cpi
+,date,nominal_price,date_column,year,dollar_today,cpi
 0,8/20/73,0.6735,8/20/73,1973,0.141221374,44.4
 1,8/21/73,0.671,8/21/73,1973,0.141221374,44.4
 2,8/22/73,0.658,8/22/73,1973,0.141221374,44.4
