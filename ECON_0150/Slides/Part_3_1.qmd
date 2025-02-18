@@ -51,7 +51,7 @@ format:
 
 <br>
 
-**Median**: *the value separating the higher and lower halfs*
+**Median**: *the value separating the higher and lower halves*
 
 . . .
 
@@ -111,9 +111,9 @@ $$\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}$$
 
 . . .
 
-**Deviation**: difference between each value and the average
+**Mean Deviation**: difference between each value and the average
 
-$$ \sum x_i - \bar{x} = (X - \bar{X}) / n$$
+$$ \sum \frac{x_i - \bar{x}}{n} = \frac{X - \bar{X}}{n}$$
 
 . . .
 
@@ -121,9 +121,9 @@ $$ \sum x_i - \bar{x} = (X - \bar{X}) / n$$
 
 . . .
 
-**Absolute Deviation**: absolute value of the difference from the average
+**Mean Absolute Deviation**: absolute value of the difference from the average
 
-$$ \sum |x_i - \bar{x}| = |X - \bar{X}| / n$$
+$$ \sum \frac{|x_i - \bar{x}|}{n} = \frac{|X - \bar{X}|}{n}$$
 
 . . .
 
@@ -137,7 +137,7 @@ $$ \sum |x_i - \bar{x}| = |X - \bar{X}| / n$$
 
 **Variance**: average squared difference from the mean
 
-$$ Var(X) = \sum (x_i - \bar{x})^2 = (X - \bar{X})^2 / n$$
+$$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n}$$
 
 . . .
 
