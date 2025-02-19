@@ -240,8 +240,6 @@ $$ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}
 ---
 
 ## Random Variables: Known Distribution
-
-
 <p class="subheader"> Example: Rich Person Bet</p>
 
 We'll toss a coin once:
@@ -256,6 +254,10 @@ What are expected value (theoretical mean), variance, and standard deviation of 
 <br><br>
 
 > lets solve this theoretically and by simulation in python
+
+. . .
+
+*> we'll find that the "sampling error" matches the distribution*
 
 ---
 
@@ -296,9 +298,9 @@ What are expected value (theoretical mean), variance, and standard deviation of 
 ---
 
 ## Random Variables: Known Distribution
-<p class="subheader"> Example: Manufaturing Errors </p>
+<p class="subheader"> Example: Manufaturing Defects </p>
 
-Manufacturing errors of a part follow a normal distribution *(in cm)* with:
+Manufacturing defects of a part follow a normal distribution *(in cm)* with:
 
 - `target_length = 100`
 - `standard_error = 0.1`
@@ -312,16 +314,16 @@ We expect this to be normally distributed:
 
 . . .
 
-- Multiple independent factors contribute to each error.
-- Small errors are more common than large ones.
-- Positive and negative errors are equally likely.
+- Multiple independent factors contribute to each defect.
+- Small defects are more common than large ones.
+- Positive and negative defects are equally likely.
 
 ---
 
 ## Random Variables: Known Distribution
-<p class="subheader"> Example: Manufaturing Errors </p>
+<p class="subheader"> Example: Manufaturing Defects </p>
 
-Manufacturing errors of a part follow a normal distribution *(in cm)* with:
+Manufacturing defects of a part follow a normal distribution *(in cm)* with:
 
 - `target_length = 100`
 - `standard_error = 0.1`
@@ -336,7 +338,7 @@ Manufacturing errors of a part follow a normal distribution *(in cm)* with:
 
 . . .
 
-2. How many parts will have errors greater than 1/2 cm?
+2. How many parts will have defects greater than 1/2 cm?
 
 . . .
 
@@ -345,7 +347,7 @@ Manufacturing errors of a part follow a normal distribution *(in cm)* with:
 ---
 
 ## Random Variables
-<p class="subheader"> What is the distribution of a dataset?</p>
+<p class="subheader"> ... main definitions</p>
 
 **If we know the distribution:**
 

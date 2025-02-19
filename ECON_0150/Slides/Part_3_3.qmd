@@ -1,0 +1,156 @@
+
+# Part 4: The t-Distribution
+
+## Why Not Just Use the Normal Distribution? {.smaller}
+
+When σ is unknown (almost always), we estimate it with s:
+
+:::: {.columns}
+::: {.column width="50%"}
+- This introduces additional uncertainty
+- Solution: Use the t-distribution
+- Properties:
+  - Similar shape to normal but with heavier tails
+  - Approaches normal as n increases
+  - Defined by degrees of freedom (df = n-1)
+:::
+
+::: {.column width="50%"}
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+x = np.linspace(-4, 4, 1000)
+y_norm = stats.norm.pdf(x, 0, 1)
+y_t_3 = stats.t.pdf(x, 3)
+y_t_30 = stats.t.pdf(x, 30)
+
+plt.figure(figsize=(5, 3))
+plt.plot(x, y_norm, 'b-', label='Normal')
+plt.plot(x, y_t_3, 'r-', label='t (df=3)')
+plt.plot(x, y_t_30, 'g-', label='t (df=30)')
+plt.legend(fontsize=8)
+plt.title('Normal vs. t-distributions')
+plt.tight_layout()
+plt.show()
+```
+:::
+::::
+
+# Part 5: Confidence Intervals
+
+## Building a Confidence Interval {.smaller}
+
+A 95% confidence interval for the mean:
+
+:::: {.columns}
+::: {.column width="50%"}
+- Formula: x̄ ± t₀.₀₂₅ × (s/√n)
+- Where:
+  - x̄ is the sample mean
+  - s is the sample standard deviation
+  - n is the sample size
+  - t₀.₀₂₅ is the critical t-value
+- Interpretation: 95% of similarly constructed intervals will contain μ
+:::
+
+::: {.column width="50%"}
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+np.random.seed(42)
+sample = np.random.normal(12, 2.5, 30)
+sample_mean = np.mean(sample)
+sample_std = np.std(sample, ddof=1)
+df = len(sample) - 1
+t_crit = stats.t.ppf(0.975, df)
+margin = t_crit * (sample_std / np.sqrt(len(sample)))
+ci_lower = sample_mean - margin
+ci_upper = sample_mean + margin
+
+plt.figure(figsize=(5, 3))
+plt.hist(sample, bins=10, alpha=0.5)
+plt.axvline(x=sample_mean, color='red', linestyle='-', 
+            label=f'Sample Mean: {sample_mean:.1f}')
+plt.axvline(x=ci_lower, color='green', linestyle='--')
+plt.axvline(x=ci_upper, color='green', linestyle='--')
+plt.fill_betweenx([0, 12], ci_lower, ci_upper, color='green', alpha=0.2,
+                 label=f'95% CI: [{ci_lower:.1f}, {ci_upper:.1f}]')
+plt.axvline(x=12, color='blue', alpha=0.5, linestyle='-',
+            label='True Mean: 12.0')
+plt.legend(fontsize=7)
+plt.title('95% Confidence Interval')
+plt.tight_layout()
+plt.show()
+```
+:::
+::::
+
+## Many Confidence Intervals {.smaller}
+
+Collecting 20 different samples and their 95% confidence intervals:
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+np.random.seed(123)
+n_samples = 20
+sample_size = 30
+true_mean = 12
+
+samples = [np.random.normal(true_mean, 2.5, sample_size) for _ in range(n_samples)]
+CIs = []
+captures = []
+
+for s in samples:
+    mean = np.mean(s)
+    std = np.std(s, ddof=1)
+    margin = stats.t.ppf(0.975, sample_size-1) * (std / np.sqrt(sample_size))
+    ci = [mean - margin, mean + margin]
+    CIs.append(ci)
+    captures.append(ci[0] <= true_mean <= ci[1])
+
+plt.figure(figsize=(7, 5))
+for i, (ci, cap) in enumerate(zip(CIs, captures)):
+    color = 'blue' if cap else 'red'
+    plt.plot([ci[0], ci[1]], [i, i], color=color, alpha=0.6, linewidth=2)
+    plt.plot(np.mean(s), i, 'o', color=color, markersize=4)
+
+plt.axvline(x=true_mean, color='black', linestyle='--', 
+            label='True Mean')
+plt.title(f'95% Confidence Intervals from 20 Samples\n{sum(captures)} intervals capture the true mean')
+plt.xlabel('Value')
+plt.yticks([])
+plt.legend()
+plt.grid(alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+## Bringing it All Together {.smaller}
+
+1. We start with a **sample** when the population parameters are unknown
+2. The **CLT** tells us that sample means follow a normal distribution
+3. The **t-distribution** accounts for estimating the standard deviation
+4. **Confidence intervals** express our uncertainty about the true mean
+
+::: {.callout-tip appearance="simple"}
+## Key Concept
+Confidence intervals are built on the sampling distribution of the mean. They don't tell us the probability that μ is in the interval, but rather the reliability of our interval-creation process.
+:::
+
+## Questions to Consider
+
+1. How does sample size affect the width of confidence intervals?
+2. What happens to the t-distribution as sample size increases?
+3. Would the CLT work for extremely skewed distributions?
+4. How would we construct a 99% confidence interval instead of 95%?
