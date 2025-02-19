@@ -137,7 +137,7 @@ $$ \sum \frac{|x_i - \bar{x}|}{n} = \frac{|X - \bar{X}|}{n}$$
 
 **Variance**: average squared difference from the mean
 
-$$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n}$$
+$$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n} = \frac{X - \bar{X}}{n}$$
 
 . . .
 
@@ -153,7 +153,7 @@ $$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n}$$
 
 **Standard Deviation**: a sort of average deviation from the mean
 
-$$ \sigma_X = \sqrt{\sum (x_i - \bar{x})^2} = \sqrt{(X - \bar{X})^2 / n} $$
+$$ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}{n}}$$
 
 . . .
 
@@ -167,25 +167,11 @@ $$ \sigma_X = \sqrt{\sum (x_i - \bar{x})^2} = \sqrt{(X - \bar{X})^2 / n} $$
 ## Random Variables
 <p class="subheader"> What is data? ... some fancy definitions....</p>
 
-**Random Variable**: *a function that assigns a number to each possible outcome of a random process*
-
-<br><br><br>
-
-. . .
-
-*> just think of it like you're drawing a card from a shuffled deck*
-
-. . .
-
-*> which card you pull is random and depends on which cards are in the deck*
-
-
----
-
-## Random Variables: Tennis Example
-<p class="subheader"> What is data? ... some fancy definitions....</p>
-
 **Random Variable**: *a function that assigns a number to each possible outcome of a random process (discrete or continuous)*
+
+. . .
+
+*> the random variable is like a deck with any collection of cards*
 
 . . .
 
@@ -193,29 +179,39 @@ $$ \sigma_X = \sqrt{\sum (x_i - \bar{x})^2} = \sqrt{(X - \bar{X})^2 / n} $$
 
 . . .
 
+*> the probability function is like which cards are in the deck*
+
+. . .
+
 **Observation**: *a realization of a random variable*
-
-. . .
-
-**Sample**: *a collection of observations*
-
-<br><br>
-
-. . .
-
-*> the random variable is the deck*
-
 . . .
 
 *> the observation is the card you drew*
 
 . . .
 
+**Sample**: *a collection of observations*
+
+. . .
+
 *> the sample is the record of cards you've drawn*
+
+<br>
 
 . . .
 
 *> are the ages in the survey a random variable or observations?*
+
+## Random Variables
+<p class="subheader"> What is data? A sample.</p>
+
+**Random Variable**: *a function that assigns a number to each possible outcome of a random process (discrete or continuous)*
+
+**Probability Mass/Density Function**: *a function that assigns probabilities to each possible outcome*
+
+**Observation**: *a realization of a random variable*
+
+**Sample**: *a collection of observations*
 
 ---
 
@@ -226,21 +222,27 @@ $$ \sigma_X = \sqrt{\sum (x_i - \bar{x})^2} = \sqrt{(X - \bar{X})^2 / n} $$
 
 ---
 
-## Random Variables
+## Random Variables: Known Distribution
 <p class="subheader"> What is data?</p>
 
 <br><br>
 
-- Knowing the distribution, we can compute mean, standard deviation, etc.
+**If we know the distribution:**
 
 . . .
 
-- This makes it easy to answer questions about the population. 
+- We can compute mean, standard deviation, etc.
+
+. . .
+
+- We can easily answer questions about the population. 
 
 ---
 
-## Random Variables: Rich Person Bet Example
-<p class="subheader"> What is data?</p>
+## Random Variables: Known Distribution
+
+
+<p class="subheader"> Example: Rich Person Bet</p>
 
 We'll toss a coin once:
 
@@ -253,12 +255,12 @@ What are expected value (theoretical mean), variance, and standard deviation of 
 
 <br><br>
 
-*> lets do it in two ways (theoretical and simulation) in the notebook!*
+> lets solve this theoretically and by simulation in python
 
 ---
 
-## Random Variables: Bus Times Example
-<p class="subheader"> What is the distribution of bus arrival times?</p>
+## Random Variables: Known Distribution
+<p class="subheader"> Example: Bus Times </p>
 
 . . .
 
@@ -266,54 +268,140 @@ What are expected value (theoretical mean), variance, and standard deviation of 
 
 . . .
 
+> find the expected value of wait time
+
+. . .
+
 2. What's the probability I'll have to wait more than 20 minutes?
+
+. . .
+
+> find the area under the curve beyond 20 minutes
 
 . . .
 
 3. What's the probability my wait will be between 5 and 15 minutes?
 
+. . .
+
+> find the area under the curve between 5 and 15 minutes
+
 ---
 
-## Random Variables: Bus Times Example
-<p class="subheader"> What is the distribution of bus arrival times?</p>
+## Random Variables: Known Distribution
+<p class="subheader"> Example: Bus Times </p>
 
 ![](../Examples/Part_3_1/i/bus_wait_times.png){fig-align="center"}
 
 ---
 
-## Random Variables: Ages Example
+## Random Variables: Known Distribution
+<p class="subheader"> Example: Manufaturing Errors </p>
+
+Manufacturing errors of a part follow a normal distribution *(in cm)* with:
+
+- `target_length = 100`
+- `standard_error = 0.1`
+
+<br>
+
+. . .
+
+
+We expect this to be normally distributed:
+
+. . .
+
+- Multiple independent factors contribute to each error.
+- Small errors are more common than large ones.
+- Positive and negative errors are equally likely.
+
+---
+
+## Random Variables: Known Distribution
+<p class="subheader"> Example: Manufaturing Errors </p>
+
+Manufacturing errors of a part follow a normal distribution *(in cm)* with:
+
+- `target_length = 100`
+- `standard_error = 0.1`
+
+. . .
+
+1. How many parts will be shorter than 99 cm?
+
+. . .
+
+> find the area under the curve below 99 cm
+
+. . .
+
+2. How many parts will have errors greater than 1/2 cm?
+
+. . .
+
+> find the area under the curve between 100 - 1/2 and 100 + 1/2
+
+---
+
+## Random Variables
+<p class="subheader"> What is the distribution of a dataset?</p>
+
+**If we know the distribution:**
+
+. . .
+
+- We know the distribution, mean, standard deviation, etc.
+  1. Probability function ($f$)
+  2. Mean ($\mu$)
+  3. Standard deviation ($\sigma$)
+
+. . .
+
+**If we don't know the distribution:**
+
+. . .
+
+- We can compute 
+  1. Sample size ($n$)
+  2. Sample mean ($\bar{x}$)
+  3. Sample standard deviation ($S$)
+
+- But how might we find the distribution?
+
+---
+
+## Random Variables: Unknown Distribution
 <p class="subheader"> What is the distribution of ages in this class?</p>
 
-<br><br>
+- Sample size ($n$): 
 
-- Knowing the distribution, we can compute mean, standard deviation, etc.
-- This makes it easy to answer questions about the population. 
+- Sample mean ($\bar{x}$):
+
+- Sample standard deviation ($S$):
+
+. . .
+
+*> these are descriptives of the ***sample** *not the distribution ($\mu \neq \bar{x}$)*
 
 . . .
 
 <br><br>
-
-- What is the distribution of ages in this class?
-
----
-
-## Random Variables: Ages Example
-<p class="subheader"> What is the distribution of ages in this class?</p>
-
-<br><br><br>
 
 > see notebook
 
 . . .
 
-<br>
+*> we cannot see the distribution... we only observe realizations from it*
 
-*> unclear ... we only observe the realizations of a random variable*
+. . .
+
+*> what ***can** *we say about ages when we don't know the distribution?*
 
 ---
 
-## Random Variables
-<p class="subheader"> What do we do when we don't know the distribution?</p>
+## Random Variables: Unknown Distribution
+<p class="subheader"> What can we know when we don't know the distribution?</p>
 
 <br><br><br>
 

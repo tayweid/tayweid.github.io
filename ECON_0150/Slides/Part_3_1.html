@@ -272,7 +272,7 @@ How spread out is the data?
 How spread out is the data?
 </p>
 <p><strong>Standard Deviation</strong>: a sort of average deviation from the mean</p>
-<p><span class="math display">\[ \sigma_X = \sqrt{\sum (x_i - \bar{x})^2} = \sqrt{(X - \bar{X})^2 / n} \]</span></p>
+<p><span class="math display">\[ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}{n}}\]</span></p>
 <div class="fragment">
 <ul>
 <li>Treats negatives appropriately</li>
@@ -287,43 +287,40 @@ How spread out is the data?
 <p class="subheader">
 What is data? … some fancy definitions….
 </p>
-<p><strong>Random Variable</strong>: <em>a function that assigns a number to each possible outcome of a random process</em></p>
-<p><br><br><br></p>
-<div class="fragment">
-<p><em>&gt; just think of it like you’re drawing a card from a shuffled deck</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; which card you pull is random and depends on which cards are in the deck</em></p>
-</div>
-</section>
-<section id="random-variables-tennis-example" class="slide level2">
-<h2>Random Variables: Tennis Example</h2>
-<p class="subheader">
-What is data? … some fancy definitions….
-</p>
 <p><strong>Random Variable</strong>: <em>a function that assigns a number to each possible outcome of a random process (discrete or continuous)</em></p>
+<div class="fragment">
+<p><em>&gt; the random variable is like a deck with any collection of cards</em></p>
+</div>
 <div class="fragment">
 <p><strong>Probability Mass/Density Function</strong>: <em>a function that assigns probabilities to each possible outcome</em></p>
 </div>
 <div class="fragment">
-<p><strong>Observation</strong>: <em>a realization of a random variable</em></p>
+<p><em>&gt; the probability function is like which cards are in the deck</em></p>
 </div>
 <div class="fragment">
-<p><strong>Sample</strong>: <em>a collection of observations</em></p>
-<p><br><br></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the random variable is the deck</em></p>
-</div>
-<div class="fragment">
+<p><strong>Observation</strong>: <em>a realization of a random variable</em> . . .</p>
 <p><em>&gt; the observation is the card you drew</em></p>
 </div>
 <div class="fragment">
+<p><strong>Sample</strong>: <em>a collection of observations</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; the sample is the record of cards you’ve drawn</em></p>
+<p><br></p>
 </div>
 <div class="fragment">
 <p><em>&gt; are the ages in the survey a random variable or observations?</em></p>
 </div>
+</section>
+<section id="random-variables-1" class="slide level2">
+<h2>Random Variables</h2>
+<p class="subheader">
+What is data? A sample.
+</p>
+<p><strong>Random Variable</strong>: <em>a function that assigns a number to each possible outcome of a random process (discrete or continuous)</em></p>
+<p><strong>Probability Mass/Density Function</strong>: <em>a function that assigns probabilities to each possible outcome</em></p>
+<p><strong>Observation</strong>: <em>a realization of a random variable</em></p>
+<p><strong>Sample</strong>: <em>a collection of observations</em></p>
 </section>
 <section id="some-known-distributions" class="slide level2">
 <h2>Some Known Distributions</h2>
@@ -332,25 +329,28 @@ What is data? … some fancy definitions….
 </p>
 
 <img data-src="../Examples/Part_3_1/i/distributions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="random-variables-1" class="slide level2">
-<h2>Random Variables</h2>
+<section id="random-variables-known-distribution" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
 What is data?
 </p>
 <p><br><br></p>
-<ul>
-<li>Knowing the distribution, we can compute mean, standard deviation, etc.</li>
-</ul>
+<p><strong>If we know the distribution:</strong></p>
 <div class="fragment">
 <ul>
-<li>This makes it easy to answer questions about the population.</li>
+<li>We can compute mean, standard deviation, etc.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>We can easily answer questions about the population.</li>
 </ul>
 </div>
 </section>
-<section id="random-variables-rich-person-bet-example" class="slide level2">
-<h2>Random Variables: Rich Person Bet Example</h2>
+<section id="random-variables-known-distribution-1" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
-What is data?
+Example: Rich Person Bet
 </p>
 <p>We’ll toss a coin once:</p>
 <ul>
@@ -360,13 +360,15 @@ What is data?
 <p>What are expected value (theoretical mean), variance, and standard deviation of the change in your wealth after this coin toss?</p>
 <div class="fragment">
 <p><br><br></p>
-<p><em>&gt; lets do it in two ways (theoretical and simulation) in the notebook!</em></p>
+<blockquote>
+<p>lets solve this theoretically and by simulation in python</p>
+</blockquote>
 </div>
 </section>
-<section id="random-variables-bus-times-example" class="slide level2">
-<h2>Random Variables: Bus Times Example</h2>
+<section id="random-variables-known-distribution-2" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
-What is the distribution of bus arrival times?
+Example: Bus Times
 </p>
 <div class="fragment">
 <ol type="1">
@@ -374,58 +376,152 @@ What is the distribution of bus arrival times?
 </ol>
 </div>
 <div class="fragment">
+<blockquote>
+<p>find the expected value of wait time</p>
+</blockquote>
+</div>
+<div class="fragment">
 <ol start="2" type="1">
 <li>What’s the probability I’ll have to wait more than 20 minutes?</li>
 </ol>
+</div>
+<div class="fragment">
+<blockquote>
+<p>find the area under the curve beyond 20 minutes</p>
+</blockquote>
 </div>
 <div class="fragment">
 <ol start="3" type="1">
 <li>What’s the probability my wait will be between 5 and 15 minutes?</li>
 </ol>
 </div>
+<div class="fragment">
+<blockquote>
+<p>find the area under the curve between 5 and 15 minutes</p>
+</blockquote>
+</div>
 </section>
-<section id="random-variables-bus-times-example-1" class="slide level2">
-<h2>Random Variables: Bus Times Example</h2>
+<section id="random-variables-known-distribution-3" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
-What is the distribution of bus arrival times?
+Example: Bus Times
 </p>
 
 <img data-src="../Examples/Part_3_1/i/bus_wait_times.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="random-variables-ages-example" class="slide level2">
-<h2>Random Variables: Ages Example</h2>
+<section id="random-variables-known-distribution-4" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
-What is the distribution of ages in this class?
+Example: Manufaturing Errors
 </p>
-<p><br><br></p>
+<p>Manufacturing errors of a part follow a normal distribution <em>(in cm)</em> with:</p>
 <ul>
-<li>Knowing the distribution, we can compute mean, standard deviation, etc.</li>
-<li>This makes it easy to answer questions about the population.</li>
+<li><code>target_length = 100</code></li>
+<li><code>standard_error = 0.1</code></li>
 </ul>
+<p><br></p>
 <div class="fragment">
-<p><br><br></p>
+<p>We expect this to be normally distributed:</p>
+</div>
+<div class="fragment">
 <ul>
-<li>What is the distribution of ages in this class?</li>
+<li>Multiple independent factors contribute to each error.</li>
+<li>Small errors are more common than large ones.</li>
+<li>Positive and negative errors are equally likely.</li>
 </ul>
 </div>
 </section>
-<section id="random-variables-ages-example-1" class="slide level2">
-<h2>Random Variables: Ages Example</h2>
+<section id="random-variables-known-distribution-5" class="slide level2">
+<h2>Random Variables: Known Distribution</h2>
 <p class="subheader">
-What is the distribution of ages in this class?
+Example: Manufaturing Errors
 </p>
-<p><br><br><br></p>
-<blockquote>
-<p>see notebook</p>
-</blockquote>
+<p>Manufacturing errors of a part follow a normal distribution <em>(in cm)</em> with:</p>
+<ul>
+<li><code>target_length = 100</code></li>
+<li><code>standard_error = 0.1</code></li>
+</ul>
 <div class="fragment">
-<p><br></p>
-<p><em>&gt; unclear … we only observe the realizations of a random variable</em></p>
+<ol type="1">
+<li>How many parts will be shorter than 99 cm?</li>
+</ol>
+</div>
+<div class="fragment">
+<blockquote>
+<p>find the area under the curve below 99 cm</p>
+</blockquote>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>How many parts will have errors greater than 1/2 cm?</li>
+</ol>
+</div>
+<div class="fragment">
+<blockquote>
+<p>find the area under the curve between 100 - 1/2 and 100 + 1/2</p>
+</blockquote>
 </div>
 </section>
 <section id="random-variables-2" class="slide level2">
 <h2>Random Variables</h2>
 <p class="subheader">
-What do we do when we don’t know the distribution?
+What is the distribution of a dataset?
+</p>
+<p><strong>If we know the distribution:</strong></p>
+<div class="fragment">
+<ul>
+<li>We know the distribution, mean, standard deviation, etc.
+<ol type="1">
+<li>Probability function (<span class="math inline">\(f\)</span>)</li>
+<li>Mean (<span class="math inline">\(\mu\)</span>)</li>
+<li>Standard deviation (<span class="math inline">\(\sigma\)</span>)</li>
+</ol></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>If we don’t know the distribution:</strong></p>
+</div>
+<div class="fragment">
+<ul>
+<li>We can compute
+<ol type="1">
+<li>Sample size (<span class="math inline">\(n\)</span>)</li>
+<li>Sample mean (<span class="math inline">\(\bar{x}\)</span>)</li>
+<li>Sample standard deviation (<span class="math inline">\(S\)</span>)</li>
+</ol></li>
+<li>But how might we find the distribution?</li>
+</ul>
+</div>
+</section>
+<section id="random-variables-unknown-distribution" class="slide level2">
+<h2>Random Variables: Unknown Distribution</h2>
+<p class="subheader">
+What is the distribution of ages in this class?
+</p>
+<ul>
+<li><p>Sample size (<span class="math inline">\(n\)</span>):</p></li>
+<li><p>Sample mean (<span class="math inline">\(\bar{x}\)</span>):</p></li>
+<li><p>Sample standard deviation (<span class="math inline">\(S\)</span>):</p></li>
+</ul>
+<div class="fragment">
+<p><em>&gt; these are descriptives of the </em><strong>sample</strong> <em>not the distribution (<span class="math inline">\(\mu \neq \bar{x}\)</span>)</em></p>
+</div>
+<div class="fragment">
+<p><br><br></p>
+<blockquote>
+<p>see notebook</p>
+</blockquote>
+</div>
+<div class="fragment">
+<p><em>&gt; we cannot see the distribution… we only observe realizations from it</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what </em><strong>can</strong> <em>we say about ages when we don’t know the distribution?</em></p>
+</div>
+</section>
+<section id="random-variables-unknown-distribution-1" class="slide level2">
+<h2>Random Variables: Unknown Distribution</h2>
+<p class="subheader">
+What can we know when we don’t know the distribution?
 </p>
 <p><br><br><br></p>
 <p><em>&gt; … next time!</em></p>

@@ -46,24 +46,20 @@
 }
 
 ul {
-   transform: translateY(-20px);
    margin-top: 0;
    margin-bottom: 0;
    line-height: 1;
 }
 
 ol {
-   transform: translateY(-20px);
    margin-top: 0;
    margin-bottom: 0;
    line-height: 1;
 }
 
 li {
-   margin-bottom: -10px;
-   margin-top: 0px;
-}
-li {
+   margin-bottom: -40px;
+   margin-top: -40px;
    font-style: italic;
 }
 
@@ -76,4 +72,10 @@ li {
 }
 .reveal h3 {
     font-weight: normal;  /* or 400 */
+}
+
+.reveal blockquote {
+  margin-top: -1.0em !important;
+  margin-bottom: 2.0em !important;
+  line-height: 1 !important;
 }
