@@ -173,7 +173,7 @@ Example: Normally distributed wait times
 </ul></li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div id="1dacca55" class="cell" data-execution_count="1">
+<div id="94041653" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -211,7 +211,7 @@ Question: How close are x̄ and s to μ and σ?
 <li>Sample statistics (x̄, s)</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div id="1eb727d2" class="cell" data-execution_count="2">
+<div id="f4f79a5b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -225,22 +225,27 @@ Question: How close are x̄ and s to μ and σ?
 <div class="fragment">
 <p><em>&gt; we want to systematically measure the “closeness” of the sample/population</em></p>
 </div>
+<div class="fragment">
+<p><em>&gt; lets do a simpler example using die rolls</em></p>
+</div>
 </section>
 <section id="sampling-error-1" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, we get different sample means.
+Die Rolling Example: if we take multiple samples, we get different sample means.
 </p>
-<div id="ea6b5093" class="cell" data-execution_count="3">
+<div id="706bb7a9" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="277"></p>
 </figure>
 </div>
 </div>
 </div>
+<div class="fragment">
 <p><em>&gt; each sample gives us a different estimate of the population mean</em></p>
+</div>
 <div class="fragment">
 <p><em>&gt; lets plot these sample means (<span class="math inline">\(\bar{x}\)</span>)</em></p>
 </div>
@@ -248,14 +253,13 @@ If we take multiple samples, we get different sample means.
 <section id="sampling-error-2" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their means will vary.
+Die Rolling Example: sample means approach a normal distribution as sample size grows.
 </p>
-<p><br><br></p>
-<div id="8e5fa750" class="cell" data-execution_count="4">
+<div id="6b91f987" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
 </figure>
 </div>
 </div>
@@ -264,33 +268,28 @@ If we take multiple samples, their means will vary.
 <section id="sampling-error-3" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their means will vary, and by much less than the original distribution.
+Die Rolling Example: sample means approach a normal distribution as sample size grows.
 </p>
-<p><br><br></p>
-<div id="b6ad3301" class="cell" data-execution_count="5">
+<div id="2262d018" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
 </figure>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p><em>&gt; why? think about rolling two dice… it’s much less likely to get a 1 and a 7</em></p>
 </div>
 </section>
 <section id="sampling-error-4" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their means will follow a normal distribution.
+Die Rolling Example: sample means approach a normal distribution as sample size grows.
 </p>
-<p><br><br></p>
-<div id="89646be6" class="cell" data-execution_count="6">
+<div id="ed8bc03c" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
 </figure>
 </div>
 </div>
@@ -299,10 +298,11 @@ If we take multiple samples, their means will follow a normal distribution.
 <section id="sampling-error-5" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
+If we take multiple samples, we get different sample means.
 </p>
-<p><br><br></p>
-<div id="cdf28ccd" class="cell" data-execution_count="7">
+<p><em>&gt; lets return to the wait time example</em></p>
+<div class="fragment">
+<div id="d49f2549" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -311,14 +311,19 @@ If we take multiple samples, their distribution is narrower with larger sample s
 </div>
 </div>
 </div>
+<p><em>&gt; each sample gives us a different estimate of the population mean</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; lets plot these sample means (<span class="math inline">\(\bar{x}\)</span>)</em></p>
+</div>
 </section>
 <section id="sampling-error-6" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
+If we take multiple samples, their means will vary.
 </p>
 <p><br><br></p>
-<div id="2e3440d7" class="cell" data-execution_count="8">
+<div id="ba845b99" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -331,14 +336,100 @@ If we take multiple samples, their distribution is narrower with larger sample s
 <section id="sampling-error-7" class="slide level2">
 <h2>Sampling Error</h2>
 <p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
+If we take multiple samples, their means will vary, and by much less than the original distribution.
 </p>
 <p><br><br></p>
-<div id="730c837a" class="cell" data-execution_count="9">
+<div id="c3bf2930" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Part_3_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; why? think about rolling two dice… it’s much less likely to get a 2 than a 7</em></p>
+</div>
+</section>
+<section id="sampling-error-8" class="slide level2">
+<h2>Sampling Error</h2>
+<p class="subheader">
+If we take multiple samples, their means will follow a normal distribution.
+</p>
+<p><br><br></p>
+<div id="88421a21" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sampling-error-9" class="slide level2">
+<h2>Sampling Error</h2>
+<p class="subheader">
+If we take multiple samples, their distribution is narrower with larger sample sizes.
+</p>
+<p><br><br></p>
+<div id="28150b61" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sampling-error-10" class="slide level2">
+<h2>Sampling Error</h2>
+<p class="subheader">
+If we take multiple samples, their distribution is narrower with larger sample sizes.
+</p>
+<p><br><br></p>
+<div id="51bfd283" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sampling-error-11" class="slide level2">
+<h2>Sampling Error</h2>
+<p class="subheader">
+If we take multiple samples, their distribution is narrower with larger sample sizes.
+</p>
+<p><br><br></p>
+<div id="ff23ff03" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; the sample mean <span class="math inline">\(\bar{x}\)</span> follows a normal distribution around the truth</em> 😱</p>
+<p><span class="math display">\[\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)\]</span></p>
+</div>
+</section>
+<section id="clt-the-magic-of-large-samples" class="slide level2">
+<h2>CLT: The Magic of Large Samples</h2>
+<p class="subheader">
+The CLT works for any distribution shape as sample size increases.
+</p>
+<div id="45a9f152" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
 </figure>
 </div>
 </div>
@@ -363,38 +454,17 @@ The distribution of sample means approximates a normal distribution as sample si
 <li>This works for ANY distribution</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="f8773f4f" class="cell" data-execution_count="10">
+<div id="56ddaa55" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-11-output-1.png" width="470" height="278"></p>
+<p><img data-src="Part_3_2_files/figure-revealjs/cell-16-output-1.png" width="470" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
-</section>
-<section id="clt-the-magic-of-large-samples" class="slide level2">
-<h2>CLT: The Magic of Large Samples</h2>
-<p class="subheader">
-The CLT works for any distribution shape as sample size increases.
-</p>
-<div id="287777f9" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="279"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; as n increases, the sampling distribution becomes more normal!</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; and <strong>THIS</strong> is something we know and can work with</em></p>
 
-</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
