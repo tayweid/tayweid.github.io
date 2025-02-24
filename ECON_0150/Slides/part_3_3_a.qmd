@@ -11,7 +11,7 @@ format:
 
 <br> 
 
-### *Part 3.4 | Testing Hypotheses*
+### *Part 3.3 | From Confidence Intervals to Hypothesis Testing*
 
 ---
 
@@ -147,15 +147,27 @@ plt.show()
 ::: {.column width="60%"}
 If true mean is $\mu_0 = 10$:
 
+. . .
+
 $$\bar{X} \sim N\left(\mu_0, \frac{\sigma}{\sqrt{n}}\right)$$
+
+. . .
 
 $$\bar{X} \sim N\left(10, \frac{2.5}{\sqrt{30}}\right)$$
 
+. . .
+
 $$\bar{X} \sim N(10, 0.456)$$
+
+. . .
 
 A 95% confidence interval around $\mu_0$ would be:
 
+. . .
+
 $$[10 - 1.96 \times 0.456, 10 + 1.96 \times 0.456]$$
+
+. . .
 
 $$[9.11, 10.89]$$
 :::
@@ -250,26 +262,15 @@ plt.show()
 
 . . .
 
-<br>
-
-**For our example:**
-
+For our example:
 - Null: $\mu = 10$
-
-. . .
-
 - Observed: $\bar{x} = 10.85$
-
-. . .
-
-*> How likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?*
+- How likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?
 
 ---
 
 ## Calculating a p-value
 <p class="subheader">We use the sampling distribution to find the probability</p>
-
-*> How likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?*
 
 ```{python}
 #| echo: false
@@ -290,7 +291,7 @@ y = stats.norm.pdf(x, mu_0, std_err)
 z_score = (observed_mean - mu_0) / std_err
 p_value = 2 * (1 - stats.norm.cdf(abs(z_score)))
 
-plt.figure(figsize=(11, 3))
+plt.figure(figsize=(10, 4))
 plt.plot(x, y, 'r-', linewidth=2)
 plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
 
@@ -321,11 +322,15 @@ plt.show()
 
 . . .
 
-*> interpretation: if μ=10, we'd see $\bar{x}$ this far from 10 about 6.4% of the time*
+*> p-value = 0.064 (or 6.4%)*
 
 . . .
 
-*> often, we reject $H_0$ if p-value < 0.05 (5%)*
+*> interpretation: if μ=10, we'd see a sample mean this far from 10 about 6.4% of the time*
+
+. . .
+
+*> typically, we reject $H_0$ if p-value < 0.05 (5%)*
 
 . . .
 
@@ -486,4 +491,4 @@ print(f"p-value: {p_value:.3f}")
 
 . . .
 
-*> the hypothesis testing framework is foundational for modern science*
+*> the hypothesis testing framework is foundational for modern economics*
