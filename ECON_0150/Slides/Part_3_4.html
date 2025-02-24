@@ -203,7 +203,7 @@ The economist’s data analysis pipeline.
 <section id="confidence-intervals-recap" class="slide level2">
 <h2>Confidence Intervals Recap</h2>
 <p class="subheader">
-We found the distribution of sample means and used it to create intervals.
+We used the distribution of sample means to create confidence intervals around <span class="math inline">\(\bar{x}\)</span>.
 </p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -211,21 +211,25 @@ We found the distribution of sample means and used it to create intervals.
 <li>Sample mean <span class="math inline">\(\bar{x}\)</span> follows a normal distribution</li>
 <li>Centered at population mean <span class="math inline">\(\mu\)</span></li>
 <li>Standard error = <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span></li>
-<li>95% of samples will have <span class="math inline">\(\bar{x}\)</span> within 1.96 standard errors of <span class="math inline">\(\mu\)</span></li>
+<li>95% of samples will have <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span> roughly 1.96 standard errors apart</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="e3aeba51" class="cell" data-execution_count="1">
+<div id="1a14113a" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-2-output-1.png" width="470" height="277"></p>
+<p><img data-src="Part_3_4_files/figure-revealjs/cell-2-output-1.png" width="470" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </div></div>
 <div class="fragment">
-<p><em>&gt; in the wait time example, we were asking “where is the true mean wait time?”</em></p>
+<p><br><br></p>
+<p><em>&gt; in the wait time example, we asked “where is the true mean wait time?”</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; but what if we want to test a specific claim about the mean?</em></p>
 </div>
 </section>
 <section id="flipping-the-question" class="slide level2">
@@ -235,59 +239,84 @@ What if we want to test a specific claim about the mean?
 </p>
 <p><br></p>
 <div class="fragment">
-<p><em>&gt; “My boss claims the mean wait time is 10 minutes”</em></p>
+<p><em>&gt; “my boss claims the mean wait time is 10 minutes”</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; Is our data consistent with that specific claim?</em></p>
+<p><em>&gt; is our data consistent with that specific claim?</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; Same math, different question…</em></p>
+<p><em>&gt; same math as last time, but a different question…</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; Instead of finding where μ might be, we’re testing a specific value</em></p>
+<p><em>&gt; instead of finding where some <span class="math inline">\(\mu\)</span> might be, we’re testing a specific value of <span class="math inline">\(\mu\)</span></em></p>
 </div>
 </section>
 <section id="testing-a-specific-value" class="slide level2">
 <h2>Testing a Specific Value</h2>
 <p class="subheader">
-Let’s simulate data where μ=10 and see what sample means we’d get
+If <span class="math inline">\(\bar{x}=10.85\)</span>, is that consistent with <span class="math inline">\(\mu_0=10\)</span>?
 </p>
-<div id="5ba7a04f" class="cell" data-execution_count="2">
+<div class="fragment">
+<p><em>&gt; let’s simulate data where <span class="math inline">\(\mu=10\)</span> and see what sample means we’d get</em></p>
+</div>
+<div class="fragment">
+<div id="3ae12424" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="949" height="373"></p>
+<p><img data-src="Part_3_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="949" height="376"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><em>&gt; if our sample gives <span class="math inline">\(\bar{x}=10.85\)</span>, is that consistent with μ=10?</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; how “surprising” would our observed <span class="math inline">\(\bar{x}\)</span> be if the null hypothesis were true?</em></p>
+<p><em>&gt; how “surprising” would our observed <span class="math inline">\(\bar{x}\)</span> be if <span class="math inline">\(\mu\)</span> actually was 10?</em></p>
 </div>
 </section>
-<section id="connecting-to-confidence-intervals" class="slide level2">
-<h2>Connecting to Confidence Intervals</h2>
+<section id="hypotheses-and-confidence-intervals" class="slide level2">
+<h2>Hypotheses and Confidence Intervals</h2>
 <p class="subheader">
-The math is identical to confidence intervals
+The math to answer this question is identical to confidence intervals.
 </p>
 <div class="columns">
 <div class="column" style="width:60%;">
 <p>If true mean is <span class="math inline">\(\mu_0 = 10\)</span>:</p>
-<p><span class="math display">\[\bar{X} \sim N\left(\mu_0, \frac{\sigma}{\sqrt{n}}\right)\]</span></p>
-<p><span class="math display">\[\bar{X} \sim N\left(10, \frac{2.5}{\sqrt{30}}\right)\]</span></p>
-<p><span class="math display">\[\bar{X} \sim N(10, 0.456)\]</span></p>
+<p><span class="math display">\[\bar{x} \sim t_{n-1}\left(\mu_0, \frac{s}{\sqrt{n}}\right)\]</span></p>
+<p><span class="math display">\[\bar{x} \sim t_{29}\left(10, \frac{2.5}{\sqrt{30}}\right)\]</span></p>
+<p><span class="math display">\[\bar{x} \sim t_{29}(10, 0.456)\]</span></p>
 <p>A 95% confidence interval around <span class="math inline">\(\mu_0\)</span> would be:</p>
-<p><span class="math display">\[[10 - 1.96 \times 0.456, 10 + 1.96 \times 0.456]\]</span></p>
-<p><span class="math display">\[[9.11, 10.89]\]</span></p>
+<p><span class="math display">\[[10 - 2.045 \times 0.456, 10 + 2.045 \times 0.456]\]</span></p>
+<p><span class="math display">\[[9.07, 10.93]\]</span></p>
 </div><div class="column" style="width:40%;">
-<div id="a9f5abc9" class="cell" data-execution_count="3">
+<div id="c0c11547" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-4-output-1.png" width="470" height="277"></p>
+<p><img data-src="Part_3_4_files/figure-revealjs/cell-4-output-1.png" width="470" height="278"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="hypotheses-and-confidence-intervals-1" class="slide level2">
+<h2>Hypotheses and Confidence Intervals</h2>
+<p class="subheader">
+The math to answer this question is identical to confidence intervals.
+</p>
+<div class="columns">
+<div class="column" style="width:60%;">
+<p>If true mean is <span class="math inline">\(\mu_0 = 10\)</span>:</p>
+<p><span class="math display">\[\bar{x} \sim t_{29}(10, 0.456)\]</span></p>
+<p>A 95% confidence interval around <span class="math inline">\(\mu_0\)</span> would be:</p>
+<p><span class="math display">\[[9.07, 10.93]\]</span></p>
+</div><div class="column" style="width:40%;">
+<div id="92e021e7" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Part_3_4_files/figure-revealjs/cell-5-output-1.png" width="470" height="278"></p>
 </figure>
 </div>
 </div>
@@ -323,7 +352,11 @@ We formalize this approach by setting up a “null hypothesis”
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Testing Approach</strong>: - Calculate how “surprising” our data would be if <span class="math inline">\(H_0\)</span> were true - If sufficiently surprising, we reject <span class="math inline">\(H_0\)</span></p>
+<p><strong>Testing Approach</strong>:</p>
+<ul>
+<li>Calculate how “surprising” our data would be if <span class="math inline">\(H_0\)</span> were true</li>
+<li>If sufficiently surprising, we reject <span class="math inline">\(H_0\)</span></li>
+</ul>
 </div>
 </section>
 <section id="quantifying-surprise-p-values" class="slide level2">
@@ -354,14 +387,14 @@ The p-value measures how compatible our data is with the null hypothesis
 <section id="calculating-a-p-value" class="slide level2">
 <h2>Calculating a p-value</h2>
 <p class="subheader">
-We use the sampling distribution to find the probability
+Use the sampling distribution to find the probability.
 </p>
 <p><em>&gt; How likely is it to get <span class="math inline">\(\bar{x}\)</span> this far or farther from 10, if the true mean is 10?</em></p>
-<div id="4036bff4" class="cell" data-execution_count="4">
+<div id="431c1971" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="277"></p>
+<p><img data-src="Part_3_4_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="278"></p>
 </figure>
 </div>
 </div>
@@ -381,7 +414,6 @@ We use the sampling distribution to find the probability
 <p class="subheader">
 We can standardize our result for easier interpretation
 </p>
-<p><br></p>
 <div class="fragment">
 <p>The <strong>t-statistic</strong> measures how many standard errors our sample mean is from the null value:</p>
 </div>
@@ -389,27 +421,41 @@ We can standardize our result for easier interpretation
 <p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}\]</span></p>
 </div>
 <div class="fragment">
-<p>Where: - <span class="math inline">\(\bar{x}\)</span> is our sample mean (10.85) - <span class="math inline">\(\mu_0\)</span> is our null value (10) - <span class="math inline">\(s\)</span> is our sample standard deviation (2.5) - <span class="math inline">\(n\)</span> is our sample size (30)</p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> is our sample mean (10.85)</li>
+<li><span class="math inline">\(\mu_0\)</span> is our null value (10)</li>
+<li><span class="math inline">\(s\)</span> is our sample standard deviation (2.5)</li>
+<li><span class="math inline">\(n\)</span> is our sample size (30)</li>
+</ul>
 </div>
 <div class="fragment">
 <p><span class="math display">\[t = \frac{10.85 - 10}{2.5/\sqrt{30}} = \frac{0.85}{0.456} = 1.86\]</span></p>
-</div>
-<div class="fragment">
-<p>This follows a t-distribution with n-1 degrees of freedom (29)</p>
 </div>
 </section>
 <section id="the-t-test" class="slide level2">
 <h2>The t-test</h2>
 <p class="subheader">
-Our example has become a formal hypothesis test
+This example has become a formal hypothesis test.
 </p>
 <div class="columns">
-<div class="column" style="width:60%;">
-<p><strong>One-sample t-test:</strong> - <span class="math inline">\(H_0: \mu = 10\)</span><br>
-- <span class="math inline">\(H_1: \mu \neq 10\)</span> - Test statistic: <span class="math inline">\(t = 1.86\)</span> - Degrees of freedom: 29 - p-value: 0.064</p>
-<p><strong>Decision rule:</strong> - If p-value &lt; 0.05, reject <span class="math inline">\(H_0\)</span> - Otherwise, fail to reject <span class="math inline">\(H_0\)</span></p>
-</div><div class="column" style="width:40%;">
-<div id="9ec70525" class="cell" data-execution_count="5">
+<div class="column" style="width:40%;">
+<p><strong>One-sample t-test:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0: \mu = 10\)</span><br>
+</li>
+<li><span class="math inline">\(H_1: \mu \neq 10\)</span></li>
+<li>Test statistic: <span class="math inline">\(t = 1.86\)</span></li>
+<li>Degrees of freedom: 29</li>
+<li>p-value: 0.064</li>
+</ul>
+<p><strong>Decision rule:</strong></p>
+<ul>
+<li>If p-value &lt; 0.05, reject <span class="math inline">\(H_0\)</span></li>
+<li>Otherwise, fail to reject <span class="math inline">\(H_0\)</span></li>
+</ul>
+</div><div class="column" style="width:60%;">
+<div id="c77d6c19" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href=""></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
 <span id="cb1-3"><a href=""></a></span>
@@ -447,10 +493,18 @@ A caution about hypothesis testing
 </p>
 <p><br></p>
 <div class="fragment">
-<p><strong>Statistical significance:</strong> - Formal rejection of the null hypothesis (p &lt; 0.05) - Only tells us if the effect is unlikely due to chance</p>
+<p><strong>Statistical significance:</strong></p>
+<ul>
+<li>Formal rejection of the null hypothesis (p &lt; 0.05)</li>
+<li>Only tells us if the effect is unlikely due to chance</li>
+</ul>
 </div>
 <div class="fragment">
-<p><strong>Practical significance:</strong> - Whether the effect size matters in the real world - A statistically significant result can still be tiny</p>
+<p><strong>Practical significance:</strong></p>
+<ul>
+<li>Whether the effect size matters in the real world</li>
+<li>A statistically significant result can still be tiny</li>
+</ul>
 </div>
 <div class="fragment">
 <p><em>&gt; with large samples, even tiny differences can be statistically significant</em></p>
@@ -485,10 +539,20 @@ The t-test framework extends to many scenarios
 </p>
 <p><br></p>
 <div class="fragment">
-<p><strong>Next time:</strong> - Comparing means between two groups - Two-sample t-tests - Paired t-tests</p>
+<p><strong>Next time:</strong></p>
+<ul>
+<li>Comparing means between two groups</li>
+<li>Two-sample t-tests</li>
+<li>Paired t-tests</li>
+</ul>
 </div>
 <div class="fragment">
-<p><strong>Coming soon:</strong> - This same framework underlies regression analysis - Regression coefficients are tested using t-tests - ANOVA uses the same fundamental approach</p>
+<p><strong>Coming soon:</strong></p>
+<ul>
+<li>This same framework underlies regression analysis</li>
+<li>Regression coefficients are tested using t-tests</li>
+<li>ANOVA uses the same fundamental approach</li>
+</ul>
 </div>
 <div class="fragment">
 <p><em>&gt; the hypothesis testing framework is foundational for modern science</em></p>

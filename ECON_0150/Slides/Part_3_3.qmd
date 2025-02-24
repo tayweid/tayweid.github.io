@@ -17,17 +17,11 @@ format:
 ---
 
 ## A Big Question
-<p class="subheader">We found the distribution of sample means... now what?</p>
+<p class="subheader">We found $\bar{x}$ follows a normal distribution around $\mu$... now what?</p>
 
 <br><br>
 
-. . .
-
-*> we know $\bar{x}$ follows a normal distribution around $\mu$*
-
-. . .
-
-*> but how can we use this to learn about the population?*
+*> how can we use this to learn about the population?*
 
 . . .
 
@@ -36,7 +30,7 @@ format:
 ---
 
 ## The Distribution of $\bar{x}$
-<p class="subheader">Remember: sample means follow a normal distribution</p>
+<p class="subheader">Remember: sample means follow a normal distribution with mean ($\mu$) and standard error (SE = $\frac{\sigma}{\sqrt{n}}$).</p>
 
 ```{python}
 #| echo: false
@@ -45,6 +39,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 import seaborn as sns
+
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
 
 np.random.seed(123)
 n_samples = 500
@@ -59,7 +61,7 @@ y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
 plt.plot(x, y, 'r-')
 plt.yticks([])
 plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
+plt.xlabel('$\\bar{x}$ (minutes)', fontsize=16)
 plt.xlim(6,18)
 
 sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
@@ -67,39 +69,39 @@ plt.tight_layout()
 plt.show()
 ```
 
-. . .
-
-*> with standard error $\sigma/\sqrt{n}$*
+*> $\mu = 12$ and $\sigma = 2.5$ and $n = 30$.*
 
 ---
 
-## Why $\sigma/\sqrt{n}$?
-<p class="subheader">Understanding the standard error</p>
+## Why SE = $\sigma/\sqrt{n}$?
+<p class="subheader">The standard error (SE) measures the precision of the estimate.</p>
 
 . . .
 
-*> consider n independent observations:*
+Consider n independent observations, each with variance $\sigma^2$.
 
 . . .
 
-*> each has variance $\sigma^2$*
+1. The sum of $n$ samples has variance $n\sigma^2$ $\big(VAR(a) + VAR(b) = VAR(a + b)\Big)$
 
 . . .
 
-*> when we sum n values, variances add: $n\sigma^2$*
+2. Divide by $n$ to find that the mean of $n$ is $\frac{\sigma^2}{n}$ $\Big( nVAR(a) = VAR(n^2a)\Big)$
 
 . . .
 
-*> when we take the mean (divide by n): $\frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n}$*
-
-. . .
-
-*> therefore standard error: $\sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}$*
+Therefore the standard error is $\sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}$.
 
 ---
 
-## Using This Distribution
-<p class="subheader">If we know $\sigma$, we can calculate probabilities</p>
+## Confidence Intervals
+<p class="subheader">If we know $\sigma$, we can calculate probabilities.</p>
+
+. . .
+
+*> what's the probability $\bar{x}$ is within one standard error of $\mu$?*
+
+. . .
 
 ```{python}
 #| echo: false
@@ -118,44 +120,75 @@ plt.fill_between(x[(x >= -1) & (x <= 1)],
                  color='blue', alpha=0.3)
 plt.axvline(x=-1, color='red', linestyle='--')
 plt.axvline(x=1, color='red', linestyle='--')
-plt.title('Probability within one standard error')
+plt.axvline(x=0, color='green', linestyle='--')
 plt.yticks([])
-plt.xlabel('Standard Errors from Mean')
+plt.xlabel('Standard Errors from Mean', fontsize=16)
 
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
 . . .
 
-*> what's the probability $\bar{x}$ is within one standard error of $\mu$?*
-
-. . .
-
 *> $P(|\bar{x} - \mu| \leq \frac{\sigma}{\sqrt{n}}) \approx 0.68$*
 
----
+. . .
 
-## A Key Insight
-<p class="subheader">There are two equivalent ways to think about this</p>
+*> so 68% of the time $\bar{x}$ will fall within $[\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]$*
 
 . . .
 
-*> way 1: probability $\bar{x}$ is close to $\mu$*
+*> we call $[\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]$ a 68% confidence interval*
 
-. . .
-
-*> way 2: probability $\mu$ is close to $\bar{x}$*
-
-. . .
-
-*> mathematically: $P(|\bar{x} - \mu| \leq c) = P(\mu \in [\bar{x} \pm c])$*
 
 ---
 
 ## Two Perspectives
-<p class="subheader">Same math, different interpretations</p>
+<p class="subheader">There are two mathematically equivalent perspectives to think about "closeness" between $\mu$ and $\bar{x}$.</p>
+
+. . .
+
+Perspective 1: probability $\bar{x}$ is close to $\mu$
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+# Setup
+x = np.linspace(8, 16, 1000)
+mu = 12
+sigma = 2.5
+n = 30
+se = sigma/np.sqrt(n)
+sample_mean = 11.6  # Example sample mean
+
+fig, ax1 = plt.subplots(1, 1, figsize=(9, 2))
+
+# First plot: x̄ around μ
+y1 = stats.norm.pdf(x, mu, se)
+ax1.plot(x, y1, 'b-', alpha=0.5)
+ax1.axvline(x=mu, color='green', linestyle='--', label='$\mu$')
+ax1.axvline(x=sample_mean, color='red', linestyle='--', label='$\\bar{x}$')
+ax1.fill_between(x[(x >= mu-se) & (x <= mu+se)], 
+                 y1[(x >= mu-se) & (x <= mu+se)], 
+                 color='blue', alpha=0.3)
+ax1.set_title('Distribution centered on $\mu$')
+ax1.set_yticks([])
+ax1.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-4, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+Perspective 2: probability $\mu$ is close to $\bar{x}$
+
 
 ```{python}
 #| echo: false
@@ -171,40 +204,60 @@ sigma = 2.5
 n = 30
 se = sigma/np.sqrt(n)
 
-# Create two subplots
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 5))
-
-# First plot: x̄ around μ
-y1 = stats.norm.pdf(x, mu, se)
-ax1.plot(x, y1, 'b-', alpha=0.5)
-ax1.axvline(x=mu, color='red', linestyle='--', label='μ')
-ax1.fill_between(x[(x >= mu-se) & (x <= mu+se)], 
-                 y1[(x >= mu-se) & (x <= mu+se)], 
-                 color='blue', alpha=0.3)
-ax1.set_title('Distribution of x̄ around μ')
-ax1.set_yticks([])
-ax1.legend()
+fig, ax2 = plt.subplots(1, 1, figsize=(9, 2))
 
 # Second plot: μ around x̄
-sample_mean = 11.8  # Example sample mean
+sample_mean = 11.6  # Example sample mean
 y2 = stats.norm.pdf(x, sample_mean, se)
 ax2.plot(x, y2, 'b-', alpha=0.5)
-ax2.axvline(x=sample_mean, color='blue', linestyle='--', label='x̄')
+ax2.axvline(x=mu, color='green', linestyle='--', label='$\mu$')
+ax2.axvline(x=sample_mean, color='red', linestyle='--', label='$\\bar{x}$')
 ax2.fill_between(x[(x >= sample_mean-se) & (x <= sample_mean+se)], 
                  y2[(x >= sample_mean-se) & (x <= sample_mean+se)], 
                  color='blue', alpha=0.3)
-ax2.set_title('Distribution centered on x̄')
+ax2.set_title('Distribution centered on $\\bar{x}$')
 ax2.set_yticks([])
 ax2.legend()
 
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-4, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
+---
+
+## Difference Center Points
+<p class="subheader">There are two mathematically equivalent perspectives to think about "closeness" between $\mu$ and $\bar{x}$.</p>
+
+![](../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png){fig-align="center"}
+
+*> this is huge! we can center the confidence interval around $\bar{x}$ instead of $\mu$!*
+
+---
+
+## Using Confidence Intervals
+<p class="subheader">Example: $\bar{x} = 102.3$, $s=1.6$, and $n=100$</p>
+
+**Question 1:** what's the probability $\mu$ is closer than 0.1 to $\bar{x}$?
+
 . . .
 
-*> this is huge! we can center on $\bar{x}$ instead of $\mu$*
+```python
+distance = 0.1
+se = s / np.sqrt(n)
+probability = stats.norm.cdf(distance/se) - stats.norm.cdf(-distance/se)
+```
+
+. . .
+
+**Question 2:** what's the 95% CI?
+
+. . .
+
+```python
+se = s / np.sqrt(n)
+ci = stats.norm.interval(0.95, loc=x_bar, scale=se)
+```
 
 ---
 
@@ -225,8 +278,8 @@ plt.show()
 
 ---
 
-## Using s Instead of $\sigma$
-<p class="subheader">Sample standard deviation has its own sampling variability</p>
+## Using $s$ Instead of $\sigma$
+<p class="subheader">Sample standard deviation ($s$) has its own sampling variability.</p>
 
 ```{python}
 #| echo: false
@@ -245,7 +298,7 @@ plt.figure(figsize=(9, 3))
 plt.hist(sds, bins=30, density=True, alpha=0.7)
 plt.axvline(x=2.5, color='red', linestyle='--', label='True σ')
 plt.yticks([])
-plt.xlabel('Sample Standard Deviation (s)')
+plt.xlabel('Sample Standard Deviation (s)', fontsize=16)
 plt.legend()
 
 sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
@@ -259,36 +312,52 @@ plt.show()
 
 ---
 
-## Where Does the t-Distribution Come From?
-<p class="subheader">Understanding why we need a new distribution</p>
+## Normal vs t-Distribution
+<p class="subheader">The t-distribution precisely accounts for the variation in $s$ around $\sigma$.</p>
 
 . . .
 
-*> consider our standardized sample mean: $z = \frac{\bar{x} - \mu}{\sigma/\sqrt{n}}$*
+*> $\bar{x}$ follows a normal distribution with $\mu$ and $\sigma$*
 
 . . .
 
-*> this follows a standard normal when we know $\sigma$*
+*> key insight: since $s$ is random,  using it instead $\sigma$ introduces another r.v.*
 
 . . .
 
-*> but when we use s instead: $t = \frac{\bar{x} - \mu}{s/\sqrt{n}}$*
+*> this gives us the t-distribution with n-1 degrees of freedom*
 
-. . .
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
 
-*> key insight: s is random too! it's like dividing by a random number*
+# Generate example
+x = np.linspace(-4, 4, 1000)
+z = stats.norm.pdf(x, 0, 1)
+t1 = stats.t.pdf(x, df=1)
+t5 = stats.t.pdf(x, df=5)
 
-. . .
+plt.figure(figsize=(9, 3))
+plt.plot(x, z, 'b-', label='Normal', alpha=0.7)
+plt.plot(x, t1, 'r-', label='t (df=1)', alpha=0.7)
+plt.plot(x, t5, 'g-', label='t (df=5)', alpha=0.7)
+plt.yticks([])
+plt.xlabel('Standard Deviations')
+plt.legend()
 
-*> specifically: $t = \frac{z}{\sqrt{\frac{(n-1)s^2}{\sigma^2}/(n-1)}}$*
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
 
-. . .
+---
 
-*> numerator is normal, denominator is $\sqrt{\chi^2/(n-1)}$*
-
-. . .
-
-*> this ratio gives us the t-distribution with n-1 degrees of freedom*
+## The t-Distribution
+<p class="subheader">... acounts for the extra uncertainty in $s$ around $\sigma$.</p>
 
 ```{python}
 #| echo: false
@@ -319,99 +388,87 @@ plt.show()
 
 . . .
 
-*> more variable because we're dividing by a random number!*
-
----
-
-## The t-Distribution Solution
-<p class="subheader">Accounts for the extra uncertainty in s</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-x = np.linspace(-4, 4, 1000)
-normal = stats.norm.pdf(x, 0, 1)
-t_5 = stats.t.pdf(x, df=5)
-t_30 = stats.t.pdf(x, df=30)
-
-plt.figure(figsize=(9, 3))
-plt.plot(x, normal, 'b-', label='Normal', alpha=0.7)
-plt.plot(x, t_5, 'r-', label='t (df=5)', alpha=0.7)
-plt.plot(x, t_30, 'g-', label='t (df=30)', alpha=0.7)
-plt.yticks([])
-plt.xlabel('Standard Deviations from Mean')
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
-. . .
-
 *> t-distribution has heavier tails than normal*
 
 . . .
 
-*> approaches normal as sample size increases*
+*> approaches normal as sample size ($n$) increases*
 
 ---
 
 ## Putting It All Together
-<p class="subheader">Now we can quantify uncertainty about $\mu$</p>
+<p class="subheader">Now we can quantify our uncertainty about an unknown $\mu$.</p>
 
 . . .
 
-*> 1. $\bar{x}$ follows a normal distribution around $\mu$*
+1. $\bar{x}$ follows a normal distribution around $\mu$.
 
 . . .
 
-*> 2. we can center the distribution on $\bar{x}$ instead*
+2. We can center the distribution on $\bar{x}$ instead.
 
 . . .
 
-*> 3. using s adds uncertainty, captured by t-distribution*
+3. Using $s$ adds uncertainty, captured by t-distribution.
 
 . . .
 
-*> 4. this lets us make probability statements about $\mu$*
+4. We can use the t-distribution to make probability statements about $\mu$.
 
 ---
 
-## An Example
-<p class="subheader">95% confidence interval for waiting times</p>
+## Example: Wait Times
+<p class="subheader">Calculate the 95% confidence interval for waiting times.</p>
+
+Generate some sample data.
 
 ```{python}
 #| echo: true
-import numpy as np
-from scipy import stats
-
-# Generate sample data
-np.random.seed(42)
 sample = np.random.normal(12, 2.5, 30)
-
-# Calculate statistics
-x_bar = np.mean(sample)
-s = np.std(sample, ddof=1)
-n = len(sample)
-df = n - 1
-t_crit = stats.t.ppf(0.975, df)
-margin = t_crit * (s / np.sqrt(n))
-
-print(f"95% CI: [{x_bar - margin:.1f}, {x_bar + margin:.1f}]")
 ```
 
 . . .
 
-*> we're 95% confident the true mean wait time is in this interval*
+Calculate sample statistics. 
+
+```{python}
+#| echo: true
+x_bar = np.mean(sample)
+s = np.std(sample, ddof=1)
+n = len(sample)
+se = s / np.sqrt(n)
+```
+
+. . .
+
+Calculate how many standard errors the 95% CI is from $\bar{x}$.
+
+```{python}
+#| echo: true
+t_crit = stats.t.ppf(0.975, n-1)
+```
+
+. . .
+
+Calculate the CI from the critical value.
+
+```{python}
+#| echo: true
+margin = t_crit * se
+ci = [x_bar - margin, x_bar + margin]
+```
+
+. . .
+
+*> if we took many samples, 95% of the time this interval would contain the truth*
+
+. . .
+
+*> we often just say: "we're 95% confident the truth is in this interval"*
 
 ---
 
-## Discussion Questions
+## Extra Questions
 
 1. How would the confidence interval change if we:
    - Increased sample size?
@@ -423,36 +480,3 @@ print(f"95% CI: [{x_bar - margin:.1f}, {x_bar + margin:.1f}]")
 3. What does "95% confident" really mean?
 
 4. How could this help with economic decision-making?
-
-
----
-
-## Outline
-
-- We've found the distribution of sample means
-- Lets use it!
-- We know that 'closeness' of $\bar{x}$ and $\mu$ follows a normal distribution.
-- Do a little derivation of why it's $\sigma / \sqrt(n)$
-- So if we knew $\sigma$ we could know the probability a sample mean will be close to the true mean
-- Lets do this mathematically: find the probability a randomly drawn sample will fall within $\sigma / \sqrt(n)$ of the true mean?
-- Lets simulate this.
-- This is what we call a confidence interval. We're $P(\bar{x} \in [\mu-\sigma / \sqrt(n), \mu+\sigma / \sqrt(n)])$ confident the sample will be no further than $\sigma / \sqrt(n)$ away from the mean.
-- This is what we call a confidence interval.
-- But you'll notice a problem: we don't observe $\mu$, so how do we know where to place the center of the normal distribution? 
-- Well maybe you've noticed, the central limit theorem tells us about the distribution of $\bar{x}$ around $\mu$, which is mathematically equivalent to the distribution of the 'closeness' of $\bar{x}$ to $\mu$. So it's mathematically equivalent to either talk about the distribution of closeness of $\bar{x}$ and $\mu$ or center the normal distribution on $\bar{x}$.
-- But be careful here. The centeral limit theorem doesn't tell us about the distribution of the truth! The truth does have variability. It's fixed. It tells us how close $\bar{x}$ will be to the truth. Which is mathematically equivalent to centering the ditribution on $\bar{x}$.
-- We can show that these things are idential with a simulation. The truth is in the confidence interval around the sample mean every time the sample mean is in the confidence interval around the turth. 
-- All we've done here is change the centerpoint. This shift means we don't have to know $\mu$ to determine how confident we are about the location of the truth!!!
-- But we have one remaining question: how do we know about $\sigma$? We used $\sigma$ to construct the confidence interval. Don't we need to know THAT?
-- Well what did we do to not need to know $\mu$? We used $\bar{x}$, the sample equivalent.
-- Lets think about using the sample equivalent of $\sigma$, $S$. 
-- But just like $\bar{x}$, theres sampling variability of $S$ around $\sigma$.
-- Lets simulate this.
-- So there's a bit of extra variability in $S$. 
-- In turns out that we can systematize this added variability in the t-distribution, which is just like N but with the extra variability built in.
-- Show t vs N.
-- Lets calculate the area in the tails.
-- So this lets us use the information in the sample to make claims about the truth.
-- Lets do an example.
-
----

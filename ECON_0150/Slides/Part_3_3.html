@@ -203,15 +203,10 @@ The economist’s data analysis pipeline.
 <section id="a-big-question" class="slide level2">
 <h2>A Big Question</h2>
 <p class="subheader">
-We found the distribution of sample means… now what?
+We found <span class="math inline">\(\bar{x}\)</span> follows a normal distribution around <span class="math inline">\(\mu\)</span>… now what?
 </p>
 <p><br><br></p>
-<div class="fragment">
-<p><em>&gt; we know <span class="math inline">\(\bar{x}\)</span> follows a normal distribution around <span class="math inline">\(\mu\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; but how can we use this to learn about the population?</em></p>
-</div>
+<p><em>&gt; how can we use this to learn about the population?</em></p>
 <div class="fragment">
 <p><em>&gt; lets systematize how “close” <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span> are</em></p>
 </div>
@@ -219,94 +214,125 @@ We found the distribution of sample means… now what?
 <section id="the-distribution-of-barx" class="slide level2">
 <h2>The Distribution of <span class="math inline">\(\bar{x}\)</span></h2>
 <p class="subheader">
-Remember: sample means follow a normal distribution
+Remember: sample means follow a normal distribution with mean (<span class="math inline">\(\mu\)</span>) and standard error (SE = <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>).
 </p>
-<div id="644c540f" class="cell" data-execution_count="1">
+<div id="68c680a9" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="275"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><em>&gt; with standard error <span class="math inline">\(\sigma/\sqrt{n}\)</span></em></p>
-</div>
+<p><em>&gt; <span class="math inline">\(\mu = 12\)</span> and <span class="math inline">\(\sigma = 2.5\)</span> and <span class="math inline">\(n = 30\)</span>.</em></p>
 </section>
-<section id="why-sigmasqrtn" class="slide level2">
-<h2>Why <span class="math inline">\(\sigma/\sqrt{n}\)</span>?</h2>
+<section id="why-se-sigmasqrtn" class="slide level2">
+<h2>Why SE = <span class="math inline">\(\sigma/\sqrt{n}\)</span>?</h2>
 <p class="subheader">
-Understanding the standard error
+The standard error (SE) measures the precision of the estimate.
 </p>
 <div class="fragment">
-<p><em>&gt; consider n independent observations:</em></p>
+<p>Consider n independent observations, each with variance <span class="math inline">\(\sigma^2\)</span>.</p>
 </div>
 <div class="fragment">
-<p><em>&gt; each has variance <span class="math inline">\(\sigma^2\)</span></em></p>
+<ol type="1">
+<li>The sum of <span class="math inline">\(n\)</span> samples has variance <span class="math inline">\(n\sigma^2\)</span> <span class="math inline">\(\big(VAR(a) + VAR(b) = VAR(a + b)\Big)\)</span></li>
+</ol>
 </div>
 <div class="fragment">
-<p><em>&gt; when we sum n values, variances add: <span class="math inline">\(n\sigma^2\)</span></em></p>
+<ol start="2" type="1">
+<li>Divide by <span class="math inline">\(n\)</span> to find that the mean of <span class="math inline">\(n\)</span> is <span class="math inline">\(\frac{\sigma^2}{n}\)</span> <span class="math inline">\(\Big( nVAR(a) = VAR(n^2a)\Big)\)</span></li>
+</ol>
 </div>
 <div class="fragment">
-<p><em>&gt; when we take the mean (divide by n): <span class="math inline">\(\frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n}\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; therefore standard error: <span class="math inline">\(\sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}\)</span></em></p>
+<p>Therefore the standard error is <span class="math inline">\(\sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}\)</span>.</p>
 </div>
 </section>
-<section id="using-this-distribution" class="slide level2">
-<h2>Using This Distribution</h2>
+<section id="confidence-intervals" class="slide level2">
+<h2>Confidence Intervals</h2>
 <p class="subheader">
-If we know <span class="math inline">\(\sigma\)</span>, we can calculate probabilities
+If we know <span class="math inline">\(\sigma\)</span>, we can calculate probabilities.
 </p>
-<div id="3aaa64ed" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
 <div class="fragment">
 <p><em>&gt; what’s the probability <span class="math inline">\(\bar{x}\)</span> is within one standard error of <span class="math inline">\(\mu\)</span>?</em></p>
 </div>
 <div class="fragment">
+<div id="b887489d" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p><em>&gt; <span class="math inline">\(P(|\bar{x} - \mu| \leq \frac{\sigma}{\sqrt{n}}) \approx 0.68\)</span></em></p>
 </div>
-</section>
-<section id="a-key-insight" class="slide level2">
-<h2>A Key Insight</h2>
-<p class="subheader">
-There are two equivalent ways to think about this
-</p>
 <div class="fragment">
-<p><em>&gt; way 1: probability <span class="math inline">\(\bar{x}\)</span> is close to <span class="math inline">\(\mu\)</span></em></p>
+<p><em>&gt; so 68% of the time <span class="math inline">\(\bar{x}\)</span> will fall within <span class="math inline">\([\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]\)</span></em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; way 2: probability <span class="math inline">\(\mu\)</span> is close to <span class="math inline">\(\bar{x}\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; mathematically: <span class="math inline">\(P(|\bar{x} - \mu| \leq c) = P(\mu \in [\bar{x} \pm c])\)</span></em></p>
+<p><em>&gt; we call <span class="math inline">\([\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]\)</span> a 68% confidence interval</em></p>
 </div>
 </section>
 <section id="two-perspectives" class="slide level2">
 <h2>Two Perspectives</h2>
 <p class="subheader">
-Same math, different interpretations
+There are two mathematically equivalent perspectives to think about “closeness” between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\bar{x}\)</span>.
 </p>
-<div id="86f2c34a" class="cell" data-execution_count="3">
+<div class="fragment">
+<p>Perspective 1: probability <span class="math inline">\(\bar{x}\)</span> is close to <span class="math inline">\(\mu\)</span></p>
+<div id="7fb57748" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="470"></p>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="181"></p>
 </figure>
 </div>
 </div>
 </div>
+</div>
 <div class="fragment">
-<p><em>&gt; this is huge! we can center on <span class="math inline">\(\bar{x}\)</span> instead of <span class="math inline">\(\mu\)</span></em></p>
+<p>Perspective 2: probability <span class="math inline">\(\mu\)</span> is close to <span class="math inline">\(\bar{x}\)</span></p>
+<div id="a5705630" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="180"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="difference-center-points" class="slide level2">
+<h2>Difference Center Points</h2>
+<p class="subheader">
+There are two mathematically equivalent perspectives to think about “closeness” between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\bar{x}\)</span>.
+</p>
+
+<img data-src="../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; this is huge! we can center the confidence interval around <span class="math inline">\(\bar{x}\)</span> instead of <span class="math inline">\(\mu\)</span>!</em></p>
+</section>
+<section id="using-confidence-intervals" class="slide level2">
+<h2>Using Confidence Intervals</h2>
+<p class="subheader">
+Example: <span class="math inline">\(\bar{x} = 102.3\)</span>, <span class="math inline">\(s=1.6\)</span>, and <span class="math inline">\(n=100\)</span>
+</p>
+<p><strong>Question 1:</strong> what’s the probability <span class="math inline">\(\mu\)</span> is closer than 0.1 to <span class="math inline">\(\bar{x}\)</span>?</p>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>distance <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb1-2"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb1-3"><a href=""></a>probability <span class="op">=</span> stats.norm.cdf(distance<span class="op">/</span>se) <span class="op">-</span> stats.norm.cdf(<span class="op">-</span>distance<span class="op">/</span>se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><strong>Question 2:</strong> what’s the 95% CI?</p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb2-2"><a href=""></a>ci <span class="op">=</span> stats.norm.interval(<span class="fl">0.95</span>, loc<span class="op">=</span>x_bar, scale<span class="op">=</span>se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="one-problem-remains" class="slide level2">
@@ -325,15 +351,15 @@ We don’t know <span class="math inline">\(\sigma\)</span> either!
 </div>
 </section>
 <section id="using-s-instead-of-sigma" class="slide level2">
-<h2>Using s Instead of <span class="math inline">\(\sigma\)</span></h2>
+<h2>Using <span class="math inline">\(s\)</span> Instead of <span class="math inline">\(\sigma\)</span></h2>
 <p class="subheader">
-Sample standard deviation has its own sampling variability
+Sample standard deviation (<span class="math inline">\(s\)</span>) has its own sampling variability.
 </p>
-<div id="27a7aa55" class="cell" data-execution_count="4">
+<div id="2948f9c9" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="276"></p>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
 </figure>
 </div>
 </div>
@@ -342,55 +368,40 @@ Sample standard deviation has its own sampling variability
 <p><em>&gt; this adds extra uncertainty to our interval</em></p>
 </div>
 </section>
-<section id="where-does-the-t-distribution-come-from" class="slide level2">
-<h2>Where Does the t-Distribution Come From?</h2>
+<section id="normal-vs-t-distribution" class="slide level2">
+<h2>Normal vs t-Distribution</h2>
 <p class="subheader">
-Understanding why we need a new distribution
+The t-distribution precisely accounts for the variation in <span class="math inline">\(s\)</span> around <span class="math inline">\(\sigma\)</span>.
 </p>
 <div class="fragment">
-<p><em>&gt; consider our standardized sample mean: <span class="math inline">\(z = \frac{\bar{x} - \mu}{\sigma/\sqrt{n}}\)</span></em></p>
+<p><em>&gt; <span class="math inline">\(\bar{x}\)</span> follows a normal distribution with <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span></em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; this follows a standard normal when we know <span class="math inline">\(\sigma\)</span></em></p>
+<p><em>&gt; key insight: since <span class="math inline">\(s\)</span> is random, using it instead <span class="math inline">\(\sigma\)</span> introduces another r.v.</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; but when we use s instead: <span class="math inline">\(t = \frac{\bar{x} - \mu}{s/\sqrt{n}}\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; key insight: s is random too! it’s like dividing by a random number</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; specifically: <span class="math inline">\(t = \frac{z}{\sqrt{\frac{(n-1)s^2}{\sigma^2}/(n-1)}}\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; numerator is normal, denominator is <span class="math inline">\(\sqrt{\chi^2/(n-1)}\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; this ratio gives us the t-distribution with n-1 degrees of freedom</em></p>
-<div id="5a3c6f07" class="cell" data-execution_count="5">
+<p><em>&gt; this gives us the t-distribution with n-1 degrees of freedom</em></p>
+<div id="9bd618c3" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="276"></p>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><em>&gt; more variable because we’re dividing by a random number!</em></p>
-</div>
 </section>
-<section id="the-t-distribution-solution" class="slide level2">
-<h2>The t-Distribution Solution</h2>
+<section id="the-t-distribution" class="slide level2">
+<h2>The t-Distribution</h2>
 <p class="subheader">
-Accounts for the extra uncertainty in s
+… acounts for the extra uncertainty in <span class="math inline">\(s\)</span> around <span class="math inline">\(\sigma\)</span>.
 </p>
-<div id="f06d4d64" class="cell" data-execution_count="6">
+<div id="e884f46b" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_3_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="276"></p>
+<p><img data-src="Part_3_3_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
@@ -399,59 +410,75 @@ Accounts for the extra uncertainty in s
 <p><em>&gt; t-distribution has heavier tails than normal</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; approaches normal as sample size increases</em></p>
+<p><em>&gt; approaches normal as sample size (<span class="math inline">\(n\)</span>) increases</em></p>
 </div>
 </section>
 <section id="putting-it-all-together" class="slide level2">
 <h2>Putting It All Together</h2>
 <p class="subheader">
-Now we can quantify uncertainty about <span class="math inline">\(\mu\)</span>
+Now we can quantify our uncertainty about an unknown <span class="math inline">\(\mu\)</span>.
 </p>
 <div class="fragment">
-<p><em>&gt; 1. <span class="math inline">\(\bar{x}\)</span> follows a normal distribution around <span class="math inline">\(\mu\)</span></em></p>
+<ol type="1">
+<li><span class="math inline">\(\bar{x}\)</span> follows a normal distribution around <span class="math inline">\(\mu\)</span>.</li>
+</ol>
 </div>
 <div class="fragment">
-<p><em>&gt; 2. we can center the distribution on <span class="math inline">\(\bar{x}\)</span> instead</em></p>
+<ol start="2" type="1">
+<li>We can center the distribution on <span class="math inline">\(\bar{x}\)</span> instead.</li>
+</ol>
 </div>
 <div class="fragment">
-<p><em>&gt; 3. using s adds uncertainty, captured by t-distribution</em></p>
+<ol start="3" type="1">
+<li>Using <span class="math inline">\(s\)</span> adds uncertainty, captured by t-distribution.</li>
+</ol>
 </div>
 <div class="fragment">
-<p><em>&gt; 4. this lets us make probability statements about <span class="math inline">\(\mu\)</span></em></p>
+<ol start="4" type="1">
+<li>We can use the t-distribution to make probability statements about <span class="math inline">\(\mu\)</span>.</li>
+</ol>
 </div>
 </section>
-<section id="an-example" class="slide level2">
-<h2>An Example</h2>
+<section id="example-wait-times" class="slide level2">
+<h2>Example: Wait Times</h2>
 <p class="subheader">
-95% confidence interval for waiting times
+Calculate the 95% confidence interval for waiting times.
 </p>
-<div id="ce281d2f" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href=""></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a><span class="co"># Generate sample data</span></span>
-<span id="cb1-5"><a href=""></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb1-6"><a href=""></a>sample <span class="op">=</span> np.random.normal(<span class="dv">12</span>, <span class="fl">2.5</span>, <span class="dv">30</span>)</span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="co"># Calculate statistics</span></span>
-<span id="cb1-9"><a href=""></a>x_bar <span class="op">=</span> np.mean(sample)</span>
-<span id="cb1-10"><a href=""></a>s <span class="op">=</span> np.std(sample, ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb1-11"><a href=""></a>n <span class="op">=</span> <span class="bu">len</span>(sample)</span>
-<span id="cb1-12"><a href=""></a>df <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span>
-<span id="cb1-13"><a href=""></a>t_crit <span class="op">=</span> stats.t.ppf(<span class="fl">0.975</span>, df)</span>
-<span id="cb1-14"><a href=""></a>margin <span class="op">=</span> t_crit <span class="op">*</span> (s <span class="op">/</span> np.sqrt(n))</span>
-<span id="cb1-15"><a href=""></a></span>
-<span id="cb1-16"><a href=""></a><span class="bu">print</span>(<span class="ss">f"95% CI: [</span><span class="sc">{</span>x_bar <span class="op">-</span> margin<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>x_bar <span class="op">+</span> margin<span class="sc">:.1f}</span><span class="ss">]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>95% CI: [10.7, 12.4]</code></pre>
+<p>Generate some sample data.</p>
+<div id="7fdc39a1" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>sample <span class="op">=</span> np.random.normal(<span class="dv">12</span>, <span class="fl">2.5</span>, <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>Calculate sample statistics.</p>
+<div id="4701295a" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>x_bar <span class="op">=</span> np.mean(sample)</span>
+<span id="cb4-2"><a href=""></a>s <span class="op">=</span> np.std(sample, ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-3"><a href=""></a>n <span class="op">=</span> <span class="bu">len</span>(sample)</span>
+<span id="cb4-4"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; we’re 95% confident the true mean wait time is in this interval</em></p>
+<p>Calculate how many standard errors the 95% CI is from <span class="math inline">\(\bar{x}\)</span>.</p>
+<div id="0300fdec" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>t_crit <span class="op">=</span> stats.t.ppf(<span class="fl">0.975</span>, n<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p>Calculate the CI from the critical value.</p>
+<div id="cfd73b43" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>margin <span class="op">=</span> t_crit <span class="op">*</span> se</span>
+<span id="cb6-2"><a href=""></a>ci <span class="op">=</span> [x_bar <span class="op">-</span> margin, x_bar <span class="op">+</span> margin]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; if we took many samples, 95% of the time this interval would contain the truth</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; we often just say: “we’re 95% confident the truth is in this interval”</em></p>
 </div>
 </section>
-<section id="discussion-questions" class="slide level2">
-<h2>Discussion Questions</h2>
+<section id="extra-questions" class="slide level2">
+<h2>Extra Questions</h2>
 <ol type="1">
 <li><p>How would the confidence interval change if we:</p>
 <ul>
@@ -463,39 +490,6 @@ Now we can quantify uncertainty about <span class="math inline">\(\mu\)</span>
 <li><p>What does “95% confident” really mean?</p></li>
 <li><p>How could this help with economic decision-making?</p></li>
 </ol>
-</section>
-<section id="outline" class="slide level2">
-<h2>Outline</h2>
-<ul>
-<li>We’ve found the distribution of sample means</li>
-<li>Lets use it!</li>
-<li>We know that ‘closeness’ of <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span> follows a normal distribution.</li>
-<li>Do a little derivation of why it’s <span class="math inline">\(\sigma / \sqrt(n)\)</span></li>
-<li>So if we knew <span class="math inline">\(\sigma\)</span> we could know the probability a sample mean will be close to the true mean</li>
-<li>Lets do this mathematically: find the probability a randomly drawn sample will fall within <span class="math inline">\(\sigma / \sqrt(n)\)</span> of the true mean?</li>
-<li>Lets simulate this.</li>
-<li>This is what we call a confidence interval. We’re <span class="math inline">\(P(\bar{x} \in [\mu-\sigma / \sqrt(n), \mu+\sigma / \sqrt(n)])\)</span> confident the sample will be no further than <span class="math inline">\(\sigma / \sqrt(n)\)</span> away from the mean.</li>
-<li>This is what we call a confidence interval.</li>
-<li>But you’ll notice a problem: we don’t observe <span class="math inline">\(\mu\)</span>, so how do we know where to place the center of the normal distribution?</li>
-<li>Well maybe you’ve noticed, the central limit theorem tells us about the distribution of <span class="math inline">\(\bar{x}\)</span> around <span class="math inline">\(\mu\)</span>, which is mathematically equivalent to the distribution of the ‘closeness’ of <span class="math inline">\(\bar{x}\)</span> to <span class="math inline">\(\mu\)</span>. So it’s mathematically equivalent to either talk about the distribution of closeness of <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span> or center the normal distribution on <span class="math inline">\(\bar{x}\)</span>.</li>
-<li>But be careful here. The centeral limit theorem doesn’t tell us about the distribution of the truth! The truth does have variability. It’s fixed. It tells us how close <span class="math inline">\(\bar{x}\)</span> will be to the truth. Which is mathematically equivalent to centering the ditribution on <span class="math inline">\(\bar{x}\)</span>.</li>
-<li>We can show that these things are idential with a simulation. The truth is in the confidence interval around the sample mean every time the sample mean is in the confidence interval around the turth.</li>
-<li>All we’ve done here is change the centerpoint. This shift means we don’t have to know <span class="math inline">\(\mu\)</span> to determine how confident we are about the location of the truth!!!</li>
-<li>But we have one remaining question: how do we know about <span class="math inline">\(\sigma\)</span>? We used <span class="math inline">\(\sigma\)</span> to construct the confidence interval. Don’t we need to know THAT?</li>
-<li>Well what did we do to not need to know <span class="math inline">\(\mu\)</span>? We used <span class="math inline">\(\bar{x}\)</span>, the sample equivalent.</li>
-<li>Lets think about using the sample equivalent of <span class="math inline">\(\sigma\)</span>, <span class="math inline">\(S\)</span>.</li>
-<li>But just like <span class="math inline">\(\bar{x}\)</span>, theres sampling variability of <span class="math inline">\(S\)</span> around <span class="math inline">\(\sigma\)</span>.</li>
-<li>Lets simulate this.</li>
-<li>So there’s a bit of extra variability in <span class="math inline">\(S\)</span>.</li>
-<li>In turns out that we can systematize this added variability in the t-distribution, which is just like N but with the extra variability built in.</li>
-<li>Show t vs N.</li>
-<li>Lets calculate the area in the tails.</li>
-<li>So this lets us use the information in the sample to make claims about the truth.</li>
-<li>Lets do an example.</li>
-</ul>
-</section>
-<section class="slide level2">
-
 
 </section>
     </div>

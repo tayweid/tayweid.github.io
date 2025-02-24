@@ -16,23 +16,32 @@ format:
 ---
 
 ## Confidence Intervals Recap
-<p class="subheader">We found the distribution of sample means and used it to create intervals.</p>
+<p class="subheader">We used the distribution of sample means to create confidence intervals around $\bar{x}$.</p>
 
 :::: {.columns}
 ::: {.column width="50%"}
 - Sample mean $\bar{x}$ follows a normal distribution
 - Centered at population mean $\mu$
 - Standard error = $\frac{\sigma}{\sqrt{n}}$
-- 95% of samples will have $\bar{x}$ within 1.96 standard errors of $\mu$
+- 95% of samples will have $\bar{x}$ and $\mu$ roughly 1.96 standard errors apart 
 :::
 
 ::: {.column width="50%"}
 ```{python}
 #| echo: false
+
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 import seaborn as sns
+
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
 
 np.random.seed(123)
 n_means = 1000
@@ -46,7 +55,7 @@ x = np.linspace(10, 14, 1000)
 y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
 plt.plot(x, y, 'r-')
 plt.axvline(x=12, color='blue', linestyle='--')
-plt.title(f'Distribution of Sample Means (n={sample_size})')
+plt.title(f'Distribution of Sample Means (n={sample_size})', fontsize=20)
 plt.yticks([])
 
 sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
@@ -59,7 +68,13 @@ plt.show()
 
 . . .
 
-*> in the wait time example, we were asking "where is the true mean wait time?"*
+<br><br>
+
+*> in the wait time example, we asked "where is the true mean wait time?"*
+
+. . .
+
+*> but what if we want to test a specific claim about the mean?*
 
 ---
 
@@ -70,24 +85,30 @@ plt.show()
 
 . . .
 
-*> "My boss claims the mean wait time is 10 minutes"*
+*> "my boss claims the mean wait time is 10 minutes"*
 
 . . .
 
-*> Is our data consistent with that specific claim?*
+*> is our data consistent with that specific claim?*
 
 . . .
 
-*> Same math, different question...*
+*> same math as last time, but a different question...*
 
 . . .
 
-*> Instead of finding where μ might be, we're testing a specific value*
+*> instead of finding where some $\mu$ might be, we're testing a specific value of $\mu$*
 
 ---
 
 ## Testing a Specific Value
-<p class="subheader">Let's simulate data where μ=10 and see what sample means we'd get</p>
+<p class="subheader">If $\bar{x}=10.85$, is that consistent with $\mu_0=10$?</p>
+
+. . .
+
+*> let's simulate data where $\mu=10$ and see what sample means we'd get*
+
+. . .
 
 ```{python}
 #| echo: false
@@ -132,32 +153,28 @@ plt.show()
 
 . . .
 
-*> if our sample gives $\bar{x}=10.85$, is that consistent with μ=10?*
-
-. . .
-
-*> how "surprising" would our observed $\bar{x}$ be if the null hypothesis were true?*
+*> how "surprising" would our observed $\bar{x}$ be if $\mu$ actually was 10?*
 
 ---
 
-## Connecting to Confidence Intervals
-<p class="subheader">The math is identical to confidence intervals</p>
+## Hypotheses and Confidence Intervals
+<p class="subheader">The math to answer this question is identical to confidence intervals.</p>
 
 :::: {.columns}
 ::: {.column width="60%"}
 If true mean is $\mu_0 = 10$:
 
-$$\bar{X} \sim N\left(\mu_0, \frac{\sigma}{\sqrt{n}}\right)$$
+$$\bar{x} \sim t_{n-1}\left(\mu_0, \frac{s}{\sqrt{n}}\right)$$
 
-$$\bar{X} \sim N\left(10, \frac{2.5}{\sqrt{30}}\right)$$
+$$\bar{x} \sim t_{29}\left(10, \frac{2.5}{\sqrt{30}}\right)$$
 
-$$\bar{X} \sim N(10, 0.456)$$
+$$\bar{x} \sim t_{29}(10, 0.456)$$
 
 A 95% confidence interval around $\mu_0$ would be:
 
-$$[10 - 1.96 \times 0.456, 10 + 1.96 \times 0.456]$$
+$$[10 - 2.045 \times 0.456, 10 + 2.045 \times 0.456]$$
 
-$$[9.11, 10.89]$$
+$$[9.07, 10.93]$$
 :::
 
 ::: {.column width="40%"}
@@ -171,17 +188,19 @@ import seaborn as sns
 mu_0 = 10
 std_err = 2.5/np.sqrt(30)
 observed_mean = 10.85
+df = 29  # degrees of freedom = n-1
 
 x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
-y = stats.norm.pdf(x, mu_0, std_err)
+y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
 
 plt.figure(figsize=(5, 3))
 plt.plot(x, y, 'r-', linewidth=2)
 plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
 
 # Shade the confidence interval
-ci_lower = mu_0 - 1.96 * std_err
-ci_upper = mu_0 + 1.96 * std_err
+t_critical = stats.t.ppf(0.975, df)  # t-value for 95% CI
+ci_lower = mu_0 - t_critical * std_err
+ci_upper = mu_0 + t_critical * std_err
 plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)], 
                  0, 
                  y[(x >= ci_lower) & (x <= ci_upper)], 
@@ -191,9 +210,67 @@ plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)],
 plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
 
 plt.yticks([])
-plt.title('Sampling Distribution if μ=10')
+plt.title('t-Distribution if μ=10 (df=29)')
 
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
+plt.tight_layout()
+plt.show()
+```
+:::
+::::
+
+---
+
+## Hypotheses and Confidence Intervals
+<p class="subheader">The math to answer this question is identical to confidence intervals.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+If true mean is $\mu_0 = 10$:
+
+$$\bar{x} \sim t_{29}(10, 0.456)$$
+
+A 95% confidence interval around $\mu_0$ would be:
+
+$$[9.07, 10.93]$$
+:::
+
+::: {.column width="40%"}
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+mu_0 = 10
+std_err = 2.5/np.sqrt(30)
+observed_mean = 10.85
+df = 29  # degrees of freedom = n-1
+
+x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
+y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
+
+plt.figure(figsize=(5, 3))
+plt.plot(x, y, 'r-', linewidth=2)
+plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
+
+# Shade the confidence interval
+t_critical = stats.t.ppf(0.975, df)  # t-value for 95% CI
+ci_lower = mu_0 - t_critical * std_err
+ci_upper = mu_0 + t_critical * std_err
+plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)], 
+                 0, 
+                 y[(x >= ci_lower) & (x <= ci_upper)], 
+                 color='blue', alpha=0.2)
+
+# Mark the observed mean
+plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
+
+plt.yticks([])
+plt.title('t-Distribution if μ=10 (df=29)')
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
 plt.tight_layout()
 plt.show()
 ```
@@ -234,6 +311,7 @@ plt.show()
 . . .
 
 **Testing Approach**: 
+
 - Calculate how "surprising" our data would be if $H_0$ were true
 - If sufficiently surprising, we reject $H_0$
 
@@ -267,7 +345,7 @@ plt.show()
 ---
 
 ## Calculating a p-value
-<p class="subheader">We use the sampling distribution to find the probability</p>
+<p class="subheader">Use the sampling distribution to find the probability.</p>
 
 *> How likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?*
 
@@ -336,8 +414,6 @@ plt.show()
 ## Test Statistic: The t-statistic
 <p class="subheader">We can standardize our result for easier interpretation</p>
 
-<br>
-
 . . .
 
 The **t-statistic** measures how many standard errors our sample mean is from the null value:
@@ -349,6 +425,7 @@ $$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
 . . .
 
 Where:
+
 - $\bar{x}$ is our sample mean (10.85)
 - $\mu_0$ is our null value (10)
 - $s$ is our sample standard deviation (2.5)
@@ -358,18 +435,15 @@ Where:
 
 $$t = \frac{10.85 - 10}{2.5/\sqrt{30}} = \frac{0.85}{0.456} = 1.86$$
 
-. . .
-
-This follows a t-distribution with n-1 degrees of freedom (29)
-
 ---
 
 ## The t-test
-<p class="subheader">Our example has become a formal hypothesis test</p>
+<p class="subheader">This example has become a formal hypothesis test.</p>
 
 :::: {.columns}
-::: {.column width="60%"}
+::: {.column width="40%"}
 **One-sample t-test:**
+
 - $H_0: \mu = 10$  
 - $H_1: \mu \neq 10$
 - Test statistic: $t = 1.86$
@@ -377,11 +451,12 @@ This follows a t-distribution with n-1 degrees of freedom (29)
 - p-value: 0.064
 
 **Decision rule:**
+
 - If p-value < 0.05, reject $H_0$
 - Otherwise, fail to reject $H_0$
 :::
 
-::: {.column width="40%"}
+::: {.column width="60%"}
 ```{python}
 #| echo: true
 import numpy as np
@@ -423,12 +498,14 @@ print(f"p-value: {p_value:.3f}")
 . . .
 
 **Statistical significance:**
+
 - Formal rejection of the null hypothesis (p < 0.05)
 - Only tells us if the effect is unlikely due to chance
 
 . . .
 
 **Practical significance:**
+
 - Whether the effect size matters in the real world
 - A statistically significant result can still be tiny
 
@@ -473,6 +550,7 @@ print(f"p-value: {p_value:.3f}")
 . . .
 
 **Next time:**
+
 - Comparing means between two groups
 - Two-sample t-tests
 - Paired t-tests
@@ -480,6 +558,7 @@ print(f"p-value: {p_value:.3f}")
 . . .
 
 **Coming soon:**
+
 - This same framework underlies regression analysis
 - Regression coefficients are tested using t-tests
 - ANOVA uses the same fundamental approach
