@@ -216,7 +216,7 @@ We found <span class="math inline">\(\bar{x}\)</span> follows a normal distribut
 <p class="subheader">
 Remember: sample means follow a normal distribution with mean (<span class="math inline">\(\mu\)</span>) and standard error (SE = <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span>).
 </p>
-<div id="68c680a9" class="cell" data-execution_count="1">
+<div id="644ec39a" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -258,7 +258,7 @@ If we know <span class="math inline">\(\sigma\)</span>, we can calculate probabi
 <p><em>&gt; what’s the probability <span class="math inline">\(\bar{x}\)</span> is within one standard error of <span class="math inline">\(\mu\)</span>?</em></p>
 </div>
 <div class="fragment">
-<div id="b887489d" class="cell" data-execution_count="2">
+<div id="ad947967" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -285,7 +285,7 @@ There are two mathematically equivalent perspectives to think about “closeness
 </p>
 <div class="fragment">
 <p>Perspective 1: probability <span class="math inline">\(\bar{x}\)</span> is close to <span class="math inline">\(\mu\)</span></p>
-<div id="7fb57748" class="cell" data-execution_count="3">
+<div id="35c21140" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -297,7 +297,7 @@ There are two mathematically equivalent perspectives to think about “closeness
 </div>
 <div class="fragment">
 <p>Perspective 2: probability <span class="math inline">\(\mu\)</span> is close to <span class="math inline">\(\bar{x}\)</span></p>
-<div id="a5705630" class="cell" data-execution_count="4">
+<div id="96a5dc2d" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -314,24 +314,26 @@ There are two mathematically equivalent perspectives to think about “closeness
 There are two mathematically equivalent perspectives to think about “closeness” between <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\bar{x}\)</span>.
 </p>
 
-<img data-src="../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; this is huge! we can center the confidence interval around <span class="math inline">\(\bar{x}\)</span> instead of <span class="math inline">\(\mu\)</span>!</em></p>
+<img data-src="../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<p><em>&gt; this is huge! we can center the confidence interval around <span class="math inline">\(\bar{x}\)</span> instead of <span class="math inline">\(\mu\)</span>!</em></p>
+</div>
 </section>
 <section id="using-confidence-intervals" class="slide level2">
 <h2>Using Confidence Intervals</h2>
 <p class="subheader">
-Example: <span class="math inline">\(\bar{x} = 102.3\)</span>, <span class="math inline">\(s=1.6\)</span>, and <span class="math inline">\(n=100\)</span>
+Example: <span class="math inline">\(\bar{x} = 102.3\)</span>, <span class="math inline">\(\sigma=1.6\)</span>, and <span class="math inline">\(n=100\)</span>
 </p>
 <p><strong>Question 1:</strong> what’s the probability <span class="math inline">\(\mu\)</span> is closer than 0.1 to <span class="math inline">\(\bar{x}\)</span>?</p>
 <div class="fragment">
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>distance <span class="op">=</span> <span class="fl">0.1</span></span>
-<span id="cb1-2"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span>
+<span id="cb1-2"><a href=""></a>se <span class="op">=</span> sigma <span class="op">/</span> np.sqrt(n)</span>
 <span id="cb1-3"><a href=""></a>probability <span class="op">=</span> stats.norm.cdf(distance<span class="op">/</span>se) <span class="op">-</span> stats.norm.cdf(<span class="op">-</span>distance<span class="op">/</span>se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><strong>Question 2:</strong> what’s the 95% CI?</p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(n)</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>se <span class="op">=</span> sigma <span class="op">/</span> np.sqrt(n)</span>
 <span id="cb2-2"><a href=""></a>ci <span class="op">=</span> stats.norm.interval(<span class="fl">0.95</span>, loc<span class="op">=</span>x_bar, scale<span class="op">=</span>se)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -355,7 +357,7 @@ We don’t know <span class="math inline">\(\sigma\)</span> either!
 <p class="subheader">
 Sample standard deviation (<span class="math inline">\(s\)</span>) has its own sampling variability.
 </p>
-<div id="2948f9c9" class="cell" data-execution_count="5">
+<div id="18986bfc" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -381,7 +383,7 @@ The t-distribution precisely accounts for the variation in <span class="math inl
 </div>
 <div class="fragment">
 <p><em>&gt; this gives us the t-distribution with n-1 degrees of freedom</em></p>
-<div id="9bd618c3" class="cell" data-execution_count="6">
+<div id="a468f63a" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -397,7 +399,7 @@ The t-distribution precisely accounts for the variation in <span class="math inl
 <p class="subheader">
 … acounts for the extra uncertainty in <span class="math inline">\(s\)</span> around <span class="math inline">\(\sigma\)</span>.
 </p>
-<div id="e884f46b" class="cell" data-execution_count="7">
+<div id="23f4b2ed" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -445,12 +447,12 @@ Now we can quantify our uncertainty about an unknown <span class="math inline">\
 Calculate the 95% confidence interval for waiting times.
 </p>
 <p>Generate some sample data.</p>
-<div id="7fdc39a1" class="cell" data-execution_count="8">
+<div id="94134f45" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>sample <span class="op">=</span> np.random.normal(<span class="dv">12</span>, <span class="fl">2.5</span>, <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Calculate sample statistics.</p>
-<div id="4701295a" class="cell" data-execution_count="9">
+<div id="b15f56dd" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>x_bar <span class="op">=</span> np.mean(sample)</span>
 <span id="cb4-2"><a href=""></a>s <span class="op">=</span> np.std(sample, ddof<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb4-3"><a href=""></a>n <span class="op">=</span> <span class="bu">len</span>(sample)</span>
@@ -459,13 +461,13 @@ Calculate the 95% confidence interval for waiting times.
 </div>
 <div class="fragment">
 <p>Calculate how many standard errors the 95% CI is from <span class="math inline">\(\bar{x}\)</span>.</p>
-<div id="0300fdec" class="cell" data-execution_count="10">
+<div id="e2173f97" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>t_crit <span class="op">=</span> stats.t.ppf(<span class="fl">0.975</span>, n<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <p>Calculate the CI from the critical value.</p>
-<div id="cfd73b43" class="cell" data-execution_count="11">
+<div id="30e0c281" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>margin <span class="op">=</span> t_crit <span class="op">*</span> se</span>
 <span id="cb6-2"><a href=""></a>ci <span class="op">=</span> [x_bar <span class="op">-</span> margin, x_bar <span class="op">+</span> margin]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

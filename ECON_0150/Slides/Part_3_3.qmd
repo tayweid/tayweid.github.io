@@ -231,12 +231,14 @@ plt.show()
 
 ![](../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png){fig-align="center"}
 
+. . .
+
 *> this is huge! we can center the confidence interval around $\bar{x}$ instead of $\mu$!*
 
 ---
 
 ## Using Confidence Intervals
-<p class="subheader">Example: $\bar{x} = 102.3$, $s=1.6$, and $n=100$</p>
+<p class="subheader">Example: $\bar{x} = 102.3$, $\sigma=1.6$, and $n=100$</p>
 
 **Question 1:** what's the probability $\mu$ is closer than 0.1 to $\bar{x}$?
 
@@ -244,7 +246,7 @@ plt.show()
 
 ```python
 distance = 0.1
-se = s / np.sqrt(n)
+se = sigma / np.sqrt(n)
 probability = stats.norm.cdf(distance/se) - stats.norm.cdf(-distance/se)
 ```
 
@@ -255,7 +257,7 @@ probability = stats.norm.cdf(distance/se) - stats.norm.cdf(-distance/se)
 . . .
 
 ```python
-se = s / np.sqrt(n)
+se = sigma / np.sqrt(n)
 ci = stats.norm.interval(0.95, loc=x_bar, scale=se)
 ```
 
