@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_3_4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_3_4_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_3_4_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_3_4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_3_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_3_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_3_4_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="Part_4_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Part_4_1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Part_4_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="Part_4_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Part_4_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Part_4_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Part_4_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_3_4</title>
+  <title>part_4_1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_3_4_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_3_4_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="Part_4_1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Part_4_1_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_3_4_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="Part_4_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_3_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_3_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_3_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_3_4_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="Part_4_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Part_4_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Part_4_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Part_4_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -198,277 +198,12 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-3.4-testing-hypotheses"><em>Part 3.4 | Testing Hypotheses</em></h3>
+<h3 id="part-4.1-extending-the-t-test"><em>Part 4.1 | Extending The t-Test</em></h3>
 </section>
-<section id="confidence-intervals-recap" class="slide level2">
-<h2>Confidence Intervals Recap</h2>
+<section id="one-sample-t-test-example-using-sample-stats" class="slide level2">
+<h2>One-Sample t-Test: Example (using sample stats)</h2>
 <p class="subheader">
-We used the distribution of sample means to systematize the probability of “closeness” of <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span>.
-</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<ul>
-<li>The difference between <span class="math inline">\(\bar{x}\)</span> and <span class="math inline">\(\mu\)</span> follows a t distribution with SE = <span class="math inline">\(\frac{s}{\sqrt{n}}\)</span></li>
-<li>95% of samples will have <span class="math inline">\(\bar{x}\)</span> no further than 1.96 standard errors from <span class="math inline">\(\mu\)</span></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div id="b7bdecd3" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-2-output-1.png" width="470" height="277"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="fragment">
-<p><br><br></p>
-<p><em>&gt; in the wait time example, we asked “where is the true mean wait time?”</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; but what if we want to test a specific claim about the mean?</em></p>
-</div>
-</section>
-<section id="flipping-the-question" class="slide level2">
-<h2>Flipping The Question</h2>
-<p class="subheader">
-What if we want to test a specific claim about the mean?
-</p>
-<p><br></p>
-<div class="fragment">
-<p><em>&gt; “my boss claims the mean wait time is 10 minutes”</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; is our data consistent with that specific claim?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; same math as last time, but a different question…</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; instead of finding where some <span class="math inline">\(\mu\)</span> might be, we’re testing a specific value of <span class="math inline">\(\mu\)</span></em></p>
-</div>
-</section>
-<section id="example-wait-times" class="slide level2">
-<h2>Example: Wait Times</h2>
-<p class="subheader">
-If <span class="math inline">\(\bar{x}=10.85\)</span>, is that consistent with <span class="math inline">\(\mu_0=10\)</span>?
-</p>
-<div class="fragment">
-<p><em>&gt; let’s simulate data where <span class="math inline">\(\mu=10\)</span> and see what sample means we’d get</em></p>
-<div id="af5471ee" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="949" height="376"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; how “surprising” would our observed <span class="math inline">\(\bar{x}\)</span> be if <span class="math inline">\(\mu\)</span> actually was 10?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; notice we’ve centered the distribution on our hypothesis: <span class="math inline">\(\mu_0\)</span></em></p>
-</div>
-</section>
-<section id="example-wait-times-1" class="slide level2">
-<h2>Example: Wait Times</h2>
-<p class="subheader">
-The math to answer this question is identical to confidence intervals.
-</p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p>If sample standard deviation is <span class="math inline">\(s = 2.5\)</span>:</p>
-<p><span class="math display">\[SE = \frac{s}{\sqrt{n}}\]</span></p>
-<p><span class="math display">\[SE = \frac{2.5}{\sqrt{30}}\]</span></p>
-<p><span class="math display">\[SE = 0.456\]</span></p>
-</div><div class="column" style="width:40%;">
-<div id="0f3e7661" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-4-output-1.png" width="470" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>s <span class="op">=</span> <span class="fl">2.5</span></span>
-<span id="cb1-2"><a href=""></a>n <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb1-3"><a href=""></a>se <span class="op">=</span> s <span class="op">/</span> np.sqrt(<span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="example-wait-times-2" class="slide level2">
-<h2>Example: Wait Times</h2>
-<p class="subheader">
-The math to answer this question is identical to confidence intervals.
-</p>
-<div class="columns">
-<div class="column" style="width:60%;">
-<p>If sample standard deviation is <span class="math inline">\(s = 2.5\)</span>:</p>
-<p><span class="math display">\[SE = 0.456\]</span></p>
-<p>If true mean is <span class="math inline">\(\mu_0 = 10\)</span>:</p>
-<p><span class="math display">\[\bar{x} \sim t_{29}(10, 0.456)\]</span></p>
-<p>So the critical value for 95%: <span class="math display">\[t_{crit} = 2.045\]</span></p>
-</div><div class="column" style="width:40%;">
-<div id="38e4bb6b" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-5-output-1.png" width="470" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-</div></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>stats.t.interval(<span class="fl">0.95</span>, df<span class="op">=</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="example-wait-times-3" class="slide level2">
-<h2>Example: Wait Times</h2>
-<p class="subheader">
-The math to answer this question is identical to confidence intervals.
-</p>
-<div id="63d7e715" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-6-output-1.png" width="1046" height="277"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>A 95% confidence interval around <span class="math inline">\(\mu_0\)</span> would be: <span class="math inline">\([9.07, 10.93]\)</span></p>
-<div class="fragment">
-<p><em>&gt; our observed mean (<span class="math inline">\(\bar{x} = 10.85\)</span>) is within this interval — not surprising if μ=10</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; but if we observed <span class="math inline">\(\bar{x} = 11.5\)</span>, that would be outside the interval — surprising!</em></p>
-</div>
-</section>
-<section id="the-null-hypothesis" class="slide level2">
-<h2>The Null Hypothesis</h2>
-<p class="subheader">
-We formalize this approach by setting up a “null hypothesis”
-</p>
-<p><br></p>
-<div class="fragment">
-<p><strong>Null Hypothesis</strong> (<span class="math inline">\(H_0\)</span>): <em>The specific value or claim we’re testing</em></p>
-</div>
-<div class="fragment">
-<ul>
-<li><span class="math inline">\(H_0: \mu = 10\)</span> (wait time is 10 minutes)</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Alternative Hypothesis</strong> (<span class="math inline">\(H_1\)</span> or <span class="math inline">\(H_a\)</span>): <em>What we accept if we reject the null</em></p>
-</div>
-<div class="fragment">
-<ul>
-<li><span class="math inline">\(H_1: \mu \neq 10\)</span> (wait time is not 10 minutes)</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Testing Approach</strong>:</p>
-<ul>
-<li>Calculate how “surprising” our data would be if <span class="math inline">\(H_0\)</span> were true</li>
-<li>If sufficiently surprising, we reject <span class="math inline">\(H_0\)</span></li>
-</ul>
-</div>
-</section>
-<section id="quantifying-surprise-p-values" class="slide level2">
-<h2>Quantifying Surprise: p-values</h2>
-<p class="subheader">
-The p-value measures how compatible our data is with the null hypothesis.
-</p>
-<p><br></p>
-<div class="fragment">
-<p><strong>p-value</strong>: <em>The probability of observing a test statistic at least as extreme as ours, if the null hypothesis were true</em></p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><strong>For our example:</strong></p>
-<ul>
-<li>Null: <span class="math inline">\(\mu = 10\)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Observed: <span class="math inline">\(\bar{x} = 10.85\)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<p><em>&gt; How likely is it to get <span class="math inline">\(\bar{x}\)</span> this far or farther from 10, if the true mean is 10?</em></p>
-</div>
-</section>
-<section id="quantifying-surprise-p-values-1" class="slide level2">
-<h2>Quantifying Surprise: p-values</h2>
-<p class="subheader">
-Example cont.: What is the probability of an error as large as the observed mean?
-</p>
-<p><em>&gt; how likely is it to get <span class="math inline">\(\bar{x}\)</span> this far or farther from 10, if the true mean is 10?</em></p>
-<div id="44e7ed11" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_4_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>stats.t.cdf((mu_0<span class="op">-</span>xbar)<span class="op">/</span>se, df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>)) <span class="op">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; interpretation: if μ=10, we’d see <span class="math inline">\(\bar{x}\)</span> this far from 10 about 7.2% of the time</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; often, we reject <span class="math inline">\(H_0\)</span> if p-value &lt; 0.05 (5%)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; here, p-value &gt; 0.05, so we don’t reject the claim that μ=10</em></p>
-</div>
-</section>
-<section id="test-statistic-the-t-statistic" class="slide level2">
-<h2>Test Statistic: The t-statistic</h2>
-<p class="subheader">
-We can standardize our result for easier interpretation
-</p>
-<div class="fragment">
-<p>The <strong>t-statistic</strong> measures how many standard errors our sample mean is from the null value:</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}\]</span></p>
-</div>
-<div class="fragment">
-<p>Where:</p>
-<ul>
-<li><span class="math inline">\(\bar{x}\)</span> is our sample mean (10.85)</li>
-<li><span class="math inline">\(\mu_0\)</span> is our null value (10)</li>
-<li><span class="math inline">\(s\)</span> is our sample standard deviation (2.5)</li>
-<li><span class="math inline">\(n\)</span> is our sample size (30)</li>
-</ul>
-</div>
-</section>
-<section id="test-statistic-the-t-statistic-1" class="slide level2">
-<h2>Test Statistic: The t-statistic</h2>
-<p class="subheader">
-We can standardize our result for easier interpretation
-</p>
-<p>The <strong>t-statistic</strong> measures how many standard errors our sample mean is from the null value:</p>
-<p><span class="math display">\[t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{10.85 - 10}{2.5/\sqrt{30}} = \frac{0.85}{0.456} = 1.86\]</span></p>
-<p>Where:</p>
-<ul>
-<li><span class="math inline">\(\bar{x}\)</span> is our sample mean (10.85)</li>
-<li><span class="math inline">\(\mu_0\)</span> is our null value (10)</li>
-<li><span class="math inline">\(s\)</span> is our sample standard deviation (2.5)</li>
-<li><span class="math inline">\(n\)</span> is our sample size (30)</li>
-</ul>
-</section>
-<section id="the-t-test" class="slide level2">
-<h2>The t-test</h2>
-<p class="subheader">
-This example has become a formal hypothesis test.
+How surprising would it be for the average wait time to be 10 minutes?
 </p>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -477,134 +212,436 @@ This example has become a formal hypothesis test.
 <li><span class="math inline">\(H_0: \mu = 10\)</span><br>
 </li>
 <li><span class="math inline">\(H_1: \mu \neq 10\)</span></li>
-<li>Test statistic: <span class="math inline">\(t = 1.86\)</span></li>
-<li>Degrees of freedom: 29</li>
-<li>p-value: 0.072</li>
-</ul>
-<p><strong>Decision rule:</strong></p>
-<ul>
-<li>If p-value &lt; 0.05, reject <span class="math inline">\(H_0\)</span></li>
-<li>Otherwise, fail to reject <span class="math inline">\(H_0\)</span></li>
+<li>n: 29</li>
+<li>t-stat: <span class="math inline">\(t = 2.401\)</span></li>
+<li>p-value: 0.0230</li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Imports</span></span>
-<span id="cb4-2"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-3"><a href=""></a><span class="im">from</span> scipy <span class="im">import</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Imports</span></span>
+<span id="cb1-2"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href=""></a><span class="im">from</span> scipy <span class="im">import</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Sample Data</span></span>
-<span id="cb5-2"><a href=""></a>sample_mu <span class="op">=</span> <span class="fl">10.85</span></span>
-<span id="cb5-3"><a href=""></a>pop_mu <span class="op">=</span> <span class="dv">10</span>    <span class="co"># null hypothesis</span></span>
-<span id="cb5-4"><a href=""></a>std_dev <span class="op">=</span> <span class="fl">2.5</span>    </span>
-<span id="cb5-5"><a href=""></a>n <span class="op">=</span> <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Sample Data</span></span>
+<span id="cb2-2"><a href=""></a>sample_mu <span class="op">=</span> <span class="fl">10.864</span></span>
+<span id="cb2-3"><a href=""></a>pop_mu <span class="op">=</span> <span class="dv">10</span>    <span class="co"># null hypothesis</span></span>
+<span id="cb2-4"><a href=""></a>std_dev <span class="op">=</span> <span class="fl">1.971</span></span>
+<span id="cb2-5"><a href=""></a>n <span class="op">=</span> <span class="dv">30</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Calculate t-statistic</span></span>
-<span id="cb6-2"><a href=""></a>t_stat <span class="op">=</span> (sample_mu <span class="op">-</span> pop_mu) <span class="op">/</span> (std_dev <span class="op">/</span> np.sqrt(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Calculate t-statistic</span></span>
+<span id="cb3-2"><a href=""></a>t_stat <span class="op">=</span> (sample_mu <span class="op">-</span> pop_mu) <span class="op">/</span> (std_dev <span class="op">/</span> np.sqrt(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Calculate p-value</span></span>
-<span id="cb7-2"><a href=""></a>p_value <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> stats.t.cdf(<span class="bu">abs</span>(t_stat), df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Calculate p-value</span></span>
+<span id="cb4-2"><a href=""></a>p_value <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> stats.t.cdf(<span class="bu">abs</span>(t_stat), df<span class="op">=</span>n<span class="op">-</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="fragment">
-<p><em>&gt; t-tests are extremely common, especially in regression (coming soon!)</em></p>
+<p><em>&gt; so there is a 2.3% chance of seeing data this extreme given a true mean of 10</em></p>
 </div>
 </section>
-<section id="statistical-vs.-practical-significance" class="slide level2">
-<h2>Statistical vs.&nbsp;Practical Significance</h2>
+<section id="one-sample-t-test-example-using-sample-data" class="slide level2">
+<h2>One-Sample t-Test: Example (using sample data)</h2>
 <p class="subheader">
-A caution about hypothesis testing
+How surprising would it be for the average wait time to be 10 minutes?
+</p>
+<div class="fragment">
+<p><em>&gt; we can perform this very simply from raw data</em></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Imports</span></span>
+<span id="cb5-2"><a href=""></a><span class="im">import</span> scipy.stats <span class="im">as</span> stats</span>
+<span id="cb5-3"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; load the observed data</em></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Sample Data</span></span>
+<span id="cb6-2"><a href=""></a>data <span class="op">=</span> [<span class="fl">11.39</span>, <span class="fl">13.55</span>, <span class="fl">10.54</span>, <span class="fl">12.45</span>, <span class="fl">9.</span>  , <span class="fl">12.34</span>, <span class="fl">7.74</span>, <span class="fl">10.97</span>, <span class="fl">9.77</span>, <span class="fl">10.03</span>, <span class="fl">9.52</span>,</span>
+<span id="cb6-3"><a href=""></a>    <span class="fl">14.09</span>, <span class="fl">8.01</span>, <span class="fl">13.4</span> , <span class="fl">13.46</span>, <span class="fl">9.43</span>, <span class="fl">10.39</span>, <span class="fl">10.32</span>, <span class="fl">9.36</span>, <span class="fl">7.42</span>, <span class="fl">9.95</span>, <span class="fl">13.72</span>,</span>
+<span id="cb6-4"><a href=""></a>    <span class="fl">8.14</span>, <span class="fl">12.71</span>, <span class="fl">12.43</span>, <span class="fl">12.83</span>, <span class="fl">11.46</span>, <span class="fl">13.12</span>, <span class="fl">10.12</span>, <span class="fl">8.27</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; define the null hypothesis</em></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Null Hypothesis</span></span>
+<span id="cb7-2"><a href=""></a>null <span class="op">=</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; perform the test</em></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Calculate t-statistic and p-value</span></span>
+<span id="cb8-2"><a href=""></a>t_stat, p_value <span class="op">=</span> stats.ttest_1samp(data, null)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; so there is a 2.3% chance of seeing data this extreme given a true mean of 10</em></p>
+</div>
+</section>
+<section id="one-sample-t-test-example" class="slide level2">
+<h2>One-Sample t-Test: Example</h2>
+<p class="subheader">
+How surprising would it be for the average wait time to be 10 minutes?
+</p>
+<p><em>&gt; so there is a 2.3% chance of seeing data this extreme given a true mean of 10</em></p>
+<div id="7ff7038a" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-2-output-1.png" width="953" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; but why check both tails?</em></p>
+<p><em>&gt; why also consider 9.15, which is equally far from 10 but on the opposite side?</em></p>
+</div>
+</section>
+<section id="one-tail-vs-two-tail" class="slide level2">
+<h2>One-Tail vs Two-Tail</h2>
+<p class="subheader">
+… there are at least two key reasons for a two-tail test.
+</p>
+<div class="fragment">
+<ol type="1">
+<li><strong>Scientific Integrity</strong>: Since we’re testing the hypothesis “<span class="math inline">\(\mu = 10\)</span>” against “<span class="math inline">\(\mu \neq 10\)</span>”, we should be equally open to evidence in either direction.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li><strong>Statistical Reasoning</strong>: If the true mean is 10, our sampling distribution is centered there, and random samples could fall on either side.</li>
+</ol>
+</div>
+</section>
+<section id="t-test-differences-in-means" class="slide level2">
+<h2>t-Test: Differences in Means</h2>
+<p class="subheader">
+Instead of asking whether <span class="math inline">\(\mu=10\)</span> lets ask whether <span class="math inline">\(\mu_1=\mu_2\)</span>
 </p>
 <p><br></p>
 <div class="fragment">
-<p><strong>Statistical significance:</strong></p>
+<p><em>&gt; the core question: “are two means different from each other?”</em></p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><strong>Common scenarios:</strong></p>
 <ul>
-<li>Formal rejection of the null hypothesis (p &lt; 0.05)</li>
-<li>Only tells us if the effect is unlikely due to chance</li>
+<li>Wait times at different times of day</li>
+<li>Appointment lengths with different doctors</li>
+<li>Wages across different groups</li>
+<li>Treatment effects in experimental settings</li>
+</ul>
+</div>
+</section>
+<section id="two-sample-t-test-example" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+Are wait times different in the morning vs the afternoon?
+</p>
+<div id="118bd62b" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; is there a way to turn this into a one-sample t-Test that we’re familiar with?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what if we took the differences between sample menas?</em></p>
+</div>
+</section>
+<section id="two-sample-t-test-example-1" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; I ran many sample means from two distributions with equal means</em></p>
+<div id="5ee40dac" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; the distribution of differences centers on zero</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; but what is the standard error of the difference between two samples?</em></p>
+</div>
+</section>
+<section id="the-math-combining-standard-errors" class="slide level2">
+<h2>The Math: Combining Standard Errors</h2>
+<p class="subheader">
+What is the standard error of the difference in sample means?
+</p>
+<p><br></p>
+<div class="fragment">
+<p><strong>For a single sample mean:</strong></p>
+<p><span class="math display">\[SE_{\bar{x}} = \sqrt{\frac{s^2}{n}}\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>For the difference in sample means:</strong></p>
+<p><span class="math display">\[SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}\]</span></p>
+</div>
+<div class="fragment">
+<p><em>&gt; two sources of sampling variation combine, but not additively</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; if variances and sample sizes are equal, then</em> <span class="math inline">\(SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\frac{2s^2}{n}} = \frac{s\sqrt{2}}{\sqrt{n}}\)</span></p>
+</div>
+</section>
+<section id="two-sample-t-test-example-2" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; so the distribution of the differences will be wider than either sample</em></p>
+<div id="893f95c1" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-3" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; the null hypothesis comparing two means is typically: <span class="math inline">\(\mu_1 - \mu_2 = 0\)</span></em></p>
+<div id="db1b4b1a" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-4" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; the null hypothesis comparing two means is typically: <span class="math inline">\(\mu_1 - \mu_2 = 0\)</span></em></p>
+<div id="ff0e05b4" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-5" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; if the observed difference is <span class="math inline">\(\bar{x}_1 - \bar{x}_2 = 1.1\)</span>…</em></p>
+<div id="91d39649" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-6" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are equal, the difference in sample means would center on zero.
+</p>
+<p><em>&gt; if the observed difference is <span class="math inline">\(\bar{x}_1 - \bar{x}_2 = 1.1\)</span>…</em></p>
+<div id="cc1be8a8" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; like before, a p-value quantifies how surprising would be a big difference</em></p>
+</section>
+<section id="two-sample-t-test-example-7" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are not equal, the difference in sample means would not center on zero.
+</p>
+<div id="afe8a8ca" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="278"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-8" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are not equal, the difference in sample means would not center on zero.
+</p>
+<div id="e3650c45" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="278"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="two-sample-t-test-example-9" class="slide level2">
+<h2>Two-Sample t-Test: Example</h2>
+<p class="subheader">
+If the true means are not equal, the difference in sample means would not center on zero.
+</p>
+<div id="05d96ac5" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="278"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; the p-value tells us how often we’d see differences this extreme by chance</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; here it looks like the area is basically zero</em></p>
+</div>
+</section>
+<section id="two-sample-t-test-step-by-step" class="slide level2">
+<h2>Two-Sample t-test: Step by Step</h2>
+<p class="subheader">
+Example: Morning vs.&nbsp;Afternoon Wait Times
+</p>
+<p><em>&gt; load the data</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>morning <span class="op">=</span> [</span>
+<span id="cb9-2"><a href=""></a>    <span class="fl">7.2</span>, <span class="fl">6.8</span>, <span class="fl">5.9</span>, <span class="fl">7.5</span>, <span class="fl">6.5</span>, <span class="fl">6.0</span>, <span class="fl">7.1</span>, <span class="fl">6.3</span>, <span class="fl">6.7</span>, <span class="fl">6.4</span>,</span>
+<span id="cb9-3"><a href=""></a>    <span class="fl">6.9</span>, <span class="fl">7.2</span>, <span class="fl">6.2</span>, <span class="fl">6.8</span>, <span class="fl">7.0</span>, <span class="fl">6.5</span>, <span class="fl">7.3</span>, <span class="fl">6.6</span>, <span class="fl">7.1</span>, <span class="fl">6.7</span>,</span>
+<span id="cb9-4"><a href=""></a>    <span class="fl">6.3</span>, <span class="fl">6.9</span>, <span class="fl">6.4</span>, <span class="fl">7.0</span>, <span class="fl">6.6</span>, <span class="fl">6.2</span>, <span class="fl">6.8</span>, <span class="fl">7.2</span>, <span class="fl">6.5</span>, <span class="fl">6.7</span></span>
+<span id="cb9-5"><a href=""></a>]</span>
+<span id="cb9-6"><a href=""></a></span>
+<span id="cb9-7"><a href=""></a>afternoon <span class="op">=</span> [</span>
+<span id="cb9-8"><a href=""></a>    <span class="fl">8.5</span>, <span class="fl">9.2</span>, <span class="fl">8.1</span>, <span class="fl">8.8</span>, <span class="fl">9.5</span>, <span class="fl">8.3</span>, <span class="fl">7.9</span>, <span class="fl">9.0</span>, <span class="fl">8.7</span>, <span class="fl">9.3</span>,</span>
+<span id="cb9-9"><a href=""></a>    <span class="fl">8.6</span>, <span class="fl">9.1</span>, <span class="fl">8.4</span>, <span class="fl">8.9</span>, <span class="fl">9.4</span>, <span class="fl">8.2</span>, <span class="fl">9.0</span>, <span class="fl">8.5</span>, <span class="fl">8.8</span>, <span class="fl">9.2</span>,</span>
+<span id="cb9-10"><a href=""></a>    <span class="fl">8.7</span>, <span class="fl">9.1</span>, <span class="fl">8.3</span>, <span class="fl">8.9</span>, <span class="fl">9.3</span>, <span class="fl">8.0</span>, <span class="fl">8.6</span>, <span class="fl">9.2</span>, <span class="fl">8.4</span>, <span class="fl">8.8</span></span>
+<span id="cb9-11"><a href=""></a>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><em>&gt; perform two-sample t-test using scipy.stats</em></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a>t_stat, p_value <span class="op">=</span> stats.ttest_ind(morning, afternoon, equal_var<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; small p-value = surprising difference (reject null hypothesis of equal means)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; large p-value = difference could easily happen by chance (fail to reject null)</em></p>
+</div>
+</section>
+<section id="visualizing-the-difference" class="slide level2">
+<h2>Visualizing the Difference</h2>
+<p class="subheader">
+Morning vs.&nbsp;Afternoon Wait Times
+</p>
+<div id="d409267e" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_1_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; wait times are longer in the afternoon than the morning (p&lt;0.001)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; reject the null that the means are equal</em></p>
+</div>
+</section>
+<section id="key-insights" class="slide level2">
+<h2>Key Insights</h2>
+<p class="subheader">
+Connecting t-tests and regression
+</p>
+<p><br></p>
+<div class="fragment">
+<p><strong>One-sample t-test:</strong></p>
+<ul>
+<li>Tests the sample mean against a specific null value</li>
+<li>Next time: regression with only an intercept</li>
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Practical significance:</strong></p>
+<p><strong>Two-sample t-test:</strong></p>
 <ul>
-<li>Whether the effect size matters in the real world</li>
-<li>A statistically significant result can still be tiny</li>
+<li>Tests if the difference in sample means is zero</li>
+<li>Next time: regression with an intercept and one dummy variable</li>
+</ul>
+</div>
+</section>
+<section id="common-applications-in-economics" class="slide level2">
+<h2>Common Applications in Economics</h2>
+<p class="subheader">
+Two-sample t-tests are one of the most common tests in economic research!
+</p>
+<p><br></p>
+<div class="fragment">
+<p><strong>Labor Economics:</strong></p>
+<ul>
+<li>Wage gaps between different demographic groups</li>
+<li>Employment effects of policy changes</li>
 </ul>
 </div>
 <div class="fragment">
-<p><em>&gt; with large samples, even tiny differences can be statistically significant</em></p>
+<p><strong>Development Economics:</strong></p>
+<ul>
+<li>Impact of interventions on economic outcomes</li>
+<li>Differences between treatment and control groups</li>
+</ul>
 </div>
 <div class="fragment">
-<p><em>&gt; always consider the magnitude of the effect, not just the p-value</em></p>
+<p><strong>Financial Economics:</strong></p>
+<ul>
+<li>Comparing returns across different time periods</li>
+<li>Testing market efficiency</li>
+</ul>
 </div>
-</section>
-<section id="common-misinterpretations" class="slide level2">
-<h2>Common Misinterpretations</h2>
-<p class="subheader">
-What a p-value is NOT
-</p>
-<p><br></p>
-<p>❌ <strong>Not:</strong> The probability that <span class="math inline">\(H_0\)</span> is true</p>
-<ul>
-<li>The p-value doesn’t tell us if the null hypothesis is correct. It assumes the null is true and then calculates how surprising our result would be under that assumption.</li>
-<li><em>Example:</em> A p-value of 0.04 doesn’t mean there’s a 4% chance the null hypothesis is true.</li>
-</ul>
-</section>
-<section id="common-misinterpretations-1" class="slide level2">
-<h2>Common Misinterpretations</h2>
-<p class="subheader">
-What a p-value is NOT
-</p>
-<p><br></p>
-<p>❌ <strong>Not:</strong> The probability that the results occurred by chance</p>
-<ul>
-<li>All results reflect some combination of real effects and random variation. The p-value doesn’t separate these components.</li>
-<li><em>Example:</em> A p-value of 0.04 doesn’t mean there’s a 4% chance our results are due to chance and 96% chance they’re real.</li>
-</ul>
-</section>
-<section id="common-misinterpretations-2" class="slide level2">
-<h2>Common Misinterpretations</h2>
-<p class="subheader">
-What a p-value is NOT
-</p>
-<p><br></p>
-<p>❌ <strong>Not:</strong> The probability that <span class="math inline">\(H_1\)</span> is true</p>
-<ul>
-<li>The p-value doesn’t directly address the alternative hypothesis or its likelihood.</li>
-<li><em>Example:</em> A p-value of 0.04 doesn’t mean there’s a 96% chance the alternative hypothesis is true.</li>
-</ul>
-</section>
-<section id="common-misinterpretations-3" class="slide level2">
-<h2>Common Misinterpretations</h2>
-<p class="subheader">
-What a p-value is NOT
-</p>
-<p><br></p>
-<p>✅ <strong>Correct:</strong> The probability of observing a test statistic at least as extreme as ours, if <span class="math inline">\(H_0\)</span> were true</p>
-<ul>
-<li>It measures the compatibility between our data and the null hypothesis.</li>
-<li><em>Example:</em> A p-value of 0.04 means: “If the null hypothesis were true, we’d see results this extreme or more extreme only about 4% of the time.”</li>
-</ul>
-<p><em>&gt; think of it like this: The p-value answers “How surprising is this data if the null hypothesis is true?” not “Is the null hypothesis true?”</em></p>
 </section>
 <section id="looking-forward" class="slide level2">
 <h2>Looking Forward</h2>
 <p class="subheader">
-The t-test framework extends to many scenarios
+Connecting to regression and extending to multiple groups
 </p>
 <p><br></p>
 <div class="fragment">
 <p><strong>Next time:</strong></p>
 <ul>
-<li>Comparing means between two groups</li>
+<li>Connecting to regression</li>
+<li>Comparing more than two groups (ANOVA)</li>
 </ul>
 </div>
 <div class="fragment">
 <p><strong>Coming soon:</strong></p>
 <ul>
-<li>This same framework underlies regression analysis</li>
-<li>Regression coefficients are tested using t-tests</li>
-<li>ANOVA uses the same fundamental approach</li>
+<li>Multiple regression</li>
+<li>Controlling for confounding variables</li>
+<li>Interaction effects</li>
 </ul>
 </div>
 <div class="fragment">
-<p><em>&gt; the hypothesis testing framework is foundational for modern science</em></p>
+<p><em>&gt; all built on the same fundamental statistical framework</em></p>
 
 </div>
 </section>
@@ -616,19 +653,19 @@ The t-test framework extends to many scenarios
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_3_4_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_3_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_3_4_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_3_4_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Part_4_1_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

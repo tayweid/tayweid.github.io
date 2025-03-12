@@ -548,24 +548,24 @@ from scipy import stats
 
 ```python
 # Sample Data
-sample_mean = 10.85
-pop_mean = 10    # null hypothesis
+sample_mu = 10.85
+pop_mu = 10    # null hypothesis
 std_dev = 2.5    
-sample_size = 30
+n = 30
 ```
 
 <br>
 
 ```python
 # Calculate t-statistic
-t_stat = (sample_mean - pop_mean) / (std_dev / np.sqrt(sample_size))
+t_stat = (sample_mu - pop_mu) / (std_dev / np.sqrt(n))
 ```
 
 <br>
 
 ```python
 # Calculate p-value
-p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=sample_size-1))
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=n-1))
 ```
 :::
 ::::
