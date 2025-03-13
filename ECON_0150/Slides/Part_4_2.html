@@ -230,7 +230,7 @@ Lets start with a model with no x ( basically: x=0 ).
 <p>This simple model look like: <span class="math inline">\(y=b\)</span>.</p>
 <div class="fragment">
 <p><em>&gt; there’s only an incercept term!</em></p>
-<div id="46bf8c34" class="cell" data-execution_count="1">
+<div id="01a6db52" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -249,7 +249,7 @@ Lets start with a model with no x ( basically: x=0 ).
 <p class="subheader">
 The sample mean minimizes the MSE.
 </p>
-<div id="671c0eb9" class="cell" data-execution_count="2">
+<div id="a4a1fd6b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -267,7 +267,7 @@ The sample mean minimizes the MSE.
 <p class="subheader">
 Like before, if we take many samples, we get slighly different means and slighly different fits.
 </p>
-<div id="6cc35f09" class="cell" data-execution_count="3">
+<div id="d69c6f92" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -282,7 +282,7 @@ Like before, if we take many samples, we get slighly different means and slighly
 <p class="subheader">
 The mean follows a normal distribution centered on the true mean
 </p>
-<div id="81e1373d" class="cell" data-execution_count="4">
+<div id="0bd09790" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -298,7 +298,7 @@ The mean follows a normal distribution centered on the true mean
 <p class="subheader">
 We don’t know the true mean, just our sample mean. Center the distribution there.
 </p>
-<div id="d53d5784" class="cell" data-execution_count="5">
+<div id="e5accee2" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -314,7 +314,7 @@ We don’t know the true mean, just our sample mean. Center the distribution the
 <p class="subheader">
 Testing whether the mean is significantly different from zero
 </p>
-<div id="a590b214" class="cell" data-execution_count="6">
+<div id="0ec3373f" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -323,15 +323,19 @@ Testing whether the mean is significantly different from zero
 </div>
 </div>
 </div>
+<div class="fragment">
 <p><em>&gt; here we’re centering the t-distribution on the observed sample mean</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; as before, this is mathematically equivalent to centering it on the null</em></p>
+</div>
 </section>
 <section id="regression-horizontal-line-model" class="slide level2">
 <h2>Regression: Horizontal Line Model</h2>
 <p class="subheader">
 A t-test a linear model with only an intercept: <span class="math inline">\(y = \beta_0 + \epsilon\)</span>
 </p>
-<div id="69dc50c6" class="cell" data-execution_count="7">
+<div id="d995690d" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -340,10 +344,18 @@ A t-test a linear model with only an intercept: <span class="math inline">\(y = 
 </div>
 </div>
 </div>
+<div class="fragment">
 <p><em>&gt; the sample mean <span class="math inline">\(\beta_0\)</span> minimizes the sum of squared errors</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; the p-value tells us the probability of the data given the default null</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; the best guess of the true mean is <span class="math inline">\(\beta_0\)</span></em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; this is the simplest version of an OLS regression model</em></p>
+</div>
 </section>
 <section id="example-difference-in-wait-times" class="slide level2">
 <h2>Example: Difference in Wait Times</h2>
@@ -358,19 +370,20 @@ Are wait times different in the morning and afternoon?
 <div class="fragment">
 <p><em>&gt; the dataset</em></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Paired Differences: Afternoon Wait Minus Morning Wait</span></span>
-<span id="cb2-2"><a href=""></a>data <span class="op">=</span> [<span class="fl">1.3</span>, <span class="fl">2.4</span>, <span class="fl">2.2</span>, <span class="fl">1.3</span>, <span class="fl">3.</span> , <span class="fl">2.3</span>, <span class="fl">0.8</span>, <span class="fl">2.7</span>, <span class="fl">2.</span> , <span class="fl">2.9</span>, <span class="fl">1.7</span>, <span class="fl">1.9</span>, <span class="fl">2.2</span>,</span>
+<span id="cb2-2"><a href=""></a>y <span class="op">=</span> [<span class="fl">1.3</span>, <span class="fl">2.4</span>, <span class="fl">2.2</span>, <span class="fl">1.3</span>, <span class="fl">3.</span> , <span class="fl">2.3</span>, <span class="fl">0.8</span>, <span class="fl">2.7</span>, <span class="fl">2.</span> , <span class="fl">2.9</span>, <span class="fl">1.7</span>, <span class="fl">1.9</span>, <span class="fl">2.2</span>,</span>
 <span id="cb2-3"><a href=""></a>       <span class="fl">2.1</span>, <span class="fl">2.4</span>, <span class="fl">1.7</span>, <span class="fl">1.7</span>, <span class="fl">1.9</span>, <span class="fl">1.7</span>, <span class="fl">2.5</span>, <span class="fl">2.4</span>, <span class="fl">2.2</span>, <span class="fl">1.9</span>, <span class="fl">1.9</span>, <span class="fl">2.7</span>, <span class="fl">1.8</span>,</span>
-<span id="cb2-4"><a href=""></a>       <span class="fl">1.8</span>, <span class="fl">2.</span> , <span class="fl">1.9</span>, <span class="fl">2.1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href=""></a>       <span class="fl">1.8</span>, <span class="fl">2.</span> , <span class="fl">1.9</span>, <span class="fl">2.1</span>]</span>
+<span id="cb2-5"><a href=""></a>X <span class="op">=</span> np.ones(<span class="bu">len</span>(y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><em>&gt; regression model</em></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Run the model</span></span>
-<span id="cb3-2"><a href=""></a>model <span class="op">=</span> sm.OLS(data, np.ones(<span class="bu">len</span>(diff))).fit()</span>
+<span id="cb3-2"><a href=""></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
 <span id="cb3-3"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><em>&gt; one sample t-test</em></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>t_stat, p_value <span class="op">=</span> stats.ttest_1samp(data, <span class="dv">0</span>)</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>t_stat, p_value <span class="op">=</span> stats.ttest_1samp(y, <span class="dv">0</span>)</span>
 <span id="cb4-2"><a href=""></a><span class="bu">print</span>(t_stat, p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -379,7 +392,7 @@ Are wait times different in the morning and afternoon?
 <p class="subheader">
 Let’s introduce a (potential) relationship: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span>
 </p>
-<div id="e08b8bae" class="cell" data-execution_count="8">
+<div id="4884ac7c" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -394,7 +407,7 @@ Let’s introduce a (potential) relationship: <span class="math inline">\(y = \b
 <p class="subheader">
 Let’s introduce a (potential) relationship: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span>
 </p>
-<div id="2b912e39" class="cell" data-execution_count="9">
+<div id="c92f97b7" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -409,7 +422,7 @@ Let’s introduce a (potential) relationship: <span class="math inline">\(y = \b
 <p class="subheader">
 Let’s introduce a (potential) relationship: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span>
 </p>
-<div id="7b9db1f1" class="cell" data-execution_count="10">
+<div id="622c96fc" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -436,7 +449,7 @@ Let’s introduce a (potential) relationship: <span class="math inline">\(y = \b
 <p class="subheader">
 Like before, if we take many samples, we get slighly different slopes and slighly different fits.
 </p>
-<div id="f0fd4954" class="cell" data-execution_count="11">
+<div id="143c6d77" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -451,7 +464,7 @@ Like before, if we take many samples, we get slighly different slopes and slighl
 <p class="subheader">
 The slope coefficient follows a t-distribution centered on the true slope
 </p>
-<div id="337fc555" class="cell" data-execution_count="12">
+<div id="0fa2788f" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -460,23 +473,34 @@ The slope coefficient follows a t-distribution centered on the true slope
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><em>&gt; the slopes follow a t-distribution around the truth!</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; this lets us perform a t-test on the slope!</em></p>
+</div>
 </section>
-<section id="the-p-value-for-the-slope-coefficient" class="slide level2">
-<h2>The p-value for the Slope Coefficient</h2>
+<section id="sampling-distribution-of-the-slope-coefficient-1" class="slide level2">
+<h2>Sampling Distribution of the Slope Coefficient</h2>
 <p class="subheader">
-Testing whether the slope is significantly different from zero
+The slope coefficient follows a t-distribution centered on the true slope
 </p>
-<div id="7f1a5e9e" class="cell" data-execution_count="13">
+<div id="ac29de81" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_2_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="948" height="374"></p>
+<p><img data-src="Part_4_2_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><em>&gt; we don’t know the entire distribution, just our sample slope</em></p>
+<div class="fragment">
+<p><em>&gt; like before, center the distribution on our sample and check the null</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; very small p-value = strong evidence against the null hypothesis (β₁ = 0)</em></p>
+</div>
 </section>
 <section id="exmaple-wait-times-throughout-the-day" class="slide level2">
 <h2>Exmaple: Wait Times Throughout The Day</h2>
@@ -484,7 +508,8 @@ Testing whether the slope is significantly different from zero
 Does wait time change throughout the day?
 </p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb5-2"><a href=""></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href=""></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb5-3"><a href=""></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; load minutes data</em></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>minutes_after_open <span class="op">=</span> [  <span class="fl">0.</span>        ,  <span class="fl">10.16949153</span>,  <span class="fl">20.33898305</span>,  <span class="fl">30.50847458</span>,</span>
@@ -523,8 +548,8 @@ Does wait time change throughout the day?
 <span id="cb7-11"><a href=""></a>       <span class="fl">10.7329137</span> ,  <span class="fl">9.41627612</span>,  <span class="fl">8.93429159</span>, <span class="fl">11.61318309</span>, <span class="fl">12.55352447</span>,</span>
 <span id="cb7-12"><a href=""></a>       <span class="fl">12.45578058</span>,  <span class="fl">9.01648021</span>, <span class="fl">10.17818542</span>, <span class="fl">11.56083195</span>, <span class="fl">12.95109025</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><em>&gt; merge into a dataframe</em></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>data <span class="op">=</span> pd.DataFrame({<span class="st">'minutes_after_open'</span>: minutes_after_open, <span class="st">'wait_times'</span>: wait_times})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>&gt; add an incercept, just a list of ones</em></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>intercept <span class="op">=</span> np.ones(<span class="bu">len</span>(wait_times))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exmaple-wait-times-throughout-the-day-2" class="slide level2">
@@ -532,17 +557,29 @@ Does wait time change throughout the day?
 <p class="subheader">
 Does wait time change throughout the day?
 </p>
-<p><em>&gt; run the model: predict wait time using time of day</em></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Add a constant for the intercept</span></span>
-<span id="cb9-2"><a href=""></a>X <span class="op">=</span> sm.add_constant(data[<span class="st">'minutes_after_open'</span>])</span>
-<span id="cb9-3"><a href=""></a></span>
-<span id="cb9-4"><a href=""></a><span class="co"># Fit the regression model</span></span>
-<span id="cb9-5"><a href=""></a>model <span class="op">=</span> sm.OLS(data[<span class="st">'wait_times'</span>], X).fit()</span>
-<span id="cb9-6"><a href=""></a></span>
-<span id="cb9-7"><a href=""></a><span class="co"># Use the built-in summary table method for a simple display</span></span>
-<span id="cb9-8"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><em>&gt; merge into a dataframe</em></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>data <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-2"><a href=""></a>    <span class="st">'minutes_after_open'</span>: minutes_after_open, </span>
+<span id="cb9-3"><a href=""></a>    <span class="st">'wait_times'</span>: wait_times,</span>
+<span id="cb9-4"><a href=""></a>    <span class="st">'intercept'</span>: intercept,</span>
+<span id="cb9-5"><a href=""></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exmaple-wait-times-throughout-the-day-3" class="slide level2">
+<h2>Exmaple: Wait Times Throughout The Day</h2>
+<p class="subheader">
+Does wait time change throughout the day?
+</p>
+<p><em>&gt; predict wait time using time of day</em></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Add a constant for the intercept</span></span>
+<span id="cb10-2"><a href=""></a>X <span class="op">=</span> data[[<span class="st">'minutes_after_open'</span>, <span class="st">'intercept'</span>]]</span>
+<span id="cb10-3"><a href=""></a>y <span class="op">=</span> data[<span class="st">'wait_times'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div id="752096a8" class="cell" data-execution_count="14">
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Fit and run the regression model</span></span>
+<span id="cb11-2"><a href=""></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb11-3"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div id="1d2a140f" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-stdout">
 <pre><code>======================================================================================
                          coef    std err          t      P&gt;|t|      [0.025      0.975]

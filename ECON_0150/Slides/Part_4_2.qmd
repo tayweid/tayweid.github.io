@@ -523,9 +523,10 @@ import scipy.stats as stats
 *> the dataset*
 ```python
 # Paired Differences: Afternoon Wait Minus Morning Wait
-data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+y = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
        2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
        1.8, 2. , 1.9, 2.1]
+X = np.ones(len(y))
 ```
 
 . . .
@@ -533,7 +534,7 @@ data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
 *> regression model*
 ```python
 # Run the model
-model = sm.OLS(data, np.ones(len(diff))).fit()
+model = sm.OLS(y, X).fit()
 print(model.summary().tables[1])
 ```
 
@@ -541,7 +542,7 @@ print(model.summary().tables[1])
 
 *> one sample t-test*
 ```python
-t_stat, p_value = stats.ttest_1samp(data, 0)
+t_stat, p_value = stats.ttest_1samp(y, 0)
 print(t_stat, p_value)
 ```
 
@@ -947,7 +948,7 @@ for i in range(n_simulations):
 # Create the plot
 plt.figure(figsize=(10, 4))
 # Plot histogram of slope coefficients
-plt.hist(slope_coefficients, bins=30, alpha=0.1, density=True, 
+plt.hist(slope_coefficients, bins=30, alpha=0.2, density=True, 
          color='skyblue', edgecolor='white')
 
 # Overlay theoretical t-distribution
@@ -995,6 +996,7 @@ plt.show()
 ```python
 import pandas as pd
 import statsmodels.api as sm
+import numpy as np
 ```
 
 . . .
@@ -1041,9 +1043,9 @@ wait_times = [ 5.99342831,  4.82516631,  6.49876691,  8.35114446,  4.93847291,
 
 . . .
 
-*> merge into a dataframe*
+*> add an incercept, just a list of ones*
 ```python
-data = pd.DataFrame({'minutes_after_open': minutes_after_open, 'wait_times': wait_times})
+intercept = np.ones(len(wait_times))
 ```
 
 ---
@@ -1051,15 +1053,32 @@ data = pd.DataFrame({'minutes_after_open': minutes_after_open, 'wait_times': wai
 ## Exmaple: Wait Times Throughout The Day
 <p class="subheader">Does wait time change throughout the day?</p>
 
-*> run the model: predict wait time using time of day*
+*> merge into a dataframe*
+```python
+data = pd.DataFrame({
+    'minutes_after_open': minutes_after_open, 
+    'wait_times': wait_times,
+    'intercept': intercept,
+})
+```
+
+---
+
+## Exmaple: Wait Times Throughout The Day
+<p class="subheader">Does wait time change throughout the day?</p>
+
+*> predict wait time using time of day*
 ```python
 # Add a constant for the intercept
-X = sm.add_constant(data['minutes_after_open'])
+X = data[['minutes_after_open', 'intercept']]
+y = data['wait_times']
+```
 
-# Fit the regression model
-model = sm.OLS(data['wait_times'], X).fit()
+. . .
 
-# Use the built-in summary table method for a simple display
+```python
+# Fit and run the regression model
+model = sm.OLS(y, X).fit()
 print(model.summary().tables[1])
 ```
 
