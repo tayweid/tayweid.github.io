@@ -320,8 +320,6 @@ plt.tight_layout()
 plt.show()
 ```
 
-*> so if i were to ask you the probability of getting this sample mean under the standard null of b=0, what would you say?*
-
 ---
 
 ## Distribution Around the Sample Mean
@@ -349,22 +347,24 @@ true_std = 0.5
 sample_size = 30
 n_samples = 1000
 
+sample_mean = 1.97
+
 # Simulate many sample means
 sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
                           for _ in range(n_samples)])
 
 # Plot the histogram of sample means
 plt.figure(figsize=(10, 4))
-plt.hist(sample_means, bins=30, color='skyblue', alpha=0.1, density=True, 
+plt.hist(sample_means, bins=30, color='skyblue', alpha=0.2, density=True, 
          edgecolor='white')
 
 # Overlay the theoretical sampling distribution
-x = np.linspace(min(sample_means), max(sample_means), 1000)
-y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
 plt.plot(x, y, 'r-', linewidth=2, label='t-dist')
 
 # Add vertical line for true mean
-plt.axvline(true_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+plt.axvline(sample_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
 
 plt.xlabel('Intercept Parameter: b', fontsize=16)
 plt.legend()
@@ -374,6 +374,10 @@ sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
+
+*> lets say our sample mean was 1.97*
+
+. . .
 
 *> so if i were to ask you the probability of getting this sample mean under the standard null of b=0, what would you say?*
 
@@ -404,6 +408,8 @@ true_std = 0.5
 sample_size = 30
 n_samples = 1000
 
+sample_mean = 1.97
+
 # Simulate many sample means
 sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
                           for _ in range(n_samples)])
@@ -414,15 +420,15 @@ plt.hist(sample_means, bins=30, color='skyblue', alpha=0.2, density=True,
          edgecolor='white')
 
 # Overlay the theoretical sampling distribution
-x = np.linspace(min(sample_means), max(sample_means), 1000)
-y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+x = np.linspace(0, sample_mean*2, 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
 plt.plot(x, y, 'r-', linewidth=2, label='t-dist')
 
 # Add vertical line for true mean
-plt.axvline(true_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+plt.axvline(sample_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
 
 plt.axvline(0, color='black', linestyle='--', linewidth=1, label='Null')
-plt.axvline(4, color='black', linestyle='--', alpha=0.2, linewidth=1, label='Equally Extreme')
+plt.axvline(sample_mean*2, color='black', linestyle='--', alpha=0.2, linewidth=1, label='Equally Extreme')
 
 plt.xlabel('Intercept Parameter: b', fontsize=16)
 plt.legend()
@@ -993,6 +999,7 @@ plt.show()
 ## Exmaple: Wait Times Throughout The Day
 <p class="subheader">Does wait time change throughout the day?</p>
 
+*> load imports*
 ```python
 import pandas as pd
 import statsmodels.api as sm
@@ -1195,25 +1202,27 @@ print(model.summary().tables[1])
 ## Key Takeaways
 <p class="subheader">Connecting t-tests to regression</p>
 
-. . .
-
-1. **Unified Framework:** T-tests and regression are part of the same general linear model framework.
+<br>
 
 . . .
 
-2. **Continuous Predictors:** Regression extends t-tests by allowing continuous predictors.
+**Unified Framework:** *T-tests and regression are part of the same general linear model framework.*
 
 . . .
 
-3. **Multiple Variables:** Regression lets us include multiple predictors and control variables.
+**Continuous Predictors:** *Regression extends t-tests by allowing continuous predictors.*
 
 . . .
 
-4. **Same Interpretation:** The p-values have the same interpretation: probability of seeing results this extreme if the null is true.
+**Multiple Variables:** *Regression lets us include multiple predictors and control variables.*
 
 . . .
 
-5. **Same Distribution:** Coefficient estimates follow t-distributions centered on true values.
+**Same Interpretation:** *The p-values have the same interpretation: probability of seeing results this extreme if the null is true.*
+
+. . .
+
+**Same Distribution:** *Coefficient estimates follow t-distributions centered on true values.*
 
 ---
 
