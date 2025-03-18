@@ -79,3 +79,20 @@ li {
   margin-bottom: 2.0em !important;
   line-height: 1 !important;
 }
+
+/* Reduce whitespace under Python figures */
+.reveal .python-figure,
+.reveal div.cell-output-display,
+.reveal pre,
+.reveal code {
+  margin-bottom: 0px !important;  /* Adjust this value as needed */
+  margin-top: 0px !important;  /* Adjust this value as needed */
+}
+
+/* If you're using code chunks with output */
+.reveal .quarto-figure,
+.reveal .figure,
+.reveal img {
+  margin-bottom: 0px !important;  /* Adjust this value as needed */
+  margin-top: 0px !important;  /* Adjust this value as needed */
+}

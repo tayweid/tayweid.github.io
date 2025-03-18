@@ -135,14 +135,12 @@ The economist’s data analysis pipeline.
 <p><br></p>
 <h3 id="part-4.3-regression-assumptions-multiple-sample-tests"><em>Part 4.3 | Regression Assumptions, Multiple Sample Tests</em></h3>
 </section>
-<section id="regression-key-concepts" class="slide level2">
-<h2>Regression: Key Concepts</h2>
+<section id="general-linear-model" class="slide level2">
+<h2>General Linear Model</h2>
 <p class="subheader">
-A regression is a flexible way to run many statistical tests.
+… a flexible approach to run many statistical tests.
 </p>
-<div class="fragment">
 <p><strong>The Linear Model</strong>: <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\)</span></p>
-</div>
 <div class="fragment">
 <ul>
 <li><span class="math inline">\(\beta_0\)</span> is the intercept (value of <span class="math inline">\(\bar{y}\)</span> when x = 0)</li>
@@ -154,54 +152,74 @@ A regression is a flexible way to run many statistical tests.
 <p><strong>OLS Estimation</strong>: Minimizes <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span></p>
 </div>
 <div class="fragment">
-<div id="eadfe780" class="cell" data-execution_count="1">
+<div id="2c388a84" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="t-tests-using-regression" class="slide level2">
-<h2>T-Tests Using Regression</h2>
+<section id="one-sample-t-test" class="slide level2">
+<h2>One-Sample T-Test</h2>
 <p class="subheader">
-One-sample t-test as a horizontal line model
+A one-sample t-test is a horizontal line model.
 </p>
-<div id="886f14ca" class="cell" data-execution_count="2">
+<div id="af36a7d5" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><span class="math display">\[Temperature = \beta_0 + \varepsilon\]</span></p>
 <div class="fragment">
-<p><em>&gt; Model: <span class="math inline">\(Temperature = \beta_0 + \varepsilon\)</span></em></p>
+<p><em>&gt; the intercept <span class="math inline">\(\beta_0\)</span> is the estimated mean temperature</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; Interpretation: The intercept <span class="math inline">\(\beta_0\)</span> is the estimated mean temperature</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; Green lines: Residuals (difference between data and mean)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; The t-test checks if <span class="math inline">\(\beta_0\)</span> is significantly different from zero</em></p>
+<p><em>&gt; the p-value is the probability of seeing <span class="math inline">\(\beta_0\)</span> if the null is true</em></p>
 </div>
 </section>
-<section id="example-two-sample-t-test-using-regression" class="slide level2">
-<h2>Example: Two-Sample t-Test Using Regression</h2>
+<section id="relationships-between-variables" class="slide level2">
+<h2>Relationships Between Variables</h2>
+<p class="subheader">
+A test of relationships is a slope model.
+</p>
+<div id="bb508762" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="279"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[\text{WaitTime} = \beta_0 + \beta_1 \text{MinutesAfterOpening} + \epsilon\]</span></p>
+<div class="fragment">
+<p><em>&gt; the intercept parameter <span class="math inline">\(\beta_0\)</span> is the estimated temperature at 0 on the horizontal</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the slope parameter <span class="math inline">\(\beta_1\)</span> is the estimated change in y for a 1 unit change in x</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the p-value is the probability of seeing parameter (<span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span>) if the null is true</em></p>
+</div>
+</section>
+<section id="new-setting-two-samples" class="slide level2">
+<h2>New Setting: Two Samples</h2>
 <p class="subheader">
 Is temperature lower with more green space?
 </p>
-<div id="8cded0ce" class="cell" data-execution_count="3">
+<div id="32f4cf59" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="371"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
@@ -209,29 +227,58 @@ Is temperature lower with more green space?
 <div class="fragment">
 <p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
 </div>
+<div class="fragment">
+<p><em>&gt; how would we interpret <span class="math inline">\(\beta_0\)</span> here?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the average temperature at <span class="math inline">\(x=0\)</span>, which is Low Green Space locations</em></p>
+</div>
 </section>
-<section id="example-two-sample-t-test-using-regression-1" class="slide level2">
-<h2>Example: Two-Sample t-Test Using Regression</h2>
+<section id="new-setting-two-samples-1" class="slide level2">
+<h2>New Setting: Two Samples</h2>
 <p class="subheader">
-Model: <span class="math inline">\(Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\)</span>
+Is temperature lower with more green space?
 </p>
-<div id="6b32a7e2" class="cell" data-execution_count="4">
+<div id="9e159736" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1043" height="371"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
 <div class="fragment">
-<p><em>&gt; The t-test on <span class="math inline">\(\beta_1\)</span> tests if this difference is significant</em></p>
+<p><em>&gt; how would we interpret <span class="math inline">\(\beta_1\)</span> here?</em></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\beta_0\)</span> = Mean temperature in low green space cities (22.03°C)</p>
+<p><em>&gt; one unit increase in <span class="math inline">\(x\)</span>, which puts us in High Green Space</em></p>
+</div>
+</section>
+<section id="new-setting-two-samples-2" class="slide level2">
+<h2>New Setting: Two Samples</h2>
+<p class="subheader">
+Is temperature lower with more green space?
+</p>
+<div id="a861352f" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
+<div class="fragment">
+<p><em>&gt; <span class="math inline">\(\beta_0\)</span> is the mean temperature in low green space cities (22.03°C)</em></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\beta_1\)</span> = Temperature difference in high green space cities (-3.02°C)</p>
+<p><em>&gt; <span class="math inline">\(\beta_1\)</span> is the temperature difference in high green space cities (-3.02°C)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the t-test on <span class="math inline">\(\beta_1\)</span> tests if this difference is significant</em></p>
 </div>
 </section>
 <section id="example-neighborhood-income-and-pollution" class="slide level2">
@@ -239,14 +286,20 @@ Model: <span class="math inline">\(Temperature = \beta_0 + \beta_1 \cdot HighGre
 <p class="subheader">
 Do low-income neighborhoods face higher pollution levels?
 </p>
-<div id="c93b8ee6" class="cell" data-execution_count="5">
+<p><strong>Step 1: Summarize the data</strong></p>
+<div class="fragment">
+<div id="5d785e5e" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-6-output-1.png" width="1045" height="371"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-8-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Step 2: Build a model</strong></p>
 </div>
 <div class="fragment">
 <p><span class="math display">\[Pollution = \beta_0 + \beta_1 \cdot LowIncome + \varepsilon\]</span></p>
@@ -255,19 +308,19 @@ Do low-income neighborhoods face higher pollution levels?
 <section id="example-neighborhood-income-and-pollution-1" class="slide level2">
 <h2>Example: Neighborhood Income and Pollution</h2>
 <p class="subheader">
-Model: <span class="math inline">\(Pollution = \beta_0 + \beta_1 \cdot LowIncome + \varepsilon\)</span>
+Do low-income neighborhoods face higher pollution levels?
 </p>
-<div id="eb6a4e38" class="cell" data-execution_count="6">
+<p><strong>Step 3: Estimate the model</strong></p>
+<div class="fragment">
+<div id="9598c399" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-7-output-1.png" width="1045" height="371"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-9-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><em>&gt; A significant positive <span class="math inline">\(\beta_1\)</span> suggests environmental quality differences between neighborhoods</em></p>
 </div>
 <div class="fragment">
 <ul>
@@ -276,62 +329,24 @@ Model: <span class="math inline">\(Pollution = \beta_0 + \beta_1 \cdot LowIncome
 </ul>
 </div>
 </section>
-<section id="example-comparing-many-regions" class="slide level2">
-<h2>Example: Comparing Many Regions</h2>
+<section id="example-neighborhood-income-and-pollution-2" class="slide level2">
+<h2>Example: Neighborhood Income and Pollution</h2>
 <p class="subheader">
-How does temperature differ across climate regions?
+Do low-income neighborhoods face higher pollution levels?
 </p>
-<div id="88bcfee1" class="cell" data-execution_count="7">
+<p><strong>Step 4: Interpret and communicate the findings</strong></p>
+<div id="da2f8c08" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-8-output-1.png" width="1045" height="372"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-10-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon\]</span></p>
+<p><em>&gt; A significant positive <span class="math inline">\(\beta_1\)</span> suggests environmental quality differences between neighborhoods</em></p>
 </div>
-</section>
-<section id="example-comparing-many-regions-1" class="slide level2">
-<h2>Example: Comparing Many Regions</h2>
-<p class="subheader">
-Model: <span class="math inline">\(Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon\)</span>
-</p>
-<div id="56137d9a" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-9-output-1.png" width="1045" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<ul>
-<li><p><span class="math inline">\(\beta_0\)</span> = Mean temperature in Coastal areas (18.8°C)</p></li>
-<li><p><span class="math inline">\(\beta_1\)</span> = Difference between Mountain and Coastal (-9.3°C)</p></li>
-<li><p><span class="math inline">\(\beta_2\)</span> = Difference between Desert and Coastal (+10.5°C)</p></li>
-<li><p><span class="math inline">\(\beta_3\)</span> = Difference between Plains and Coastal (-1.9°C)</p></li>
-</ul>
-</div>
-</section>
-<section id="example-comparing-many-regions-2" class="slide level2">
-<h2>Example: Comparing Many Regions</h2>
-<p class="subheader">
-Model: <span class="math inline">\(Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon\)</span>
-</p>
-<div id="0588e0b5" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-10-output-1.png" width="1045" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><em>&gt; This performs the same analysis as ANOVA but gives specific comparisons</em></p>
 </section>
 <section id="ols-assumptions" class="slide level2">
 <h2>OLS Assumptions</h2>
@@ -378,11 +393,11 @@ Assumption violations affect our inferences
 The error term should be unrelated to the fitted value.
 </p>
 <p><em>&gt; which one of these figures shows linearity?</em></p>
-<div id="8b05cf40" class="cell" data-execution_count="10">
+<div id="0f32b250" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="371"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
 </figure>
 </div>
 </div>
@@ -400,17 +415,19 @@ The error term should be unrelated to the fitted value.
 Residuals should be spread out the same everywhere.
 </p>
 <p><em>&gt; which one of these figures shows homoskedasticity?</em></p>
-<div id="d6557d75" class="cell" data-execution_count="11">
+<div id="63ded979" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="275"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
 <p><em>&gt; the left figure shows constant variability (homoskedasticity)</em></p>
+</div>
+<div class="fragment">
 <p><em>&gt; the right one has increasing variability (heteroskedasticity)</em></p>
 </div>
 <div class="fragment">
@@ -422,7 +439,7 @@ Residuals should be spread out the same everywhere.
 <p class="subheader">
 Residuals should be normally distributed
 </p>
-<div id="94375288" class="cell" data-execution_count="12">
+<div id="ddff7ab9" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -438,7 +455,7 @@ Residuals should be normally distributed
 <p><em>&gt; right shows a skewed distribution (not normally distributed)</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; by the CLT we can still use regression without this if the sample is large enough</em></p>
+<p><em>&gt; by the CLT we can still use regression without this if the sample is large</em></p>
 </div>
 </section>
 <section id="extending-to-multiple-regression" class="slide level2">
@@ -446,17 +463,17 @@ Residuals should be normally distributed
 <p class="subheader">
 Adding control variables to isolate relationships
 </p>
-<div id="46ee4ac2" class="cell" data-execution_count="13">
+<div id="6c4c78ce" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="481" height="470"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="479" height="470"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; Model: <span class="math inline">\(Pollution = \beta_0 + \beta_1 \cdot Income + \beta_2 \cdot Density + \varepsilon\)</span></em></p>
+<p><span class="math display">\[Pollution = \beta_0 + \beta_1 \cdot Income + \beta_2 \cdot Density + \varepsilon\]</span></p>
 </div>
 </section>
 <section id="extending-to-multiple-regression-1" class="slide level2">
@@ -464,11 +481,11 @@ Adding control variables to isolate relationships
 <p class="subheader">
 Adding control variables to isolate relationships
 </p>
-<div id="4733d820" class="cell" data-execution_count="14">
+<div id="d6a1f4f6" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="393" height="377"></p>
+<p><img data-src="Part_4_3_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="388" height="376"></p>
 </figure>
 </div>
 </div>
@@ -484,21 +501,24 @@ Adding control variables to isolate relationships
 <p class="subheader">
 Regression provides a unified framework for statistical testing
 </p>
-<p><br></p>
 <div class="fragment">
-<p><strong>One-Sample T-Test</strong>: Regression with only an intercept (<span class="math inline">\(y = \beta_0 + \varepsilon\)</span>)</p>
+<p><strong>One-Sample T-Test</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with only an intercept</p>
+<p><span class="math display">\[y = \beta_0 + \varepsilon\]</span></p>
 </div>
 <div class="fragment">
-<p><strong>Two-Sample T-Test</strong>: Regression with a dummy variable (<span class="math inline">\(y = \beta_0 + \beta_1 \cdot Group + \varepsilon\)</span>)</p>
+<p><strong>Relationships</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with a continuous predictor (<span class="math inline">\(x\)</span>)</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 x + \varepsilon\]</span></p>
 </div>
 <div class="fragment">
-<p><strong>ANOVA</strong>: Regression with multiple dummy variables for groups</p>
+<p><strong>Two-Sample T-Test</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with a dummy (<span class="math inline">\(Group\)</span>)</p>
+<p><span class="math display">\[y = \beta_0 + \beta_1 \cdot Group + \varepsilon\]</span></p>
 </div>
 <div class="fragment">
 <p><strong>Multiple Regression</strong>: Adding control variables to isolate relationships</p>
 </div>
 <div class="fragment">
-<p><em>&gt; All use the same OLS framework and interpretation of coefficients and p-values</em></p>
+<p><br></p>
+<p><em>&gt; all use the same OLS framework and interpretation of coefficients and p-values</em></p>
 
 </div>
 </section>
