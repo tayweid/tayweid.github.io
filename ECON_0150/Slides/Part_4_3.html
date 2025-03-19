@@ -152,7 +152,7 @@ The economist’s data analysis pipeline.
 <p><strong>OLS Estimation</strong>: Minimizes <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span></p>
 </div>
 <div class="fragment">
-<div id="a5af4c0e" class="cell" data-execution_count="1">
+<div id="4ea3c24a" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -168,7 +168,7 @@ The economist’s data analysis pipeline.
 <p class="subheader">
 A one-sample t-test is a horizontal line model.
 </p>
-<div id="c1848db9" class="cell" data-execution_count="2">
+<div id="ad169be2" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -190,7 +190,7 @@ A one-sample t-test is a horizontal line model.
 <p class="subheader">
 A test of relationships is a slope model.
 </p>
-<div id="1cc1bfaf" class="cell" data-execution_count="3">
+<div id="2237f1ba" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -215,7 +215,7 @@ A test of relationships is a slope model.
 <p class="subheader">
 Is temperature lower with more green space?
 </p>
-<div id="0ef34039" class="cell" data-execution_count="4">
+<div id="bcf0634f" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -239,7 +239,7 @@ Is temperature lower with more green space?
 <p class="subheader">
 Is temperature lower with more green space?
 </p>
-<div id="88824926" class="cell" data-execution_count="5">
+<div id="02aa1743" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -261,7 +261,7 @@ Is temperature lower with more green space?
 <p class="subheader">
 Is temperature lower with more green space?
 </p>
-<div id="61b95fa8" class="cell" data-execution_count="6">
+<div id="ade60202" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -288,7 +288,7 @@ Do low-income neighborhoods face higher pollution levels?
 </p>
 <p><strong>Step 1: Summarize the data</strong></p>
 <div class="fragment">
-<div id="e7c28980" class="cell" data-execution_count="7">
+<div id="0e66a609" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -312,7 +312,7 @@ Do low-income neighborhoods face higher pollution levels?
 </p>
 <p><strong>Step 3: Estimate the model</strong></p>
 <div class="fragment">
-<div id="3375b49d" class="cell" data-execution_count="8">
+<div id="34b0d623" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -335,7 +335,7 @@ Do low-income neighborhoods face higher pollution levels?
 Do low-income neighborhoods face higher pollution levels?
 </p>
 <p><strong>Step 4: Interpret and communicate the findings</strong></p>
-<div id="da2f2dfe" class="cell" data-execution_count="9">
+<div id="de9d3251" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -347,154 +347,6 @@ Do low-income neighborhoods face higher pollution levels?
 <div class="fragment">
 <p><em>&gt; A significant positive <span class="math inline">\(\beta_1\)</span> suggests environmental quality differences between neighborhoods</em></p>
 </div>
-</section>
-<section id="ols-assumptions" class="slide level2">
-<h2>OLS Assumptions</h2>
-<p class="subheader">
-Our test results are only valid when the model assumptions are valid.
-</p>
-<p><br></p>
-<ol type="1">
-<li><strong>Linearity</strong>: The relationship between X and Y is linear</li>
-</ol>
-<div class="fragment">
-<ol start="2" type="1">
-<li><strong>Independence</strong>: Observations are independent from each other</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li><strong>Homoskedasticity</strong>: Equal error variance across all values of X</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li><strong>Normality</strong>: Errors are normally distributed</li>
-</ol>
-</div>
-</section>
-<section id="model-diagnostics-why-check-assumptions" class="slide level2">
-<h2>Model Diagnostics: Why Check Assumptions?</h2>
-<p class="subheader">
-Assumption violations affect our inferences
-</p>
-<p><br></p>
-<p><strong>If assumptions are violated:</strong></p>
-<ul>
-<li>Coefficient estimates may be biased</li>
-<li>Standard errors may be wrong</li>
-<li>p-values may be misleading</li>
-<li>Predictions may be unreliable</li>
-</ul>
-</section>
-<section id="checking-for-linearity" class="slide level2">
-<h2>Checking for Linearity</h2>
-<p class="subheader">
-The error term should be unrelated to the fitted value.
-</p>
-<p><em>&gt; which one of these figures shows linearity?</em></p>
-<div id="befe2bb7" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; the left one is what we want to see</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; residual plots should show that the model is equally wrong everywhere</em></p>
-</div>
-</section>
-<section id="checking-for-homoskedasticity" class="slide level2">
-<h2>Checking for Homoskedasticity</h2>
-<p class="subheader">
-Residuals should be spread out the same everywhere.
-</p>
-<p><em>&gt; which one of these figures shows homoskedasticity?</em></p>
-<div id="bd98d66a" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; the left figure shows constant variability (homoskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the right one has increasing variability (heteroskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; residual plots should show that the model is equally wrong everywhere</em></p>
-</div>
-</section>
-<section id="checking-for-normality" class="slide level2">
-<h2>Checking for Normality</h2>
-<p class="subheader">
-Residuals should be normally distributed
-</p>
-<div id="59388b09" class="cell" data-execution_count="12">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; left shows a nice bell shape (roughly normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; right shows a skewed distribution (not normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; by the CLT we can still use regression without this if the sample is large</em></p>
-</div>
-</section>
-<section id="extending-to-multiple-regression" class="slide level2">
-<h2>Extending to Multiple Regression</h2>
-<p class="subheader">
-Adding control variables to isolate relationships
-</p>
-<div id="3c92c7c8" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="479" height="470"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><span class="math display">\[Pollution = \beta_0 + \beta_1 \cdot Income + \beta_2 \cdot Density + \varepsilon\]</span></p>
-</div>
-</section>
-<section id="extending-to-multiple-regression-1" class="slide level2">
-<h2>Extending to Multiple Regression</h2>
-<p class="subheader">
-Adding control variables to isolate relationships
-</p>
-<div id="dba85774" class="cell" data-execution_count="14">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="388" height="376"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li><span class="math inline">\(\beta_0\)</span> = Baseline pollution level (70.0)</li>
-<li><span class="math inline">\(\beta_1\)</span> = Effect of income on pollution, holding density constant (-0.0003)</li>
-<li><span class="math inline">\(\beta_2\)</span> = Effect of density on pollution, holding income constant (+0.001)</li>
-</ul>
 </section>
 <section id="key-takeaways" class="slide level2">
 <h2>Key Takeaways</h2>
