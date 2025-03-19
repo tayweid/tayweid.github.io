@@ -11,7 +11,7 @@ format:
 
 <br> 
 
-### *Part 4.3 | Regression Assumptions, Multiple Sample Tests*
+### *Part 4.3 | Two Sample Tests & Regression Assumptions*
 
 ---
 
