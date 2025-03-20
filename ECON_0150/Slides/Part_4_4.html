@@ -198,7 +198,7 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-4.4-ols-assumptions-and-multivariate-regression"><em>Part 4.4 | OLS Assumptions and Multivariate Regression</em></h3>
+<h3 id="part-4.4-ols-assumptions-multiple-regression"><em>Part 4.4 | OLS Assumptions; Multiple Regression</em></h3>
 </section>
 <section id="ols-assumptions" class="slide level2">
 <h2>OLS Assumptions</h2>
@@ -238,49 +238,38 @@ Assumption violations affect our inferences
 <li>p-values may be misleading</li>
 <li>Predictions may be unreliable</li>
 </ul>
+<div class="fragment">
+<p><em>&gt; to test whether the model is ‘specified’, we can calculate the residuals and the model predictions</em></p>
+</div>
 </section>
-<section id="example-1-air-quality-and-income" class="slide level2">
-<h2>Example 1: Air Quality and Income</h2>
+<section id="example-education-and-income" class="slide level2">
+<h2>Example: Education and Income</h2>
 <p class="subheader">
-How is neighborhood income related to air quality?
+Is income higher for those more highly educated?
 </p>
-</section>
-<section id="indicator-dummy-variables" class="slide level2">
-<h2>Indicator (dummy) Variables</h2>
-<p class="subheader">
-… we can easily turn numerical or categorical variables into indicator variables.
-</p>
-<p><br></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Import stats package and load data</span></span>
-<span id="cb1-2"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb1-3"><a href=""></a>data <span class="op">=</span> pd.read_csv(file_path <span class="op">+</span> <span class="st">"population_demographics.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># 1. Simple binary indicator (above/below threshold)</span></span>
-<span id="cb2-2"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'air_pollution_index ~ I(median_income &gt; 100000)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># 2. Multiple thresholds/categories</span></span>
-<span id="cb3-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'air_pollution_index ~ I(median_income &lt; 50000) + I(median_income &gt; 120000)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># 3. Indicators from existing categorical variable</span></span>
-<span id="cb4-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'air_pollution_index ~ C(region)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
 <section id="model-residuals" class="slide level2">
 <h2>Model Residuals</h2>
 <p class="subheader">
 … we can directly examine the error of the model.
 </p>
-<p><br></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Calculate residuals</span></span>
-<span id="cb5-2"><a href=""></a>residuals <span class="op">=</span> model.resid</span>
-<span id="cb5-3"><a href=""></a>residuals.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2dd2a561" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="fragment">
-<p><em>&gt; this is what we call <span class="math inline">\(\varepsilon\)</span></em></p>
+<p><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Calculate residuals</span></span>
+<span id="cb1-2"><a href=""></a>residuals <span class="op">=</span> model.resid</span>
+<span id="cb1-3"><a href=""></a>residuals.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; this is <span class="math inline">\(\varepsilon\)</span></em></p>
 </div>
 </section>
 <section id="model-predictions" class="slide level2">
@@ -288,56 +277,43 @@ How is neighborhood income related to air quality?
 <p class="subheader">
 … we can directly examine the predictions of the model.
 </p>
-<p><br></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Calculate predictions</span></span>
-<span id="cb6-2"><a href=""></a>predictions <span class="op">=</span> model.predict()</span>
-<span id="cb6-3"><a href=""></a>predictions.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; this is what we call <span class="math inline">\(\hat{y}\)</span></em></p>
-</div>
-</section>
-<section id="error-prediction-plot" class="slide level2">
-<h2>Error-Prediction Plot</h2>
-<p class="subheader">
-… we can directly observe the error according to the model estimates.
-</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>plt.scatter(predictions, residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="example-2-education-and-wages" class="slide level2">
-<h2>Example 2: Education and Wages</h2>
-<p class="subheader">
-How are education and wages related?
-</p>
-<div id="84c8148c" class="cell" data-execution_count="1">
+<div id="7c27758a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="373"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
+<p><br></p>
 <div class="fragment">
-<p><em>&gt; for each year of education, the typical increase is about $2000</em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Calculate predictions</span></span>
+<span id="cb2-2"><a href=""></a>predictions <span class="op">=</span> model.predict()</span>
+<span id="cb2-3"><a href=""></a>predictions.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p><em>&gt; like moving one year right, we go up $2000 on average</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; but clearly some people get more, some get less</em></p>
+<p><em>&gt; this is <span class="math inline">\(\hat{y}\)</span>, the model prediction</em></p>
 </div>
 </section>
-<section id="checking-for-linearity" class="slide level2">
-<h2>Checking for Linearity</h2>
+<section id="residual-plot" class="slide level2">
+<h2>Residual Plot</h2>
+<p class="subheader">
+… we can directly observe the error according to the model estimates.
+</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>plt.scatter(predictions, residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="assumption-1-checking-for-linearity" class="slide level2">
+<h2>Assumption 1: Checking for Linearity</h2>
 <p class="subheader">
 The error term should be unrelated to the fitted value.
 </p>
 <p><em>&gt; which one of these figures shows linearity?</em></p>
-<div id="fb7f1b66" class="cell" data-execution_count="2">
+<div id="76acb169" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="371"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
 </figure>
 </div>
 </div>
@@ -349,16 +325,16 @@ The error term should be unrelated to the fitted value.
 <p><em>&gt; residual plots should show that the model is equally wrong everywhere</em></p>
 </div>
 </section>
-<section id="what-about-non-linear-relationships" class="slide level2">
-<h2>What About Non-Linear Relationships?</h2>
+<section id="non-linear-relationships" class="slide level2">
+<h2>Non-Linear Relationships</h2>
 <p class="subheader">
-Not everything follows a straight line
+A non-linear relationship will produce non-linear residuals.
 </p>
-<div id="d37b6ec3" class="cell" data-execution_count="3">
+<div id="bf20adf5" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1129" height="373"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="375"></p>
 </figure>
 </div>
 </div>
@@ -383,8 +359,8 @@ Transform variables to become linear
 <p><em>instead of</em></p>
 <p><span class="math display">\[\text{income} = \beta_0 + \beta_1 \text{age} + \varepsilon\]</span></p>
 <div class="fragment">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>df[<span class="st">'age_squared'</span>] <span class="op">=</span> df[<span class="st">'age'</span>]<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb8-2"><a href=""></a>quadratic_model <span class="op">=</span> smf.ols(<span class="st">'income ~ age + age_squared'</span>, data<span class="op">=</span>df).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>df[<span class="st">'age_squared'</span>] <span class="op">=</span> df[<span class="st">'age'</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-2"><a href=""></a>quadratic_model <span class="op">=</span> smf.ols(<span class="st">'income ~ age + age_squared'</span>, data<span class="op">=</span>df).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><em>&gt; coefficient interpretations change:</em></p>
@@ -397,17 +373,17 @@ Transform variables to become linear
 <p><em>&gt; other common transformations: log(y) ~ x or y ~ log(x) or log(y) ~ log(x)</em></p>
 </div>
 </section>
-<section id="checking-for-homoskedasticity" class="slide level2">
-<h2>Checking for Homoskedasticity</h2>
+<section id="assumption-3-homoskedasticity" class="slide level2">
+<h2>Assumption 3: Homoskedasticity</h2>
 <p class="subheader">
 Residuals should be spread out the same everywhere.
 </p>
 <p><em>&gt; which one of these figures shows homoskedasticity?</em></p>
-<div id="2e3cbba3" class="cell" data-execution_count="4">
+<div id="1bbf7207" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="275"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
 </figure>
 </div>
 </div>
@@ -427,11 +403,11 @@ Residuals should be spread out the same everywhere.
 <p class="subheader">
 When the spread of residuals changes across values of X
 </p>
-<div id="ea7ac9e6" class="cell" data-execution_count="5">
+<div id="b270412b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="469"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="471"></p>
 </figure>
 </div>
 </div>
@@ -448,11 +424,11 @@ When the spread of residuals changes across values of X
 <p class="subheader">
 It affects how we measure uncertainty in our estimates
 </p>
-<div id="0e27524c" class="cell" data-execution_count="6">
+<div id="49849510" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="373"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="375"></p>
 </figure>
 </div>
 </div>
@@ -475,8 +451,8 @@ It affects how we measure uncertainty in our estimates
 <p class="subheader">
 Robust standard errors give more accurate measures of uncertainty
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Fit the model with robust standard errors (HC3: heteroskedastic-constant)</span></span>
-<span id="cb9-2"><a href=""></a>robust_model <span class="op">=</span> smf.ols(<span class="st">'wages ~ education'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Fit the model with robust standard errors (HC3: heteroskedastic-constant)</span></span>
+<span id="cb5-2"><a href=""></a>robust_model <span class="op">=</span> smf.ols(<span class="st">'wages ~ education'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; robust standard errors give more accurate confidence intervals</em></p>
 </div>
@@ -487,16 +463,16 @@ Robust standard errors give more accurate measures of uncertainty
 <p><em>&gt; especially important when heteroskedasticity is pronounced</em></p>
 </div>
 </section>
-<section id="checking-for-normality" class="slide level2">
-<h2>Checking for Normality</h2>
+<section id="assumption-4-normality" class="slide level2">
+<h2>Assumption 4: Normality</h2>
 <p class="subheader">
 Residuals should be normally distributed
 </p>
-<div id="b5a1535d" class="cell" data-execution_count="7">
+<div id="25d6fda3" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
 </figure>
 </div>
 </div>
@@ -516,17 +492,13 @@ Residuals should be normally distributed
 <p class="subheader">
 Wages depend on more than just education
 </p>
-<p><br></p>
-<p><em>&gt; education isn’t the whole story</em></p>
-<div class="fragment">
-<p><em>&gt; wages also depend on:</em></p>
+<p><em>Wages also depend on:</em></p>
 <ul>
 <li>Experience</li>
 <li>Industry</li>
 <li>Location</li>
 <li>And many other factors</li>
 </ul>
-</div>
 <div class="fragment">
 <p><em>&gt; how can we handle multiple relationships at once?</em></p>
 </div>
@@ -536,17 +508,17 @@ Wages depend on more than just education
 <p class="subheader">
 What if we build a regression model for both relationships separately?
 </p>
-<div id="f435d26f" class="cell" data-execution_count="8">
+<div id="8f358e1d" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="469"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="471"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; does this mean eductation has a negative relationship with wages?</em></p>
+<p><em>&gt; does this mean years of experience has a negative relationship with wages?</em></p>
 </div>
 </section>
 <section id="the-challenge-related-variables" class="slide level2">
@@ -554,11 +526,11 @@ What if we build a regression model for both relationships separately?
 <p class="subheader">
 Education and experience are correlated!
 </p>
-<div id="9990bd1f" class="cell" data-execution_count="9">
+<div id="b8bb0c26" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="759" height="469"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="759" height="471"></p>
 </figure>
 </div>
 </div>
@@ -575,11 +547,11 @@ Education and experience are correlated!
 <p class="subheader">
 We can adjust for multiple variables simultaneously.
 </p>
-<div id="44377a8f" class="cell" data-execution_count="10">
+<div id="2627ba73" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="488" height="470"></p>
+<p><img data-src="Part_4_4_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="483" height="470"></p>
 </figure>
 </div>
 </div>
@@ -611,49 +583,63 @@ Extending the best-fitting line to multiple dimensions
 </ul>
 </div>
 </section>
-<section id="testing-with-multiple-regression" class="slide level2">
-<h2>Testing with Multiple Regression</h2>
+<section id="example-testing-with-multiple-regression" class="slide level2">
+<h2>Example: Testing with Multiple Regression</h2>
 <p class="subheader">
 We can test individual variables or groups of variables
 </p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb10-2"><a href=""></a></span>
-<span id="cb10-3"><a href=""></a><span class="co"># Fit multiple regression model</span></span>
-<span id="cb10-4"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'wages ~ education + experience'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; each coefficient has its own standard error</em></p>
-</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a><span class="co"># Fit multiple regression model</span></span>
+<span id="cb6-4"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + AGE'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; can test each one like before (t-test)</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; or test them together (F-test)</em></p>
+<p><em>&gt; “Are education AND age related to wages?”</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; “Are education AND experience related to wages?”</em></p>
+<p><em>&gt; does this mean the model without <code>AGE</code> was wrong?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; how do we know if we’ve included everything?</em></p>
+</div>
+</section>
+<section id="indicator-dummy-variables" class="slide level2">
+<h2>Indicator (dummy) Variables</h2>
+<p class="subheader">
+… we can easily turn numerical or categorical variables into indicator variables.
+</p>
+<p><br></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># 1. Simple binary indicator (above/below threshold)</span></span>
+<span id="cb7-2"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ I(EDU &gt; 12)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># 2. Multiple thresholds/categories</span></span>
+<span id="cb8-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ I(EDU &gt; 12) + I(EDU &lt; 9)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># 3. Indicators from existing categorical variable</span></span>
+<span id="cb9-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + C(DEGFIELD) data=data).fit()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="looking-forward" class="slide level2">
 <h2>Looking Forward</h2>
 <p class="subheader">
-Next steps in our regression journey
+Next steps in building the general linear model…
 </p>
 <p><br></p>
 <div class="fragment">
-<p><strong>Next time:</strong></p>
+<p><strong>Next topics:</strong></p>
 <ul>
-<li>What can go wrong with regression?</li>
 <li>Omitted variable bias</li>
+<li>Fixed effects</li>
 <li>Multicollinearity</li>
-<li>Functional form issues</li>
-<li>Outliers and influential observations</li>
+<li>Causality</li>
+<li>Basic time series</li>
+<li>Multiple slope models</li>
 </ul>
-</div>
-<div class="fragment">
-<p><em>&gt; understanding these challenges helps us use regression more effectively</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; and interpret results with appropriate caution</em></p>
 
 </div>
 </section>

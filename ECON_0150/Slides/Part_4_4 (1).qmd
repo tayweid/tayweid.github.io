@@ -11,7 +11,7 @@ format:
 
 <br> 
 
-### *Part 4.4 | OLS Assumptions and Multivariate Regression*
+### *Part 4.4 | OLS Assumptions; Multiple Regression*
 
 ---
 
@@ -48,56 +48,75 @@ format:
 - p-values may be misleading
 - Predictions may be unreliable
 
+. . .
+
+*> to test whether the model is 'specified', we can calculate the residuals and the model predictions*
+
 ---
 
-## Example 1: Air Quality and Income
-<p class="subheader">How is neighborhood income related to air quality?</p>
-
----
-
-## Indicator (dummy) Variables
-<p class="subheader">... we can easily turn numerical or categorical variables into indicator variables. </p>
-
-
-<br>
-
-```python
-# Import stats package and load data
-import statsmodels.formula.api as smf
-data = pd.read_csv(file_path + "population_demographics.csv")
-```
-
-. . .
-
-<br>
-
-```python
-# 1. Simple binary indicator (above/below threshold)
-model1 = smf.ols('air_pollution_index ~ I(median_income > 100000)', data=data).fit()
-```
-
-. . .
-
-<br>
-
-```python
-# 2. Multiple thresholds/categories
-model2 = smf.ols('air_pollution_index ~ I(median_income < 50000) + I(median_income > 120000)', data=data).fit()
-```
-
-. . .
-
-<br>
-
-```python
-# 3. Indicators from existing categorical variable
-model3 = smf.ols('air_pollution_index ~ C(region)', data=data).fit()
-```
+## Example: Education and Income
+<p class="subheader">Is income higher for those more highly educated?</p>
 
 ---
 
 ## Model Residuals
 <p class="subheader">... we can directly examine the error of the model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=0.1)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=1)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
 
 <br>
 
@@ -109,28 +128,83 @@ residuals.hist()
 
 . . .
 
-*> this is what we call $\varepsilon$*
+*> this is $\varepsilon$*
 
 ---
 
 ## Model Predictions
 <p class="subheader">... we can directly examine the predictions of the model.</p>
 
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=1)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.1)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
 <br>
+
+. . .
 
 ```python
 # Calculate predictions
 predictions = model.predict()
 predictions.hist()
 ```
-
 . . .
 
-*> this is what we call $\hat{y}$*
+*> this is $\hat{y}$, the model prediction*
 
 ---
 
-## Error-Prediction Plot
+## Residual Plot
 <p class="subheader">... we can directly observe the error according to the model estimates.</p>
 
 
@@ -140,10 +214,18 @@ plt.scatter(predictions, residuals)
 
 ---
 
-## Example 2: Education and Wages
-<p class="subheader">How are education and wages related?</p>
+## Assumption 1: Checking for Linearity
+<p class="subheader">The error term should be unrelated to the fitted value.</p>
+
+*> which one of these figures shows linearity?*
 
 ```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 #| echo: false
 #| fig-align: center
 import numpy as np
@@ -164,61 +246,6 @@ base_wage = 20000
 education_effect = 2000
 error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
 wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
-
-# Fit regression line
-slope, intercept, r_value, p_value, std_err = stats.linregress(education, wages)
-
-# Create scatter plot with regression line
-plt.figure(figsize=(10, 4))
-plt.scatter(education, wages, alpha=0.6, color='#4C72B0')
-
-# Add regression line
-x_line = np.array([min(education), max(education)])
-y_line = intercept + slope * x_line
-plt.plot(x_line, y_line, color='red', linewidth=2, 
-         label=f'y = {intercept:.0f} + {slope:.0f}x')
-
-# Annotate the slope
-plt.annotate(f'Slope ≈ ${slope:.0f} per year', 
-             xy=(16, intercept + 16*slope), 
-             xytext=(16, intercept + 16*slope - 10000),
-             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5),
-             fontsize=12)
-
-plt.title('Relationship Between Education and Wages', fontsize=14)
-plt.xlabel('Years of Education', fontsize=12)
-plt.ylabel('Annual Wage ($)', fontsize=12)
-plt.legend()
-sns.despine()
-plt.tight_layout()
-plt.show()
-```
-
-. . .
-
-*> for each year of education, the typical increase is about $2000*
-
-. . .
-
-*> like moving one year right, we go up $2000 on average*
-
-. . .
-
-*> but clearly some people get more, some get less*
-
----
-
-## Checking for Linearity
-<p class="subheader">The error term should be unrelated to the fitted value.</p>
-
-*> which one of these figures shows linearity?*
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Sample data
 np.random.seed(42)
@@ -263,8 +290,8 @@ plt.tight_layout()
 
 ---
 
-## What About Non-Linear Relationships?
-<p class="subheader">Not everything follows a straight line</p>
+## Non-Linear Relationships
+<p class="subheader">A non-linear relationship will produce non-linear residuals.</p>
 
 ```{python}
 #| echo: false
@@ -390,7 +417,7 @@ quadratic_model = smf.ols('income ~ age + age_squared', data=df).fit()
 
 ---
 
-## Checking for Homoskedasticity
+## Assumption 3: Homoskedasticity
 <p class="subheader">Residuals should be spread out the same everywhere.</p>
 
 *> which one of these figures shows homoskedasticity?*
@@ -461,6 +488,29 @@ plt.tight_layout()
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data (years)
+education = np.concatenate([np.random.randint(10, 13, 50), 
+                           np.random.randint(13, 17, 70),
+                           np.random.randint(17, 22, 30)])
+
+# Generate wage data with more pronounced heteroskedasticity
+base_wage = 20000
+education_effect = 2000
+error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
+wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+
+# Fit regression line
+slope, intercept, r_value, p_value, std_err = stats.linregress(education, wages)
+
+
+# Add regression line
+x_line = np.array([min(education), max(education)])
+y_line = intercept + slope * x_line
 
 # Use the same data from previous slide
 # Calculate residuals
@@ -635,7 +685,7 @@ robust_model = smf.ols('wages ~ education', data=df).fit(cov_type='HC3')
 
 ---
 
-## Checking for Normality
+## Assumption 4: Normality
 <p class="subheader">Residuals should be normally distributed</p>
 ```{python}
 #| echo: false
@@ -691,13 +741,7 @@ plt.tight_layout()
 ## Multiple Regression
 <p class="subheader">Wages depend on more than just education</p>
 
-<br>
-
-*> education isn't the whole story*
-
-. . .
-
-*> wages also depend on:*
+*Wages also depend on:*
 
 - Experience
 - Industry
@@ -735,7 +779,7 @@ experience = np.maximum(0, mean_experience + np.random.normal(0, 3, len(educatio
 
 # Generate wage data affected by both education and experience
 educ_effect = 1500
-exp_effect = 1000
+exp_effect = 500
 base_wage = 15000
 error_scale = 5000
 
@@ -775,7 +819,7 @@ plt.show()
 
 . . .
 
-*> does this mean eductation has a negative relationship with wages?*
+*> does this mean years of experience has a negative relationship with wages?*
 
 ---
 
@@ -895,19 +939,15 @@ $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text
 
 ---
 
-## Testing with Multiple Regression
+## Example: Testing with Multiple Regression
 <p class="subheader">We can test individual variables or groups of variables</p>
 
 ```python
 import statsmodels.formula.api as smf
 
 # Fit multiple regression model
-model = smf.ols('wages ~ education + experience', data=data).fit()
+model = smf.ols('INCLOG10 ~ EDU + AGE', data=data).fit()
 ```
-
-. . .
-
-*> each coefficient has its own standard error*
 
 . . .
 
@@ -915,33 +955,60 @@ model = smf.ols('wages ~ education + experience', data=data).fit()
 
 . . .
 
-*> or test them together (F-test)*
+*> "Are education AND age related to wages?"*
 
 . . .
 
-*> "Are education AND experience related to wages?"*
+*> does this mean the model without `AGE` was wrong?*
+
+. . .
+
+*> how do we know if we've included everything?*
+
+---
+
+## Indicator (dummy) Variables
+<p class="subheader">... we can easily turn numerical or categorical variables into indicator variables. </p>
+
+<br>
+
+```python
+# 1. Simple binary indicator (above/below threshold)
+model1 = smf.ols('INCLOG10 ~ I(EDU > 12)', data=data).fit()
+```
+
+. . .
+
+<br>
+
+```python
+# 2. Multiple thresholds/categories
+model2 = smf.ols('INCLOG10 ~ I(EDU > 12) + I(EDU < 9)', data=data).fit()
+```
+
+. . .
+
+<br>
+
+```python
+# 3. Indicators from existing categorical variable
+model3 = smf.ols('INCLOG10 ~ EDU + C(DEGFIELD) data=data).fit()
+```
 
 ---
 
 ## Looking Forward
-<p class="subheader">Next steps in our regression journey</p>
+<p class="subheader">Next steps in building the general linear model...</p>
 
 <br>
 
 . . .
 
-**Next time:**
+**Next topics:**
 
-- What can go wrong with regression?
 - Omitted variable bias
+- Fixed effects
 - Multicollinearity
-- Functional form issues
-- Outliers and influential observations
-
-. . .
-
-*> understanding these challenges helps us use regression more effectively*
-
-. . .
-
-*> and interpret results with appropriate caution*
+- Causality
+- Basic time series
+- Multiple slope models
