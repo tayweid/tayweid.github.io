@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+    
+<title>Economic Data Analysis | Final Project</title>
+
+<link rel="stylesheet" href="jscss/Part.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+<body>
+
+<div class="body_table"><div>
+<div class="left_div" align="right">
+    <nav>
+        <ul>
+            <a href="https://tayweid.github.io/ECON_0150/ECON_0150.html" class="title-link">
+                <span>ECONOMIC</span><br>
+                <span>DATA</span><br>
+                <span>ANALYSIS</span>
+            </a>
+            <br>
+            <li><a href="https://tayweid.github.io/ECON_0150/Data.html">Data Hub</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_1.html">Part 1</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_2.html">Part 2</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_3.html">Part 3</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_4.html">Part 4</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_5.html">Part 5</a></li>
+            <li><a href="https://tayweid.github.io/ECON_0150/Part_6.html">Part 6</a></li>
+            <li><a class="active">Projects</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="content">
+<div class="content">
+    <div class="description" style="; margin-bottom:-20px">
+        <h1 class="title" style="margin-bottom:-5px">Final Project</h1>
+        <i style="font-size:20px; margin-left:20px">// excellence in student data analysis //</i>
+
+        <hr style="border: none; border-top: 1px solid grey;">
+
+        <h2>
+            <a class="btn" href="Syllabus/Syllabus.pdf" target="_blank">Guidelines</a> 
+            <span style="color: grey">//</span>
+            <a class="btn" href="Slides/Part_0.pdf" target="_blank">Project Ideas</a> 
+            <span style="color: grey">//</span> 
+            <a class="btn" href="Slides/Part_0.pdf" target="_blank">Fall 2024 Projects</a> 
+        </h2>
+
+        <hr style="border: none; border-top: 1px solid grey;">
+    </div>
+
+    <div align="center" style="text-align: left;">
+        <div class="rounded-box">
+            <h2>The Championship Effect</h2>
+            <p><b>> Research Question.</b> <i>How does winning college football championships influence university applications?</i></p>
+            <p><b>Data Source.</b> <i>College Football Stats, Reference.com; Admissions data from Alabama and Clemson</i></p>
+            <p><b>Methods.</b> <i>Bar charts, percentage change calculations, dot plots with Google Colab</i></p>
+            <p><b>Main Finding.</b> <i>Positive correlation between winning championships and increased applications, supporting the "Flutie Effect"</i></p>
+        </div>
+    </div>
+
+    <!-- Project 02 -->
+    <div id="project_02">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Economic Changes and Decision to Have Children</h2>
+                <p><b>> Research Question.</b> <i>Do economic changes correlate with decisions to have children in the short-term?</i></p>
+                <p><b>Data Source.</b> <i>Fertility rate data (UN); GDP data (Federal Reserve)</i></p>
+                <p><b>Methods.</b> <i>Fertility rates analysis for ages 20-30, GDP growth calculations, regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>Significant relationship between GDP and fertility rates; economic recessions correlate with fertility declines</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 03 -->
+    <div id="project_03">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Economic Impact of Public Health Spending</h2>
+                <p><b>> Research Question.</b> <i>What is the relationship between national health expenditures and GDP?</i></p>
+                <p><b>Data Source.</b> <i>Centers for Medicare & Medicaid Services (CMS) data, 1972-2022</i></p>
+                <p><b>Methods.</b> <i>OLS regression, scatter plots with regression lines</i></p>
+                <p><b>Main Finding.</b> <i>For every $1B increase in health spending, GDP increases by ~$5.21B (R² of 0.991)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 04 -->
+    <div id="project_04">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Unemployment Benefits and Job Recovery</h2>
+                <p><b>> Research Question.</b> <i>How do unemployment benefits correlate with job recovery (2010-2023)?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Bureau of Labor Statistics, Department of Labor, FRED, CBO</i></p>
+                <p><b>Methods.</b> <i>Descriptive statistics, correlation analysis, regression during stable periods vs. crises</i></p>
+                <p><b>Main Finding.</b> <i>Relationship depends on economic context; COVID-19 benefits showed minimal disincentive effects</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 05 -->
+    <div id="project_05">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Voter Turnout Analysis</h2>
+                <p><b>> Research Question.</b> <i>How does voter turnout vary by state/age and relate to election results?</i></p>
+                <p><b>Data Source.</b> <i>Multiple sources including voter turnout data by age (2016/2020), state-level data (2024)</i></p>
+                <p><b>Methods.</b> <i>Z-score tests, maps and scatter plots, correlation analysis</i></p>
+                <p><b>Main Finding.</b> <i>Weak negative correlation between turnout and Republican margin; highest-turnout states tend Democratic</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 06 -->
+    <div id="project_06">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Black Friday Profits and Online Sales</h2>
+                <p><b>> Research Question.</b> <i>How do Black Friday profits correlate with online sales?</i></p>
+                <p><b>Data Source.</b> <i>Yahoo Finance, Demand Sage, Sender (2020-2023)</i></p>
+                <p><b>Methods.</b> <i>Sales data analysis, percentage calculations, scatter plots</i></p>
+                <p><b>Main Finding.</b> <i>Positive correlation between online shoppers and profits (y = 0.0412x - 3E+08)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 07 -->
+    <div id="project_07">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Voting Turnout and Single Parent Households</h2>
+                <p><b>> Research Question.</b> <i>How does the percentage of single parent households relate to voter turnout?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Census (2020), state voter registration data, MIT Election Data</i></p>
+                <p><b>Methods.</b> <i>County-level data compilation, correlation analysis, regression</i></p>
+                <p><b>Main Finding.</b> <i>Negative correlation: 1% increase in single parent households → 0.741% decrease in turnout</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 08 -->
+    <div id="project_08">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Unemployment and GDP Growth During COVID-19</h2>
+                <p><b>> Research Question.</b> <i>How did unemployment and GDP growth relate before, during, and after COVID-19?</i></p>
+                <p><b>Data Source.</b> <i>Federal Reserve Economic Data (FRED), 2014-2024</i></p>
+                <p><b>Methods.</b> <i>Line graphs, scatter plots with regression lines across different periods</i></p>
+                <p><b>Main Finding.</b> <i>COVID-19 disrupted typical relationship; 2020 saw GDP at -7.5% while unemployment spiked to ~12%</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 09 -->
+    <div id="project_09">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Voting Policies and Turnout Rates</h2>
+                <p><b>> Research Question.</b> <i>What is the relationship between voting policies and turnout rates?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Census Bureau, Ballotpedia</i></p>
+                <p><b>Methods.</b> <i>Policy comparison categories, bar charts, pivot tables, regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>Universal mail-in voting states had 3% higher turnout; no-excuse absentee states had 1.87% higher turnout</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 10 -->
+    <div id="project_10">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Education Level and Vote Share in Pennsylvania</h2>
+                <p><b>> Research Question.</b> <i>Is there a relationship between educational level and vote share in PA (2024)?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Census Bureau for education levels; Politico for voting results</i></p>
+                <p><b>Methods.</b> <i>Regression analysis by education level, slope coefficient calculations, visualizations</i></p>
+                <p><b>Main Finding.</b> <i>High school-only counties favored Trump (+2.71% per point); college degree counties favored Harris (+3.82%)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 11 -->
+    <div id="project_11">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Expected Value Per Sport Card</h2>
+                <p><b>> Research Question.</b> <i>Is there a difference in expected value between basketball and football sports cards?</i></p>
+                <p><b>Data Source.</b> <i>Professional Sport Authenticator (PSA) card-grading service submissions</i></p>
+                <p><b>Methods.</b> <i>Box plots, one-tailed t-test for statistical significance</i></p>
+                <p><b>Main Finding.</b> <i>Basketball cards showed higher expected value than football cards (p-value = 0.09)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 12 -->
+    <div id="project_12">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Voter Age and Turnout in Pennsylvania</h2>
+                <p><b>> Research Question.</b> <i>What is the relationship between voter age and turnout in PA counties (2024)?</i></p>
+                <p><b>Data Source.</b> <i>Commonwealth of Pennsylvania voter registration data; New York Times PA map</i></p>
+                <p><b>Methods.</b> <i>Combined voter registration with turnout data, scatter plots, linear regression</i></p>
+                <p><b>Main Finding.</b> <i>Strong positive correlation: +1 year in average county age → +0.9% in voter turnout</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 13 -->
+    <div id="project_13">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Global Coffee Price Trends</h2>
+                <p><b>> Research Question.</b> <i>How have global coffee prices and their percent changes evolved over the past decade?</i></p>
+                <p><b>Data Source.</b> <i>Federal Reserve Bank of St. Louis (FRED), 2014-2024</i></p>
+                <p><b>Methods.</b> <i>Descriptive statistics, line plots, regression analysis, percent change calculations</i></p>
+                <p><b>Main Finding.</b> <i>Significant volatility with lows in 2018, sharp increases in 2020-2022 during supply chain disruptions</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 14 -->
+    <div id="project_14">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Pittsburgh Housing Market by Neighborhood</h2>
+                <p><b>> Research Question.</b> <i>Which Pittsburgh neighborhoods show highest housing price growth, and how does bedroom count relate?</i></p>
+                <p><b>Data Source.</b> <i>Zillow research datasets on Pittsburgh home prices, 2000-2024</i></p>
+                <p><b>Methods.</b> <i>Python/Scikit-learn, linear regression, growth metrics, normalized slope calculations</i></p>
+                <p><b>Main Finding.</b> <i>Central Lawrenceville (2.07%/month) led growth; five-bedroom homes appreciated fastest (2.16%/month)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 15 -->
+    <div id="project_15">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Health Expense and Life Expectancy</h2>
+                <p><b>> Research Question.</b> <i>How does health spending relate to life expectancy?</i></p>
+                <p><b>Data Source.</b> <i>World Bank data on Health Expenditure per Capita and Life Expectancy</i></p>
+                <p><b>Methods.</b> <i>Multi-year data aggregation, histogram categorization, scatter plots, regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>Each $1 per capita increases life expectancy by 0.0034 years (1.24 days); R² = 0.49</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 16 -->
+    <div id="project_16">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>GDP and Renewable Energy Use</h2>
+                <p><b>> Research Question.</b> <i>Is higher GDP related to increased renewable energy use?</i></p>
+                <p><b>Data Source.</b> <i>Our World in Data (global); U.S. Energy Information Administration and Statista (US)</i></p>
+                <p><b>Methods.</b> <i>Box-and-whisker plots, regression analysis, scatter plots for US and global datasets</i></p>
+                <p><b>Main Finding.</b> <i>No significant relationship in US data; weak but significant global relationship (R² = 0.114)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 17 -->
+    <div id="project_17">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>NFL Quarterbacks: Passing Yards and Salary</h2>
+                <p><b>> Research Question.</b> <i>Is there a correlation between NFL quarterback passing yards and salary?</i></p>
+                <p><b>Data Source.</b> <i>Over the Cap for contracts; Pro Football Reference for 2024 NFL passing statistics</i></p>
+                <p><b>Methods.</b> <i>Python/pandas data merging, scatter plots, linear regression, p-value calculation</i></p>
+                <p><b>Main Finding.</b> <i>Significant positive correlation (p-value = 1.42e-09); regression: y = 11007.06x + 69706.75</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 18 -->
+    <div id="project_18">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Economic Costs of Climate Change Events</h2>
+                <p><b>> Research Question.</b> <i>How have economic costs of extreme weather events changed over the past two decades in the U.S.?</i></p>
+                <p><b>Data Source.</b> <i>NOAA Billion-Dollar Weather and Climate Disasters database</i></p>
+                <p><b>Methods.</b> <i>Excel analysis, box plots, bar charts, t-test comparing 2000-2009 vs. 2010-2020</i></p>
+                <p><b>Main Finding.</b> <i>Costs nearly doubled from 2000s ($62B/year) to 2010s ($99.3B/year); 2019-2023 averaged $123.5B/year</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 19 -->
+    <div id="project_19">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Gender Wage Gap in Engineering Fields</h2>
+                <p><b>> Research Question.</b> <i>How does Labor Force Participation relate to gender wage gap in engineering over time?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Department of Labor for earnings; FRED for labor force participation rates</i></p>
+                <p><b>Methods.</b> <i>Wage difference calculations, labor participation analysis, regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>As labor force participation gap decreases, wage gap decreases; women still earn only 90¢ per men's $1</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 20 -->
+    <div id="project_20">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>MLB Ticket Prices</h2>
+                <p><b>> Research Question.</b> <i>How do MLB ticket prices vary with team wins, payroll, and city population?</i></p>
+                <p><b>Data Source.</b> <i>Statista for ticket prices; USA Today for payrolls; U.S. Census for city populations</i></p>
+                <p><b>Methods.</b> <i>Dataset creation combining multiple variables, regression analysis in R, p-value calculations</i></p>
+                <p><b>Main Finding.</b> <i>Team payroll (+0.22 units per unit increase) and wins (+1.21 units per win) significantly correlate with prices</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 21 -->
+    <div id="project_21">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Economic Issues in the 2024 Presidential Election</h2>
+                <p><b>> Research Question.</b> <i>Was the economy an important issue for Pennsylvania voters in the 2024 presidential election?</i></p>
+                <p><b>Data Source.</b> <i>Emerson College's final pre-election poll with emphasis on economic issues</i></p>
+                <p><b>Methods.</b> <i>Poll data weighting for economic priorities, comparison with actual outcomes, confidence interval calculations</i></p>
+                <p><b>Main Finding.</b> <i>Economically-weighted poll results nearly matched actual election outcomes, suggesting strong correlation</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 22 -->
+    <div id="project_22">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Labor Productivity and Unemployment Rate</h2>
+                <p><b>> Research Question.</b> <i>How does labor productivity relate to the unemployment rate?</i></p>
+                <p><b>Data Source.</b> <i>Bureau of Labor Statistics (BLS) for U.S. unemployment and productivity data, 2014-2024</i></p>
+                <p><b>Methods.</b> <i>Line charts, scatter plots, regression analysis to quantify relationships</i></p>
+                <p><b>Main Finding.</b> <i>Negative correlation: each unit increase in productivity associates with 0.15 percentage point decrease in unemployment</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 23 -->
+    <div id="project_23">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Income and Voting Rate</h2>
+                <p><b>> Research Question.</b> <i>How does 2023 household income relate to voting choice in each state?</i></p>
+                <p><b>Data Source.</b> <i>US Census for household income; Associated Press for 2024 presidential election voting data</i></p>
+                <p><b>Methods.</b> <i>Maps and bar charts creation, regression equations, p-value analysis</i></p>
+                <p><b>Main Finding.</b> <i>Higher income correlates with Democratic voting; Republicans have 7.93% advantage among lower-income voters</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 24 -->
+    <div id="project_24">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Tesla's Supercharging Network and Vehicle Sales</h2>
+                <p><b>> Research Question.</b> <i>How does the expansion of Tesla's Supercharging network correlate with Tesla vehicle sales?</i></p>
+                <p><b>Data Source.</b> <i>GoodCarBadCar.net for sales; Kaggle for Supercharger locations; WSJ for investments</i></p>
+                <p><b>Methods.</b> <i>Line and scatter plots, Pearson correlation coefficient, simple linear regression model</i></p>
+                <p><b>Main Finding.</b> <i>Moderate positive correlation (r = 0.59); each additional charging station associates with ~288 more vehicle sales</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 25 -->
+    <div id="project_25">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Factors Influencing Voter Turnout</h2>
+                <p><b>> Research Question.</b> <i>What factors correlate with voter turnout in U.S. presidential elections (1988-2020)?</i></p>
+                <p><b>Data Source.</b> <i>US Elections Project's "Voter Turnout Demographics" dataset</i></p>
+                <p><b>Methods.</b> <i>Bar graphs and line graphs by demographics, hypothesis testing for trends</i></p>
+                <p><b>Main Finding.</b> <i>Three consistent factors: race (White higher), age (60+ highest), and education (higher degrees = higher turnout)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 26 -->
+    <div id="project_26">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Education's Impact on Wage Varying by Gender</h2>
+                <p><b>> Research Question.</b> <i>How do university degrees relate to wages at different educational levels for both genders?</i></p>
+                <p><b>Data Source.</b> <i>United States Census Bureau's Current Population Survey on earnings by education and gender</i></p>
+                <p><b>Methods.</b> <i>Educational attainment transformation, Google Colab/Python regression analysis, p-value calculations</i></p>
+                <p><b>Main Finding.</b> <i>Each year of education: +$5,311 for men vs. +$3,918 for women; gap widens at higher education levels</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 27 -->
+    <div id="project_27">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Unemployment Rate and GDP</h2>
+                <p><b>> Research Question.</b> <i>What is the relationship between unemployment rate and GDP in the United States (2000-2024)?</i></p>
+                <p><b>Data Source.</b> <i>Federal Reserve Economic Data (FRED) for unemployment and GDP data</i></p>
+                <p><b>Methods.</b> <i>Line plots, scatter plots with regression lines, Pearson correlation, regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>Negative correlation (y = 20839.98 - 625.20x) but not statistically significant (R² = 0.06, p-value > 0.05)</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 28 -->
+    <div id="project_28">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Inflation, Unemployment, and GDP</h2>
+                <p><b>> Research Question.</b> <i>How do inflation, unemployment, and GDP interact as key economic indicators?</i></p>
+                <p><b>Data Source.</b> <i>FRED for inflation rates; World Bank for GDP Per Capita and Unemployment rate data</i></p>
+                <p><b>Methods.</b> <i>Historical data analysis, policy strategy evaluation, relationship pattern identification</i></p>
+                <p><b>Main Finding.</b> <i>Phillips Curve relationship confirmed; policies improving one indicator often adversely affect others</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 29 -->
+    <div id="project_29">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Impact of 2020 Presidential Transition on Economic Confidence</h2>
+                <p><b>> Research Question.</b> <i>Did the Trump-Biden transition in 2020 correlate with changes in economic confidence?</i></p>
+                <p><b>Data Source.</b> <i>Federal Reserve Bank of St. Louis for business confidence; MarketWatch for Dow Jones; OECD for consumer confidence</i></p>
+                <p><b>Methods.</b> <i>Key indicator analysis around Nov 2020 and Jan 2021, pattern examination, fluctuation assessment</i></p>
+                <p><b>Main Finding.</b> <i>No significant correlation between political transition and economic confidence metrics</i></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project 31 -->
+    <div id="project_31">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Minimum Wage Increases and Inflation</h2>
+                <p><b>> Research Question.</b> <i>What is the relationship between minimum wage increases and inflation?</i></p>
+                <p><b>Data Source.</b> <i>U.S. Department of Labor (wages); Bureau of Labor Statistics (CPI); Census Bureau (population)</i></p>
+                <p><b>Methods.</b> <i>Descriptive statistics, t-tests comparing states, correlation and regression analysis</i></p>
+                <p><b>Main Finding.</b> <i>Significant correlation: $1/hour minimum wage increase associates with 1.981 point CPI increase</i></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom:50%"></div>
+
+</div>
+
+<!-- RIGHT NAVIGATION -->
+    
+<div  class="right_div">
+    <nav>
+        <ul>
+            <span>Schedule</span>
+            <li><a href="#week_02">Week 02 ( HW )</a></li>
+            <li><a href="#week_03">Week 03 ( HW )</a></li>
+            <li><a href="#week_04">Week 04 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_05">Week 05 ( HW | ME )</a></li>
+            <li><a href="#week_06">Week 06 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_07">Week 07 ( HW | ME )</a></li>
+            <li><a href="#week_08">Week 08 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_09">Week 09 ( Break )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_10">Week 10 ( HW )</a></li>
+            <li><a href="#week_11">Week 11 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_12">Week 12 ( HW | ME )</a></li>
+            <li><a href="#week_13">Week 13 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_14">Week 14 ( HW | ME )</a></li>
+            <li><a href="#week_15">Week 15 ( ME )</a></li>
+        </ul>
+    </nav>
+</div>
+
+</div></div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jscss/Part.js"></script>
