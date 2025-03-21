@@ -8,10 +8,9 @@ In this final project, you will demonstrate your ability to analyze real-world d
 
 #### Learning Objectives
 
-- Apply data analysis techniques using Python
-- Demonstrate proficiency in exploratory data analysis and visualization
-- Utilize statistical methods to draw meaningful conclusions
-- Effectively communicate findings to a technical audience
+- Parts 1 - 2: Demonstrate proficiency in exploratory data analysis and visualization
+- Parts 3 - 5: Use statistical methods to draw meaningful conclusions
+- Part 6: Effectively communicate findings to a intermediate-technical audience
 
 #### Dataset Selection
 
@@ -28,17 +27,17 @@ Your analysis must include:
 1. **Exploratory Data Analysis**
    - Summary statistics
    - Data cleaning and preparation
-   - At least two different types of visualizations 
+   - Visualizations / summaries of relevant variables / relationships
 
-2. **Statistical Analysis**
-   - Probability distributions of key variables
-   - Hypothesis testing relevant to your research question 
-   - Regression analysis (if applicable to your research question)
+2. **General Linear Model**
+   - Statement of the statistical model
+   - A summary of the model's results and assumptions
+   - Interpretation of the model's results
+   - Limitations of the model
 
 3. **Insights** 
-   - Clear connection between your analysis and economic concepts
+   - Clear connection between your analysis and social / economic concepts
    - Discussion of implications and limitations 
-   - Suggestions for further research
 
 #### Presentation (1-2 slides)
 
@@ -51,54 +50,53 @@ Create 1-2 clear, concise slides highlighting:
 
 Be prepared for a 3-minute presentation.
 
-#### Written Report
+#### Written Report (1-2 pages)
 
 Submit a short report (roughly 2 pages) including:
 
-1. Introduction and motivation
+1. Introduction and question
 2. Data description and sources 
 3. Methodology
 4. Results and analysis
 5. Conclusions
 6. References
-7. Appendix with your code/spreadsheet formulas
 
 #### Evaluation Criteria
 
-Data Analysis (40%)
+**Data Analysis (40%)**
 
 - Appropriate choice and application of methods
 - Technical proficiency
 - Depth of analysis
 
-Communication (30%)
+**Communication (30%)**
 
 - Clarity of presentation 
 - Quality of visualizations 
 - Professional writing
 
-Economic Understanding (30%)
+**Economic Understanding (30%)**
 
-- Connection to economic concepts
-- Interpretation of the causal/correlational relationships 
-- Discussion of social/economic implications
+- Connection to economic concepts (if applicable)
+- Interpretation of the relationships 
+- Discussion of social / economic implications
 
 #### Timeline
 
-Project groups due: **Tuesday, November 12** 
+Project groups due: **Friday, March 28 (in Homework)** 
 
-- Select and submit to me your group.
+- Select and submit to me your group and a descriptive figure from a dataset of interest to you.
 
-Project proposal due: **Tuesday, November 19**
+Project proposal due: **Friday, April 4 (in Homework)**
 
-- Select a topic/question.
+- Select a topic/question, a descriptive figure, and a statistical model.
 
-Draft analysis due: **Tuesday, December 3** 
+Draft analysis due: **Friday, April 11 (in Homework)** 
 
 - Send me a draft of your writeup, including at least one figure.
 
-Final presentation: **December 12, 12PM, Finals Period** 
+Final presentation: **Finals Period** 
 
 - Present 1-2 slides, described above.
 
-Written report due: **Tuesday, December 17, 5PM**
+Written report due: **Tuesday, April 29, 5PM**
