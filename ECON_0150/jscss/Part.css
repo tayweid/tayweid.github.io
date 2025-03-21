@@ -179,6 +179,23 @@ p > a:hover {
     margin-top: -10px;
     font-style: italic;
 }
+.rounded-box > b {
+    border-left: 0px solid var(--background_color);
+    margin-left: 5px;
+    margin-bottom: 0px;
+    margin-top: -10px;
+    font-style: italic;
+    font-size: 14px;
+}
+.rounded-box > i {
+    border-left: 0px solid var(--background_color);
+    margin-left: 5px;
+    margin-bottom: 0px;
+    margin-top: -10px;
+    font-style: italic;
+    font-size: 14px;
+    color: grey;
+}
 .rounded-box > h2 {
     margin-top: 0px;
     margin-bottom: 0px;
@@ -278,4 +295,17 @@ hr {
     border: none;
     border-top: 1px solid #ccc;  /* Lighter color and thinner line */
     margin: 15px 0;
+}
+
+.RC {
+    color: #965959;
+}
+.DS {
+    color: #AEA04B;
+}
+.RM {
+    color: #4D6A57;
+}
+.MF {
+    color: #5D7A97;
 }

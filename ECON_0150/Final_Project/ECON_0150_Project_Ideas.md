@@ -1,7 +1,5 @@
 ## ECON 0150 | Final Project Ideas
 
-This document includes six project ideas and a list of project ideas from previous students. 
-
 ### Proposal 1: The Relationship between Unemployment Benefits on Job Recovery Rates
 
 **Research Question:** How are changes in unemployment benefits related to the rate of job recovery in the U.S.?
@@ -121,38 +119,3 @@ This document includes six project ideas and a list of project ideas from previo
    - Perform a regression to assess the relationship between the availability of different methods and the election outcome.
 3. **Insights:**
    - Discuss the implications of election policy and access to voting.
-
-
-
-### Previous Students' Project Proposals
-
-- How does winning college football championships influences University Applications
-- Do economic recessions affect the decision to have children in the short-term?
-- The Effect of Public Health Spending on Economic Outcomes
-- The Relationship Between Unemployment Benefits and Job Recovery Rates
-- Voter Turnout Results and Effects
-- How black friday profits are affected by online shopping
-- Voter turnout and single parent households
-- The impact of COVID-19 on consumer spending in a specific industry like travel or food
-- State Policy & Voter Turnout
-- Education Level and Vote Share in Pennsylvania (2024 Presidential Election)
-- Does Sport Influence a Card’s Expected Value?
-- How does age relate to voter turnout?
-- How have global coffee prices and their percent changes evolved over the past decade?
-- Pittsburgh Housing Market By Neighborhood
-- Does higher health spending increase life expectancy?
-- What is the economic impact of increased renewable energy use?
-- Comparing campaign costs of the presidential election between democrats and republicans in swing states vs. partisan states
-- Economic Costs of Climate Change Events in the United States
-- How do MLB Ticket Prices Vary with Team Wins, Payroll and City Population?
-- Voter turnout across states
-- The relationship between labor productivity and unemployment rate
-- Income and Voting Rate
-- The Correlation Between Tesla’s Supercharging Network Expansion and Vehicle Sales in the United States
-- What factors were most strongly correlated with voter turnout in the United States during the 1988-2020 presidential election years?
-- Education’s Impact on Wage Varying by Gender
-- The relationship between unemployment rate and GDP growth
-- How does inflation affect the working class in the united states?
-- The impact of the transition of power between presidents on different parties on the confidence in the economy
-- Does alcohol consumption differ significantly during economic recessions compared to non-recessionary periods?
-- The effect of minimum wage increases on inflation
