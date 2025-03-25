@@ -32,12 +32,138 @@ format:
 
 ---
 
-## Model 1: The Gender Wage Gap
-<p class="subheader">We can use an indicator variable to capture level differences.</p>
+## Model 1: Basic Gender Wage Gap
+<p class="subheader">The simplest model with just a gender indicator.</p>
 
 . . .
 
-$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \varepsilon$$
+```{python}
+# Create a visualization for Model 1
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 200
+gender = np.random.binomial(1, 0.5, n)  # 0 = female, 1 = male
+
+# Parameters
+base_wage_female = 40000  # base wage for females (β₀)
+gender_gap = 10000        # male premium (β₁)
+
+# Generate wages with gender gap and noise
+wages = base_wage_female + gender_gap * gender + np.random.normal(0, 5000, n)
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Plot data points
+female_x = np.random.normal(0, 0.05, sum(gender==0))
+male_x = np.random.normal(1, 0.05, sum(gender==1))
+
+ax.scatter(female_x, wages[gender==0], alpha=0.15, color='red')
+ax.scatter(male_x, wages[gender==1], alpha=0.15, color='green')
+
+# Add horizontal lines for average wages
+female_avg = base_wage_female
+male_avg = base_wage_female + gender_gap
+
+# Female horizontal line
+ax.plot([0, 1], [female_avg, female_avg], 
+        color='red', linestyle='-', linewidth=3, label='Female', alpha=0.5)
+
+# Male horizontal line
+ax.plot([0, 1], [male_avg, male_avg], 
+        color='green', linestyle='-', linewidth=3, label='Male')
+
+# Annotate β₀ and β₁
+ax.annotate('', xy=(-0.2, base_wage_female), xytext=(-0.2, 0),
+            arrowprops=dict(arrowstyle='|-|', color='red', alpha=0.4, lw=2))
+ax.annotate('$\\beta_0$ (Base wage)', xy=(-0.2, base_wage_female/2), 
+            xytext=(-0.6, base_wage_female*0.5), fontsize=12,
+            arrowprops=dict(arrowstyle='->', color='black'))
+
+ax.annotate('', xy=(-0.2, base_wage_female+gender_gap), xytext=(-0.2, base_wage_female),
+            arrowprops=dict(arrowstyle='|-|', color='green', alpha=0.4, lw=2))
+ax.annotate('$\\beta_1$ (Gender Gap)', xy=(-0.2, base_wage_female+gender_gap/2), 
+            xytext=(-0.6, base_wage_female+gender_gap/2), fontsize=12,
+            arrowprops=dict(arrowstyle='->', color='black'))
+
+# Styling
+ax.set_xlim([-0.5,2])
+ax.set_xticks([0, 1])
+ax.set_xticklabels(['Female', 'Male'])
+ax.set_ylabel('')
+ax.set_yticks([0, 80000])
+ax.set_yticklabels([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.legend(fontsize=11)
+
+sns.despine(left=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon$$
+
+
+---
+
+## Model 1: Basic Gender Wage Gap
+<p class="subheader">The simplest model with just a gender indicator.</p>
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon$$
+
+. . .
+
+*> β₀ is the average wage for females*
+
+. . .
+
+*> β₁ represents the gender wage gap - the additional wage for males*
+
+. . .
+
+*> model ignores education entirely - just comparing average wages by gender*
+
+---
+
+## Model 1: The Code
+<p class="subheader">Implementing the basic gender gap model</p>
+
+```python
+import statsmodels.formula.api as smf
+
+# Fit the model with just the male indicator
+model1 = smf.ols('INCLOG10 ~ MALE', data=df).fit()
+print(model1.summary())
+```
+
+. . .
+
+**Interpretation:**
+
+- β₀: Average wage for females 
+- β₁: Additional wage premium for males
+
+. . .
+
+*> if β₁ > 0 and statistically significant, evidence of a raw gender wage gap*
+
+. . .
+
+*> this model doesn't control for any other factors that might explain wage differences*
+
+---
+
+## Model 2: Education + Gender Wage Gap
+<p class="subheader">Adding education as a control variable.</p>
 
 . . .
 
@@ -123,14 +249,16 @@ sns.despine(left=True, trim=True)
 plt.tight_layout()
 ```
 
-<br>
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \varepsilon$$
 
 ---
 
-## Model 1: The Gender Wage Gap
-<p class="subheader">We can use an indicator variable to capture level differences.</p>
+## Model 2: Education + Gender Wage Gap
+<p class="subheader">Adding education as a control variable.</p>
 
-$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times I(\text{Male}) + \varepsilon$$
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \varepsilon$$
 
 *> β₀ is the base wage for those with no post-middle school education*
 
@@ -144,7 +272,7 @@ $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times I(\te
 
 ---
 
-## Model 1: The Code
+## Model 2: The Code
 <p class="subheader">Implementing the gender fixed effect model</p>
 
 ```python
@@ -169,12 +297,8 @@ print(model1.summary())
 
 ---
 
-## Model 2: Different Returns to Education
+## Model 3: Different Returns to Education
 <p class="subheader">What if education benefits genders differently?</p>
-
-$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon$$
-
-. . .
 
 ```{python}
 #| echo: false
@@ -285,9 +409,13 @@ sns.despine(left=True, trim=True)
 plt.tight_layout()
 ```
 
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon$$
+
 ---
 
-## Model 2: Different Returns to Education
+## Model 3: Different Returns to Education
 <p class="subheader">What if education benefits genders differently?</p>
 
 $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon$$
@@ -304,7 +432,7 @@ $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text
 
 ---
 
-## Model 2: The Code
+## Model 3: The Code
 <p class="subheader">Implementing the education-gender interaction model</p>
 
 ```python
@@ -331,12 +459,8 @@ print(model2.summary())
 
 ---
 
-## Model 3: Full Gender Difference Model
+## Model 4: Full Gender Difference Model
 <p class="subheader">Combining fixed effects and interactions</p>
-
-$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon$$
-
-. . .
 
 ```{python}
 # Let's compare the two code snippets to identify style differences
@@ -498,7 +622,13 @@ plt.tight_layout()
 plt.show()
 ```
 
-## Model 3: Full Gender Difference Model
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon$$
+
+---
+
+## Model 4: Full Gender Difference Model
 <p class="subheader">Combining fixed effects and interactions</p>
 
 $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon$$
@@ -519,7 +649,7 @@ $$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text
 
 ---
 
-## Model 3: The Code
+## Model 4: The Code
 <p class="subheader">Implementing the full gender difference model</p>
 
 ```python
@@ -548,19 +678,19 @@ print(model3.summary())
 
 <br>
 
-1. **Model 1: Fixed Effect**
+2. **Model 2: Fixed Effect**
    - Question: "Is there a gender wage gap?"
    - Focus: Level differences in wages
 
 . . .
 
-2. **Model 2: Interaction Only**
+3. **Model 3: Interaction Only**
    - Question: "Are there differences in returns to education?"
    - Focus: Slope differences in education effects
 
 . . .
 
-3. **Model 3: Full Model**
+4. **Model 4: Full Model**
    - Question: "Does the gender wage gap vary with education level?"
    - Focus: Comprehensive gender differences pattern
 
@@ -575,19 +705,19 @@ print(model3.summary())
 
 <br>
 
-1. **Use Model 1 (Fixed Effect) when:**
+2. **Use Model 2 (Fixed Effect) when:**
    - You want to estimate the average wage gap across all education levels
    - You believe returns to education are similar for all groups
 
 . . .
 
-2. **Use Model 2 (Interaction Only) when:**
+3. **Use Model 3 (Interaction Only) when:**
    - You're specifically interested in differential returns to education
    - You believe there's no baseline difference between groups
 
 . . .
 
-3. **Use Model 3 (Full Model) when:**
+4. **Use Model 4 (Full Model) when:**
    - You want to explore how the wage gap varies with education
    - You're testing for both baseline differences and differential returns
 
