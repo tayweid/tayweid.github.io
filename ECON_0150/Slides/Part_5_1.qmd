@@ -30,12 +30,63 @@ format:
 
 *> lets build this analysis step by step*
 
+
 ---
 
 ## Model 1: Basic Gender Wage Gap
 <p class="subheader">The simplest model with just a gender indicator.</p>
 
 . . .
+
+```{python}
+# Create a visualization for Model 1
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 200
+gender = np.random.binomial(1, 0.5, n)  # 0 = female, 1 = male
+
+# Parameters
+base_wage_female = 40000  # base wage for females (β₀)
+gender_gap = 10000        # male premium (β₁)
+
+# Generate wages with gender gap and noise
+wages = base_wage_female + gender_gap * gender + np.random.normal(0, 5000, n)
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Plot data points
+female_x = np.random.normal(0, 0.05, sum(gender==0))
+male_x = np.random.normal(1, 0.05, sum(gender==1))
+
+ax.scatter(female_x, wages[gender==0], alpha=0.15, color='red')
+ax.scatter(male_x, wages[gender==1], alpha=0.15, color='green')
+
+# Styling
+ax.set_xlim([-1,2])
+ax.set_xticks([0, 1])
+ax.set_xticklabels(['Female', 'Male'])
+ax.set_ylabel('')
+ax.set_yticks([0, 80000])
+ax.set_yticklabels([])
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+sns.despine(left=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Model 1: Basic Gender Wage Gap
+<p class="subheader">The simplest model with just a gender indicator.</p>
 
 ```{python}
 # Create a visualization for Model 1
@@ -83,17 +134,17 @@ ax.plot([0, 1], [male_avg, male_avg],
 ax.annotate('', xy=(-0.2, base_wage_female), xytext=(-0.2, 0),
             arrowprops=dict(arrowstyle='|-|', color='red', alpha=0.4, lw=2))
 ax.annotate('$\\beta_0$ (Base wage)', xy=(-0.2, base_wage_female/2), 
-            xytext=(-0.6, base_wage_female*0.5), fontsize=12,
+            xytext=(-0.7, base_wage_female*0.5), fontsize=12,
             arrowprops=dict(arrowstyle='->', color='black'))
 
 ax.annotate('', xy=(-0.2, base_wage_female+gender_gap), xytext=(-0.2, base_wage_female),
             arrowprops=dict(arrowstyle='|-|', color='green', alpha=0.4, lw=2))
 ax.annotate('$\\beta_1$ (Gender Gap)', xy=(-0.2, base_wage_female+gender_gap/2), 
-            xytext=(-0.6, base_wage_female+gender_gap/2), fontsize=12,
+            xytext=(-0.7, base_wage_female+gender_gap/2), fontsize=12,
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Styling
-ax.set_xlim([-0.5,2])
+ax.set_xlim([-1,2])
 ax.set_xticks([0, 1])
 ax.set_xticklabels(['Female', 'Male'])
 ax.set_ylabel('')
@@ -122,11 +173,13 @@ $$\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon$$
 
 . . .
 
-*> β₀ is the average wage for females*
+- β₀ is the average wage for females
 
 . . .
 
-*> β₁ represents the gender wage gap - the additional wage for males*
+- β₁ represents the gender wage gap - the additional wage for males
+
+<br>
 
 . . .
 
@@ -145,18 +198,15 @@ model1 = smf.ols('INCLOG10 ~ MALE', data=df).fit()
 print(model1.summary())
 ```
 
-. . .
-
-**Interpretation:**
-
-- β₀: Average wage for females 
-- β₁: Additional wage premium for males
+<br>
 
 . . .
 
 *> if β₁ > 0 and statistically significant, evidence of a raw gender wage gap*
 
 . . .
+
+<br>
 
 *> this model doesn't control for any other factors that might explain wage differences*
 
@@ -166,6 +216,68 @@ print(model1.summary())
 <p class="subheader">Adding education as a control variable.</p>
 
 . . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from scipy import stats
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data as "years after middle school" (starting at 0)
+n = 200
+education_after_ms = np.random.normal(6, 2, n)  # years after middle school (8th grade)
+education_after_ms = np.clip(education_after_ms, 0, 14)  # 0-14 years after middle school
+
+# Create gender indicator (0 = female, 1 = male)
+gender = np.random.binomial(1, 0.5, n)
+
+# Generate wages with gender gap
+base_wage_female = 25000  # female base wage (β₀)
+education_effect = 3000   # return to education (β₁)
+gender_gap = 8000         # male premium (β₂)
+
+wages = (base_wage_female + 
+         education_effect * education_after_ms + 
+         gender_gap * gender + 
+         np.random.normal(0, 4000, n))  # smaller error for clearer visualization
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Plot data points with low alpha for clarity
+ax.scatter(education_after_ms[gender==0], wages[gender==0], 
+           alpha=0.15, color='red')
+ax.scatter(education_after_ms[gender==1], wages[gender==1], 
+           alpha=0.15, color='green')
+
+# Styling
+ax.set_xlabel('Years of Education', fontsize=12)
+ax.set_ylabel('')
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_xlim(-3, 16)
+ax.set_xticks([0,13])
+ax.set_ylim(0, 80000)
+ax.set_yticks([0,80000])
+ax.set_yticklabels([])
+
+sns.despine(left=True, trim=True)
+
+plt.tight_layout()
+```
+
+---
+
+## Model 2: Education + Gender Wage Gap
+<p class="subheader">Adding education as a control variable.</p>
 
 ```{python}
 #| echo: false
@@ -232,11 +344,11 @@ ax.annotate('$\\beta_2$ (Wage Gap)', xy=(-0.4, base_wage_female+gender_gap/2),
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Styling
-ax.set_xlabel('Years of Education (after Middle School)', fontsize=12)
+ax.set_xlabel('Years of Education', fontsize=12)
 ax.set_ylabel('')
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-ax.set_xlim(-2, 16)
+ax.set_xlim(-3, 16)
 ax.set_xticks([0,13])
 ax.set_ylim(0, 80000)
 ax.set_yticks([0,80000])
@@ -283,17 +395,68 @@ model1 = smf.ols('INCLOG10 ~ EDU + MALE', data=df).fit()
 print(model1.summary())
 ```
 
-. . .
-
-**Interpretation:**
-
-- β₀: Base wage for females with zero education
-- β₁: Return to each year of education (for everyone)
-- β₂: Additional wage premium for males
+<br>
 
 . . .
 
 *> if β₂ > 0 and statistically significant, evidence of a gender wage gap*
+
+---
+
+## Model 3: Different Returns to Education
+<p class="subheader">What if education benefits genders differently?</p>
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from scipy import stats
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
+# Set seed for reproducibility
+np.random.seed(42)
+# Generate education data as "years after middle school" (starting at 0)
+n = 200
+education_after_ms = np.random.normal(6, 2, n)  # years after middle school
+education_after_ms = np.clip(education_after_ms, 0, 14)
+# Create gender indicator (0 = female, 1 = male)
+gender = np.random.binomial(1, 0.5, n)
+# Generate wages with different returns to education by gender
+base_wage = 25000  # base wage (β₀)
+education_effect_female = 2500  # female return to education (β₁)
+education_effect_male = 4000    # male return to education (β₁ + β₂)
+# Calculate wages based on different returns by gender
+wages = (base_wage + 
+         np.where(gender == 0, 
+                 education_effect_female * education_after_ms,
+                 education_effect_male * education_after_ms) + 
+         np.random.normal(0, 4000, n))
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+# Plot data points with low alpha for clarity
+ax.scatter(education_after_ms[gender==0], wages[gender==0], 
+           alpha=0.15, color='red')
+ax.scatter(education_after_ms[gender==1], wages[gender==1], 
+           alpha=0.15, color='green')
+
+# Styling
+ax.set_xlabel('Years of Education', fontsize=12)
+ax.set_ylabel('')
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_xlim(-3, 16)
+ax.set_xticks([0,13])
+ax.set_ylim(0, 80000)
+ax.set_yticks([0,80000])
+ax.set_yticklabels([])
+sns.despine(left=True, trim=True)
+plt.tight_layout()
+```
 
 ---
 
@@ -395,11 +558,11 @@ ax.annotate('$\\beta_0$ (Base wage)', xy=(-0.4, base_wage_female/2),
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Styling
-ax.set_xlabel('Years of Education (after Middle School)', fontsize=12)
+ax.set_xlabel('Years of Education', fontsize=12)
 ax.set_ylabel('')
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-ax.set_xlim(-2, 16)
+ax.set_xlim(-3, 16)
 ax.set_xticks([0,13])
 ax.set_ylim(0, 80000)
 ax.set_yticks([0,80000])
@@ -441,13 +604,7 @@ model2 = smf.ols('INCLOG10 ~ EDU + EDU:MALE', data=df).fit()
 print(model2.summary())
 ```
 
-. . .
-
-**Interpretation:**
-
-- β₀: Base wage with zero education
-- β₁: Female return to education
-- β₂: Additional male return to education
+<br>
 
 . . .
 
@@ -463,24 +620,6 @@ print(model2.summary())
 <p class="subheader">Combining fixed effects and interactions</p>
 
 ```{python}
-# Let's compare the two code snippets to identify style differences
-
-# Key style elements in model 2 (first code snippet):
-# - Uses np.random.seed(42)
-# - Uses alpha=0.15 for scatter points
-# - Has simple spines (top and right removed)
-# - Uses specific colors (red for female, green for male)
-# - Has annotations with arrows
-# - Uses specific font sizes
-# - Has custom legend
-
-# Key differences in model 3 (second code snippet):
-# - Uses seaborn styles ('seaborn-v0_8-whitegrid' and sns.set_style("white"))
-# - Has different annotation positions and styles
-# - Has a title
-# - Has different y-axis labeling
-
-# Let's modify model 3 to match model 2's style
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -600,7 +739,7 @@ ax.annotate('$\\beta_2$ (Wage premium)', xy=(-0.4, base_wage_female+male_premium
             arrowprops=dict(arrowstyle='->', color='black'))
 
 # Styling
-ax.set_xlabel('Years of Education (after Middle School)', fontsize=12)  # Match label
+ax.set_xlabel('Years of Education', fontsize=12)  # Match label
 ax.set_ylabel('')  # Remove y-label to match model 2
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
@@ -658,14 +797,7 @@ model3 = smf.ols('INCLOG10 ~ EDU + MALE + EDU:MALE', data=df).fit()
 print(model3.summary())
 ```
 
-. . .
-
-**Interpretation:**
-
-- β₀: Base wage for females with zero education
-- β₁: Return to education for females
-- β₂: Additional base wage for males (at zero education)
-- β₃: Additional return to education for males
+<br> 
 
 . . .
 
@@ -678,52 +810,27 @@ print(model3.summary())
 
 <br>
 
-2. **Model 2: Fixed Effect**
+1. **Model 1: Fixed Effect**
    - Question: "Is there a gender wage gap?"
-   - Focus: Level differences in wages
+
+. . .
+
+2. **Model 2: Fixed Effect with Control**
+   - Question: "Is there a gender wage gap controling for education?"
 
 . . .
 
 3. **Model 3: Interaction Only**
    - Question: "Are there differences in returns to education?"
-   - Focus: Slope differences in education effects
 
 . . .
 
 4. **Model 4: Full Model**
    - Question: "Does the gender wage gap vary with education level?"
-   - Focus: Comprehensive gender differences pattern
 
 . . .
 
 *> choose the model that best addresses your research question*
-
----
-
-## When to Use Each Model?
-<p class="subheader">Choosing the right model for your research question</p>
-
-<br>
-
-2. **Use Model 2 (Fixed Effect) when:**
-   - You want to estimate the average wage gap across all education levels
-   - You believe returns to education are similar for all groups
-
-. . .
-
-3. **Use Model 3 (Interaction Only) when:**
-   - You're specifically interested in differential returns to education
-   - You believe there's no baseline difference between groups
-
-. . .
-
-4. **Use Model 4 (Full Model) when:**
-   - You want to explore how the wage gap varies with education
-   - You're testing for both baseline differences and differential returns
-
-. . .
-
-*> always let your research question drive model selection*
 
 ---
 

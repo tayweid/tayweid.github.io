@@ -222,18 +222,15 @@ Using the general linear model to understand wage differences.
 The simplest model with just a gender indicator.
 </p>
 <div class="fragment">
-<div id="8e08f3d2" class="cell" data-execution_count="1">
+<div id="2de1559b" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-2-output-1.png" width="1053" height="469"></p>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-2-output-1.png" width="1046" height="469"></p>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon\]</span></p>
 </div>
 </section>
 <section id="model-1-basic-gender-wage-gap-1" class="slide level2">
@@ -241,12 +238,35 @@ The simplest model with just a gender indicator.
 <p class="subheader">
 The simplest model with just a gender indicator.
 </p>
-<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon\]</span></p>
-<div class="fragment">
-<p><em>&gt; β₀ is the average wage for females</em></p>
+<div id="471f3a60" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-3-output-1.png" width="1046" height="469"></p>
+</figure>
+</div>
+</div>
 </div>
 <div class="fragment">
-<p><em>&gt; β₁ represents the gender wage gap - the additional wage for males</em></p>
+<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon\]</span></p>
+</div>
+</section>
+<section id="model-1-basic-gender-wage-gap-2" class="slide level2">
+<h2>Model 1: Basic Gender Wage Gap</h2>
+<p class="subheader">
+The simplest model with just a gender indicator.
+</p>
+<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon\]</span></p>
+<div class="fragment">
+<ul>
+<li>β₀ is the average wage for females</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>β₁ represents the gender wage gap - the additional wage for males</li>
+</ul>
+<p><br></p>
 </div>
 <div class="fragment">
 <p><em>&gt; model ignores education entirely - just comparing average wages by gender</em></p>
@@ -262,17 +282,12 @@ Implementing the basic gender gap model
 <span id="cb1-3"><a href=""></a><span class="co"># Fit the model with just the male indicator</span></span>
 <span id="cb1-4"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ MALE'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb1-5"><a href=""></a><span class="bu">print</span>(model1.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>β₀: Average wage for females</li>
-<li>β₁: Additional wage premium for males</li>
-</ul>
-</div>
+<p><br></p>
 <div class="fragment">
 <p><em>&gt; if β₁ &gt; 0 and statistically significant, evidence of a raw gender wage gap</em></p>
 </div>
 <div class="fragment">
+<p><br></p>
 <p><em>&gt; this model doesn’t control for any other factors that might explain wage differences</em></p>
 </div>
 </section>
@@ -282,13 +297,28 @@ Implementing the basic gender gap model
 Adding education as a control variable.
 </p>
 <div class="fragment">
-<div id="a92252df" class="cell" data-execution_count="2">
+<div id="8a5fbcf7" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1055" height="470"></p>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2-education-gender-wage-gap-1" class="slide level2">
+<h2>Model 2: Education + Gender Wage Gap</h2>
+<p class="subheader">
+Adding education as a control variable.
+</p>
+<div id="d6632c62" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+</figure>
 </div>
 </div>
 </div>
@@ -296,7 +326,7 @@ Adding education as a control variable.
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \varepsilon\]</span></p>
 </div>
 </section>
-<section id="model-2-education-gender-wage-gap-1" class="slide level2">
+<section id="model-2-education-gender-wage-gap-2" class="slide level2">
 <h2>Model 2: Education + Gender Wage Gap</h2>
 <p class="subheader">
 Adding education as a control variable.
@@ -320,14 +350,7 @@ Implementing the gender fixed effect model
 <span id="cb2-3"><a href=""></a><span class="co"># Fit the model with male indicator</span></span>
 <span id="cb2-4"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb2-5"><a href=""></a><span class="bu">print</span>(model1.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>β₀: Base wage for females with zero education</li>
-<li>β₁: Return to each year of education (for everyone)</li>
-<li>β₂: Additional wage premium for males</li>
-</ul>
-</div>
+<p><br></p>
 <div class="fragment">
 <p><em>&gt; if β₂ &gt; 0 and statistically significant, evidence of a gender wage gap</em></p>
 </div>
@@ -337,11 +360,28 @@ Implementing the gender fixed effect model
 <p class="subheader">
 What if education benefits genders differently?
 </p>
-<div id="8aa3e2bc" class="cell" data-execution_count="3">
+<div class="fragment">
+<div id="eddb24c8" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1055" height="470"></p>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="model-3-different-returns-to-education-1" class="slide level2">
+<h2>Model 3: Different Returns to Education</h2>
+<p class="subheader">
+What if education benefits genders differently?
+</p>
+<div id="b72a8c7b" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
 </div>
@@ -350,7 +390,7 @@ What if education benefits genders differently?
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon\]</span></p>
 </div>
 </section>
-<section id="model-3-different-returns-to-education-1" class="slide level2">
+<section id="model-3-different-returns-to-education-2" class="slide level2">
 <h2>Model 3: Different Returns to Education</h2>
 <p class="subheader">
 What if education benefits genders differently?
@@ -372,14 +412,7 @@ Implementing the education-gender interaction model
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Fit model with interaction between education and sex</span></span>
 <span id="cb3-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + EDU:MALE'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb3-3"><a href=""></a><span class="bu">print</span>(model2.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>β₀: Base wage with zero education</li>
-<li>β₁: Female return to education</li>
-<li>β₂: Additional male return to education</li>
-</ul>
-</div>
+<p><br></p>
 <div class="fragment">
 <p><em>&gt; if β₂ &gt; 0 and significant, male return to education is higher</em></p>
 </div>
@@ -392,11 +425,11 @@ Implementing the education-gender interaction model
 <p class="subheader">
 Combining fixed effects and interactions
 </p>
-<div id="19a43c31" class="cell" data-execution_count="4">
+<div id="b2552695" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-5-output-1.png" width="1055" height="470"></p>
+<p><img data-src="Part_5_1_files/figure-revealjs/cell-8-output-1.png" width="1055" height="470"></p>
 </figure>
 </div>
 </div>
@@ -430,15 +463,7 @@ Implementing the full gender difference model
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Fit full model with both sex indicator and interaction</span></span>
 <span id="cb4-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE + EDU:MALE'</span>, data<span class="op">=</span>df).fit()</span>
 <span id="cb4-3"><a href=""></a><span class="bu">print</span>(model3.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>β₀: Base wage for females with zero education</li>
-<li>β₁: Return to education for females</li>
-<li>β₂: Additional base wage for males (at zero education)</li>
-<li>β₃: Additional return to education for males</li>
-</ul>
-</div>
+<p><br></p>
 <div class="fragment">
 <p><em>&gt; allows for differences in both baseline wages and educational returns</em></p>
 </div>
@@ -449,19 +474,25 @@ Implementing the full gender difference model
 Different models answer different questions
 </p>
 <p><br></p>
-<ol start="2" type="1">
-<li><strong>Model 2: Fixed Effect</strong>
+<ol type="1">
+<li><strong>Model 1: Fixed Effect</strong>
 <ul>
 <li>Question: “Is there a gender wage gap?”</li>
-<li>Focus: Level differences in wages</li>
 </ul></li>
 </ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li><strong>Model 2: Fixed Effect with Control</strong>
+<ul>
+<li>Question: “Is there a gender wage gap controling for education?”</li>
+</ul></li>
+</ol>
+</div>
 <div class="fragment">
 <ol start="3" type="1">
 <li><strong>Model 3: Interaction Only</strong>
 <ul>
 <li>Question: “Are there differences in returns to education?”</li>
-<li>Focus: Slope differences in education effects</li>
 </ul></li>
 </ol>
 </div>
@@ -470,47 +501,11 @@ Different models answer different questions
 <li><strong>Model 4: Full Model</strong>
 <ul>
 <li>Question: “Does the gender wage gap vary with education level?”</li>
-<li>Focus: Comprehensive gender differences pattern</li>
 </ul></li>
 </ol>
 </div>
 <div class="fragment">
 <p><em>&gt; choose the model that best addresses your research question</em></p>
-</div>
-</section>
-<section id="when-to-use-each-model" class="slide level2">
-<h2>When to Use Each Model?</h2>
-<p class="subheader">
-Choosing the right model for your research question
-</p>
-<p><br></p>
-<ol start="2" type="1">
-<li><strong>Use Model 2 (Fixed Effect) when:</strong>
-<ul>
-<li>You want to estimate the average wage gap across all education levels</li>
-<li>You believe returns to education are similar for all groups</li>
-</ul></li>
-</ol>
-<div class="fragment">
-<ol start="3" type="1">
-<li><strong>Use Model 3 (Interaction Only) when:</strong>
-<ul>
-<li>You’re specifically interested in differential returns to education</li>
-<li>You believe there’s no baseline difference between groups</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li><strong>Use Model 4 (Full Model) when:</strong>
-<ul>
-<li>You want to explore how the wage gap varies with education</li>
-<li>You’re testing for both baseline differences and differential returns</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<p><em>&gt; always let your research question drive model selection</em></p>
 </div>
 </section>
 <section id="key-takeaways" class="slide level2">
