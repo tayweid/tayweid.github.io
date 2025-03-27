@@ -756,7 +756,7 @@ print(model3.summary())
 ---
 
 ## Model 4: Growth Rates
-<p class="subheader">Proportional changes provide interpretable coefficients: $g_Y = \text{%}\Delta Y_t = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}$</p>
+<p class="subheader">Proportional changes provide interpretable coefficients: $g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}$</p>
 
 ```{python}
 # Visualization of growth rates vs first differences
