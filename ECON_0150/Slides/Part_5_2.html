@@ -218,7 +218,7 @@ Modeling relationships through time
 <p class="subheader">
 Data related in time has a special problem of autocorrelation.
 </p>
-<div id="e6d5724d" class="cell" data-execution_count="1">
+<div id="1cf6df05" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -237,7 +237,7 @@ Data related in time has a special problem of autocorrelation.
 Values in time series are typically related to their own past values.
 </p>
 <div class="fragment">
-<div id="047c1284" class="cell" data-execution_count="2">
+<div id="3ae4d771" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -254,7 +254,7 @@ Values in time series are typically related to their own past values.
 The standard approach has problems with time series.
 </p>
 <p><span class="math display">\[\text{Y} = \beta_0 + \beta_1 \times \text{t} + \varepsilon\]</span></p>
-<div id="3f83a549" class="cell" data-execution_count="3">
+<div id="07d11e22" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -269,7 +269,7 @@ The standard approach has problems with time series.
 <p class="subheader">
 The confidence level of regression requres that the error terms are independent.
 </p>
-<div id="1c03d187" class="cell" data-execution_count="4">
+<div id="883f49cc" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -305,7 +305,7 @@ The standard approach has problems with time series.
 <p class="subheader">
 Focusing on changes rather than levels: <span class="math inline">\(\Delta \text{Y}_t = \text{Y}_t - \text{Y}_{t-1}\)</span>
 </p>
-<div id="29e60895" class="cell" data-execution_count="5">
+<div id="343c2cae" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -326,7 +326,7 @@ Focusing on changes rather than levels: <span class="math inline">\(\Delta \text
 <p class="subheader">
 Focusing on changes rather than levels: <span class="math inline">\(\Delta \text{Y}_t = \text{Y}_t - \text{Y}_{t-1}\)</span>
 </p>
-<div id="1924a1eb" class="cell" data-execution_count="6">
+<div id="3d0f6490" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -341,7 +341,7 @@ Focusing on changes rather than levels: <span class="math inline">\(\Delta \text
 <p class="subheader">
 Focusing on changes rather than levels: <span class="math inline">\(\Delta \text{Y}_t = \text{Y}_t - \text{Y}_{t-1}\)</span>
 </p>
-<div id="14387f49" class="cell" data-execution_count="7">
+<div id="47b36bf3" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -362,7 +362,7 @@ Focusing on changes rather than levels: <span class="math inline">\(\Delta \text
 <p class="subheader">
 The problem of autocorrelated residuals.
 </p>
-<div id="fcd92ef9" class="cell" data-execution_count="8">
+<div id="b58005d6" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -397,7 +397,7 @@ Implementing a first differences regression
 Relating changes in X to changes in Y through time (t).
 </p>
 <p><em>&gt; we can also relate two time series variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> using differences</em></p>
-<div id="608b7197" class="cell" data-execution_count="9">
+<div id="4268f7ca" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -456,7 +456,7 @@ Implementing a first differences regression
 <p class="subheader">
 Proportional changes provide interpretable coefficients: <span class="math inline">\(g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}\)</span>
 </p>
-<div id="b7d5da69" class="cell" data-execution_count="10">
+<div id="a61c2455" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -472,7 +472,7 @@ Proportional changes provide interpretable coefficients: <span class="math inlin
 Relating growth in X to growth in Y.
 </p>
 <div class="fragment">
-<div id="57f4bf1f" class="cell" data-execution_count="11">
+<div id="f7839e5f" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -532,7 +532,7 @@ Implementing a growth rates regression
 <p class="subheader">
 Many economic variables follow seasonal patterns.
 </p>
-<div id="66d6ce27" class="cell" data-execution_count="12">
+<div id="2871192f" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -547,7 +547,7 @@ Many economic variables follow seasonal patterns.
 <p class="subheader">
 Many economic variables follow seasonal patterns.
 </p>
-<div id="71d804a2" class="cell" data-execution_count="13">
+<div id="8795a4ae" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -568,7 +568,7 @@ Many economic variables follow seasonal patterns.
 <p class="subheader">
 We can remove seasonal patterns to see the trend more clearly.
 </p>
-<div id="583f3b2b" class="cell" data-execution_count="14">
+<div id="b8c20477" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -586,7 +586,7 @@ We can remove seasonal patterns to see the trend more clearly.
 <p class="subheader">
 Using seasonal dummies to adjust for quarterly patterns.
 </p>
-<div id="ecb16f81" class="cell" data-execution_count="15">
+<div id="fdc764a7" class="cell" data-execution_count="15">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -601,7 +601,7 @@ Using seasonal dummies to adjust for quarterly patterns.
 <p class="subheader">
 Using seasonal dummies to adjust for quarterly patterns.
 </p>
-<div id="43a70ef1" class="cell" data-execution_count="16">
+<div id="fa821935" class="cell" data-execution_count="16">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -616,7 +616,7 @@ Using seasonal dummies to adjust for quarterly patterns.
 <p class="subheader">
 Using seasonal dummies to adjust for quarterly patterns.
 </p>
-<div id="0d8bd773" class="cell" data-execution_count="17">
+<div id="d79f13e8" class="cell" data-execution_count="17">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
