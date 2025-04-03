@@ -475,7 +475,7 @@ experience = np.clip(experience, 1, 35)
 
 # Base wage structure with interaction
 base_wage = 15  # Base hourly wage
-gender_penalty = -2  # Women earn less at baseline
+gender_penalty = 0  # Women earn less at baseline
 edu_return = 1.5  # Return to education (per year)
 edu_penalty = -0.5  # Women get less return to education
 exp_return = 0.3  # Return to experience
@@ -497,15 +497,23 @@ workers = pd.DataFrame({
     'wage': wages
 })
 
-# Create visualization
+# Create visualization with reversed colors
 fig, (ax1) = plt.subplots(1, 1, figsize=(12, 4))
 
-# First plot: Scatter with regression lines by gender
+# Define a custom palette with reversed colors
+# This will make females blue and males orange (the reverse of default)
+custom_palette = {
+    'Female': sns.color_palette()[0],  # First color (typically blue)
+    'Male': sns.color_palette()[1]     # Second color (typically orange)
+}
+
+# First plot: Scatter with regression lines by gender with custom colors
 sns.scatterplot(x='education', y='wage', hue='gender_str', 
-                data=workers, alpha=0.5, s=40, ax=ax1)
+                data=workers, alpha=0.5, s=40, ax=ax1,
+                palette=custom_palette)
 
 # Add regression lines
-for g, color in zip([0, 1], ['blue', 'red']):
+for g, color in zip([0, 1], ['red', 'blue']):
     subset = workers[workers['gender'] == g]
     # Simple linear fit
     x = np.array([0, 10])
@@ -527,7 +535,7 @@ plt.show()
 
 **Model 4:** Interaction Model
 
-$$wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta_3 exp + \epsilon$$
+$$wage = \beta_0 + \beta_1 edu + \beta_2 female \times edu + \beta_3 exp + \epsilon$$
 
 ---
 
@@ -536,7 +544,7 @@ $$wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta
 
 **Model 4:** Interaction Model
 
-$$wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta_3 exp + \epsilon$$
+$$wage = \beta_0 + \beta_1 edu + \beta_2 female \times edu + \beta_3 exp + \epsilon$$
 
 . . .
 
@@ -545,7 +553,7 @@ $$wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta
 workers['female'] = workers['gender']
 
 # Run interaction model
-model = smf.ols('wage ~ female + education + female:education + experience', 
+model = smf.ols('wage ~ education + female:education + experience', 
                data=workers).fit()
 print(model.summary().tables[1])
 ```

@@ -198,7 +198,7 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-5.4-connecting-questions-to-models"><em>Part 5.4 | Connecting Questions to Models</em></h3>
+<h3 id="part-5.4-using-glm-appropriately"><em>Part 5.4 | Using GLM Appropriately</em></h3>
 </section>
 <section id="selecting-the-appropriate-test" class="slide level2">
 <h2>Selecting the appropriate test</h2>
@@ -234,7 +234,7 @@ Do microloans improve income in low-income communities?
 Do microloans improve income in low-income communities?
 </p>
 <p><strong>Visualization:</strong> jittered scatter, boxplot, line graph, histogram</p>
-<div id="74622a5e" class="cell" data-execution_count="1">
+<div id="5387292c" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -291,7 +291,7 @@ Does online learning yield different outcomes than in-person learning?
 Does online learning yield different outcomes than in-person learning?
 </p>
 <p><strong>Visualization:</strong> boxplot, histogram</p>
-<div id="891c91cf" class="cell" data-execution_count="2">
+<div id="6dd93ab5" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -349,7 +349,7 @@ How does investment in renewable energy affect carbon emissions?
 How does investment in renewable energy affect carbon emissions?
 </p>
 <p><strong>Visualization:</strong> scatterplot</p>
-<div id="dac7252e" class="cell" data-execution_count="3">
+<div id="c345f39c" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -419,7 +419,7 @@ Does the gender wage gap vary with education level?
 Does the gender wage gap vary with education level?
 </p>
 <p><strong>Visualization:</strong> scatterplot, multiple groups</p>
-<div id="723fab97" class="cell" data-execution_count="4">
+<div id="c4413966" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -430,7 +430,7 @@ Does the gender wage gap vary with education level?
 </div>
 <div class="fragment">
 <p><strong>Model 4:</strong> Interaction Model</p>
-<p><span class="math display">\[wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta_3 exp + \epsilon\]</span></p>
+<p><span class="math display">\[wage = \beta_0 + \beta_1 edu + \beta_2 female \times edu + \beta_3 exp + \epsilon\]</span></p>
 </div>
 </section>
 <section id="example-4-gender-wage-gap-by-education-2" class="slide level2">
@@ -439,13 +439,13 @@ Does the gender wage gap vary with education level?
 Does the gender wage gap vary with education level?
 </p>
 <p><strong>Model 4:</strong> Interaction Model</p>
-<p><span class="math display">\[wage = \beta_0 + \beta_1 female + \beta_2 edu \beta_3 female \cdot edu + \beta_3 exp + \epsilon\]</span></p>
+<p><span class="math display">\[wage = \beta_0 + \beta_1 edu + \beta_2 female \times edu + \beta_3 exp + \epsilon\]</span></p>
 <div class="fragment">
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Create female dummy variable</span></span>
 <span id="cb4-2"><a href=""></a>workers[<span class="st">'female'</span>] <span class="op">=</span> workers[<span class="st">'gender'</span>]</span>
 <span id="cb4-3"><a href=""></a></span>
 <span id="cb4-4"><a href=""></a><span class="co"># Run interaction model</span></span>
-<span id="cb4-5"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'wage ~ female + education + female:education + experience'</span>, </span>
+<span id="cb4-5"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'wage ~ education + female:education + experience'</span>, </span>
 <span id="cb4-6"><a href=""></a>               data<span class="op">=</span>workers).fit()</span>
 <span id="cb4-7"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -481,7 +481,7 @@ How does transit access and green space affect housing prices?
 How does transit access and green space affect housing prices?
 </p>
 <p><strong>Visualization:</strong> scatterplot, multiple groups</p>
-<div id="0678d0be" class="cell" data-execution_count="5">
+<div id="6df129ee" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -539,7 +539,7 @@ How do seasonal patterns impact retail sales?
 How do seasonal patterns impact retail sales?
 </p>
 <p><strong>Visualization:</strong> line graph, timeseries, bar graph by season</p>
-<div id="bad070fb" class="cell" data-execution_count="6">
+<div id="b3e71d3d" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
