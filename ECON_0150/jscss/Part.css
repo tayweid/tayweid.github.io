@@ -38,7 +38,7 @@ a {text-decoration: none;
     color: grey;
 }
 .body_table {
-    width: 100%; 
+    width: 100%;
     display: table;
 }
 .body_table > div {
@@ -92,8 +92,10 @@ p > a:hover {
 /* NAVIGATION */
 
 .content {
-    width: 60%; 
+    width: 60%;
     display: table-cell;
+    max-width: 1700px;
+    margin: 0;
 }
 .content > div {
     margin: 5%;
@@ -137,6 +139,17 @@ p > a:hover {
     }
     .left_div {
         display: none;
+    }
+    .body_table {
+        display: flex !important;
+        justify-content: center;
+        width: 100%;
+    }
+    .content {
+        display: block !important;
+        max-width: 1700px;
+        width: 100%;
+        margin: 0;
     }
 }
 
