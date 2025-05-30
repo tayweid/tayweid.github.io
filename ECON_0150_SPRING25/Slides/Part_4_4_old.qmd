@@ -1,0 +1,210 @@
+
+## Example: Comparing Many Regions
+<p class="subheader">How does temperature differ across climate regions?</p>
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create data for 4 regions with different means
+n_per_group = 25
+coastal = 19 + np.random.normal(0, 1.5, n_per_group)
+mountain = 10 + np.random.normal(0, 2, n_per_group)
+desert = 29 + np.random.normal(0, 2, n_per_group)
+plains = 17 + np.random.normal(0, 1.8, n_per_group)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([coastal, mountain, desert, plains]),
+    'region': np.concatenate([
+        ['Coastal'] * n_per_group,
+        ['Mountain'] * n_per_group,
+        ['Desert'] * n_per_group,
+        ['Plains'] * n_per_group
+    ])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+# White boxplots with narrow width
+sns.boxplot(x='region', y='temperature', data=data, 
+            color='white',
+            width=0.2,
+            zorder=-1)
+
+# Create jitter for scatter points
+region_to_position = {region: i for i, region in enumerate(data['region'].unique())}
+jitter = np.random.uniform(-0.1, 0.1, len(data))
+x_jittered = [region_to_position[region] + jitter[i] for i, region in enumerate(data['region'])]
+
+# Add scatter points with jitter
+plt.scatter(x=x_jittered, y=data['temperature'], alpha=0.4, color='darkblue')
+
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlim(-0.6, 4)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+$$Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon$$
+
+---
+
+## Example: Comparing Many Regions
+<p class="subheader">Model: $Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon$</p>
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create data for 4 regions with different means
+n_per_group = 25
+coastal = 19 + np.random.normal(0, 1.5, n_per_group)
+mountain = 10 + np.random.normal(0, 2, n_per_group)
+desert = 29 + np.random.normal(0, 2, n_per_group)
+plains = 17 + np.random.normal(0, 1.8, n_per_group)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([coastal, mountain, desert, plains]),
+    'region': np.concatenate([
+        ['Coastal'] * n_per_group,
+        ['Mountain'] * n_per_group,
+        ['Desert'] * n_per_group,
+        ['Plains'] * n_per_group
+    ])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+# White boxplots with narrow width
+sns.boxplot(x='region', y='temperature', data=data, 
+            color='white',
+            width=0.2,
+            zorder=-1)
+
+# Create jitter for scatter points
+region_to_position = {region: i for i, region in enumerate(data['region'].unique())}
+jitter = np.random.uniform(-0.1, 0.1, len(data))
+x_jittered = [region_to_position[region] + jitter[i] for i, region in enumerate(data['region'])]
+
+# Add scatter points with jitter
+plt.scatter(x=x_jittered, y=data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate means
+means = data.groupby('region')['temperature'].mean()
+
+# Add lines connecting to reference group (Coastal)
+# Ensure we connect Coastal to Mountain, Coastal to Desert, and Coastal to Plains
+plt.plot([0, 1], [means['Coastal'], means['Mountain']], 'r-', linewidth=1, alpha=0.7)  # Coastal to Mountain
+plt.plot([0, 2], [means['Coastal'], means['Desert']], 'r-', linewidth=1, alpha=0.7)    # Coastal to Desert
+plt.plot([0, 3], [means['Coastal'], means['Plains']], 'r-', linewidth=1, alpha=0.7)    # Coastal to Plains
+
+# Add text labels for means and coefficients
+plt.text(-0.55, means['Coastal'], f'β₀ = {means["Coastal"]:.1f}°C', fontsize=12, va='center')
+plt.text(1.1, means['Mountain'], f'β₀ + β₁ = {means["Mountain"]:.1f}°C', fontsize=12, va='center', ha='left')
+plt.text(2.1, means['Desert'], f'β₀ + β₂ = {means["Desert"]:.1f}°C', fontsize=12, va='center', ha='left')
+plt.text(3.1, means['Plains'], f'β₀ + β₃ = {means["Plains"]:.1f}°C', fontsize=12, va='center', ha='left')
+
+# Add coefficient labels on the lines
+plt.text(0.5, (means['Coastal']+means['Mountain'])/2+1, f'β₁ = {means["Mountain"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center',rotation=-25)
+plt.text(1, (means['Coastal']+means['Desert'])/2+1, f'β₂ = {means["Desert"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center', rotation=10)
+plt.text(1.5, (means['Coastal']+means['Plains'])/2+1, f'β₃ = {means["Plains"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center',rotation=-3)
+
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlim(-0.6, 4)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+- $\beta_0$ = Mean temperature in Coastal areas (18.8°C)
+
+- $\beta_1$ = Difference between Mountain and Coastal (-9.3°C)
+
+- $\beta_2$ = Difference between Desert and Coastal (+10.5°C)
+
+- $\beta_3$ = Difference between Plains and Coastal (-1.9°C)
+
+---
+
+## Example: Comparing Many Regions
+<p class="subheader">Model: $Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \varepsilon$</p>
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create data for 4 regions with different means
+n_per_group = 25
+coastal = 19 + np.random.normal(0, 1.5, n_per_group)
+mountain = 10 + np.random.normal(0, 2, n_per_group)
+desert = 29 + np.random.normal(0, 2, n_per_group)
+plains = 17 + np.random.normal(0, 1.8, n_per_group)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([coastal, mountain, desert, plains]),
+    'region': np.concatenate([
+        ['Coastal'] * n_per_group,
+        ['Mountain'] * n_per_group,
+        ['Desert'] * n_per_group,
+        ['Plains'] * n_per_group
+    ])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+# White boxplots with narrow width
+sns.boxplot(x='region', y='temperature', data=data, 
+            color='white',
+            width=0.2,
+            zorder=-1)
+
+# Create jitter for scatter points
+region_to_position = {region: i for i, region in enumerate(data['region'].unique())}
+jitter = np.random.uniform(-0.1, 0.1, len(data))
+x_jittered = [region_to_position[region] + jitter[i] for i, region in enumerate(data['region'])]
+
+# Add scatter points with jitter
+plt.scatter(x=x_jittered, y=data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate means
+means = data.groupby('region')['temperature'].mean()
+
+# Add lines connecting to reference group (Coastal)
+# Ensure we connect Coastal to Mountain, Coastal to Desert, and Coastal to Plains
+plt.plot([0, 1], [means['Coastal'], means['Mountain']], 'r-', linewidth=1, alpha=0.7)  # Coastal to Mountain
+plt.plot([0, 2], [means['Coastal'], means['Desert']], 'r-', linewidth=1, alpha=0.7)    # Coastal to Desert
+plt.plot([0, 3], [means['Coastal'], means['Plains']], 'r-', linewidth=1, alpha=0.7)    # Coastal to Plains
+
+# Add text labels for means and coefficients
+plt.text(-0.55, means['Coastal'], f'β₀ = {means["Coastal"]:.1f}°C', fontsize=12, va='center')
+plt.text(1.1, means['Mountain'], f'β₀ + β₁ = {means["Mountain"]:.1f}°C', fontsize=12, va='center', ha='left')
+plt.text(2.1, means['Desert'], f'β₀ + β₂ = {means["Desert"]:.1f}°C', fontsize=12, va='center', ha='left')
+plt.text(3.1, means['Plains'], f'β₀ + β₃ = {means["Plains"]:.1f}°C', fontsize=12, va='center', ha='left')
+
+# Add coefficient labels on the lines
+plt.text(0.5, (means['Coastal']+means['Mountain'])/2+1, f'β₁ = {means["Mountain"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center',rotation=-25)
+plt.text(1, (means['Coastal']+means['Desert'])/2+1, f'β₂ = {means["Desert"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center', rotation=10)
+plt.text(1.5, (means['Coastal']+means['Plains'])/2+1, f'β₃ = {means["Plains"]-means["Coastal"]:.1f}°C', 
+         fontsize=12, va='center', ha='center',rotation=-3)
+
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlim(-0.6, 4)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+*> This performs the same analysis as ANOVA but gives specific comparisons*

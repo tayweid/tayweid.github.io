@@ -40,12 +40,11 @@ a {text-decoration: none;
 .dark-mode > a {
     color: grey;
 }
-.body_table {
-    width: 100%; 
-    display: table;
-}
-.body_table > div {
-     display: table-row;
+/* Wrapper for centering everything */
+.wrapper {
+    max-width: 1420px;  /* 1000px content + 2x210px sidebars */
+    margin: 0 auto;
+    position: relative;
 }
 
 
@@ -92,43 +91,56 @@ p > a:hover {
 /* NAVIGATION */
 
 .content {
-    width: 60%; 
-    display: table-cell;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    padding: 50px 30px;
 }
 .content > div {
-    margin: 5%;
+    margin: 0 0 40px 0;
+}
+.content > div {
+    margin: 0 0 40px 0;  /* Bottom margin only */
 }
 .left_div {
-    display: table-cell;
-    background: var(--background_color);
-    width: auto;
-    height:150%;
-    margin-right: 0%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(calc(-500px - 230px));  /* Moderate gap */
+    width: 200px;
+    padding-right: 10px;
 }
 .left_div > nav {
-    position: fixed;
-    top: 0%;
-    width: auto;
-    height:150%;
+    position: relative;
+    top: 60px;
+    width: 200px;
     text-align: right;
 }
 .right_div {
-    display: table-cell;
-    background: var(--background_color);
-    width: auto;
-    height:150%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(calc(-500px - 230px));  /* SAME as left sidebar to test */
+    width: 200px;
+    padding-left: 10px;
+    background: rgba(0, 255, 0, 0.5);  /* Green background */
+    z-index: 9999;
 }
 .right_div > nav {
-    position: fixed;
-    top: 0%;
-    width: auto;
-    height:150%;
-    margin-left: 1%;
+    position: relative;
+    top: 60px;
+    width: 200px;
+    text-align: left;
 }
 .active {
     color: blue;
     font-weight: bold;
     font-size:20px;
+}
+
+@media screen and (max-width: 1600px) {
+    .wrapper {
+        margin: 0 30px;
+    }
+    /* Keep margins for sidebars until they're hidden */
 }
 
 @media screen and (max-width: 1000px) {
@@ -137,6 +149,11 @@ p > a:hover {
     }
     .left_div {
         display: none;
+    }
+    .content {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 30px 20px;
     }
 }
 
@@ -189,8 +206,9 @@ ul > span {
     font-weight:bold;
     margin-top:5%;
     margin-bottom:2%;
-    font-size:36px;
+    font-size:32px;
     display: block;
+    line-height: 0.8;
 }
 li a {
   display: block;

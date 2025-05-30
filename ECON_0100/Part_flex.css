@@ -1,0 +1,198 @@
+/* Color variables - matching index.html */
+:root {
+    --main-bg-color: #212121;
+    --main-fg-color: #BBBBBB;
+    --main-md-color: #333333;
+    --main-inner-color: #D1D1D133;
+    --main-link-color: #4C72B0;
+    --main-cool-white: #D1D1D1;
+    --main-cool-blue: #4284F2;
+    --main-font-family: 'Source Sans Pro';
+    --main-font-size: 19px;
+    --main-line-height: 25px;
+}
+
+/* BODY */
+body {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 100;
+    padding: 0; 
+    margin: 0;
+    background: var(--main-bg-color);
+    color: var(--main-fg-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--main-link-color);
+    display: inline-block;
+}
+
+/* Three-column flex layout */
+.wrapper {
+    width: 100%;  /* Use full viewport width */
+    max-width: 1420px;  /* Cap at reasonable max width */
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;  /* Reduced from 30px */
+    padding: 0;  /* No padding - use all available space */
+    min-height: 100vh;
+}
+
+/* Left sidebar */
+.left_div {
+    width: 150px;  /* Reduced from 200px */
+    flex-shrink: 0;
+}
+
+.left_div > nav {
+    position: sticky;
+    top: 60px;
+    text-align: right;
+}
+
+/* Main content - flexible middle column */
+.content {
+    flex: 1;
+    max-width: 1000px;
+    padding: 50px 30px;
+}
+
+.content > div {
+    margin: 0 0 40px 0;
+}
+
+/* Right sidebar */
+.right_div {
+    width: 150px;  /* Reduced from 200px */
+    flex-shrink: 0;
+}
+
+.right_div > nav {
+    position: sticky;
+    top: 60px;
+    text-align: left;
+}
+
+/* Mobile breakpoint - hide sidebars */
+@media screen and (max-width: 1000px) {
+    .wrapper {
+        max-width: 100%;  /* Use full width on mobile */
+        padding: 0 10px;
+        justify-content: center;
+    }
+    
+    .left_div, .right_div {
+        display: none;
+    }
+    
+    .content {
+        padding: 30px 20px;
+        margin: 0 auto;
+    }
+}
+
+/* TITLE */
+.title {
+    font-size: 40px;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.subtitle {
+    margin-top: 2%;
+    margin-bottom: 0px;
+}
+
+/* NAVIGATION STYLING */
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+ul > span {
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-size: 32px;
+    display: block;
+    line-height: 0.8;
+}
+
+li a {
+    display: block;
+    padding: 4px 4px;
+}
+
+li a:hover {
+    color: var(--main-cool-white);
+}
+
+.active {
+    color: var(--main-cool-blue);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* BUTTONS */
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+.btn:hover {
+    color: var(--main-cool-blue);
+}
+
+/* CONTENT STYLING */
+p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Rounded boxes */
+.rounded-box, .rounded-box-textbook {
+    border: 2px solid var(--main-md-color);
+    border-radius: 15px;
+    padding: 1em;
+    width: 100%;
+    background-color: var(--main-bg-color);
+    transition: background-color 0.2s, border-color 0.2s;
+    margin: 5px 0;
+    box-sizing: border-box;
+    color: var(--main-fg-color);
+}
+
+.rounded-box > h2, .rounded-box-textbook > h2 {
+    margin-top: 0px;
+}
+
+.rounded-box:hover, .rounded-box-textbook:hover {
+    background-color: #181818;
+}
+
+/* Video container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* HR styling */
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+}

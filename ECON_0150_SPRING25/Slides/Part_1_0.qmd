@@ -1,0 +1,246 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.0 | Variable Types*
+
+---
+
+## Dimensions of Data
+<p class="subheader">Data comes in all shapes, sizes, and types.</p>
+
+#### Variable Type
+- Categorical data
+- Numerical data
+
+#### Data Structure
+- Cross-sectional data
+- Time series data
+- Panel data
+
+#### Number of Variables
+- Univariate (n=1)
+- Bivariate (n=2)
+- Multivariate (n>2)
+
+---
+
+## Variable Types: Categorical
+<p class="subheader">... data that's best recorded in categories</p>
+
+**Binary**: only two categories
+
+- Economics major (YES/NO)
+- Human (YES/NO)
+
+**Nominal**: categories cannot be ordered / ranked
+
+- Blood types (A, B, AB, 0)
+- Colors (Red, Blue, Green)
+
+**Ordinal**: categories have order / rank but not a meaningful scale
+
+- Education levels (High School, Bachelor's, Master's, PhD)
+- Survey responses (Strongly Disagree, Neutral, Agree, Strongly Agree)
+- Size categories (Small, Medium, Large)
+
+---
+
+## Variable Types: Numerical
+<p class="subheader">... data that's best recorded in numerical form</p>
+
+**Discrete**: countable numbers with meaningful intervals\
+
+- Number of children in a household (1, 2, ... )
+- Number of siblings (1, 2, ... )
+
+**Continuous**: quantities measurable on the reals
+
+- Household income
+- US GDP
+
+---
+
+## Categorical Variables: Examples
+<p class="subheader">... hands on examples for all three</p>
+
+**Binary**: two categories (yes/no; true/false)
+
+- *Employment Status (Employed, Unemployed)*
+
+**Nominal**: no inherent order
+  
+- *Employment Sector (Agriculture, Services, Unemployed).*
+
+**Ordinal**: meaningful order without meaningful intervals.
+  
+- *Economic Optimism (Very Pessimistic to Very Optimistic).*
+
+---
+
+## Binary Categorical Variables
+<p class="subheader">Exercise: summarize binary_categorical_dataset.csv</p>
+
+<br>
+
+. . .
+
+::: {.columns}
+::: {.column width="40%"}
+
+#### Summary
+
+- Use a ***Bar Plot*** or a **Pie Plot**
+- Horizontal bar works well
+:::
+
+::: {.column width="60%"}
+![](../Examples/Part_1_0/i/Part_1_1_Binary_Categorical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Nominal Categorical Variables
+<p class="subheader">Exercise: Summarize nominal_categorical_dataset.csv</p>
+
+<br>
+
+. . .
+
+::: {.columns}
+::: {.column width="40%"}
+
+#### Summary
+
+- Use a ***Bar Plot***
+- Similar to Binary
+- More categories
+:::
+
+::: {.column width="60%"}
+![](../Examples/Part_1_0/i/Part_1_1_Nominal_Categorical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Ordinal Categorical Variables
+<p class="subheader">Exercise: Summarize ordinal_categorical_dataset.csv</p>
+
+<br>
+
+. . .
+
+::: {.columns}
+::: {.column width="40%"}
+
+#### Summary
+
+- Use a ***Bar Plot***
+- Similar to nominal
+- The axis is ordered
+:::
+
+::: {.column width="60%"}
+![](../Examples/Part_1_0/i/Part_1_1_Ordinal_Categorical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Numerical Variables: Examples
+<p class="subheader">... hands on examples for both types</p>
+
+**Discrete**: countable numbers with meaningful intervals
+
+- *Number of Children in a Household.*
+
+**Continuous**: quantities measurable on the reals.
+
+- *Household Income in USD.*
+
+---
+
+## Discrete Numerical Variables
+<p class="subheader">Exercise: Summarize discrete_numerical_dataset.csv</p>
+
+. . .
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Use a ***Histogram*** or a ***Summary Table***
+- Similar to Ordinal Cat.
+
+:::
+
+::: {.column width="60%"}
+![](../Examples/Part_1_0/i/Part_1_2_Discrete_Numerical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Continuous Numerical Variables
+<p class="subheader">Exercise: Summarize continuous_numerical_dataset.csv</p>
+
+. . .
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Similar to Discrete
+- Use a *Summary Table*, ***Histogram***, *Boxplot*, or *Jitter*
+:::
+
+::: {.column width="60%"}
+![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Exercise.png)
+
+:::
+:::
+
+---
+
+## Continuous Numerical Variables
+<p class="subheader">Exercise: Summarize continuous_numerical_dataset.csv</p>
+
+
+::: {.columns}
+::: {.column width="40%"}
+
+<br>
+
+#### Summary
+
+- Similar to Discrete
+- Use a *Summary Table*, *Histogram*, ***Boxplot***, or ***Jitter***
+
+:::
+
+::: {.column width="60%"}
+<br>
+![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
+
+:::
+:::

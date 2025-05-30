@@ -1,0 +1,779 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 3.2 | Sampling, Sample Means, Central Limit Theorem*
+
+---
+
+## A Big Question
+<p class="subheader">If all we see is the sample, how do we learn about a population?</p>
+
+<br><br>
+
+. . .
+
+*> in general, we can't know a population distribution*
+
+. . .
+
+*> in general, we only see a sample*
+
+. . .
+
+*> if we only see a sample, what *can *we say about the population?*
+
+---
+
+## Known Parameters
+<p class="subheader">Example: Normally distributed wait times</p>
+
+:::: {.columns}
+::: {.column width="40%"}
+- Probability wait time < 10:
+  - P(X < 10) = 0.21
+- Probability wait time > 15:
+  - P(X > 15) = 0.11
+- Probability between 10 - 15:
+  - P(10 < X < 15) = 0.59
+:::
+
+::: {.column width="60%"}
+```{python}
+#| echo: false
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy import stats
+
+x = np.linspace(4, 20, 1000)
+y = stats.norm.pdf(x, 12, 2.5)
+
+plt.figure(figsize=(7, 3))
+plt.plot(x, y, 'b-')
+plt.axvline(x=10, color='g', linestyle='-')
+plt.axvline(x=15, color='g', linestyle='-')
+plt.fill_between(x[np.logical_and(x>10, x<15)], 
+                 0, 
+                 y[np.logical_and(x>10, x<15)], 
+                 color='green', alpha=0.3)
+plt.title('Wait Times Between 10-15 Minutes', fontsize=20)
+plt.xlabel('Minutes')
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+:::
+::::
+
+. . .
+
+<br>
+
+*> with known parameters, we can calculate everything exactly*
+
+---
+
+## Sampling Error
+<p class="subheader">But if all we see is the sample, how do we learn about a population?</p>
+
+![](../Examples/Part_3_1/i/sample.png){fig-align="center"}
+
+. . .
+
+*> how do we learn about $\mu$ if all we have is $n$, $\bar{x}$, and $S$?*
+
+---
+
+## Population vs Sample
+<p class="subheader">Question: How close are x̄ and s to μ and σ?</p>
+
+:::: {.columns}
+::: {.column width="40%"}
+Instead of $\mu$ and $\sigma$, we know:
+
+- A sample of observations
+- Sample statistics (x̄, s)
+:::
+
+::: {.column width="60%"}
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# True distribution
+x = np.linspace(4, 20, 1000)
+y_true = stats.norm.pdf(x, 12, 2.5)
+
+# Generate a sample
+np.random.seed(42)
+sample = np.random.normal(12, 2.5, 30)
+sample_mean = np.mean(sample)
+sample_std = np.std(sample, ddof=1)
+
+plt.figure(figsize=(7, 3))
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+plt.plot(x, y_true, 'b-', alpha=0.3, label='True Distribution')
+plt.hist(sample, bins=10, density=True, alpha=0.5, color='green',
+         label='Sample')
+plt.axvline(x=12, color='blue', linestyle='--', 
+            label=f'μ = 12')
+plt.axvline(x=sample_mean, color='red', linestyle='--',
+            label=f'x̄ = {sample_mean:.1f}')
+plt.legend(loc='upper right', fontsize=14)
+plt.yticks([])
+plt.xlabel('Minutes', fontsize=16)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+:::
+::::
+
+<br>
+
+. . .
+
+*> we want to systematically measure the "closeness" of the sample/population*
+
+. . .
+
+*> lets do a simpler example using die rolls*
+
+---
+
+## Sampling Error
+<p class="subheader">Die Rolling Example: if we take multiple samples, we get different sample means.</p>
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+np.random.seed(123)
+n_samples = 5
+sample_size = 2
+
+# Generate 5 samples of 2 die rolls each
+samples = [np.random.randint(1, 7, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(11, 3))
+for i, s in enumerate(samples):
+    plt.subplot(1, n_samples, i+1)
+    plt.hist(s, bins=np.arange(0.5, 7.5, 1), alpha=0.7, color='#4C72B0', edgecolor='white')
+    plt.axvline(x=means[i], color='red', linestyle='--')
+    plt.title(f'x̄ = {means[i]:.1f}')
+    plt.yticks([])
+    plt.xticks([1, 6])
+    plt.xlim(-0.5, 7.5)
+    plt.xlabel('Die Value', fontsize=16)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> each sample gives us a different estimate of the population mean*
+
+. . .
+
+*> lets plot these sample means ($\bar{x}$)*
+
+---
+
+## Sampling Error
+<p class="subheader">Die Rolling Example: sample means approach a normal distribution as sample size grows.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Dice roll simulation (uniform distribution from 1-6)
+def roll_dice(n_rolls):
+    return np.random.randint(1, 7, size=n_rolls)
+
+# Set up parameters
+sample_sizes = [1, 2]
+sample_bins = {1:6, 2: 11, 30:30, 1000: 30}
+sample_bins = {
+    1: np.arange(0.5, 7.5, 1),  # For single rolls: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]
+    2: np.arange(0.75, 6.75, 0.5),  # For average of 2 dice: centered on [1, 1.5, 2, 2.5, 3, etc.]
+    30: np.linspace(1, 6, 31),  # More bins for averages of 30 dice
+    1000: np.linspace(3, 4, 41)  # Narrow range for averages of 1000 dice
+}
+n_samples = 10000
+fig, axes = plt.subplots(4, 1, figsize=(10, 6))
+
+# Different sample sizes
+for i, n in enumerate(sample_sizes):
+    sample_means = []
+    for _ in range(n_samples):
+        sample = roll_dice(n)
+        sample_means.append(np.mean(sample))
+    
+    axes[i].hist(sample_means, bins=sample_bins[n], density=True, alpha=0.7, edgecolor='white', color='#4C72B0', label=f'Sample Mean (n={n})')
+    axes[i].set_xlabel('')
+    axes[i].set_xlim(-0.5,7.5)
+    axes[i].set_yticks([])
+    axes[i].legend()
+    axes[i].set_ylabel('')
+    
+    # Add a normal curve to demonstrate CLT
+    if n >= 30:
+        x = np.linspace(min(sample_means), max(sample_means), 100)
+        y = stats.norm.pdf(x, 3.5, np.sqrt(35/12/n))
+        axes[i].plot(x, y, 'r--', linewidth=2)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+axes[2].set_yticks([])
+axes[2].spines['bottom'].set_visible(False)
+axes[2].set_xticks([])
+
+axes[3].set_yticks([])
+axes[3].spines['bottom'].set_visible(False)
+axes[3].set_xticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">Die Rolling Example: sample means approach a normal distribution as sample size grows.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Dice roll simulation (uniform distribution from 1-6)
+def roll_dice(n_rolls):
+    return np.random.randint(1, 7, size=n_rolls)
+
+# Set up parameters
+sample_sizes = [1, 2, 30]
+sample_bins = {1:6, 2: 11, 30:30, 1000: 30}
+sample_bins = {
+    1: np.arange(0.5, 7.5, 1),  # For single rolls: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]
+    2: np.arange(0.75, 6.75, 0.5),  # For average of 2 dice: centered on [1, 1.5, 2, 2.5, 3, etc.]
+    30: np.linspace(1, 6, 31),  # More bins for averages of 30 dice
+    1000: np.linspace(3, 4, 41)  # Narrow range for averages of 1000 dice
+}
+n_samples = 10000
+fig, axes = plt.subplots(4, 1, figsize=(10, 6))
+
+# Different sample sizes
+for i, n in enumerate(sample_sizes):
+    sample_means = []
+    for _ in range(n_samples):
+        sample = roll_dice(n)
+        sample_means.append(np.mean(sample))
+    
+    axes[i].hist(sample_means, bins=sample_bins[n], density=True, alpha=0.7, edgecolor='white', color='#4C72B0', label=f'Sample Mean (n={n})')
+    axes[i].set_xlabel('')
+    axes[i].set_xlim(-0.5,7.5)
+    axes[i].set_yticks([])
+    axes[i].legend()
+    axes[i].set_ylabel('')
+    
+    # Add a normal curve to demonstrate CLT
+    if n >= 30:
+        x = np.linspace(min(sample_means), max(sample_means), 100)
+        y = stats.norm.pdf(x, 3.5, np.sqrt(35/12/n))
+        axes[i].plot(x, y, 'r--', linewidth=2)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+axes[3].set_yticks([])
+axes[3].spines['bottom'].set_visible(False)
+axes[3].set_xticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">Die Rolling Example: sample means approach a normal distribution as sample size grows.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Dice roll simulation (uniform distribution from 1-6)
+def roll_dice(n_rolls):
+    return np.random.randint(1, 7, size=n_rolls)
+
+# Set up parameters
+sample_sizes = [1, 2, 30, 1000]
+sample_bins = {1:6, 2: 11, 30:30, 1000: 30}
+sample_bins = {
+    1: np.arange(0.5, 7.5, 1),  # For single rolls: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5]
+    2: np.arange(0.75, 6.75, 0.5),  # For average of 2 dice: centered on [1, 1.5, 2, 2.5, 3, etc.]
+    30: np.linspace(1, 6, 31),  # More bins for averages of 30 dice
+    1000: np.linspace(3, 4, 41)  # Narrow range for averages of 1000 dice
+}
+n_samples = 10000
+fig, axes = plt.subplots(4, 1, figsize=(10, 6))
+
+# Different sample sizes
+for i, n in enumerate(sample_sizes):
+    sample_means = []
+    for _ in range(n_samples):
+        sample = roll_dice(n)
+        sample_means.append(np.mean(sample))
+    
+    axes[i].hist(sample_means, bins=sample_bins[n], density=True, alpha=0.7, edgecolor='white', color='#4C72B0', label=f'Sample Mean (n={n})')
+    axes[i].set_xlabel('')
+    axes[i].set_xlim(-0.5,7.5)
+    axes[i].set_yticks([])
+    axes[i].legend()
+    axes[i].set_ylabel('')
+    
+    # Add a normal curve to demonstrate CLT
+    if n >= 30:
+        x = np.linspace(min(sample_means), max(sample_means), 100)
+        y = stats.norm.pdf(x, 3.5, np.sqrt(35/12/n))
+        axes[i].plot(x, y, 'r--', linewidth=2)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, we get different sample means.</p>
+
+
+*> lets return to the wait time example*
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 5
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+for i, s in enumerate(samples):
+    plt.subplot(1, n_samples, i+1)
+    plt.hist(s, bins=8, alpha=0.7)
+    plt.axvline(x=means[i], color='red', linestyle='--')
+    plt.title(f'x̄ = {means[i]:.1f}')
+    plt.yticks([])
+    plt.xticks([6, 12, 18])
+  
+    plt.xlabel('Minutes', fontsize=16)
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+*> each sample gives us a different estimate of the population mean*
+
+. . .
+
+*> lets plot these sample means ($\bar{x}$)*
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their means will vary.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their means will vary, and by much less than the original distribution.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+all_samples = np.random.normal(12, 2.5, 30000)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.hist(all_samples, bins=40, alpha=0.3, label='Sample observations', zorder=-1, density=True)
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> why? think about rolling two dice... it's much less likely to get a 2 than a 7*
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their means will follow a normal distribution.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.hist(all_samples, bins=40, alpha=0.1, label='Sample observations', zorder=-1, density=True)
+x = np.linspace(10, 14, 1000)
+y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
+plt.plot(x, y, 'r-', label='Normal Distribution')
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their distribution is narrower with larger sample sizes.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.hist(all_samples, bins=40, alpha=0.1, label='Sample means (n=1)', zorder=-1, density=True)
+
+n_samples = 500
+sample_size = 60
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=60)', density=True)
+
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their distribution is narrower with larger sample sizes.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.hist(all_samples, bins=40, alpha=0.1, label='Sample means (n=1)', zorder=-1, density=True)
+
+n_samples = 500
+sample_size = 60
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=60)', density=True)
+
+n_samples = 500
+sample_size = 1000
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=1000)', density=True)
+
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Error
+<p class="subheader">If we take multiple samples, their distribution is narrower with larger sample sizes.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 30
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
+plt.hist(all_samples, bins=40, alpha=0.1, label='Sample means (n=1)', zorder=-1, density=True)
+
+n_samples = 500
+sample_size = 60
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=60)', density=True)
+
+n_samples = 500
+sample_size = 1000
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=1000)', density=True)
+
+x = np.linspace(10, 14, 1000)
+y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
+plt.plot(x, y, 'r-', label='Normal Distribution')
+
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('Minutes', fontsize=16)
+plt.xlim(6,18)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the sample mean $\bar{x}$ follows a normal distribution around the truth* 😱
+
+$$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
+
+---
+
+## CLT: The Magic of Large Samples
+<p class="subheader">The CLT works for any distribution shape as sample size increases.</p>
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Create a skewed distribution
+def skewed_dist(size):
+    return stats.chi2.rvs(df=3, size=size)
+
+sample_sizes = [1, 5, 30, 1000]
+n_samples = 10000
+fig, axes = plt.subplots(4, 1, figsize=(10, 6))
+
+# Different sample sizes
+for i, n in enumerate(sample_sizes):
+    sample_means = []
+    for _ in range(n_samples):
+        sample = skewed_dist(n)
+        sample_means.append(np.mean(sample))
+    
+    bin_size = 30
+    edge_color='white'
+    if n > 100:
+      bin_size = 60
+      edge_color = '#4C72B0'
+
+    axes[i].hist(sample_means, bins=bin_size, density=True, alpha=0.7,
+                  edgecolor=edge_color, color='#4C72B0', label=f'Sample Mean (n={n})')
+    axes[i].set_xlabel("")
+    axes[i].set_xlim(0, 15)
+    axes[i].set_yticks([])
+    axes[i].legend()
+    
+    # Add a normal curve for larger sample sizes
+    if n >= 5:
+        x = np.linspace(min(sample_means), max(sample_means), 100)
+        mean_est = 3  # Chi-square df=3 has mean of 3
+        std_est = np.sqrt(6/n)  # Chi-square df=3 has variance of 6
+        y = stats.norm.pdf(x, mean_est, std_est)
+        axes[i].plot(x, y, 'r--', linewidth=2)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## The Central Limit Theorem
+<p class="subheader">The distribution of sample means approximates a normal distribution as sample size increases, regardless of the population's distribution.</p>
+
+:::: {.columns}
+::: {.column width="50%"}
+#### Key insights:
+
+  - Sample means cluster around μ
+  - Standard error = σ/√n
+  - Normal shape emerges
+
+#### Implications:
+
+  - We can predict the behavior of x̄
+  - This works for ANY distribution
+:::
+
+::: {.column width="50%"}
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+
+np.random.seed(123)
+n_means = 1000
+sample_size = 30
+sample_means = [np.mean(np.random.normal(12, 2.5, sample_size)) 
+                for _ in range(n_means)]
+
+plt.figure(figsize=(5, 3))
+plt.hist(sample_means, bins=25, density=True, alpha=0.5)
+x = np.linspace(10, 14, 1000)
+y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
+plt.plot(x, y, 'r-')
+plt.axvline(x=12, color='blue', linestyle='--')
+plt.title(f'Distribution of Sample Means (n={sample_size})')
+plt.yticks([])
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+:::
+::::

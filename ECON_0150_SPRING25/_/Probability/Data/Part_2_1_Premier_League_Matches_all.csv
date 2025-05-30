@@ -1,0 +1,4181 @@
+Season_End_Year,Wk,Date,Home,HomeGoals,AwayGoals,Away,FTR
+2013,1,8/18/12,Arsenal,0,0,Sunderland,D
+2013,1,8/18/12,Fulham,5,0,Norwich City,H
+2013,1,8/18/12,Newcastle Utd,2,1,Tottenham,H
+2013,1,8/18/12,West Brom,3,0,Liverpool,H
+2013,1,8/18/12,West Ham,1,0,Aston Villa,H
+2013,1,8/18/12,Reading,1,1,Stoke City,D
+2013,1,8/18/12,QPR,0,5,Swansea City,A
+2013,1,8/19/12,Manchester City,3,2,Southampton,H
+2013,1,8/19/12,Wigan Athletic,0,2,Chelsea,A
+2013,1,8/20/12,Everton,1,0,Manchester Utd,H
+2013,3,8/22/12,Chelsea,4,2,Reading,H
+2013,2,8/25/12,Chelsea,2,0,Newcastle Utd,H
+2013,2,8/25/12,Tottenham,1,1,West Brom,D
+2013,2,8/25/12,Swansea City,3,0,West Ham,H
+2013,2,8/25/12,Aston Villa,1,3,Everton,A
+2013,2,8/25/12,Norwich City,1,1,QPR,D
+2013,2,8/25/12,Southampton,0,2,Wigan Athletic,A
+2013,2,8/25/12,Manchester Utd,3,2,Fulham,H
+2013,2,8/26/12,Liverpool,2,2,Manchester City,D
+2013,2,8/26/12,Stoke City,0,0,Arsenal,D
+2013,3,9/1/12,West Ham,3,0,Fulham,H
+2013,3,9/1/12,Wigan Athletic,2,2,Stoke City,D
+2013,3,9/1/12,Manchester City,3,1,QPR,H
+2013,3,9/1/12,Swansea City,2,2,Sunderland,D
+2013,3,9/1/12,West Brom,2,0,Everton,H
+2013,3,9/1/12,Tottenham,1,1,Norwich City,D
+2013,3,9/2/12,Newcastle Utd,1,1,Aston Villa,D
+2013,3,9/2/12,Liverpool,0,2,Arsenal,A
+2013,3,9/2/12,Southampton,2,3,Manchester Utd,A
+2013,4,9/15/12,Aston Villa,2,0,Swansea City,H
+2013,4,9/15/12,Fulham,3,0,West Brom,H
+2013,4,9/15/12,Arsenal,6,1,Southampton,H
+2013,4,9/15/12,Stoke City,1,1,Manchester City,D
+2013,4,9/15/12,Manchester Utd,4,0,Wigan Athletic,H
+2013,4,9/15/12,QPR,0,0,Chelsea,D
+2013,4,9/15/12,Sunderland,1,1,Liverpool,D
+2013,4,9/15/12,Norwich City,0,0,West Ham,D
+2013,4,9/16/12,Reading,1,3,Tottenham,A
+2013,4,9/17/12,Everton,2,2,Newcastle Utd,D
+2013,5,9/22/12,Chelsea,1,0,Stoke City,H
+2013,5,9/22/12,West Ham,1,1,Sunderland,D
+2013,5,9/22/12,Wigan Athletic,1,2,Fulham,A
+2013,5,9/22/12,Swansea City,0,3,Everton,A
+2013,5,9/22/12,Southampton,4,1,Aston Villa,H
+2013,5,9/22/12,West Brom,1,0,Reading,H
+2013,5,9/23/12,Tottenham,2,1,QPR,H
+2013,5,9/23/12,Manchester City,1,1,Arsenal,D
+2013,5,9/23/12,Liverpool,1,2,Manchester Utd,A
+2013,5,9/23/12,Newcastle Utd,1,0,Norwich City,H
+2013,6,9/29/12,Norwich City,2,5,Liverpool,A
+2013,6,9/29/12,Sunderland,1,0,Wigan Athletic,H
+2013,6,9/29/12,Arsenal,1,2,Chelsea,A
+2013,6,9/29/12,Everton,3,1,Southampton,H
+2013,6,9/29/12,Fulham,1,2,Manchester City,A
+2013,6,9/29/12,Manchester Utd,2,3,Tottenham,A
+2013,6,9/29/12,Reading,2,2,Newcastle Utd,D
+2013,6,9/29/12,Stoke City,2,0,Swansea City,H
+2013,6,9/30/12,Aston Villa,1,1,West Brom,D
+2013,6,10/1/12,QPR,1,2,West Ham,A
+2013,7,10/6/12,Wigan Athletic,2,2,Everton,D
+2013,7,10/6/12,Chelsea,4,1,Norwich City,H
+2013,7,10/6/12,West Ham,1,3,Arsenal,A
+2013,7,10/6/12,West Brom,3,2,QPR,H
+2013,7,10/6/12,Manchester City,3,0,Sunderland,H
+2013,7,10/6/12,Swansea City,2,2,Reading,D
+2013,7,10/7/12,Southampton,2,2,Fulham,D
+2013,7,10/7/12,Liverpool,0,0,Stoke City,D
+2013,7,10/7/12,Tottenham,2,0,Aston Villa,H
+2013,7,10/7/12,Newcastle Utd,0,3,Manchester Utd,A
+2013,8,10/20/12,Swansea City,2,1,Wigan Athletic,H
+2013,8,10/20/12,West Brom,1,2,Manchester City,A
+2013,8,10/20/12,Manchester Utd,4,2,Stoke City,H
+2013,8,10/20/12,Tottenham,2,4,Chelsea,A
+2013,8,10/20/12,West Ham,4,1,Southampton,H
+2013,8,10/20/12,Liverpool,1,0,Reading,H
+2013,8,10/20/12,Norwich City,1,0,Arsenal,H
+2013,8,10/20/12,Fulham,1,0,Aston Villa,H
+2013,8,10/21/12,QPR,1,1,Everton,D
+2013,8,10/21/12,Sunderland,1,1,Newcastle Utd,D
+2013,9,10/27/12,Stoke City,0,0,Sunderland,D
+2013,9,10/27/12,Wigan Athletic,2,1,West Ham,H
+2013,9,10/27/12,Manchester City,1,0,Swansea City,H
+2013,9,10/27/12,Reading,3,3,Fulham,D
+2013,9,10/27/12,Aston Villa,1,1,Norwich City,D
+2013,9,10/27/12,Arsenal,1,0,QPR,H
+2013,9,10/28/12,Southampton,1,2,Tottenham,A
+2013,9,10/28/12,Everton,2,2,Liverpool,D
+2013,9,10/28/12,Chelsea,2,3,Manchester Utd,A
+2013,9,10/28/12,Newcastle Utd,2,1,West Brom,H
+2013,10,11/3/12,Manchester Utd,2,1,Arsenal,H
+2013,10,11/3/12,Swansea City,1,1,Chelsea,D
+2013,10,11/3/12,West Ham,0,0,Manchester City,D
+2013,10,11/3/12,Sunderland,0,1,Aston Villa,A
+2013,10,11/3/12,Norwich City,1,0,Stoke City,H
+2013,10,11/3/12,Fulham,2,2,Everton,D
+2013,10,11/3/12,Tottenham,0,1,Wigan Athletic,A
+2013,10,11/4/12,QPR,1,1,Reading,D
+2013,10,11/4/12,Liverpool,1,1,Newcastle Utd,D
+2013,10,11/5/12,West Brom,2,0,Southampton,H
+2013,11,11/10/12,Wigan Athletic,1,2,West Brom,A
+2013,11,11/10/12,Southampton,1,1,Swansea City,D
+2013,11,11/10/12,Reading,0,0,Norwich City,D
+2013,11,11/10/12,Arsenal,3,3,Fulham,D
+2013,11,11/10/12,Everton,2,1,Sunderland,H
+2013,11,11/10/12,Aston Villa,2,3,Manchester Utd,A
+2013,11,11/10/12,Stoke City,1,0,QPR,H
+2013,11,11/11/12,Manchester City,2,1,Tottenham,H
+2013,11,11/11/12,Newcastle Utd,0,1,West Ham,A
+2013,11,11/11/12,Chelsea,1,1,Liverpool,D
+2013,12,11/17/12,Arsenal,5,2,Tottenham,H
+2013,12,11/17/12,Manchester City,5,0,Aston Villa,H
+2013,12,11/17/12,West Brom,2,1,Chelsea,H
+2013,12,11/17/12,Reading,2,1,Everton,H
+2013,12,11/17/12,Newcastle Utd,1,2,Swansea City,A
+2013,12,11/17/12,QPR,1,3,Southampton,A
+2013,12,11/17/12,Norwich City,1,0,Manchester Utd,H
+2013,12,11/17/12,Liverpool,3,0,Wigan Athletic,H
+2013,12,11/18/12,Fulham,1,3,Sunderland,A
+2013,12,11/19/12,West Ham,1,1,Stoke City,D
+2013,13,11/24/12,Everton,1,1,Norwich City,D
+2013,13,11/24/12,Stoke City,1,0,Fulham,H
+2013,13,11/24/12,Wigan Athletic,3,2,Reading,H
+2013,13,11/24/12,Aston Villa,0,0,Arsenal,D
+2013,13,11/24/12,Manchester Utd,3,1,QPR,H
+2013,13,11/24/12,Sunderland,2,4,West Brom,A
+2013,13,11/25/12,Swansea City,0,0,Liverpool,D
+2013,13,11/25/12,Chelsea,0,0,Manchester City,D
+2013,13,11/25/12,Southampton,2,0,Newcastle Utd,H
+2013,13,11/25/12,Tottenham,3,1,West Ham,H
+2013,14,11/27/12,Sunderland,0,0,QPR,D
+2013,14,11/27/12,Aston Villa,1,0,Reading,H
+2013,14,11/28/12,Southampton,1,1,Norwich City,D
+2013,14,11/28/12,Tottenham,2,1,Liverpool,H
+2013,14,11/28/12,Stoke City,2,1,Newcastle Utd,H
+2013,14,11/28/12,Manchester Utd,1,0,West Ham,H
+2013,14,11/28/12,Swansea City,3,1,West Brom,H
+2013,14,11/28/12,Everton,1,1,Arsenal,D
+2013,14,11/28/12,Wigan Athletic,0,2,Manchester City,A
+2013,14,11/28/12,Chelsea,0,0,Fulham,D
+2013,15,12/1/12,West Ham,3,1,Chelsea,H
+2013,15,12/1/12,Manchester City,1,1,Everton,D
+2013,15,12/1/12,Liverpool,1,0,Southampton,H
+2013,15,12/1/12,Arsenal,0,2,Swansea City,A
+2013,15,12/1/12,West Brom,0,1,Stoke City,A
+2013,15,12/1/12,Fulham,0,3,Tottenham,A
+2013,15,12/1/12,Reading,3,4,Manchester Utd,A
+2013,15,12/1/12,QPR,1,1,Aston Villa,D
+2013,15,12/2/12,Norwich City,2,1,Sunderland,H
+2013,15,12/3/12,Newcastle Utd,3,0,Wigan Athletic,H
+2013,16,12/8/12,Swansea City,3,4,Norwich City,A
+2013,16,12/8/12,Southampton,1,0,Reading,H
+2013,16,12/8/12,Arsenal,2,0,West Brom,H
+2013,16,12/8/12,Wigan Athletic,2,2,QPR,D
+2013,16,12/8/12,Sunderland,1,3,Chelsea,A
+2013,16,12/8/12,Aston Villa,0,0,Stoke City,D
+2013,16,12/9/12,Manchester City,2,3,Manchester Utd,A
+2013,16,12/9/12,Everton,2,1,Tottenham,H
+2013,16,12/9/12,West Ham,2,3,Liverpool,A
+2013,16,12/10/12,Fulham,2,1,Newcastle Utd,H
+2013,2,12/11/12,Sunderland,3,0,Reading,H
+2013,17,12/15/12,Liverpool,1,3,Aston Villa,A
+2013,17,12/15/12,Stoke City,1,1,Everton,D
+2013,17,12/15/12,Newcastle Utd,1,3,Manchester City,A
+2013,17,12/15/12,Manchester Utd,3,1,Sunderland,H
+2013,17,12/15/12,QPR,2,1,Fulham,H
+2013,17,12/15/12,Norwich City,2,1,Wigan Athletic,H
+2013,17,12/16/12,Tottenham,1,0,Swansea City,H
+2013,17,12/16/12,West Brom,0,0,West Ham,D
+2013,17,12/17/12,Reading,2,5,Arsenal,A
+2013,18,12/22/12,Manchester City,1,0,Reading,H
+2013,18,12/22/12,Liverpool,4,0,Fulham,H
+2013,18,12/22/12,Wigan Athletic,0,1,Arsenal,A
+2013,18,12/22/12,West Ham,1,2,Everton,A
+2013,18,12/22/12,Tottenham,0,0,Stoke City,D
+2013,18,12/22/12,Newcastle Utd,1,0,QPR,H
+2013,18,12/22/12,Southampton,0,1,Sunderland,A
+2013,18,12/22/12,West Brom,2,1,Norwich City,H
+2013,18,12/23/12,Chelsea,8,0,Aston Villa,H
+2013,18,12/23/12,Swansea City,1,1,Manchester Utd,D
+2013,19,12/26/12,Norwich City,0,1,Chelsea,A
+2013,19,12/26/12,Aston Villa,0,4,Tottenham,A
+2013,19,12/26/12,Fulham,1,1,Southampton,D
+2013,19,12/26/12,Sunderland,1,0,Manchester City,H
+2013,19,12/26/12,QPR,1,2,West Brom,A
+2013,19,12/26/12,Manchester Utd,4,3,Newcastle Utd,H
+2013,19,12/26/12,Everton,2,1,Wigan Athletic,H
+2013,19,12/26/12,Reading,0,0,Swansea City,D
+2013,19,12/26/12,Stoke City,3,1,Liverpool,H
+2013,20,12/29/12,Fulham,1,2,Swansea City,A
+2013,20,12/29/12,Manchester Utd,2,0,West Brom,H
+2013,20,12/29/12,Reading,1,0,West Ham,H
+2013,20,12/29/12,Norwich City,3,4,Manchester City,A
+2013,20,12/29/12,Aston Villa,0,3,Wigan Athletic,A
+2013,20,12/29/12,Stoke City,3,3,Southampton,D
+2013,20,12/29/12,Sunderland,1,2,Tottenham,A
+2013,20,12/29/12,Arsenal,7,3,Newcastle Utd,H
+2013,20,12/30/12,Everton,1,2,Chelsea,A
+2013,20,12/30/12,QPR,0,3,Liverpool,A
+2013,21,1/1/13,Wigan Athletic,0,4,Manchester Utd,A
+2013,21,1/1/13,Tottenham,3,1,Reading,H
+2013,21,1/1/13,Manchester City,3,0,Stoke City,H
+2013,21,1/1/13,West Ham,2,1,Norwich City,H
+2013,21,1/1/13,Swansea City,2,2,Aston Villa,D
+2013,21,1/1/13,Southampton,1,1,Arsenal,D
+2013,21,1/1/13,West Brom,1,2,Fulham,A
+2013,21,1/2/13,Chelsea,0,1,QPR,A
+2013,21,1/2/13,Liverpool,3,0,Sunderland,H
+2013,21,1/2/13,Newcastle Utd,1,2,Everton,A
+2013,22,1/12/13,Stoke City,0,4,Chelsea,A
+2013,22,1/12/13,Sunderland,3,0,West Ham,H
+2013,22,1/12/13,Fulham,1,1,Wigan Athletic,D
+2013,22,1/12/13,Norwich City,0,0,Newcastle Utd,D
+2013,22,1/12/13,Everton,0,0,Swansea City,D
+2013,22,1/12/13,Aston Villa,0,1,Southampton,A
+2013,22,1/12/13,QPR,0,0,Tottenham,D
+2013,22,1/12/13,Reading,3,2,West Brom,H
+2013,22,1/13/13,Manchester Utd,2,1,Liverpool,H
+2013,22,1/13/13,Arsenal,0,2,Manchester City,A
+2013,17,1/16/13,Chelsea,2,2,Southampton,D
+2013,23,1/19/13,Liverpool,5,0,Norwich City,H
+2013,23,1/19/13,Newcastle Utd,1,2,Reading,A
+2013,23,1/19/13,Swansea City,3,1,Stoke City,H
+2013,23,1/19/13,Manchester City,2,0,Fulham,H
+2013,23,1/19/13,Wigan Athletic,2,3,Sunderland,A
+2013,23,1/19/13,West Brom,2,2,Aston Villa,D
+2013,23,1/19/13,West Ham,1,1,QPR,D
+2013,23,1/20/13,Chelsea,2,1,Arsenal,H
+2013,23,1/20/13,Tottenham,1,1,Manchester Utd,D
+2013,23,1/21/13,Southampton,0,0,Everton,D
+2013,19,1/23/13,Arsenal,5,1,West Ham,H
+2013,24,1/29/13,Stoke City,2,2,Wigan Athletic,D
+2013,24,1/29/13,Aston Villa,1,2,Newcastle Utd,A
+2013,24,1/29/13,Sunderland,0,0,Swansea City,D
+2013,24,1/29/13,QPR,0,0,Manchester City,D
+2013,24,1/30/13,Manchester Utd,2,1,Southampton,H
+2013,24,1/30/13,Fulham,3,1,West Ham,H
+2013,24,1/30/13,Arsenal,2,2,Liverpool,D
+2013,24,1/30/13,Reading,2,2,Chelsea,D
+2013,24,1/30/13,Everton,2,1,West Brom,H
+2013,24,1/30/13,Norwich City,1,1,Tottenham,D
+2013,25,2/2/13,Reading,2,1,Sunderland,H
+2013,25,2/2/13,Arsenal,1,0,Stoke City,H
+2013,25,2/2/13,Everton,3,3,Aston Villa,D
+2013,25,2/2/13,Wigan Athletic,2,2,Southampton,D
+2013,25,2/2/13,Newcastle Utd,3,2,Chelsea,H
+2013,25,2/2/13,West Ham,1,0,Swansea City,H
+2013,25,2/2/13,QPR,0,0,Norwich City,D
+2013,25,2/2/13,Fulham,0,1,Manchester Utd,A
+2013,25,2/3/13,West Brom,0,1,Tottenham,A
+2013,25,2/3/13,Manchester City,2,2,Liverpool,D
+2013,26,2/9/13,Chelsea,4,1,Wigan Athletic,H
+2013,26,2/9/13,Swansea City,4,1,QPR,H
+2013,26,2/9/13,Sunderland,0,1,Arsenal,A
+2013,26,2/9/13,Tottenham,2,1,Newcastle Utd,H
+2013,26,2/9/13,Stoke City,2,1,Reading,H
+2013,26,2/9/13,Norwich City,0,0,Fulham,D
+2013,26,2/9/13,Southampton,3,1,Manchester City,H
+2013,26,2/10/13,Manchester Utd,2,0,Everton,H
+2013,26,2/10/13,Aston Villa,2,1,West Ham,H
+2013,26,2/11/13,Liverpool,0,2,West Brom,A
+2013,27,2/17/13,Liverpool,5,0,Swansea City,H
+2013,27,2/23/13,QPR,0,2,Manchester Utd,A
+2013,27,2/23/13,Reading,0,3,Wigan Athletic,A
+2013,27,2/23/13,Fulham,1,0,Stoke City,H
+2013,27,2/23/13,Arsenal,2,1,Aston Villa,H
+2013,27,2/23/13,West Brom,2,1,Sunderland,H
+2013,27,2/23/13,Norwich City,2,1,Everton,H
+2013,27,2/24/13,Newcastle Utd,4,2,Southampton,H
+2013,27,2/24/13,Manchester City,2,0,Chelsea,H
+2013,27,2/25/13,West Ham,2,3,Tottenham,A
+2013,28,3/2/13,Chelsea,1,0,West Brom,H
+2013,28,3/2/13,Manchester Utd,4,0,Norwich City,H
+2013,28,3/2/13,Swansea City,1,0,Newcastle Utd,H
+2013,28,3/2/13,Wigan Athletic,0,4,Liverpool,A
+2013,28,3/2/13,Southampton,1,2,QPR,A
+2013,28,3/2/13,Everton,3,1,Reading,H
+2013,28,3/2/13,Stoke City,0,1,West Ham,A
+2013,28,3/2/13,Sunderland,2,2,Fulham,D
+2013,28,3/3/13,Tottenham,2,1,Arsenal,H
+2013,28,3/4/13,Aston Villa,0,1,Manchester City,A
+2013,29,3/9/13,Norwich City,0,0,Southampton,D
+2013,29,3/9/13,Reading,1,2,Aston Villa,A
+2013,29,3/9/13,West Brom,2,1,Swansea City,H
+2013,29,3/9/13,QPR,3,1,Sunderland,H
+2013,29,3/10/13,Newcastle Utd,2,1,Stoke City,H
+2013,29,3/10/13,Liverpool,3,2,Tottenham,H
+2013,30,3/16/13,Aston Villa,3,2,QPR,H
+2013,30,3/16/13,Manchester Utd,1,0,Reading,H
+2013,30,3/16/13,Everton,2,0,Manchester City,H
+2013,30,3/16/13,Stoke City,0,0,West Brom,D
+2013,30,3/16/13,Swansea City,0,2,Arsenal,A
+2013,30,3/16/13,Southampton,3,1,Liverpool,H
+2013,30,3/17/13,Chelsea,2,0,West Ham,H
+2013,30,3/17/13,Tottenham,0,1,Fulham,A
+2013,30,3/17/13,Wigan Athletic,2,1,Newcastle Utd,H
+2013,30,3/17/13,Sunderland,1,1,Norwich City,D
+2013,31,3/30/13,Arsenal,4,1,Reading,H
+2013,31,3/30/13,Southampton,2,1,Chelsea,H
+2013,31,3/30/13,Swansea City,1,2,Tottenham,A
+2013,31,3/30/13,Manchester City,4,0,Newcastle Utd,H
+2013,31,3/30/13,Sunderland,0,1,Manchester Utd,A
+2013,31,3/30/13,Wigan Athletic,1,0,Norwich City,H
+2013,31,3/30/13,Everton,1,0,Stoke City,H
+2013,31,3/30/13,West Ham,3,1,West Brom,H
+2013,31,3/31/13,Aston Villa,1,2,Liverpool,A
+2013,31,4/1/13,Fulham,3,2,QPR,H
+2013,32,4/6/13,Norwich City,2,2,Swansea City,D
+2013,32,4/6/13,Stoke City,1,3,Aston Villa,A
+2013,32,4/6/13,West Brom,1,2,Arsenal,A
+2013,32,4/6/13,Reading,0,2,Southampton,A
+2013,32,4/7/13,Chelsea,2,1,Sunderland,H
+2013,32,4/7/13,Tottenham,2,2,Everton,D
+2013,32,4/7/13,Newcastle Utd,1,0,Fulham,H
+2013,32,4/7/13,Liverpool,0,0,West Ham,D
+2013,32,4/7/13,QPR,1,1,Wigan Athletic,D
+2013,32,4/8/13,Manchester Utd,1,2,Manchester City,A
+2013,33,4/13/13,Everton,2,0,QPR,H
+2013,33,4/13/13,Aston Villa,1,1,Fulham,D
+2013,33,4/13/13,Arsenal,3,1,Norwich City,H
+2013,33,4/13/13,Southampton,1,1,West Ham,D
+2013,33,4/13/13,Reading,0,0,Liverpool,D
+2013,33,4/14/13,Stoke City,0,2,Manchester Utd,A
+2013,33,4/14/13,Newcastle Utd,0,3,Sunderland,A
+2013,29,4/16/13,Arsenal,0,0,Everton,D
+2013,29,4/17/13,Manchester City,1,0,Wigan Athletic,H
+2013,29,4/17/13,Fulham,0,3,Chelsea,A
+2013,29,4/17/13,West Ham,2,2,Manchester Utd,D
+2013,34,4/20/13,QPR,0,2,Stoke City,A
+2013,34,4/20/13,West Brom,1,1,Newcastle Utd,D
+2013,34,4/20/13,West Ham,2,0,Wigan Athletic,H
+2013,34,4/20/13,Sunderland,1,0,Everton,H
+2013,34,4/20/13,Swansea City,0,0,Southampton,D
+2013,34,4/20/13,Norwich City,2,1,Reading,H
+2013,34,4/20/13,Fulham,0,1,Arsenal,A
+2013,34,4/21/13,Tottenham,3,1,Manchester City,H
+2013,34,4/21/13,Liverpool,2,2,Chelsea,D
+2013,34,4/22/13,Manchester Utd,3,0,Aston Villa,H
+2013,35,4/27/13,Newcastle Utd,0,6,Liverpool,A
+2013,35,4/27/13,Manchester City,2,1,West Ham,H
+2013,35,4/27/13,Wigan Athletic,2,2,Tottenham,D
+2013,35,4/27/13,Southampton,0,3,West Brom,A
+2013,35,4/27/13,Stoke City,1,0,Norwich City,H
+2013,35,4/27/13,Everton,1,0,Fulham,H
+2013,35,4/28/13,Arsenal,1,1,Manchester Utd,D
+2013,35,4/28/13,Chelsea,2,0,Swansea City,H
+2013,35,4/28/13,Reading,0,0,QPR,D
+2013,35,4/29/13,Aston Villa,6,1,Sunderland,H
+2013,36,5/4/13,QPR,0,1,Arsenal,A
+2013,36,5/4/13,Swansea City,0,0,Manchester City,D
+2013,36,5/4/13,West Ham,0,0,Newcastle Utd,D
+2013,36,5/4/13,Norwich City,1,2,Aston Villa,A
+2013,36,5/4/13,West Brom,2,3,Wigan Athletic,A
+2013,36,5/4/13,Fulham,2,4,Reading,A
+2013,36,5/4/13,Tottenham,1,0,Southampton,H
+2013,36,5/5/13,Manchester Utd,0,1,Chelsea,A
+2013,36,5/5/13,Liverpool,0,0,Everton,D
+2013,36,5/6/13,Sunderland,1,1,Stoke City,D
+2013,33,5/7/13,Manchester City,1,0,West Brom,H
+2013,33,5/7/13,Wigan Athletic,2,3,Swansea City,A
+2013,33,5/8/13,Chelsea,2,2,Tottenham,D
+2013,37,5/11/13,Aston Villa,1,2,Chelsea,A
+2013,37,5/12/13,Manchester Utd,2,1,Swansea City,H
+2013,37,5/12/13,Fulham,1,3,Liverpool,A
+2013,37,5/12/13,Norwich City,4,0,West Brom,H
+2013,37,5/12/13,Sunderland,1,1,Southampton,D
+2013,37,5/12/13,Stoke City,1,2,Tottenham,A
+2013,37,5/12/13,QPR,1,2,Newcastle Utd,A
+2013,37,5/12/13,Everton,2,0,West Ham,H
+2013,37,5/14/13,Reading,0,2,Manchester City,A
+2013,37,5/14/13,Arsenal,4,1,Wigan Athletic,H
+2013,38,5/19/13,Liverpool,1,0,QPR,H
+2013,38,5/19/13,Wigan Athletic,2,2,Aston Villa,D
+2013,38,5/19/13,Southampton,1,1,Stoke City,D
+2013,38,5/19/13,Swansea City,0,3,Fulham,A
+2013,38,5/19/13,West Ham,4,2,Reading,H
+2013,38,5/19/13,Manchester City,2,3,Norwich City,A
+2013,38,5/19/13,Chelsea,2,1,Everton,H
+2013,38,5/19/13,Tottenham,1,0,Sunderland,H
+2013,38,5/19/13,Newcastle Utd,0,1,Arsenal,A
+2013,38,5/19/13,West Brom,5,5,Manchester Utd,D
+2014,1,8/17/13,Swansea City,1,4,Manchester Utd,A
+2014,1,8/17/13,West Ham,2,0,Cardiff City,H
+2014,1,8/17/13,Norwich City,2,2,Everton,D
+2014,1,8/17/13,Sunderland,0,1,Fulham,A
+2014,1,8/17/13,Arsenal,1,3,Aston Villa,A
+2014,1,8/17/13,Liverpool,1,0,Stoke City,H
+2014,1,8/17/13,West Brom,0,1,Southampton,A
+2014,1,8/18/13,Crystal Palace,0,1,Tottenham,A
+2014,1,8/18/13,Chelsea,2,0,Hull City,H
+2014,1,8/19/13,Manchester City,4,0,Newcastle Utd,H
+2014,3,8/21/13,Chelsea,2,1,Aston Villa,H
+2014,2,8/24/13,Hull City,1,0,Norwich City,H
+2014,2,8/24/13,Southampton,1,1,Sunderland,D
+2014,2,8/24/13,Fulham,1,3,Arsenal,A
+2014,2,8/24/13,Everton,0,0,West Brom,D
+2014,2,8/24/13,Newcastle Utd,0,0,West Ham,D
+2014,2,8/24/13,Stoke City,2,1,Crystal Palace,H
+2014,2,8/24/13,Aston Villa,0,1,Liverpool,A
+2014,2,8/25/13,Tottenham,1,0,Swansea City,H
+2014,2,8/25/13,Cardiff City,3,2,Manchester City,H
+2014,2,8/26/13,Manchester Utd,0,0,Chelsea,D
+2014,3,8/31/13,Manchester City,2,0,Hull City,H
+2014,3,8/31/13,Newcastle Utd,1,0,Fulham,H
+2014,3,8/31/13,Crystal Palace,3,1,Sunderland,H
+2014,3,8/31/13,West Ham,0,1,Stoke City,A
+2014,3,8/31/13,Norwich City,1,0,Southampton,H
+2014,3,8/31/13,Cardiff City,0,0,Everton,D
+2014,3,9/1/13,Arsenal,1,0,Tottenham,H
+2014,3,9/1/13,Liverpool,1,0,Manchester Utd,H
+2014,3,9/1/13,West Brom,0,2,Swansea City,A
+2014,4,9/14/13,Everton,1,0,Chelsea,H
+2014,4,9/14/13,Hull City,1,1,Cardiff City,D
+2014,4,9/14/13,Manchester Utd,2,0,Crystal Palace,H
+2014,4,9/14/13,Fulham,1,1,West Brom,D
+2014,4,9/14/13,Stoke City,0,0,Manchester City,D
+2014,4,9/14/13,Sunderland,1,3,Arsenal,A
+2014,4,9/14/13,Aston Villa,1,2,Newcastle Utd,A
+2014,4,9/14/13,Tottenham,2,0,Norwich City,H
+2014,4,9/15/13,Southampton,0,0,West Ham,D
+2014,4,9/16/13,Swansea City,2,2,Liverpool,D
+2014,5,9/21/13,Norwich City,0,1,Aston Villa,A
+2014,5,9/21/13,West Ham,2,3,Everton,A
+2014,5,9/21/13,West Brom,3,0,Sunderland,H
+2014,5,9/21/13,Newcastle Utd,2,3,Hull City,A
+2014,5,9/21/13,Liverpool,0,1,Southampton,A
+2014,5,9/21/13,Chelsea,2,0,Fulham,H
+2014,5,9/22/13,Arsenal,3,1,Stoke City,H
+2014,5,9/22/13,Cardiff City,0,1,Tottenham,A
+2014,5,9/22/13,Manchester City,4,1,Manchester Utd,H
+2014,5,9/22/13,Crystal Palace,0,2,Swansea City,A
+2014,6,9/28/13,Swansea City,1,2,Arsenal,A
+2014,6,9/28/13,Aston Villa,3,2,Manchester City,H
+2014,6,9/28/13,Hull City,1,0,West Ham,H
+2014,6,9/28/13,Southampton,2,0,Crystal Palace,H
+2014,6,9/28/13,Manchester Utd,1,2,West Brom,A
+2014,6,9/28/13,Fulham,1,2,Cardiff City,A
+2014,6,9/28/13,Tottenham,1,1,Chelsea,D
+2014,6,9/29/13,Sunderland,1,3,Liverpool,A
+2014,6,9/29/13,Stoke City,0,1,Norwich City,A
+2014,6,9/30/13,Everton,3,2,Newcastle Utd,H
+2014,7,10/5/13,Cardiff City,1,2,Newcastle Utd,A
+2014,7,10/5/13,Manchester City,3,1,Everton,H
+2014,7,10/5/13,Liverpool,3,1,Crystal Palace,H
+2014,7,10/5/13,Fulham,1,0,Stoke City,H
+2014,7,10/5/13,Sunderland,1,2,Manchester Utd,A
+2014,7,10/5/13,Hull City,0,0,Aston Villa,D
+2014,7,10/6/13,Tottenham,0,3,West Ham,A
+2014,7,10/6/13,Norwich City,1,3,Chelsea,A
+2014,7,10/6/13,Southampton,2,0,Swansea City,H
+2014,7,10/6/13,West Brom,1,1,Arsenal,D
+2014,8,10/19/13,Chelsea,4,1,Cardiff City,H
+2014,8,10/19/13,Newcastle Utd,2,2,Liverpool,D
+2014,8,10/19/13,Everton,2,1,Hull City,H
+2014,8,10/19/13,Manchester Utd,1,1,Southampton,D
+2014,8,10/19/13,Arsenal,4,1,Norwich City,H
+2014,8,10/19/13,West Ham,1,3,Manchester City,A
+2014,8,10/19/13,Stoke City,0,0,West Brom,D
+2014,8,10/19/13,Swansea City,4,0,Sunderland,H
+2014,8,10/20/13,Aston Villa,0,2,Tottenham,A
+2014,8,10/21/13,Crystal Palace,1,4,Fulham,A
+2014,9,10/26/13,Crystal Palace,0,2,Arsenal,A
+2014,9,10/26/13,Manchester Utd,3,2,Stoke City,H
+2014,9,10/26/13,Aston Villa,0,2,Everton,A
+2014,9,10/26/13,Norwich City,0,0,Cardiff City,D
+2014,9,10/26/13,Southampton,2,0,Fulham,H
+2014,9,10/26/13,Liverpool,4,1,West Brom,H
+2014,9,10/27/13,Sunderland,2,1,Newcastle Utd,H
+2014,9,10/27/13,Tottenham,1,0,Hull City,H
+2014,9,10/27/13,Swansea City,0,0,West Ham,D
+2014,9,10/27/13,Chelsea,2,1,Manchester City,H
+2014,10,11/2/13,Newcastle Utd,2,0,Chelsea,H
+2014,10,11/2/13,Hull City,1,0,Sunderland,H
+2014,10,11/2/13,West Ham,0,0,Aston Villa,D
+2014,10,11/2/13,West Brom,2,0,Crystal Palace,H
+2014,10,11/2/13,Fulham,1,3,Manchester Utd,A
+2014,10,11/2/13,Stoke City,1,1,Southampton,D
+2014,10,11/2/13,Arsenal,2,0,Liverpool,H
+2014,10,11/2/13,Manchester City,7,0,Norwich City,H
+2014,10,11/3/13,Everton,0,0,Tottenham,D
+2014,10,11/3/13,Cardiff City,1,0,Swansea City,H
+2014,11,11/9/13,Norwich City,3,1,West Ham,H
+2014,11,11/9/13,Southampton,4,1,Hull City,H
+2014,11,11/9/13,Chelsea,2,2,West Brom,D
+2014,11,11/9/13,Crystal Palace,0,0,Everton,D
+2014,11,11/9/13,Aston Villa,2,0,Cardiff City,H
+2014,11,11/9/13,Liverpool,4,0,Fulham,H
+2014,11,11/10/13,Manchester Utd,1,0,Arsenal,H
+2014,11,11/10/13,Tottenham,0,1,Newcastle Utd,A
+2014,11,11/10/13,Sunderland,1,0,Manchester City,H
+2014,11,11/10/13,Swansea City,3,3,Stoke City,D
+2014,12,11/23/13,Everton,3,3,Liverpool,D
+2014,12,11/23/13,Fulham,1,2,Swansea City,A
+2014,12,11/23/13,Newcastle Utd,2,1,Norwich City,H
+2014,12,11/23/13,Hull City,0,1,Crystal Palace,A
+2014,12,11/23/13,Stoke City,2,0,Sunderland,H
+2014,12,11/23/13,Arsenal,2,0,Southampton,H
+2014,12,11/23/13,West Ham,0,3,Chelsea,A
+2014,12,11/24/13,Cardiff City,2,2,Manchester Utd,D
+2014,12,11/24/13,Manchester City,6,0,Tottenham,H
+2014,12,11/25/13,West Brom,2,2,Aston Villa,D
+2014,13,11/30/13,West Ham,3,0,Fulham,H
+2014,13,11/30/13,Norwich City,1,0,Crystal Palace,H
+2014,13,11/30/13,Everton,4,0,Stoke City,H
+2014,13,11/30/13,Cardiff City,0,3,Arsenal,A
+2014,13,11/30/13,Newcastle Utd,2,1,West Brom,H
+2014,13,11/30/13,Aston Villa,0,0,Sunderland,D
+2014,13,12/1/13,Hull City,3,1,Liverpool,H
+2014,13,12/1/13,Manchester City,3,0,Swansea City,H
+2014,13,12/1/13,Chelsea,3,1,Southampton,H
+2014,13,12/1/13,Tottenham,2,2,Manchester Utd,D
+2014,14,12/3/13,Crystal Palace,1,0,West Ham,H
+2014,14,12/4/13,Southampton,2,3,Aston Villa,A
+2014,14,12/4/13,Arsenal,2,0,Hull City,H
+2014,14,12/4/13,West Brom,2,3,Manchester City,A
+2014,14,12/4/13,Stoke City,0,0,Cardiff City,D
+2014,14,12/4/13,Liverpool,5,1,Norwich City,H
+2014,14,12/4/13,Fulham,1,2,Tottenham,A
+2014,14,12/4/13,Swansea City,3,0,Newcastle Utd,H
+2014,14,12/4/13,Sunderland,3,4,Chelsea,A
+2014,14,12/4/13,Manchester Utd,0,1,Everton,A
+2014,15,12/7/13,Manchester Utd,0,1,Newcastle Utd,A
+2014,15,12/7/13,Crystal Palace,2,0,Cardiff City,H
+2014,15,12/7/13,Liverpool,4,1,West Ham,H
+2014,15,12/7/13,West Brom,0,2,Norwich City,A
+2014,15,12/7/13,Stoke City,3,2,Chelsea,H
+2014,15,12/7/13,Sunderland,1,2,Tottenham,A
+2014,15,12/7/13,Southampton,1,1,Manchester City,D
+2014,15,12/8/13,Arsenal,1,1,Everton,D
+2014,15,12/8/13,Fulham,2,0,Aston Villa,H
+2014,15,12/9/13,Swansea City,1,1,Hull City,D
+2014,16,12/14/13,West Ham,0,0,Sunderland,D
+2014,16,12/14/13,Chelsea,2,1,Crystal Palace,H
+2014,16,12/14/13,Cardiff City,1,0,West Brom,H
+2014,16,12/14/13,Hull City,0,0,Stoke City,D
+2014,16,12/14/13,Newcastle Utd,1,1,Southampton,D
+2014,16,12/14/13,Everton,4,1,Fulham,H
+2014,16,12/14/13,Manchester City,6,3,Arsenal,H
+2014,16,12/15/13,Aston Villa,0,3,Manchester Utd,A
+2014,16,12/15/13,Norwich City,1,1,Swansea City,D
+2014,16,12/15/13,Tottenham,0,5,Liverpool,A
+2014,17,12/21/13,Sunderland,0,0,Norwich City,D
+2014,17,12/21/13,Manchester Utd,3,1,West Ham,H
+2014,17,12/21/13,Fulham,2,4,Manchester City,A
+2014,17,12/21/13,Liverpool,3,1,Cardiff City,H
+2014,17,12/21/13,Crystal Palace,0,3,Newcastle Utd,A
+2014,17,12/21/13,Stoke City,2,1,Aston Villa,H
+2014,17,12/21/13,West Brom,1,1,Hull City,D
+2014,17,12/22/13,Swansea City,1,2,Everton,A
+2014,17,12/22/13,Southampton,2,3,Tottenham,A
+2014,17,12/23/13,Arsenal,0,0,Chelsea,D
+2014,18,12/26/13,Chelsea,1,0,Swansea City,H
+2014,18,12/26/13,Hull City,2,3,Manchester Utd,A
+2014,18,12/26/13,Manchester City,2,1,Liverpool,H
+2014,18,12/26/13,West Ham,1,3,Arsenal,A
+2014,18,12/26/13,Aston Villa,0,1,Crystal Palace,A
+2014,18,12/26/13,Everton,0,1,Sunderland,A
+2014,18,12/26/13,Newcastle Utd,5,1,Stoke City,H
+2014,18,12/26/13,Norwich City,1,2,Fulham,A
+2014,18,12/26/13,Tottenham,1,1,West Brom,D
+2014,18,12/26/13,Cardiff City,0,3,Southampton,A
+2014,19,12/28/13,Norwich City,0,1,Manchester Utd,A
+2014,19,12/28/13,West Ham,3,3,West Brom,D
+2014,19,12/28/13,Cardiff City,2,2,Sunderland,D
+2014,19,12/28/13,Hull City,6,0,Fulham,H
+2014,19,12/28/13,Aston Villa,1,1,Swansea City,D
+2014,19,12/28/13,Manchester City,1,0,Crystal Palace,H
+2014,19,12/29/13,Chelsea,2,1,Liverpool,H
+2014,19,12/29/13,Tottenham,3,0,Stoke City,H
+2014,19,12/29/13,Everton,2,1,Southampton,H
+2014,19,12/29/13,Newcastle Utd,0,1,Arsenal,A
+2014,20,1/1/14,Sunderland,0,1,Aston Villa,A
+2014,20,1/1/14,Stoke City,1,1,Everton,D
+2014,20,1/1/14,Crystal Palace,1,1,Norwich City,D
+2014,20,1/1/14,Liverpool,2,0,Hull City,H
+2014,20,1/1/14,Southampton,0,3,Chelsea,A
+2014,20,1/1/14,Arsenal,2,0,Cardiff City,H
+2014,20,1/1/14,Manchester Utd,1,2,Tottenham,A
+2014,20,1/1/14,West Brom,1,0,Newcastle Utd,H
+2014,20,1/1/14,Swansea City,2,3,Manchester City,A
+2014,20,1/1/14,Fulham,2,1,West Ham,H
+2014,21,1/11/14,Cardiff City,0,2,West Ham,A
+2014,21,1/11/14,Manchester Utd,2,0,Swansea City,H
+2014,21,1/11/14,Southampton,1,0,West Brom,H
+2014,21,1/11/14,Everton,2,0,Norwich City,H
+2014,21,1/11/14,Fulham,1,4,Sunderland,A
+2014,21,1/11/14,Tottenham,2,0,Crystal Palace,H
+2014,21,1/11/14,Hull City,0,2,Chelsea,A
+2014,21,1/12/14,Newcastle Utd,0,2,Manchester City,A
+2014,21,1/12/14,Stoke City,3,5,Liverpool,A
+2014,21,1/13/14,Aston Villa,1,2,Arsenal,A
+2014,22,1/18/14,Liverpool,2,2,Aston Villa,D
+2014,22,1/18/14,Arsenal,2,0,Fulham,H
+2014,22,1/18/14,West Ham,1,3,Newcastle Utd,A
+2014,22,1/18/14,Norwich City,1,0,Hull City,H
+2014,22,1/18/14,Crystal Palace,1,0,Stoke City,H
+2014,22,1/18/14,Manchester City,4,2,Cardiff City,H
+2014,22,1/18/14,Sunderland,2,2,Southampton,D
+2014,22,1/19/14,Swansea City,1,3,Tottenham,A
+2014,22,1/19/14,Chelsea,3,1,Manchester Utd,H
+2014,22,1/20/14,West Brom,1,1,Everton,D
+2014,23,1/28/14,Liverpool,4,0,Everton,H
+2014,23,1/28/14,Crystal Palace,1,0,Hull City,H
+2014,23,1/28/14,Swansea City,2,0,Fulham,H
+2014,23,1/28/14,Southampton,2,2,Arsenal,D
+2014,23,1/28/14,Manchester Utd,2,0,Cardiff City,H
+2014,23,1/28/14,Norwich City,0,0,Newcastle Utd,D
+2014,23,1/29/14,Chelsea,0,0,West Ham,D
+2014,23,1/29/14,Sunderland,1,0,Stoke City,H
+2014,23,1/29/14,Aston Villa,4,3,West Brom,H
+2014,23,1/29/14,Tottenham,1,5,Manchester City,A
+2014,24,2/1/14,Cardiff City,2,1,Norwich City,H
+2014,24,2/1/14,Newcastle Utd,0,3,Sunderland,A
+2014,24,2/1/14,Fulham,0,3,Southampton,A
+2014,24,2/1/14,Hull City,1,1,Tottenham,D
+2014,24,2/1/14,Stoke City,2,1,Manchester Utd,H
+2014,24,2/1/14,West Ham,2,0,Swansea City,H
+2014,24,2/1/14,Everton,2,1,Aston Villa,H
+2014,24,2/2/14,West Brom,1,1,Liverpool,D
+2014,24,2/2/14,Arsenal,2,0,Crystal Palace,H
+2014,24,2/3/14,Manchester City,0,1,Chelsea,A
+2014,25,2/8/14,Crystal Palace,3,1,West Brom,H
+2014,25,2/8/14,Chelsea,3,0,Newcastle Utd,H
+2014,25,2/8/14,Liverpool,5,1,Arsenal,H
+2014,25,2/8/14,Swansea City,3,0,Cardiff City,H
+2014,25,2/8/14,Southampton,2,2,Stoke City,D
+2014,25,2/8/14,Norwich City,0,0,Manchester City,D
+2014,25,2/8/14,Sunderland,0,2,Hull City,A
+2014,25,2/8/14,Aston Villa,0,2,West Ham,A
+2014,25,2/9/14,Manchester Utd,2,2,Fulham,D
+2014,25,2/9/14,Tottenham,1,0,Everton,H
+2014,26,2/11/14,West Ham,2,0,Norwich City,H
+2014,26,2/11/14,Cardiff City,0,0,Aston Villa,D
+2014,26,2/11/14,West Brom,1,1,Chelsea,D
+2014,26,2/11/14,Hull City,0,1,Southampton,A
+2014,26,2/12/14,Newcastle Utd,0,4,Tottenham,A
+2014,26,2/12/14,Fulham,2,3,Liverpool,A
+2014,26,2/12/14,Stoke City,1,1,Swansea City,D
+2014,26,2/12/14,Arsenal,0,0,Manchester Utd,D
+2014,27,2/22/14,Arsenal,4,1,Sunderland,H
+2014,27,2/22/14,Crystal Palace,0,2,Manchester Utd,A
+2014,27,2/22/14,Manchester City,1,0,Stoke City,H
+2014,27,2/22/14,West Brom,1,1,Fulham,D
+2014,27,2/22/14,Chelsea,1,0,Everton,H
+2014,27,2/22/14,West Ham,3,1,Southampton,H
+2014,27,2/22/14,Cardiff City,0,4,Hull City,A
+2014,27,2/23/14,Norwich City,1,0,Tottenham,H
+2014,27,2/23/14,Liverpool,4,3,Swansea City,H
+2014,27,2/23/14,Newcastle Utd,1,0,Aston Villa,H
+2014,28,3/1/14,Southampton,0,3,Liverpool,A
+2014,28,3/1/14,Hull City,1,4,Newcastle Utd,A
+2014,28,3/1/14,Everton,1,0,West Ham,H
+2014,28,3/1/14,Stoke City,1,0,Arsenal,H
+2014,28,3/1/14,Fulham,1,3,Chelsea,A
+2014,28,3/2/14,Tottenham,1,0,Cardiff City,H
+2014,28,3/2/14,Aston Villa,4,1,Norwich City,H
+2014,28,3/2/14,Swansea City,1,1,Crystal Palace,D
+2014,29,3/8/14,Cardiff City,3,1,Fulham,H
+2014,29,3/8/14,Crystal Palace,0,1,Southampton,A
+2014,29,3/8/14,Chelsea,4,0,Tottenham,H
+2014,29,3/8/14,West Brom,0,3,Manchester Utd,A
+2014,29,3/8/14,Norwich City,1,1,Stoke City,D
+2014,30,3/15/14,Aston Villa,1,0,Chelsea,H
+2014,30,3/15/14,Swansea City,1,2,West Brom,A
+2014,30,3/15/14,Fulham,1,0,Newcastle Utd,H
+2014,30,3/15/14,Stoke City,3,1,West Ham,H
+2014,30,3/15/14,Everton,2,1,Cardiff City,H
+2014,30,3/15/14,Hull City,0,2,Manchester City,A
+2014,30,3/15/14,Sunderland,0,0,Crystal Palace,D
+2014,30,3/15/14,Southampton,4,2,Norwich City,H
+2014,30,3/16/14,Manchester Utd,0,3,Liverpool,A
+2014,30,3/16/14,Tottenham,0,1,Arsenal,A
+2014,31,3/22/14,Newcastle Utd,1,0,Crystal Palace,H
+2014,31,3/22/14,Manchester City,5,0,Fulham,H
+2014,31,3/22/14,Chelsea,6,0,Arsenal,H
+2014,31,3/22/14,West Ham,0,2,Manchester Utd,A
+2014,31,3/22/14,Norwich City,2,0,Sunderland,H
+2014,31,3/22/14,Hull City,2,0,West Brom,H
+2014,31,3/22/14,Cardiff City,3,6,Liverpool,A
+2014,31,3/22/14,Everton,3,2,Swansea City,H
+2014,31,3/23/14,Tottenham,3,2,Southampton,H
+2014,31,3/23/14,Aston Villa,1,4,Stoke City,A
+2014,28,3/25/14,Manchester Utd,0,3,Manchester City,A
+2014,29,3/25/14,Newcastle Utd,0,3,Everton,A
+2014,29,3/25/14,Arsenal,2,2,Swansea City,D
+2014,29,3/26/14,West Ham,2,1,Hull City,H
+2014,29,3/26/14,Liverpool,2,1,Sunderland,H
+2014,32,3/29/14,Crystal Palace,1,0,Chelsea,H
+2014,32,3/29/14,Southampton,4,0,Newcastle Utd,H
+2014,32,3/29/14,West Brom,3,3,Cardiff City,D
+2014,32,3/29/14,Stoke City,1,0,Hull City,H
+2014,32,3/29/14,Arsenal,1,1,Manchester City,D
+2014,32,3/29/14,Manchester Utd,4,1,Aston Villa,H
+2014,32,3/29/14,Swansea City,3,0,Norwich City,H
+2014,32,3/30/14,Fulham,1,3,Everton,A
+2014,32,3/30/14,Liverpool,4,0,Tottenham,H
+2014,32,3/31/14,Sunderland,1,2,West Ham,A
+2014,33,4/5/14,Manchester City,4,1,Southampton,H
+2014,33,4/5/14,Norwich City,0,1,West Brom,A
+2014,33,4/5/14,Newcastle Utd,0,4,Manchester Utd,A
+2014,33,4/5/14,Aston Villa,1,2,Fulham,A
+2014,33,4/5/14,Chelsea,3,0,Stoke City,H
+2014,33,4/5/14,Hull City,1,0,Swansea City,H
+2014,33,4/5/14,Cardiff City,0,3,Crystal Palace,A
+2014,33,4/6/14,West Ham,1,2,Liverpool,A
+2014,33,4/6/14,Everton,3,0,Arsenal,H
+2014,33,4/7/14,Tottenham,5,1,Sunderland,H
+2014,34,4/12/14,Fulham,1,0,Norwich City,H
+2014,34,4/12/14,West Brom,3,3,Tottenham,D
+2014,34,4/12/14,Crystal Palace,1,0,Aston Villa,H
+2014,34,4/12/14,Southampton,0,1,Cardiff City,A
+2014,34,4/12/14,Stoke City,1,0,Newcastle Utd,H
+2014,34,4/12/14,Sunderland,0,1,Everton,A
+2014,34,4/13/14,Swansea City,0,1,Chelsea,A
+2014,34,4/13/14,Liverpool,3,2,Manchester City,H
+2014,34,4/15/14,Arsenal,3,1,West Ham,H
+2014,26,4/16/14,Manchester City,2,2,Sunderland,D
+2014,26,4/16/14,Everton,2,3,Crystal Palace,A
+2014,35,4/19/14,Cardiff City,1,1,Stoke City,D
+2014,35,4/19/14,West Ham,0,1,Crystal Palace,A
+2014,35,4/19/14,Chelsea,1,2,Sunderland,A
+2014,35,4/19/14,Newcastle Utd,1,2,Swansea City,A
+2014,35,4/19/14,Aston Villa,0,0,Southampton,D
+2014,35,4/19/14,Tottenham,3,1,Fulham,H
+2014,35,4/20/14,Everton,2,0,Manchester Utd,H
+2014,35,4/20/14,Norwich City,2,3,Liverpool,A
+2014,35,4/20/14,Hull City,0,3,Arsenal,A
+2014,35,4/21/14,Manchester City,3,1,West Brom,H
+2014,36,4/26/14,Fulham,2,2,Hull City,D
+2014,36,4/26/14,Manchester Utd,4,0,Norwich City,H
+2014,36,4/26/14,West Brom,1,0,West Ham,H
+2014,36,4/26/14,Stoke City,0,1,Tottenham,A
+2014,36,4/26/14,Swansea City,4,1,Aston Villa,H
+2014,36,4/26/14,Southampton,2,0,Everton,H
+2014,36,4/27/14,Crystal Palace,0,2,Manchester City,A
+2014,36,4/27/14,Liverpool,0,2,Chelsea,A
+2014,36,4/27/14,Sunderland,4,0,Cardiff City,H
+2014,36,4/28/14,Arsenal,3,0,Newcastle Utd,H
+2014,37,5/3/14,Manchester Utd,0,1,Sunderland,A
+2014,37,5/3/14,Stoke City,4,1,Fulham,H
+2014,37,5/3/14,Aston Villa,3,1,Hull City,H
+2014,37,5/3/14,Swansea City,0,1,Southampton,A
+2014,37,5/3/14,Newcastle Utd,3,0,Cardiff City,H
+2014,37,5/3/14,Everton,2,3,Manchester City,A
+2014,37,5/3/14,West Ham,2,0,Tottenham,H
+2014,37,5/4/14,Chelsea,0,0,Norwich City,D
+2014,37,5/4/14,Arsenal,1,0,West Brom,H
+2014,37,5/5/14,Crystal Palace,3,3,Liverpool,D
+2014,34,5/6/14,Manchester Utd,3,1,Hull City,H
+2014,28,5/7/14,Sunderland,2,0,West Brom,H
+2014,29,5/7/14,Manchester City,4,0,Aston Villa,H
+2014,38,5/11/14,Tottenham,3,0,Aston Villa,H
+2014,38,5/11/14,Hull City,0,2,Everton,A
+2014,38,5/11/14,Sunderland,1,3,Swansea City,A
+2014,38,5/11/14,Norwich City,0,2,Arsenal,A
+2014,38,5/11/14,Liverpool,2,1,Newcastle Utd,H
+2014,38,5/11/14,Southampton,1,1,Manchester Utd,D
+2014,38,5/11/14,Fulham,2,2,Crystal Palace,D
+2014,38,5/11/14,Cardiff City,1,2,Chelsea,A
+2014,38,5/11/14,Manchester City,2,0,West Ham,H
+2014,38,5/11/14,West Brom,1,2,Stoke City,A
+2015,1,8/16/14,Manchester Utd,1,2,Swansea City,A
+2015,1,8/16/14,West Brom,2,2,Sunderland,D
+2015,1,8/16/14,Leicester City,2,2,Everton,D
+2015,1,8/16/14,West Ham,0,1,Tottenham,A
+2015,1,8/16/14,QPR,0,1,Hull City,A
+2015,1,8/16/14,Stoke City,0,1,Aston Villa,A
+2015,1,8/16/14,Arsenal,2,1,Crystal Palace,H
+2015,1,8/17/14,Liverpool,2,1,Southampton,H
+2015,1,8/17/14,Newcastle Utd,0,2,Manchester City,A
+2015,1,8/18/14,Burnley,1,3,Chelsea,A
+2015,2,8/23/14,Aston Villa,0,0,Newcastle Utd,D
+2015,2,8/23/14,Swansea City,1,0,Burnley,H
+2015,2,8/23/14,Crystal Palace,1,3,West Ham,A
+2015,2,8/23/14,Southampton,0,0,West Brom,D
+2015,2,8/23/14,Chelsea,2,0,Leicester City,H
+2015,2,8/23/14,Everton,2,2,Arsenal,D
+2015,2,8/24/14,Tottenham,4,0,QPR,H
+2015,2,8/24/14,Hull City,1,1,Stoke City,D
+2015,2,8/24/14,Sunderland,1,1,Manchester Utd,D
+2015,2,8/25/14,Manchester City,3,1,Liverpool,H
+2015,3,8/30/14,Burnley,0,0,Manchester Utd,D
+2015,3,8/30/14,West Ham,1,3,Southampton,A
+2015,3,8/30/14,Manchester City,0,1,Stoke City,A
+2015,3,8/30/14,Swansea City,3,0,West Brom,H
+2015,3,8/30/14,Newcastle Utd,3,3,Crystal Palace,D
+2015,3,8/30/14,QPR,1,0,Sunderland,H
+2015,3,8/30/14,Everton,3,6,Chelsea,A
+2015,3,8/31/14,Tottenham,0,3,Liverpool,A
+2015,3,8/31/14,Aston Villa,2,1,Hull City,H
+2015,3,8/31/14,Leicester City,1,1,Arsenal,D
+2015,4,9/13/14,Arsenal,2,2,Manchester City,D
+2015,4,9/13/14,Sunderland,2,2,Tottenham,D
+2015,4,9/13/14,Stoke City,0,1,Leicester City,A
+2015,4,9/13/14,West Brom,0,2,Everton,A
+2015,4,9/13/14,Southampton,4,0,Newcastle Utd,H
+2015,4,9/13/14,Crystal Palace,0,0,Burnley,D
+2015,4,9/13/14,Chelsea,4,2,Swansea City,H
+2015,4,9/13/14,Liverpool,0,1,Aston Villa,A
+2015,4,9/14/14,Manchester Utd,4,0,QPR,H
+2015,4,9/15/14,Hull City,2,2,West Ham,D
+2015,5,9/20/14,QPR,2,2,Stoke City,D
+2015,5,9/20/14,Burnley,0,0,Sunderland,D
+2015,5,9/20/14,Aston Villa,0,3,Arsenal,A
+2015,5,9/20/14,Newcastle Utd,2,2,Hull City,D
+2015,5,9/20/14,Swansea City,0,1,Southampton,A
+2015,5,9/20/14,West Ham,3,1,Liverpool,H
+2015,5,9/21/14,Leicester City,5,3,Manchester Utd,H
+2015,5,9/21/14,Tottenham,0,1,West Brom,A
+2015,5,9/21/14,Everton,2,3,Crystal Palace,A
+2015,5,9/21/14,Manchester City,1,1,Chelsea,D
+2015,6,9/27/14,Liverpool,1,1,Everton,D
+2015,6,9/27/14,Manchester Utd,2,1,West Ham,H
+2015,6,9/27/14,Chelsea,3,0,Aston Villa,H
+2015,6,9/27/14,Southampton,2,1,QPR,H
+2015,6,9/27/14,Sunderland,0,0,Swansea City,D
+2015,6,9/27/14,Crystal Palace,2,0,Leicester City,H
+2015,6,9/27/14,Hull City,2,4,Manchester City,A
+2015,6,9/27/14,Arsenal,1,1,Tottenham,D
+2015,6,9/28/14,West Brom,4,0,Burnley,H
+2015,6,9/29/14,Stoke City,1,0,Newcastle Utd,H
+2015,7,10/4/14,Liverpool,2,1,West Brom,H
+2015,7,10/4/14,Sunderland,3,1,Stoke City,H
+2015,7,10/4/14,Swansea City,2,2,Newcastle Utd,D
+2015,7,10/4/14,Leicester City,2,2,Burnley,D
+2015,7,10/4/14,Hull City,2,0,Crystal Palace,H
+2015,7,10/4/14,Aston Villa,0,2,Manchester City,A
+2015,7,10/5/14,Manchester Utd,2,1,Everton,H
+2015,7,10/5/14,Chelsea,2,0,Arsenal,H
+2015,7,10/5/14,Tottenham,1,0,Southampton,H
+2015,7,10/5/14,West Ham,2,0,QPR,H
+2015,8,10/18/14,Manchester City,4,1,Tottenham,H
+2015,8,10/18/14,Crystal Palace,1,2,Chelsea,A
+2015,8,10/18/14,Burnley,1,3,West Ham,A
+2015,8,10/18/14,Southampton,8,0,Sunderland,H
+2015,8,10/18/14,Arsenal,2,2,Hull City,D
+2015,8,10/18/14,Everton,3,0,Aston Villa,H
+2015,8,10/18/14,Newcastle Utd,1,0,Leicester City,H
+2015,8,10/19/14,QPR,2,3,Liverpool,A
+2015,8,10/19/14,Stoke City,2,1,Swansea City,H
+2015,8,10/20/14,West Brom,2,2,Manchester Utd,D
+2015,9,10/25/14,West Ham,2,1,Manchester City,H
+2015,9,10/25/14,Southampton,1,0,Stoke City,H
+2015,9,10/25/14,West Brom,2,2,Crystal Palace,D
+2015,9,10/25/14,Sunderland,0,2,Arsenal,A
+2015,9,10/25/14,Liverpool,0,0,Hull City,D
+2015,9,10/25/14,Swansea City,2,0,Leicester City,H
+2015,9,10/26/14,Burnley,1,3,Everton,A
+2015,9,10/26/14,Tottenham,1,2,Newcastle Utd,A
+2015,9,10/26/14,Manchester Utd,1,1,Chelsea,D
+2015,9,10/27/14,QPR,2,0,Aston Villa,H
+2015,10,11/1/14,Newcastle Utd,1,0,Liverpool,H
+2015,10,11/1/14,Chelsea,2,1,QPR,H
+2015,10,11/1/14,Hull City,0,1,Southampton,A
+2015,10,11/1/14,Everton,0,0,Swansea City,D
+2015,10,11/1/14,Stoke City,2,2,West Ham,D
+2015,10,11/1/14,Leicester City,0,1,West Brom,A
+2015,10,11/1/14,Arsenal,3,0,Burnley,H
+2015,10,11/2/14,Manchester City,1,0,Manchester Utd,H
+2015,10,11/2/14,Aston Villa,1,2,Tottenham,A
+2015,10,11/3/14,Crystal Palace,1,3,Sunderland,A
+2015,11,11/8/14,Liverpool,1,2,Chelsea,A
+2015,11,11/8/14,Manchester Utd,1,0,Crystal Palace,H
+2015,11,11/8/14,Southampton,2,0,Leicester City,H
+2015,11,11/8/14,West Ham,0,0,Aston Villa,D
+2015,11,11/8/14,Burnley,1,0,Hull City,H
+2015,11,11/8/14,QPR,2,2,Manchester City,D
+2015,11,11/9/14,West Brom,0,2,Newcastle Utd,A
+2015,11,11/9/14,Sunderland,1,1,Everton,D
+2015,11,11/9/14,Tottenham,1,2,Stoke City,A
+2015,11,11/9/14,Swansea City,2,1,Arsenal,H
+2015,12,11/22/14,Everton,2,1,West Ham,H
+2015,12,11/22/14,Leicester City,0,0,Sunderland,D
+2015,12,11/22/14,Newcastle Utd,1,0,QPR,H
+2015,12,11/22/14,Manchester City,2,1,Swansea City,H
+2015,12,11/22/14,Stoke City,1,2,Burnley,A
+2015,12,11/22/14,Chelsea,2,0,West Brom,H
+2015,12,11/22/14,Arsenal,1,2,Manchester Utd,A
+2015,12,11/23/14,Crystal Palace,3,1,Liverpool,H
+2015,12,11/23/14,Hull City,1,2,Tottenham,A
+2015,12,11/24/14,Aston Villa,1,1,Southampton,D
+2015,13,11/29/14,West Brom,0,1,Arsenal,A
+2015,13,11/29/14,Swansea City,1,1,Crystal Palace,D
+2015,13,11/29/14,QPR,3,2,Leicester City,H
+2015,13,11/29/14,Burnley,1,1,Aston Villa,D
+2015,13,11/29/14,Liverpool,1,0,Stoke City,H
+2015,13,11/29/14,West Ham,1,0,Newcastle Utd,H
+2015,13,11/29/14,Manchester Utd,3,0,Hull City,H
+2015,13,11/29/14,Sunderland,0,0,Chelsea,D
+2015,13,11/30/14,Southampton,0,3,Manchester City,A
+2015,13,11/30/14,Tottenham,2,1,Everton,H
+2015,14,12/2/14,Swansea City,2,0,QPR,H
+2015,14,12/2/14,Leicester City,1,3,Liverpool,A
+2015,14,12/2/14,Manchester Utd,2,1,Stoke City,H
+2015,14,12/2/14,Burnley,1,1,Newcastle Utd,D
+2015,14,12/2/14,West Brom,1,2,West Ham,A
+2015,14,12/2/14,Crystal Palace,0,1,Aston Villa,A
+2015,14,12/3/14,Everton,1,1,Hull City,D
+2015,14,12/3/14,Arsenal,1,0,Southampton,H
+2015,14,12/3/14,Sunderland,1,4,Manchester City,A
+2015,14,12/3/14,Chelsea,3,0,Tottenham,H
+2015,15,12/6/14,Newcastle Utd,2,1,Chelsea,H
+2015,15,12/6/14,QPR,2,0,Burnley,H
+2015,15,12/6/14,Liverpool,0,0,Sunderland,D
+2015,15,12/6/14,Tottenham,0,0,Crystal Palace,D
+2015,15,12/6/14,Hull City,0,0,West Brom,D
+2015,15,12/6/14,Stoke City,3,2,Arsenal,H
+2015,15,12/6/14,Manchester City,1,0,Everton,H
+2015,15,12/7/14,West Ham,3,1,Swansea City,H
+2015,15,12/7/14,Aston Villa,2,1,Leicester City,H
+2015,15,12/8/14,Southampton,1,2,Manchester Utd,A
+2015,16,12/13/14,Leicester City,0,1,Manchester City,A
+2015,16,12/13/14,West Brom,1,0,Aston Villa,H
+2015,16,12/13/14,Chelsea,2,0,Hull City,H
+2015,16,12/13/14,Burnley,1,0,Southampton,H
+2015,16,12/13/14,Crystal Palace,1,1,Stoke City,D
+2015,16,12/13/14,Sunderland,1,1,West Ham,D
+2015,16,12/13/14,Arsenal,4,1,Newcastle Utd,H
+2015,16,12/14/14,Manchester Utd,3,0,Liverpool,H
+2015,16,12/14/14,Swansea City,1,2,Tottenham,A
+2015,16,12/15/14,Everton,3,1,QPR,H
+2015,17,12/20/14,Manchester City,3,0,Crystal Palace,H
+2015,17,12/20/14,Southampton,3,0,Everton,H
+2015,17,12/20/14,QPR,3,2,West Brom,H
+2015,17,12/20/14,Aston Villa,1,1,Manchester Utd,D
+2015,17,12/20/14,West Ham,2,0,Leicester City,H
+2015,17,12/20/14,Tottenham,2,1,Burnley,H
+2015,17,12/20/14,Hull City,0,1,Swansea City,A
+2015,17,12/21/14,Newcastle Utd,0,1,Sunderland,A
+2015,17,12/21/14,Liverpool,2,2,Arsenal,D
+2015,17,12/22/14,Stoke City,0,2,Chelsea,A
+2015,18,12/26/14,Chelsea,2,0,West Ham,H
+2015,18,12/26/14,West Brom,1,3,Manchester City,A
+2015,18,12/26/14,Leicester City,1,2,Tottenham,A
+2015,18,12/26/14,Sunderland,1,3,Hull City,A
+2015,18,12/26/14,Manchester Utd,3,1,Newcastle Utd,H
+2015,18,12/26/14,Swansea City,1,0,Aston Villa,H
+2015,18,12/26/14,Everton,0,1,Stoke City,A
+2015,18,12/26/14,Burnley,0,1,Liverpool,A
+2015,18,12/26/14,Crystal Palace,1,3,Southampton,A
+2015,18,12/26/14,Arsenal,2,1,QPR,H
+2015,19,12/28/14,Tottenham,0,0,Manchester Utd,D
+2015,19,12/28/14,Southampton,1,1,Chelsea,D
+2015,19,12/28/14,QPR,0,0,Crystal Palace,D
+2015,19,12/28/14,Manchester City,2,2,Burnley,D
+2015,19,12/28/14,Stoke City,2,0,West Brom,H
+2015,19,12/28/14,West Ham,1,2,Arsenal,A
+2015,19,12/28/14,Aston Villa,0,0,Sunderland,D
+2015,19,12/28/14,Hull City,0,1,Leicester City,A
+2015,19,12/28/14,Newcastle Utd,3,2,Everton,H
+2015,19,12/29/14,Liverpool,4,1,Swansea City,H
+2015,20,1/1/15,Stoke City,1,1,Manchester Utd,D
+2015,20,1/1/15,Manchester City,3,2,Sunderland,H
+2015,20,1/1/15,Southampton,2,0,Arsenal,H
+2015,20,1/1/15,Newcastle Utd,3,3,Burnley,D
+2015,20,1/1/15,Aston Villa,0,0,Crystal Palace,D
+2015,20,1/1/15,West Ham,1,1,West Brom,D
+2015,20,1/1/15,QPR,1,1,Swansea City,D
+2015,20,1/1/15,Hull City,2,0,Everton,H
+2015,20,1/1/15,Liverpool,2,2,Leicester City,D
+2015,20,1/1/15,Tottenham,5,3,Chelsea,H
+2015,21,1/10/15,Sunderland,0,1,Liverpool,A
+2015,21,1/10/15,Swansea City,1,1,West Ham,D
+2015,21,1/10/15,West Brom,1,0,Hull City,H
+2015,21,1/10/15,Leicester City,1,0,Aston Villa,H
+2015,21,1/10/15,Everton,1,1,Manchester City,D
+2015,21,1/10/15,Chelsea,2,0,Newcastle Utd,H
+2015,21,1/10/15,Burnley,2,1,QPR,H
+2015,21,1/10/15,Crystal Palace,2,1,Tottenham,H
+2015,21,1/11/15,Arsenal,3,0,Stoke City,H
+2015,21,1/11/15,Manchester Utd,0,1,Southampton,A
+2015,22,1/17/15,Tottenham,2,1,Sunderland,H
+2015,22,1/17/15,Aston Villa,0,2,Liverpool,A
+2015,22,1/17/15,Leicester City,0,1,Stoke City,A
+2015,22,1/17/15,QPR,0,2,Manchester Utd,A
+2015,22,1/17/15,Burnley,2,3,Crystal Palace,A
+2015,22,1/17/15,Swansea City,0,5,Chelsea,A
+2015,22,1/17/15,Newcastle Utd,1,2,Southampton,A
+2015,22,1/18/15,West Ham,3,0,Hull City,H
+2015,22,1/18/15,Manchester City,0,2,Arsenal,A
+2015,22,1/19/15,Everton,0,0,West Brom,D
+2015,23,1/31/15,Hull City,0,3,Newcastle Utd,A
+2015,23,1/31/15,Manchester Utd,3,1,Leicester City,H
+2015,23,1/31/15,Crystal Palace,0,1,Everton,A
+2015,23,1/31/15,Liverpool,2,0,West Ham,H
+2015,23,1/31/15,Sunderland,2,0,Burnley,H
+2015,23,1/31/15,West Brom,0,3,Tottenham,A
+2015,23,1/31/15,Stoke City,3,1,QPR,H
+2015,23,1/31/15,Chelsea,1,1,Manchester City,D
+2015,23,2/1/15,Arsenal,5,0,Aston Villa,H
+2015,23,2/1/15,Southampton,0,1,Swansea City,A
+2015,24,2/7/15,Tottenham,2,1,Arsenal,H
+2015,24,2/7/15,Aston Villa,1,2,Chelsea,A
+2015,24,2/7/15,Swansea City,1,1,Sunderland,D
+2015,24,2/7/15,QPR,0,1,Southampton,A
+2015,24,2/7/15,Leicester City,0,1,Crystal Palace,A
+2015,24,2/7/15,Manchester City,1,1,Hull City,D
+2015,24,2/7/15,Everton,0,0,Liverpool,D
+2015,24,2/8/15,Burnley,2,2,West Brom,D
+2015,24,2/8/15,Newcastle Utd,1,1,Stoke City,D
+2015,24,2/8/15,West Ham,1,1,Manchester Utd,D
+2015,25,2/10/15,Hull City,2,0,Aston Villa,H
+2015,25,2/10/15,Arsenal,2,1,Leicester City,H
+2015,25,2/10/15,Sunderland,0,2,QPR,A
+2015,25,2/10/15,Liverpool,3,2,Tottenham,H
+2015,25,2/11/15,Manchester Utd,3,1,Burnley,H
+2015,25,2/11/15,Stoke City,1,4,Manchester City,A
+2015,25,2/11/15,Chelsea,1,0,Everton,H
+2015,25,2/11/15,Southampton,0,0,West Ham,D
+2015,25,2/11/15,Crystal Palace,1,1,Newcastle Utd,D
+2015,25,2/11/15,West Brom,2,0,Swansea City,H
+2015,26,2/21/15,Chelsea,1,1,Burnley,D
+2015,26,2/21/15,Crystal Palace,1,2,Arsenal,A
+2015,26,2/21/15,Swansea City,2,1,Manchester Utd,H
+2015,26,2/21/15,Hull City,2,1,QPR,H
+2015,26,2/21/15,Aston Villa,1,2,Stoke City,A
+2015,26,2/21/15,Sunderland,0,0,West Brom,D
+2015,26,2/21/15,Manchester City,5,0,Newcastle Utd,H
+2015,26,2/22/15,Tottenham,2,2,West Ham,D
+2015,26,2/22/15,Everton,2,2,Leicester City,D
+2015,26,2/22/15,Southampton,0,2,Liverpool,A
+2015,27,2/28/15,West Ham,1,3,Crystal Palace,A
+2015,27,2/28/15,West Brom,1,0,Southampton,H
+2015,27,2/28/15,Newcastle Utd,1,0,Aston Villa,H
+2015,27,2/28/15,Burnley,0,1,Swansea City,A
+2015,27,2/28/15,Stoke City,1,0,Hull City,H
+2015,27,2/28/15,Manchester Utd,2,0,Sunderland,H
+2015,27,3/1/15,Liverpool,2,1,Manchester City,H
+2015,27,3/1/15,Arsenal,2,0,Everton,H
+2015,28,3/3/15,Southampton,1,0,Crystal Palace,H
+2015,28,3/3/15,Hull City,1,1,Sunderland,D
+2015,28,3/3/15,Aston Villa,2,1,West Brom,H
+2015,28,3/4/15,Stoke City,2,0,Everton,H
+2015,28,3/4/15,West Ham,0,1,Chelsea,A
+2015,28,3/4/15,Manchester City,2,0,Leicester City,H
+2015,28,3/4/15,QPR,1,2,Arsenal,A
+2015,28,3/4/15,Tottenham,3,2,Swansea City,H
+2015,28,3/4/15,Newcastle Utd,0,1,Manchester Utd,A
+2015,28,3/4/15,Liverpool,2,0,Burnley,H
+2015,27,3/7/15,QPR,1,2,Tottenham,A
+2015,29,3/14/15,Crystal Palace,3,1,QPR,H
+2015,29,3/14/15,Sunderland,0,4,Aston Villa,A
+2015,29,3/14/15,Leicester City,0,0,Hull City,D
+2015,29,3/14/15,Arsenal,3,0,West Ham,H
+2015,29,3/14/15,West Brom,1,0,Stoke City,H
+2015,29,3/14/15,Burnley,1,0,Manchester City,H
+2015,29,3/15/15,Chelsea,1,1,Southampton,D
+2015,29,3/15/15,Manchester Utd,3,0,Tottenham,H
+2015,29,3/15/15,Everton,3,0,Newcastle Utd,H
+2015,29,3/16/15,Swansea City,0,1,Liverpool,A
+2015,30,3/21/15,Manchester City,3,0,West Brom,H
+2015,30,3/21/15,Tottenham,4,3,Leicester City,H
+2015,30,3/21/15,Southampton,2,0,Burnley,H
+2015,30,3/21/15,Stoke City,1,2,Crystal Palace,A
+2015,30,3/21/15,Aston Villa,0,1,Swansea City,A
+2015,30,3/21/15,Newcastle Utd,1,2,Arsenal,A
+2015,30,3/21/15,West Ham,1,0,Sunderland,H
+2015,30,3/22/15,Liverpool,1,2,Manchester Utd,A
+2015,30,3/22/15,QPR,1,2,Everton,A
+2015,30,3/22/15,Hull City,2,3,Chelsea,A
+2015,31,4/4/15,Arsenal,4,1,Liverpool,H
+2015,31,4/4/15,Manchester Utd,3,1,Aston Villa,H
+2015,31,4/4/15,Everton,1,0,Southampton,H
+2015,31,4/4/15,Swansea City,3,1,Hull City,H
+2015,31,4/4/15,Leicester City,2,1,West Ham,H
+2015,31,4/4/15,West Brom,1,4,QPR,A
+2015,31,4/4/15,Chelsea,2,1,Stoke City,H
+2015,31,4/5/15,Burnley,0,0,Tottenham,D
+2015,31,4/5/15,Sunderland,1,0,Newcastle Utd,H
+2015,31,4/6/15,Crystal Palace,2,1,Manchester City,H
+2015,33,4/7/15,Aston Villa,3,3,QPR,D
+2015,32,4/11/15,Swansea City,1,1,Everton,D
+2015,32,4/11/15,Tottenham,0,1,Aston Villa,A
+2015,32,4/11/15,Sunderland,1,4,Crystal Palace,A
+2015,32,4/11/15,West Ham,1,1,Stoke City,D
+2015,32,4/11/15,Southampton,2,0,Hull City,H
+2015,32,4/11/15,West Brom,2,3,Leicester City,A
+2015,32,4/11/15,Burnley,0,1,Arsenal,A
+2015,32,4/12/15,QPR,0,1,Chelsea,A
+2015,32,4/12/15,Manchester Utd,4,2,Manchester City,H
+2015,32,4/13/15,Liverpool,2,0,Newcastle Utd,H
+2015,33,4/18/15,Stoke City,2,1,Southampton,H
+2015,33,4/18/15,Crystal Palace,0,2,West Brom,A
+2015,33,4/18/15,Leicester City,2,0,Swansea City,H
+2015,33,4/18/15,Everton,1,0,Burnley,H
+2015,33,4/18/15,Chelsea,1,0,Manchester Utd,H
+2015,33,4/19/15,Manchester City,2,0,West Ham,H
+2015,33,4/19/15,Newcastle Utd,1,3,Tottenham,A
+2015,34,4/25/15,Southampton,2,2,Tottenham,D
+2015,34,4/25/15,Stoke City,1,1,Sunderland,D
+2015,34,4/25/15,Burnley,0,1,Leicester City,A
+2015,34,4/25/15,QPR,0,0,West Ham,D
+2015,34,4/25/15,Newcastle Utd,2,3,Swansea City,A
+2015,34,4/25/15,Crystal Palace,0,2,Hull City,A
+2015,34,4/25/15,West Brom,0,0,Liverpool,D
+2015,34,4/25/15,Manchester City,3,2,Aston Villa,H
+2015,34,4/26/15,Everton,3,0,Manchester Utd,H
+2015,34,4/26/15,Arsenal,0,0,Chelsea,D
+2015,33,4/28/15,Hull City,1,0,Liverpool,H
+2015,27,4/29/15,Leicester City,1,3,Chelsea,A
+2015,35,5/2/15,Leicester City,3,0,Newcastle Utd,H
+2015,35,5/2/15,West Ham,1,0,Burnley,H
+2015,35,5/2/15,Liverpool,2,1,QPR,H
+2015,35,5/2/15,Aston Villa,3,2,Everton,H
+2015,35,5/2/15,Swansea City,2,0,Stoke City,H
+2015,35,5/2/15,Sunderland,2,1,Southampton,H
+2015,35,5/2/15,Manchester Utd,0,1,West Brom,A
+2015,35,5/3/15,Chelsea,1,0,Crystal Palace,H
+2015,35,5/3/15,Tottenham,0,1,Manchester City,A
+2015,35,5/4/15,Hull City,1,3,Arsenal,A
+2015,36,5/9/15,Everton,0,2,Sunderland,A
+2015,36,5/9/15,Leicester City,2,0,Southampton,H
+2015,36,5/9/15,Newcastle Utd,1,1,West Brom,D
+2015,36,5/9/15,Aston Villa,1,0,West Ham,H
+2015,36,5/9/15,Stoke City,3,0,Tottenham,H
+2015,36,5/9/15,Hull City,0,1,Burnley,A
+2015,36,5/9/15,Crystal Palace,1,2,Manchester Utd,A
+2015,36,5/10/15,Manchester City,6,0,QPR,H
+2015,36,5/10/15,Chelsea,1,1,Liverpool,D
+2015,36,5/11/15,Arsenal,0,1,Swansea City,A
+2015,37,5/16/15,Southampton,6,1,Aston Villa,H
+2015,37,5/16/15,Sunderland,0,0,Leicester City,D
+2015,37,5/16/15,QPR,2,1,Newcastle Utd,H
+2015,37,5/16/15,West Ham,1,2,Everton,A
+2015,37,5/16/15,Tottenham,2,0,Hull City,H
+2015,37,5/16/15,Burnley,0,0,Stoke City,D
+2015,37,5/16/15,Liverpool,1,3,Crystal Palace,A
+2015,37,5/17/15,Swansea City,2,4,Manchester City,A
+2015,37,5/17/15,Manchester Utd,1,1,Arsenal,D
+2015,37,5/18/15,West Brom,3,0,Chelsea,H
+2015,33,5/20/15,Arsenal,0,0,Sunderland,D
+2015,38,5/24/15,Stoke City,6,1,Liverpool,H
+2015,38,5/24/15,Aston Villa,0,1,Burnley,A
+2015,38,5/24/15,Hull City,0,0,Manchester Utd,D
+2015,38,5/24/15,Manchester City,2,0,Southampton,H
+2015,38,5/24/15,Chelsea,3,1,Sunderland,H
+2015,38,5/24/15,Arsenal,4,1,West Brom,H
+2015,38,5/24/15,Crystal Palace,1,0,Swansea City,H
+2015,38,5/24/15,Newcastle Utd,2,0,West Ham,H
+2015,38,5/24/15,Leicester City,5,1,QPR,H
+2015,38,5/24/15,Everton,0,1,Tottenham,A
+2016,1,8/8/15,Manchester Utd,1,0,Tottenham,H
+2016,1,8/8/15,Norwich City,1,3,Crystal Palace,A
+2016,1,8/8/15,Everton,2,2,Watford,D
+2016,1,8/8/15,Leicester City,4,2,Sunderland,H
+2016,1,8/8/15,Bournemouth,0,1,Aston Villa,A
+2016,1,8/8/15,Chelsea,2,2,Swansea City,D
+2016,1,8/9/15,Newcastle Utd,2,2,Southampton,D
+2016,1,8/9/15,Arsenal,0,2,West Ham,A
+2016,1,8/9/15,Stoke City,0,1,Liverpool,A
+2016,1,8/10/15,West Brom,0,3,Manchester City,A
+2016,2,8/14/15,Aston Villa,0,1,Manchester Utd,A
+2016,2,8/15/15,Southampton,0,3,Everton,A
+2016,2,8/15/15,Sunderland,1,3,Norwich City,A
+2016,2,8/15/15,West Ham,1,2,Leicester City,A
+2016,2,8/15/15,Swansea City,2,0,Newcastle Utd,H
+2016,2,8/15/15,Tottenham,2,2,Stoke City,D
+2016,2,8/15/15,Watford,0,0,West Brom,D
+2016,2,8/16/15,Crystal Palace,1,2,Arsenal,A
+2016,2,8/16/15,Manchester City,3,0,Chelsea,H
+2016,2,8/17/15,Liverpool,1,0,Bournemouth,H
+2016,3,8/22/15,Manchester Utd,0,0,Newcastle Utd,D
+2016,3,8/22/15,Leicester City,1,1,Tottenham,D
+2016,3,8/22/15,Crystal Palace,2,1,Aston Villa,H
+2016,3,8/22/15,West Ham,3,4,Bournemouth,A
+2016,3,8/22/15,Sunderland,1,1,Swansea City,D
+2016,3,8/22/15,Norwich City,1,1,Stoke City,D
+2016,3,8/23/15,West Brom,2,3,Chelsea,A
+2016,3,8/23/15,Watford,0,0,Southampton,D
+2016,3,8/23/15,Everton,0,2,Manchester City,A
+2016,3,8/24/15,Arsenal,0,0,Liverpool,D
+2016,4,8/29/15,Newcastle Utd,0,1,Arsenal,A
+2016,4,8/29/15,Bournemouth,1,1,Leicester City,D
+2016,4,8/29/15,Aston Villa,2,2,Sunderland,D
+2016,4,8/29/15,Stoke City,0,1,West Brom,A
+2016,4,8/29/15,Chelsea,1,2,Crystal Palace,A
+2016,4,8/29/15,Manchester City,2,0,Watford,H
+2016,4,8/29/15,Liverpool,0,3,West Ham,A
+2016,4,8/29/15,Tottenham,0,0,Everton,D
+2016,4,8/30/15,Southampton,3,0,Norwich City,H
+2016,4,8/30/15,Swansea City,2,1,Manchester Utd,H
+2016,5,9/12/15,Everton,3,1,Chelsea,H
+2016,5,9/12/15,West Brom,0,0,Southampton,D
+2016,5,9/12/15,Norwich City,3,1,Bournemouth,H
+2016,5,9/12/15,Watford,1,0,Swansea City,H
+2016,5,9/12/15,Arsenal,2,0,Stoke City,H
+2016,5,9/12/15,Crystal Palace,0,1,Manchester City,A
+2016,5,9/12/15,Manchester Utd,3,1,Liverpool,H
+2016,5,9/13/15,Sunderland,0,1,Tottenham,A
+2016,5,9/13/15,Leicester City,3,2,Aston Villa,H
+2016,5,9/14/15,West Ham,2,0,Newcastle Utd,H
+2016,6,9/19/15,Chelsea,2,0,Arsenal,H
+2016,6,9/19/15,Aston Villa,0,1,West Brom,A
+2016,6,9/19/15,Swansea City,0,0,Everton,D
+2016,6,9/19/15,Newcastle Utd,1,2,Watford,A
+2016,6,9/19/15,Bournemouth,2,0,Sunderland,H
+2016,6,9/19/15,Stoke City,2,2,Leicester City,D
+2016,6,9/19/15,Manchester City,1,2,West Ham,A
+2016,6,9/20/15,Tottenham,1,0,Crystal Palace,H
+2016,6,9/20/15,Liverpool,1,1,Norwich City,D
+2016,6,9/20/15,Southampton,2,3,Manchester Utd,A
+2016,7,9/26/15,Tottenham,4,1,Manchester City,H
+2016,7,9/26/15,Liverpool,3,2,Aston Villa,H
+2016,7,9/26/15,Stoke City,2,1,Bournemouth,H
+2016,7,9/26/15,West Ham,2,2,Norwich City,D
+2016,7,9/26/15,Manchester Utd,3,0,Sunderland,H
+2016,7,9/26/15,Leicester City,2,5,Arsenal,A
+2016,7,9/26/15,Southampton,3,1,Swansea City,H
+2016,7,9/26/15,Newcastle Utd,2,2,Chelsea,D
+2016,7,9/27/15,Watford,0,1,Crystal Palace,A
+2016,7,9/28/15,West Brom,2,3,Everton,A
+2016,8,10/3/15,Crystal Palace,2,0,West Brom,H
+2016,8,10/3/15,Bournemouth,1,1,Watford,D
+2016,8,10/3/15,Norwich City,1,2,Leicester City,A
+2016,8,10/3/15,Aston Villa,0,1,Stoke City,A
+2016,8,10/3/15,Sunderland,2,2,West Ham,D
+2016,8,10/3/15,Manchester City,6,1,Newcastle Utd,H
+2016,8,10/3/15,Chelsea,1,3,Southampton,A
+2016,8,10/4/15,Everton,1,1,Liverpool,D
+2016,8,10/4/15,Swansea City,2,2,Tottenham,D
+2016,8,10/4/15,Arsenal,3,0,Manchester Utd,H
+2016,9,10/17/15,Tottenham,0,0,Liverpool,D
+2016,9,10/17/15,Chelsea,2,0,Aston Villa,H
+2016,9,10/17/15,Manchester City,5,1,Bournemouth,H
+2016,9,10/17/15,Southampton,2,2,Leicester City,D
+2016,9,10/17/15,Everton,0,3,Manchester Utd,A
+2016,9,10/17/15,Crystal Palace,1,3,West Ham,A
+2016,9,10/17/15,West Brom,1,0,Sunderland,H
+2016,9,10/17/15,Watford,0,3,Arsenal,A
+2016,9,10/18/15,Newcastle Utd,6,2,Norwich City,H
+2016,9,10/19/15,Swansea City,0,1,Stoke City,A
+2016,10,10/24/15,Stoke City,0,2,Watford,A
+2016,10,10/24/15,Aston Villa,1,2,Swansea City,A
+2016,10,10/24/15,Leicester City,1,0,Crystal Palace,H
+2016,10,10/24/15,West Ham,2,1,Chelsea,H
+2016,10,10/24/15,Norwich City,0,1,West Brom,A
+2016,10,10/24/15,Arsenal,2,1,Everton,H
+2016,10,10/25/15,Sunderland,3,0,Newcastle Utd,H
+2016,10,10/25/15,Bournemouth,1,5,Tottenham,A
+2016,10,10/25/15,Manchester Utd,0,0,Manchester City,D
+2016,10,10/25/15,Liverpool,1,1,Southampton,D
+2016,11,10/31/15,Chelsea,1,3,Liverpool,A
+2016,11,10/31/15,Swansea City,0,3,Arsenal,A
+2016,11,10/31/15,West Brom,2,3,Leicester City,A
+2016,11,10/31/15,Manchester City,2,1,Norwich City,H
+2016,11,10/31/15,Crystal Palace,0,0,Manchester Utd,D
+2016,11,10/31/15,Watford,2,0,West Ham,H
+2016,11,10/31/15,Newcastle Utd,0,0,Stoke City,D
+2016,11,11/1/15,Everton,6,2,Sunderland,H
+2016,11,11/1/15,Southampton,2,0,Bournemouth,H
+2016,11,11/2/15,Tottenham,3,1,Aston Villa,H
+2016,12,11/7/15,Bournemouth,0,1,Newcastle Utd,A
+2016,12,11/7/15,Norwich City,1,0,Swansea City,H
+2016,12,11/7/15,Leicester City,2,1,Watford,H
+2016,12,11/7/15,Sunderland,0,1,Southampton,A
+2016,12,11/7/15,Manchester Utd,2,0,West Brom,H
+2016,12,11/7/15,West Ham,1,1,Everton,D
+2016,12,11/7/15,Stoke City,1,0,Chelsea,H
+2016,12,11/8/15,Aston Villa,0,0,Manchester City,D
+2016,12,11/8/15,Arsenal,1,1,Tottenham,D
+2016,12,11/8/15,Liverpool,1,2,Crystal Palace,A
+2016,13,11/21/15,Watford,1,2,Manchester Utd,A
+2016,13,11/21/15,Chelsea,1,0,Norwich City,H
+2016,13,11/21/15,Everton,4,0,Aston Villa,H
+2016,13,11/21/15,Southampton,0,1,Stoke City,A
+2016,13,11/21/15,West Brom,2,1,Arsenal,H
+2016,13,11/21/15,Swansea City,2,2,Bournemouth,D
+2016,13,11/21/15,Newcastle Utd,0,3,Leicester City,A
+2016,13,11/21/15,Manchester City,1,4,Liverpool,A
+2016,13,11/22/15,Tottenham,4,1,West Ham,H
+2016,13,11/23/15,Crystal Palace,0,1,Sunderland,A
+2016,14,11/28/15,Sunderland,2,0,Stoke City,H
+2016,14,11/28/15,Manchester City,3,1,Southampton,H
+2016,14,11/28/15,Crystal Palace,5,1,Newcastle Utd,H
+2016,14,11/28/15,Aston Villa,2,3,Watford,A
+2016,14,11/28/15,Bournemouth,3,3,Everton,D
+2016,14,11/28/15,Leicester City,1,1,Manchester Utd,D
+2016,14,11/29/15,Tottenham,0,0,Chelsea,D
+2016,14,11/29/15,West Ham,1,1,West Brom,D
+2016,14,11/29/15,Liverpool,1,0,Swansea City,H
+2016,14,11/29/15,Norwich City,1,1,Arsenal,D
+2016,15,12/5/15,Stoke City,2,0,Manchester City,H
+2016,15,12/5/15,Southampton,1,1,Aston Villa,D
+2016,15,12/5/15,Watford,2,0,Norwich City,H
+2016,15,12/5/15,West Brom,1,1,Tottenham,D
+2016,15,12/5/15,Swansea City,0,3,Leicester City,A
+2016,15,12/5/15,Manchester Utd,0,0,West Ham,D
+2016,15,12/5/15,Arsenal,3,1,Sunderland,H
+2016,15,12/5/15,Chelsea,0,1,Bournemouth,A
+2016,15,12/6/15,Newcastle Utd,2,0,Liverpool,H
+2016,15,12/7/15,Everton,1,1,Crystal Palace,D
+2016,16,12/12/15,Norwich City,1,1,Everton,D
+2016,16,12/12/15,Sunderland,0,1,Watford,A
+2016,16,12/12/15,West Ham,0,0,Stoke City,D
+2016,16,12/12/15,Crystal Palace,1,0,Southampton,H
+2016,16,12/12/15,Manchester City,2,1,Swansea City,H
+2016,16,12/12/15,Bournemouth,2,1,Manchester Utd,H
+2016,16,12/13/15,Aston Villa,0,2,Arsenal,A
+2016,16,12/13/15,Liverpool,2,2,West Brom,D
+2016,16,12/13/15,Tottenham,1,2,Newcastle Utd,A
+2016,16,12/14/15,Leicester City,2,1,Chelsea,H
+2016,17,12/19/15,Stoke City,1,2,Crystal Palace,A
+2016,17,12/19/15,Manchester Utd,1,2,Norwich City,A
+2016,17,12/19/15,Southampton,0,2,Tottenham,A
+2016,17,12/19/15,Chelsea,3,1,Sunderland,H
+2016,17,12/19/15,Everton,2,3,Leicester City,A
+2016,17,12/19/15,West Brom,1,2,Bournemouth,A
+2016,17,12/19/15,Newcastle Utd,1,1,Aston Villa,D
+2016,17,12/20/15,Watford,3,0,Liverpool,H
+2016,17,12/20/15,Swansea City,0,0,West Ham,D
+2016,17,12/21/15,Arsenal,2,1,Manchester City,H
+2016,18,12/26/15,Stoke City,2,0,Manchester Utd,H
+2016,18,12/26/15,Manchester City,4,1,Sunderland,H
+2016,18,12/26/15,Aston Villa,1,1,West Ham,D
+2016,18,12/26/15,Bournemouth,0,0,Crystal Palace,D
+2016,18,12/26/15,Tottenham,3,0,Norwich City,H
+2016,18,12/26/15,Swansea City,1,0,West Brom,H
+2016,18,12/26/15,Chelsea,2,2,Watford,D
+2016,18,12/26/15,Liverpool,1,0,Leicester City,H
+2016,18,12/26/15,Newcastle Utd,0,1,Everton,A
+2016,18,12/26/15,Southampton,4,0,Arsenal,H
+2016,19,12/28/15,West Brom,1,0,Newcastle Utd,H
+2016,19,12/28/15,Norwich City,2,0,Aston Villa,H
+2016,19,12/28/15,Everton,3,4,Stoke City,A
+2016,19,12/28/15,Watford,1,2,Tottenham,A
+2016,19,12/28/15,Crystal Palace,0,0,Swansea City,D
+2016,19,12/28/15,Arsenal,2,0,Bournemouth,H
+2016,19,12/28/15,Manchester Utd,0,0,Chelsea,D
+2016,19,12/28/15,West Ham,2,1,Southampton,H
+2016,19,12/29/15,Leicester City,0,0,Manchester City,D
+2016,19,12/30/15,Sunderland,0,1,Liverpool,A
+2016,20,1/2/16,West Ham,2,0,Liverpool,H
+2016,20,1/2/16,Manchester Utd,2,1,Swansea City,H
+2016,20,1/2/16,Sunderland,3,1,Aston Villa,H
+2016,20,1/2/16,West Brom,2,1,Stoke City,H
+2016,20,1/2/16,Arsenal,1,0,Newcastle Utd,H
+2016,20,1/2/16,Leicester City,0,0,Bournemouth,D
+2016,20,1/2/16,Norwich City,1,0,Southampton,H
+2016,20,1/2/16,Watford,1,2,Manchester City,A
+2016,20,1/3/16,Crystal Palace,0,3,Chelsea,A
+2016,20,1/3/16,Everton,1,1,Tottenham,D
+2016,21,1/12/16,Bournemouth,1,3,West Ham,A
+2016,21,1/12/16,Aston Villa,1,0,Crystal Palace,H
+2016,21,1/12/16,Newcastle Utd,3,3,Manchester Utd,D
+2016,21,1/13/16,Chelsea,2,2,West Brom,D
+2016,21,1/13/16,Southampton,2,0,Watford,H
+2016,21,1/13/16,Swansea City,2,4,Sunderland,A
+2016,21,1/13/16,Manchester City,0,0,Everton,D
+2016,21,1/13/16,Stoke City,3,1,Norwich City,H
+2016,21,1/13/16,Tottenham,0,1,Leicester City,A
+2016,21,1/13/16,Liverpool,3,3,Arsenal,D
+2016,22,1/16/16,Tottenham,4,1,Sunderland,H
+2016,22,1/16/16,Bournemouth,3,0,Norwich City,H
+2016,22,1/16/16,Manchester City,4,0,Crystal Palace,H
+2016,22,1/16/16,Newcastle Utd,2,1,West Ham,H
+2016,22,1/16/16,Southampton,3,0,West Brom,H
+2016,22,1/16/16,Chelsea,3,3,Everton,D
+2016,22,1/16/16,Aston Villa,1,1,Leicester City,D
+2016,22,1/17/16,Liverpool,0,1,Manchester Utd,A
+2016,22,1/17/16,Stoke City,0,0,Arsenal,D
+2016,22,1/18/16,Swansea City,1,0,Watford,H
+2016,23,1/23/16,Norwich City,4,5,Liverpool,A
+2016,23,1/23/16,Manchester Utd,0,1,Southampton,A
+2016,23,1/23/16,Leicester City,3,0,Stoke City,H
+2016,23,1/23/16,Crystal Palace,1,3,Tottenham,A
+2016,23,1/23/16,Watford,2,1,Newcastle Utd,H
+2016,23,1/23/16,Sunderland,1,1,Bournemouth,D
+2016,23,1/23/16,West Brom,0,0,Aston Villa,D
+2016,23,1/23/16,West Ham,2,2,Manchester City,D
+2016,23,1/24/16,Everton,1,2,Swansea City,A
+2016,23,1/24/16,Arsenal,0,1,Chelsea,A
+2016,24,2/2/16,Norwich City,0,3,Tottenham,A
+2016,24,2/2/16,Sunderland,0,1,Manchester City,A
+2016,24,2/2/16,Arsenal,0,0,Southampton,D
+2016,24,2/2/16,West Ham,2,0,Aston Villa,H
+2016,24,2/2/16,Leicester City,2,0,Liverpool,H
+2016,24,2/2/16,Manchester Utd,3,0,Stoke City,H
+2016,24,2/2/16,West Brom,1,1,Swansea City,D
+2016,24,2/2/16,Crystal Palace,1,2,Bournemouth,A
+2016,24,2/3/16,Watford,0,0,Chelsea,D
+2016,24,2/3/16,Everton,3,0,Newcastle Utd,H
+2016,25,2/6/16,Manchester City,1,3,Leicester City,A
+2016,25,2/6/16,Tottenham,1,0,Watford,H
+2016,25,2/6/16,Stoke City,0,3,Everton,A
+2016,25,2/6/16,Newcastle Utd,1,0,West Brom,H
+2016,25,2/6/16,Liverpool,2,2,Sunderland,D
+2016,25,2/6/16,Swansea City,1,1,Crystal Palace,D
+2016,25,2/6/16,Aston Villa,2,0,Norwich City,H
+2016,25,2/6/16,Southampton,1,0,West Ham,H
+2016,25,2/7/16,Bournemouth,0,2,Arsenal,A
+2016,25,2/7/16,Chelsea,1,1,Manchester Utd,D
+2016,26,2/13/16,Sunderland,2,1,Manchester Utd,H
+2016,26,2/13/16,Crystal Palace,1,2,Watford,A
+2016,26,2/13/16,Norwich City,2,2,West Ham,D
+2016,26,2/13/16,Everton,0,1,West Brom,A
+2016,26,2/13/16,Bournemouth,1,3,Stoke City,A
+2016,26,2/13/16,Swansea City,0,1,Southampton,A
+2016,26,2/13/16,Chelsea,5,1,Newcastle Utd,H
+2016,26,2/14/16,Arsenal,2,1,Leicester City,H
+2016,26,2/14/16,Aston Villa,0,6,Liverpool,A
+2016,26,2/14/16,Manchester City,1,2,Tottenham,A
+2016,27,2/27/16,West Ham,1,0,Sunderland,H
+2016,27,2/27/16,Leicester City,1,0,Norwich City,H
+2016,27,2/27/16,Southampton,1,2,Chelsea,A
+2016,27,2/27/16,Stoke City,2,1,Aston Villa,H
+2016,27,2/27/16,Watford,0,0,Bournemouth,D
+2016,27,2/27/16,West Brom,3,2,Crystal Palace,H
+2016,27,2/28/16,Tottenham,2,1,Swansea City,H
+2016,27,2/28/16,Manchester Utd,3,2,Arsenal,H
+2016,28,3/1/16,Sunderland,2,2,Crystal Palace,D
+2016,28,3/1/16,Leicester City,2,2,West Brom,D
+2016,28,3/1/16,Bournemouth,2,0,Southampton,H
+2016,28,3/1/16,Norwich City,1,2,Chelsea,A
+2016,28,3/1/16,Aston Villa,1,3,Everton,A
+2016,28,3/2/16,Arsenal,1,2,Swansea City,A
+2016,28,3/2/16,West Ham,1,0,Tottenham,H
+2016,28,3/2/16,Stoke City,1,0,Newcastle Utd,H
+2016,28,3/2/16,Manchester Utd,1,0,Watford,H
+2016,28,3/2/16,Liverpool,3,0,Manchester City,H
+2016,29,3/5/16,Tottenham,2,2,Arsenal,D
+2016,29,3/5/16,Swansea City,1,0,Norwich City,H
+2016,29,3/5/16,Chelsea,1,1,Stoke City,D
+2016,29,3/5/16,Manchester City,4,0,Aston Villa,H
+2016,29,3/5/16,Newcastle Utd,1,3,Bournemouth,A
+2016,29,3/5/16,Southampton,1,1,Sunderland,D
+2016,29,3/5/16,Everton,2,3,West Ham,A
+2016,29,3/5/16,Watford,0,1,Leicester City,A
+2016,29,3/6/16,Crystal Palace,1,2,Liverpool,A
+2016,29,3/6/16,West Brom,1,0,Manchester Utd,H
+2016,30,3/12/16,Norwich City,0,0,Manchester City,D
+2016,30,3/12/16,Bournemouth,3,2,Swansea City,H
+2016,30,3/12/16,Stoke City,1,2,Southampton,A
+2016,30,3/13/16,Aston Villa,0,2,Tottenham,A
+2016,30,3/14/16,Leicester City,1,0,Newcastle Utd,H
+2016,31,3/19/16,Everton,0,2,Arsenal,A
+2016,31,3/19/16,Watford,1,2,Stoke City,A
+2016,31,3/19/16,Crystal Palace,0,1,Leicester City,A
+2016,31,3/19/16,Chelsea,2,2,West Ham,D
+2016,31,3/19/16,West Brom,0,1,Norwich City,A
+2016,31,3/19/16,Swansea City,1,0,Aston Villa,H
+2016,31,3/20/16,Southampton,3,2,Liverpool,H
+2016,31,3/20/16,Newcastle Utd,1,1,Sunderland,D
+2016,31,3/20/16,Manchester City,0,1,Manchester Utd,A
+2016,31,3/20/16,Tottenham,3,0,Bournemouth,H
+2016,32,4/2/16,Aston Villa,0,4,Chelsea,A
+2016,32,4/2/16,Arsenal,4,0,Watford,H
+2016,32,4/2/16,Stoke City,2,2,Swansea City,D
+2016,32,4/2/16,West Ham,2,2,Crystal Palace,D
+2016,32,4/2/16,Norwich City,3,2,Newcastle Utd,H
+2016,32,4/2/16,Bournemouth,0,4,Manchester City,A
+2016,32,4/2/16,Sunderland,0,0,West Brom,D
+2016,32,4/2/16,Liverpool,1,1,Tottenham,D
+2016,32,4/3/16,Leicester City,1,0,Southampton,H
+2016,32,4/3/16,Manchester Utd,1,0,Everton,H
+2016,33,4/9/16,West Ham,3,3,Arsenal,D
+2016,33,4/9/16,Crystal Palace,1,0,Norwich City,H
+2016,33,4/9/16,Southampton,3,1,Newcastle Utd,H
+2016,33,4/9/16,Swansea City,1,0,Chelsea,H
+2016,33,4/9/16,Aston Villa,1,2,Bournemouth,A
+2016,33,4/9/16,Watford,1,1,Everton,D
+2016,33,4/9/16,Manchester City,2,1,West Brom,H
+2016,33,4/10/16,Sunderland,0,2,Leicester City,A
+2016,33,4/10/16,Liverpool,4,1,Stoke City,H
+2016,33,4/10/16,Tottenham,3,0,Manchester Utd,H
+2016,35,4/13/16,Crystal Palace,0,0,Everton,D
+2016,34,4/16/16,Norwich City,0,3,Sunderland,A
+2016,34,4/16/16,Everton,1,1,Southampton,D
+2016,34,4/16/16,Manchester Utd,1,0,Aston Villa,H
+2016,34,4/16/16,West Brom,0,1,Watford,A
+2016,34,4/16/16,Newcastle Utd,3,0,Swansea City,H
+2016,34,4/16/16,Chelsea,0,3,Manchester City,A
+2016,34,4/17/16,Leicester City,2,2,West Ham,D
+2016,34,4/17/16,Bournemouth,1,2,Liverpool,A
+2016,34,4/17/16,Arsenal,1,1,Crystal Palace,D
+2016,34,4/18/16,Stoke City,0,4,Tottenham,A
+2016,27,4/19/16,Newcastle Utd,1,1,Manchester City,D
+2016,27,4/20/16,Liverpool,4,0,Everton,H
+2016,30,4/20/16,West Ham,3,1,Watford,H
+2016,30,4/20/16,Manchester Utd,2,0,Crystal Palace,H
+2016,30,4/21/16,Arsenal,2,0,West Brom,H
+2016,35,4/23/16,Manchester City,4,0,Stoke City,H
+2016,35,4/23/16,Aston Villa,2,4,Southampton,A
+2016,35,4/23/16,Liverpool,2,2,Newcastle Utd,D
+2016,35,4/23/16,Bournemouth,1,4,Chelsea,A
+2016,35,4/24/16,Sunderland,0,0,Arsenal,D
+2016,35,4/24/16,Leicester City,4,0,Swansea City,H
+2016,35,4/25/16,Tottenham,1,1,West Brom,D
+2016,36,4/30/16,Watford,3,2,Aston Villa,H
+2016,36,4/30/16,Everton,2,1,Bournemouth,H
+2016,36,4/30/16,Stoke City,1,1,Sunderland,D
+2016,36,4/30/16,West Brom,0,3,West Ham,A
+2016,36,4/30/16,Newcastle Utd,1,0,Crystal Palace,H
+2016,36,4/30/16,Arsenal,1,0,Norwich City,H
+2016,36,5/1/16,Swansea City,3,1,Liverpool,H
+2016,36,5/1/16,Manchester Utd,1,1,Leicester City,D
+2016,36,5/1/16,Southampton,4,2,Manchester City,H
+2016,36,5/2/16,Chelsea,2,2,Tottenham,D
+2016,37,5/7/16,Norwich City,0,1,Manchester Utd,A
+2016,37,5/7/16,Sunderland,3,2,Chelsea,H
+2016,37,5/7/16,Bournemouth,1,1,West Brom,D
+2016,37,5/7/16,Crystal Palace,2,1,Stoke City,H
+2016,37,5/7/16,Aston Villa,0,0,Newcastle Utd,D
+2016,37,5/7/16,West Ham,1,4,Swansea City,A
+2016,37,5/7/16,Leicester City,3,1,Everton,H
+2016,37,5/8/16,Tottenham,1,2,Southampton,A
+2016,37,5/8/16,Liverpool,2,0,Watford,H
+2016,37,5/8/16,Manchester City,2,2,Arsenal,D
+2016,35,5/10/16,West Ham,3,2,Manchester Utd,H
+2016,30,5/11/16,Sunderland,3,0,Everton,H
+2016,30,5/11/16,Liverpool,1,1,Chelsea,D
+2016,35,5/11/16,Norwich City,4,2,Watford,H
+2016,38,5/15/16,Swansea City,1,1,Manchester City,D
+2016,38,5/15/16,West Brom,1,1,Liverpool,D
+2016,38,5/15/16,Arsenal,4,0,Aston Villa,H
+2016,38,5/15/16,Southampton,4,1,Crystal Palace,H
+2016,38,5/15/16,Everton,3,0,Norwich City,H
+2016,38,5/15/16,Newcastle Utd,5,1,Tottenham,H
+2016,38,5/15/16,Stoke City,2,1,West Ham,H
+2016,38,5/15/16,Watford,2,2,Sunderland,D
+2016,38,5/15/16,Chelsea,1,1,Leicester City,D
+2016,38,5/17/16,Manchester Utd,3,1,Bournemouth,H
+2017,1,8/13/16,Hull City,2,1,Leicester City,H
+2017,1,8/13/16,Middlesbrough,1,1,Stoke City,D
+2017,1,8/13/16,Burnley,0,1,Swansea City,A
+2017,1,8/13/16,Everton,1,1,Tottenham,D
+2017,1,8/13/16,Crystal Palace,0,1,West Brom,A
+2017,1,8/13/16,Southampton,1,1,Watford,D
+2017,1,8/13/16,Manchester City,2,1,Sunderland,H
+2017,1,8/14/16,Bournemouth,1,3,Manchester Utd,A
+2017,1,8/14/16,Arsenal,3,4,Liverpool,A
+2017,1,8/15/16,Chelsea,2,1,West Ham,H
+2017,2,8/19/16,Manchester Utd,2,0,Southampton,H
+2017,2,8/20/16,Stoke City,1,4,Manchester City,A
+2017,2,8/20/16,Tottenham,1,0,Crystal Palace,H
+2017,2,8/20/16,Burnley,2,0,Liverpool,H
+2017,2,8/20/16,West Brom,1,2,Everton,A
+2017,2,8/20/16,Swansea City,0,2,Hull City,A
+2017,2,8/20/16,Watford,1,2,Chelsea,A
+2017,2,8/20/16,Leicester City,0,0,Arsenal,D
+2017,2,8/21/16,Sunderland,1,2,Middlesbrough,A
+2017,2,8/21/16,West Ham,1,0,Bournemouth,H
+2017,3,8/27/16,Tottenham,1,1,Liverpool,D
+2017,3,8/27/16,Leicester City,2,1,Swansea City,H
+2017,3,8/27/16,Watford,1,3,Arsenal,A
+2017,3,8/27/16,Southampton,1,1,Sunderland,D
+2017,3,8/27/16,Everton,1,0,Stoke City,H
+2017,3,8/27/16,Chelsea,3,0,Burnley,H
+2017,3,8/27/16,Crystal Palace,1,1,Bournemouth,D
+2017,3,8/27/16,Hull City,0,1,Manchester Utd,A
+2017,3,8/28/16,West Brom,0,0,Middlesbrough,D
+2017,3,8/28/16,Manchester City,3,1,West Ham,H
+2017,4,9/10/16,Manchester Utd,1,2,Manchester City,A
+2017,4,9/10/16,Bournemouth,1,0,West Brom,H
+2017,4,9/10/16,West Ham,2,4,Watford,A
+2017,4,9/10/16,Arsenal,2,1,Southampton,H
+2017,4,9/10/16,Stoke City,0,4,Tottenham,A
+2017,4,9/10/16,Burnley,1,1,Hull City,D
+2017,4,9/10/16,Middlesbrough,1,2,Crystal Palace,A
+2017,4,9/10/16,Liverpool,4,1,Leicester City,H
+2017,4,9/11/16,Swansea City,2,2,Chelsea,D
+2017,4,9/12/16,Sunderland,0,3,Everton,A
+2017,5,9/16/16,Chelsea,1,2,Liverpool,A
+2017,5,9/17/16,Manchester City,4,0,Bournemouth,H
+2017,5,9/17/16,West Brom,4,2,West Ham,H
+2017,5,9/17/16,Hull City,1,4,Arsenal,A
+2017,5,9/17/16,Leicester City,3,0,Burnley,H
+2017,5,9/17/16,Everton,3,1,Middlesbrough,H
+2017,5,9/18/16,Watford,3,1,Manchester Utd,H
+2017,5,9/18/16,Southampton,1,0,Swansea City,H
+2017,5,9/18/16,Crystal Palace,4,1,Stoke City,H
+2017,5,9/18/16,Tottenham,1,0,Sunderland,H
+2017,6,9/24/16,Manchester Utd,4,1,Leicester City,H
+2017,6,9/24/16,Liverpool,5,1,Hull City,H
+2017,6,9/24/16,Bournemouth,1,0,Everton,H
+2017,6,9/24/16,Swansea City,1,3,Manchester City,A
+2017,6,9/24/16,Middlesbrough,1,2,Tottenham,A
+2017,6,9/24/16,Stoke City,1,1,West Brom,D
+2017,6,9/24/16,Sunderland,2,3,Crystal Palace,A
+2017,6,9/24/16,Arsenal,3,0,Chelsea,H
+2017,6,9/25/16,West Ham,0,3,Southampton,A
+2017,6,9/26/16,Burnley,2,0,Watford,H
+2017,7,9/30/16,Everton,1,1,Crystal Palace,D
+2017,7,10/1/16,Swansea City,1,2,Liverpool,A
+2017,7,10/1/16,Hull City,0,2,Chelsea,A
+2017,7,10/1/16,Sunderland,1,1,West Brom,D
+2017,7,10/1/16,Watford,2,2,Bournemouth,D
+2017,7,10/1/16,West Ham,1,1,Middlesbrough,D
+2017,7,10/2/16,Manchester Utd,1,1,Stoke City,D
+2017,7,10/2/16,Leicester City,0,0,Southampton,D
+2017,7,10/2/16,Tottenham,2,0,Manchester City,H
+2017,7,10/2/16,Burnley,0,1,Arsenal,A
+2017,8,10/15/16,Chelsea,3,0,Leicester City,H
+2017,8,10/15/16,Manchester City,1,1,Everton,D
+2017,8,10/15/16,Stoke City,2,0,Sunderland,H
+2017,8,10/15/16,Arsenal,3,2,Swansea City,H
+2017,8,10/15/16,West Brom,1,1,Tottenham,D
+2017,8,10/15/16,Bournemouth,6,1,Hull City,H
+2017,8,10/15/16,Crystal Palace,0,1,West Ham,A
+2017,8,10/16/16,Middlesbrough,0,1,Watford,A
+2017,8,10/16/16,Southampton,3,1,Burnley,H
+2017,8,10/17/16,Liverpool,0,0,Manchester Utd,D
+2017,9,10/22/16,Bournemouth,0,0,Tottenham,D
+2017,9,10/22/16,Leicester City,3,1,Crystal Palace,H
+2017,9,10/22/16,West Ham,1,0,Sunderland,H
+2017,9,10/22/16,Swansea City,0,0,Watford,D
+2017,9,10/22/16,Hull City,0,2,Stoke City,A
+2017,9,10/22/16,Arsenal,0,0,Middlesbrough,D
+2017,9,10/22/16,Burnley,2,1,Everton,H
+2017,9,10/22/16,Liverpool,2,1,West Brom,H
+2017,9,10/23/16,Manchester City,1,1,Southampton,D
+2017,9,10/23/16,Chelsea,4,0,Manchester Utd,H
+2017,10,10/29/16,Sunderland,1,4,Arsenal,A
+2017,10,10/29/16,West Brom,0,4,Manchester City,A
+2017,10,10/29/16,Middlesbrough,2,0,Bournemouth,H
+2017,10,10/29/16,Manchester Utd,0,0,Burnley,D
+2017,10,10/29/16,Watford,1,0,Hull City,H
+2017,10,10/29/16,Tottenham,1,1,Leicester City,D
+2017,10,10/29/16,Crystal Palace,2,4,Liverpool,A
+2017,10,10/30/16,Everton,2,0,West Ham,H
+2017,10,10/30/16,Southampton,0,2,Chelsea,A
+2017,10,10/31/16,Stoke City,3,1,Swansea City,H
+2017,11,11/5/16,Bournemouth,1,2,Sunderland,A
+2017,11,11/5/16,Burnley,3,2,Crystal Palace,H
+2017,11,11/5/16,West Ham,1,1,Stoke City,D
+2017,11,11/5/16,Manchester City,1,1,Middlesbrough,D
+2017,11,11/5/16,Chelsea,5,0,Everton,H
+2017,11,11/6/16,Arsenal,1,1,Tottenham,D
+2017,11,11/6/16,Liverpool,6,1,Watford,H
+2017,11,11/6/16,Hull City,2,1,Southampton,H
+2017,11,11/6/16,Swansea City,1,3,Manchester Utd,A
+2017,11,11/6/16,Leicester City,1,2,West Brom,A
+2017,12,11/19/16,Manchester Utd,1,1,Arsenal,D
+2017,12,11/19/16,Southampton,0,0,Liverpool,D
+2017,12,11/19/16,Crystal Palace,1,2,Manchester City,A
+2017,12,11/19/16,Watford,2,1,Leicester City,H
+2017,12,11/19/16,Stoke City,0,1,Bournemouth,A
+2017,12,11/19/16,Sunderland,3,0,Hull City,H
+2017,12,11/19/16,Everton,1,1,Swansea City,D
+2017,12,11/19/16,Tottenham,3,2,West Ham,H
+2017,12,11/20/16,Middlesbrough,0,1,Chelsea,A
+2017,12,11/21/16,West Brom,4,0,Burnley,H
+2017,13,11/26/16,Burnley,1,2,Manchester City,A
+2017,13,11/26/16,Leicester City,2,2,Middlesbrough,D
+2017,13,11/26/16,Hull City,1,1,West Brom,D
+2017,13,11/26/16,Swansea City,5,4,Crystal Palace,H
+2017,13,11/26/16,Liverpool,2,0,Sunderland,H
+2017,13,11/26/16,Chelsea,2,1,Tottenham,H
+2017,13,11/27/16,Watford,0,1,Stoke City,A
+2017,13,11/27/16,Arsenal,3,1,Bournemouth,H
+2017,13,11/27/16,Manchester Utd,1,1,West Ham,D
+2017,13,11/27/16,Southampton,1,0,Everton,H
+2017,14,12/3/16,Manchester City,1,3,Chelsea,A
+2017,14,12/3/16,West Brom,3,1,Watford,H
+2017,14,12/3/16,Stoke City,2,0,Burnley,H
+2017,14,12/3/16,Crystal Palace,3,0,Southampton,H
+2017,14,12/3/16,Sunderland,2,1,Leicester City,H
+2017,14,12/3/16,Tottenham,5,0,Swansea City,H
+2017,14,12/3/16,West Ham,1,5,Arsenal,A
+2017,14,12/4/16,Bournemouth,4,3,Liverpool,H
+2017,14,12/4/16,Everton,1,1,Manchester Utd,D
+2017,14,12/5/16,Middlesbrough,1,0,Hull City,H
+2017,15,12/10/16,Watford,3,2,Everton,H
+2017,15,12/10/16,Swansea City,3,0,Sunderland,H
+2017,15,12/10/16,Arsenal,3,1,Stoke City,H
+2017,15,12/10/16,Hull City,3,3,Crystal Palace,D
+2017,15,12/10/16,Burnley,3,2,Bournemouth,H
+2017,15,12/10/16,Leicester City,4,2,Manchester City,H
+2017,15,12/11/16,Chelsea,1,0,West Brom,H
+2017,15,12/11/16,Southampton,1,0,Middlesbrough,H
+2017,15,12/11/16,Manchester Utd,1,0,Tottenham,H
+2017,15,12/11/16,Liverpool,2,2,West Ham,D
+2017,16,12/13/16,Bournemouth,1,0,Leicester City,H
+2017,16,12/13/16,Everton,2,1,Arsenal,H
+2017,16,12/14/16,West Ham,1,0,Burnley,H
+2017,16,12/14/16,Sunderland,0,1,Chelsea,A
+2017,16,12/14/16,Middlesbrough,0,3,Liverpool,A
+2017,16,12/14/16,West Brom,3,1,Swansea City,H
+2017,16,12/14/16,Stoke City,0,0,Southampton,D
+2017,16,12/14/16,Crystal Palace,1,2,Manchester Utd,A
+2017,16,12/14/16,Manchester City,2,0,Watford,H
+2017,16,12/14/16,Tottenham,3,0,Hull City,H
+2017,17,12/17/16,Crystal Palace,0,1,Chelsea,A
+2017,17,12/17/16,Sunderland,1,0,Watford,H
+2017,17,12/17/16,Stoke City,2,2,Leicester City,D
+2017,17,12/17/16,Middlesbrough,3,0,Swansea City,H
+2017,17,12/17/16,West Ham,1,0,Hull City,H
+2017,17,12/17/16,West Brom,0,2,Manchester Utd,A
+2017,17,12/18/16,Bournemouth,1,3,Southampton,A
+2017,17,12/18/16,Manchester City,2,1,Arsenal,H
+2017,17,12/18/16,Tottenham,2,1,Burnley,H
+2017,17,12/19/16,Everton,0,1,Liverpool,A
+2017,18,12/26/16,Watford,1,1,Crystal Palace,D
+2017,18,12/26/16,Leicester City,0,2,Everton,A
+2017,18,12/26/16,Chelsea,3,0,Bournemouth,H
+2017,18,12/26/16,Swansea City,1,4,West Ham,A
+2017,18,12/26/16,Arsenal,1,0,West Brom,H
+2017,18,12/26/16,Manchester Utd,3,1,Sunderland,H
+2017,18,12/26/16,Burnley,1,0,Middlesbrough,H
+2017,18,12/26/16,Hull City,0,3,Manchester City,A
+2017,18,12/27/16,Liverpool,4,1,Stoke City,H
+2017,18,12/28/16,Southampton,1,4,Tottenham,A
+2017,19,12/30/16,Hull City,2,2,Everton,D
+2017,19,12/31/16,Southampton,1,2,West Brom,A
+2017,19,12/31/16,Manchester Utd,2,1,Middlesbrough,H
+2017,19,12/31/16,Burnley,4,1,Sunderland,H
+2017,19,12/31/16,Leicester City,1,0,West Ham,H
+2017,19,12/31/16,Swansea City,0,3,Bournemouth,A
+2017,19,12/31/16,Chelsea,4,2,Stoke City,H
+2017,19,12/31/16,Liverpool,1,0,Manchester City,H
+2017,19,1/1/17,Watford,1,4,Tottenham,A
+2017,19,1/1/17,Arsenal,2,0,Crystal Palace,H
+2017,20,1/2/17,Middlesbrough,0,0,Leicester City,D
+2017,20,1/2/17,Manchester City,2,1,Burnley,H
+2017,20,1/2/17,Sunderland,2,2,Liverpool,D
+2017,20,1/2/17,Everton,3,0,Southampton,H
+2017,20,1/2/17,West Brom,3,1,Hull City,H
+2017,20,1/2/17,West Ham,0,2,Manchester Utd,A
+2017,20,1/3/17,Bournemouth,3,3,Arsenal,D
+2017,20,1/3/17,Stoke City,2,0,Watford,H
+2017,20,1/3/17,Crystal Palace,1,2,Swansea City,A
+2017,20,1/4/17,Tottenham,2,0,Chelsea,H
+2017,21,1/14/17,Tottenham,4,0,West Brom,H
+2017,21,1/14/17,Hull City,3,1,Bournemouth,H
+2017,21,1/14/17,Sunderland,1,3,Stoke City,A
+2017,21,1/14/17,Burnley,1,0,Southampton,H
+2017,21,1/14/17,Swansea City,0,4,Arsenal,A
+2017,21,1/14/17,West Ham,3,0,Crystal Palace,H
+2017,21,1/14/17,Watford,0,0,Middlesbrough,D
+2017,21,1/14/17,Leicester City,0,3,Chelsea,A
+2017,21,1/15/17,Everton,4,0,Manchester City,H
+2017,21,1/15/17,Manchester Utd,1,1,Liverpool,D
+2017,22,1/21/17,Liverpool,2,3,Swansea City,A
+2017,22,1/21/17,Stoke City,1,1,Manchester Utd,D
+2017,22,1/21/17,Crystal Palace,0,1,Everton,A
+2017,22,1/21/17,Middlesbrough,1,3,West Ham,A
+2017,22,1/21/17,West Brom,2,0,Sunderland,H
+2017,22,1/21/17,Bournemouth,2,2,Watford,D
+2017,22,1/21/17,Manchester City,2,2,Tottenham,D
+2017,22,1/22/17,Southampton,3,0,Leicester City,H
+2017,22,1/22/17,Arsenal,2,1,Burnley,H
+2017,22,1/22/17,Chelsea,2,0,Hull City,H
+2017,23,1/31/17,Swansea City,2,1,Southampton,H
+2017,23,1/31/17,Bournemouth,0,2,Crystal Palace,A
+2017,23,1/31/17,Middlesbrough,1,1,West Brom,D
+2017,23,1/31/17,Arsenal,1,2,Watford,A
+2017,23,1/31/17,Burnley,1,0,Leicester City,H
+2017,23,1/31/17,Sunderland,0,0,Tottenham,D
+2017,23,1/31/17,Liverpool,1,1,Chelsea,D
+2017,23,2/1/17,West Ham,0,4,Manchester City,A
+2017,23,2/1/17,Stoke City,1,1,Everton,D
+2017,23,2/1/17,Manchester Utd,0,0,Hull City,D
+2017,24,2/4/17,Chelsea,3,1,Arsenal,H
+2017,24,2/4/17,Everton,6,3,Bournemouth,H
+2017,24,2/4/17,West Brom,1,0,Stoke City,H
+2017,24,2/4/17,Crystal Palace,0,4,Sunderland,A
+2017,24,2/4/17,Hull City,2,0,Liverpool,H
+2017,24,2/4/17,Southampton,1,3,West Ham,A
+2017,24,2/4/17,Watford,2,1,Burnley,H
+2017,24,2/4/17,Tottenham,1,0,Middlesbrough,H
+2017,24,2/5/17,Manchester City,2,1,Swansea City,H
+2017,24,2/5/17,Leicester City,0,3,Manchester Utd,A
+2017,25,2/11/17,Arsenal,2,0,Hull City,H
+2017,25,2/11/17,Stoke City,1,0,Crystal Palace,H
+2017,25,2/11/17,Middlesbrough,0,0,Everton,D
+2017,25,2/11/17,Sunderland,0,4,Southampton,A
+2017,25,2/11/17,Manchester Utd,2,0,Watford,H
+2017,25,2/11/17,West Ham,2,2,West Brom,D
+2017,25,2/11/17,Liverpool,2,0,Tottenham,H
+2017,25,2/12/17,Burnley,1,1,Chelsea,D
+2017,25,2/12/17,Swansea City,2,0,Leicester City,H
+2017,25,2/13/17,Bournemouth,0,2,Manchester City,A
+2017,26,2/25/17,Crystal Palace,1,0,Middlesbrough,H
+2017,26,2/25/17,Chelsea,3,1,Swansea City,H
+2017,26,2/25/17,Everton,2,0,Sunderland,H
+2017,26,2/25/17,Hull City,1,1,Burnley,D
+2017,26,2/25/17,West Brom,2,1,Bournemouth,H
+2017,26,2/25/17,Watford,1,1,West Ham,D
+2017,26,2/26/17,Tottenham,4,0,Stoke City,H
+2017,26,2/27/17,Leicester City,3,1,Liverpool,H
+2017,27,3/4/17,Manchester Utd,1,1,Bournemouth,D
+2017,27,3/4/17,Watford,3,4,Southampton,A
+2017,27,3/4/17,Leicester City,3,1,Hull City,H
+2017,27,3/4/17,West Brom,0,2,Crystal Palace,A
+2017,27,3/4/17,Stoke City,2,0,Middlesbrough,H
+2017,27,3/4/17,Swansea City,3,2,Burnley,H
+2017,27,3/4/17,Liverpool,3,1,Arsenal,H
+2017,27,3/5/17,Tottenham,3,2,Everton,H
+2017,27,3/5/17,Sunderland,0,2,Manchester City,A
+2017,27,3/6/17,West Ham,1,2,Chelsea,A
+2017,28,3/8/17,Manchester City,0,0,Stoke City,D
+2017,28,3/11/17,Bournemouth,3,2,West Ham,H
+2017,28,3/11/17,Everton,3,0,West Brom,H
+2017,28,3/11/17,Hull City,2,1,Swansea City,H
+2017,28,3/12/17,Liverpool,2,1,Burnley,H
+2017,29,3/18/17,West Brom,3,1,Arsenal,H
+2017,29,3/18/17,Stoke City,1,2,Chelsea,A
+2017,29,3/18/17,Crystal Palace,1,0,Watford,H
+2017,29,3/18/17,West Ham,2,3,Leicester City,A
+2017,29,3/18/17,Everton,4,0,Hull City,H
+2017,29,3/18/17,Sunderland,0,0,Burnley,D
+2017,29,3/18/17,Bournemouth,2,0,Swansea City,H
+2017,29,3/19/17,Middlesbrough,1,3,Manchester Utd,A
+2017,29,3/19/17,Tottenham,2,1,Southampton,H
+2017,29,3/19/17,Manchester City,1,1,Liverpool,D
+2017,30,4/1/17,Liverpool,3,1,Everton,H
+2017,30,4/1/17,Hull City,2,1,West Ham,H
+2017,30,4/1/17,Manchester Utd,0,0,West Brom,D
+2017,30,4/1/17,Chelsea,1,2,Crystal Palace,A
+2017,30,4/1/17,Burnley,0,2,Tottenham,A
+2017,30,4/1/17,Leicester City,2,0,Stoke City,H
+2017,30,4/1/17,Watford,1,0,Sunderland,H
+2017,30,4/1/17,Southampton,0,0,Bournemouth,D
+2017,30,4/2/17,Swansea City,0,0,Middlesbrough,D
+2017,30,4/2/17,Arsenal,2,2,Manchester City,D
+2017,31,4/4/17,Burnley,1,0,Stoke City,H
+2017,31,4/4/17,Watford,2,0,West Brom,H
+2017,31,4/4/17,Leicester City,2,0,Sunderland,H
+2017,31,4/4/17,Manchester Utd,1,1,Everton,D
+2017,31,4/5/17,Arsenal,3,0,West Ham,H
+2017,31,4/5/17,Swansea City,1,3,Tottenham,A
+2017,31,4/5/17,Southampton,3,1,Crystal Palace,H
+2017,31,4/5/17,Hull City,4,2,Middlesbrough,H
+2017,31,4/5/17,Liverpool,2,2,Bournemouth,D
+2017,31,4/5/17,Chelsea,2,1,Manchester City,H
+2017,32,4/8/17,Tottenham,4,0,Watford,H
+2017,32,4/8/17,Middlesbrough,0,0,Burnley,D
+2017,32,4/8/17,Manchester City,3,1,Hull City,H
+2017,32,4/8/17,Stoke City,1,2,Liverpool,A
+2017,32,4/8/17,West Brom,0,1,Southampton,A
+2017,32,4/8/17,West Ham,1,0,Swansea City,H
+2017,32,4/8/17,Bournemouth,1,3,Chelsea,A
+2017,32,4/9/17,Sunderland,0,3,Manchester Utd,A
+2017,32,4/9/17,Everton,4,2,Leicester City,H
+2017,32,4/10/17,Crystal Palace,3,0,Arsenal,H
+2017,33,4/15/17,Tottenham,4,0,Bournemouth,H
+2017,33,4/15/17,Stoke City,3,1,Hull City,H
+2017,33,4/15/17,Sunderland,2,2,West Ham,D
+2017,33,4/15/17,Watford,1,0,Swansea City,H
+2017,33,4/15/17,Crystal Palace,2,2,Leicester City,D
+2017,33,4/15/17,Everton,3,1,Burnley,H
+2017,33,4/15/17,Southampton,0,3,Manchester City,A
+2017,33,4/16/17,West Brom,0,1,Liverpool,A
+2017,33,4/16/17,Manchester Utd,2,0,Chelsea,H
+2017,33,4/17/17,Middlesbrough,1,2,Arsenal,A
+2017,34,4/22/17,Swansea City,2,0,Stoke City,H
+2017,34,4/22/17,Bournemouth,4,0,Middlesbrough,H
+2017,34,4/22/17,West Ham,0,0,Everton,D
+2017,34,4/22/17,Hull City,2,0,Watford,H
+2017,34,4/23/17,Burnley,0,2,Manchester Utd,A
+2017,34,4/23/17,Liverpool,1,2,Crystal Palace,A
+2017,34,4/25/17,Chelsea,4,2,Southampton,H
+2017,28,4/26/17,Middlesbrough,1,0,Sunderland,H
+2017,28,4/26/17,Arsenal,1,0,Leicester City,H
+2017,28,4/26/17,Crystal Palace,0,1,Tottenham,A
+2017,26,4/27/17,Manchester City,0,0,Manchester Utd,D
+2017,35,4/29/17,Southampton,0,0,Hull City,D
+2017,35,4/29/17,Sunderland,0,1,Bournemouth,A
+2017,35,4/29/17,West Brom,0,1,Leicester City,A
+2017,35,4/29/17,Stoke City,0,0,West Ham,D
+2017,35,4/29/17,Crystal Palace,0,2,Burnley,A
+2017,35,4/30/17,Manchester Utd,1,1,Swansea City,D
+2017,35,4/30/17,Everton,0,3,Chelsea,A
+2017,35,4/30/17,Middlesbrough,2,2,Manchester City,D
+2017,35,4/30/17,Tottenham,2,0,Arsenal,H
+2017,35,5/1/17,Watford,0,1,Liverpool,A
+2017,36,5/5/17,West Ham,1,0,Tottenham,H
+2017,36,5/6/17,Manchester City,5,0,Crystal Palace,H
+2017,36,5/6/17,Bournemouth,2,2,Stoke City,D
+2017,36,5/6/17,Leicester City,3,0,Watford,H
+2017,36,5/6/17,Hull City,0,2,Sunderland,A
+2017,36,5/6/17,Burnley,2,2,West Brom,D
+2017,36,5/6/17,Swansea City,1,0,Everton,H
+2017,36,5/7/17,Liverpool,0,0,Southampton,D
+2017,36,5/7/17,Arsenal,2,0,Manchester Utd,H
+2017,36,5/8/17,Chelsea,3,0,Middlesbrough,H
+2017,26,5/10/17,Southampton,0,2,Arsenal,A
+2017,37,5/12/17,Everton,1,0,Watford,H
+2017,37,5/12/17,West Brom,0,1,Chelsea,A
+2017,37,5/13/17,Manchester City,2,1,Leicester City,H
+2017,37,5/13/17,Sunderland,0,2,Swansea City,A
+2017,37,5/13/17,Middlesbrough,1,2,Southampton,A
+2017,37,5/13/17,Bournemouth,2,1,Burnley,H
+2017,37,5/13/17,Stoke City,1,4,Arsenal,A
+2017,37,5/14/17,Crystal Palace,4,0,Hull City,H
+2017,37,5/14/17,West Ham,0,4,Liverpool,A
+2017,37,5/14/17,Tottenham,2,1,Manchester Utd,H
+2017,28,5/15/17,Chelsea,4,3,Watford,H
+2017,34,5/16/17,Arsenal,2,0,Sunderland,H
+2017,34,5/16/17,Manchester City,3,1,West Brom,H
+2017,28,5/17/17,Southampton,0,0,Manchester Utd,D
+2017,34,5/18/17,Leicester City,1,6,Tottenham,A
+2017,38,5/21/17,Manchester Utd,2,0,Crystal Palace,H
+2017,38,5/21/17,Watford,0,5,Manchester City,A
+2017,38,5/21/17,Hull City,1,7,Tottenham,A
+2017,38,5/21/17,Leicester City,1,1,Bournemouth,D
+2017,38,5/21/17,Liverpool,3,0,Middlesbrough,H
+2017,38,5/21/17,Southampton,0,1,Stoke City,A
+2017,38,5/21/17,Burnley,1,2,West Ham,A
+2017,38,5/21/17,Arsenal,3,1,Everton,H
+2017,38,5/21/17,Swansea City,2,1,West Brom,H
+2017,38,5/21/17,Chelsea,5,1,Sunderland,H
+2018,1,8/11/17,Arsenal,4,3,Leicester City,H
+2018,1,8/12/17,Watford,3,3,Liverpool,D
+2018,1,8/12/17,Southampton,0,0,Swansea City,D
+2018,1,8/12/17,Chelsea,2,3,Burnley,A
+2018,1,8/12/17,West Brom,1,0,Bournemouth,H
+2018,1,8/12/17,Everton,1,0,Stoke City,H
+2018,1,8/12/17,Crystal Palace,0,3,Huddersfield,A
+2018,1,8/12/17,Brighton,0,2,Manchester City,A
+2018,1,8/13/17,Newcastle Utd,0,2,Tottenham,A
+2018,1,8/13/17,Manchester Utd,4,0,West Ham,H
+2018,2,8/19/17,Swansea City,0,4,Manchester Utd,A
+2018,2,8/19/17,Leicester City,2,0,Brighton,H
+2018,2,8/19/17,Burnley,0,1,West Brom,A
+2018,2,8/19/17,Liverpool,1,0,Crystal Palace,H
+2018,2,8/19/17,Bournemouth,0,2,Watford,A
+2018,2,8/19/17,Southampton,3,2,West Ham,H
+2018,2,8/19/17,Stoke City,1,0,Arsenal,H
+2018,2,8/20/17,Huddersfield,1,0,Newcastle Utd,H
+2018,2,8/20/17,Tottenham,1,2,Chelsea,A
+2018,2,8/21/17,Manchester City,1,1,Everton,D
+2018,3,8/26/17,Bournemouth,1,2,Manchester City,A
+2018,3,8/26/17,Watford,0,0,Brighton,D
+2018,3,8/26/17,Newcastle Utd,3,0,West Ham,H
+2018,3,8/26/17,Crystal Palace,0,2,Swansea City,A
+2018,3,8/26/17,Huddersfield,0,0,Southampton,D
+2018,3,8/26/17,Manchester Utd,2,0,Leicester City,H
+2018,3,8/27/17,West Brom,1,1,Stoke City,D
+2018,3,8/27/17,Chelsea,2,0,Everton,H
+2018,3,8/27/17,Liverpool,4,0,Arsenal,H
+2018,3,8/27/17,Tottenham,1,1,Burnley,D
+2018,4,9/9/17,Manchester City,5,0,Liverpool,H
+2018,4,9/9/17,Southampton,0,2,Watford,A
+2018,4,9/9/17,Everton,0,3,Tottenham,A
+2018,4,9/9/17,Brighton,3,1,West Brom,H
+2018,4,9/9/17,Leicester City,1,2,Chelsea,A
+2018,4,9/9/17,Arsenal,3,0,Bournemouth,H
+2018,4,9/9/17,Stoke City,2,2,Manchester Utd,D
+2018,4,9/10/17,Burnley,1,0,Crystal Palace,H
+2018,4,9/10/17,Swansea City,0,1,Newcastle Utd,A
+2018,4,9/11/17,West Ham,2,0,Huddersfield,H
+2018,5,9/15/17,Bournemouth,2,1,Brighton,H
+2018,5,9/16/17,Crystal Palace,0,1,Southampton,A
+2018,5,9/16/17,West Brom,0,0,West Ham,D
+2018,5,9/16/17,Liverpool,1,1,Burnley,D
+2018,5,9/16/17,Newcastle Utd,2,1,Stoke City,H
+2018,5,9/16/17,Watford,0,6,Manchester City,A
+2018,5,9/16/17,Huddersfield,1,1,Leicester City,D
+2018,5,9/16/17,Tottenham,0,0,Swansea City,D
+2018,5,9/17/17,Chelsea,0,0,Arsenal,D
+2018,5,9/17/17,Manchester Utd,4,0,Everton,H
+2018,6,9/23/17,West Ham,2,3,Tottenham,A
+2018,6,9/23/17,Manchester City,5,0,Crystal Palace,H
+2018,6,9/23/17,Everton,2,1,Bournemouth,H
+2018,6,9/23/17,Burnley,0,0,Huddersfield,D
+2018,6,9/23/17,Swansea City,1,2,Watford,A
+2018,6,9/23/17,Southampton,0,1,Manchester Utd,A
+2018,6,9/23/17,Stoke City,0,4,Chelsea,A
+2018,6,9/23/17,Leicester City,2,3,Liverpool,A
+2018,6,9/24/17,Brighton,1,0,Newcastle Utd,H
+2018,6,9/25/17,Arsenal,2,0,West Brom,H
+2018,7,9/30/17,Huddersfield,0,4,Tottenham,A
+2018,7,9/30/17,West Ham,1,0,Swansea City,H
+2018,7,9/30/17,West Brom,2,2,Watford,D
+2018,7,9/30/17,Bournemouth,0,0,Leicester City,D
+2018,7,9/30/17,Manchester Utd,4,0,Crystal Palace,H
+2018,7,9/30/17,Stoke City,2,1,Southampton,H
+2018,7,9/30/17,Chelsea,0,1,Manchester City,A
+2018,7,10/1/17,Arsenal,2,0,Brighton,H
+2018,7,10/1/17,Everton,0,1,Burnley,A
+2018,7,10/1/17,Newcastle Utd,1,1,Liverpool,D
+2018,8,10/14/17,Liverpool,0,0,Manchester Utd,D
+2018,8,10/14/17,Tottenham,1,0,Bournemouth,H
+2018,8,10/14/17,Manchester City,7,2,Stoke City,H
+2018,8,10/14/17,Crystal Palace,2,1,Chelsea,H
+2018,8,10/14/17,Burnley,1,1,West Ham,D
+2018,8,10/14/17,Swansea City,2,0,Huddersfield,H
+2018,8,10/14/17,Watford,2,1,Arsenal,H
+2018,8,10/15/17,Brighton,1,1,Everton,D
+2018,8,10/15/17,Southampton,2,2,Newcastle Utd,D
+2018,8,10/16/17,Leicester City,1,1,West Brom,D
+2018,9,10/20/17,West Ham,0,3,Brighton,A
+2018,9,10/21/17,Chelsea,4,2,Watford,H
+2018,9,10/21/17,Huddersfield,2,1,Manchester Utd,H
+2018,9,10/21/17,Newcastle Utd,1,0,Crystal Palace,H
+2018,9,10/21/17,Swansea City,1,2,Leicester City,A
+2018,9,10/21/17,Stoke City,1,2,Bournemouth,A
+2018,9,10/21/17,Manchester City,3,0,Burnley,H
+2018,9,10/21/17,Southampton,1,0,West Brom,H
+2018,9,10/22/17,Everton,2,5,Arsenal,A
+2018,9,10/22/17,Tottenham,4,1,Liverpool,H
+2018,10,10/28/17,Manchester Utd,1,0,Tottenham,H
+2018,10,10/28/17,Watford,0,1,Stoke City,A
+2018,10,10/28/17,Arsenal,2,1,Swansea City,H
+2018,10,10/28/17,Crystal Palace,2,2,West Ham,D
+2018,10,10/28/17,West Brom,2,3,Manchester City,A
+2018,10,10/28/17,Liverpool,3,0,Huddersfield,H
+2018,10,10/28/17,Bournemouth,0,1,Chelsea,A
+2018,10,10/29/17,Brighton,1,1,Southampton,D
+2018,10,10/29/17,Leicester City,2,0,Everton,H
+2018,10,10/30/17,Burnley,1,0,Newcastle Utd,H
+2018,11,11/4/17,Stoke City,2,2,Leicester City,D
+2018,11,11/4/17,Southampton,0,1,Burnley,A
+2018,11,11/4/17,Swansea City,0,1,Brighton,A
+2018,11,11/4/17,Newcastle Utd,0,1,Bournemouth,A
+2018,11,11/4/17,Huddersfield,1,0,West Brom,H
+2018,11,11/4/17,West Ham,1,4,Liverpool,A
+2018,11,11/5/17,Tottenham,1,0,Crystal Palace,H
+2018,11,11/5/17,Manchester City,3,1,Arsenal,H
+2018,11,11/5/17,Everton,3,2,Watford,H
+2018,11,11/5/17,Chelsea,1,0,Manchester Utd,H
+2018,12,11/18/17,Arsenal,2,0,Tottenham,H
+2018,12,11/18/17,Burnley,2,0,Swansea City,H
+2018,12,11/18/17,Crystal Palace,2,2,Everton,D
+2018,12,11/18/17,Bournemouth,4,0,Huddersfield,H
+2018,12,11/18/17,Liverpool,3,0,Southampton,H
+2018,12,11/18/17,West Brom,0,4,Chelsea,A
+2018,12,11/18/17,Leicester City,0,2,Manchester City,A
+2018,12,11/18/17,Manchester Utd,4,1,Newcastle Utd,H
+2018,12,11/19/17,Watford,2,0,West Ham,H
+2018,12,11/20/17,Brighton,2,2,Stoke City,D
+2018,13,11/24/17,West Ham,1,1,Leicester City,D
+2018,13,11/25/17,Swansea City,0,0,Bournemouth,D
+2018,13,11/25/17,Tottenham,1,1,West Brom,D
+2018,13,11/25/17,Manchester Utd,1,0,Brighton,H
+2018,13,11/25/17,Crystal Palace,2,1,Stoke City,H
+2018,13,11/25/17,Newcastle Utd,0,3,Watford,A
+2018,13,11/25/17,Liverpool,1,1,Chelsea,D
+2018,13,11/26/17,Southampton,4,1,Everton,H
+2018,13,11/26/17,Burnley,0,1,Arsenal,A
+2018,13,11/26/17,Huddersfield,1,2,Manchester City,A
+2018,14,11/28/17,Brighton,0,0,Crystal Palace,D
+2018,14,11/28/17,Leicester City,2,1,Tottenham,H
+2018,14,11/28/17,Watford,2,4,Manchester Utd,A
+2018,14,11/28/17,West Brom,2,2,Newcastle Utd,D
+2018,14,11/29/17,Arsenal,5,0,Huddersfield,H
+2018,14,11/29/17,Chelsea,1,0,Swansea City,H
+2018,14,11/29/17,Bournemouth,1,2,Burnley,A
+2018,14,11/29/17,Manchester City,2,1,Southampton,H
+2018,14,11/29/17,Everton,4,0,West Ham,H
+2018,14,11/29/17,Stoke City,0,3,Liverpool,A
+2018,15,12/2/17,Chelsea,3,1,Newcastle Utd,H
+2018,15,12/2/17,Everton,2,0,Huddersfield,H
+2018,15,12/2/17,Stoke City,2,1,Swansea City,H
+2018,15,12/2/17,Watford,1,1,Tottenham,D
+2018,15,12/2/17,Leicester City,1,0,Burnley,H
+2018,15,12/2/17,West Brom,0,0,Crystal Palace,D
+2018,15,12/2/17,Brighton,1,5,Liverpool,A
+2018,15,12/2/17,Arsenal,1,3,Manchester Utd,A
+2018,15,12/3/17,Bournemouth,1,1,Southampton,D
+2018,15,12/3/17,Manchester City,2,1,West Ham,H
+2018,16,12/9/17,West Ham,1,0,Chelsea,H
+2018,16,12/9/17,Swansea City,1,0,West Brom,H
+2018,16,12/9/17,Tottenham,5,1,Stoke City,H
+2018,16,12/9/17,Crystal Palace,2,2,Bournemouth,D
+2018,16,12/9/17,Burnley,1,0,Watford,H
+2018,16,12/9/17,Huddersfield,2,0,Brighton,H
+2018,16,12/9/17,Newcastle Utd,2,3,Leicester City,A
+2018,16,12/10/17,Southampton,1,1,Arsenal,D
+2018,16,12/10/17,Liverpool,1,1,Everton,D
+2018,16,12/10/17,Manchester Utd,1,2,Manchester City,A
+2018,17,12/12/17,Burnley,1,0,Stoke City,H
+2018,17,12/12/17,Huddersfield,1,3,Chelsea,A
+2018,17,12/12/17,Crystal Palace,2,1,Watford,H
+2018,17,12/13/17,Southampton,1,4,Leicester City,A
+2018,17,12/13/17,Swansea City,0,4,Manchester City,A
+2018,17,12/13/17,Newcastle Utd,0,1,Everton,A
+2018,17,12/13/17,Manchester Utd,1,0,Bournemouth,H
+2018,17,12/13/17,Tottenham,2,0,Brighton,H
+2018,17,12/13/17,Liverpool,0,0,West Brom,D
+2018,17,12/13/17,West Ham,0,0,Arsenal,D
+2018,18,12/16/17,Leicester City,0,3,Crystal Palace,A
+2018,18,12/16/17,Brighton,0,0,Burnley,D
+2018,18,12/16/17,Chelsea,1,0,Southampton,H
+2018,18,12/16/17,Arsenal,1,0,Newcastle Utd,H
+2018,18,12/16/17,Watford,1,4,Huddersfield,A
+2018,18,12/16/17,Stoke City,0,3,West Ham,A
+2018,18,12/16/17,Manchester City,4,1,Tottenham,H
+2018,18,12/17/17,West Brom,1,2,Manchester Utd,A
+2018,18,12/17/17,Bournemouth,0,4,Liverpool,A
+2018,18,12/18/17,Everton,3,1,Swansea City,H
+2018,19,12/22/17,Arsenal,3,3,Liverpool,D
+2018,19,12/23/17,Everton,0,0,Chelsea,D
+2018,19,12/23/17,Southampton,1,1,Huddersfield,D
+2018,19,12/23/17,Brighton,1,0,Watford,H
+2018,19,12/23/17,Stoke City,3,1,West Brom,H
+2018,19,12/23/17,Swansea City,1,1,Crystal Palace,D
+2018,19,12/23/17,West Ham,2,3,Newcastle Utd,A
+2018,19,12/23/17,Manchester City,4,0,Bournemouth,H
+2018,19,12/23/17,Burnley,0,3,Tottenham,A
+2018,19,12/23/17,Leicester City,2,2,Manchester Utd,D
+2018,20,12/26/17,Tottenham,5,2,Southampton,H
+2018,20,12/26/17,Manchester Utd,2,2,Burnley,D
+2018,20,12/26/17,Chelsea,2,0,Brighton,H
+2018,20,12/26/17,Watford,2,1,Leicester City,H
+2018,20,12/26/17,West Brom,0,0,Everton,D
+2018,20,12/26/17,Huddersfield,1,1,Stoke City,D
+2018,20,12/26/17,Bournemouth,3,3,West Ham,D
+2018,20,12/26/17,Liverpool,5,0,Swansea City,H
+2018,20,12/27/17,Newcastle Utd,0,1,Manchester City,A
+2018,20,12/28/17,Crystal Palace,2,3,Arsenal,A
+2018,21,12/30/17,Newcastle Utd,0,0,Brighton,D
+2018,21,12/30/17,Liverpool,2,1,Leicester City,H
+2018,21,12/30/17,Chelsea,5,0,Stoke City,H
+2018,21,12/30/17,Huddersfield,0,0,Burnley,D
+2018,21,12/30/17,Watford,1,2,Swansea City,A
+2018,21,12/30/17,Bournemouth,2,1,Everton,H
+2018,21,12/30/17,Manchester Utd,0,0,Southampton,D
+2018,21,12/31/17,Crystal Palace,0,0,Manchester City,D
+2018,21,12/31/17,West Brom,1,1,Arsenal,D
+2018,22,1/1/18,Brighton,2,2,Bournemouth,D
+2018,22,1/1/18,Burnley,1,2,Liverpool,A
+2018,22,1/1/18,Leicester City,3,0,Huddersfield,H
+2018,22,1/1/18,Stoke City,0,1,Newcastle Utd,A
+2018,22,1/1/18,Everton,0,2,Manchester Utd,A
+2018,22,1/2/18,Southampton,1,2,Crystal Palace,A
+2018,22,1/2/18,West Ham,2,1,West Brom,H
+2018,22,1/2/18,Swansea City,0,2,Tottenham,A
+2018,22,1/2/18,Manchester City,3,1,Watford,H
+2018,22,1/3/18,Arsenal,2,2,Chelsea,D
+2018,21,1/4/18,Tottenham,1,1,West Ham,D
+2018,23,1/13/18,Newcastle Utd,1,1,Swansea City,D
+2018,23,1/13/18,Crystal Palace,1,0,Burnley,H
+2018,23,1/13/18,Watford,2,2,Southampton,D
+2018,23,1/13/18,Chelsea,0,0,Leicester City,D
+2018,23,1/13/18,West Brom,2,0,Brighton,H
+2018,23,1/13/18,Huddersfield,1,4,West Ham,A
+2018,23,1/13/18,Tottenham,4,0,Everton,H
+2018,23,1/14/18,Bournemouth,2,1,Arsenal,H
+2018,23,1/14/18,Liverpool,4,3,Manchester City,H
+2018,23,1/15/18,Manchester Utd,3,0,Stoke City,H
+2018,24,1/20/18,Brighton,0,4,Chelsea,A
+2018,24,1/20/18,Everton,1,1,West Brom,D
+2018,24,1/20/18,Burnley,0,1,Manchester Utd,A
+2018,24,1/20/18,Arsenal,4,1,Crystal Palace,H
+2018,24,1/20/18,Leicester City,2,0,Watford,H
+2018,24,1/20/18,West Ham,1,1,Bournemouth,D
+2018,24,1/20/18,Stoke City,2,0,Huddersfield,H
+2018,24,1/20/18,Manchester City,3,1,Newcastle Utd,H
+2018,24,1/21/18,Southampton,1,1,Tottenham,D
+2018,24,1/22/18,Swansea City,1,0,Liverpool,H
+2018,25,1/30/18,Swansea City,3,1,Arsenal,H
+2018,25,1/30/18,West Ham,1,1,Crystal Palace,D
+2018,25,1/30/18,Huddersfield,0,3,Liverpool,A
+2018,25,1/31/18,Southampton,1,1,Brighton,D
+2018,25,1/31/18,Chelsea,0,3,Bournemouth,A
+2018,25,1/31/18,Everton,2,1,Leicester City,H
+2018,25,1/31/18,Newcastle Utd,1,1,Burnley,D
+2018,25,1/31/18,Stoke City,0,0,Watford,D
+2018,25,1/31/18,Manchester City,3,0,West Brom,H
+2018,25,1/31/18,Tottenham,2,0,Manchester Utd,H
+2018,26,2/3/18,Burnley,1,1,Manchester City,D
+2018,26,2/3/18,Leicester City,1,1,Swansea City,D
+2018,26,2/3/18,Bournemouth,2,1,Stoke City,H
+2018,26,2/3/18,West Brom,2,3,Southampton,A
+2018,26,2/3/18,Manchester Utd,2,0,Huddersfield,H
+2018,26,2/3/18,Brighton,3,1,West Ham,H
+2018,26,2/3/18,Arsenal,5,1,Everton,H
+2018,26,2/4/18,Crystal Palace,1,1,Newcastle Utd,D
+2018,26,2/4/18,Liverpool,2,2,Tottenham,D
+2018,26,2/5/18,Watford,4,1,Chelsea,H
+2018,27,2/10/18,Tottenham,1,0,Arsenal,H
+2018,27,2/10/18,Everton,3,1,Crystal Palace,H
+2018,27,2/10/18,Stoke City,1,1,Brighton,D
+2018,27,2/10/18,Swansea City,1,0,Burnley,H
+2018,27,2/10/18,West Ham,2,0,Watford,H
+2018,27,2/10/18,Manchester City,5,1,Leicester City,H
+2018,27,2/11/18,Huddersfield,4,1,Bournemouth,H
+2018,27,2/11/18,Newcastle Utd,1,0,Manchester Utd,H
+2018,27,2/11/18,Southampton,0,2,Liverpool,A
+2018,27,2/12/18,Chelsea,3,0,West Brom,H
+2018,28,2/24/18,Leicester City,1,1,Stoke City,D
+2018,28,2/24/18,Burnley,1,1,Southampton,D
+2018,28,2/24/18,West Brom,1,2,Huddersfield,A
+2018,28,2/24/18,Liverpool,4,1,West Ham,H
+2018,28,2/24/18,Bournemouth,2,2,Newcastle Utd,D
+2018,28,2/24/18,Brighton,4,1,Swansea City,H
+2018,28,2/24/18,Watford,1,0,Everton,H
+2018,28,2/25/18,Crystal Palace,0,1,Tottenham,A
+2018,28,2/25/18,Manchester Utd,2,1,Chelsea,H
+2018,28,3/1/18,Arsenal,0,3,Manchester City,A
+2018,29,3/3/18,Burnley,2,1,Everton,H
+2018,29,3/3/18,Swansea City,4,1,West Ham,H
+2018,29,3/3/18,Tottenham,2,0,Huddersfield,H
+2018,29,3/3/18,Southampton,0,0,Stoke City,D
+2018,29,3/3/18,Leicester City,1,1,Bournemouth,D
+2018,29,3/3/18,Watford,1,0,West Brom,H
+2018,29,3/3/18,Liverpool,2,0,Newcastle Utd,H
+2018,29,3/4/18,Brighton,2,1,Arsenal,H
+2018,29,3/4/18,Manchester City,1,0,Chelsea,H
+2018,29,3/5/18,Crystal Palace,2,3,Manchester Utd,A
+2018,30,3/10/18,Manchester Utd,2,1,Liverpool,H
+2018,30,3/10/18,Huddersfield,0,0,Swansea City,D
+2018,30,3/10/18,West Brom,1,4,Leicester City,A
+2018,30,3/10/18,Everton,2,0,Brighton,H
+2018,30,3/10/18,Newcastle Utd,3,0,Southampton,H
+2018,30,3/10/18,West Ham,0,3,Burnley,A
+2018,30,3/10/18,Chelsea,2,1,Crystal Palace,H
+2018,30,3/11/18,Arsenal,3,0,Watford,H
+2018,30,3/11/18,Bournemouth,1,4,Tottenham,A
+2018,30,3/12/18,Stoke City,0,2,Manchester City,A
+2018,31,3/17/18,Bournemouth,2,1,West Brom,H
+2018,31,3/17/18,Stoke City,1,2,Everton,A
+2018,31,3/17/18,Huddersfield,0,2,Crystal Palace,A
+2018,31,3/17/18,Liverpool,5,0,Watford,H
+2018,32,3/31/18,Crystal Palace,1,2,Liverpool,A
+2018,32,3/31/18,Watford,2,2,Bournemouth,D
+2018,32,3/31/18,Brighton,0,2,Leicester City,A
+2018,32,3/31/18,West Brom,1,2,Burnley,A
+2018,32,3/31/18,Newcastle Utd,1,0,Huddersfield,H
+2018,32,3/31/18,Manchester Utd,2,0,Swansea City,H
+2018,32,3/31/18,West Ham,3,0,Southampton,H
+2018,32,3/31/18,Everton,1,3,Manchester City,A
+2018,32,4/1/18,Arsenal,3,0,Stoke City,H
+2018,32,4/1/18,Chelsea,1,3,Tottenham,A
+2018,33,4/7/18,Everton,0,0,Liverpool,D
+2018,33,4/7/18,Leicester City,1,2,Newcastle Utd,A
+2018,33,4/7/18,Brighton,1,1,Huddersfield,D
+2018,33,4/7/18,Stoke City,1,2,Tottenham,A
+2018,33,4/7/18,Bournemouth,2,2,Crystal Palace,D
+2018,33,4/7/18,Watford,1,2,Burnley,A
+2018,33,4/7/18,West Brom,1,1,Swansea City,D
+2018,33,4/7/18,Manchester City,2,3,Manchester Utd,A
+2018,33,4/8/18,Arsenal,3,2,Southampton,H
+2018,33,4/8/18,Chelsea,1,1,West Ham,D
+2018,34,4/14/18,Southampton,2,3,Chelsea,A
+2018,34,4/14/18,Burnley,2,1,Leicester City,H
+2018,34,4/14/18,Crystal Palace,3,2,Brighton,H
+2018,34,4/14/18,Swansea City,1,1,Everton,D
+2018,34,4/14/18,Huddersfield,1,0,Watford,H
+2018,34,4/14/18,Liverpool,3,0,Bournemouth,H
+2018,34,4/14/18,Tottenham,1,3,Manchester City,A
+2018,34,4/15/18,Newcastle Utd,2,1,Arsenal,H
+2018,34,4/15/18,Manchester Utd,0,1,West Brom,A
+2018,34,4/16/18,West Ham,1,1,Stoke City,D
+2018,35,4/17/18,Brighton,1,1,Tottenham,D
+2018,35,4/18/18,Bournemouth,0,2,Manchester Utd,A
+2018,31,4/19/18,Burnley,1,2,Chelsea,A
+2018,35,4/19/18,Leicester City,0,0,Southampton,D
+2018,35,4/21/18,West Brom,2,2,Liverpool,D
+2018,35,4/21/18,Watford,0,0,Crystal Palace,D
+2018,35,4/22/18,Stoke City,1,1,Burnley,D
+2018,35,4/22/18,Arsenal,4,1,West Ham,H
+2018,35,4/22/18,Manchester City,5,0,Swansea City,H
+2018,35,4/23/18,Everton,1,0,Newcastle Utd,H
+2018,36,4/28/18,Liverpool,0,0,Stoke City,D
+2018,36,4/28/18,Burnley,0,0,Brighton,D
+2018,36,4/28/18,Huddersfield,0,2,Everton,A
+2018,36,4/28/18,Southampton,2,1,Bournemouth,H
+2018,36,4/28/18,Crystal Palace,5,0,Leicester City,H
+2018,36,4/28/18,Newcastle Utd,0,1,West Brom,A
+2018,36,4/28/18,Swansea City,0,1,Chelsea,A
+2018,36,4/29/18,West Ham,1,4,Manchester City,A
+2018,36,4/29/18,Manchester Utd,2,1,Arsenal,H
+2018,36,4/30/18,Tottenham,2,0,Watford,H
+2018,37,5/4/18,Brighton,1,0,Manchester Utd,H
+2018,37,5/5/18,Stoke City,1,2,Crystal Palace,A
+2018,37,5/5/18,Bournemouth,1,0,Swansea City,H
+2018,37,5/5/18,Watford,2,1,Newcastle Utd,H
+2018,37,5/5/18,West Brom,1,0,Tottenham,H
+2018,37,5/5/18,Leicester City,0,2,West Ham,A
+2018,37,5/5/18,Everton,1,1,Southampton,D
+2018,37,5/6/18,Manchester City,0,0,Huddersfield,D
+2018,37,5/6/18,Chelsea,1,0,Liverpool,H
+2018,37,5/6/18,Arsenal,5,0,Burnley,H
+2018,31,5/8/18,Swansea City,0,1,Southampton,A
+2018,31,5/9/18,Leicester City,3,1,Arsenal,H
+2018,31,5/9/18,Manchester City,3,1,Brighton,H
+2018,31,5/9/18,Tottenham,1,0,Newcastle Utd,H
+2018,35,5/9/18,Chelsea,1,1,Huddersfield,D
+2018,31,5/10/18,West Ham,0,0,Manchester Utd,D
+2018,38,5/13/18,Southampton,0,1,Manchester City,A
+2018,38,5/13/18,Swansea City,1,2,Stoke City,A
+2018,38,5/13/18,Manchester Utd,1,0,Watford,H
+2018,38,5/13/18,Burnley,1,2,Bournemouth,A
+2018,38,5/13/18,Newcastle Utd,3,0,Chelsea,H
+2018,38,5/13/18,West Ham,3,1,Everton,H
+2018,38,5/13/18,Huddersfield,0,1,Arsenal,A
+2018,38,5/13/18,Tottenham,5,4,Leicester City,H
+2018,38,5/13/18,Crystal Palace,2,0,West Brom,H
+2018,38,5/13/18,Liverpool,4,0,Brighton,H
+2019,1,8/10/18,Manchester Utd,2,1,Leicester City,H
+2019,1,8/11/18,Newcastle Utd,1,2,Tottenham,A
+2019,1,8/11/18,Bournemouth,2,0,Cardiff City,H
+2019,1,8/11/18,Fulham,0,2,Crystal Palace,A
+2019,1,8/11/18,Huddersfield,0,3,Chelsea,A
+2019,1,8/11/18,Watford,2,0,Brighton,H
+2019,1,8/11/18,Wolves,2,2,Everton,D
+2019,1,8/12/18,Southampton,0,0,Burnley,D
+2019,1,8/12/18,Liverpool,4,0,West Ham,H
+2019,1,8/12/18,Arsenal,0,2,Manchester City,A
+2019,2,8/18/18,Cardiff City,0,0,Newcastle Utd,D
+2019,2,8/18/18,Everton,2,1,Southampton,H
+2019,2,8/18/18,West Ham,1,2,Bournemouth,A
+2019,2,8/18/18,Leicester City,2,0,Wolves,H
+2019,2,8/18/18,Tottenham,3,1,Fulham,H
+2019,2,8/18/18,Chelsea,3,2,Arsenal,H
+2019,2,8/19/18,Manchester City,6,1,Huddersfield,H
+2019,2,8/19/18,Burnley,1,3,Watford,A
+2019,2,8/19/18,Brighton,3,2,Manchester Utd,H
+2019,2,8/20/18,Crystal Palace,0,2,Liverpool,A
+2019,3,8/25/18,Wolves,1,1,Manchester City,D
+2019,3,8/25/18,Arsenal,3,1,West Ham,H
+2019,3,8/25/18,Huddersfield,0,0,Cardiff City,D
+2019,3,8/25/18,Southampton,1,2,Leicester City,A
+2019,3,8/25/18,Bournemouth,2,2,Everton,D
+2019,3,8/25/18,Liverpool,1,0,Brighton,H
+2019,3,8/26/18,Watford,2,1,Crystal Palace,H
+2019,3,8/26/18,Fulham,4,2,Burnley,H
+2019,3,8/26/18,Newcastle Utd,1,2,Chelsea,A
+2019,3,8/27/18,Manchester Utd,0,3,Tottenham,A
+2019,4,9/1/18,Leicester City,1,2,Liverpool,A
+2019,4,9/1/18,Chelsea,2,0,Bournemouth,H
+2019,4,9/1/18,Everton,1,1,Huddersfield,D
+2019,4,9/1/18,Crystal Palace,0,2,Southampton,A
+2019,4,9/1/18,Brighton,2,2,Fulham,D
+2019,4,9/1/18,West Ham,0,1,Wolves,A
+2019,4,9/1/18,Manchester City,2,1,Newcastle Utd,H
+2019,4,9/2/18,Cardiff City,2,3,Arsenal,A
+2019,4,9/2/18,Burnley,0,2,Manchester Utd,A
+2019,4,9/2/18,Watford,2,1,Tottenham,H
+2019,5,9/15/18,Tottenham,1,2,Liverpool,A
+2019,5,9/15/18,Huddersfield,0,1,Crystal Palace,A
+2019,5,9/15/18,Newcastle Utd,1,2,Arsenal,A
+2019,5,9/15/18,Chelsea,4,1,Cardiff City,H
+2019,5,9/15/18,Manchester City,3,0,Fulham,H
+2019,5,9/15/18,Bournemouth,4,2,Leicester City,H
+2019,5,9/15/18,Watford,1,2,Manchester Utd,A
+2019,5,9/16/18,Wolves,1,0,Burnley,H
+2019,5,9/16/18,Everton,1,3,West Ham,A
+2019,5,9/17/18,Southampton,2,2,Brighton,D
+2019,6,9/22/18,Fulham,1,1,Watford,D
+2019,6,9/22/18,Crystal Palace,0,0,Newcastle Utd,D
+2019,6,9/22/18,Leicester City,3,1,Huddersfield,H
+2019,6,9/22/18,Burnley,4,0,Bournemouth,H
+2019,6,9/22/18,Manchester Utd,1,1,Wolves,D
+2019,6,9/22/18,Liverpool,3,0,Southampton,H
+2019,6,9/22/18,Cardiff City,0,5,Manchester City,A
+2019,6,9/22/18,Brighton,1,2,Tottenham,A
+2019,6,9/23/18,West Ham,0,0,Chelsea,D
+2019,6,9/23/18,Arsenal,2,0,Everton,H
+2019,7,9/29/18,West Ham,3,1,Manchester Utd,H
+2019,7,9/29/18,Huddersfield,0,2,Tottenham,A
+2019,7,9/29/18,Newcastle Utd,0,2,Leicester City,A
+2019,7,9/29/18,Everton,3,0,Fulham,H
+2019,7,9/29/18,Arsenal,2,0,Watford,H
+2019,7,9/29/18,Manchester City,2,0,Brighton,H
+2019,7,9/29/18,Wolves,2,0,Southampton,H
+2019,7,9/29/18,Chelsea,1,1,Liverpool,D
+2019,7,9/30/18,Cardiff City,1,2,Burnley,A
+2019,7,10/1/18,Bournemouth,2,1,Crystal Palace,H
+2019,8,10/5/18,Brighton,1,0,West Ham,H
+2019,8,10/6/18,Watford,0,4,Bournemouth,A
+2019,8,10/6/18,Burnley,1,1,Huddersfield,D
+2019,8,10/6/18,Crystal Palace,0,1,Wolves,A
+2019,8,10/6/18,Tottenham,1,0,Cardiff City,H
+2019,8,10/6/18,Leicester City,1,2,Everton,A
+2019,8,10/6/18,Manchester Utd,3,2,Newcastle Utd,H
+2019,8,10/7/18,Fulham,1,5,Arsenal,A
+2019,8,10/7/18,Southampton,0,3,Chelsea,A
+2019,8,10/7/18,Liverpool,0,0,Manchester City,D
+2019,9,10/20/18,Chelsea,2,2,Manchester Utd,D
+2019,9,10/20/18,Cardiff City,4,2,Fulham,H
+2019,9,10/20/18,Wolves,0,2,Watford,A
+2019,9,10/20/18,Newcastle Utd,0,1,Brighton,A
+2019,9,10/20/18,Bournemouth,0,0,Southampton,D
+2019,9,10/20/18,West Ham,0,1,Tottenham,A
+2019,9,10/20/18,Manchester City,5,0,Burnley,H
+2019,9,10/20/18,Huddersfield,0,1,Liverpool,A
+2019,9,10/21/18,Everton,2,0,Crystal Palace,H
+2019,9,10/22/18,Arsenal,3,1,Leicester City,H
+2019,10,10/27/18,Southampton,0,0,Newcastle Utd,D
+2019,10,10/27/18,Fulham,0,3,Bournemouth,A
+2019,10,10/27/18,Liverpool,4,1,Cardiff City,H
+2019,10,10/27/18,Watford,3,0,Huddersfield,H
+2019,10,10/27/18,Brighton,1,0,Wolves,H
+2019,10,10/27/18,Leicester City,1,1,West Ham,D
+2019,10,10/28/18,Crystal Palace,2,2,Arsenal,D
+2019,10,10/28/18,Burnley,0,4,Chelsea,A
+2019,10,10/28/18,Manchester Utd,2,1,Everton,H
+2019,10,10/29/18,Tottenham,0,1,Manchester City,A
+2019,11,11/3/18,Bournemouth,1,2,Manchester Utd,A
+2019,11,11/3/18,Newcastle Utd,1,0,Watford,H
+2019,11,11/3/18,Everton,3,1,Brighton,H
+2019,11,11/3/18,West Ham,4,2,Burnley,H
+2019,11,11/3/18,Cardiff City,0,1,Leicester City,A
+2019,11,11/3/18,Arsenal,1,1,Liverpool,D
+2019,11,11/3/18,Wolves,2,3,Tottenham,A
+2019,11,11/4/18,Manchester City,6,1,Southampton,H
+2019,11,11/4/18,Chelsea,3,1,Crystal Palace,H
+2019,11,11/5/18,Huddersfield,1,0,Fulham,H
+2019,12,11/10/18,Cardiff City,2,1,Brighton,H
+2019,12,11/10/18,Newcastle Utd,2,1,Bournemouth,H
+2019,12,11/10/18,Southampton,1,1,Watford,D
+2019,12,11/10/18,Leicester City,0,0,Burnley,D
+2019,12,11/10/18,Huddersfield,1,1,West Ham,D
+2019,12,11/10/18,Crystal Palace,0,1,Tottenham,A
+2019,12,11/11/18,Liverpool,2,0,Fulham,H
+2019,12,11/11/18,Chelsea,0,0,Everton,D
+2019,12,11/11/18,Arsenal,1,1,Wolves,D
+2019,12,11/11/18,Manchester City,3,1,Manchester Utd,H
+2019,13,11/24/18,Everton,1,0,Cardiff City,H
+2019,13,11/24/18,Brighton,1,1,Leicester City,D
+2019,13,11/24/18,Fulham,3,2,Southampton,H
+2019,13,11/24/18,Manchester Utd,0,0,Crystal Palace,D
+2019,13,11/24/18,West Ham,0,4,Manchester City,A
+2019,13,11/24/18,Watford,0,3,Liverpool,A
+2019,13,11/24/18,Tottenham,3,1,Chelsea,H
+2019,13,11/25/18,Bournemouth,1,2,Arsenal,A
+2019,13,11/25/18,Wolves,0,2,Huddersfield,A
+2019,13,11/26/18,Burnley,1,2,Newcastle Utd,A
+2019,14,11/30/18,Cardiff City,2,1,Wolves,H
+2019,14,12/1/18,Huddersfield,1,2,Brighton,A
+2019,14,12/1/18,Crystal Palace,2,0,Burnley,H
+2019,14,12/1/18,Leicester City,2,0,Watford,H
+2019,14,12/1/18,Manchester City,3,1,Bournemouth,H
+2019,14,12/1/18,Newcastle Utd,0,3,West Ham,A
+2019,14,12/1/18,Southampton,2,2,Manchester Utd,D
+2019,14,12/2/18,Chelsea,2,0,Fulham,H
+2019,14,12/2/18,Arsenal,4,2,Tottenham,H
+2019,14,12/2/18,Liverpool,1,0,Everton,H
+2019,15,12/4/18,West Ham,3,1,Cardiff City,H
+2019,15,12/4/18,Brighton,3,1,Crystal Palace,H
+2019,15,12/4/18,Bournemouth,2,1,Huddersfield,H
+2019,15,12/4/18,Watford,1,2,Manchester City,A
+2019,15,12/5/18,Fulham,1,1,Leicester City,D
+2019,15,12/5/18,Wolves,2,1,Chelsea,H
+2019,15,12/5/18,Burnley,1,3,Liverpool,A
+2019,15,12/5/18,Everton,1,1,Newcastle Utd,D
+2019,15,12/5/18,Manchester Utd,2,2,Arsenal,D
+2019,15,12/5/18,Tottenham,3,1,Southampton,H
+2019,16,12/8/18,Bournemouth,0,4,Liverpool,A
+2019,16,12/8/18,Burnley,1,0,Brighton,H
+2019,16,12/8/18,Cardiff City,1,0,Southampton,H
+2019,16,12/8/18,Manchester Utd,4,1,Fulham,H
+2019,16,12/8/18,Arsenal,1,0,Huddersfield,H
+2019,16,12/8/18,West Ham,3,2,Crystal Palace,H
+2019,16,12/8/18,Chelsea,2,0,Manchester City,H
+2019,16,12/8/18,Leicester City,0,2,Tottenham,A
+2019,16,12/9/18,Newcastle Utd,1,2,Wolves,A
+2019,16,12/10/18,Everton,2,2,Watford,D
+2019,17,12/15/18,Manchester City,3,1,Everton,H
+2019,17,12/15/18,Wolves,2,0,Bournemouth,H
+2019,17,12/15/18,Huddersfield,0,1,Newcastle Utd,A
+2019,17,12/15/18,Watford,3,2,Cardiff City,H
+2019,17,12/15/18,Crystal Palace,1,0,Leicester City,H
+2019,17,12/15/18,Tottenham,1,0,Burnley,H
+2019,17,12/15/18,Fulham,0,2,West Ham,A
+2019,17,12/16/18,Brighton,1,2,Chelsea,A
+2019,17,12/16/18,Southampton,3,2,Arsenal,H
+2019,17,12/16/18,Liverpool,3,1,Manchester Utd,H
+2019,18,12/21/18,Wolves,0,2,Liverpool,A
+2019,18,12/22/18,Arsenal,3,1,Burnley,H
+2019,18,12/22/18,Chelsea,0,1,Leicester City,A
+2019,18,12/22/18,West Ham,0,2,Watford,A
+2019,18,12/22/18,Bournemouth,2,0,Brighton,H
+2019,18,12/22/18,Newcastle Utd,0,0,Fulham,D
+2019,18,12/22/18,Huddersfield,1,3,Southampton,A
+2019,18,12/22/18,Manchester City,2,3,Crystal Palace,A
+2019,18,12/22/18,Cardiff City,1,5,Manchester Utd,A
+2019,18,12/23/18,Everton,2,6,Tottenham,A
+2019,19,12/26/18,Fulham,1,1,Wolves,D
+2019,19,12/26/18,Crystal Palace,0,0,Cardiff City,D
+2019,19,12/26/18,Burnley,1,5,Everton,A
+2019,19,12/26/18,Manchester Utd,3,1,Huddersfield,H
+2019,19,12/26/18,Tottenham,5,0,Bournemouth,H
+2019,19,12/26/18,Leicester City,2,1,Manchester City,H
+2019,19,12/26/18,Liverpool,4,0,Newcastle Utd,H
+2019,19,12/26/18,Brighton,1,1,Arsenal,D
+2019,19,12/26/18,Watford,1,2,Chelsea,A
+2019,19,12/27/18,Southampton,1,2,West Ham,A
+2019,20,12/29/18,Tottenham,1,3,Wolves,A
+2019,20,12/29/18,Leicester City,0,1,Cardiff City,A
+2019,20,12/29/18,Watford,1,1,Newcastle Utd,D
+2019,20,12/29/18,Fulham,1,0,Huddersfield,H
+2019,20,12/29/18,Brighton,1,0,Everton,H
+2019,20,12/29/18,Liverpool,5,1,Arsenal,H
+2019,20,12/30/18,Crystal Palace,0,1,Chelsea,A
+2019,20,12/30/18,Southampton,1,3,Manchester City,A
+2019,20,12/30/18,Burnley,2,0,West Ham,H
+2019,20,12/30/18,Manchester Utd,4,1,Bournemouth,H
+2019,21,1/1/19,Everton,0,1,Leicester City,A
+2019,21,1/1/19,Arsenal,4,1,Fulham,H
+2019,21,1/1/19,Cardiff City,0,3,Tottenham,A
+2019,21,1/2/19,Huddersfield,1,2,Burnley,A
+2019,21,1/2/19,Bournemouth,3,3,Watford,D
+2019,21,1/2/19,Chelsea,0,0,Southampton,D
+2019,21,1/2/19,West Ham,2,2,Brighton,D
+2019,21,1/2/19,Wolves,0,2,Crystal Palace,A
+2019,21,1/2/19,Newcastle Utd,0,2,Manchester Utd,A
+2019,21,1/3/19,Manchester City,2,1,Liverpool,H
+2019,22,1/12/19,West Ham,1,0,Arsenal,H
+2019,22,1/12/19,Cardiff City,0,0,Huddersfield,D
+2019,22,1/12/19,Burnley,2,1,Fulham,H
+2019,22,1/12/19,Crystal Palace,1,2,Watford,A
+2019,22,1/12/19,Leicester City,1,2,Southampton,A
+2019,22,1/12/19,Brighton,0,1,Liverpool,A
+2019,22,1/12/19,Chelsea,2,1,Newcastle Utd,H
+2019,22,1/13/19,Everton,2,0,Bournemouth,H
+2019,22,1/13/19,Tottenham,0,1,Manchester Utd,A
+2019,22,1/14/19,Manchester City,3,0,Wolves,H
+2019,23,1/19/19,Wolves,4,3,Leicester City,H
+2019,23,1/19/19,Newcastle Utd,3,0,Cardiff City,H
+2019,23,1/19/19,Watford,0,0,Burnley,D
+2019,23,1/19/19,Manchester Utd,2,1,Brighton,H
+2019,23,1/19/19,Bournemouth,2,0,West Ham,H
+2019,23,1/19/19,Southampton,2,1,Everton,H
+2019,23,1/19/19,Liverpool,4,3,Crystal Palace,H
+2019,23,1/19/19,Arsenal,2,0,Chelsea,H
+2019,23,1/20/19,Huddersfield,0,3,Manchester City,A
+2019,23,1/20/19,Fulham,1,2,Tottenham,A
+2019,24,1/29/19,Wolves,3,0,West Ham,H
+2019,24,1/29/19,Arsenal,2,1,Cardiff City,H
+2019,24,1/29/19,Huddersfield,0,1,Everton,A
+2019,24,1/29/19,Fulham,4,2,Brighton,H
+2019,24,1/29/19,Manchester Utd,2,2,Burnley,D
+2019,24,1/29/19,Newcastle Utd,2,1,Manchester City,H
+2019,24,1/30/19,Southampton,1,1,Crystal Palace,D
+2019,24,1/30/19,Bournemouth,4,0,Chelsea,H
+2019,24,1/30/19,Tottenham,2,1,Watford,H
+2019,24,1/30/19,Liverpool,1,1,Leicester City,D
+2019,25,2/2/19,Tottenham,1,0,Newcastle Utd,H
+2019,25,2/2/19,Everton,1,3,Wolves,A
+2019,25,2/2/19,Chelsea,5,0,Huddersfield,H
+2019,25,2/2/19,Crystal Palace,2,0,Fulham,H
+2019,25,2/2/19,Brighton,0,0,Watford,D
+2019,25,2/2/19,Burnley,1,1,Southampton,D
+2019,25,2/2/19,Cardiff City,2,0,Bournemouth,H
+2019,25,2/3/19,Leicester City,0,1,Manchester Utd,A
+2019,25,2/3/19,Manchester City,3,1,Arsenal,H
+2019,25,2/4/19,West Ham,1,1,Liverpool,D
+2019,27,2/6/19,Everton,0,2,Manchester City,A
+2019,26,2/9/19,Fulham,0,3,Manchester Utd,A
+2019,26,2/9/19,Huddersfield,1,2,Arsenal,A
+2019,26,2/9/19,Crystal Palace,1,1,West Ham,D
+2019,26,2/9/19,Watford,1,0,Everton,H
+2019,26,2/9/19,Liverpool,3,0,Bournemouth,H
+2019,26,2/9/19,Southampton,1,2,Cardiff City,A
+2019,26,2/9/19,Brighton,1,3,Burnley,A
+2019,26,2/10/19,Tottenham,3,1,Leicester City,H
+2019,26,2/10/19,Manchester City,6,0,Chelsea,H
+2019,26,2/11/19,Wolves,1,1,Newcastle Utd,D
+2019,27,2/22/19,West Ham,3,1,Fulham,H
+2019,27,2/22/19,Cardiff City,1,5,Watford,A
+2019,27,2/23/19,Burnley,2,1,Tottenham,H
+2019,27,2/23/19,Bournemouth,1,1,Wolves,D
+2019,27,2/23/19,Newcastle Utd,2,0,Huddersfield,H
+2019,27,2/23/19,Leicester City,1,4,Crystal Palace,A
+2019,27,2/24/19,Manchester Utd,0,0,Liverpool,D
+2019,27,2/24/19,Arsenal,2,0,Southampton,H
+2019,28,2/26/19,Huddersfield,1,0,Wolves,H
+2019,28,2/26/19,Cardiff City,0,3,Everton,A
+2019,28,2/26/19,Leicester City,2,1,Brighton,H
+2019,28,2/26/19,Newcastle Utd,2,0,Burnley,H
+2019,28,2/27/19,Arsenal,5,1,Bournemouth,H
+2019,28,2/27/19,Southampton,2,0,Fulham,H
+2019,28,2/27/19,Crystal Palace,1,3,Manchester Utd,A
+2019,28,2/27/19,Liverpool,5,0,Watford,H
+2019,28,2/27/19,Manchester City,1,0,West Ham,H
+2019,28,2/27/19,Chelsea,2,0,Tottenham,H
+2019,29,3/2/19,Tottenham,1,1,Arsenal,D
+2019,29,3/2/19,Wolves,2,0,Cardiff City,H
+2019,29,3/2/19,Bournemouth,0,1,Manchester City,A
+2019,29,3/2/19,Manchester Utd,3,2,Southampton,H
+2019,29,3/2/19,Burnley,1,3,Crystal Palace,A
+2019,29,3/2/19,Brighton,1,0,Huddersfield,H
+2019,29,3/2/19,West Ham,2,0,Newcastle Utd,H
+2019,29,3/3/19,Watford,2,1,Leicester City,H
+2019,29,3/3/19,Fulham,1,2,Chelsea,A
+2019,29,3/3/19,Everton,0,0,Liverpool,D
+2019,30,3/9/19,Crystal Palace,1,2,Brighton,A
+2019,30,3/9/19,Southampton,2,1,Tottenham,H
+2019,30,3/9/19,Huddersfield,0,2,Bournemouth,A
+2019,30,3/9/19,Leicester City,3,1,Fulham,H
+2019,30,3/9/19,Cardiff City,2,0,West Ham,H
+2019,30,3/9/19,Newcastle Utd,3,2,Everton,H
+2019,30,3/9/19,Manchester City,3,1,Watford,H
+2019,30,3/10/19,Liverpool,4,2,Burnley,H
+2019,30,3/10/19,Chelsea,1,1,Wolves,D
+2019,30,3/10/19,Arsenal,2,0,Manchester Utd,H
+2019,31,3/16/19,West Ham,4,3,Huddersfield,H
+2019,31,3/16/19,Bournemouth,2,2,Newcastle Utd,D
+2019,31,3/16/19,Burnley,1,2,Leicester City,A
+2019,31,3/17/19,Fulham,1,2,Liverpool,A
+2019,31,3/17/19,Everton,2,0,Chelsea,H
+2019,32,3/30/19,Fulham,0,2,Manchester City,A
+2019,32,3/30/19,Crystal Palace,2,0,Huddersfield,H
+2019,32,3/30/19,Brighton,0,1,Southampton,A
+2019,32,3/30/19,Burnley,2,0,Wolves,H
+2019,32,3/30/19,Leicester City,2,0,Bournemouth,H
+2019,32,3/30/19,Manchester Utd,2,1,Watford,H
+2019,32,3/30/19,West Ham,0,2,Everton,A
+2019,32,3/31/19,Cardiff City,1,2,Chelsea,A
+2019,32,3/31/19,Liverpool,2,1,Tottenham,H
+2019,32,4/1/19,Arsenal,2,0,Newcastle Utd,H
+2019,33,4/2/19,Watford,4,1,Fulham,H
+2019,33,4/2/19,Wolves,2,1,Manchester Utd,H
+2019,27,4/3/19,Chelsea,3,0,Brighton,H
+2019,31,4/3/19,Tottenham,2,0,Crystal Palace,H
+2019,33,4/3/19,Manchester City,2,0,Cardiff City,H
+2019,33,4/5/19,Southampton,1,3,Liverpool,A
+2019,33,4/6/19,Newcastle Utd,0,1,Crystal Palace,A
+2019,33,4/6/19,Huddersfield,1,4,Leicester City,A
+2019,33,4/6/19,Bournemouth,1,3,Burnley,A
+2019,33,4/7/19,Everton,1,0,Arsenal,H
+2019,33,4/8/19,Chelsea,2,0,West Ham,H
+2019,34,4/12/19,Leicester City,0,1,Newcastle Utd,A
+2019,34,4/13/19,Tottenham,4,0,Huddersfield,H
+2019,34,4/13/19,Burnley,2,0,Cardiff City,H
+2019,34,4/13/19,Fulham,2,0,Everton,H
+2019,34,4/13/19,Southampton,3,1,Wolves,H
+2019,34,4/13/19,Brighton,0,5,Bournemouth,A
+2019,34,4/13/19,Manchester Utd,2,1,West Ham,H
+2019,34,4/14/19,Crystal Palace,1,3,Manchester City,A
+2019,34,4/14/19,Liverpool,2,0,Chelsea,H
+2019,34,4/15/19,Watford,0,1,Arsenal,A
+2019,31,4/16/19,Brighton,0,2,Cardiff City,A
+2019,35,4/20/19,Manchester City,1,0,Tottenham,H
+2019,35,4/20/19,Wolves,0,0,Brighton,D
+2019,35,4/20/19,Bournemouth,0,1,Fulham,A
+2019,35,4/20/19,West Ham,2,2,Leicester City,D
+2019,35,4/20/19,Huddersfield,1,2,Watford,A
+2019,35,4/20/19,Newcastle Utd,3,1,Southampton,H
+2019,35,4/21/19,Everton,4,0,Manchester Utd,H
+2019,35,4/21/19,Cardiff City,0,2,Liverpool,A
+2019,35,4/21/19,Arsenal,2,3,Crystal Palace,A
+2019,35,4/22/19,Chelsea,2,2,Burnley,D
+2019,31,4/23/19,Watford,1,1,Southampton,D
+2019,33,4/23/19,Tottenham,1,0,Brighton,H
+2019,31,4/24/19,Wolves,3,1,Arsenal,H
+2019,31,4/24/19,Manchester Utd,0,2,Manchester City,A
+2019,36,4/26/19,Liverpool,5,0,Huddersfield,H
+2019,36,4/27/19,Tottenham,0,1,West Ham,A
+2019,36,4/27/19,Crystal Palace,0,0,Everton,D
+2019,36,4/27/19,Watford,1,2,Wolves,A
+2019,36,4/27/19,Southampton,3,3,Bournemouth,D
+2019,36,4/27/19,Fulham,1,0,Cardiff City,H
+2019,36,4/27/19,Brighton,1,1,Newcastle Utd,D
+2019,36,4/28/19,Leicester City,3,0,Arsenal,H
+2019,36,4/28/19,Burnley,0,1,Manchester City,A
+2019,36,4/28/19,Manchester Utd,1,1,Chelsea,D
+2019,37,5/3/19,Everton,2,0,Burnley,H
+2019,37,5/4/19,Bournemouth,1,0,Tottenham,H
+2019,37,5/4/19,Wolves,1,0,Fulham,H
+2019,37,5/4/19,West Ham,3,0,Southampton,H
+2019,37,5/4/19,Cardiff City,2,3,Crystal Palace,A
+2019,37,5/4/19,Newcastle Utd,2,3,Liverpool,A
+2019,37,5/5/19,Huddersfield,1,1,Manchester Utd,D
+2019,37,5/5/19,Chelsea,3,0,Watford,H
+2019,37,5/5/19,Arsenal,1,1,Brighton,D
+2019,37,5/6/19,Manchester City,1,0,Leicester City,H
+2019,38,5/12/19,Liverpool,2,0,Wolves,H
+2019,38,5/12/19,Fulham,0,4,Newcastle Utd,A
+2019,38,5/12/19,Crystal Palace,5,3,Bournemouth,H
+2019,38,5/12/19,Southampton,1,1,Huddersfield,D
+2019,38,5/12/19,Tottenham,2,2,Everton,D
+2019,38,5/12/19,Burnley,1,3,Arsenal,A
+2019,38,5/12/19,Watford,1,4,West Ham,A
+2019,38,5/12/19,Brighton,1,4,Manchester City,A
+2019,38,5/12/19,Leicester City,0,0,Chelsea,D
+2019,38,5/12/19,Manchester Utd,0,2,Cardiff City,A
+2020,1,8/9/19,Liverpool,4,1,Norwich City,H
+2020,1,8/10/19,West Ham,0,5,Manchester City,A
+2020,1,8/10/19,Crystal Palace,0,0,Everton,D
+2020,1,8/10/19,Bournemouth,1,1,Sheffield Utd,D
+2020,1,8/10/19,Burnley,3,0,Southampton,H
+2020,1,8/10/19,Watford,0,3,Brighton,A
+2020,1,8/10/19,Tottenham,3,1,Aston Villa,H
+2020,1,8/11/19,Leicester City,0,0,Wolves,D
+2020,1,8/11/19,Newcastle Utd,0,1,Arsenal,A
+2020,1,8/11/19,Manchester Utd,4,0,Chelsea,H
+2020,2,8/17/19,Arsenal,2,1,Burnley,H
+2020,2,8/17/19,Brighton,1,1,West Ham,D
+2020,2,8/17/19,Norwich City,3,1,Newcastle Utd,H
+2020,2,8/17/19,Aston Villa,1,2,Bournemouth,A
+2020,2,8/17/19,Everton,1,0,Watford,H
+2020,2,8/17/19,Southampton,1,2,Liverpool,A
+2020,2,8/17/19,Manchester City,2,2,Tottenham,D
+2020,2,8/18/19,Sheffield Utd,1,0,Crystal Palace,H
+2020,2,8/18/19,Chelsea,1,1,Leicester City,D
+2020,2,8/19/19,Wolves,1,1,Manchester Utd,D
+2020,3,8/23/19,Aston Villa,2,0,Everton,H
+2020,3,8/24/19,Norwich City,2,3,Chelsea,A
+2020,3,8/24/19,Brighton,0,2,Southampton,A
+2020,3,8/24/19,Watford,1,3,West Ham,A
+2020,3,8/24/19,Manchester Utd,1,2,Crystal Palace,A
+2020,3,8/24/19,Sheffield Utd,1,2,Leicester City,A
+2020,3,8/24/19,Liverpool,3,1,Arsenal,H
+2020,3,8/25/19,Bournemouth,1,3,Manchester City,A
+2020,3,8/25/19,Tottenham,0,1,Newcastle Utd,A
+2020,3,8/25/19,Wolves,1,1,Burnley,D
+2020,4,8/31/19,Southampton,1,1,Manchester Utd,D
+2020,4,8/31/19,Leicester City,3,1,Bournemouth,H
+2020,4,8/31/19,Crystal Palace,1,0,Aston Villa,H
+2020,4,8/31/19,Manchester City,4,0,Brighton,H
+2020,4,8/31/19,Chelsea,2,2,Sheffield Utd,D
+2020,4,8/31/19,West Ham,2,0,Norwich City,H
+2020,4,8/31/19,Newcastle Utd,1,1,Watford,D
+2020,4,8/31/19,Burnley,0,3,Liverpool,A
+2020,4,9/1/19,Everton,3,2,Wolves,H
+2020,4,9/1/19,Arsenal,2,2,Tottenham,D
+2020,5,9/14/19,Liverpool,3,1,Newcastle Utd,H
+2020,5,9/14/19,Wolves,2,5,Chelsea,A
+2020,5,9/14/19,Tottenham,4,0,Crystal Palace,H
+2020,5,9/14/19,Brighton,1,1,Burnley,D
+2020,5,9/14/19,Sheffield Utd,0,1,Southampton,A
+2020,5,9/14/19,Manchester Utd,1,0,Leicester City,H
+2020,5,9/14/19,Norwich City,3,2,Manchester City,H
+2020,5,9/15/19,Bournemouth,3,1,Everton,H
+2020,5,9/15/19,Watford,2,2,Arsenal,D
+2020,5,9/16/19,Aston Villa,0,0,West Ham,D
+2020,6,9/20/19,Southampton,1,3,Bournemouth,A
+2020,6,9/21/19,Leicester City,2,1,Tottenham,H
+2020,6,9/21/19,Burnley,2,0,Norwich City,H
+2020,6,9/21/19,Manchester City,8,0,Watford,H
+2020,6,9/21/19,Everton,0,2,Sheffield Utd,A
+2020,6,9/21/19,Newcastle Utd,0,0,Brighton,D
+2020,6,9/22/19,Crystal Palace,1,1,Wolves,D
+2020,6,9/22/19,West Ham,2,0,Manchester Utd,H
+2020,6,9/22/19,Arsenal,3,2,Aston Villa,H
+2020,6,9/22/19,Chelsea,1,2,Liverpool,A
+2020,7,9/28/19,Sheffield Utd,0,1,Liverpool,A
+2020,7,9/28/19,Bournemouth,2,2,West Ham,D
+2020,7,9/28/19,Wolves,2,0,Watford,H
+2020,7,9/28/19,Aston Villa,2,2,Burnley,D
+2020,7,9/28/19,Tottenham,2,1,Southampton,H
+2020,7,9/28/19,Crystal Palace,2,0,Norwich City,H
+2020,7,9/28/19,Chelsea,2,0,Brighton,H
+2020,7,9/28/19,Everton,1,3,Manchester City,A
+2020,7,9/29/19,Leicester City,5,0,Newcastle Utd,H
+2020,7,9/30/19,Manchester Utd,1,1,Arsenal,D
+2020,8,10/5/19,Brighton,3,0,Tottenham,H
+2020,8,10/5/19,Watford,0,0,Sheffield Utd,D
+2020,8,10/5/19,Liverpool,2,1,Leicester City,H
+2020,8,10/5/19,Norwich City,1,5,Aston Villa,A
+2020,8,10/5/19,Burnley,1,0,Everton,H
+2020,8,10/5/19,West Ham,1,2,Crystal Palace,A
+2020,8,10/6/19,Manchester City,0,2,Wolves,A
+2020,8,10/6/19,Arsenal,1,0,Bournemouth,H
+2020,8,10/6/19,Southampton,1,4,Chelsea,A
+2020,8,10/6/19,Newcastle Utd,1,0,Manchester Utd,H
+2020,9,10/19/19,Everton,2,0,West Ham,H
+2020,9,10/19/19,Wolves,1,1,Southampton,D
+2020,9,10/19/19,Chelsea,1,0,Newcastle Utd,H
+2020,9,10/19/19,Aston Villa,2,1,Brighton,H
+2020,9,10/19/19,Leicester City,2,1,Burnley,H
+2020,9,10/19/19,Bournemouth,0,0,Norwich City,D
+2020,9,10/19/19,Tottenham,1,1,Watford,D
+2020,9,10/19/19,Crystal Palace,0,2,Manchester City,A
+2020,9,10/20/19,Manchester Utd,1,1,Liverpool,D
+2020,9,10/21/19,Sheffield Utd,1,0,Arsenal,H
+2020,10,10/25/19,Southampton,0,9,Leicester City,A
+2020,10,10/26/19,Manchester City,3,0,Aston Villa,H
+2020,10,10/26/19,West Ham,1,1,Sheffield Utd,D
+2020,10,10/26/19,Watford,0,0,Bournemouth,D
+2020,10,10/26/19,Brighton,3,2,Everton,H
+2020,10,10/26/19,Burnley,2,4,Chelsea,A
+2020,10,10/27/19,Newcastle Utd,1,1,Wolves,D
+2020,10,10/27/19,Arsenal,2,2,Crystal Palace,D
+2020,10,10/27/19,Liverpool,2,1,Tottenham,H
+2020,10,10/27/19,Norwich City,1,3,Manchester Utd,A
+2020,11,11/2/19,Bournemouth,1,0,Manchester Utd,H
+2020,11,11/2/19,Sheffield Utd,3,0,Burnley,H
+2020,11,11/2/19,Manchester City,2,1,Southampton,H
+2020,11,11/2/19,Arsenal,1,1,Wolves,D
+2020,11,11/2/19,Brighton,2,0,Norwich City,H
+2020,11,11/2/19,Aston Villa,1,2,Liverpool,A
+2020,11,11/2/19,West Ham,2,3,Newcastle Utd,A
+2020,11,11/2/19,Watford,1,2,Chelsea,A
+2020,11,11/3/19,Crystal Palace,0,2,Leicester City,A
+2020,11,11/3/19,Everton,1,1,Tottenham,D
+2020,12,11/8/19,Norwich City,0,2,Watford,A
+2020,12,11/9/19,Chelsea,2,0,Crystal Palace,H
+2020,12,11/9/19,Southampton,1,2,Everton,A
+2020,12,11/9/19,Newcastle Utd,2,1,Bournemouth,H
+2020,12,11/9/19,Burnley,3,0,West Ham,H
+2020,12,11/9/19,Tottenham,1,1,Sheffield Utd,D
+2020,12,11/9/19,Leicester City,2,0,Arsenal,H
+2020,12,11/10/19,Manchester Utd,3,1,Brighton,H
+2020,12,11/10/19,Wolves,2,1,Aston Villa,H
+2020,12,11/10/19,Liverpool,3,1,Manchester City,H
+2020,13,11/23/19,West Ham,2,3,Tottenham,A
+2020,13,11/23/19,Brighton,0,2,Leicester City,A
+2020,13,11/23/19,Watford,0,3,Burnley,A
+2020,13,11/23/19,Crystal Palace,1,2,Liverpool,A
+2020,13,11/23/19,Arsenal,2,2,Southampton,D
+2020,13,11/23/19,Everton,0,2,Norwich City,A
+2020,13,11/23/19,Bournemouth,1,2,Wolves,A
+2020,13,11/23/19,Manchester City,2,1,Chelsea,H
+2020,13,11/24/19,Sheffield Utd,3,3,Manchester Utd,D
+2020,13,11/25/19,Aston Villa,2,0,Newcastle Utd,H
+2020,14,11/30/19,Newcastle Utd,2,2,Manchester City,D
+2020,14,11/30/19,Tottenham,3,2,Bournemouth,H
+2020,14,11/30/19,Burnley,0,2,Crystal Palace,A
+2020,14,11/30/19,Liverpool,2,1,Brighton,H
+2020,14,11/30/19,Chelsea,0,1,West Ham,A
+2020,14,11/30/19,Southampton,2,1,Watford,H
+2020,14,12/1/19,Wolves,1,1,Sheffield Utd,D
+2020,14,12/1/19,Norwich City,2,2,Arsenal,D
+2020,14,12/1/19,Leicester City,2,1,Everton,H
+2020,14,12/1/19,Manchester Utd,2,2,Aston Villa,D
+2020,15,12/3/19,Crystal Palace,1,0,Bournemouth,H
+2020,15,12/3/19,Burnley,1,4,Manchester City,A
+2020,15,12/4/19,Wolves,2,0,West Ham,H
+2020,15,12/4/19,Southampton,2,1,Norwich City,H
+2020,15,12/4/19,Leicester City,2,0,Watford,H
+2020,15,12/4/19,Chelsea,2,1,Aston Villa,H
+2020,15,12/4/19,Manchester Utd,2,1,Tottenham,H
+2020,15,12/4/19,Liverpool,5,2,Everton,H
+2020,15,12/5/19,Sheffield Utd,0,2,Newcastle Utd,A
+2020,15,12/5/19,Arsenal,1,2,Brighton,A
+2020,16,12/7/19,Everton,3,1,Chelsea,H
+2020,16,12/7/19,Watford,0,0,Crystal Palace,D
+2020,16,12/7/19,Bournemouth,0,3,Liverpool,A
+2020,16,12/7/19,Tottenham,5,0,Burnley,H
+2020,16,12/7/19,Manchester City,1,2,Manchester Utd,A
+2020,16,12/8/19,Norwich City,1,2,Sheffield Utd,A
+2020,16,12/8/19,Aston Villa,1,4,Leicester City,A
+2020,16,12/8/19,Newcastle Utd,2,1,Southampton,H
+2020,16,12/8/19,Brighton,2,2,Wolves,D
+2020,16,12/9/19,West Ham,1,3,Arsenal,A
+2020,17,12/14/19,Liverpool,2,0,Watford,H
+2020,17,12/14/19,Burnley,1,0,Newcastle Utd,H
+2020,17,12/14/19,Chelsea,0,1,Bournemouth,A
+2020,17,12/14/19,Sheffield Utd,2,0,Aston Villa,H
+2020,17,12/14/19,Leicester City,1,1,Norwich City,D
+2020,17,12/14/19,Southampton,0,1,West Ham,A
+2020,17,12/15/19,Wolves,1,2,Tottenham,A
+2020,17,12/15/19,Manchester Utd,1,1,Everton,D
+2020,17,12/15/19,Arsenal,0,3,Manchester City,A
+2020,17,12/16/19,Crystal Palace,1,1,Brighton,D
+2020,18,12/21/19,Everton,0,0,Arsenal,D
+2020,18,12/21/19,Newcastle Utd,1,0,Crystal Palace,H
+2020,18,12/21/19,Aston Villa,1,3,Southampton,A
+2020,18,12/21/19,Brighton,0,1,Sheffield Utd,A
+2020,18,12/21/19,Norwich City,1,2,Wolves,A
+2020,18,12/21/19,Bournemouth,0,1,Burnley,A
+2020,18,12/21/19,Manchester City,3,1,Leicester City,H
+2020,18,12/22/19,Watford,2,0,Manchester Utd,H
+2020,18,12/22/19,Tottenham,0,2,Chelsea,A
+2020,19,12/26/19,Tottenham,2,1,Brighton,H
+2020,19,12/26/19,Chelsea,0,2,Southampton,A
+2020,19,12/26/19,Crystal Palace,2,1,West Ham,H
+2020,19,12/26/19,Aston Villa,1,0,Norwich City,H
+2020,19,12/26/19,Everton,1,0,Burnley,H
+2020,19,12/26/19,Bournemouth,1,1,Arsenal,D
+2020,19,12/26/19,Sheffield Utd,1,1,Watford,D
+2020,19,12/26/19,Manchester Utd,4,1,Newcastle Utd,H
+2020,19,12/26/19,Leicester City,0,4,Liverpool,A
+2020,19,12/27/19,Wolves,3,2,Manchester City,H
+2020,20,12/28/19,Brighton,2,0,Bournemouth,H
+2020,20,12/28/19,Newcastle Utd,1,2,Everton,A
+2020,20,12/28/19,Southampton,1,1,Crystal Palace,D
+2020,20,12/28/19,Watford,3,0,Aston Villa,H
+2020,20,12/28/19,West Ham,1,2,Leicester City,A
+2020,20,12/28/19,Norwich City,2,2,Tottenham,D
+2020,20,12/28/19,Burnley,0,2,Manchester Utd,A
+2020,20,12/29/19,Arsenal,1,2,Chelsea,A
+2020,20,12/29/19,Liverpool,1,0,Wolves,H
+2020,20,12/29/19,Manchester City,2,0,Sheffield Utd,H
+2020,21,1/1/20,Burnley,1,2,Aston Villa,A
+2020,21,1/1/20,Brighton,1,1,Chelsea,D
+2020,21,1/1/20,Southampton,1,0,Tottenham,H
+2020,21,1/1/20,Watford,2,1,Wolves,H
+2020,21,1/1/20,Newcastle Utd,0,3,Leicester City,A
+2020,21,1/1/20,Norwich City,1,1,Crystal Palace,D
+2020,21,1/1/20,Manchester City,2,1,Everton,H
+2020,21,1/1/20,West Ham,4,0,Bournemouth,H
+2020,21,1/1/20,Arsenal,2,0,Manchester Utd,H
+2020,21,1/2/20,Liverpool,2,0,Sheffield Utd,H
+2020,22,1/10/20,Sheffield Utd,1,0,West Ham,H
+2020,22,1/11/20,Crystal Palace,1,1,Arsenal,D
+2020,22,1/11/20,Leicester City,1,2,Southampton,A
+2020,22,1/11/20,Everton,1,0,Brighton,H
+2020,22,1/11/20,Chelsea,3,0,Burnley,H
+2020,22,1/11/20,Wolves,1,1,Newcastle Utd,D
+2020,22,1/11/20,Manchester Utd,4,0,Norwich City,H
+2020,22,1/11/20,Tottenham,0,1,Liverpool,A
+2020,22,1/12/20,Bournemouth,0,3,Watford,A
+2020,22,1/12/20,Aston Villa,1,6,Manchester City,A
+2020,23,1/18/20,Watford,0,0,Tottenham,D
+2020,23,1/18/20,Manchester City,2,2,Crystal Palace,D
+2020,23,1/18/20,Norwich City,1,0,Bournemouth,H
+2020,23,1/18/20,Arsenal,1,1,Sheffield Utd,D
+2020,23,1/18/20,Southampton,2,3,Wolves,A
+2020,23,1/18/20,West Ham,1,1,Everton,D
+2020,23,1/18/20,Brighton,1,1,Aston Villa,D
+2020,23,1/18/20,Newcastle Utd,1,0,Chelsea,H
+2020,23,1/19/20,Burnley,2,1,Leicester City,H
+2020,23,1/19/20,Liverpool,2,0,Manchester Utd,H
+2020,24,1/21/20,Crystal Palace,0,2,Southampton,A
+2020,24,1/21/20,Aston Villa,2,1,Watford,H
+2020,24,1/21/20,Everton,2,2,Newcastle Utd,D
+2020,24,1/21/20,Bournemouth,3,1,Brighton,H
+2020,24,1/21/20,Sheffield Utd,0,1,Manchester City,A
+2020,24,1/21/20,Chelsea,2,2,Arsenal,D
+2020,24,1/22/20,Tottenham,2,1,Norwich City,H
+2020,24,1/22/20,Leicester City,4,1,West Ham,H
+2020,24,1/22/20,Manchester Utd,0,2,Burnley,A
+2020,24,1/23/20,Wolves,1,2,Liverpool,A
+2020,18,1/29/20,West Ham,0,2,Liverpool,A
+2020,25,2/1/20,Leicester City,2,2,Chelsea,D
+2020,25,2/1/20,West Ham,3,3,Brighton,D
+2020,25,2/1/20,Newcastle Utd,0,0,Norwich City,D
+2020,25,2/1/20,Crystal Palace,0,1,Sheffield Utd,A
+2020,25,2/1/20,Watford,2,3,Everton,A
+2020,25,2/1/20,Bournemouth,2,1,Aston Villa,H
+2020,25,2/1/20,Liverpool,4,0,Southampton,H
+2020,25,2/1/20,Manchester Utd,0,0,Wolves,D
+2020,25,2/2/20,Burnley,0,0,Arsenal,D
+2020,25,2/2/20,Tottenham,2,0,Manchester City,H
+2020,26,2/8/20,Everton,3,1,Crystal Palace,H
+2020,26,2/8/20,Brighton,1,1,Watford,D
+2020,26,2/9/20,Sheffield Utd,2,1,Bournemouth,H
+2020,26,2/14/20,Wolves,0,0,Leicester City,D
+2020,26,2/15/20,Southampton,1,2,Burnley,A
+2020,26,2/15/20,Norwich City,0,1,Liverpool,A
+2020,26,2/16/20,Aston Villa,2,3,Tottenham,A
+2020,26,2/16/20,Arsenal,4,0,Newcastle Utd,H
+2020,26,2/17/20,Chelsea,0,2,Manchester Utd,A
+2020,26,2/19/20,Manchester City,2,0,West Ham,H
+2020,27,2/22/20,Chelsea,2,1,Tottenham,H
+2020,27,2/22/20,Southampton,2,0,Aston Villa,H
+2020,27,2/22/20,Crystal Palace,1,0,Newcastle Utd,H
+2020,27,2/22/20,Burnley,3,0,Bournemouth,H
+2020,27,2/22/20,Sheffield Utd,1,1,Brighton,D
+2020,27,2/22/20,Leicester City,0,1,Manchester City,A
+2020,27,2/23/20,Manchester Utd,3,0,Watford,H
+2020,27,2/23/20,Wolves,3,0,Norwich City,H
+2020,27,2/23/20,Arsenal,3,2,Everton,H
+2020,27,2/24/20,Liverpool,3,2,West Ham,H
+2020,28,2/28/20,Norwich City,1,0,Leicester City,H
+2020,28,2/29/20,Brighton,0,1,Crystal Palace,A
+2020,28,2/29/20,Bournemouth,2,2,Chelsea,D
+2020,28,2/29/20,West Ham,3,1,Southampton,H
+2020,28,2/29/20,Newcastle Utd,0,0,Burnley,D
+2020,28,2/29/20,Watford,3,0,Liverpool,H
+2020,28,3/1/20,Tottenham,2,3,Wolves,A
+2020,28,3/1/20,Everton,1,1,Manchester Utd,D
+2020,29,3/7/20,Liverpool,2,1,Bournemouth,H
+2020,29,3/7/20,Southampton,0,1,Newcastle Utd,A
+2020,29,3/7/20,Arsenal,1,0,West Ham,H
+2020,29,3/7/20,Sheffield Utd,1,0,Norwich City,H
+2020,29,3/7/20,Wolves,0,0,Brighton,D
+2020,29,3/7/20,Crystal Palace,1,0,Watford,H
+2020,29,3/7/20,Burnley,1,1,Tottenham,D
+2020,29,3/8/20,Chelsea,4,0,Everton,H
+2020,29,3/8/20,Manchester Utd,2,0,Manchester City,H
+2020,29,3/9/20,Leicester City,4,0,Aston Villa,H
+2020,28,6/17/20,Aston Villa,0,0,Sheffield Utd,D
+2020,28,6/17/20,Manchester City,3,0,Arsenal,H
+2020,30,6/19/20,Norwich City,0,3,Southampton,A
+2020,30,6/19/20,Tottenham,1,1,Manchester Utd,D
+2020,30,6/20/20,Watford,1,1,Leicester City,D
+2020,30,6/20/20,Brighton,2,1,Arsenal,H
+2020,30,6/20/20,West Ham,0,2,Wolves,A
+2020,30,6/20/20,Bournemouth,0,2,Crystal Palace,A
+2020,30,6/21/20,Newcastle Utd,3,0,Sheffield Utd,H
+2020,30,6/21/20,Aston Villa,1,2,Chelsea,A
+2020,30,6/21/20,Everton,0,0,Liverpool,D
+2020,30,6/22/20,Manchester City,5,0,Burnley,H
+2020,31,6/23/20,Leicester City,0,0,Brighton,D
+2020,31,6/23/20,Tottenham,2,0,West Ham,H
+2020,31,6/24/20,Newcastle Utd,1,1,Aston Villa,D
+2020,31,6/24/20,Norwich City,0,1,Everton,A
+2020,31,6/24/20,Wolves,1,0,Bournemouth,H
+2020,31,6/24/20,Manchester Utd,3,0,Sheffield Utd,H
+2020,31,6/24/20,Liverpool,4,0,Crystal Palace,H
+2020,31,6/25/20,Southampton,0,2,Arsenal,A
+2020,31,6/25/20,Burnley,1,0,Watford,H
+2020,31,6/25/20,Chelsea,2,1,Manchester City,H
+2020,32,6/27/20,Aston Villa,0,1,Wolves,A
+2020,32,6/28/20,Watford,1,3,Southampton,A
+2020,32,6/29/20,Crystal Palace,0,1,Burnley,A
+2020,32,6/30/20,Brighton,0,3,Manchester Utd,A
+2020,32,7/1/20,Arsenal,4,0,Norwich City,H
+2020,32,7/1/20,Bournemouth,1,4,Newcastle Utd,A
+2020,32,7/1/20,Everton,2,1,Leicester City,H
+2020,32,7/1/20,West Ham,3,2,Chelsea,H
+2020,32,7/2/20,Sheffield Utd,3,1,Tottenham,H
+2020,32,7/2/20,Manchester City,4,0,Liverpool,H
+2020,33,7/4/20,Norwich City,0,1,Brighton,A
+2020,33,7/4/20,Manchester Utd,5,2,Bournemouth,H
+2020,33,7/4/20,Leicester City,3,0,Crystal Palace,H
+2020,33,7/4/20,Wolves,0,2,Arsenal,A
+2020,33,7/4/20,Chelsea,3,0,Watford,H
+2020,33,7/5/20,Burnley,1,1,Sheffield Utd,D
+2020,33,7/5/20,Newcastle Utd,2,2,West Ham,D
+2020,33,7/5/20,Liverpool,2,0,Aston Villa,H
+2020,33,7/5/20,Southampton,1,0,Manchester City,H
+2020,33,7/6/20,Tottenham,1,0,Everton,H
+2020,34,7/7/20,Watford,2,1,Norwich City,H
+2020,34,7/7/20,Crystal Palace,2,3,Chelsea,A
+2020,34,7/7/20,Arsenal,1,1,Leicester City,D
+2020,34,7/8/20,Sheffield Utd,1,0,Wolves,H
+2020,34,7/8/20,West Ham,0,1,Burnley,A
+2020,34,7/8/20,Manchester City,5,0,Newcastle Utd,H
+2020,34,7/8/20,Brighton,1,3,Liverpool,A
+2020,34,7/9/20,Everton,1,1,Southampton,D
+2020,34,7/9/20,Bournemouth,0,0,Tottenham,D
+2020,34,7/9/20,Aston Villa,0,3,Manchester Utd,A
+2020,35,7/11/20,Norwich City,0,4,West Ham,A
+2020,35,7/11/20,Watford,2,1,Newcastle Utd,H
+2020,35,7/11/20,Liverpool,1,1,Burnley,D
+2020,35,7/11/20,Sheffield Utd,3,0,Chelsea,H
+2020,35,7/11/20,Brighton,0,5,Manchester City,A
+2020,35,7/12/20,Wolves,3,0,Everton,H
+2020,35,7/12/20,Aston Villa,2,0,Crystal Palace,H
+2020,35,7/12/20,Tottenham,2,1,Arsenal,H
+2020,35,7/12/20,Bournemouth,4,1,Leicester City,H
+2020,35,7/13/20,Manchester Utd,2,2,Southampton,D
+2020,36,7/14/20,Chelsea,1,0,Norwich City,H
+2020,36,7/15/20,Burnley,1,1,Wolves,D
+2020,36,7/15/20,Newcastle Utd,1,3,Tottenham,A
+2020,36,7/15/20,Manchester City,2,1,Bournemouth,H
+2020,36,7/15/20,Arsenal,2,1,Liverpool,H
+2020,36,7/16/20,Leicester City,2,0,Sheffield Utd,H
+2020,36,7/16/20,Everton,1,1,Aston Villa,D
+2020,36,7/16/20,Southampton,1,1,Brighton,D
+2020,36,7/16/20,Crystal Palace,0,2,Manchester Utd,A
+2020,36,7/17/20,West Ham,3,1,Watford,H
+2020,37,7/18/20,Norwich City,0,2,Burnley,A
+2020,37,7/19/20,Bournemouth,0,2,Southampton,A
+2020,37,7/19/20,Tottenham,3,0,Leicester City,H
+2020,37,7/20/20,Sheffield Utd,0,1,Everton,A
+2020,37,7/20/20,Brighton,0,0,Newcastle Utd,D
+2020,37,7/20/20,Wolves,2,0,Crystal Palace,H
+2020,37,7/21/20,Watford,0,4,Manchester City,A
+2020,37,7/21/20,Aston Villa,1,0,Arsenal,H
+2020,37,7/22/20,Manchester Utd,1,1,West Ham,D
+2020,37,7/22/20,Liverpool,5,3,Chelsea,H
+2020,38,7/26/20,Burnley,1,2,Brighton,A
+2020,38,7/26/20,West Ham,1,1,Aston Villa,D
+2020,38,7/26/20,Arsenal,3,2,Watford,H
+2020,38,7/26/20,Crystal Palace,1,1,Tottenham,D
+2020,38,7/26/20,Everton,1,3,Bournemouth,A
+2020,38,7/26/20,Chelsea,2,0,Wolves,H
+2020,38,7/26/20,Newcastle Utd,1,3,Liverpool,A
+2020,38,7/26/20,Leicester City,0,2,Manchester Utd,A
+2020,38,7/26/20,Manchester City,5,0,Norwich City,H
+2020,38,7/26/20,Southampton,3,1,Sheffield Utd,H
+2021,1,9/12/20,Fulham,0,3,Arsenal,A
+2021,1,9/12/20,Crystal Palace,1,0,Southampton,H
+2021,1,9/12/20,Liverpool,4,3,Leeds United,H
+2021,1,9/12/20,West Ham,0,2,Newcastle Utd,A
+2021,1,9/13/20,West Brom,0,3,Leicester City,A
+2021,1,9/13/20,Tottenham,0,1,Everton,A
+2021,1,9/14/20,Sheffield Utd,0,2,Wolves,A
+2021,1,9/14/20,Brighton,1,3,Chelsea,A
+2021,2,9/19/20,Everton,5,2,West Brom,H
+2021,2,9/19/20,Leeds United,4,3,Fulham,H
+2021,2,9/19/20,Manchester Utd,1,3,Crystal Palace,A
+2021,2,9/19/20,Arsenal,2,1,West Ham,H
+2021,2,9/20/20,Southampton,2,5,Tottenham,A
+2021,2,9/20/20,Newcastle Utd,0,3,Brighton,A
+2021,2,9/20/20,Chelsea,0,2,Liverpool,A
+2021,2,9/20/20,Leicester City,4,2,Burnley,H
+2021,2,9/21/20,Aston Villa,1,0,Sheffield Utd,H
+2021,2,9/21/20,Wolves,1,3,Manchester City,A
+2021,3,9/26/20,Brighton,2,3,Manchester Utd,A
+2021,3,9/26/20,Crystal Palace,1,2,Everton,A
+2021,3,9/26/20,West Brom,3,3,Chelsea,D
+2021,3,9/26/20,Burnley,0,1,Southampton,A
+2021,3,9/27/20,Sheffield Utd,0,1,Leeds United,A
+2021,3,9/27/20,Tottenham,1,1,Newcastle Utd,D
+2021,3,9/27/20,Manchester City,2,5,Leicester City,A
+2021,3,9/27/20,West Ham,4,0,Wolves,H
+2021,3,9/28/20,Fulham,0,3,Aston Villa,A
+2021,3,9/28/20,Liverpool,3,1,Arsenal,H
+2021,4,10/3/20,Chelsea,4,0,Crystal Palace,H
+2021,4,10/3/20,Everton,4,2,Brighton,H
+2021,4,10/3/20,Leeds United,1,1,Manchester City,D
+2021,4,10/3/20,Newcastle Utd,3,1,Burnley,H
+2021,4,10/4/20,Leicester City,0,3,West Ham,A
+2021,4,10/4/20,Southampton,2,0,West Brom,H
+2021,4,10/4/20,Arsenal,2,1,Sheffield Utd,H
+2021,4,10/4/20,Wolves,1,0,Fulham,H
+2021,4,10/4/20,Manchester Utd,1,6,Tottenham,A
+2021,4,10/4/20,Aston Villa,7,2,Liverpool,H
+2021,5,10/17/20,Everton,2,2,Liverpool,D
+2021,5,10/17/20,Chelsea,3,3,Southampton,D
+2021,5,10/17/20,Manchester City,1,0,Arsenal,H
+2021,5,10/17/20,Newcastle Utd,1,4,Manchester Utd,A
+2021,5,10/18/20,Sheffield Utd,1,1,Fulham,D
+2021,5,10/18/20,Crystal Palace,1,1,Brighton,D
+2021,5,10/18/20,Tottenham,3,3,West Ham,D
+2021,5,10/18/20,Leicester City,0,1,Aston Villa,A
+2021,5,10/19/20,West Brom,0,0,Burnley,D
+2021,5,10/19/20,Leeds United,0,1,Wolves,A
+2021,6,10/23/20,Aston Villa,0,3,Leeds United,A
+2021,6,10/24/20,West Ham,1,1,Manchester City,D
+2021,6,10/24/20,Fulham,1,2,Crystal Palace,A
+2021,6,10/24/20,Manchester Utd,0,0,Chelsea,D
+2021,6,10/24/20,Liverpool,2,1,Sheffield Utd,H
+2021,6,10/25/20,Southampton,2,0,Everton,H
+2021,6,10/25/20,Wolves,1,1,Newcastle Utd,D
+2021,6,10/25/20,Arsenal,0,1,Leicester City,A
+2021,6,10/26/20,Brighton,1,1,West Brom,D
+2021,6,10/26/20,Burnley,0,1,Tottenham,A
+2021,7,10/30/20,Wolves,2,0,Crystal Palace,H
+2021,7,10/31/20,Sheffield Utd,0,1,Manchester City,A
+2021,7,10/31/20,Burnley,0,3,Chelsea,A
+2021,7,10/31/20,Liverpool,2,1,West Ham,H
+2021,7,11/1/20,Aston Villa,3,4,Southampton,A
+2021,7,11/1/20,Newcastle Utd,2,1,Everton,H
+2021,7,11/1/20,Manchester Utd,0,1,Arsenal,A
+2021,7,11/1/20,Tottenham,2,1,Brighton,H
+2021,7,11/2/20,Fulham,2,0,West Brom,H
+2021,7,11/2/20,Leeds United,1,4,Leicester City,A
+2021,8,11/6/20,Brighton,0,0,Burnley,D
+2021,8,11/6/20,Southampton,2,0,Newcastle Utd,H
+2021,8,11/7/20,Everton,1,3,Manchester Utd,A
+2021,8,11/7/20,Crystal Palace,4,1,Leeds United,H
+2021,8,11/7/20,Chelsea,4,1,Sheffield Utd,H
+2021,8,11/7/20,West Ham,1,0,Fulham,H
+2021,8,11/8/20,West Brom,0,1,Tottenham,A
+2021,8,11/8/20,Leicester City,1,0,Wolves,H
+2021,8,11/8/20,Manchester City,1,1,Liverpool,D
+2021,8,11/8/20,Arsenal,0,3,Aston Villa,A
+2021,9,11/21/20,Newcastle Utd,0,2,Chelsea,A
+2021,9,11/21/20,Aston Villa,1,2,Brighton,A
+2021,9,11/21/20,Tottenham,2,0,Manchester City,H
+2021,9,11/21/20,Manchester Utd,1,0,West Brom,H
+2021,9,11/22/20,Fulham,2,3,Everton,A
+2021,9,11/22/20,Sheffield Utd,0,1,West Ham,A
+2021,9,11/22/20,Leeds United,0,0,Arsenal,D
+2021,9,11/22/20,Liverpool,3,0,Leicester City,H
+2021,9,11/23/20,Burnley,1,0,Crystal Palace,H
+2021,9,11/23/20,Wolves,1,1,Southampton,D
+2021,10,11/27/20,Crystal Palace,0,2,Newcastle Utd,A
+2021,10,11/28/20,Brighton,1,1,Liverpool,D
+2021,10,11/28/20,Manchester City,5,0,Burnley,H
+2021,10,11/28/20,Everton,0,1,Leeds United,A
+2021,10,11/28/20,West Brom,1,0,Sheffield Utd,H
+2021,10,11/29/20,Southampton,2,3,Manchester Utd,A
+2021,10,11/29/20,Chelsea,0,0,Tottenham,D
+2021,10,11/29/20,Arsenal,1,2,Wolves,A
+2021,10,11/30/20,Leicester City,1,2,Fulham,A
+2021,10,11/30/20,West Ham,2,1,Aston Villa,H
+2021,11,12/5/20,Burnley,1,1,Everton,D
+2021,11,12/5/20,Manchester City,2,0,Fulham,H
+2021,11,12/5/20,West Ham,1,3,Manchester Utd,A
+2021,11,12/5/20,Chelsea,3,1,Leeds United,H
+2021,11,12/6/20,West Brom,1,5,Crystal Palace,A
+2021,11,12/6/20,Sheffield Utd,1,2,Leicester City,A
+2021,11,12/6/20,Tottenham,2,0,Arsenal,H
+2021,11,12/6/20,Liverpool,4,0,Wolves,H
+2021,11,12/7/20,Brighton,1,2,Southampton,A
+2021,12,12/11/20,Leeds United,1,2,West Ham,A
+2021,12,12/12/20,Wolves,0,1,Aston Villa,A
+2021,12,12/12/20,Newcastle Utd,2,1,West Brom,H
+2021,12,12/12/20,Manchester Utd,0,0,Manchester City,D
+2021,12,12/12/20,Everton,1,0,Chelsea,H
+2021,12,12/13/20,Southampton,3,0,Sheffield Utd,H
+2021,12,12/13/20,Crystal Palace,1,1,Tottenham,D
+2021,12,12/13/20,Fulham,1,1,Liverpool,D
+2021,12,12/13/20,Leicester City,3,0,Brighton,H
+2021,12,12/13/20,Arsenal,0,1,Burnley,A
+2021,13,12/15/20,Wolves,2,1,Chelsea,H
+2021,13,12/15/20,Manchester City,1,1,West Brom,D
+2021,13,12/16/20,Leeds United,5,2,Newcastle Utd,H
+2021,13,12/16/20,Arsenal,1,1,Southampton,D
+2021,13,12/16/20,Leicester City,0,2,Everton,A
+2021,13,12/16/20,Liverpool,2,1,Tottenham,H
+2021,13,12/16/20,West Ham,1,1,Crystal Palace,D
+2021,13,12/16/20,Fulham,0,0,Brighton,D
+2021,13,12/17/20,Aston Villa,0,0,Burnley,D
+2021,13,12/17/20,Sheffield Utd,2,3,Manchester Utd,A
+2021,14,12/19/20,Crystal Palace,0,7,Liverpool,A
+2021,14,12/19/20,Southampton,0,1,Manchester City,A
+2021,14,12/19/20,Everton,2,1,Arsenal,H
+2021,14,12/19/20,Newcastle Utd,1,1,Fulham,D
+2021,14,12/20/20,Brighton,1,1,Sheffield Utd,D
+2021,14,12/20/20,Tottenham,0,2,Leicester City,A
+2021,14,12/20/20,Manchester Utd,6,2,Leeds United,H
+2021,14,12/20/20,West Brom,0,3,Aston Villa,A
+2021,14,12/21/20,Burnley,2,1,Wolves,H
+2021,14,12/21/20,Chelsea,3,0,West Ham,H
+2021,15,12/26/20,Leicester City,2,2,Manchester Utd,D
+2021,15,12/26/20,Fulham,0,0,Southampton,D
+2021,15,12/26/20,Aston Villa,3,0,Crystal Palace,H
+2021,15,12/26/20,Arsenal,3,1,Chelsea,H
+2021,15,12/26/20,Sheffield Utd,0,1,Everton,A
+2021,15,12/26/20,Manchester City,2,0,Newcastle Utd,H
+2021,15,12/27/20,Leeds United,1,0,Burnley,H
+2021,15,12/27/20,West Ham,2,2,Brighton,D
+2021,15,12/27/20,Liverpool,1,1,West Brom,D
+2021,15,12/27/20,Wolves,1,1,Tottenham,D
+2021,16,12/28/20,Crystal Palace,1,1,Leicester City,D
+2021,16,12/28/20,Chelsea,1,1,Aston Villa,D
+2021,16,12/29/20,Burnley,1,0,Sheffield Utd,H
+2021,16,12/29/20,West Brom,0,5,Leeds United,A
+2021,16,12/29/20,Brighton,0,1,Arsenal,A
+2021,16,12/29/20,Southampton,0,0,West Ham,D
+2021,16,12/29/20,Manchester Utd,1,0,Wolves,H
+2021,16,12/30/20,Newcastle Utd,0,0,Liverpool,D
+2021,17,1/1/21,Everton,0,1,West Ham,A
+2021,17,1/1/21,Manchester Utd,2,1,Aston Villa,H
+2021,17,1/2/21,Tottenham,3,0,Leeds United,H
+2021,17,1/2/21,Crystal Palace,2,0,Sheffield Utd,H
+2021,17,1/2/21,Brighton,3,3,Wolves,D
+2021,17,1/2/21,West Brom,0,4,Arsenal,A
+2021,17,1/3/21,Newcastle Utd,1,2,Leicester City,A
+2021,17,1/3/21,Chelsea,1,3,Manchester City,A
+2021,17,1/4/21,Southampton,1,0,Liverpool,H
+2021,1,1/12/21,Burnley,0,1,Manchester Utd,A
+2021,18,1/12/21,Sheffield Utd,1,0,Newcastle Utd,H
+2021,18,1/12/21,Wolves,1,2,Everton,A
+2021,16,1/13/21,Tottenham,1,1,Fulham,D
+2021,18,1/13/21,Manchester City,1,0,Brighton,H
+2021,18,1/14/21,Arsenal,0,0,Crystal Palace,D
+2021,19,1/16/21,Wolves,2,3,West Brom,A
+2021,19,1/16/21,Leeds United,0,1,Brighton,A
+2021,19,1/16/21,West Ham,1,0,Burnley,H
+2021,19,1/16/21,Fulham,0,1,Chelsea,A
+2021,19,1/16/21,Leicester City,2,0,Southampton,H
+2021,19,1/17/21,Sheffield Utd,1,3,Tottenham,A
+2021,19,1/17/21,Liverpool,0,0,Manchester Utd,D
+2021,19,1/17/21,Manchester City,4,0,Crystal Palace,H
+2021,19,1/18/21,Arsenal,3,0,Newcastle Utd,H
+2021,18,1/19/21,West Ham,2,1,West Brom,H
+2021,18,1/19/21,Leicester City,2,0,Chelsea,H
+2021,1,1/20/21,Manchester City,2,0,Aston Villa,H
+2021,18,1/20/21,Fulham,1,2,Manchester Utd,A
+2021,18,1/21/21,Liverpool,0,1,Burnley,A
+2021,11,1/23/21,Aston Villa,2,0,Newcastle Utd,H
+2021,20,1/26/21,Newcastle Utd,1,2,Leeds United,A
+2021,20,1/26/21,Crystal Palace,2,3,West Ham,A
+2021,20,1/26/21,Southampton,1,3,Arsenal,A
+2021,20,1/26/21,West Brom,0,5,Manchester City,A
+2021,20,1/27/21,Burnley,3,2,Aston Villa,H
+2021,20,1/27/21,Chelsea,0,0,Wolves,D
+2021,20,1/27/21,Brighton,0,0,Fulham,D
+2021,20,1/27/21,Everton,1,1,Leicester City,D
+2021,20,1/27/21,Manchester Utd,1,2,Sheffield Utd,A
+2021,20,1/28/21,Tottenham,1,3,Liverpool,A
+2021,21,1/30/21,Everton,0,2,Newcastle Utd,A
+2021,21,1/30/21,West Brom,2,2,Fulham,D
+2021,21,1/30/21,Manchester City,1,0,Sheffield Utd,H
+2021,21,1/30/21,Crystal Palace,1,0,Wolves,H
+2021,21,1/30/21,Arsenal,0,0,Manchester Utd,D
+2021,21,1/30/21,Southampton,0,1,Aston Villa,A
+2021,21,1/31/21,Chelsea,2,0,Burnley,H
+2021,21,1/31/21,Leicester City,1,3,Leeds United,A
+2021,21,1/31/21,West Ham,1,3,Liverpool,A
+2021,21,1/31/21,Brighton,1,0,Tottenham,H
+2021,22,2/2/21,Wolves,2,1,Arsenal,H
+2021,22,2/2/21,Sheffield Utd,2,1,West Brom,H
+2021,22,2/2/21,Manchester Utd,9,0,Southampton,H
+2021,22,2/2/21,Newcastle Utd,1,2,Crystal Palace,A
+2021,22,2/3/21,Burnley,0,2,Manchester City,A
+2021,22,2/3/21,Fulham,0,2,Leicester City,A
+2021,22,2/3/21,Leeds United,1,2,Everton,A
+2021,22,2/3/21,Liverpool,0,1,Brighton,A
+2021,22,2/3/21,Aston Villa,1,3,West Ham,A
+2021,22,2/4/21,Tottenham,0,1,Chelsea,A
+2021,23,2/6/21,Aston Villa,1,0,Arsenal,H
+2021,23,2/6/21,Newcastle Utd,3,2,Southampton,H
+2021,23,2/6/21,Burnley,1,1,Brighton,D
+2021,23,2/6/21,Fulham,0,0,West Ham,D
+2021,23,2/6/21,Manchester Utd,3,3,Everton,D
+2021,23,2/7/21,Tottenham,2,0,West Brom,H
+2021,23,2/7/21,Wolves,0,0,Leicester City,D
+2021,23,2/7/21,Liverpool,1,4,Manchester City,A
+2021,23,2/7/21,Sheffield Utd,1,2,Chelsea,A
+2021,23,2/8/21,Leeds United,2,0,Crystal Palace,H
+2021,24,2/13/21,Leicester City,3,1,Liverpool,H
+2021,24,2/13/21,Crystal Palace,0,3,Burnley,A
+2021,24,2/13/21,Manchester City,3,0,Tottenham,H
+2021,24,2/13/21,Brighton,0,0,Aston Villa,D
+2021,24,2/14/21,Southampton,1,2,Wolves,A
+2021,24,2/14/21,West Brom,1,1,Manchester Utd,D
+2021,24,2/14/21,Arsenal,4,2,Leeds United,H
+2021,24,2/14/21,Everton,0,2,Fulham,A
+2021,24,2/15/21,West Ham,3,0,Sheffield Utd,H
+2021,24,2/15/21,Chelsea,2,0,Newcastle Utd,H
+2021,16,2/17/21,Everton,1,3,Manchester City,A
+2021,17,2/17/21,Burnley,1,1,Fulham,D
+2021,25,2/19/21,Wolves,1,0,Leeds United,H
+2021,25,2/20/21,Southampton,1,1,Chelsea,D
+2021,25,2/20/21,Burnley,0,0,West Brom,D
+2021,25,2/20/21,Liverpool,0,2,Everton,A
+2021,25,2/20/21,Fulham,1,0,Sheffield Utd,H
+2021,25,2/21/21,West Ham,2,1,Tottenham,H
+2021,25,2/21/21,Aston Villa,1,2,Leicester City,A
+2021,25,2/21/21,Arsenal,0,1,Manchester City,A
+2021,25,2/21/21,Manchester Utd,3,1,Newcastle Utd,H
+2021,25,2/22/21,Brighton,1,2,Crystal Palace,A
+2021,18,2/23/21,Leeds United,3,0,Southampton,H
+2021,26,2/27/21,Manchester City,2,1,West Ham,H
+2021,26,2/27/21,West Brom,1,0,Brighton,H
+2021,26,2/27/21,Leeds United,0,1,Aston Villa,A
+2021,26,2/27/21,Newcastle Utd,1,1,Wolves,D
+2021,26,2/28/21,Crystal Palace,0,0,Fulham,D
+2021,26,2/28/21,Leicester City,1,3,Arsenal,A
+2021,26,2/28/21,Tottenham,4,0,Burnley,H
+2021,26,2/28/21,Chelsea,0,0,Manchester Utd,D
+2021,26,2/28/21,Sheffield Utd,0,2,Liverpool,A
+2021,26,3/1/21,Everton,1,0,Southampton,H
+2021,29,3/2/21,Manchester City,4,1,Wolves,H
+2021,29,3/3/21,Burnley,1,1,Leicester City,D
+2021,29,3/3/21,Sheffield Utd,1,0,Aston Villa,H
+2021,29,3/3/21,Crystal Palace,0,0,Manchester Utd,D
+2021,29,3/4/21,West Brom,0,1,Everton,A
+2021,29,3/4/21,Liverpool,0,1,Chelsea,A
+2021,33,3/4/21,Fulham,0,1,Tottenham,A
+2021,27,3/6/21,Burnley,1,1,Arsenal,D
+2021,27,3/6/21,Sheffield Utd,0,2,Southampton,A
+2021,27,3/6/21,Aston Villa,0,0,Wolves,D
+2021,27,3/6/21,Brighton,1,2,Leicester City,A
+2021,27,3/7/21,West Brom,0,0,Newcastle Utd,D
+2021,27,3/7/21,Liverpool,0,1,Fulham,A
+2021,27,3/7/21,Manchester City,0,2,Manchester Utd,A
+2021,27,3/7/21,Tottenham,4,1,Crystal Palace,H
+2021,27,3/8/21,Chelsea,2,0,Everton,H
+2021,27,3/8/21,West Ham,2,0,Leeds United,H
+2021,33,3/10/21,Manchester City,5,2,Southampton,H
+2021,28,3/12/21,Newcastle Utd,1,1,Aston Villa,D
+2021,28,3/13/21,Leeds United,0,0,Chelsea,D
+2021,28,3/13/21,Crystal Palace,1,0,West Brom,H
+2021,28,3/13/21,Everton,1,2,Burnley,A
+2021,28,3/13/21,Fulham,0,3,Manchester City,A
+2021,28,3/14/21,Southampton,1,2,Brighton,A
+2021,28,3/14/21,Leicester City,5,0,Sheffield Utd,H
+2021,28,3/14/21,Arsenal,2,1,Tottenham,H
+2021,28,3/14/21,Manchester Utd,1,0,West Ham,H
+2021,28,3/15/21,Wolves,0,1,Liverpool,A
+2021,29,3/19/21,Fulham,1,2,Leeds United,A
+2021,29,3/20/21,Brighton,3,0,Newcastle Utd,H
+2021,18,3/21/21,Aston Villa,0,2,Tottenham,A
+2021,29,3/21/21,West Ham,3,3,Arsenal,D
+2021,30,4/3/21,Chelsea,2,5,West Brom,A
+2021,30,4/3/21,Leeds United,2,1,Sheffield Utd,H
+2021,30,4/3/21,Leicester City,0,2,Manchester City,A
+2021,30,4/3/21,Arsenal,0,3,Liverpool,A
+2021,30,4/4/21,Southampton,3,2,Burnley,H
+2021,30,4/4/21,Newcastle Utd,2,2,Tottenham,D
+2021,30,4/4/21,Aston Villa,3,1,Fulham,H
+2021,30,4/4/21,Manchester Utd,2,1,Brighton,H
+2021,30,4/5/21,Everton,1,1,Crystal Palace,D
+2021,30,4/5/21,Wolves,2,3,West Ham,A
+2021,31,4/9/21,Fulham,0,1,Wolves,A
+2021,31,4/10/21,Manchester City,1,2,Leeds United,A
+2021,31,4/10/21,Liverpool,2,1,Aston Villa,H
+2021,31,4/10/21,Crystal Palace,1,4,Chelsea,A
+2021,31,4/11/21,Burnley,1,2,Newcastle Utd,A
+2021,31,4/11/21,West Ham,3,2,Leicester City,H
+2021,31,4/11/21,Tottenham,1,3,Manchester Utd,A
+2021,31,4/11/21,Sheffield Utd,0,3,Arsenal,A
+2021,31,4/12/21,West Brom,3,0,Southampton,H
+2021,31,4/12/21,Brighton,0,0,Everton,D
+2021,32,4/16/21,Everton,2,2,Tottenham,D
+2021,32,4/17/21,Newcastle Utd,3,2,West Ham,H
+2021,32,4/17/21,Wolves,1,0,Sheffield Utd,H
+2021,32,4/18/21,Arsenal,1,1,Fulham,D
+2021,32,4/18/21,Manchester Utd,3,1,Burnley,H
+2021,32,4/19/21,Leeds United,1,1,Liverpool,D
+2021,32,4/20/21,Chelsea,0,0,Brighton,D
+2021,29,4/21/21,Tottenham,2,1,Southampton,H
+2021,32,4/21/21,Aston Villa,1,2,Manchester City,A
+2021,32,4/22/21,Leicester City,3,0,West Brom,H
+2021,33,4/23/21,Arsenal,0,1,Everton,A
+2021,33,4/24/21,Liverpool,1,1,Newcastle Utd,D
+2021,33,4/24/21,West Ham,0,1,Chelsea,A
+2021,33,4/24/21,Sheffield Utd,1,0,Brighton,H
+2021,33,4/25/21,Wolves,0,4,Burnley,A
+2021,33,4/25/21,Leeds United,0,0,Manchester Utd,D
+2021,33,4/25/21,Aston Villa,2,2,West Brom,D
+2021,33,4/26/21,Leicester City,2,1,Crystal Palace,H
+2021,34,4/30/21,Southampton,1,1,Leicester City,D
+2021,34,5/1/21,Crystal Palace,0,2,Manchester City,A
+2021,34,5/1/21,Brighton,2,0,Leeds United,H
+2021,34,5/1/21,Chelsea,2,0,Fulham,H
+2021,34,5/1/21,Everton,1,2,Aston Villa,A
+2021,34,5/2/21,Newcastle Utd,0,2,Arsenal,A
+2021,34,5/2/21,Tottenham,4,0,Sheffield Utd,H
+2021,34,5/3/21,West Brom,1,1,Wolves,D
+2021,34,5/3/21,Burnley,1,2,West Ham,A
+2021,35,5/7/21,Leicester City,2,4,Newcastle Utd,A
+2021,35,5/8/21,Leeds United,3,1,Tottenham,H
+2021,35,5/8/21,Sheffield Utd,0,2,Crystal Palace,A
+2021,35,5/8/21,Manchester City,1,2,Chelsea,A
+2021,35,5/8/21,Liverpool,2,0,Southampton,H
+2021,35,5/9/21,Wolves,2,1,Brighton,H
+2021,35,5/9/21,Aston Villa,1,3,Manchester Utd,A
+2021,35,5/9/21,West Ham,0,1,Everton,A
+2021,35,5/9/21,Arsenal,3,1,West Brom,H
+2021,35,5/10/21,Fulham,0,2,Burnley,A
+2021,32,5/11/21,Southampton,3,1,Crystal Palace,H
+2021,36,5/11/21,Manchester Utd,1,2,Leicester City,A
+2021,36,5/12/21,Chelsea,0,1,Arsenal,A
+2021,19,5/13/21,Aston Villa,0,0,Everton,D
+2021,34,5/13/21,Manchester Utd,2,4,Liverpool,A
+2021,36,5/14/21,Newcastle Utd,3,4,Manchester City,A
+2021,36,5/15/21,Burnley,0,4,Leeds United,A
+2021,36,5/15/21,Southampton,3,1,Fulham,H
+2021,36,5/15/21,Brighton,1,1,West Ham,D
+2021,36,5/16/21,Crystal Palace,3,2,Aston Villa,H
+2021,36,5/16/21,Tottenham,2,0,Wolves,H
+2021,36,5/16/21,West Brom,1,2,Liverpool,A
+2021,36,5/16/21,Everton,0,1,Sheffield Utd,A
+2021,37,5/18/21,Manchester Utd,1,1,Fulham,D
+2021,37,5/18/21,Southampton,0,2,Leeds United,A
+2021,37,5/18/21,Brighton,3,2,Manchester City,H
+2021,37,5/18/21,Chelsea,2,1,Leicester City,H
+2021,37,5/19/21,Tottenham,1,2,Aston Villa,A
+2021,37,5/19/21,Everton,1,0,Wolves,H
+2021,37,5/19/21,Newcastle Utd,1,0,Sheffield Utd,H
+2021,37,5/19/21,Crystal Palace,1,3,Arsenal,A
+2021,37,5/19/21,Burnley,0,3,Liverpool,A
+2021,37,5/19/21,West Brom,1,3,West Ham,A
+2021,38,5/23/21,Leicester City,2,4,Tottenham,A
+2021,38,5/23/21,Manchester City,5,0,Everton,H
+2021,38,5/23/21,Liverpool,2,0,Crystal Palace,H
+2021,38,5/23/21,Sheffield Utd,1,0,Burnley,H
+2021,38,5/23/21,Wolves,1,2,Manchester Utd,A
+2021,38,5/23/21,Arsenal,2,0,Brighton,H
+2021,38,5/23/21,Leeds United,3,1,West Brom,H
+2021,38,5/23/21,Fulham,0,2,Newcastle Utd,A
+2021,38,5/23/21,Aston Villa,2,1,Chelsea,H
+2021,38,5/23/21,West Ham,3,0,Southampton,H
+2022,1,8/13/21,Brentford,2,0,Arsenal,H
+2022,1,8/14/21,Manchester Utd,5,1,Leeds United,H
+2022,1,8/14/21,Watford,3,2,Aston Villa,H
+2022,1,8/14/21,Chelsea,3,0,Crystal Palace,H
+2022,1,8/14/21,Everton,3,1,Southampton,H
+2022,1,8/14/21,Burnley,1,2,Brighton,A
+2022,1,8/14/21,Leicester City,1,0,Wolves,H
+2022,1,8/14/21,Norwich City,0,3,Liverpool,A
+2022,1,8/15/21,Newcastle Utd,2,4,West Ham,A
+2022,1,8/15/21,Tottenham,1,0,Manchester City,H
+2022,2,8/21/21,Liverpool,2,0,Burnley,H
+2022,2,8/21/21,Leeds United,2,2,Everton,D
+2022,2,8/21/21,Aston Villa,2,0,Newcastle Utd,H
+2022,2,8/21/21,Crystal Palace,0,0,Brentford,D
+2022,2,8/21/21,Manchester City,5,0,Norwich City,H
+2022,2,8/21/21,Brighton,2,0,Watford,H
+2022,2,8/22/21,Southampton,1,1,Manchester Utd,D
+2022,2,8/22/21,Wolves,0,1,Tottenham,A
+2022,2,8/22/21,Arsenal,0,2,Chelsea,A
+2022,2,8/23/21,West Ham,4,1,Leicester City,H
+2022,3,8/28/21,Manchester City,5,0,Arsenal,H
+2022,3,8/28/21,West Ham,2,2,Crystal Palace,D
+2022,3,8/28/21,Norwich City,1,2,Leicester City,A
+2022,3,8/28/21,Brighton,0,2,Everton,A
+2022,3,8/28/21,Newcastle Utd,2,2,Southampton,D
+2022,3,8/28/21,Aston Villa,1,1,Brentford,D
+2022,3,8/28/21,Liverpool,1,1,Chelsea,D
+2022,3,8/29/21,Burnley,1,1,Leeds United,D
+2022,3,8/29/21,Tottenham,1,0,Watford,H
+2022,3,8/29/21,Wolves,0,1,Manchester Utd,A
+2022,4,9/11/21,Crystal Palace,3,0,Tottenham,H
+2022,4,9/11/21,Southampton,0,0,West Ham,D
+2022,4,9/11/21,Manchester Utd,4,1,Newcastle Utd,H
+2022,4,9/11/21,Arsenal,1,0,Norwich City,H
+2022,4,9/11/21,Leicester City,0,1,Manchester City,A
+2022,4,9/11/21,Watford,0,2,Wolves,A
+2022,4,9/11/21,Brentford,0,1,Brighton,A
+2022,4,9/11/21,Chelsea,3,0,Aston Villa,H
+2022,4,9/12/21,Leeds United,0,3,Liverpool,A
+2022,4,9/13/21,Everton,3,1,Burnley,H
+2022,5,9/17/21,Newcastle Utd,1,1,Leeds United,D
+2022,5,9/18/21,Wolves,0,2,Brentford,A
+2022,5,9/18/21,Liverpool,3,0,Crystal Palace,H
+2022,5,9/18/21,Norwich City,1,3,Watford,A
+2022,5,9/18/21,Manchester City,0,0,Southampton,D
+2022,5,9/18/21,Burnley,0,1,Arsenal,A
+2022,5,9/18/21,Aston Villa,3,0,Everton,H
+2022,5,9/19/21,West Ham,1,2,Manchester Utd,A
+2022,5,9/19/21,Brighton,2,1,Leicester City,H
+2022,5,9/19/21,Tottenham,0,3,Chelsea,A
+2022,6,9/25/21,Chelsea,0,1,Manchester City,A
+2022,6,9/25/21,Manchester Utd,0,1,Aston Villa,A
+2022,6,9/25/21,Everton,2,0,Norwich City,H
+2022,6,9/25/21,Leeds United,1,2,West Ham,A
+2022,6,9/25/21,Watford,1,1,Newcastle Utd,D
+2022,6,9/25/21,Leicester City,2,2,Burnley,D
+2022,6,9/25/21,Brentford,3,3,Liverpool,D
+2022,6,9/26/21,Southampton,0,1,Wolves,A
+2022,6,9/26/21,Arsenal,3,1,Tottenham,H
+2022,6,9/27/21,Crystal Palace,1,1,Brighton,D
+2022,7,10/2/21,Manchester Utd,1,1,Everton,D
+2022,7,10/2/21,Leeds United,1,0,Watford,H
+2022,7,10/2/21,Wolves,2,1,Newcastle Utd,H
+2022,7,10/2/21,Burnley,0,0,Norwich City,D
+2022,7,10/2/21,Chelsea,3,1,Southampton,H
+2022,7,10/2/21,Brighton,0,0,Arsenal,D
+2022,7,10/3/21,Crystal Palace,2,2,Leicester City,D
+2022,7,10/3/21,West Ham,1,2,Brentford,A
+2022,7,10/3/21,Tottenham,2,1,Aston Villa,H
+2022,7,10/3/21,Liverpool,2,2,Manchester City,D
+2022,8,10/16/21,Watford,0,5,Liverpool,A
+2022,8,10/16/21,Leicester City,4,2,Manchester Utd,H
+2022,8,10/16/21,Southampton,1,0,Leeds United,H
+2022,8,10/16/21,Manchester City,2,0,Burnley,H
+2022,8,10/16/21,Aston Villa,2,3,Wolves,A
+2022,8,10/16/21,Norwich City,0,0,Brighton,D
+2022,8,10/16/21,Brentford,0,1,Chelsea,A
+2022,8,10/17/21,Everton,0,1,West Ham,A
+2022,8,10/17/21,Newcastle Utd,2,3,Tottenham,A
+2022,8,10/18/21,Arsenal,2,2,Crystal Palace,D
+2022,9,10/22/21,Arsenal,3,1,Aston Villa,H
+2022,9,10/23/21,Chelsea,7,0,Norwich City,H
+2022,9,10/23/21,Southampton,2,2,Burnley,D
+2022,9,10/23/21,Crystal Palace,1,1,Newcastle Utd,D
+2022,9,10/23/21,Everton,2,5,Watford,A
+2022,9,10/23/21,Leeds United,1,1,Wolves,D
+2022,9,10/23/21,Brighton,1,4,Manchester City,A
+2022,9,10/24/21,West Ham,1,0,Tottenham,H
+2022,9,10/24/21,Brentford,1,2,Leicester City,A
+2022,9,10/24/21,Manchester Utd,0,5,Liverpool,A
+2022,10,10/30/21,Leicester City,0,2,Arsenal,A
+2022,10,10/30/21,Watford,0,1,Southampton,A
+2022,10,10/30/21,Newcastle Utd,0,3,Chelsea,A
+2022,10,10/30/21,Liverpool,2,2,Brighton,D
+2022,10,10/30/21,Burnley,3,1,Brentford,H
+2022,10,10/30/21,Manchester City,0,2,Crystal Palace,A
+2022,10,10/30/21,Tottenham,0,3,Manchester Utd,A
+2022,10,10/31/21,Norwich City,1,2,Leeds United,A
+2022,10,10/31/21,Aston Villa,1,4,West Ham,A
+2022,10,11/1/21,Wolves,2,1,Everton,H
+2022,11,11/5/21,Southampton,1,0,Aston Villa,H
+2022,11,11/6/21,Manchester Utd,0,2,Manchester City,A
+2022,11,11/6/21,Crystal Palace,2,0,Wolves,H
+2022,11,11/6/21,Chelsea,1,1,Burnley,D
+2022,11,11/6/21,Brentford,1,2,Norwich City,A
+2022,11,11/6/21,Brighton,1,1,Newcastle Utd,D
+2022,11,11/7/21,Leeds United,1,1,Leicester City,D
+2022,11,11/7/21,Everton,0,0,Tottenham,D
+2022,11,11/7/21,Arsenal,1,0,Watford,H
+2022,11,11/7/21,West Ham,3,2,Liverpool,H
+2022,12,11/20/21,Leicester City,0,3,Chelsea,A
+2022,12,11/20/21,Newcastle Utd,3,3,Brentford,D
+2022,12,11/20/21,Aston Villa,2,0,Brighton,H
+2022,12,11/20/21,Watford,4,1,Manchester Utd,H
+2022,12,11/20/21,Norwich City,2,1,Southampton,H
+2022,12,11/20/21,Wolves,1,0,West Ham,H
+2022,12,11/20/21,Burnley,3,3,Crystal Palace,D
+2022,12,11/20/21,Liverpool,4,0,Arsenal,H
+2022,12,11/21/21,Manchester City,3,0,Everton,H
+2022,12,11/21/21,Tottenham,2,1,Leeds United,H
+2022,13,11/27/21,Arsenal,2,0,Newcastle Utd,H
+2022,13,11/27/21,Crystal Palace,1,2,Aston Villa,A
+2022,13,11/27/21,Norwich City,0,0,Wolves,D
+2022,13,11/27/21,Liverpool,4,0,Southampton,H
+2022,13,11/27/21,Brighton,0,0,Leeds United,D
+2022,13,11/28/21,Brentford,1,0,Everton,H
+2022,13,11/28/21,Leicester City,4,2,Watford,H
+2022,13,11/28/21,Manchester City,2,1,West Ham,H
+2022,13,11/28/21,Chelsea,1,1,Manchester Utd,D
+2022,14,11/30/21,Newcastle Utd,1,1,Norwich City,D
+2022,14,11/30/21,Leeds United,1,0,Crystal Palace,H
+2022,14,12/1/21,Wolves,0,0,Burnley,D
+2022,14,12/1/21,Southampton,2,2,Leicester City,D
+2022,14,12/1/21,Watford,1,2,Chelsea,A
+2022,14,12/1/21,West Ham,1,1,Brighton,D
+2022,14,12/1/21,Everton,1,4,Liverpool,A
+2022,14,12/1/21,Aston Villa,1,2,Manchester City,A
+2022,14,12/2/21,Tottenham,2,0,Brentford,H
+2022,14,12/2/21,Manchester Utd,3,2,Arsenal,H
+2022,15,12/4/21,West Ham,3,2,Chelsea,H
+2022,15,12/4/21,Wolves,0,1,Liverpool,A
+2022,15,12/4/21,Southampton,1,1,Brighton,D
+2022,15,12/4/21,Newcastle Utd,1,0,Burnley,H
+2022,15,12/4/21,Watford,1,3,Manchester City,A
+2022,15,12/5/21,Tottenham,3,0,Norwich City,H
+2022,15,12/5/21,Manchester Utd,1,0,Crystal Palace,H
+2022,15,12/5/21,Leeds United,2,2,Brentford,D
+2022,15,12/5/21,Aston Villa,2,1,Leicester City,H
+2022,15,12/6/21,Everton,2,1,Arsenal,H
+2022,16,12/10/21,Brentford,2,1,Watford,H
+2022,16,12/11/21,Manchester City,1,0,Wolves,H
+2022,16,12/11/21,Liverpool,1,0,Aston Villa,H
+2022,16,12/11/21,Chelsea,3,2,Leeds United,H
+2022,16,12/11/21,Arsenal,3,0,Southampton,H
+2022,16,12/11/21,Norwich City,0,1,Manchester Utd,A
+2022,16,12/12/21,Burnley,0,0,West Ham,D
+2022,16,12/12/21,Leicester City,4,0,Newcastle Utd,H
+2022,16,12/12/21,Crystal Palace,3,1,Everton,H
+2022,17,12/14/21,Norwich City,0,2,Aston Villa,A
+2022,17,12/14/21,Manchester City,7,0,Leeds United,H
+2022,17,12/15/21,Crystal Palace,2,2,Southampton,D
+2022,17,12/15/21,Brighton,0,1,Wolves,A
+2022,17,12/15/21,Arsenal,2,0,West Ham,H
+2022,17,12/16/21,Chelsea,1,1,Everton,D
+2022,17,12/16/21,Liverpool,3,1,Newcastle Utd,H
+2022,18,12/18/21,Leeds United,1,4,Arsenal,A
+2022,18,12/19/21,Wolves,0,0,Chelsea,D
+2022,18,12/19/21,Newcastle Utd,0,4,Manchester City,A
+2022,18,12/19/21,Tottenham,2,2,Liverpool,D
+2022,19,12/26/21,West Ham,2,3,Southampton,A
+2022,19,12/26/21,Manchester City,6,3,Leicester City,H
+2022,19,12/26/21,Norwich City,0,5,Arsenal,A
+2022,19,12/26/21,Tottenham,3,0,Crystal Palace,H
+2022,19,12/26/21,Aston Villa,1,3,Chelsea,A
+2022,19,12/26/21,Brighton,2,0,Brentford,H
+2022,19,12/27/21,Newcastle Utd,1,1,Manchester Utd,D
+2022,20,12/28/21,Southampton,1,1,Tottenham,D
+2022,20,12/28/21,Crystal Palace,3,0,Norwich City,H
+2022,20,12/28/21,Watford,1,4,West Ham,A
+2022,20,12/28/21,Leicester City,1,0,Liverpool,H
+2022,20,12/29/21,Chelsea,1,1,Brighton,D
+2022,20,12/29/21,Brentford,0,1,Manchester City,A
+2022,20,12/30/21,Manchester Utd,3,1,Burnley,H
+2022,21,1/1/22,Arsenal,1,2,Manchester City,A
+2022,21,1/1/22,Watford,0,1,Tottenham,A
+2022,21,1/1/22,Crystal Palace,2,3,West Ham,A
+2022,21,1/2/22,Leeds United,3,1,Burnley,H
+2022,21,1/2/22,Everton,2,3,Brighton,A
+2022,21,1/2/22,Brentford,2,1,Aston Villa,H
+2022,21,1/2/22,Chelsea,2,2,Liverpool,D
+2022,21,1/3/22,Manchester Utd,0,1,Wolves,A
+2022,18,1/11/22,Southampton,4,1,Brentford,H
+2022,18,1/12/22,West Ham,2,0,Norwich City,H
+2022,22,1/14/22,Brighton,1,1,Crystal Palace,D
+2022,22,1/15/22,Manchester City,1,0,Chelsea,H
+2022,22,1/15/22,Newcastle Utd,1,1,Watford,D
+2022,22,1/15/22,Wolves,3,1,Southampton,H
+2022,22,1/15/22,Norwich City,2,1,Everton,H
+2022,22,1/15/22,Aston Villa,2,2,Manchester Utd,D
+2022,22,1/16/22,West Ham,2,3,Leeds United,A
+2022,22,1/16/22,Liverpool,3,0,Brentford,H
+2022,24,1/18/22,Brighton,1,1,Chelsea,D
+2022,17,1/19/22,Leicester City,2,3,Tottenham,A
+2022,17,1/19/22,Brentford,1,3,Manchester Utd,A
+2022,23,1/21/22,Watford,0,3,Norwich City,A
+2022,23,1/22/22,Everton,0,1,Aston Villa,A
+2022,23,1/22/22,Manchester Utd,1,0,West Ham,H
+2022,23,1/22/22,Brentford,1,2,Wolves,A
+2022,23,1/22/22,Leeds United,0,1,Newcastle Utd,A
+2022,23,1/22/22,Southampton,1,1,Manchester City,D
+2022,23,1/23/22,Leicester City,1,1,Brighton,D
+2022,23,1/23/22,Crystal Palace,1,3,Liverpool,A
+2022,23,1/23/22,Arsenal,0,0,Burnley,D
+2022,23,1/23/22,Chelsea,2,0,Tottenham,H
+2022,17,2/5/22,Burnley,0,0,Watford,D
+2022,24,2/8/22,Newcastle Utd,3,1,Everton,H
+2022,24,2/8/22,West Ham,1,0,Watford,H
+2022,24,2/8/22,Burnley,1,1,Manchester Utd,D
+2022,24,2/9/22,Tottenham,2,3,Southampton,A
+2022,24,2/9/22,Manchester City,2,0,Brentford,H
+2022,24,2/9/22,Norwich City,1,1,Crystal Palace,D
+2022,24,2/9/22,Aston Villa,3,3,Leeds United,D
+2022,24,2/10/22,Wolves,0,1,Arsenal,A
+2022,24,2/10/22,Liverpool,2,0,Leicester City,H
+2022,25,2/12/22,Manchester Utd,1,1,Southampton,D
+2022,25,2/12/22,Brentford,0,0,Crystal Palace,D
+2022,25,2/12/22,Everton,3,0,Leeds United,H
+2022,25,2/12/22,Watford,0,2,Brighton,A
+2022,25,2/12/22,Norwich City,0,4,Manchester City,A
+2022,25,2/13/22,Tottenham,0,2,Wolves,A
+2022,25,2/13/22,Burnley,0,1,Liverpool,A
+2022,25,2/13/22,Newcastle Utd,1,0,Aston Villa,H
+2022,25,2/13/22,Leicester City,2,2,West Ham,D
+2022,18,2/15/22,Manchester Utd,2,0,Brighton,H
+2022,26,2/19/22,West Ham,1,1,Newcastle Utd,D
+2022,26,2/19/22,Aston Villa,0,1,Watford,A
+2022,26,2/19/22,Liverpool,3,1,Norwich City,H
+2022,26,2/19/22,Crystal Palace,0,1,Chelsea,A
+2022,26,2/19/22,Arsenal,2,1,Brentford,H
+2022,26,2/19/22,Southampton,2,0,Everton,H
+2022,26,2/19/22,Brighton,0,3,Burnley,A
+2022,26,2/19/22,Manchester City,2,3,Tottenham,A
+2022,26,2/20/22,Leeds United,2,4,Manchester Utd,A
+2022,26,2/20/22,Wolves,2,1,Leicester City,H
+2022,13,2/23/22,Burnley,1,0,Tottenham,H
+2022,18,2/23/22,Watford,1,4,Crystal Palace,A
+2022,19,2/23/22,Liverpool,6,0,Leeds United,H
+2022,20,2/24/22,Arsenal,2,1,Wolves,H
+2022,27,2/25/22,Southampton,2,0,Norwich City,H
+2022,27,2/26/22,Leeds United,0,4,Tottenham,A
+2022,27,2/26/22,Crystal Palace,1,1,Burnley,D
+2022,27,2/26/22,Brighton,0,2,Aston Villa,A
+2022,27,2/26/22,Manchester Utd,0,0,Watford,D
+2022,27,2/26/22,Brentford,0,2,Newcastle Utd,A
+2022,27,2/26/22,Everton,0,1,Manchester City,A
+2022,27,2/27/22,West Ham,1,0,Wolves,H
+2022,22,3/1/22,Burnley,0,2,Leicester City,A
+2022,28,3/5/22,Leicester City,1,0,Leeds United,H
+2022,28,3/5/22,Wolves,0,2,Crystal Palace,A
+2022,28,3/5/22,Aston Villa,4,0,Southampton,H
+2022,28,3/5/22,Newcastle Utd,2,1,Brighton,H
+2022,28,3/5/22,Norwich City,1,3,Brentford,A
+2022,28,3/5/22,Burnley,0,4,Chelsea,A
+2022,28,3/5/22,Liverpool,1,0,West Ham,H
+2022,28,3/6/22,Watford,2,3,Arsenal,A
+2022,28,3/6/22,Manchester City,4,1,Manchester Utd,H
+2022,28,3/7/22,Tottenham,5,0,Everton,H
+2022,19,3/10/22,Wolves,4,0,Watford,H
+2022,20,3/10/22,Leeds United,0,3,Aston Villa,A
+2022,21,3/10/22,Southampton,1,2,Newcastle Utd,A
+2022,30,3/10/22,Norwich City,1,3,Chelsea,A
+2022,29,3/12/22,Brighton,0,2,Liverpool,A
+2022,29,3/12/22,Brentford,2,0,Burnley,H
+2022,29,3/12/22,Manchester Utd,3,2,Tottenham,H
+2022,29,3/13/22,Leeds United,2,1,Norwich City,H
+2022,29,3/13/22,Chelsea,1,0,Newcastle Utd,H
+2022,29,3/13/22,West Ham,2,1,Aston Villa,H
+2022,29,3/13/22,Southampton,1,2,Watford,A
+2022,29,3/13/22,Everton,0,1,Wolves,A
+2022,29,3/13/22,Arsenal,2,0,Leicester City,H
+2022,29,3/14/22,Crystal Palace,0,0,Manchester City,D
+2022,16,3/16/22,Brighton,0,2,Tottenham,A
+2022,27,3/16/22,Arsenal,0,2,Liverpool,A
+2022,20,3/17/22,Everton,1,0,Newcastle Utd,H
+2022,30,3/18/22,Wolves,2,3,Leeds United,A
+2022,30,3/19/22,Aston Villa,0,1,Arsenal,A
+2022,30,3/20/22,Leicester City,2,1,Brentford,H
+2022,30,3/20/22,Tottenham,3,1,West Ham,H
+2022,31,4/2/22,Liverpool,2,0,Watford,H
+2022,31,4/2/22,Leeds United,1,1,Southampton,D
+2022,31,4/2/22,Burnley,0,2,Manchester City,A
+2022,31,4/2/22,Wolves,2,1,Aston Villa,H
+2022,31,4/2/22,Chelsea,1,4,Brentford,A
+2022,31,4/2/22,Brighton,0,0,Norwich City,D
+2022,31,4/2/22,Manchester Utd,1,1,Leicester City,D
+2022,31,4/3/22,West Ham,2,1,Everton,H
+2022,31,4/3/22,Tottenham,5,1,Newcastle Utd,H
+2022,31,4/4/22,Crystal Palace,3,0,Arsenal,H
+2022,19,4/6/22,Burnley,3,2,Everton,H
+2022,32,4/8/22,Newcastle Utd,1,0,Wolves,H
+2022,32,4/9/22,Everton,1,0,Manchester Utd,H
+2022,32,4/9/22,Arsenal,1,2,Brighton,A
+2022,32,4/9/22,Southampton,0,6,Chelsea,A
+2022,32,4/9/22,Watford,0,3,Leeds United,A
+2022,32,4/9/22,Aston Villa,0,4,Tottenham,A
+2022,32,4/10/22,Norwich City,2,0,Burnley,H
+2022,32,4/10/22,Brentford,2,0,West Ham,H
+2022,32,4/10/22,Leicester City,2,1,Crystal Palace,H
+2022,32,4/10/22,Manchester City,2,2,Liverpool,D
+2022,33,4/16/22,Tottenham,0,1,Brighton,A
+2022,33,4/16/22,Manchester Utd,3,2,Norwich City,H
+2022,33,4/16/22,Southampton,1,0,Arsenal,H
+2022,33,4/16/22,Watford,1,2,Brentford,A
+2022,33,4/17/22,West Ham,1,1,Burnley,D
+2022,33,4/17/22,Newcastle Utd,2,1,Leicester City,H
+2022,30,4/19/22,Liverpool,4,0,Manchester Utd,H
+2022,18,4/20/22,Everton,1,1,Leicester City,D
+2022,25,4/20/22,Chelsea,2,4,Arsenal,A
+2022,30,4/20/22,Newcastle Utd,1,0,Crystal Palace,H
+2022,30,4/20/22,Manchester City,3,0,Brighton,H
+2022,30,4/21/22,Burnley,2,0,Southampton,H
+2022,34,4/23/22,Arsenal,3,1,Manchester Utd,H
+2022,34,4/23/22,Manchester City,5,1,Watford,H
+2022,34,4/23/22,Leicester City,0,0,Aston Villa,D
+2022,34,4/23/22,Norwich City,0,3,Newcastle Utd,A
+2022,34,4/23/22,Brentford,0,0,Tottenham,D
+2022,34,4/24/22,Chelsea,1,0,West Ham,H
+2022,34,4/24/22,Burnley,1,0,Wolves,H
+2022,34,4/24/22,Brighton,2,2,Southampton,D
+2022,34,4/24/22,Liverpool,2,0,Everton,H
+2022,34,4/25/22,Crystal Palace,0,0,Leeds United,D
+2022,37,4/28/22,Manchester Utd,1,1,Chelsea,D
+2022,35,4/30/22,Newcastle Utd,0,1,Liverpool,A
+2022,35,4/30/22,Watford,1,2,Burnley,A
+2022,35,4/30/22,Southampton,1,2,Crystal Palace,A
+2022,35,4/30/22,Wolves,0,3,Brighton,A
+2022,35,4/30/22,Aston Villa,2,0,Norwich City,H
+2022,35,4/30/22,Leeds United,0,4,Manchester City,A
+2022,35,5/1/22,Tottenham,3,1,Leicester City,H
+2022,35,5/1/22,Everton,1,0,Chelsea,H
+2022,35,5/1/22,West Ham,1,2,Arsenal,A
+2022,35,5/2/22,Manchester Utd,3,0,Brentford,H
+2022,36,5/7/22,Chelsea,2,2,Wolves,D
+2022,36,5/7/22,Brentford,3,0,Southampton,H
+2022,36,5/7/22,Crystal Palace,1,0,Watford,H
+2022,36,5/7/22,Burnley,1,3,Aston Villa,A
+2022,36,5/7/22,Brighton,4,0,Manchester Utd,H
+2022,36,5/7/22,Liverpool,1,1,Tottenham,D
+2022,36,5/8/22,Norwich City,0,4,West Ham,A
+2022,36,5/8/22,Arsenal,2,1,Leeds United,H
+2022,36,5/8/22,Leicester City,1,2,Everton,A
+2022,36,5/8/22,Manchester City,5,0,Newcastle Utd,H
+2022,33,5/10/22,Aston Villa,1,2,Liverpool,A
+2022,21,5/11/22,Leicester City,3,0,Norwich City,H
+2022,30,5/11/22,Watford,0,0,Everton,D
+2022,33,5/11/22,Leeds United,0,3,Chelsea,A
+2022,33,5/11/22,Wolves,1,5,Manchester City,A
+2022,22,5/12/22,Tottenham,3,0,Arsenal,H
+2022,37,5/15/22,Tottenham,1,0,Burnley,H
+2022,37,5/15/22,Watford,1,5,Leicester City,A
+2022,37,5/15/22,West Ham,2,2,Manchester City,D
+2022,37,5/15/22,Leeds United,1,1,Brighton,D
+2022,37,5/15/22,Wolves,1,1,Norwich City,D
+2022,37,5/15/22,Aston Villa,1,1,Crystal Palace,D
+2022,37,5/15/22,Everton,2,3,Brentford,A
+2022,37,5/16/22,Newcastle Utd,2,0,Arsenal,H
+2022,37,5/17/22,Southampton,1,2,Liverpool,A
+2022,18,5/19/22,Aston Villa,1,1,Burnley,D
+2022,27,5/19/22,Chelsea,1,1,Leicester City,D
+2022,33,5/19/22,Everton,3,2,Crystal Palace,H
+2022,38,5/22/22,Brighton,3,1,West Ham,H
+2022,38,5/22/22,Brentford,1,2,Leeds United,A
+2022,38,5/22/22,Leicester City,4,1,Southampton,H
+2022,38,5/22/22,Arsenal,5,1,Everton,H
+2022,38,5/22/22,Crystal Palace,1,0,Manchester Utd,H
+2022,38,5/22/22,Norwich City,0,5,Tottenham,A
+2022,38,5/22/22,Burnley,1,2,Newcastle Utd,A
+2022,38,5/22/22,Liverpool,3,1,Wolves,H
+2022,38,5/22/22,Manchester City,3,2,Aston Villa,H
+2022,38,5/22/22,Chelsea,2,1,Watford,H
+2023,1,8/5/22,Crystal Palace,0,2,Arsenal,A
+2023,1,8/6/22,Fulham,2,2,Liverpool,D
+2023,1,8/6/22,Tottenham,4,1,Southampton,H
+2023,1,8/6/22,Newcastle Utd,2,0,Nott'ham Forest,H
+2023,1,8/6/22,Leeds United,2,1,Wolves,H
+2023,1,8/6/22,Bournemouth,2,0,Aston Villa,H
+2023,1,8/6/22,Everton,0,1,Chelsea,A
+2023,1,8/7/22,Leicester City,2,2,Brentford,D
+2023,1,8/7/22,Manchester Utd,1,2,Brighton,A
+2023,1,8/7/22,West Ham,0,2,Manchester City,A
+2023,2,8/13/22,Aston Villa,2,1,Everton,H
+2023,2,8/13/22,Manchester City,4,0,Bournemouth,H
+2023,2,8/13/22,Southampton,2,2,Leeds United,D
+2023,2,8/13/22,Wolves,0,0,Fulham,D
+2023,2,8/13/22,Arsenal,4,2,Leicester City,H
+2023,2,8/13/22,Brighton,0,0,Newcastle Utd,D
+2023,2,8/13/22,Brentford,4,0,Manchester Utd,H
+2023,2,8/14/22,Nott'ham Forest,1,0,West Ham,H
+2023,2,8/14/22,Chelsea,2,2,Tottenham,D
+2023,2,8/15/22,Liverpool,1,1,Crystal Palace,D
+2023,3,8/20/22,Tottenham,1,0,Wolves,H
+2023,3,8/20/22,Leicester City,1,2,Southampton,A
+2023,3,8/20/22,Everton,1,1,Nott'ham Forest,D
+2023,3,8/20/22,Crystal Palace,3,1,Aston Villa,H
+2023,3,8/20/22,Fulham,3,2,Brentford,H
+2023,3,8/20/22,Bournemouth,0,3,Arsenal,A
+2023,3,8/21/22,Leeds United,3,0,Chelsea,H
+2023,3,8/21/22,West Ham,0,2,Brighton,A
+2023,3,8/21/22,Newcastle Utd,3,3,Manchester City,D
+2023,3,8/22/22,Manchester Utd,2,1,Liverpool,H
+2023,4,8/27/22,Southampton,0,1,Manchester Utd,A
+2023,4,8/27/22,Manchester City,4,2,Crystal Palace,H
+2023,4,8/27/22,Brighton,1,0,Leeds United,H
+2023,4,8/27/22,Chelsea,2,1,Leicester City,H
+2023,4,8/27/22,Brentford,1,1,Everton,D
+2023,4,8/27/22,Liverpool,9,0,Bournemouth,H
+2023,4,8/27/22,Arsenal,2,1,Fulham,H
+2023,4,8/28/22,Wolves,1,1,Newcastle Utd,D
+2023,4,8/28/22,Aston Villa,0,1,West Ham,A
+2023,4,8/28/22,Nott'ham Forest,0,2,Tottenham,A
+2023,5,8/30/22,Fulham,2,1,Brighton,H
+2023,5,8/30/22,Crystal Palace,1,1,Brentford,D
+2023,5,8/30/22,Southampton,2,1,Chelsea,H
+2023,5,8/30/22,Leeds United,1,1,Everton,D
+2023,5,8/31/22,Bournemouth,0,0,Wolves,D
+2023,5,8/31/22,Manchester City,6,0,Nott'ham Forest,H
+2023,5,8/31/22,Arsenal,2,1,Aston Villa,H
+2023,5,8/31/22,West Ham,1,1,Tottenham,D
+2023,5,8/31/22,Liverpool,2,1,Newcastle Utd,H
+2023,5,9/1/22,Leicester City,0,1,Manchester Utd,A
+2023,6,9/3/22,Everton,0,0,Liverpool,D
+2023,6,9/3/22,Nott'ham Forest,2,3,Bournemouth,A
+2023,6,9/3/22,Wolves,1,0,Southampton,H
+2023,6,9/3/22,Newcastle Utd,0,0,Crystal Palace,D
+2023,6,9/3/22,Brentford,5,2,Leeds United,H
+2023,6,9/3/22,Tottenham,2,1,Fulham,H
+2023,6,9/3/22,Chelsea,2,1,West Ham,H
+2023,6,9/3/22,Aston Villa,1,1,Manchester City,D
+2023,6,9/4/22,Brighton,5,2,Leicester City,H
+2023,6,9/4/22,Manchester Utd,3,1,Arsenal,H
+2023,8,9/16/22,Aston Villa,1,0,Southampton,H
+2023,8,9/16/22,Nott'ham Forest,2,3,Fulham,A
+2023,8,9/17/22,Wolves,0,3,Manchester City,A
+2023,8,9/17/22,Newcastle Utd,1,1,Bournemouth,D
+2023,8,9/17/22,Tottenham,6,2,Leicester City,H
+2023,8,9/18/22,Brentford,0,3,Arsenal,A
+2023,8,9/18/22,Everton,1,0,West Ham,H
+2023,9,10/1/22,Arsenal,3,1,Tottenham,H
+2023,9,10/1/22,Southampton,1,2,Everton,A
+2023,9,10/1/22,Crystal Palace,1,2,Chelsea,A
+2023,9,10/1/22,Liverpool,3,3,Brighton,D
+2023,9,10/1/22,Fulham,1,4,Newcastle Utd,A
+2023,9,10/1/22,Bournemouth,0,0,Brentford,D
+2023,9,10/1/22,West Ham,2,0,Wolves,H
+2023,9,10/2/22,Manchester City,6,3,Manchester Utd,H
+2023,9,10/2/22,Leeds United,0,0,Aston Villa,D
+2023,9,10/3/22,Leicester City,4,0,Nott'ham Forest,H
+2023,10,10/8/22,Bournemouth,2,1,Leicester City,H
+2023,10,10/8/22,Newcastle Utd,5,1,Brentford,H
+2023,10,10/8/22,Manchester City,4,0,Southampton,H
+2023,10,10/8/22,Chelsea,3,0,Wolves,H
+2023,10,10/8/22,Brighton,0,1,Tottenham,A
+2023,10,10/9/22,West Ham,3,1,Fulham,H
+2023,10,10/9/22,Crystal Palace,2,1,Leeds United,H
+2023,10,10/9/22,Arsenal,3,2,Liverpool,H
+2023,10,10/9/22,Everton,1,2,Manchester Utd,A
+2023,10,10/10/22,Nott'ham Forest,1,1,Aston Villa,D
+2023,11,10/14/22,Brentford,2,0,Brighton,H
+2023,11,10/15/22,Leicester City,0,0,Crystal Palace,D
+2023,11,10/15/22,Fulham,2,2,Bournemouth,D
+2023,11,10/15/22,Wolves,1,0,Nott'ham Forest,H
+2023,11,10/15/22,Tottenham,2,0,Everton,H
+2023,11,10/16/22,Southampton,1,1,West Ham,D
+2023,11,10/16/22,Aston Villa,0,2,Chelsea,A
+2023,11,10/16/22,Leeds United,0,1,Arsenal,A
+2023,11,10/16/22,Manchester Utd,0,0,Newcastle Utd,D
+2023,11,10/16/22,Liverpool,1,0,Manchester City,H
+2023,12,10/18/22,Brighton,0,0,Nott'ham Forest,D
+2023,12,10/18/22,Crystal Palace,2,1,Wolves,H
+2023,12,10/19/22,Bournemouth,0,1,Southampton,A
+2023,12,10/19/22,Brentford,0,0,Chelsea,D
+2023,12,10/19/22,Liverpool,1,0,West Ham,H
+2023,12,10/19/22,Newcastle Utd,1,0,Everton,H
+2023,12,10/19/22,Manchester Utd,2,0,Tottenham,H
+2023,12,10/20/22,Fulham,3,0,Aston Villa,H
+2023,12,10/20/22,Leicester City,2,0,Leeds United,H
+2023,13,10/22/22,Nott'ham Forest,1,0,Liverpool,H
+2023,13,10/22/22,Everton,3,0,Crystal Palace,H
+2023,13,10/22/22,Manchester City,3,1,Brighton,H
+2023,13,10/22/22,Chelsea,1,1,Manchester Utd,D
+2023,13,10/23/22,Aston Villa,4,0,Brentford,H
+2023,13,10/23/22,Wolves,0,4,Leicester City,A
+2023,13,10/23/22,Leeds United,2,3,Fulham,A
+2023,13,10/23/22,Southampton,1,1,Arsenal,D
+2023,13,10/23/22,Tottenham,1,2,Newcastle Utd,A
+2023,13,10/24/22,West Ham,2,0,Bournemouth,H
+2023,14,10/29/22,Leicester City,0,1,Manchester City,A
+2023,14,10/29/22,Brentford,1,1,Wolves,D
+2023,14,10/29/22,Crystal Palace,1,0,Southampton,H
+2023,14,10/29/22,Newcastle Utd,4,0,Aston Villa,H
+2023,14,10/29/22,Brighton,4,1,Chelsea,H
+2023,14,10/29/22,Bournemouth,2,3,Tottenham,A
+2023,14,10/29/22,Fulham,0,0,Everton,D
+2023,14,10/29/22,Liverpool,1,2,Leeds United,A
+2023,14,10/30/22,Arsenal,5,0,Nott'ham Forest,H
+2023,14,10/30/22,Manchester Utd,1,0,West Ham,H
+2023,15,11/5/22,Nott'ham Forest,2,2,Brentford,D
+2023,15,11/5/22,Leeds United,4,3,Bournemouth,H
+2023,15,11/5/22,Manchester City,2,1,Fulham,H
+2023,15,11/5/22,Wolves,2,3,Brighton,A
+2023,15,11/5/22,Everton,0,2,Leicester City,A
+2023,15,11/6/22,Chelsea,0,1,Arsenal,A
+2023,15,11/6/22,West Ham,1,2,Crystal Palace,A
+2023,15,11/6/22,Southampton,1,4,Newcastle Utd,A
+2023,15,11/6/22,Aston Villa,3,1,Manchester Utd,H
+2023,15,11/6/22,Tottenham,1,2,Liverpool,A
+2023,16,11/12/22,Manchester City,1,2,Brentford,A
+2023,16,11/12/22,Tottenham,4,3,Leeds United,H
+2023,16,11/12/22,Liverpool,3,1,Southampton,H
+2023,16,11/12/22,Bournemouth,3,0,Everton,H
+2023,16,11/12/22,West Ham,0,2,Leicester City,A
+2023,16,11/12/22,Nott'ham Forest,1,0,Crystal Palace,H
+2023,16,11/12/22,Newcastle Utd,1,0,Chelsea,H
+2023,16,11/12/22,Wolves,0,2,Arsenal,A
+2023,16,11/13/22,Brighton,1,2,Aston Villa,A
+2023,16,11/13/22,Fulham,1,2,Manchester Utd,A
+2023,17,12/26/22,Brentford,2,2,Tottenham,D
+2023,17,12/26/22,Southampton,1,3,Brighton,A
+2023,17,12/26/22,Leicester City,0,3,Newcastle Utd,A
+2023,17,12/26/22,Crystal Palace,0,3,Fulham,A
+2023,17,12/26/22,Everton,1,2,Wolves,A
+2023,17,12/26/22,Aston Villa,1,3,Liverpool,A
+2023,17,12/26/22,Arsenal,3,1,West Ham,H
+2023,17,12/27/22,Chelsea,2,0,Bournemouth,H
+2023,17,12/27/22,Manchester Utd,3,0,Nott'ham Forest,H
+2023,17,12/28/22,Leeds United,1,3,Manchester City,A
+2023,18,12/30/22,West Ham,0,2,Brentford,A
+2023,18,12/30/22,Liverpool,2,1,Leicester City,H
+2023,18,12/31/22,Wolves,0,1,Manchester Utd,A
+2023,18,12/31/22,Newcastle Utd,0,0,Leeds United,D
+2023,18,12/31/22,Fulham,2,1,Southampton,H
+2023,18,12/31/22,Manchester City,1,1,Everton,D
+2023,18,12/31/22,Bournemouth,0,2,Crystal Palace,A
+2023,18,12/31/22,Brighton,2,4,Arsenal,A
+2023,18,1/1/23,Tottenham,0,2,Aston Villa,A
+2023,18,1/1/23,Nott'ham Forest,1,1,Chelsea,D
+2023,19,1/2/23,Brentford,3,1,Liverpool,H
+2023,19,1/3/23,Leicester City,0,1,Fulham,A
+2023,19,1/3/23,Everton,1,4,Brighton,A
+2023,19,1/3/23,Arsenal,0,0,Newcastle Utd,D
+2023,19,1/3/23,Manchester Utd,3,0,Bournemouth,H
+2023,19,1/4/23,Southampton,0,1,Nott'ham Forest,A
+2023,19,1/4/23,Leeds United,2,2,West Ham,D
+2023,19,1/4/23,Aston Villa,1,1,Wolves,D
+2023,19,1/4/23,Crystal Palace,0,4,Tottenham,A
+2023,19,1/5/23,Chelsea,0,1,Manchester City,A
+2023,7,1/12/23,Fulham,2,1,Chelsea,H
+2023,20,1/13/23,Aston Villa,2,1,Leeds United,H
+2023,20,1/14/23,Manchester Utd,2,1,Manchester City,H
+2023,20,1/14/23,Everton,1,2,Southampton,A
+2023,20,1/14/23,Wolves,1,0,West Ham,H
+2023,20,1/14/23,Nott'ham Forest,2,0,Leicester City,H
+2023,20,1/14/23,Brighton,3,0,Liverpool,H
+2023,20,1/14/23,Brentford,2,0,Bournemouth,H
+2023,20,1/15/23,Chelsea,1,0,Crystal Palace,H
+2023,20,1/15/23,Newcastle Utd,1,0,Fulham,H
+2023,20,1/15/23,Tottenham,0,2,Arsenal,A
+2023,7,1/18/23,Crystal Palace,1,1,Manchester Utd,D
+2023,7,1/19/23,Manchester City,4,2,Tottenham,H
+2023,21,1/21/23,Liverpool,0,0,Chelsea,D
+2023,21,1/21/23,Bournemouth,1,1,Nott'ham Forest,D
+2023,21,1/21/23,Southampton,0,1,Aston Villa,A
+2023,21,1/21/23,Leicester City,2,2,Brighton,D
+2023,21,1/21/23,West Ham,2,0,Everton,H
+2023,21,1/21/23,Crystal Palace,0,0,Newcastle Utd,D
+2023,21,1/22/23,Manchester City,3,0,Wolves,H
+2023,21,1/22/23,Leeds United,0,0,Brentford,D
+2023,21,1/22/23,Arsenal,3,2,Manchester Utd,H
+2023,21,1/23/23,Fulham,0,1,Tottenham,A
+2023,22,2/3/23,Chelsea,0,0,Fulham,D
+2023,22,2/4/23,Everton,1,0,Arsenal,H
+2023,22,2/4/23,Aston Villa,2,4,Leicester City,A
+2023,22,2/4/23,Wolves,3,0,Liverpool,H
+2023,22,2/4/23,Manchester Utd,2,1,Crystal Palace,H
+2023,22,2/4/23,Brighton,1,0,Bournemouth,H
+2023,22,2/4/23,Brentford,3,0,Southampton,H
+2023,22,2/4/23,Newcastle Utd,1,1,West Ham,D
+2023,22,2/5/23,Nott'ham Forest,1,0,Leeds United,H
+2023,22,2/5/23,Tottenham,1,0,Manchester City,H
+2023,8,2/8/23,Manchester Utd,2,2,Leeds United,D
+2023,23,2/11/23,West Ham,1,1,Chelsea,D
+2023,23,2/11/23,Leicester City,4,1,Tottenham,H
+2023,23,2/11/23,Crystal Palace,1,1,Brighton,D
+2023,23,2/11/23,Arsenal,1,1,Brentford,D
+2023,23,2/11/23,Southampton,1,2,Wolves,A
+2023,23,2/11/23,Fulham,2,0,Nott'ham Forest,H
+2023,23,2/11/23,Bournemouth,1,1,Newcastle Utd,D
+2023,23,2/12/23,Leeds United,0,2,Manchester Utd,A
+2023,23,2/12/23,Manchester City,3,1,Aston Villa,H
+2023,23,2/13/23,Liverpool,2,0,Everton,H
+2023,12,2/15/23,Arsenal,1,3,Manchester City,A
+2023,24,2/18/23,Aston Villa,2,4,Arsenal,A
+2023,24,2/18/23,Brighton,0,1,Fulham,A
+2023,24,2/18/23,Nott'ham Forest,1,1,Manchester City,D
+2023,24,2/18/23,Chelsea,0,1,Southampton,A
+2023,24,2/18/23,Everton,1,0,Leeds United,H
+2023,24,2/18/23,Wolves,0,1,Bournemouth,A
+2023,24,2/18/23,Brentford,1,1,Crystal Palace,D
+2023,24,2/18/23,Newcastle Utd,0,2,Liverpool,A
+2023,24,2/19/23,Manchester Utd,3,0,Leicester City,H
+2023,24,2/19/23,Tottenham,2,0,West Ham,H
+2023,25,2/24/23,Fulham,1,1,Wolves,D
+2023,25,2/25/23,Leicester City,0,1,Arsenal,A
+2023,25,2/25/23,Everton,0,2,Aston Villa,A
+2023,25,2/25/23,West Ham,4,0,Nott'ham Forest,H
+2023,25,2/25/23,Leeds United,1,0,Southampton,H
+2023,25,2/25/23,Bournemouth,1,4,Manchester City,A
+2023,25,2/25/23,Crystal Palace,0,0,Liverpool,D
+2023,25,2/26/23,Tottenham,2,0,Chelsea,H
+2023,7,3/1/23,Arsenal,4,0,Everton,H
+2023,7,3/1/23,Liverpool,2,0,Wolves,H
+2023,26,3/4/23,Manchester City,2,0,Newcastle Utd,H
+2023,26,3/4/23,Arsenal,3,2,Bournemouth,H
+2023,26,3/4/23,Aston Villa,1,0,Crystal Palace,H
+2023,26,3/4/23,Chelsea,1,0,Leeds United,H
+2023,26,3/4/23,Brighton,4,0,West Ham,H
+2023,26,3/4/23,Wolves,1,0,Tottenham,H
+2023,26,3/4/23,Southampton,1,0,Leicester City,H
+2023,26,3/5/23,Nott'ham Forest,2,2,Everton,D
+2023,26,3/5/23,Liverpool,7,0,Manchester Utd,H
+2023,26,3/6/23,Brentford,3,2,Fulham,H
+2023,27,3/11/23,Bournemouth,1,0,Liverpool,H
+2023,27,3/11/23,Leeds United,2,2,Brighton,D
+2023,27,3/11/23,Everton,1,0,Brentford,H
+2023,27,3/11/23,Leicester City,1,3,Chelsea,A
+2023,27,3/11/23,Tottenham,3,1,Nott'ham Forest,H
+2023,27,3/11/23,Crystal Palace,0,1,Manchester City,A
+2023,27,3/12/23,Manchester Utd,0,0,Southampton,D
+2023,27,3/12/23,Fulham,0,3,Arsenal,A
+2023,27,3/12/23,West Ham,1,1,Aston Villa,D
+2023,27,3/12/23,Newcastle Utd,2,1,Wolves,H
+2023,7,3/15/23,Southampton,0,2,Brentford,A
+2023,8,3/15/23,Brighton,1,0,Crystal Palace,H
+2023,28,3/17/23,Nott'ham Forest,1,2,Newcastle Utd,A
+2023,28,3/18/23,Wolves,2,4,Leeds United,A
+2023,28,3/18/23,Brentford,1,1,Leicester City,D
+2023,28,3/18/23,Aston Villa,3,0,Bournemouth,H
+2023,28,3/18/23,Southampton,3,3,Tottenham,D
+2023,28,3/18/23,Chelsea,2,2,Everton,D
+2023,28,3/19/23,Arsenal,4,1,Crystal Palace,H
+2023,29,4/1/23,Manchester City,4,1,Liverpool,H
+2023,29,4/1/23,Arsenal,4,1,Leeds United,H
+2023,29,4/1/23,Nott'ham Forest,1,1,Wolves,D
+2023,29,4/1/23,Brighton,3,3,Brentford,D
+2023,29,4/1/23,Crystal Palace,2,1,Leicester City,H
+2023,29,4/1/23,Bournemouth,2,1,Fulham,H
+2023,29,4/1/23,Chelsea,0,2,Aston Villa,A
+2023,29,4/2/23,West Ham,1,0,Southampton,H
+2023,29,4/2/23,Newcastle Utd,2,0,Manchester Utd,H
+2023,29,4/3/23,Everton,1,1,Tottenham,D
+2023,7,4/4/23,Leeds United,2,1,Nott'ham Forest,H
+2023,7,4/4/23,Bournemouth,0,2,Brighton,A
+2023,7,4/4/23,Leicester City,1,2,Aston Villa,A
+2023,8,4/4/23,Chelsea,0,0,Liverpool,D
+2023,25,4/5/23,Manchester Utd,1,0,Brentford,H
+2023,7,4/5/23,West Ham,1,5,Newcastle Utd,A
+2023,30,4/8/23,Manchester Utd,2,0,Everton,H
+2023,30,4/8/23,Fulham,0,1,West Ham,A
+2023,30,4/8/23,Aston Villa,2,0,Nott'ham Forest,H
+2023,30,4/8/23,Leicester City,0,1,Bournemouth,A
+2023,30,4/8/23,Brentford,1,2,Newcastle Utd,A
+2023,30,4/8/23,Wolves,1,0,Chelsea,H
+2023,30,4/8/23,Tottenham,2,1,Brighton,H
+2023,30,4/8/23,Southampton,1,4,Manchester City,A
+2023,30,4/9/23,Leeds United,1,5,Crystal Palace,A
+2023,30,4/9/23,Liverpool,2,2,Arsenal,D
+2023,31,4/15/23,Aston Villa,3,0,Newcastle Utd,H
+2023,31,4/15/23,Chelsea,1,2,Brighton,A
+2023,31,4/15/23,Southampton,0,2,Crystal Palace,A
+2023,31,4/15/23,Wolves,2,0,Brentford,H
+2023,31,4/15/23,Tottenham,2,3,Bournemouth,A
+2023,31,4/15/23,Everton,1,3,Fulham,A
+2023,31,4/15/23,Manchester City,3,1,Leicester City,H
+2023,31,4/16/23,West Ham,2,2,Arsenal,D
+2023,31,4/16/23,Nott'ham Forest,0,2,Manchester Utd,A
+2023,31,4/17/23,Leeds United,1,6,Liverpool,A
+2023,32,4/21/23,Arsenal,3,3,Southampton,D
+2023,32,4/22/23,Fulham,2,1,Leeds United,H
+2023,32,4/22/23,Crystal Palace,0,0,Everton,D
+2023,32,4/22/23,Brentford,1,1,Aston Villa,D
+2023,32,4/22/23,Liverpool,3,2,Nott'ham Forest,H
+2023,32,4/22/23,Leicester City,2,1,Wolves,H
+2023,32,4/23/23,Bournemouth,0,4,West Ham,A
+2023,32,4/23/23,Newcastle Utd,6,1,Tottenham,H
+2023,33,4/25/23,Wolves,2,0,Crystal Palace,H
+2023,33,4/25/23,Aston Villa,1,0,Fulham,H
+2023,33,4/25/23,Leeds United,1,1,Leicester City,D
+2023,33,4/26/23,Nott'ham Forest,3,1,Brighton,H
+2023,33,4/26/23,Chelsea,0,2,Brentford,A
+2023,33,4/26/23,West Ham,1,2,Liverpool,A
+2023,33,4/26/23,Manchester City,4,1,Arsenal,H
+2023,33,4/27/23,Everton,1,4,Newcastle Utd,A
+2023,33,4/27/23,Southampton,0,1,Bournemouth,A
+2023,33,4/27/23,Tottenham,2,2,Manchester Utd,D
+2023,34,4/29/23,Crystal Palace,4,3,West Ham,H
+2023,34,4/29/23,Brighton,6,0,Wolves,H
+2023,34,4/29/23,Brentford,2,1,Nott'ham Forest,H
+2023,34,4/30/23,Manchester Utd,1,0,Aston Villa,H
+2023,34,4/30/23,Bournemouth,4,1,Leeds United,H
+2023,34,4/30/23,Newcastle Utd,3,1,Southampton,H
+2023,34,4/30/23,Fulham,1,2,Manchester City,A
+2023,34,4/30/23,Liverpool,4,3,Tottenham,H
+2023,34,5/1/23,Leicester City,2,2,Everton,D
+2023,34,5/2/23,Arsenal,3,1,Chelsea,H
+2023,28,5/3/23,Liverpool,1,0,Fulham,H
+2023,28,5/3/23,Manchester City,3,0,West Ham,H
+2023,28,5/4/23,Brighton,1,0,Manchester Utd,H
+2023,35,5/6/23,Tottenham,1,0,Crystal Palace,H
+2023,35,5/6/23,Wolves,1,0,Aston Villa,H
+2023,35,5/6/23,Bournemouth,1,3,Chelsea,A
+2023,35,5/6/23,Manchester City,2,1,Leeds United,H
+2023,35,5/6/23,Liverpool,1,0,Brentford,H
+2023,35,5/7/23,Newcastle Utd,0,2,Arsenal,A
+2023,35,5/7/23,West Ham,1,0,Manchester Utd,H
+2023,35,5/8/23,Fulham,5,3,Leicester City,H
+2023,35,5/8/23,Brighton,1,5,Everton,A
+2023,35,5/8/23,Nott'ham Forest,4,3,Southampton,H
+2023,36,5/13/23,Leeds United,2,2,Newcastle Utd,D
+2023,36,5/13/23,Aston Villa,2,1,Tottenham,H
+2023,36,5/13/23,Chelsea,2,2,Nott'ham Forest,D
+2023,36,5/13/23,Crystal Palace,2,0,Bournemouth,H
+2023,36,5/13/23,Southampton,0,2,Fulham,A
+2023,36,5/13/23,Manchester Utd,2,0,Wolves,H
+2023,36,5/14/23,Everton,0,3,Manchester City,A
+2023,36,5/14/23,Brentford,2,0,West Ham,H
+2023,36,5/14/23,Arsenal,0,3,Brighton,A
+2023,36,5/15/23,Leicester City,0,3,Liverpool,A
+2023,25,5/18/23,Newcastle Utd,4,1,Brighton,H
+2023,37,5/20/23,Tottenham,1,3,Brentford,A
+2023,37,5/20/23,Liverpool,1,1,Aston Villa,D
+2023,37,5/20/23,Fulham,2,2,Crystal Palace,D
+2023,37,5/20/23,Bournemouth,0,1,Manchester Utd,A
+2023,37,5/20/23,Wolves,1,1,Everton,D
+2023,37,5/20/23,Nott'ham Forest,1,0,Arsenal,H
+2023,37,5/21/23,West Ham,3,1,Leeds United,H
+2023,37,5/21/23,Brighton,3,1,Southampton,H
+2023,37,5/21/23,Manchester City,1,0,Chelsea,H
+2023,37,5/22/23,Newcastle Utd,0,0,Leicester City,D
+2023,32,5/24/23,Brighton,1,1,Manchester City,D
+2023,32,5/25/23,Manchester Utd,4,1,Chelsea,H
+2023,38,5/28/23,Crystal Palace,1,1,Nott'ham Forest,D
+2023,38,5/28/23,Chelsea,1,1,Newcastle Utd,D
+2023,38,5/28/23,Manchester Utd,2,1,Fulham,H
+2023,38,5/28/23,Arsenal,5,0,Wolves,H
+2023,38,5/28/23,Southampton,4,4,Liverpool,D
+2023,38,5/28/23,Everton,1,0,Bournemouth,H
+2023,38,5/28/23,Leicester City,2,1,West Ham,H
+2023,38,5/28/23,Aston Villa,2,1,Brighton,H
+2023,38,5/28/23,Leeds United,1,4,Tottenham,A
+2023,38,5/28/23,Brentford,1,0,Manchester City,H

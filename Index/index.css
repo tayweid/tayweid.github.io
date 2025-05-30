@@ -195,17 +195,15 @@ img.small {
 
 /* NAVIGATION */
 .left_div {
-    display: table-cell;
-    background: var(--main-fg-color);
-    width: auto;
-    height:150%;
-    margin-right: 0%;
+    position: absolute;
+    left: 0;
+    width: 200px;  /* Reduced width */
+    padding-right: 10px;  /* Further reduced padding */
 }
 .left_div > nav {
     position: fixed;
-    top: 10%;
-    width: auto;
-    height:150%;
+    top: 60px;  /* Align with content top */
+    width: 200px;  /* Match parent width */
     text-align: right;
 }
 .right_div {
@@ -229,9 +227,9 @@ img.small {
 }
 .nameplate {
     margin-left: 5px;
-    margin-top: 5px;
+    margin-top: 0px;  /* No negative margin for more spacing */
     margin-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 5px;  /* Reduced from 10px */
     padding-bottom: 10px;
     border-bottom: 1px solid var(--main-fg-color);
 }
@@ -255,12 +253,14 @@ ul > span {
     font-weight:bold;
     margin-top:5%;
     margin-bottom:2%;
-    font-size:36px;
+    font-size:32px;  /* Reduced from 36px */
     display: block;
+    line-height: 0.8;  /* Reduce vertical spacing */
 }
 li a {
   display: block;
   padding: 4px 4px;
+  /* Remove font-size to use default */
 }
 li a.active {
   color: var(--main-fg-color);
@@ -342,18 +342,24 @@ li a:hover {
 
 /* biographical info */
 
+.wrapper {
+    max-width: 1210px;  /* Tighter wrapper */
+    margin: 0 auto;
+    position: relative;
+}
+
 @media (min-width: 1000px) {
     #outer {
-        max-width: 1000px;
-        margin-left: 250px;  /* Increased from 200px to 250px to move it right */
-        margin-right: auto;
+        max-width: 1000px;  /* Back to original width */
+        margin-left: 210px;  /* Reduced margin (sidebar 200px + padding 10px) */
+        position: relative;
     }
 
     #inner {
         padding-top: 50px;
         padding-bottom: 50px;
-        padding-left: 50px;
-        padding-right: 50px;
+        padding-left: 30px;  /* Reduced from 50px */
+        padding-right: 30px;  /* Reduced from 50px */
     }
 }
 
@@ -393,7 +399,7 @@ li a:hover {
     padding: 0em 0em 0em 0em;
     padding-bottom: 0.5em;
     width: 100%;  /* Changed from 96% to 100% */
-    max-width: 1000px;  /* Increased from 800px to 1000px */
+    max-width: 1000px;  /* Back to original */
     background-color:var(--main-bg-color);
     color: white;
     box-sizing: border-box;
