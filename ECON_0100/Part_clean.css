@@ -204,6 +204,7 @@ hr {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    gap: 15px;
 }
 
 .carousel-track {
@@ -216,6 +217,10 @@ hr {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
+    /* Add bounce effect on both ends */
+    overscroll-behavior-x: auto;
+    -webkit-overscroll-behavior-x: auto;
+    flex: 1;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -313,9 +318,6 @@ hr {
 
 /* Arrow buttons */
 .carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 50%;
@@ -324,11 +326,11 @@ hr {
     color: white;
     font-size: 20px;
     cursor: pointer;
-    z-index: 10;
     transition: background 0.3s ease, opacity 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .carousel-arrow:hover {
@@ -336,11 +338,11 @@ hr {
 }
 
 .carousel-arrow-left {
-    left: 10px;
+    order: -1;
 }
 
 .carousel-arrow-right {
-    right: 10px;
+    order: 1;
 }
 
 /* Hide arrows on mobile */
