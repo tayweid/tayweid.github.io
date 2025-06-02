@@ -139,6 +139,11 @@ h3, h4 {
 p {
     font-size: 20px;
     line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+p:hover {
+    color: white;
 }
 
 a {
@@ -206,9 +211,10 @@ hr {
 
 /* Carousel Indicator */
 .carousel-indicator {
-    margin: 20px 0 15px 0;
+    margin: 10px 0 5px 0;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .indicator-track {
@@ -217,6 +223,8 @@ hr {
     background: var(--main-md-color);
     border-radius: 25px;
     padding: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--main-md-color);
 }
 
 .indicator-tab {
@@ -239,6 +247,7 @@ hr {
 
 .indicator-tab.active {
     color: white;
+    font-weight: bold;
 }
 
 .indicator-slider {
@@ -251,6 +260,7 @@ hr {
     transition: transform 0.3s ease, width 0.3s ease;
     z-index: 1;
     pointer-events: none;
+    box-shadow: 0 2px 10px rgba(66, 132, 242, 0.5);
 }
 
 .carousel {
@@ -258,13 +268,12 @@ hr {
     display: flex;
     align-items: center;
     border-radius: 15px;
-    gap: 15px;
 }
 
 .carousel-track {
     display: flex;
-    gap: 20px;
-    padding: 15px calc(50% - 165px);
+    gap: 40px;
+    padding: 15px calc(50% - min(400px, 45vw));
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -280,7 +289,9 @@ hr {
 }
 
 .carousel-card {
-    flex: 0 0 330px;
+    flex: 0 0 auto;
+    width: 800px;
+    max-width: 100%;
     border: 2px solid var(--main-md-color);
     border-radius: 15px;
     padding: 0;
@@ -289,27 +300,57 @@ hr {
     cursor: pointer;
     scroll-snap-align: center;
     overflow: hidden;
-    height: 280px;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     opacity: 0.5;
-    transform: scale(0.9);
 }
 
 .carousel-card.active {
     opacity: 1;
-    transform: scale(1);
     border-color: var(--main-cool-blue);
-    box-shadow: 0 4px 20px rgba(66, 132, 242, 0.3);
+    box-shadow: 0 2px 10px rgba(66, 132, 242, 0.15);
 }
 
 .carousel-card:hover {
     background-color: #181818;
 }
 
+/* Placeholder card for missing content */
+.carousel-card.placeholder {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
+
+.carousel-card.placeholder:hover {
+    background-color: var(--main-bg-color);
+}
+
+.carousel-card.placeholder .card-video {
+    background: var(--main-md-color);
+    padding-bottom: 56%;
+    position: relative;
+}
+
+/* Standalone card (not in carousel) */
+.carousel-card.standalone-card {
+    margin: 20px auto;
+    cursor: default;
+}
+
+.carousel-card.standalone-card .card-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 13px 13px 0 0;
+}
+
 .card-video {
     position: relative;
-    padding-bottom: 56%; /* Back to original 16:9 aspect ratio */
+    padding-bottom: 56%; /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
     border-radius: 13px 13px 0 0;
@@ -352,7 +393,7 @@ hr {
 }
 
 .card-content {
-    padding: 10px;
+    padding: 20px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -436,19 +477,22 @@ hr {
 
 /* Arrow buttons */
 .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.5);
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     color: white;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     transition: background 0.3s ease, opacity 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    z-index: 10;
 }
 
 .carousel-arrow:hover {
@@ -456,44 +500,57 @@ hr {
 }
 
 .carousel-arrow-left {
-    order: -1;
+    left: 20px;
 }
 
 .carousel-arrow-right {
-    order: 1;
+    right: 20px;
 }
 
-/* Hide arrows on mobile */
+.carousel-arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-arrow-left {
+    left: 20px;
+}
+
+.carousel-arrow-right {
+    right: 20px;
+}
+
+/* Mobile styles */
 @media screen and (max-width: 1000px) {
     .carousel-arrow {
         display: none;
     }
     
-    .carousel-track {
-        padding: 15px;
-        padding-left: calc(50% - 150px);
-        padding-right: calc(50% - 150px);
+    .carousel-card {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+        min-height: 250px;
     }
     
-    .carousel-card {
-        flex: 0 0 300px;
-        height: 300px;
+    .carousel-track {
+        padding: 15px 0;
+        gap: 30px;
     }
     
     .card-video {
-        padding-bottom: 45%;
+        padding-bottom: 56%;
     }
     
     .card-content {
-        padding: 12px;
+        padding: 15px;
     }
     
     .card-title {
-        font-size: 16px;
+        font-size: 18px;
     }
     
     .card-description {
-        font-size: 13px;
+        font-size: 16px;
     }
     
     /* Indicator responsive */
@@ -553,42 +610,3 @@ hr {
     }
 }
 
-/* Additional mobile styles for very small screens */
-@media screen and (max-width: 600px) {
-    .wrapper {
-        padding: 0 5px;
-    }
-    
-    .content {
-        padding: 20px 10px;
-    }
-    
-    .carousel-card {
-        flex: 0 0 270px;
-        height: 280px;
-    }
-    
-    .carousel-track {
-        padding: 10px;
-        padding-left: calc(50% - 135px);
-        padding-right: calc(50% - 135px);
-    }
-    
-    .title {
-        font-size: 32px;
-    }
-    
-    .subtitle {
-        font-size: 28px;
-    }
-    
-    /* Smaller indicator tabs on very small screens */
-    .indicator-tab {
-        padding: 5px 8px;
-        font-size: 12px;
-    }
-    
-    .indicator-track {
-        padding: 3px;
-    }
-}

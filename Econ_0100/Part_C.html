@@ -6,7 +6,7 @@
     
 <title>Microeconomics | Part C</title>
 
-<link rel="stylesheet" href="Part.css">
+<link rel="stylesheet" href="Part_clean.css">
 
 </head>
 
@@ -19,14 +19,15 @@
 
 <body>
 
-<div class="body_table"><div>
-<div class="left_div" align="right">
+<div class="wrapper">
+<div class="left_div">
     <nav>
         <ul>
             <span>MICRO</span>
             <span>-ECON</span>
-            <li><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
-            <hr style="width: 50%; margin: 10px 0 10px auto; border: 0; border-top: 1px solid #ccc;">
+            <hr style="width: 80%; margin: 20px 0 10px auto;">
+            <li style="margin: 0;"><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
+            <hr style="width: 80%; margin: 10px 0 10px auto;">
             <li><a href="https://tayweid.github.io/Econ_0100/Part_A">Part A</a></li>
             <li><a href="https://tayweid.github.io/Econ_0100/Part_B">Part B</a></li>
             <li><a class="active" href="">Part C</a></li>
@@ -40,7 +41,7 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title"> Part C | Markets fail with externalities.</h1>        
+        <h1 class="title"> Part C // Markets fail with externalities</h1>        
         <p>
             In Part A we set up the landscape of what's possible. But we left with the question where on the PPF is best. In Part B we introduced markets as a way to arbitrate which point on the PPF we should choose. And we showed that competitive markets without externalities deliver a quantity that maximizes Total Surplus. 
         </p>
@@ -49,177 +50,321 @@
         </p>
     </div>
 
-    <div id="episodes">
-    <h1 class="subtitle">Episodes</h1>
-
     <p>
         Take a look at a few animated videos I put together for my students during the early days of COVID. The labeling is different than we're using this semester but the content is identical.
     </p>
 
-    <div class="box-container">
-
-        <div class="rounded-box">
-                <h2>Episode C1:</h2>
-                <h3>International Trade and Tariffs</h3>
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/Kxq2E69dpCA?rel=0&modestbranding=1&autohide=1&showinfo=0"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-c1">
+        <h1 class="subtitle">Block C1 ~ International Trade and Tariffs</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Reading</button>
+                <button class="indicator-tab" data-index="2">Vignette</button>
+                <button class="indicator-tab" data-index="3">Homework</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
-
-        <div class="rounded-box">
-            <h2>Episode C2:</h2>
-            <h3>Taxes and Welfare</h3>
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/R2NctbU80y0?si=UpZBBwKygDNrW6FR"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Kxq2E69dpCA">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/Kxq2E69dpCA/maxresdefault.jpg" alt="Episode C1 thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Episode C1</h3>
+                        <p class="card-description">International Trade and Tariffs</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="uwYCeUVcx4E">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/uwYCeUVcx4E/maxresdefault.jpg" alt="Chapter 5 AI Summary thumbnail">
+                        <div class="play-button">🎧</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Chapter 5 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Elasticity</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Vignettes/Vignette_C1.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Trade and elasticity practice problems</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Homework/HW_C.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Due: Friday October 18</p>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <div class="rounded-box">
-            <h2>Episode C3:</h2>
-            <h3>Externalities</h3>
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/uxPoYbtzYbM?si=qUAJHAMoc3OwJVus"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
-            </div>
-        </div>
-
-        <div class="rounded-box">
-            <h2>Episode C4:</h2>
-            <h3>Corrective Taxes</h3>
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/W0eAtssLxmk?si=BcdNpsc-i93SxE_v"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
-            </div>
-        </div>
-
-    </div>
-    </div>
-
-    <!-- READING -->
-    
-    <div id="reading">
-        <h1 class="subtitle" id="reading">Reading</h1>
-        <p>
-            Start Part C by skimming the reading to understand the main ideas. Then do the practice material, using the text for help when needed to stay focused and get unstuck quickly.
-        </p>
-
-        <div class="rounded-box-textbook">
-            <h2>
-                Chapter 5: Elasticity (
-                File <span><a class="btn" href="Reading/Ch_5.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                <a href="https://www.youtube.com/embed/uwYCeUVcx4E?si=Q2pAwX7gFPRAUeqN" target="_blank">AI Podcast Summary</a>
-                )
-            </h2>
-        </div>
-
-        <div class="rounded-box-textbook">
-            <h2>
-                Chapter 8: Taxes and markets (
-                File <span><a class="btn" href="Reading/Ch_8.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                <a href="https://www.youtube.com/embed/AYJh3NefuUM?si=vn-X4HDd72zvWhhn" target="_blank">AI Podcast Summary</a>
-                )
-            </h2>
-        </div>
-
-        <div class="rounded-box-textbook">
-            <h2>
-                Chapter 10: Externalities (
-                File <span><a class="btn" href="Reading/Ch_10.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                <a href="https://www.youtube.com/embed/prohFxS0E1I?si=FREfJJsQerPskKmL" target="_blank">AI Podcast Summary</a>
-                )
-            </h2>
-            <h3>This chapter discusses externalities, their impact on market outcomes, and potential policy solutions.</h3>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
         </div>
     </div>
-    
-    <!-- VIGNETTES -->
 
-    <div id="vignette">
-        <h1>Vignettes</h1>
-
-        <div class="rounded-box">
-            <h2>Vignette C1 (
-                File <span><a class="btn" href="Vignettes/Vignette_C1.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                Solutions <span><a class="btn" href="Vignettes/Vignette_C1_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-            )</h2>
-            <h3>Vignette C1 is a set of problems we examine in Week 7 Recitation. </h3>
-
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/xKK5JBPXGsg?si=336qSKyb5NT_1fGt"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+    <div class="carousel-container" id="part-c2">
+        <h1 class="subtitle">Block C2 ~ Taxes and Welfare</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Reading</button>
+                <button class="indicator-tab" data-index="2">Vignette</button>
+                <button class="indicator-tab" data-index="3">Demo</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
-
-
-        <div class="rounded-box">
-            <h2>Vignette C2 (
-                File <span><a class="btn" href="Vignettes/Vignette_C2.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                <!--|
-                Solutions <span><a class="btn" href="Vignettes/Vignette_C2_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>-->
-            )</h2>
-            <h3>Vignette C2 is a set of problems we examine in Week 8 Recitation. </h3>
-
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/XdT7rb2fBWg?si=aRE2TQuUChnw4WZr"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="R2NctbU80y0">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/R2NctbU80y0/maxresdefault.jpg" alt="Episode C2 thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Episode C2</h3>
+                        <p class="card-description">Taxes and Welfare</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="AYJh3NefuUM">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/AYJh3NefuUM/maxresdefault.jpg" alt="Chapter 8 AI Summary thumbnail">
+                        <div class="play-button">🎧</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Chapter 8 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Taxes and markets</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Vignettes/Vignette_C2.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C2 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Taxes practice problems</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Demos/Demo_C.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Demo thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Demo C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Demo very similar to what you'll see on MiniExam C</p>
+                    </div>
+                </div>
             </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
         </div>
     </div>
-    
-    <!-- HOMEWORK -->
-    
-    <div id="homework">
-        <h1>Homework</h1>
 
-        <div class="rounded-box">
-            <h2>
-                Homework C (
-                File <span><a class="btn" href="Homework/HW_C.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                Solutions <span><a class="btn" href="Homework/HW_C_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-            )
-            </h2>
-            <h3>Homework C is a set of problems you'll do on your own, due on Gradescope on <i>Friday Oct 18</i>. </h3>
-
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/qSgYsnrFiEw?si=kLcU4QpEvObDHceQ"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+    <div class="carousel-container" id="part-c3">
+        <h1 class="subtitle">Block C3 ~ Externalities</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Reading</button>
+                <button class="indicator-tab" data-index="2">Extra</button>
+                <button class="indicator-tab" data-index="3">Extra</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
-
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="uxPoYbtzYbM">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/uxPoYbtzYbM/maxresdefault.jpg" alt="Episode C3 thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Episode C3</h3>
+                        <p class="card-description">Externalities</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="prohFxS0E1I">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/prohFxS0E1I/maxresdefault.jpg" alt="Chapter 10 AI Summary thumbnail">
+                        <div class="play-button">🎧</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Chapter 10 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Externalities</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="xKK5JBPXGsg">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/xKK5JBPXGsg/maxresdefault.jpg" alt="Vignette C1 video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C1 Video</h3>
+                        <p class="card-description">Video walkthrough of Vignette C1 problems</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="XdT7rb2fBWg">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/XdT7rb2fBWg/maxresdefault.jpg" alt="Vignette C2 video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C2 Video</h3>
+                        <p class="card-description">Video walkthrough of Vignette C2 problems</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
     </div>
-    
+
+    <div class="carousel-container" id="part-c4">
+        <h1 class="subtitle">Block C4 ~ Corrective Taxes</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Extra</button>
+                <button class="indicator-tab" data-index="2">Extra</button>
+                <button class="indicator-tab" data-index="3">Extra</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="W0eAtssLxmk">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/W0eAtssLxmk/maxresdefault.jpg" alt="Episode C4 thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Episode C4</h3>
+                        <p class="card-description">Corrective Taxes</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="qSgYsnrFiEw">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/qSgYsnrFiEw/maxresdefault.jpg" alt="Homework C video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework C Video</h3>
+                        <p class="card-description">Video walkthrough of Homework C problems</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="lna7UhNOOro">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/lna7UhNOOro/maxresdefault.jpg" alt="Demo C video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Demo C Video</h3>
+                        <p class="card-description">Video walkthrough of Demo C problems</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Extra Content</h3>
+                        <p class="card-description">Additional material coming soon</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- RECITATIONS -->
+
+    <div class="carousel-container" id="recitations">
+        <h1 class="subtitle">Recitations</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Vignette C1r</button>
+                <button class="indicator-tab" data-index="1">Vignette C2r</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Vignettes/Vignette_C1.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C1r thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C1r ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Vignette C1r is an extended Vignette we examine in Recitation.</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Vignettes/Vignette_C2.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C2r thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Vignette C2r ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">Vignette C2r is an extended Vignette we examine in Recitation.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
     <!-- MINIEXAM -->
 
     <div id="miniexam">
-        <h1 class="subtitle" id="miniexam">MiniExam and Demo</h1>
+        <h1 class="subtitle" id="miniexam">MiniExam</h1>
         <p>
             MiniExam C will be held on <i>Monday October 21st</i> and covers everything in Part C. You will begin to learn that if you understand the concepts and do the work in the Vignettes, Homework, and Demo, you're going to be in good shape on the MiniExam.
         </p>
@@ -227,50 +372,415 @@
             Demos are a resource for you to use as you'd like. But my advice is to start by trying to solve it on your own and only then use the video and solutions to check your work. You're more than welcome to watch this video first, but you're not going to catch your weak points as easily, which is the main point.
         </p>
 
-        <div class="rounded-box">
-            <h2>
-                Demo C (
-                File <span><a class="btn" href="Demos/Demo_C.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-                |
-                Solutions <span><a class="btn" href="Demos/Demo_C_sols.pdf" target="_blank"><i class="fa fa-download"></i></a></span>
-            )
-            </h2>
-            <h3>Demo C is very similar to what you'll see on MiniExam C. </h3>
-
-            <div class="video-container">
-                <iframe 
-                    src="https://www.youtube.com/embed/lna7UhNOOro?si=O9MZQDoAjA2zxSlP"
-                    frameborder="0" 
-                    allowfullscreen
-                ></iframe>
+        <div class="carousel-card standalone-card">
+            <div class="card-video">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/lna7UhNOOro?si=O9MZQDoAjA2zxSlP" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Demo C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                <p class="card-description">Demo C is very similar to what you'll see on MiniExam C.</p>
             </div>
         </div>
-
     </div>
     
     <div style="margin-bottom:50%"></div>
 
 </div>
 
-<!-- RIGHT NAVIGATION -->
-    
-<div  class="right_div">
-    <nav>
-        <ul>
-            <span>Contents</span>
-            <li><a href="#episodes">Videos</a></li>
-            <li><a href="#reading">Reading</a></li>
-            <li><a href="#vignette">Vignettes</a></li>
-            <li><a href="#homework">Homework</a></li>
-            <li><a href="#miniexam">MiniExam+Demo</a></li>
-        </ul>
-        <!--<div class="vl"></div>-->
-    </nav>
-</div>
-
-</div></div>
+    <!-- RIGHT NAVIGATION -->
+    <div class="right_div">
+        <nav>
+            <ul>
+                <span>Contents</span>
+                <hr style="width: 80%; margin: 20px 0 10px 0;">
+                <li style="margin: 0;"><a href="#part-c1" class="active" style="font-size: 20px;">C1 | Trade</a></li>
+                <li><a href="#part-c2" style="font-size: 20px;">C2 | Taxes</a></li>
+                <li><a href="#part-c3" style="font-size: 20px;">C3 | Externalities</a></li>
+                <li><a href="#part-c4" style="font-size: 20px;">C4 | Corrective Taxes</a></li>
+                <li><a href="#recitations" style="font-size: 20px;">Recitations</a></li>
+                <li><a href="#miniexam" style="font-size: 20px;">MiniExam</a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!-- Close wrapper -->
 
 </body>
 </html>
 
 <script type="text/javascript" src="Part.js"></script>
+
+<script>
+// Carousel functionality for multiple carousels
+document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.carousel');
+    
+    // Get responsive card width
+    const getCardWidth = () => {
+        if (window.innerWidth <= 1000) {
+            return window.innerWidth - 20; // Mobile: full width minus padding
+        }
+        return Math.min(840, window.innerWidth * 0.9 + 40); // Desktop: responsive width + gap
+    };
+    
+    carousels.forEach(carousel => {
+        const container = carousel.closest('.carousel-container');
+        const track = carousel.querySelector('.carousel-track');
+        const leftArrow = carousel.querySelector('.carousel-arrow-left');
+        const rightArrow = carousel.querySelector('.carousel-arrow-right');
+        const cards = carousel.querySelectorAll('.carousel-card');
+        
+        // Indicator functionality
+        const indicator = container.querySelector('.carousel-indicator');
+        if (indicator) {
+            const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
+            const indicatorSlider = indicator.querySelector('.indicator-slider');
+            
+            // Initialize slider position
+            const updateSliderPosition = (index) => {
+                if (indicatorTabs[index]) {
+                    const tab = indicatorTabs[index];
+                    const indicatorTrack = indicator.querySelector('.indicator-track');
+                    
+                    // Get the computed styles to check for any padding
+                    const trackStyles = window.getComputedStyle(indicatorTrack);
+                    const trackPaddingLeft = parseFloat(trackStyles.paddingLeft);
+                    
+                    // Get positions relative to viewport
+                    const tabRect = tab.getBoundingClientRect();
+                    const trackRect = indicatorTrack.getBoundingClientRect();
+                    
+                    // Calculate the tab's position relative to the track's content box
+                    const tabLeft = tabRect.left - trackRect.left - trackPaddingLeft;
+                    const tabWidth = tab.offsetWidth;
+                    
+                    // Apply the transform
+                    indicatorSlider.style.left = `${trackPaddingLeft}px`;
+                    indicatorSlider.style.transform = `translateX(${tabLeft}px)`;
+                    indicatorSlider.style.width = `${tabWidth}px`;
+                    
+                    // Update active states
+                    indicatorTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+            };
+            
+            // Tab click handlers
+            indicatorTabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // Scroll the selected card into center view
+                    const targetCard = cards[index];
+                    if (targetCard) {
+                        targetCard.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                    }
+                });
+            });
+            
+            // Debounce timer for scroll end detection
+            let scrollTimer = null;
+            
+            // Update indicator on scroll
+            track.addEventListener('scroll', () => {
+                // Clear existing timer
+                if (scrollTimer !== null) {
+                    clearTimeout(scrollTimer);
+                }
+                
+                // Find which card is closest to center by checking actual positions
+                const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+                
+                cards.forEach((card, index) => {
+                    const cardRect = card.getBoundingClientRect();
+                    const trackRect = track.getBoundingClientRect();
+                    const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                    const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                
+                updateSliderPosition(closestIndex);
+                
+                // Snap to center after scrolling stops
+                scrollTimer = setTimeout(() => {
+                    const targetCard = cards[closestIndex];
+                    if (targetCard) {
+                        targetCard.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                    }
+                }, 150);
+            });
+            
+            // Initialize slider position
+            setTimeout(() => {
+                updateSliderPosition(0);
+            }, 50);
+            
+            // Center the first card on load
+            setTimeout(() => {
+                if (cards[0]) {
+                    cards[0].scrollIntoView({
+                        behavior: 'auto',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+                updateSliderPosition(0);
+            }, 100);
+            
+            // Update on window resize
+            window.addEventListener('resize', () => {
+                const currentCard = carousel.querySelector('.carousel-card.active');
+                const currentIndex = Array.from(cards).indexOf(currentCard);
+                if (currentCard) {
+                    currentCard.scrollIntoView({
+                        behavior: 'auto',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+                setTimeout(() => {
+                    updateSliderPosition(currentIndex >= 0 ? currentIndex : 0);
+                }, 100);
+            });
+        }
+        
+        // Arrow navigation
+        leftArrow.addEventListener('click', () => {
+            const currentCard = carousel.querySelector('.carousel-card.active');
+            const currentIndex = Array.from(cards).indexOf(currentCard);
+            const newIndex = Math.max(0, currentIndex - 1);
+            
+            if (newIndex !== currentIndex) {
+                const targetCard = cards[newIndex];
+                if (targetCard) {
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            const currentCard = carousel.querySelector('.carousel-card.active');
+            const currentIndex = Array.from(cards).indexOf(currentCard);
+            const newIndex = Math.min(cards.length - 1, currentIndex + 1);
+            
+            if (newIndex !== currentIndex) {
+                const targetCard = cards[newIndex];
+                if (targetCard) {
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+        });
+        
+        // Card click functionality
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't trigger card click if clicking on download link or icon
+                if (e.target.classList.contains('card-download') || 
+                    e.target.classList.contains('fa-download')) {
+                    return;
+                }
+                
+                const videoId = card.getAttribute('data-video-id');
+                
+                if (videoId) {
+                    // Check if it's a YouTube video ID or a file path
+                    if (videoId.includes('.pdf') || videoId.includes('/')) {
+                        // It's a file path - open in new tab
+                        window.open(videoId, '_blank');
+                    } else {
+                        // It's a YouTube video ID - open YouTube video
+                        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                    }
+                }
+            });
+            
+            // Handle download icon clicks
+            const downloadIcons = card.querySelectorAll('.fa-download');
+            downloadIcons.forEach((icon, index) => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Extract the PDF path from the card's context
+                    const title = card.querySelector('.card-title').textContent;
+                    
+                    // Chapter downloads
+                    if (title.includes('Chapter 5')) {
+                        window.open('Reading/Ch_5.pdf', '_blank');
+                    } else if (title.includes('Chapter 8')) {
+                        window.open('Reading/Ch_8.pdf', '_blank');
+                    } else if (title.includes('Chapter 10')) {
+                        window.open('Reading/Ch_10.pdf', '_blank');
+                    }
+                    // Vignette downloads
+                    else if (title.includes('Vignette')) {
+                        let vignetteNumber = '';
+                        if (title.includes('Vignette C1')) vignetteNumber = 'C1';
+                        else if (title.includes('Vignette C2')) vignetteNumber = 'C2';
+                        
+                        if (index === 0) {
+                            // First icon - main vignette file
+                            window.open(`Vignettes/Vignette_${vignetteNumber}.pdf`, '_blank');
+                        } else {
+                            // Second icon - solutions file (only for C1)
+                            if (vignetteNumber === 'C1') {
+                                window.open(`Vignettes/Vignette_${vignetteNumber}_sols.pdf`, '_blank');
+                            }
+                        }
+                    }
+                    // Homework downloads
+                    else if (title.includes('Homework')) {
+                        if (index === 0) {
+                            // First icon - main homework file
+                            window.open('Homework/HW_C.pdf', '_blank');
+                        } else {
+                            // Second icon - solutions file
+                            window.open('Homework/HW_C_sols.pdf', '_blank');
+                        }
+                    }
+                    // Demo downloads
+                    else if (title.includes('Demo')) {
+                        if (index === 0) {
+                            // First icon - main demo file
+                            window.open('Demos/Demo_C.pdf', '_blank');
+                        } else {
+                            // Second icon - solutions file
+                            window.open('Demos/Demo_C_sols.pdf', '_blank');
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Update arrow visibility based on scroll position
+        function updateArrows() {
+            const isAtStart = track.scrollLeft <= 0;
+            const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth;
+            
+            leftArrow.style.opacity = isAtStart ? '0.5' : '1';
+            rightArrow.style.opacity = isAtEnd ? '0.5' : '1';
+            leftArrow.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            rightArrow.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        }
+        
+        // Listen for scroll events to update arrow states
+        track.addEventListener('scroll', updateArrows);
+        
+        // Initial setup
+        updateArrows();
+        
+        // Handle window resize
+        window.addEventListener('resize', updateArrows);
+    });
+    
+    // Intersection Observer for highlighting cards when carousel is in view
+    const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px', // Only highlight when carousel is in center 40% of viewport
+        threshold: 0
+    };
+    
+    const carouselObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const carousel = entry.target.querySelector('.carousel');
+            const cards = carousel.querySelectorAll('.carousel-card');
+            const track = carousel.querySelector('.carousel-track');
+            
+            if (entry.isIntersecting) {
+                // Enable active state for cards in this carousel
+                const updateActiveCardOnScroll = () => {
+                    cards.forEach((card, index) => {
+                        const cardRect = card.getBoundingClientRect();
+                        const trackRect = track.getBoundingClientRect();
+                        const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                        const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                        
+                        if (distance < 50 && !card.classList.contains('placeholder')) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                };
+                
+                track.addEventListener('scroll', updateActiveCardOnScroll);
+                updateActiveCardOnScroll(); // Initial check
+                
+                // Store the handler for cleanup
+                track._scrollHandler = updateActiveCardOnScroll;
+            } else {
+                // Remove all active states when carousel is out of view
+                cards.forEach(card => card.classList.remove('active'));
+                
+                // Remove scroll listener
+                if (track._scrollHandler) {
+                    track.removeEventListener('scroll', track._scrollHandler);
+                    delete track._scrollHandler;
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all carousel containers
+    const carouselContainers = document.querySelectorAll('.carousel-container');
+    carouselContainers.forEach(container => {
+        carouselObserver.observe(container);
+    });
+    
+    // Handle standalone card downloads
+    const standaloneCards = document.querySelectorAll('.standalone-card');
+    standaloneCards.forEach(card => {
+        const downloadIcons = card.querySelectorAll('.fa-download');
+        downloadIcons.forEach((icon, index) => {
+            icon.style.cursor = 'pointer';
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const title = card.querySelector('.card-title').textContent;
+                
+                if (title.includes('Demo C')) {
+                    if (index === 0) {
+                        // First icon - main demo file
+                        window.open('Demos/Demo_C.pdf', '_blank');
+                    } else {
+                        // Second icon - solutions file
+                        window.open('Demos/Demo_C_sols.pdf', '_blank');
+                    }
+                }
+            });
+        });
+    });
+    
+    // Observe MiniExam section for standalone card highlighting
+    const miniexamSection = document.querySelector('#miniexam');
+    if (miniexamSection && standaloneCards.length > 0) {
+        const standaloneObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    standaloneCards.forEach(card => card.classList.add('active'));
+                } else {
+                    standaloneCards.forEach(card => card.classList.remove('active'));
+                }
+            });
+        }, observerOptions);
+        
+        standaloneObserver.observe(miniexamSection);
+    }
+});
+</script>
