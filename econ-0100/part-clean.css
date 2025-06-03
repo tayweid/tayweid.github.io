@@ -124,24 +124,21 @@ h3, h4 {
 }
 
 .title {
-    font-size: 40px;
-    font-size: clamp(32px, 4vw, 40px);  /* Responsive sizing with min/max */
+    font-size: clamp(32px, 4vw, 40px);
     margin-bottom: 2%;
     margin-top: 2%;
     color: white;
 }
 
 .subtitle {
-    font-size: 28px;  /* Explicit size to maintain hierarchy on mobile */
-    font-size: clamp(22px, 2.8vw, 28px);  /* Responsive sizing with min/max */
+    font-size: clamp(22px, 2.8vw, 28px);
     margin-top: 5px;
     margin-bottom: 0px;
     color: white;
 }
 
 p {
-    font-size: 20px;
-    font-size: clamp(16px, 2vw, 20px);  /* Responsive sizing with min/max */
+    font-size: clamp(16px, 2vw, 20px);
     line-height: 1.4;
     transition: color 0.3s ease;
 }
@@ -280,10 +277,9 @@ hr {
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    scroll-snap-stop: always;  /* Force stop at each snap point */
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     flex: 1;
     align-items: center;
 }
@@ -296,25 +292,19 @@ hr {
     flex: 0 0 auto;
     width: 800px;
     max-width: 100%;
-    border: 1px solid var(--main-md-color);  /* Thinner border */
+    border: 1px solid var(--main-md-color);
     border-radius: 15px;
     padding: 0;
     background-color: var(--main-bg-color);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     cursor: pointer;
     scroll-snap-align: center;
-    scroll-snap-stop: always;  /* Force stop at each card */
     overflow: hidden;
     min-height: 300px;
     display: flex;
     flex-direction: column;
-    opacity: 0.7;  /* Dimmed opacity for inactive cards */
 }
 
-.carousel-card.active {
-    opacity: 1;
-    /* Removed blue border and box shadow */
-}
 
 .carousel-card:hover {
     background-color: #181818;
@@ -405,16 +395,14 @@ hr {
 
 .card-title {
     margin: 0 0 5px 0;
-    font-size: 20px;
-    font-size: clamp(16px, 2vw, 20px);  /* Responsive sizing with min/max */
+    font-size: clamp(16px, 2vw, 20px);
     color: white;
     line-height: 1.2;
 }
 
 .card-description {
     margin: 0;
-    font-size: 18px;
-    font-size: clamp(14px, 1.8vw, 18px);  /* Responsive sizing with min/max */
+    font-size: clamp(14px, 1.8vw, 18px);
     color: var(--main-fg-color);
     line-height: 1.4;
     flex-grow: 1;
@@ -499,18 +487,6 @@ hr {
     align-items: center;
     justify-content: center;
     z-index: 10;
-}
-
-.carousel-arrow:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.carousel-arrow-left {
-    left: 20px;
-}
-
-.carousel-arrow-right {
-    right: 20px;
 }
 
 .carousel-arrow:hover {

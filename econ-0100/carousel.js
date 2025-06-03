@@ -1,0 +1,106 @@
+// Simplified Carousel Implementation
+// Removes auto-centering, intersection observers, and complex calculations
+
+document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.carousel');
+    
+    carousels.forEach(carousel => {
+        const container = carousel.closest('.carousel-container');
+        const track = carousel.querySelector('.carousel-track');
+        const leftArrow = carousel.querySelector('.carousel-arrow-left');
+        const rightArrow = carousel.querySelector('.carousel-arrow-right');
+        const cards = carousel.querySelectorAll('.carousel-card');
+        
+        // Indicator functionality
+        const indicator = container.querySelector('.carousel-indicator');
+        if (indicator) {
+            const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
+            const indicatorSlider = indicator.querySelector('.indicator-slider');
+            
+            // Simple slider position update
+            const updateSliderPosition = (index) => {
+                if (indicatorTabs[index]) {
+                    const tab = indicatorTabs[index];
+                    const indicatorTrack = indicator.querySelector('.indicator-track');
+                    const trackPaddingLeft = 4; // From CSS padding
+                    
+                    const tabLeft = tab.offsetLeft;
+                    const tabWidth = tab.offsetWidth;
+                    
+                    indicatorSlider.style.left = `${trackPaddingLeft}px`;
+                    indicatorSlider.style.transform = `translateX(${tabLeft}px)`;
+                    indicatorSlider.style.width = `${tabWidth}px`;
+                    
+                    // Update active states
+                    indicatorTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+            };
+            
+            // Tab click handlers
+            indicatorTabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    if (cards[index]) {
+                        cards[index].scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                        updateSliderPosition(index);
+                    }
+                });
+            });
+            
+            // Simple scroll tracking for indicator
+            track.addEventListener('scroll', () => {
+                // Find closest card to center
+                const trackCenter = track.scrollLeft + (track.clientWidth / 2);
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+                
+                cards.forEach((card, index) => {
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const distance = Math.abs(cardCenter - trackCenter);
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                
+                updateSliderPosition(closestIndex);
+            });
+            
+            // Initialize first tab as active
+            setTimeout(() => updateSliderPosition(0), 50);
+        }
+        
+        // Simple arrow navigation
+        leftArrow.addEventListener('click', () => {
+            track.scrollBy({
+                left: -track.clientWidth * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            track.scrollBy({
+                left: track.clientWidth * 0.8,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Update arrow visibility
+        const updateArrows = () => {
+            const isAtStart = track.scrollLeft <= 10;
+            const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 10;
+            
+            leftArrow.style.opacity = isAtStart ? '0.5' : '1';
+            rightArrow.style.opacity = isAtEnd ? '0.5' : '1';
+        };
+        
+        track.addEventListener('scroll', updateArrows);
+        window.addEventListener('resize', updateArrows);
+        updateArrows();
+    });
+});
