@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Snap to center after scrolling stops (desktop only)
                 scrollTimer = setTimeout(() => {
                     // Only auto-center on desktop (window width > 1000px)
-                    if (window.innerWidth > 1000) {
+                    if (window.innerWidth > 1000 && cards.length > 1) {
                         const targetCard = cards[closestIndex];
                         centerCard(targetCard, 'smooth');
                     }
@@ -543,7 +543,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Center the first card on load without affecting page scroll
             setTimeout(() => {
-                if (cards[0] && carousel) {
+                if (cards.length > 1 && cards[0] && carousel) {
                     // Calculate scroll position to center the first card
                     const carouselRect = carousel.getBoundingClientRect();
                     const cardRect = cards[0].getBoundingClientRect();
@@ -574,7 +574,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 const currentCard = cards[currentIndex];
-                centerCard(currentCard, 'auto');
+                if (cards.length > 1) {
+                    centerCard(currentCard, 'auto');
+                }
                 setTimeout(() => {
                     updateSliderPosition(currentIndex);
                 }, 100);
