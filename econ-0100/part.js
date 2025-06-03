@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Simple scroll tracking for navigation highlighting
+// Scroll tracking for right sidebar only
 window.addEventListener('scroll', function() {
     const scrollTop = document.documentElement.scrollTop;
     const anchors = document.querySelectorAll('div[id]');
@@ -16,10 +16,10 @@ window.addEventListener('scroll', function() {
         const anchorHeight = anchor.offsetHeight;
         
         if (scrollTop > anchorTop - 100 && scrollTop < anchorTop + anchorHeight - 100) {
-            // Remove active from all nav links
-            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-            // Add active to current section link
-            const navLink = document.querySelector(`nav a[href="#${anchor.id}"]`);
+            // Remove active from right sidebar links only
+            document.querySelectorAll('.right_div nav a').forEach(link => link.classList.remove('active'));
+            // Add active to current section link in right sidebar
+            const navLink = document.querySelector(`.right_div nav a[href="#${anchor.id}"]`);
             if (navLink) navLink.classList.add('active');
         }
     });

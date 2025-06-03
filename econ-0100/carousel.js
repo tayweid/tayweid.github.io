@@ -76,8 +76,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateSliderPosition(closestIndex);
             });
             
-            // Initialize first tab as active and handle resize
-            const initializeSlider = () => updateSliderPosition(0);
+            // Initialize first tab as active and center first card
+            const initializeSlider = () => {
+                updateSliderPosition(0);
+                // Center the first card
+                cards[0].scrollIntoView({
+                    behavior: 'auto',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            };
             setTimeout(initializeSlider, 50);
             
             // On resize, maintain the current active card's position

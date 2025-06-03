@@ -233,7 +233,6 @@ hr {
     transition: transform 0.3s ease, width 0.3s ease;
     z-index: 1;
     pointer-events: none;
-    width: calc(100% - 8px);
 }
 
 .carousel {
@@ -253,6 +252,12 @@ hr {
     -ms-overflow-style: none;
     flex: 1;
     align-items: center;
+}
+
+.carousel-track::before,
+.carousel-track::after {
+    content: '';
+    flex: 0 0 50%;
 }
 
 .carousel-track::-webkit-scrollbar {
@@ -471,9 +476,14 @@ hr {
         padding: 6px 12px;
     }
     
+    /* Make all text white on mobile */
+    p, h3, h4 {
+        color: white;
+    }
+    
     /* Disable hover effects on mobile */
     p:hover {
-        color: var(--main-fg-color);
+        color: white;
     }
 }
 
