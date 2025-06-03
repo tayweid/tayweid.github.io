@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     indicatorSlider.style.left = `${trackPaddingLeft}px`;
                     indicatorSlider.style.transform = `translateX(${tabLeft}px)`;
-                    indicatorSlider.style.width = `${tabWidth}px`;
+                    indicatorSlider.style.width = `${tabWidth - 4}px`;
                     
                     // Update active states
                     indicatorTabs.forEach(t => t.classList.remove('active'));
@@ -38,21 +38,26 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             // Tab click handlers
+            let isClickScrolling = false;
             indicatorTabs.forEach((tab, index) => {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
+                        isClickScrolling = true;
+                        updateSliderPosition(index);
                         cards[index].scrollIntoView({
                             behavior: 'smooth',
                             block: 'nearest',
                             inline: 'center'
                         });
-                        updateSliderPosition(index);
+                        setTimeout(() => { isClickScrolling = false; }, 500);
                     }
                 });
             });
             
             // Simple scroll tracking for indicator
             track.addEventListener('scroll', () => {
+                if (isClickScrolling) return;
+                
                 // Find closest card to center
                 const trackCenter = track.scrollLeft + (track.clientWidth / 2);
                 let closestIndex = 0;
@@ -71,8 +76,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateSliderPosition(closestIndex);
             });
             
-            // Initialize first tab as active
-            setTimeout(() => updateSliderPosition(0), 50);
+            // Initialize first tab as active and handle resize
+            const initializeSlider = () => updateSliderPosition(0);
+            setTimeout(initializeSlider, 50);
+            
+            // On resize, maintain the current active card's position
+            window.addEventListener('resize', () => {
+                setTimeout(() => {
+                    const activeTab = indicator.querySelector('.indicator-tab.active');
+                    if (activeTab) {
+                        const activeIndex = Array.from(indicatorTabs).indexOf(activeTab);
+                        updateSliderPosition(activeIndex);
+                        
+                        // Scroll the carousel track to center the active card
+                        const targetCard = cards[activeIndex];
+                        const cardLeft = targetCard.offsetLeft;
+                        const cardWidth = targetCard.offsetWidth;
+                        const trackWidth = track.clientWidth;
+                        const targetScrollLeft = cardLeft - (trackWidth / 2) + (cardWidth / 2);
+                        
+                        track.scrollTo({
+                            left: targetScrollLeft,
+                            behavior: 'auto'
+                        });
+                    }
+                }, 100);
+            });
         }
         
         // Simple one-card-at-a-time navigation
