@@ -1,0 +1,84 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "format:\n",
+        "  revealjs:\n",
+        "    css: custom.css\n",
+        "    transition: none\n",
+        "---\n",
+        "\n",
+        "\n",
+        "## ECON 0150 | Economic Data Analysis {.center}\n",
+        "<p class=\"subheader-center\">The economist's data analysis pipeline.</p>\n",
+        "\n",
+        "<br> \n",
+        "\n",
+        "### *Part 1.6 | Grouping Data*\n",
+        "\n",
+        "---\n",
+        "\n",
+        "Part 1.5 Grouping Data\n",
+        "::: {.cell}\n",
+        "\n",
+        "Starbucks Offers Example\n",
+        "Context:\n",
+        "\n",
+        "Starbucks (like many retailers) runs various discounts and promotions to entice customers.\n",
+        "Our dataset has two types of records: Offers sent to customers and Transactions (the usage of those offers).\n",
+        "Our question: Which promotions are the most effective?\n",
+        ":::\n",
+        "\n",
+        "---\n",
+        "\n",
+        "The Original Table\n",
+        "We have a table of events with columns like:\n",
+        "\n",
+        "Event (either \"Offer\" or \"Transaction\")\n",
+        "Offer ID (e.g., \"2off10\", \"5off20\", etc.)\n",
+        "Revenue (the purchase amount; 0 for \"Offer\" rows)\n",
+        "::: notes From the raw table, it’s not straightforward to see which offers are most effective. We need to transform the data to answer questions like total revenue per offer, average transaction amount, or usage rate per offer. :::\n",
+        "\n",
+        "---\n",
+        "\n",
+        "Grouping and Summing\n",
+        "We want to see total revenue by each Offer ID. To do this, we’ll:\n",
+        "\n",
+        "Filter (if needed), or keep all rows for now.\n",
+        "Group by Offer ID.\n",
+        "Sum the Revenue for each group.\n"
+      ],
+      "id": "22c8d09d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "\n",
+        "# Example: reading data\n",
+        "df = pd.read_csv(\"starbucks_offers.csv\")\n",
+        "\n",
+        "# Summarize total revenue for each Offer ID\n",
+        "grouped_revenue = df.groupby(\"Offer ID\")[\"Revenue\"].sum()\n",
+        "print(grouped_revenue)"
+      ],
+      "id": "13f2d3f6",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/opt/anaconda3/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

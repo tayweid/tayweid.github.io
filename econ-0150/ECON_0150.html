@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    
+<title>Economic Data Analysis | Part 1</title>
+
+<link rel="stylesheet" href="jscss/Main.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+
+<!--<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">-->
+
+
+
+
+
+
+<!-- Add this in your HTML <head> section -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;700&display=swap" rel="stylesheet">
+
+
+
+
+
+<body>
+
+<div class="body_table"><div>
+<div class="left_div" align="right">
+</div>
+
+<div class="content">
+    
+    <div class="description" style="; margin-bottom:-20px">
+        <h1 class="title" style="margin-bottom:-5px"> ECON 0150 | Economic Data Analysis</h1>
+<i style="font-size: 20px; margin-left: 20px; margin-bottom: 20px; display: block">The economist's data analysis pipeline.</i>
+
+        <hr style="border: none; border-top: 1px solid grey;">
+
+        <h2>
+            <a class="btn" href="Syllabus/Syllabus.pdf" target="_blank">Syllabus</a> 
+            <span style="color: grey">//</span>
+            <a class="btn" href="Slides/Part_0.pdf" target="_blank">Welcome Slides</a> 
+            <span style="color: grey">//</span> 
+            Class Survey (<a class="btn" href="https://drive.google.com/file/d/1b8G9elIwqtvFR6GkZB7yxHxRq8pY58wQ/view?usp=sharing" target="_blank">Notebook</a><span style="color: grey">|</span><a class="btn" href="Examples/Part_0/Part_0_Survey.csv" target="_blank">Data</a>)
+        </h2>
+
+        <hr style="border: none; border-top: 1px solid grey;">
+
+        <h2>Important Dates:</h2>
+        <ul style="margin-top:-15px">
+            <li>Jan 20 - MLK Day, no class</li>
+            <li>Feb 26/27 - Anynchronous class</li>
+            <li>Mar 2-9 - Spring recess</li>
+        </ul>
+
+        <h2>Data Drop-Ins:</h2>
+        <ul style="margin-top:-15px">
+            <li>Taylor: 2:30 - 4:30 PM, Thursday, 4702 Posvar (taylorjweidman@pitt.edu)</li>
+            <li>Jacob: 10:30 AM - 12:30 PM, Tuesday, Posvar 4911 (JPS220@pitt.edu)</li>
+            <li>Tucker: 9 - 11 AM, Monday, Posvar 4515 (TGF16@pitt.edu)</li>
+        </ul>
+
+    </div>
+    
+
+    <div id="demo">
+
+        <a href="https://tayweid.github.io/ECON_0150/Data.html" target="_blank" class="container-link">
+            <div align="center" style="text-align: left;">
+                <div class="rounded-box">
+                    <h2>Data Hub </h2>
+                    <p>> additional data and code</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_1.html" target="_blank" class="container-link">
+            <div align="center" style="text-align: left;">
+                <div class="rounded-box">
+                    <h2>Part 1 // Univariate Exploratory Data Analysis</h2>
+                    <p>> start by visualizing and summarizing variables</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_2.html" target="_blank" class="container-link">
+            <div align="center" style="text-align: left;">
+                <div class="rounded-box">
+                    <h2>Part 2 // Multivariate Exploratory Data Analysis</h2>
+                    <p>> examine relationships between variables</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_3.html" target="_blank" class="container-link">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 3 // Building Linear Models</h2>
+                <p>> separate true relationships from noise</p>
+            </div>
+        </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_4.html" target="_blank" class="container-link">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 4 // The General Linear Model</h2>
+                <p>> build models with multiple variables</p>
+            </div>
+        </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_5.html" target="_blank" class="container-link">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 5 // Intermediate General Linear Model</h2>
+                <p>> model more complex relationships</p>
+            </div>
+        </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Part_6.html" target="_blank" class="container-link">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 6 // Communicating With Data</h2>
+                <p>> effectively communicate your analysis to others</p>
+            </div>
+        </div>
+        </a>
+
+        <a href="https://tayweid.github.io/ECON_0150/Projects.html" target="_blank" class="container-link">
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Final Projects</h2>
+                <p>> demonstrating the complete pipeline</p>
+            </div>
+        </div>
+        </a>
+
+    </div>
+    <div style="margin-bottom:50%"></div>
+
+</div>
+
+<!-- RIGHT NAVIGATION -->
+    
+<div  class="right_div">
+    <nav>
+    </nav>
+</div>
+
+</div></div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="jscss/Part.js"></script>

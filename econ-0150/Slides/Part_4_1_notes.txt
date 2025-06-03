@@ -1,0 +1,21 @@
+here's the approach using sample stats
+this is the basic approach we must understand
+but we can also just use code to do this for us
+what does this number mean?
+
+now what if we had two groups we wanted to test whether they were different?
+how would we do this?
+it turns out we can turn this into a problem that fits into our t-test
+take the difference between the two samples and find how it's distributed
+here i've taken repeated samples from two random variables
+here the random variables are equal and it turns out the distribution of differences in sample means is centered on zero
+what is the standard error?
+well you can see it's larger than the original distribution
+here's the math for how we find it
+now since this is itself a random variable, it is subject to all the nice things we talked about in part 3
+but just like with the single sample wait time example, we have a nice package that will do the work for us
+what does this number mean?
+
+ok now we're on the front porch of the big model we use in the field
+you've seen the simplest form of it in a t-test
+we're going to ask more challenging questions next time and think about ways of answering them

@@ -1,0 +1,580 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 4.3 | Two Sample Tests & Regression Assumptions*
+
+---
+
+## General Linear Model
+<p class="subheader">... a flexible approach to run many statistical tests.</p>
+
+**The Linear Model**: $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$
+
+. . .
+
+- $\beta_0$ is the intercept (value of $\bar{y}$ when x = 0)
+- $\beta_1$ is the slope (change in y per unit change in x)
+- $\varepsilon_i$ is the error term (random noise around the model)
+
+. . .
+
+**OLS Estimation**: Minimizes $\sum_{i=1}^n \varepsilon_i^2$
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## One-Sample T-Test
+<p class="subheader">A one-sample t-test is a horizontal line model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2.0, 1.9, 2.1]
+
+# Create the plot
+plt.figure(figsize=(11, 3))
+
+# Plot the data points
+plt.scatter(range(1, n+1), data, alpha=0.7, label='Data Points')
+
+# Plot the horizontal line at the mean
+mean_data = np.mean(data)
+plt.axhline(mean_data, color='r', linestyle='-', linewidth=2, label=f'Mean ($\\beta_0$ = {mean_data:.2f})')
+
+# Add vertical lines for errors
+for i in range(n):
+    plt.plot([i+1, i+1], [data[i], mean_data], 'g--', alpha=0.4)
+
+plt.ylabel('Temperature Difference (°C)', fontsize=16)
+plt.grid(False)
+plt.legend()
+plt.xticks([])
+sns.despine(bottom=True, trim=True)
+
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \varepsilon$$
+
+. . .
+
+*> the intercept $\beta_0$ is the estimated mean temperature*
+
+. . .
+
+*> the p-value is the probability of seeing $\beta_0$ if the null is true*
+
+---
+
+## Relationships Between Variables
+<p class="subheader">A test of relationships is a slope model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('Wait Time', fontsize=14)
+ax2.legend()
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+$$\text{WaitTime} = \beta_0 + \beta_1 \text{MinutesAfterOpening} + \epsilon$$
+
+. . .
+
+*> the intercept parameter $\beta_0$ is the estimated temperature at 0 on the horizontal*
+
+. . .
+
+*> the slope parameter $\beta_1$ is the estimated change in y for a 1 unit change in x*
+
+. . .
+
+*> the p-value is the probability of seeing parameter ($\beta_0$ or $\beta_1$) if the null is true*
+
+---
+
+## New Setting: Two Samples
+<p class="subheader">Is temperature lower with more green space?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['Low Green Space\n(0)', 'High Green Space\n(1)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+*> how would we interpret $\beta_0$ here?*
+
+. . .
+
+*> the average temperature at $x=0$, which is Low Green Space locations*
+
+---
+
+## New Setting: Two Samples
+<p class="subheader">Is temperature lower with more green space?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['Low Green Space\n(0)', 'High Green Space\n(1)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+*> how would we interpret $\beta_1$ here?*
+
+. . .
+
+*> one unit increase in $x$, which puts us in High Green Space*
+
+---
+
+## New Setting: Two Samples
+<p class="subheader">Is temperature lower with more green space?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate and display the means
+mean_low = np.mean(low_green)
+mean_high = np.mean(high_green)
+plt.plot([0, 1], [mean_low, mean_high], 'r-', linewidth=2)
+
+plt.xticks([0, 1], ['Low Green Space\n(0)', 'High Green Space\n(1)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+
+plt.text(-0.35, mean_low, f'$\\beta_0$ = {mean_low:.2f}°C', fontsize=12, va='center')
+plt.text(1.15, mean_high, f'$\\beta_0$ + $\\beta_1$ = {mean_high:.2f}°C', fontsize=12, va='center')
+plt.text(0.5, (mean_low+mean_high)/2+0.5, f'$\\beta_1$ = {mean_high-mean_low:.2f}°C', fontsize=12, va='center', ha='center', rotation=-8)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+*> $\beta_0$ is the mean temperature in low green space cities (22.03°C)*
+
+. . .
+
+*> $\beta_1$ is the temperature difference in high green space cities (-3.02°C)*
+
+. . .
+
+*> the t-test on $\beta_1$ tests if this difference is significant*
+
+---
+
+## Example: Neighborhood Income and Pollution
+<p class="subheader">Do low-income neighborhoods face higher pollution levels?</p>
+
+**Step 1: Summarize the data**
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create 40 data points for each group
+n = 40
+high_income = 25 + np.random.normal(0, 5, n)  # Lower pollution
+low_income = 40 + np.random.normal(0, 7, n)   # Higher pollution
+jitter = np.random.uniform(-0.1,0.1,2*n)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'pollution': np.concatenate([high_income, low_income]),
+    'low_income': np.concatenate([np.zeros(n), np.ones(n)])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='pollution', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['low_income']+jitter, data['pollution'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['High Income\n(0)', 'Low Income\n(1)'])
+plt.ylabel('Air Pollution Index', fontsize=14)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+**Step 2: Build a model**
+
+. . .
+
+$$Pollution = \beta_0 + \beta_1 \cdot LowIncome + \varepsilon$$
+
+---
+
+## Example: Neighborhood Income and Pollution
+<p class="subheader">Do low-income neighborhoods face higher pollution levels?</p>
+
+**Step 3: Estimate the model**
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create 40 data points for each group
+n = 40
+high_income = 25 + np.random.normal(0, 5, n)  # Lower pollution
+low_income = 40 + np.random.normal(0, 7, n)   # Higher pollution
+jitter = np.random.uniform(-0.1,0.1,2*n)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'pollution': np.concatenate([high_income, low_income]),
+    'low_income': np.concatenate([np.zeros(n), np.ones(n)])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='pollution', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['low_income']+jitter, data['pollution'], alpha=0.4, color='darkblue')
+# Calculate and display the means
+mean_high = np.mean(high_income)
+mean_low = np.mean(low_income)
+plt.plot([0, 1], [mean_high, mean_low], 'r-', linewidth=2)
+plt.xticks([0, 1], ['High Income\n(0)', 'Low Income\n(1)'])
+plt.ylabel('Air Pollution Index', fontsize=14)
+plt.text(-0.35, mean_high, f'$\\beta_0$ = {mean_high:.1f}', fontsize=12, va='center')
+plt.text(1.15, mean_low, f'$\\beta_0$ + $\\beta_1$ = {mean_low:.1f}', fontsize=12, va='center')
+plt.text(0.5, (mean_high+mean_low)/2+5, f'$\\beta_1$ = {mean_low-mean_high:.1f}', fontsize=12, va='center')
+plt.xlim(-0.5, 1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+- $\beta_0$ = Mean pollution in high-income areas (24.8)
+
+- $\beta_1$ = Additional pollution in low-income areas (+15.0)
+
+---
+
+## Example: Neighborhood Income and Pollution
+<p class="subheader">Do low-income neighborhoods face higher pollution levels?</p>
+
+**Step 4: Interpret and communicate the findings**
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Set seed for reproducibility
+np.random.seed(42)
+# Create 40 data points for each group
+n = 40
+high_income = 25 + np.random.normal(0, 5, n)  # Lower pollution
+low_income = 40 + np.random.normal(0, 7, n)   # Higher pollution
+jitter = np.random.uniform(-0.1,0.1,2*n)
+# Combine into a dataframe
+data = pd.DataFrame({
+    'pollution': np.concatenate([high_income, low_income]),
+    'low_income': np.concatenate([np.zeros(n), np.ones(n)])
+})
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='pollution', data=data, 
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['low_income']+jitter, data['pollution'], alpha=0.4, color='darkblue')
+# Calculate and display the means
+mean_high = np.mean(high_income)
+mean_low = np.mean(low_income)
+plt.plot([0, 1], [mean_high, mean_low], 'r-', linewidth=2)
+plt.xticks([0, 1], ['High Income\n(0)', 'Low Income\n(1)'])
+plt.ylabel('Air Pollution Index', fontsize=14)
+plt.text(-0.35, mean_high, f'$\\beta_0$ = {mean_high:.1f}', fontsize=12, va='center')
+plt.text(1.15, mean_low, f'$\\beta_0$ + $\\beta_1$ = {mean_low:.1f}', fontsize=12, va='center')
+plt.text(0.5, (mean_high+mean_low)/2+5, f'$\\beta_1$ = {mean_low-mean_high:.1f}', fontsize=12, va='center')
+plt.xlim(-0.5, 1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> A significant positive $\beta_1$ suggests environmental quality differences between neighborhoods*
+
+---
+
+## Key Takeaways
+<p class="subheader">Regression provides a unified framework for statistical testing</p>
+
+. . .
+
+**One-Sample T-Test**: Continuous outcome variable ($y$) with only an intercept
+
+$$y = \beta_0 + \varepsilon$$
+
+. . .
+
+**Relationships**: Continuous outcome variable ($y$) with a continuous predictor ($x$)
+
+$$y = \beta_0 + \beta_1 x + \varepsilon$$
+
+. . .
+
+**Two-Sample T-Test**: Continuous outcome variable ($y$) with a dummy ($Group$)
+
+$$y = \beta_0 + \beta_1 \cdot Group + \varepsilon$$
+
+. . .
+
+**Multiple Regression**: Adding control variables to isolate relationships
+
+. . .
+
+<br>
+
+*> all use the same OLS framework and interpretation of coefficients and p-values*

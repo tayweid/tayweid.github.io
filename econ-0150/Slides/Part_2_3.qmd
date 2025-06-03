@@ -1,0 +1,228 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 2.3 | Relationships In Space*
+
+---
+
+## Exercise: Restaurants by Zipcode
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+We’re going to use a Census maps and openly available data on restaurant locations to answer this question.
+
+- **Data:** `Census Shapefiles` and `Open Street Maps`
+
+---
+
+## Geographic Data
+<p class="subheader"> Some types of relationships in space</p>
+
+<br><br>
+
+:::{.incremental}
+- Geographic data is data organized on three axes (latitude, longitude, altitude)
+- We typically only use latitude and longitude
+- Geo data is often combined with other variables like population
+- Two main types of geo data: points, shapes
+- We sometimes observe points, but most data comes in groups
+:::
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps are (typically) plots on two axis</p>
+
+*> a basic map of Pittsburgh*
+
+![](../Examples/Part_2_3/i/1.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can show any level of detail available in the data</p>
+
+*> a map of Pittsburgh Zipcodes*
+
+![](../Examples/Part_2_3/i/2.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> We can add information: colors</p>
+
+*> a map of Pittsburgh Zipcode populations*
+
+![](../Examples/Part_2_3/i/3.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> We can add information: colors</p>
+
+*> a map of Pittsburgh Zipcode populations: interactive!*
+
+<iframe src="../Examples/Part_2_3/i/3.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
+
+*> some restaurants in Pittsburgh!*
+
+![](../Examples/Part_2_3/i/4.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
+
+<iframe src="../Examples/Part_2_3/i/4.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
+
+<br>
+
+:::{.incremental}
+- Points are nice but we typically can't use them raw
+- Some point transformations: distances between points; group by area; etc
+- We can also relate points to other variables (eg. zipcode population for each restaurant)
+:::
+
+---
+
+## Geographic Data Example: Nunn (2008)
+<p class="subheader"> Did the historical trade of enslaved people impact modern economic development in Africa?</p>
+
+. . .
+
+**Method:** Uses historical data and the distance from major ports
+
+. . .
+
+**Findings:** Areas more disrupted by enslavement have lower GDP today, due to:
+
+  - **Weakened institutions** (political fragmentation, mistrust).
+  - **Disrupted societies** (population loss, economic stagnation).
+
+. . .
+
+**Implication:** Historical shocks can have persistent economic effects.
+
+---
+
+## Geographic Data Example: Weidman (2024)
+<p class="subheader"> Does the party of your neighbors impact your decision to vote?</p>
+
+. . .
+
+<iframe src="../Examples/Part_2_3/data_2_geocode.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data Example: Weidman (2024)
+<p class="subheader"> My dissertation involved measuring distances between voters</p>
+
+![](../Examples/Part_2_3/i/Figure_D2.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+*> lets get back to our question!*
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+![](../Examples/Part_2_3/i/4.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+**Steps:**
+
+. . .
+
+- Measure points by zipcode area
+
+. . .
+
+- Measure distances between groups (take the centroid, etc)
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 1: how many restaurants are in each Pittsburgh zipcode?</p>
+
+. . .
+
+![](../Examples/Part_2_3/i/5.png){fig-align="center"}
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](../Examples/Part_2_3/i/6_pre.png){fig-align="center"}
+
+. . .
+
+*> measure from the center (centroid) of the zipcode*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](../Examples/Part_2_3/i/6.png){fig-align="center"}
+
+*> measure from the center (centroid) of the zipcode*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](../Examples/Part_2_3/i/6a.png){fig-align="center"}
+
+. . .
+
+*> what's the distribution?*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](../Examples/Part_2_3/i/6b.png){fig-align="center"}
+
+. . .
+
+*> we now have enough to answer our main question!*
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants in areas further from downtown Pittsburgh?</p>
+
+. . .
+
+![](../Examples/Part_2_3/i/7.png){fig-align="center"}

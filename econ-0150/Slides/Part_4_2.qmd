@@ -1,0 +1,1245 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 4.2 | A t-test is a simple linear model*
+
+---
+
+## Lets Draw Some Lines: Key Concepts
+<p class="subheader">The general linear model is just drawing lines through data points.</p>
+
+<br>
+
+**Linear Model Equation**: $y = mx + b$
+
+- Basically just a line
+
+. . .
+
+- If you want to be fancy, write it like: $y_i = mx_i + b + \epsilon_i$
+
+. . .
+
+**Mean Sqaured Error**: $MSE = \frac{1}{n} \sum_i \epsilon_i^2$
+
+- Basically just the average distance between the line and a data point
+
+---
+
+## The Intercept-Only Model
+<p class="subheader">Lets start with a model with no x ( basically: x=0 ).</p>
+
+This simple model look like: $y=b$.
+
+. . .
+
+*> there's only an incercept term!*
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.widgets import Slider
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Initial plot
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11, 3))
+
+# Plot 1: Data points and horizontal line
+x = np.arange(1, n+1)
+line_mean = np.mean(data)
+ax1.scatter(x, data, alpha=0.7)
+
+ax1.set_title('Raw Data', fontsize=20)
+ax1.set_xticks([])
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+ax1.grid(False)
+
+# Plot 2: High b
+x = np.arange(1, n+1)
+line_mean = 2.5
+ax2.scatter(x, data, alpha=0.7)
+line, = ax2.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax2.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax2.set_title('Choosing b=2.5', fontsize=20)
+ax2.set_xticks([])
+ax2.grid(False)
+
+# Plot 3: 
+x = np.arange(1, n+1)
+line_mean = 1.5
+ax3.scatter(x, data, alpha=0.7)
+line, = ax3.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax3.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax3.set_title('Choosing b=1.5', fontsize=20)
+ax3.set_xticks([])
+ax3.grid(False)
+
+sns.despine(left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> what should we choose for b to minimize the model's error?*
+
+---
+
+## Line Fitting and the Sample Mean
+<p class="subheader">The sample mean minimizes the MSE.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.widgets import Slider
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# GSample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Initial plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Plot 1: Data
+x = np.arange(1, n+1)
+line_mean = np.mean(data)
+ax1.scatter(x, data, alpha=0.7)
+line, = ax1.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax1.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax1.set_title('Choosing b=$\\bar{y}$', fontsize=20)
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+
+ax1.set_xticks([])
+ax1.grid(False)
+
+sns.despine(ax=ax1, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+# Plot 2: Mean squared error visualization
+
+line_values = np.linspace(-10+line_mean, 10+line_mean, 100)
+mse_values = np.array([np.mean((data - val)**2) for val in line_values])
+ax2.plot(line_values, mse_values, 'b-', linewidth=2)
+
+ax2.set_yticks([])
+
+ax2.axvline(line_mean, color='r', linestyle='--')
+
+ax2.scatter([line_mean], [np.mean((data - line_mean)**2)], color='r', s=100, zorder=2)
+
+ax2.set_xlabel('Intercept Parameter: b', fontsize=20)
+ax2.set_title('Mean Squared Error', fontsize=20)
+ax2.grid(False)
+sns.despine(ax=ax2, left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> this also means that the MSE equals the Variance!*
+
+---
+
+## Sampling Error and Line Fitting
+<p class="subheader">Like before, if we take many samples, we get slighly different means and slighly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Use the same sample data as in the previous slides
+original_data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2.0, 1.9, 2.1]
+
+# For demonstrating sampling error, create multiple samples
+np.random.seed(42)  # Reset seed for reproducibility
+num_samples = 8
+sample_size = 30  # Smaller than original to show variation
+samples = []
+sample_means = []
+
+# Generate random samples and calculate their means
+for i in range(num_samples):
+    # Take a random sample with replacement from the original data
+    sample = np.random.choice(original_data, size=sample_size, replace=True)
+    samples.append(sample)
+    sample_means.append(np.mean(sample))
+
+# Create a figure with subplots for each sample
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+# Plot each sample with its mean line
+for i, (ax, sample, mean) in enumerate(zip(axes, samples, sample_means)):
+    x = np.arange(1, len(sample) + 1)
+    ax.scatter(x, sample, alpha=0.7)
+    ax.axhline(mean, color='r', linestyle='-', linewidth=2)
+    
+    # Add vertical lines for errors
+    for j in range(len(sample)):
+        ax.plot([x[j], x[j]], [sample[j], mean], 'g--', alpha=0.5)
+    
+    ax.set_title(f'Sample {i+1}: Mean = {mean:.2f}', fontsize=14)
+    ax.set_xticks([])
+    ax.set_ylim(0, 4)  # Consistent y-axis for all plots
+    
+    # Set y-label only for left plots
+    if i % 4 == 0:
+        ax.set_ylabel('Wait Time Difference', fontsize=14)
+    
+    # Despine to match previous slides
+    sns.despine(ax=ax, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+
+plt.show()
+```
+
+---
+
+## Simulating the Sampling Distribution
+<p class="subheader">The mean follows a normal distribution centered on the true mean</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+# Simulate many sample means
+sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
+                          for _ in range(n_samples)])
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='skyblue', alpha=0.7, density=True, 
+         edgecolor='white', label='Sample Means')
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means), max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'r-', linewidth=2, label='t-dist')
+
+# Add vertical line for true mean
+plt.axvline(true_mean, color='green', linestyle='--', linewidth=2, label='True Mean')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Distribution Around the Sample Mean
+<p class="subheader">We don't know the true mean, just our sample mean. Center the distribution there.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+sample_mean = 1.97
+
+# Simulate many sample means
+sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
+                          for _ in range(n_samples)])
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='skyblue', alpha=0.2, density=True, 
+         edgecolor='white')
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'r-', linewidth=2, label='t-dist')
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> lets say our sample mean was 1.97*
+
+. . .
+
+*> so if i were to ask you the probability of getting this sample mean under the standard null of b=0, what would you say?*
+
+---
+
+## Finding p-values in the t-distribution
+<p class="subheader">Testing whether the mean is significantly different from zero</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+sample_mean = 1.97
+
+# Simulate many sample means
+sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
+                          for _ in range(n_samples)])
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='skyblue', alpha=0.2, density=True, 
+         edgecolor='white')
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(0, sample_mean*2, 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'r-', linewidth=2, label='t-dist')
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+
+plt.axvline(0, color='black', linestyle='--', linewidth=1, label='Null')
+plt.axvline(sample_mean*2, color='black', linestyle='--', alpha=0.2, linewidth=1, label='Equally Extreme')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> here we're centering the t-distribution on the observed sample mean*
+
+. . .
+
+*> as before, this is mathematically equivalent to centering it on the null*
+
+---
+
+## Regression: Horizontal Line Model
+<p class="subheader">A t-test a linear model with only an intercept: $y = \beta_0 + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 30
+y = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Create the plot
+plt.figure(figsize=(11, 3))
+
+# Plot the data points
+plt.scatter(range(1, n+1), y, alpha=0.7, label='Data Points')
+
+# Plot the horizontal line at the mean
+mean_y = np.mean(y)
+plt.axhline(mean_y, color='r', linestyle='-', linewidth=2, label=f'Mean (β₀ = {mean_y:.2f})')
+
+# Add vertical lines for errors
+for i in range(n):
+    plt.plot([i+1, i+1], [y[i], mean_y], 'g--', alpha=0.4)
+
+# Calculate Sum of Squared Errors (SSE)
+sse = np.sum((y - mean_y)**2)
+
+plt.ylabel('Wait Time Difference', fontsize=16)
+plt.grid(False)
+sns.despine(left=False, bottom=True, right=True, top=True, trim=True)
+plt.xticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the sample mean $\beta_0$ minimizes the sum of squared errors*
+
+. . .
+
+*> the p-value tells us the probability of the data given the default null*
+
+. . .
+
+*> the best guess of the true mean is $\beta_0$*
+
+. . .
+
+*> this is the simplest version of an OLS regression model*
+
+---
+
+## Example: Difference in Wait Times
+<p class="subheader">Are wait times different in the morning and afternoon?</p>
+
+*> imports*
+```python
+# Imports
+import numpy as np
+import statsmodels.api as sm
+import scipy.stats as stats
+```
+
+. . .
+
+*> the dataset*
+```python
+# Paired Differences: Afternoon Wait Minus Morning Wait
+y = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+X = np.ones(len(y))
+```
+
+. . .
+
+*> regression model*
+```python
+# Run the model
+model = sm.OLS(y, X).fit()
+print(model.summary().tables[1])
+```
+
+. . .
+
+*> one sample t-test*
+```python
+t_stat, p_value = stats.ttest_1samp(y, 0)
+print(t_stat, p_value)
+```
+
+---
+
+## Modeling Relationships Between Variables
+<p class="subheader">Let's introduce a (potential) relationship: $y = \beta_0 + \beta_1 x + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+
+ax1.set_title(f'Raw Data \n ', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2
+ax2.set_yticks([])
+ax2.set_xticks([])
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=True, bottom=True, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Modeling Relationships Between Variables
+<p class="subheader">Let's introduce a (potential) relationship: $y = \beta_0 + \beta_1 x + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax1.axhline(mean_wait, color='blue', linestyle='-', linewidth=2, 
+           label=f'Mean Only ($\\beta_0$ = {mean_wait:.2f})')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax1.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'blue', linestyle=':', alpha=0.5)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax1.set_title(f'Intercept-Only Model ($\\beta_1$ = 0)\nMSE = {mse_mean:.2f}', fontsize=16)
+ax1.legend()
+
+# Plot 2
+ax2.set_yticks([])
+ax2.set_xticks([])
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=True, bottom=True, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Modeling Relationships Between Variables
+<p class="subheader">Let's introduce a (potential) relationship: $y = \beta_0 + \beta_1 x + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax1.axhline(mean_wait, color='blue', linestyle='-', linewidth=2, 
+           label=f'Mean Only ($\\beta_0$ = {mean_wait:.2f})')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax1.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'blue', linestyle=':', alpha=0.5)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax1.set_title(f'Intercept-Only Model ($\\beta_1$ = 0)\nMSE = {mse_mean:.2f}', fontsize=16)
+ax1.legend()
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2, 
+        label=f'Regression Line ($\\beta_0$ = {intercept:.2f}, $\\beta_1$ = {slope:.4f})')
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'red', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_title(f'Linear Regression Model\nMSE = {mse_regression:.2f}', fontsize=16)
+ax2.legend()
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> allowing a slope (β₁) improves model fit (MSE) when there's a relationship*
+
+. . .
+
+*> the intercept is no longer the mean*
+
+. . .
+
+*> the slope (β₁) gives the best guess of the relationship between x and y*
+
+. . .
+
+*> but could this slope be just sampling error?*
+
+---
+
+## Sampling Error and Line Fitting
+<p class="subheader">Like before, if we take many samples, we get slighly different slopes and slighly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Define true parameters (for the data generation process)
+true_intercept = 5
+true_slope = 0.01
+noise_std = 2
+
+# Function to generate a single sample dataset
+def generate_sample(n=30):
+    x = np.linspace(0, 600, n)
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+    return x, y
+
+# Generate 8 different samples and fit models
+n_examples = 8
+samples = []
+slopes = []
+intercepts = []
+
+for i in range(n_examples):
+    x, y = generate_sample()
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    samples.append((x, y))
+    slopes.append(slope)
+    intercepts.append(intercept)
+
+# Create subplot grid for the 8 examples
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+for i, ax in enumerate(axes):
+    x, y = samples[i]
+    slope = slopes[i]
+    intercept = intercepts[i]
+    
+    # Plot data points
+    ax.scatter(x, y, alpha=0.5, s=20)
+    
+    # Plot regression line
+    x_line = np.array([min(x), max(x)])
+    y_line = intercept + slope * x_line
+    ax.plot(x_line, y_line, 'r-', linewidth=2)
+    
+    # Clean up axis labels - only show y-axis label for leftmost plots
+    if i % 4 == 0:
+        ax.set_ylabel('Wait Time', fontsize=12)
+    # Only show x-axis label for bottom plots
+    if i >= 4:
+        ax.set_xlabel('Minutes After Opening', fontsize=12)
+    else:
+        ax.set_xlabel('')
+    
+    # Set title
+    ax.set_title(f'Sample {i+1}: Slope = {slope:.4f}', fontsize=12)
+    
+    sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Sampling Distribution of the Slope Coefficient
+<p class="subheader">The slope coefficient follows a t-distribution centered on the true slope</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 2.0
+sample_size = 30
+n_simulations = 1000
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.7, density=True, 
+         color='skyblue', edgecolor='white', label='Sample Slopes')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=true_slope, scale=se_slope)
+plt.plot(x_pdf, y_pdf, 'r-', linewidth=2, label='t-dist')
+# Add vertical line for true slope
+plt.axvline(true_slope, color='green', linestyle='--', linewidth=2, 
+           label=f'True Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the slopes follow a t-distribution around the truth!*
+
+. . .
+
+*> this lets us perform a t-test on the slope!*
+
+---
+
+## Sampling Distribution of the Slope Coefficient
+<p class="subheader">The slope coefficient follows a t-distribution centered on the true slope</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 2.0
+sample_size = 30
+n_simulations = 1000
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.2, density=True, 
+         color='skyblue', edgecolor='white')
+
+# Overlay theoretical t-distribution
+
+# Standard error of the slope
+sample_slope = 0.008
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(0, max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=sample_slope, scale=se_slope)
+plt.plot(x_pdf, y_pdf, 'r-', linewidth=2, label='t-dist')
+
+# Add vertical line for true slope
+plt.axvline(sample_slope, color='green', linestyle='--', linewidth=2, 
+           label=f'Sample Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.axvline(0, color='black', linestyle='--', linewidth=1, 
+           label='Null (no slope)')
+
+plt.axvline(2*sample_slope, color='black', linestyle='--', linewidth=1, alpha=0.4,
+           label='Equally Extreme')
+
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> we don't know the entire distribution, just our sample slope*
+
+. . .
+
+*> like before, center the distribution on our sample and check the null*
+
+. . .
+
+*> very small p-value = strong evidence against the null hypothesis (β₁ = 0)*
+
+---
+
+## Exmaple: Wait Times Throughout The Day
+<p class="subheader">Does wait time change throughout the day?</p>
+
+*> load imports*
+```python
+import pandas as pd
+import statsmodels.api as sm
+import numpy as np
+```
+
+. . .
+
+*> load minutes data*
+```python
+minutes_after_open = [  0.        ,  10.16949153,  20.33898305,  30.50847458,
+        40.6779661 ,  50.84745763,  61.01694915,  71.18644068,
+        81.3559322 ,  91.52542373, 101.69491525, 111.86440678,
+       122.03389831, 132.20338983, 142.37288136, 152.54237288,
+       162.71186441, 172.88135593, 183.05084746, 193.22033898,
+       203.38983051, 213.55932203, 223.72881356, 233.89830508,
+       244.06779661, 254.23728814, 264.40677966, 274.57627119,
+       284.74576271, 294.91525424, 305.08474576, 315.25423729,
+       325.42372881, 335.59322034, 345.76271186, 355.93220339,
+       366.10169492, 376.27118644, 386.44067797, 396.61016949,
+       406.77966102, 416.94915254, 427.11864407, 437.28813559,
+       447.45762712, 457.62711864, 467.79661017, 477.96610169,
+       488.13559322, 498.30508475, 508.47457627, 518.6440678 ,
+       528.81355932, 538.98305085, 549.15254237, 559.3220339 ,
+       569.49152542, 579.66101695, 589.83050847, 600.        ]
+```
+
+---
+
+## Exmaple: Wait Times Throughout The Day
+<p class="subheader">Does wait time change throughout the day?</p>
+
+*> load wait time data*
+```python
+wait_times = [ 5.99342831,  4.82516631,  6.49876691,  8.35114446,  4.93847291,
+        5.04020066,  8.76859512,  7.24673387,  4.87461055,  7.00037432,
+        5.09011377,  5.18718456,  6.70426353,  2.49547341,  2.97389315,
+        5.40084867,  4.6014564 ,  7.35730822,  5.01446032,  4.10759599,
+        9.96519584,  6.68404062,  7.37234454,  4.48948668,  6.35191252,
+        7.76421806,  5.34208064,  8.49715875,  6.64618025,  7.36576504,
+        6.84743423, 11.85709874,  8.22724284,  6.24051035, 10.10271694,
+        6.11763473,  9.07874414,  4.84337162,  6.20803468,  9.35982417,
+       10.54472977,  9.51222809,  9.03988988,  8.77067396,  6.51753229,
+        8.13658277,  8.75668856, 11.89390547, 10.56859251,  6.45697054,
+       10.7329137 ,  9.41627612,  8.93429159, 11.61318309, 12.55352447,
+       12.45578058,  9.01648021, 10.17818542, 11.56083195, 12.95109025]
+```
+
+. . .
+
+*> add an incercept, just a list of ones*
+```python
+intercept = np.ones(len(wait_times))
+```
+
+---
+
+## Exmaple: Wait Times Throughout The Day
+<p class="subheader">Does wait time change throughout the day?</p>
+
+*> merge into a dataframe*
+```python
+data = pd.DataFrame({
+    'minutes_after_open': minutes_after_open, 
+    'wait_times': wait_times,
+    'intercept': intercept,
+})
+```
+
+---
+
+## Exmaple: Wait Times Throughout The Day
+<p class="subheader">Does wait time change throughout the day?</p>
+
+*> predict wait time using time of day*
+```python
+# Add a constant for the intercept
+X = data[['minutes_after_open', 'intercept']]
+y = data['wait_times']
+```
+
+. . .
+
+```python
+# Fit and run the regression model
+model = sm.OLS(y, X).fit()
+print(model.summary().tables[1])
+```
+
+. . .
+
+```{python}
+import pandas as pd
+import statsmodels.api as sm
+
+minutes_after_open = [  0.        ,  10.16949153,  20.33898305,  30.50847458,
+        40.6779661 ,  50.84745763,  61.01694915,  71.18644068,
+        81.3559322 ,  91.52542373, 101.69491525, 111.86440678,
+       122.03389831, 132.20338983, 142.37288136, 152.54237288,
+       162.71186441, 172.88135593, 183.05084746, 193.22033898,
+       203.38983051, 213.55932203, 223.72881356, 233.89830508,
+       244.06779661, 254.23728814, 264.40677966, 274.57627119,
+       284.74576271, 294.91525424, 305.08474576, 315.25423729,
+       325.42372881, 335.59322034, 345.76271186, 355.93220339,
+       366.10169492, 376.27118644, 386.44067797, 396.61016949,
+       406.77966102, 416.94915254, 427.11864407, 437.28813559,
+       447.45762712, 457.62711864, 467.79661017, 477.96610169,
+       488.13559322, 498.30508475, 508.47457627, 518.6440678 ,
+       528.81355932, 538.98305085, 549.15254237, 559.3220339 ,
+       569.49152542, 579.66101695, 589.83050847, 600.        ]
+wait_times = [ 5.99342831,  4.82516631,  6.49876691,  8.35114446,  4.93847291,
+        5.04020066,  8.76859512,  7.24673387,  4.87461055,  7.00037432,
+        5.09011377,  5.18718456,  6.70426353,  2.49547341,  2.97389315,
+        5.40084867,  4.6014564 ,  7.35730822,  5.01446032,  4.10759599,
+        9.96519584,  6.68404062,  7.37234454,  4.48948668,  6.35191252,
+        7.76421806,  5.34208064,  8.49715875,  6.64618025,  7.36576504,
+        6.84743423, 11.85709874,  8.22724284,  6.24051035, 10.10271694,
+        6.11763473,  9.07874414,  4.84337162,  6.20803468,  9.35982417,
+       10.54472977,  9.51222809,  9.03988988,  8.77067396,  6.51753229,
+        8.13658277,  8.75668856, 11.89390547, 10.56859251,  6.45697054,
+       10.7329137 ,  9.41627612,  8.93429159, 11.61318309, 12.55352447,
+       12.45578058,  9.01648021, 10.17818542, 11.56083195, 12.95109025]
+
+data = pd.DataFrame({'minutes_after_open': minutes_after_open, 'wait_times': wait_times})
+
+# Add a constant for the intercept
+X = sm.add_constant(data['minutes_after_open'])
+
+# Fit the regression model
+model = sm.OLS(data['wait_times'], X).fit()
+
+# Use the built-in summary table method for a simple display
+print(model.summary().tables[1])
+```
+
+. . .
+
+*> every minute later in the day sees 0.01 minutes more of wait time*
+
+. . .
+
+*> this is very unlikely to be due to chance*
+
+---
+
+## The General Linear Model
+<p class="subheader">Regression is a flexible t-test</p>
+
+. . .
+
+**One-sample t-test:**
+
+- Regression with only an intercept: $y = \beta_0 + \varepsilon$
+- Tests whether $\beta_0 = \mu_0$ (null value)
+
+. . .
+
+**Continuous Predictor:**
+
+- Regression with an intercept and continuous predictor: $y = \beta_0 + \beta_1 \cdot x + \epsilon$
+- $x$ is a continuous predictor (like age, income, temperature, etc.)
+
+- Tests whether $\beta_1 = 0$ (no relationship between x and y)
+
+. . .
+
+**Multiple regression:** 
+
+- Adds more predictor variables: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon$
+- Each coefficient has its own t-test against the null that it equals zero
+
+---
+
+## Economic Applications
+<p class="subheader">Regression is the workhorse of empirical economics</p>
+
+. . .
+
+**Labor Economics:**
+
+- Effect of education on wages: $wage = \beta_0 + \beta_1 \cdot education + \varepsilon$
+- Tests whether education significantly affects wages ($\beta_1 \neq 0$)
+
+. . .
+
+**Policy Analysis:**
+
+- Impact of minimum wage on employment: $employment = \beta_0 + \beta_1 \cdot min\_wage + \varepsilon$
+- Tests whether minimum wage affects employment ($\beta_1 \neq 0$)
+
+. . .
+
+**Finance:**
+
+- Asset pricing model: $return = \beta_0 + \beta_1 \cdot market\_return + \varepsilon$
+- Tests whether asset moves with the market ($\beta_1 \neq 0$)
+
+---
+
+## Key Takeaways
+<p class="subheader">Connecting t-tests to regression</p>
+
+<br>
+
+. . .
+
+**Unified Framework:** *T-tests and regression are part of the same general linear model framework.*
+
+. . .
+
+**Continuous Predictors:** *Regression extends t-tests by allowing continuous predictors.*
+
+. . .
+
+**Multiple Variables:** *Regression lets us include multiple predictors and control variables.*
+
+. . .
+
+**Same Interpretation:** *The p-values have the same interpretation: probability of seeing results this extreme if the null is true.*
+
+. . .
+
+**Same Distribution:** *Coefficient estimates follow t-distributions centered on true values.*
+
+---
+
+## Looking Forward
+<p class="subheader">Extending our regression framework</p>
+
+. . .
+
+**We will explore:**
+
+- Two-Sample t-Test
+- ANOVA: checking for differences between many groups
+- Multiple regression with several predictors
+- Controlling for confounding variables
+- Categorical variables and dummy coding
+- Interaction effects
+
+. . .
+
+*> all built on the same statistical foundation we explored today*

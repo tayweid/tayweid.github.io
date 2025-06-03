@@ -1,0 +1,149 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### Part 1.4 | Numerical Variables by Category
+
+---
+
+### Example 1.4 | Coffee Shop Transactions
+<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+
+<div class='fragment'>
+```{.python}
+# Load the data
+sales = pd.read_csv(file_path + file_name)
+```
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+<div class='fragment'>
+```{.python code-line-numbers="1-2|3-5"}
+# Count by category
+sales_counts = sales['sales_outlet_id'].value_counts()
+
+# Bar graph
+plt.bar(['A','B','C'], sales_counts.values)
+```
+</div>
+
+<div class='fragment'>
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transations.png){fig-align="center"}
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+*> a bar chart makes it easy to compare between categories*
+
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transations.png){fig-align="center"}
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. What time of day is the busiest?</p>
+
+<div class='fragment'>
+```{.python code-line-numbers="1-2|3-5"}
+# Create bins from 0 to 24
+bins = range(0, 24, 1)
+
+# Create a histogram
+plt.hist(sales['Hours'], bins=bins)
+```
+</div>
+
+<div class="fragment">
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transations_All_Hist.png){fig-align="center"}
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. What time of day is the busiest?</p>
+
+*> a histogram makes it easy to compare time of day*
+
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transations_All_Hist.png){fig-align="center"}
+
+<div class="fragment">
+*> does this mean the morning shift at Shop A is the busiest?*
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> an overlaid histogram can show all three groups*
+
+<div class="fragment">
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transations_Shops_Hist.png){fig-align="center"}
+</div>
+
+<div class="fragment">
+*> does this show the data clearly?*
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> instead, lets use a line graph*
+
+<div class="fragment">
+```{.python code-line-numbers="1-2|4-5|7-9|11-13"}
+# Select Shop A data, summarize, and sort
+shop_A = sales[sales.Shop == 'A'].Hours.value_counts().sort_index()
+
+# Plot Shop A
+plt.plot(shop_A, label='Shop A')
+
+# Shop B
+shop_B = sales[sales.Shop == 'B'].Hours.value_counts().sort_index()
+plt.plot(shop_B, label='Shop B')
+
+# Shop C
+shop_C = sales[sales.Shop == 'C'].Hours.value_counts().sort_index()
+plt.plot(shop_C, label='Shop C')
+```
+</div>
+
+---
+
+### Hiring a New Barista
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+*> instead, lets use a line graph*
+
+![](../Examples/Part_1_4/i/Part_1_4_Coffee_Shop_Transactions_Shops_Line.png){fig-align="center"}
+
+---
+
+### Part 1.4 | Numerical Variables by Category
+
+<br><br>
+
+#### Summary
+
+::: {.incremental}
+- Categorical variables and continuous variables can give us different views of the same data.
+- We can visualize both views one the same graph.
+- Line graphs help simplify the visualization of multiple categories.
+:::
+
