@@ -220,11 +220,10 @@ hr {
 .indicator-track {
     position: relative;
     display: inline-flex;
-    background: var(--main-md-color);
+    background: rgba(51, 51, 51, 0.5);  /* Semi-transparent background */
     border-radius: 25px;
     padding: 4px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    border: 2px solid var(--main-md-color);
+    border: 1px solid rgba(51, 51, 51, 0.3);  /* Semi-transparent border */
 }
 
 .indicator-tab {
@@ -256,11 +255,11 @@ hr {
     left: 0;
     height: calc(100% - 8px);
     background: var(--main-cool-blue);
+    opacity: 0.3;  /* Make the blue slider more transparent */
     border-radius: 20px;
     transition: transform 0.3s ease, width 0.3s ease;
     z-index: 1;
     pointer-events: none;
-    box-shadow: 0 2px 10px rgba(66, 132, 242, 0.5);
 }
 
 .carousel {
@@ -277,6 +276,7 @@ hr {
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;  /* Force stop at each snap point */
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
@@ -292,24 +292,24 @@ hr {
     flex: 0 0 auto;
     width: 800px;
     max-width: 100%;
-    border: 2px solid var(--main-md-color);
+    border: 1px solid var(--main-md-color);  /* Thinner border */
     border-radius: 15px;
     padding: 0;
     background-color: var(--main-bg-color);
     transition: all 0.3s ease;
     cursor: pointer;
     scroll-snap-align: center;
+    scroll-snap-stop: always;  /* Force stop at each card */
     overflow: hidden;
     min-height: 300px;
     display: flex;
     flex-direction: column;
-    opacity: 0.5;
+    opacity: 0.7;  /* Dimmed opacity for inactive cards */
 }
 
 .carousel-card.active {
     opacity: 1;
-    border-color: var(--main-cool-blue);
-    box-shadow: 0 2px 10px rgba(66, 132, 242, 0.15);
+    /* Removed blue border and box shadow */
 }
 
 .carousel-card:hover {
@@ -545,18 +545,12 @@ hr {
         padding: 15px;
     }
     
-    .card-title {
-        font-size: 18px;
-    }
-    
-    .card-description {
-        font-size: 16px;
-    }
+    /* Removed font size reduction - keeping same size as desktop */
     
     /* Indicator responsive */
     .indicator-tab {
         padding: 6px 12px;
-        font-size: 14px;
+        /* Removed font size reduction - keeping same 16px as desktop */
     }
 }
 
@@ -607,6 +601,20 @@ hr {
     .rounded-box-textbook {
         max-width: 100%;
         margin: 10px 0;
+    }
+    
+    /* Mobile header font sizes to maintain hierarchy */
+    .title {
+        font-size: 36px;  /* Slightly smaller than desktop 40px but still larger than body */
+    }
+    
+    .subtitle {
+        font-size: 24px;  /* Explicit size larger than 20px body text */
+    }
+    
+    /* Disable hover effects on mobile */
+    p:hover {
+        color: var(--main-fg-color);  /* Keep original color instead of white */
     }
 }
 

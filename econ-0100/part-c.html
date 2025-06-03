@@ -542,8 +542,23 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update on window resize
             window.addEventListener('resize', () => {
-                const currentCard = carousel.querySelector('.carousel-card.active');
-                const currentIndex = Array.from(cards).indexOf(currentCard);
+                // Find which card is closest to center
+                const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+                let currentIndex = 0;
+                let closestDistance = Infinity;
+                
+                cards.forEach((card, index) => {
+                    const cardLeft = card.offsetLeft;
+                    const cardCenter = cardLeft + (card.offsetWidth / 2);
+                    const distance = Math.abs(cardCenter - scrollCenter);
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        currentIndex = index;
+                    }
+                });
+                
+                const currentCard = cards[currentIndex];
                 if (currentCard) {
                     currentCard.scrollIntoView({
                         behavior: 'auto',
@@ -552,15 +567,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
                 setTimeout(() => {
-                    updateSliderPosition(currentIndex >= 0 ? currentIndex : 0);
+                    updateSliderPosition(currentIndex);
                 }, 100);
             });
         }
         
         // Arrow navigation
         leftArrow.addEventListener('click', () => {
-            const currentCard = carousel.querySelector('.carousel-card.active');
-            const currentIndex = Array.from(cards).indexOf(currentCard);
+            // Find which card is closest to center
+            const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+            let currentIndex = 0;
+            let closestDistance = Infinity;
+            
+            cards.forEach((card, index) => {
+                const cardLeft = card.offsetLeft;
+                const cardCenter = cardLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - scrollCenter);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    currentIndex = index;
+                }
+            });
+            
             const newIndex = Math.max(0, currentIndex - 1);
             
             if (newIndex !== currentIndex) {
@@ -576,8 +605,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         rightArrow.addEventListener('click', () => {
-            const currentCard = carousel.querySelector('.carousel-card.active');
-            const currentIndex = Array.from(cards).indexOf(currentCard);
+            // Find which card is closest to center
+            const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+            let currentIndex = 0;
+            let closestDistance = Infinity;
+            
+            cards.forEach((card, index) => {
+                const cardLeft = card.offsetLeft;
+                const cardCenter = cardLeft + (card.offsetWidth / 2);
+                const distance = Math.abs(cardCenter - scrollCenter);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    currentIndex = index;
+                }
+            });
+            
             const newIndex = Math.min(cards.length - 1, currentIndex + 1);
             
             if (newIndex !== currentIndex) {
@@ -728,7 +771,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Store the handler for cleanup
                 track._scrollHandler = updateActiveCardOnScroll;
             } else {
-                // Remove all active states when carousel is out of view
                 cards.forEach(card => card.classList.remove('active'));
                 
                 // Remove scroll listener
