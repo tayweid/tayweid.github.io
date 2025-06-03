@@ -422,6 +422,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const rightArrow = carousel.querySelector('.carousel-arrow-right');
         const cards = carousel.querySelectorAll('.carousel-card');
         
+        // Helper function to center a card without page jumps
+        const centerCard = (targetCard, behavior = 'smooth') => {
+            if (!targetCard) return;
+            
+            if (window.innerWidth <= 1000) {
+                // Mobile: just scroll to the card without centering to avoid page jumps
+                targetCard.scrollIntoView({
+                    behavior: behavior,
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            } else {
+                // Desktop: use scrollTo for precise centering without page jumps
+                const carouselRect = carousel.getBoundingClientRect();
+                const cardRect = targetCard.getBoundingClientRect();
+                const targetScrollLeft = targetCard.offsetLeft - (carouselRect.width / 2) + (cardRect.width / 2);
+                
+                track.scrollTo({
+                    left: targetScrollLeft,
+                    behavior: behavior
+                });
+            }
+        };
+        
         // Indicator functionality
         const indicator = container.querySelector('.carousel-indicator');
         if (indicator) {
@@ -462,13 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 tab.addEventListener('click', () => {
                     // Scroll the selected card into center view
                     const targetCard = cards[index];
-                    if (targetCard) {
-                        targetCard.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest',
-                            inline: 'center'
-                        });
-                    }
+                    centerCard(targetCard, 'smooth');
                 });
             });
             
@@ -506,18 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Only auto-center on desktop (window width > 1000px)
                     if (window.innerWidth > 1000) {
                         const targetCard = cards[closestIndex];
-                        if (targetCard) {
-                            // Use carousel scrollLeft instead of scrollIntoView to prevent page jumps
-                            const carouselRect = carousel.getBoundingClientRect();
-                            const cardRect = targetCard.getBoundingClientRect();
-                            const targetScrollLeft = targetCard.offsetLeft - (carouselRect.width / 2) + (cardRect.width / 2);
-                            
-                            // Smooth scroll the carousel container only
-                            track.scrollTo({
-                                left: targetScrollLeft,
-                                behavior: 'smooth'
-                            });
-                        }
+                        centerCard(targetCard, 'smooth');
                     }
                 }, 150);
             });
@@ -560,13 +567,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 const currentCard = cards[currentIndex];
-                if (currentCard) {
-                    currentCard.scrollIntoView({
-                        behavior: 'auto',
-                        block: 'nearest',
-                        inline: 'center'
-                    });
-                }
+                centerCard(currentCard, 'auto');
                 setTimeout(() => {
                     updateSliderPosition(currentIndex);
                 }, 100);
@@ -595,13 +596,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (newIndex !== currentIndex) {
                 const targetCard = cards[newIndex];
-                if (targetCard) {
-                    targetCard.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center'
-                    });
-                }
+                centerCard(targetCard, 'smooth');
             }
         });
         
@@ -626,13 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (newIndex !== currentIndex) {
                 const targetCard = cards[newIndex];
-                if (targetCard) {
-                    targetCard.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest',
-                        inline: 'center'
-                    });
-                }
+                centerCard(targetCard, 'smooth');
             }
         });
         
