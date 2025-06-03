@@ -1,0 +1,218 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.7 | Transforming Data*
+
+---
+
+## Example 1.7 | Starbucks Location Hours
+<p class="subheader-center">How many shops are open at once?</p>
+
+. . .
+
+<br>
+
+```{.python code-line-numbers="2,5"}
+# Import packages
+import pandas as pd
+
+# Load data
+hours = pd.read_csv(file_path + "Starbucks_Location_Hours.csv")
+```
+
+. . .
+
+<br>
+
+*>as is common, it's difficult to understand the raw data on its own*
+
+---
+
+## Location Hours
+<p class="subheader-center">What times to shops open?</p>
+
+. . .
+
+```{.python code-line-numbers="2"}
+# Histogram of opening times
+plt.hist(hours.open)
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/1.png)
+
+. . .
+
+*> but does this tell us how many shops are open at one time?*
+
+---
+
+## Location Hours
+<p class="subheader-center">What times do shops open (GMT)?</p>
+
+. . .
+
+```{.python code-line-numbers="2,5"}
+# Normalize to GMT
+hours['open_GMT_simple'] = hours['open'] - hours['timezone']
+
+# Histogram of opening times (GMT)
+plt.hist(hours.open_GMT_simple)
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/2.png)
+
+---
+
+## Location Hours
+<p class="subheader-center">What times do shops open (GMT)?</p>
+
+![](../Examples/Part_1_7/i/2.png)
+
+*> what do the negative values mean?*
+
+---
+
+## Location Hours
+<p class="subheader-center">Normalize the negative values 24 hours.</p>
+
+. . .
+
+```{.python code-line-numbers="2,5"}
+# Normalize to 24 hours
+hours['open_GMT'] = hours['open_GMT_simple'].mod(24)
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/3.png)
+
+---
+
+## Location Hours
+<p class="subheader-center">Closing times have the same issue.</p>
+
+```{.python code-line-numbers="2,5"}
+# Normalize to GMT
+hours['close_GMT_simple'] = hours['close'] - hours['timezone']
+
+# Histogram of opening times (GMT)
+plt.hist(hours.close_GMT_simple)
+```
+
+![](../Examples/Part_1_7/i/4.png)
+
+---
+
+## Location Hours
+<p class="subheader-center">Normalize the positive values to 24 hours.</p>
+
+. . .
+
+```{.python code-line-numbers="2"}
+# Normalize to 24 hours
+hours['close_GMT'] = hours['close_GMT_simple'].mod(24)
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/5.png)
+
+---
+
+## Location Hours
+<p class="subheader-center">So, how many locations are open at each hour of the day? </p>
+
+![](../Examples/Part_1_7/i/6.png)
+
+. . .
+
+*> this only tells us openings and closings at each hour, not total open*
+
+. . .
+
+*> instead, lets sum up all the shops that have opened <b>that day</b>*
+
+---
+
+## Location Hours
+<p class="subheader-center">So, how many locations are open at each hour of the day? </p>
+
+*> lets sum up all the shops that have opened <b>that day</b>*
+
+. . .
+
+```{.python code-line-numbers="2|5"}
+# Construct values by bin
+opened_values = hours['open_GMT'].value_counts().sort_index()
+
+# Cumulative sum
+total_opened = opened_values.cumsum()
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/7.png)
+
+---
+
+## Location Hours
+<p class="subheader-center">So, how many locations are open at each hour of the day? </p>
+
+![](../Examples/Part_1_7/i/7.png)
+
+*> from here, to find the total that have opened/closed, we take the difference*
+
+---
+
+## Location Hours
+<p class="subheader-center">So, how many locations are open at each hour of the day? </p>
+
+. . .
+
+```{.python code-line-numbers="2"}
+# Take the difference
+net_increase = total_opened - total_closed
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/8.png)
+
+. . .
+
+*> why is the green line negative?*
+
+. . .
+
+*> lets add the number open at midnight (GMT).*
+
+
+---
+
+## Location Hours
+<p class="subheader-center">So, how many locations are open at each hour of the day? </p>
+
+. . .
+
+```{.python code-line-numbers="2|3"}
+# Add those open at midnight
+count_open_after_close = len(hours[hours['open_GMT'] >= hours['close_GMT']])
+cumulative_open = net_increase + count_open_after_close
+```
+
+. . .
+
+![](../Examples/Part_1_7/i/9.png)

@@ -1,3 +1,8 @@
+// Scroll to top on page load
+$(document).ready(function(){
+    window.scrollTo(0, 0);
+});
+
 $(window).scroll(function(){
     var scrollTop = $(document).scrollTop();
     var anchors = $('body').find('div');
