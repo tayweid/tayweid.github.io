@@ -75,17 +75,19 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => updateSliderPosition(0), 50);
         }
         
-        // Simple arrow navigation
+        // Simple one-card-at-a-time navigation
         leftArrow.addEventListener('click', () => {
+            const cardWidth = cards[0].offsetWidth + 40; // card width + gap
             track.scrollBy({
-                left: -track.clientWidth * 0.8,
+                left: -cardWidth,
                 behavior: 'smooth'
             });
         });
         
         rightArrow.addEventListener('click', () => {
+            const cardWidth = cards[0].offsetWidth + 40; // card width + gap
             track.scrollBy({
-                left: track.clientWidth * 0.8,
+                left: cardWidth,
                 behavior: 'smooth'
             });
         });
@@ -102,5 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
         track.addEventListener('scroll', updateArrows);
         window.addEventListener('resize', updateArrows);
         updateArrows();
+        
+        // Card click functionality for videos/PDFs
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't trigger if clicking on a link
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                
+                const videoId = card.getAttribute('data-video-id');
+                if (videoId) {
+                    if (videoId.includes('.pdf') || videoId.includes('/')) {
+                        // It's a file path - open directly
+                        window.open(videoId, '_blank');
+                    } else {
+                        // It's a YouTube video ID - open YouTube
+                        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                    }
+                }
+            });
+        });
     });
 });

@@ -9,6 +9,7 @@
     --main-link-color: #4C72B0;
     --main-cool-white: #D1D1D1;
     --main-cool-blue: #4284F2;
+    --main-hover-color: #181818;
 }
 
 * {
@@ -18,7 +19,7 @@
 body {
     font-family: 'Roboto Slab', serif;
     font-weight: 100;
-    padding: 0; 
+    padding: 0;
     margin: 0;
     background: var(--main-bg-color);
     color: var(--main-fg-color);
@@ -90,13 +91,13 @@ ul > span {
     font-size: 32px;
     display: block;
     line-height: 0.8;
-    color: white;  /* White for better contrast */
+    color: white;
 }
 
 li a {
     display: block;
-    padding: 4px 4px;
-    color: var(--main-fg-color);  /* Grey for sidebar navigation links */
+    padding: 4px;
+    color: var(--main-fg-color);
     text-decoration: none;
 }
 
@@ -110,9 +111,8 @@ li a:hover {
     font-size: 20px;
 }
 
-/* Right sidebar active links should be smaller */
 .right_div .active {
-    font-size: 18px !important;  /* Override inline styles */
+    font-size: 18px;
 }
 
 /* =============================================================================
@@ -120,7 +120,7 @@ li a:hover {
    ============================================================================= */
 
 h3, h4 {
-    color: var(--main-fg-color);  /* Grey for subtext */
+    color: var(--main-fg-color);
 }
 
 .title {
@@ -172,33 +172,6 @@ hr {
     color: var(--main-cool-blue);
 }
 
-/* =============================================================================
-   CONTENT BOXES
-   ============================================================================= */
-
-.rounded-box, 
-.rounded-box-textbook {
-    border: 2px solid var(--main-md-color);
-    border-radius: 15px;
-    padding: 1em;
-    width: 100%;
-    background-color: var(--main-bg-color);
-    transition: background-color 0.2s, border-color 0.2s;
-    margin: 5px 0;
-    box-sizing: border-box;
-    color: white;
-}
-
-.rounded-box > h2, 
-.rounded-box-textbook > h2 {
-    margin-top: 0px;
-    color: white;
-}
-
-.rounded-box:hover, 
-.rounded-box-textbook:hover {
-    background-color: #181818;
-}
 
 /* =============================================================================
    CAROUSEL
@@ -210,7 +183,6 @@ hr {
     overflow: hidden;
 }
 
-/* Carousel Indicator */
 .carousel-indicator {
     margin: 10px 0 5px 0;
     display: flex;
@@ -221,10 +193,10 @@ hr {
 .indicator-track {
     position: relative;
     display: inline-flex;
-    background: rgba(51, 51, 51, 0.5);  /* Semi-transparent background */
+    background: rgba(51, 51, 51, 0.5);
     border-radius: 25px;
     padding: 4px;
-    border: 1px solid rgba(51, 51, 51, 0.3);  /* Semi-transparent border */
+    border: 1px solid rgba(51, 51, 51, 0.3);
 }
 
 .indicator-tab {
@@ -256,7 +228,7 @@ hr {
     left: 0;
     height: calc(100% - 8px);
     background: var(--main-cool-blue);
-    opacity: 0.3;  /* Make the blue slider more transparent */
+    opacity: 0.3;
     border-radius: 20px;
     transition: transform 0.3s ease, width 0.3s ease;
     z-index: 1;
@@ -274,10 +246,8 @@ hr {
     display: flex;
     gap: 40px;
     padding: 15px calc(50% - min(400px, 45vw));
-    overflow-x: auto;
-    scroll-behavior: smooth;
+    overflow-x: scroll;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
     flex: 1;
@@ -285,7 +255,7 @@ hr {
 }
 
 .carousel-track::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
 }
 
 .carousel-card {
@@ -307,33 +277,31 @@ hr {
 
 
 .carousel-card:hover {
-    background-color: #181818;
+    background-color: var(--main-hover-color);
 }
 
-/* Placeholder card for missing content */
-.carousel-card.placeholder {
+.placeholder {
     opacity: 0.3;
     cursor: default;
     pointer-events: none;
 }
 
-.carousel-card.placeholder:hover {
+.placeholder:hover {
     background-color: var(--main-bg-color);
 }
 
-.carousel-card.placeholder .card-video {
+.placeholder .card-video {
     background: var(--main-md-color);
     padding-bottom: 56%;
     position: relative;
 }
 
-/* Standalone card (not in carousel) */
-.carousel-card.standalone-card {
+.standalone {
     margin: 20px auto;
     cursor: default;
 }
 
-.carousel-card.standalone-card .card-video iframe {
+.standalone .card-video iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -408,36 +376,7 @@ hr {
     flex-grow: 1;
 }
 
-.card-download {
-    margin-top: 6px;
-    font-size: 11px;
-    color: var(--main-cool-blue);
-    text-decoration: none;
-    font-weight: bold;
-    display: inline-block;
-}
 
-.card-download:hover {
-    color: var(--main-cool-white);
-}
-
-.card-links {
-    margin-top: 8px;
-    font-size: 14px;
-    color: var(--main-fg-color);
-}
-
-.card-links a {
-    color: var(--main-cool-blue);
-    text-decoration: none;
-    margin: 0 2px;
-}
-
-.card-links a:hover {
-    color: var(--main-cool-white);
-}
-
-/* Vignette download icons in titles */
 .card-title .fa-download {
     cursor: pointer;
     transition: color 0.2s ease;
@@ -447,29 +386,7 @@ hr {
     color: var(--main-cool-blue);
 }
 
-/* Text-only card style */
-.card-text-only {
-    padding: 20px;
-    justify-content: center;
-    text-align: center;
-}
 
-.card-text-only .card-title {
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-.card-text-only .card-description {
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-
-.card-text-only .card-download {
-    margin-top: 10px;
-    font-size: 12px;
-}
-
-/* Arrow buttons */
 .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -501,8 +418,30 @@ hr {
     right: 20px;
 }
 
-/* Mobile styles */
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================= */
+
 @media screen and (max-width: 1000px) {
+    /* Layout changes */
+    .wrapper {
+        max-width: 100%;
+        padding: 0 10px;
+        justify-content: center;
+    }
+    
+    .left_div, 
+    .right_div {
+        display: none;
+    }
+    
+    .content {
+        max-width: 100%;
+        padding: 30px 20px;
+        margin: 0 auto;
+    }
+    
+    /* Carousel mobile styles */
     .carousel-arrow {
         display: none;
     }
@@ -527,69 +466,13 @@ hr {
         padding: 15px;
     }
     
-    /* Removed font size reduction - keeping same size as desktop */
-    
-    /* Indicator responsive */
     .indicator-tab {
         padding: 6px 12px;
-        /* Removed font size reduction - keeping same 16px as desktop */
     }
-}
-
-/* =============================================================================
-   VIDEO CONTAINERS
-   ============================================================================= */
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    border: none;
-}
-
-/* =============================================================================
-   RESPONSIVE DESIGN
-   ============================================================================= */
-
-@media screen and (max-width: 1000px) {
-    .wrapper {
-        max-width: 100%;
-        padding: 0 10px;
-        justify-content: center;
-    }
-    
-    .left_div, 
-    .right_div {
-        display: none;
-    }
-    
-    .content {
-        max-width: 100%;
-        padding: 30px 20px;
-        margin: 0 auto;
-    }
-    
-    .rounded-box, 
-    .rounded-box-textbook {
-        max-width: 100%;
-        margin: 10px 0;
-    }
-    
-    /* Removed mobile font size reductions - keeping desktop hierarchy */
     
     /* Disable hover effects on mobile */
     p:hover {
-        color: var(--main-fg-color);  /* Keep original color instead of white */
+        color: var(--main-fg-color);
     }
 }
 
