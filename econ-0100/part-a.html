@@ -501,15 +501,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 updateSliderPosition(closestIndex);
                 
-                // Snap to center after scrolling stops
+                // Snap to center after scrolling stops (desktop only)
                 scrollTimer = setTimeout(() => {
-                    const targetCard = cards[closestIndex];
-                    if (targetCard) {
-                        targetCard.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest',
-                            inline: 'center'
-                        });
+                    // Only auto-center on desktop (window width > 1000px)
+                    if (window.innerWidth > 1000) {
+                        const targetCard = cards[closestIndex];
+                        if (targetCard) {
+                            // Use carousel scrollLeft instead of scrollIntoView to prevent page jumps
+                            const carouselRect = carousel.getBoundingClientRect();
+                            const cardRect = targetCard.getBoundingClientRect();
+                            const targetScrollLeft = targetCard.offsetLeft - (carouselRect.width / 2) + (cardRect.width / 2);
+                            
+                            // Smooth scroll the carousel container only
+                            track.scrollTo({
+                                left: targetScrollLeft,
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 }, 150);
             });

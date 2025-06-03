@@ -1,51 +1,41 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     
 <title>Economic Data Analysis | Part 1</title>
 
-<link rel="stylesheet" href="jscss/Part.css">
+<link rel="stylesheet" href="part-clean.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
-
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+
 <body>
 
-<!-- Add this in your HTML <head> section -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;700&display=swap" rel="stylesheet">
-
-
-
-
-
-<div class="body_table"><div>
-<div class="left_div" align="right">
+<div class="wrapper">
+<div class="left_div">
     <nav>
         <ul>
-            <a href="https://tayweid.github.io/ECON_0150/ECON_0150.html" class="title-link">
-                <span>ECONOMIC</span><br>
-                <span>DATA</span><br>
-                <span>ANALYSIS</span>
-            </a>
-            <br>
-            <li><a href="https://tayweid.github.io/ECON_0150/Data.html">Data Hub</a></li>
+            <span>ECONOMIC</span>
+            <span>DATA</span>
+            <span>ANALYSIS</span>
+            <hr style="width: 80%; margin: 20px 0 10px auto;">
+            <li style="margin: 0;"><a class="btn" href="https://tayweid.github.io/econ-0150/data.html">Data Hub</a></li>
+            <hr style="width: 80%; margin: 10px 0 10px auto;">
             <li><a class="active" href="">Part 1</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_2.html">Part 2</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_3.html">Part 3</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_4.html">Part 4</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_5.html">Part 5</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_6.html">Part 6</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Projects.html">Projects</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/part-2.html">Part 2</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/part-3.html">Part 3</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/part-4.html">Part 4</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/part-5.html">Part 5</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/part-6.html">Part 6</a></li>
+            <li><a href="https://tayweid.github.io/econ-0150/projects.html">Projects</a></li>
         </ul>
     </nav>
 </div>
@@ -53,302 +43,923 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title" style="margin-bottom:-5px"> Part 1 | Univariate EDA</h1>
-        <i style="font-size:20px; margin-left:20px">// start by summarizing your variables //</i>
+        <h1 class="title" style="margin-bottom:-5px">Part 1 // Univariate EDA</h1>
+        <i style="font-size:20px; margin-left:20px">// start by summarizing your variables //</i>        
     </div>
 
-    <div id="week_02">
-        <h1 class="subtitle">Week 02 <i>(Jan 13 - Jan 17)</i></h1>
-        <p class="subtitle_description">... no MiniExam this week.</p>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 01 ( 
-                    <a class="btn" href="HW/HW_01.pdf" download target="_blank">File</a> 
-                    )
-                </h2>
-                <p>> due on Friday January 17 at 5PM on Gradescope</p>
+    <!-- CAROUSEL -->
+        <div class="carousel-container" id="part-10">
+            <h1 class="subtitle">Part 1.0 ~ Data Types</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Examples</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.0 // Data Types ( 
-                <a class="btn" href="Slides/Part_1_0.pdf" target="_blank">Slides</a> 
-                )</h2>
-                <p>> variables are either categorical or numerical</p>
-                <hr>
-                <h3>
-                    Examples // Categorical Data
-                    ( 
-                    <a class="btn" href="https://drive.google.com/file/d/1OFCntgDuWrbvf9YPTLU7KNY3O-oKZp2N/view?usp=sharing">Notebook</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/binary_categorical_dataset.csv" target="_blank">Binary</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/nominal_categorical_dataset.csv" target="_blank">Nominal</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/ordinal_categorical_dataset.csv" target="_blank">Ordinal</a> 
-                    )
-                </h3>
-                <h4>> synthetic data and code to summarize the three main categorical variables</h4>
-                <hr>
-                <h3>
-                    Examples // Numerical Data
-                    ( 
-                    <a class="btn" href="https://drive.google.com/file/d/1ON6wOBes19Q1l1p9_jSoJ9hhTEbAaWZ0/view?usp=sharing">Notebook</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/discrete_numerical_dataset.csv" target="_blank">Discrete</a>
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/continuous_numerical_dataset.csv" target="_blank">Continuous</a> 
-                    )
-                </h3>
-                <h4>> synthetic data and code to summarize the two main numerical variables</h4>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.1 // Categorical Variables ( 
-                    <a class="btn" href="Slides/Part_1_1.pdf" target="_blank">Slides</a> 
-                )
-                </h2>
-                <p>> summarizing categorical variables</p>
-                <hr>
-                <h3 class="subtitle">Example // Coffee Shop Locations ( 
-                    <a class="btn" href="Examples/Part_1_1/Coffee_Shops.csv" target="_blank">Data</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_1/Coffee_Shops.xlsx" target="_blank">Excel</a> 
-                    )
-                </h3>
-                <h4>> the locations of a small (fictional) coffee shop chain</h4>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/nkNQBJfBmP4?si=c56lj0z0_VW4vn28" frameborder="0" allowfullscreen></iframe>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_0.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
                     </div>
-                </div>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.2 // Numerical Variables ( 
-                    <a class="btn" href="Slides/Part_1_2.pdf" target="_blank">Slides</a> 
-                )
-                </h2>
-                <p>> summarizing numerical variables</p>
-                <hr>
-                <h3 class="subtitle">Example // Starbucks Customers ( 
-                    <a class="btn" href="Examples/Part_1_2/Starbucks_Customer_Profiles.csv" target="_blank">Data</a>
-                    | 
-                    <a class="btn" href="Examples/Part_1_2/Starbucks_Customer_Profiles.xlsx" target="_blank">Excel</a> 
-                    | 
-                    <a class="btn" href="https://www.kaggle.com/datasets/ylchang/coffee-shop-sample-data-1113" target="_blank">Source</a> 
-                    )
-                </h3>
-                <h4>> data on Starbucks customers</h4>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/FWprEGuPf-Y?si=thD3AjztVj1V-Vu6" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="week_03">
-        <h1 class="subtitle">Week 03 <i>(Jan 20 - Jan 24)</i></h1>
-        <p class="subtitle_description">... no class on Jan 20 and no MiniExam this week.</p>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 02 ( 
-                    <a class="btn" href="HW/HW_02.pdf" download target="_blank">File</a> 
-                    )
-                </h2>
-                <p>> due on Friday January 24 at 5PM on Gradescope</p>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.3 // Data Structures ( 
-                <a class="btn" href="Slides/Part_1_3.pdf" target="_blank">Slides</a> 
-                )</h2>
-                <p>> visualizing relationships between data points</p>
-                <hr>
-                <h3>
-                    Examples // Data Structures
-                    ( 
-                    <a class="btn" href="https://drive.google.com/file/d/1YVc0_Kj6M6ymej1JZXMqFlOyFsXXKKv1/view?usp=sharing">Notebook</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/continuous_numerical_dataset.csv" target="_blank">Cross-Sectional</a>
-                    |  
-                    <a class="btn" href="Examples/Part_1_0/time_series_numerical_dataset.csv" target="_blank">Time-Series</a>
-                    | 
-                    <a class="btn" href="Examples/Part_1_0/panel_numerical_dataset.csv" target="_blank">Panel</a> 
-                    )
-                </h3>
-                <h4>> three univariate data structures</h4>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.4 // Numerical Variables by Cateogry ( 
-                <a class="btn" href="Slides/Part_1_4.pdf" target="_blank">Slides</a> 
-                | 
-                <a class="btn" href="Slides/Part_1_4.html" target="_blank">Interactive</a> 
-                )</h2>
-                <p>> visualizing continuous variables by category</p>
-                <hr>
-                <h3>Example // Transations by Shop Location ( 
-                    <a class="btn" href="Examples/Part_1_4/Coffee_Sales_Reciepts.csv" target="_blank">Data</a> 
-                    | 
-                    <a class="btn" href="https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data" target="_blank">Source</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_1_4/Coffee_Sales_Reciepts.xlsx" target="_blank">Excel</a>
-                    )</h3>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/5g3Wc6L4jcg?si=43ijfFFnUNAHEmWS" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.5 // Filtering Data ( 
-                <a class="btn" href="Slides/Part_1_5.pdf" target="_blank">Slides</a> 
-                | 
-                <a class="btn" href="Slides/Part_1_5.html" target="_blank">Interactive</a> 
-                )</h2>
-                <p>> understand subsets of the data with logical conditions</p>
-                <hr>
-                <h3>Example // Starbucks Hours ( 
-                    <a class="btn" href="Examples/Part_1_5/Starbucks_Location_Hours.csv" target="_blank">Data</a> 
-                )</h3>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/A1EsdgZCzUg?si=OKjIRq9LGpbYGZZO" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="week_04">
-        <h1 class="subtitle">Week 04 <i>(Jan 27 - Jan 31)</i></h1>
-        <p class="subtitle_description">... MiniExam at the start of the week.</p>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">MiniExam 01 
-                </h2>
-                <p>> focus on material from Week 01 - Week 03</p>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 03 ( 
-                    <a class="btn" href="HW/HW_03.pdf" download target="_blank">File</a> 
-                    | 
-                    <a class="btn" href="https://colab.research.google.com/drive/1yJgeiNrjF98CIHULTmP1m7QBQZmlHTRk?usp=sharing" target="_blank">Sols</a> 
-                    | 
-                    <a class="btn" href="HW/Data/HW_03_Q1_Marriage_Rates.csv" target="_blank">Q1 Data</a> 
-                    | 
-                    <a class="btn" href="HW/Data/HW_03_Q2_Amazon_Books.csv" target="_blank">Q2 Data</a> 
-                    )
-                </h2>
-                <p>> due on Friday January 31 at 5PM on Gradescope</p>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/cWGZAexI_4k?si=xAdGNQH3ZRcJhjYe" frameborder="0" allowfullscreen></iframe>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.0 // Data Types ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> variables are either categorical or numerical</p>
                     </div>
                 </div>
                 
+                <div class="carousel-card" data-video-id="https://drive.google.com/file/d/1OFCntgDuWrbvf9YPTLU7KNY3O-oKZp2N/view?usp=sharing">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Examples thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">💻</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Examples 1.0 // Categorical & Numerical Data ( <i class="fa fa-external-link"></i> | <i class="fa fa-download"></i> | <i class="fa fa-download"></i> | <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> synthetic data and code to summarize categorical (binary, nominal, ordinal) and numerical (discrete, continuous) variables</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="HW/HW_01.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 01 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> due on Friday January 17 at 5PM on Gradescope</p>
+                    </div>
+                </div>
             </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
         </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.6 // Grouping Data ( 
-                <a class="btn" href="Slides/Part_1_6.pdf" target="_blank">Slides</a> 
-                | 
-                <a class="btn" href="Slides/Part_1_6.html" target="_blank">Interactive</a> 
-                | 
-                <a class="btn" href="https://colab.research.google.com/drive/1iFwGWpFBSSMhkNZKqSTIwwoAW4N2J4Dj?usp=drive_link" target="_blank">Notebook</a> 
-                )</h2>
-                <p>> summarizing data by group</p>
-                <hr>
-                <h3>Example // Starbucks Promotions ( 
-                    <a class="btn" href="Examples/Part_1_6/Starbucks_Promos.csv" target="_blank">Data</a> 
-                )</h3>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 1.7 // Transforming Data (
-                <a class="btn" href="Slides/Part_1_7.pdf" target="_blank">Slides</a> 
-                | 
-                <a class="btn" href="Slides/Part_1_7.html" target="_blank">Interactive</a> 
-                | 
-                <a class="btn" href="https://colab.research.google.com/drive/1BEXhjPE7F_FQHzytkdESm0JUg-SONwPG?usp=sharing" target="_blank">Notebook</a> 
-                )</h2>
-                <p>> making a variable more informative</p>
-                <hr>
-                <h3>Example // Starbucks Hours Globally ( 
-                    <a class="btn" href="Examples/Part_1_7/Starbucks_Location_Hours.csv" target="_blank">Data</a> 
-                )</h3>
-            </div>
-        </div>
-
     </div>
 
-    <div id="week_05">
-        <h1 class="subtitle">Week 05 <i>(Feb 3 - Feb 7)</i></h1>
-        <p class="subtitle_description">... MiniExam 02 and Homework 04 this week</p>
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-11">
+        <h1 class="subtitle">Part 1.1 ~ Categorical Variables</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_1.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.1 // Categorical Variables ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> summarizing categorical variables</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="nkNQBJfBmP4">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/nkNQBJfBmP4/maxresdefault.jpg" alt="Example video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.1 // Coffee Shop Locations ( <i class="fa fa-download"></i> | <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> the locations of a small (fictional) coffee shop chain</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="HW/HW_02.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 02 ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> due on Friday January 24 at 5PM on Gradescope</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
     </div>
-    
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-12">
+        <h1 class="subtitle">Part 1.2 ~ Numerical Variables</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_2.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.2 // Numerical Variables ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> summarizing numerical variables</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="FWprEGuPf-Y">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/FWprEGuPf-Y/maxresdefault.jpg" alt="Example video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.2 // Starbucks Customers ( <i class="fa fa-download"></i> | <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> data on Starbucks customers from Kaggle</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 02</h3>
+                        <p class="card-description">Covered in Part 1.1</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-13">
+        <h1 class="subtitle">Part 1.3 ~ Data Structures</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_3.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.3 // Data Structures ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> visualizing relationships between data points</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="https://drive.google.com/file/d/1YVc0_Kj6M6ymej1JZXMqFlOyFsXXKKv1/view?usp=sharing">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Examples thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">💻</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Examples 1.3 // Data Structures ( <i class="fa fa-external-link"></i> | <i class="fa fa-download"></i> | <i class="fa fa-download"></i> | <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> three univariate data structures: cross-sectional, time-series, and panel</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 02</h3>
+                        <p class="card-description">Covered in Part 1.1</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-14">
+        <h1 class="subtitle">Part 1.4 ~ Numerical Variables by Category</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_4.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.4 // Numerical Variables by Category ( <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> visualizing continuous variables by category</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="5g3Wc6L4jcg">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/5g3Wc6L4jcg/maxresdefault.jpg" alt="Example video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.4 // Transactions by Shop Location ( <i class="fa fa-download"></i> | <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> coffee shop transaction data by location from Kaggle</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="HW/HW_03.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/cWGZAexI_4k/maxresdefault.jpg" alt="Homework video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 03 ( <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> due on Friday January 31 at 5PM on Gradescope</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-15">
+        <h1 class="subtitle">Part 1.5 ~ Filtering Data</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_5.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.5 // Filtering Data ( <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> understand subsets of the data with logical conditions</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="A1EsdgZCzUg">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/A1EsdgZCzUg/maxresdefault.jpg" alt="Example video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.5 // Starbucks Hours ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> filtering Starbucks location hours data</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 03</h3>
+                        <p class="card-description">Covered in Part 1.4</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-16">
+        <h1 class="subtitle">Part 1.6 ~ Grouping Data</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_6.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.6 // Grouping Data ( <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> summarizing data by group</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Examples/Part_1_6/Starbucks_Promos.csv">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Example thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📊</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.6 // Starbucks Promotions ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> analyzing promotional data by grouping</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 03</h3>
+                        <p class="card-description">Covered in Part 1.4</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-17">
+        <h1 class="subtitle">Part 1.7 ~ Transforming Data</h1>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="Slides/Part_1_7.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tutorial 1.7 // Transforming Data ( <i class="fa fa-download"></i> | <i class="fa fa-external-link"></i> | <i class="fa fa-external-link"></i> )</h3>
+                        <p class="card-description">> making a variable more informative</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="Examples/Part_1_7/Starbucks_Location_Hours.csv">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Example thumbnail" style="background: var(--main-md-color);">
+                        <div class="play-button">📊</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 1.7 // Starbucks Hours Globally ( <i class="fa fa-download"></i> )</h3>
+                        <p class="card-description">> transforming global Starbucks hours data</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card placeholder">
+                    <div class="card-video">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 04</h3>
+                        <p class="card-description">Available in Week 05</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MINIEXAM -->
+    <div id="miniexam">
+        <h1 class="subtitle" id="miniexam">MiniExam</h1>
+        <p>
+            MiniExam 01 will be held and covers everything in Part 1. You will begin to learn that if you understand the concepts and do the work in the examples and homework, you're going to be in good shape on the MiniExam.
+        </p>
+        <p>
+            The MiniExam focuses on practical application of the concepts you've learned in data types, visualization techniques, and data manipulation. Practice with the homework problems and examples to prepare effectively.
+        </p>
+
+        <div class="carousel-card standalone-card">
+            <div class="card-video">
+                <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="MiniExam thumbnail" style="background: var(--main-md-color);">
+                <div class="play-button">📋</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">MiniExam 01</h3>
+                <p class="card-description">MiniExam 01 covers all material from Parts 1.0 through 1.7 and tests your understanding of univariate EDA concepts.</p>
+            </div>
+        </div>
+    </div>
+
     <div style="margin-bottom:50%"></div>
 
-</div>
+    </div>
 
-<!-- RIGHT NAVIGATION -->
-    
-<div  class="right_div">
-    <nav>
-        <ul>
-            <span>Schedule</span>
-            <li><a href="#week_02">Week 02 ( HW )</a></li>
-            <li><a href="#week_03">Week 03 ( HW )</a></li>
-            <li><a href="#week_04">Week 04 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_05">Week 05 ( HW | ME )</a></li>
-            <li><a href="#week_06">Week 06 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_07">Week 07 ( HW | ME )</a></li>
-            <li><a href="#week_08">Week 08 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_09">Week 09 ( Break )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_10">Week 10 ( HW )</a></li>
-            <li><a href="#week_11">Week 11 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_12">Week 12 ( HW | ME )</a></li>
-            <li><a href="#week_13">Week 13 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_14">Week 14 ( HW | ME )</a></li>
-            <li><a href="#week_15">Week 15 ( ME )</a></li>
-        </ul>
-    </nav>
-</div>
-
-</div></div>
+    <!-- RIGHT NAVIGATION -->
+    <div class="right_div">
+        <nav>
+            <ul>
+                <span>Contents</span>
+                <hr style="width: 80%; margin: 20px 0 10px 0;">
+                <li style="margin: 0;"><a href="#part-10" class="active" style="font-size: 18px;">1.0 | Data Types</a></li>
+                <li><a href="#part-11" style="font-size: 18px;">1.1 | Categorical</a></li>
+                <li><a href="#part-12" style="font-size: 18px;">1.2 | Numerical</a></li>
+                <li><a href="#part-13" style="font-size: 18px;">1.3 | Structures</a></li>
+                <li><a href="#part-14" style="font-size: 18px;">1.4 | By Category</a></li>
+                <li><a href="#part-15" style="font-size: 18px;">1.5 | Filtering</a></li>
+                <li><a href="#part-16" style="font-size: 18px;">1.6 | Grouping</a></li>
+                <li><a href="#part-17" style="font-size: 18px;">1.7 | Transforming</a></li>
+                <li><a href="#miniexam" style="font-size: 18px;">MiniExam</a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!-- Close wrapper -->
 
 </body>
 </html>
 
-<script type="text/javascript" src="jscss/Part.js"></script>
+<script type="text/javascript" src="part.js"></script>
+
+<script>
+// Carousel functionality for multiple carousels
+document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.carousel');
+    
+    // Get responsive card width
+    const getCardWidth = () => {
+        if (window.innerWidth <= 1000) {
+            return window.innerWidth - 20; // Mobile: full width minus padding
+        }
+        return Math.min(840, window.innerWidth * 0.9 + 40); // Desktop: responsive width + gap
+    };
+    
+    carousels.forEach(carousel => {
+        const container = carousel.closest('.carousel-container');
+        const track = carousel.querySelector('.carousel-track');
+        const leftArrow = carousel.querySelector('.carousel-arrow-left');
+        const rightArrow = carousel.querySelector('.carousel-arrow-right');
+        const cards = carousel.querySelectorAll('.carousel-card');
+        
+        // Indicator functionality
+        const indicator = container.querySelector('.carousel-indicator');
+        if (indicator) {
+            const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
+            const indicatorSlider = indicator.querySelector('.indicator-slider');
+            
+            // Initialize slider position
+            const updateSliderPosition = (index) => {
+                if (indicatorTabs[index]) {
+                    const tab = indicatorTabs[index];
+                    const indicatorTrack = indicator.querySelector('.indicator-track');
+                    
+                    // Get the computed styles to check for any padding
+                    const trackStyles = window.getComputedStyle(indicatorTrack);
+                    const trackPaddingLeft = parseFloat(trackStyles.paddingLeft);
+                    
+                    // Get positions relative to viewport
+                    const tabRect = tab.getBoundingClientRect();
+                    const trackRect = indicatorTrack.getBoundingClientRect();
+                    
+                    // Calculate the tab's position relative to the track's content box
+                    const tabLeft = tabRect.left - trackRect.left - trackPaddingLeft;
+                    const tabWidth = tab.offsetWidth;
+                    
+                    // Apply the transform
+                    indicatorSlider.style.left = `${trackPaddingLeft}px`;
+                    indicatorSlider.style.transform = `translateX(${tabLeft}px)`;
+                    indicatorSlider.style.width = `${tabWidth}px`;
+                    
+                    // Update active states
+                    indicatorTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+            };
+            
+            // Tab click handlers
+            indicatorTabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    // Scroll the selected card into center view
+                    const targetCard = cards[index];
+                    if (targetCard) {
+                        targetCard.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                    }
+                });
+            });
+            
+            // Debounce timer for scroll end detection
+            let scrollTimer = null;
+            
+            // Update indicator on scroll
+            track.addEventListener('scroll', () => {
+                // Clear existing timer
+                if (scrollTimer !== null) {
+                    clearTimeout(scrollTimer);
+                }
+                
+                // Find which card is closest to center by checking actual positions
+                const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+                
+                cards.forEach((card, index) => {
+                    const cardRect = card.getBoundingClientRect();
+                    const trackRect = track.getBoundingClientRect();
+                    const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                    const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                
+                updateSliderPosition(closestIndex);
+                
+                // Snap to center after scrolling stops
+                scrollTimer = setTimeout(() => {
+                    const targetCard = cards[closestIndex];
+                    if (targetCard) {
+                        targetCard.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
+                        });
+                    }
+                }, 150);
+            });
+            
+            // Initialize slider position
+            setTimeout(() => {
+                updateSliderPosition(0);
+            }, 50);
+            
+            // Center the first card on load without affecting page scroll
+            setTimeout(() => {
+                if (cards[0] && carousel) {
+                    const carouselRect = carousel.getBoundingClientRect();
+                    const cardRect = cards[0].getBoundingClientRect();
+                    const scrollLeftValue = cardRect.left - carouselRect.left - (carouselRect.width / 2) + (cardRect.width / 2) + carousel.scrollLeft;
+                    carousel.scrollLeft = scrollLeftValue;
+                }
+                updateSliderPosition(0);
+            }, 100);
+            
+            // Update on window resize
+            window.addEventListener('resize', () => {
+                const currentCard = carousel.querySelector('.carousel-card.active');
+                const currentIndex = Array.from(cards).indexOf(currentCard);
+                if (currentCard) {
+                    currentCard.scrollIntoView({
+                        behavior: 'auto',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+                setTimeout(() => {
+                    updateSliderPosition(currentIndex >= 0 ? currentIndex : 0);
+                }, 100);
+            });
+        }
+        
+        // Arrow navigation
+        leftArrow.addEventListener('click', () => {
+            // Find which card is currently closest to center
+            const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+            
+            cards.forEach((card, index) => {
+                const cardRect = card.getBoundingClientRect();
+                const trackRect = track.getBoundingClientRect();
+                const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            
+            const newIndex = Math.max(0, closestIndex - 1);
+            
+            if (newIndex !== closestIndex) {
+                const targetCard = cards[newIndex];
+                if (targetCard) {
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+        });
+        
+        rightArrow.addEventListener('click', () => {
+            // Find which card is currently closest to center
+            const scrollCenter = track.scrollLeft + (track.clientWidth / 2);
+            let closestIndex = 0;
+            let closestDistance = Infinity;
+            
+            cards.forEach((card, index) => {
+                const cardRect = card.getBoundingClientRect();
+                const trackRect = track.getBoundingClientRect();
+                const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestIndex = index;
+                }
+            });
+            
+            const newIndex = Math.min(cards.length - 1, closestIndex + 1);
+            
+            if (newIndex !== closestIndex) {
+                const targetCard = cards[newIndex];
+                if (targetCard) {
+                    targetCard.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                        inline: 'center'
+                    });
+                }
+            }
+        });
+        
+        // Card click functionality
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't trigger card click if clicking on download link or icon
+                if (e.target.classList.contains('card-download') || 
+                    e.target.classList.contains('fa-download')) {
+                    return;
+                }
+                
+                const videoId = card.getAttribute('data-video-id');
+                
+                if (videoId) {
+                    // Check if it's a YouTube video ID or a file path
+                    if (videoId.includes('.pdf') || videoId.includes('/')) {
+                        // It's a file path - open in new tab
+                        window.open(videoId, '_blank');
+                    } else {
+                        // It's a YouTube video ID - open YouTube video
+                        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                    }
+                }
+            });
+            
+            // Handle download icon clicks
+            const downloadIcons = card.querySelectorAll('.fa-download');
+            downloadIcons.forEach((icon, index) => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Extract the PDF path from the card's context
+                    const title = card.querySelector('.card-title').textContent;
+                    
+                    // Tutorial downloads
+                    if (title.includes('Tutorial 1.0')) {
+                        window.open('Slides/Part_1_0.pdf', '_blank');
+                    } else if (title.includes('Tutorial 1.1')) {
+                        window.open('Slides/Part_1_1.pdf', '_blank');
+                    } else if (title.includes('Tutorial 1.2')) {
+                        window.open('Slides/Part_1_2.pdf', '_blank');
+                    } else if (title.includes('Tutorial 1.3')) {
+                        window.open('Slides/Part_1_3.pdf', '_blank');
+                    } else if (title.includes('Tutorial 1.4')) {
+                        if (index === 0) window.open('Slides/Part_1_4.pdf', '_blank');
+                        else if (index === 1) window.open('Slides/Part_1_4.html', '_blank');
+                    } else if (title.includes('Tutorial 1.5')) {
+                        if (index === 0) window.open('Slides/Part_1_5.pdf', '_blank');
+                        else if (index === 1) window.open('Slides/Part_1_5.html', '_blank');
+                    } else if (title.includes('Tutorial 1.6')) {
+                        if (index === 0) window.open('Slides/Part_1_6.pdf', '_blank');
+                        else if (index === 1) window.open('Slides/Part_1_6.html', '_blank');
+                        else if (index === 2) window.open('https://colab.research.google.com/drive/1iFwGWpFBSSMhkNZKqSTIwwoAW4N2J4Dj?usp=drive_link', '_blank');
+                    } else if (title.includes('Tutorial 1.7')) {
+                        if (index === 0) window.open('Slides/Part_1_7.pdf', '_blank');
+                        else if (index === 1) window.open('Slides/Part_1_7.html', '_blank');
+                        else if (index === 2) window.open('https://colab.research.google.com/drive/1BEXhjPE7F_FQHzytkdESm0JUg-SONwPG?usp=sharing', '_blank');
+                    }
+                    // Examples 1.0 downloads
+                    else if (title.includes('Examples 1.0')) {
+                        if (index === 1) window.open('Examples/Part_1_0/binary_categorical_dataset.csv', '_blank');
+                        else if (index === 2) window.open('Examples/Part_1_0/nominal_categorical_dataset.csv', '_blank');
+                        else if (index === 3) window.open('Examples/Part_1_0/ordinal_categorical_dataset.csv', '_blank');
+                    }
+                    // Example 1.1 downloads
+                    else if (title.includes('Example 1.1')) {
+                        if (index === 0) window.open('Examples/Part_1_1/Coffee_Shops.csv', '_blank');
+                        else if (index === 1) window.open('Examples/Part_1_1/Coffee_Shops.xlsx', '_blank');
+                    } 
+                    // Example 1.2 downloads
+                    else if (title.includes('Example 1.2')) {
+                        if (index === 0) window.open('Examples/Part_1_2/Starbucks_Customer_Profiles.csv', '_blank');
+                        else if (index === 1) window.open('Examples/Part_1_2/Starbucks_Customer_Profiles.xlsx', '_blank');
+                    }
+                    // Examples 1.3 downloads
+                    else if (title.includes('Examples 1.3')) {
+                        if (index === 1) window.open('Examples/Part_1_0/cross_sectional_numerical_dataset.csv', '_blank');
+                        else if (index === 2) window.open('Examples/Part_1_0/time_series_numerical_dataset.csv', '_blank');
+                        else if (index === 3) window.open('Examples/Part_1_0/panel_numerical_dataset.csv', '_blank');
+                    }
+                    // Example 1.4 downloads
+                    else if (title.includes('Example 1.4')) {
+                        if (index === 0) window.open('Examples/Part_1_4/Coffee_Sales_Reciepts.csv', '_blank');
+                        else if (index === 1) window.open('Examples/Part_1_4/Coffee_Sales_Reciepts.xlsx', '_blank');
+                    } 
+                    // Example 1.5 downloads
+                    else if (title.includes('Example 1.5')) {
+                        window.open('Examples/Part_1_5/Starbucks_Location_Hours.csv', '_blank');
+                    } 
+                    // Example 1.6 downloads
+                    else if (title.includes('Example 1.6')) {
+                        window.open('Examples/Part_1_6/Starbucks_Promos.csv', '_blank');
+                    } 
+                    // Example 1.7 downloads
+                    else if (title.includes('Example 1.7')) {
+                        window.open('Examples/Part_1_7/Starbucks_Location_Hours.csv', '_blank');
+                    }
+                    // Homework downloads
+                    else if (title.includes('Homework 01')) {
+                        window.open('HW/HW_01.pdf', '_blank');
+                    } else if (title.includes('Homework 02')) {
+                        window.open('HW/HW_02.pdf', '_blank');
+                    } else if (title.includes('Homework 03')) {
+                        if (index === 0) window.open('HW/HW_03.pdf', '_blank');
+                        else if (index === 1) window.open('https://colab.research.google.com/drive/1yJgeiNrjF98CIHULTmP1m7QBQZmlHTRk?usp=sharing', '_blank');
+                    }
+                });
+            });
+            
+            // Handle external link icons
+            const externalIcons = card.querySelectorAll('.fa-external-link');
+            externalIcons.forEach((icon, index) => {
+                icon.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const title = card.querySelector('.card-title').textContent;
+                    
+                    if (title.includes('Examples 1.0')) {
+                        window.open('https://drive.google.com/file/d/1OFCntgDuWrbvf9YPTLU7KNY3O-oKZp2N/view?usp=sharing', '_blank');
+                    } else if (title.includes('Example 1.2')) {
+                        window.open('https://www.kaggle.com/datasets/ylchang/coffee-shop-sample-data-1113', '_blank');
+                    } else if (title.includes('Examples 1.3')) {
+                        window.open('https://drive.google.com/file/d/1YVc0_Kj6M6ymej1JZXMqFlOyFsXXKKv1/view?usp=sharing', '_blank');
+                    } else if (title.includes('Example 1.4')) {
+                        window.open('https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data', '_blank');
+                    } else if (title.includes('Tutorial 1.4') && index === 0) {
+                        window.open('Slides/Part_1_4.html', '_blank');
+                    } else if (title.includes('Tutorial 1.5') && index === 0) {
+                        window.open('Slides/Part_1_5.html', '_blank');
+                    } else if (title.includes('Homework 03') && index === 0) {
+                        window.open('https://colab.research.google.com/drive/1yJgeiNrjF98CIHULTmP1m7QBQZmlHTRk?usp=sharing', '_blank');
+                    }
+                });
+            });
+        });
+        
+        // Update arrow visibility based on scroll position
+        function updateArrows() {
+            const isAtStart = track.scrollLeft <= 0;
+            const isAtEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth;
+            
+            leftArrow.style.opacity = isAtStart ? '0.5' : '1';
+            rightArrow.style.opacity = isAtEnd ? '0.5' : '1';
+            leftArrow.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            rightArrow.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        }
+        
+        // Listen for scroll events to update arrow states
+        track.addEventListener('scroll', updateArrows);
+        
+        // Initial setup
+        updateArrows();
+        
+        // Handle window resize
+        window.addEventListener('resize', updateArrows);
+    });
+    
+    // Intersection Observer for highlighting cards when carousel is in view
+    const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px', // Only highlight when carousel is in center 40% of viewport
+        threshold: 0
+    };
+    
+    const carouselObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const carousel = entry.target.querySelector('.carousel');
+            const cards = carousel.querySelectorAll('.carousel-card');
+            const track = carousel.querySelector('.carousel-track');
+            
+            if (entry.isIntersecting) {
+                // Enable active state for cards in this carousel
+                const updateActiveCardOnScroll = () => {
+                    cards.forEach((card, index) => {
+                        const cardRect = card.getBoundingClientRect();
+                        const trackRect = track.getBoundingClientRect();
+                        const cardCenter = cardRect.left + (cardRect.width / 2) - trackRect.left;
+                        const distance = Math.abs(cardCenter - (track.clientWidth / 2));
+                        
+                        if (distance < 50 && !card.classList.contains('placeholder')) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                };
+                
+                track.addEventListener('scroll', updateActiveCardOnScroll);
+                updateActiveCardOnScroll(); // Initial check
+                
+                // Store the handler for cleanup
+                track._scrollHandler = updateActiveCardOnScroll;
+            } else {
+                // Remove all active states when carousel is out of view
+                cards.forEach(card => card.classList.remove('active'));
+                
+                // Remove scroll listener
+                if (track._scrollHandler) {
+                    track.removeEventListener('scroll', track._scrollHandler);
+                    delete track._scrollHandler;
+                }
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all carousel containers
+    const carouselContainers = document.querySelectorAll('.carousel-container');
+    carouselContainers.forEach(container => {
+        carouselObserver.observe(container);
+    });
+    
+    // Observe MiniExam section for standalone card highlighting
+    const miniexamSection = document.querySelector('#miniexam');
+    const standaloneCard = document.querySelector('.standalone-card');
+    if (miniexamSection && standaloneCard) {
+        const standaloneObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    standaloneCard.classList.add('active');
+                } else {
+                    standaloneCard.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+        
+        standaloneObserver.observe(miniexamSection);
+    }
+});
+</script>
