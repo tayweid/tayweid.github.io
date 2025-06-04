@@ -43,44 +43,37 @@ document.addEventListener('DOMContentLoaded', function() {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
                         isClickScrolling = true;
-                        // Don't update slider position immediately - let scroll event handle it
+                        updateSliderPosition(index);
                         cards[index].scrollIntoView({
                             behavior: 'smooth',
                             block: 'nearest',
                             inline: 'center'
                         });
-                        setTimeout(() => { isClickScrolling = false; }, 800);
+                        setTimeout(() => { isClickScrolling = false; }, 500);
                     }
                 });
             });
             
-            // Simple scroll tracking for indicator with debounce
-            let scrollTimeout;
+            // Simple scroll tracking for indicator
             track.addEventListener('scroll', () => {
                 if (isClickScrolling) return;
                 
-                // Clear previous timeout
-                clearTimeout(scrollTimeout);
+                // Find closest card to center
+                const trackCenter = track.scrollLeft + (track.clientWidth / 2);
+                let closestIndex = 0;
+                let closestDistance = Infinity;
                 
-                // Debounce to reduce jitter
-                scrollTimeout = setTimeout(() => {
-                    // Find closest card to center
-                    const trackCenter = track.scrollLeft + (track.clientWidth / 2);
-                    let closestIndex = 0;
-                    let closestDistance = Infinity;
+                cards.forEach((card, index) => {
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const distance = Math.abs(cardCenter - trackCenter);
                     
-                    cards.forEach((card, index) => {
-                        const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
-                        const distance = Math.abs(cardCenter - trackCenter);
-                        
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestIndex = index;
-                        }
-                    });
-                    
-                    updateSliderPosition(closestIndex);
-                }, 50);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+                
+                updateSliderPosition(closestIndex);
             });
             
             // Initialize first tab as active and center first card
