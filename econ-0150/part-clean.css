@@ -261,7 +261,7 @@ hr {
     background: var(--main-cool-blue);
     opacity: 0.3;  /* Make the blue slider more transparent */
     border-radius: 20px;
-    transition: transform 0.3s ease, width 0.3s ease;
+    transition: transform 0.15s ease, width 0.15s ease;
     z-index: 1;
     pointer-events: none;
 }

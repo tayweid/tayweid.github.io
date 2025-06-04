@@ -43,22 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
                         isClickScrolling = true;
-                        // Update slider position immediately on click
-                        updateSliderPosition(index);
-                        
-                        // Calculate the exact scroll position for smooth scrolling
-                        const cardLeft = cards[index].offsetLeft;
-                        const cardWidth = cards[index].offsetWidth;
-                        const trackWidth = track.clientWidth;
-                        const targetScrollLeft = cardLeft - (trackWidth / 2) + (cardWidth / 2);
-                        
-                        track.scrollTo({
-                            left: targetScrollLeft,
-                            behavior: 'smooth'
+                        // Don't update slider position immediately - let scroll event handle it
+                        cards[index].scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest',
+                            inline: 'center'
                         });
-                        
-                        // Reset flag after animation completes
-                        setTimeout(() => { isClickScrolling = false; }, 300);
+                        setTimeout(() => { isClickScrolling = false; }, 800);
                     }
                 });
             });
