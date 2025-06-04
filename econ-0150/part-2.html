@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     
 <title>Economic Data Analysis | Part 2</title>
 
-<link rel="stylesheet" href="jscss/Part.css">
+<link rel="stylesheet" href="part-clean.css">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
-
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+
 <body>
 
-<div class="body_table"><div>
-<div class="left_div" align="right">
+<div class="wrapper">
+<div class="left_div">
     <nav>
         <ul>
-            <a href="https://tayweid.github.io/ECON_0150/ECON_0150.html" class="title-link">
-                <span>ECONOMIC</span><br>
-                <span>DATA</span><br>
-                <span>ANALYSIS</span>
-            </a>
-            <br>
-            <li><a href="https://tayweid.github.io/ECON_0150/Data.html">Data Hub</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_1.html">Part 1</a></li>
+            <span>ECONOMIC</span>
+            <span>DATA</span>
+            <span>ANALYSIS</span>
+            <hr class="nav-hr">
+            <li class="nav-item-no-margin"><a class="btn" href="data.html">Data Hub</a></li>
+            <hr class="nav-hr-top">
+            <li><a href="part-1.html">Part 1</a></li>
             <li><a class="active" href="">Part 2</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_3.html">Part 3</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_4.html">Part 4</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_5.html">Part 5</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Part_6.html">Part 6</a></li>
-            <li><a href="https://tayweid.github.io/ECON_0150/Projects.html">Projects</a></li>
+            <li><a href="part-3.html">Part 3</a></li>
+            <li><a href="part-4.html">Part 4</a></li>
+            <li><a href="part-5.html">Part 5</a></li>
+            <li><a href="part-6.html">Part 6</a></li>
+            <li><a href="projects.html">Projects</a></li>
         </ul>
     </nav>
 </div>
@@ -43,166 +43,202 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title" style="margin-bottom:-5px"> Part 2 | Multivariate EDA</h1>
-        <i style="font-size:20px; margin-left:20px">// examine relationships between variables //</i>
+        <h1 class="title title-tight">Part 2 // Multivariate EDA</h1>
+        <i class="subtitle-text">// examine relationships between variables //</i>        
     </div>
 
-    <div id="week_05">
-        <h1 class="subtitle">Week 05 <i>(Feb 3 - Feb 7)</i></h1>
-        <p class="subtitle_description">... MiniExam and Homework this week</p>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">MiniExam 02 
-                </h2>
-                <p>> focus on Week 04 material</p>
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-21">
+        <h1 class="subtitle">Part 2.1 ~ Exploring Bivariate Relationships</h1>
+        <p>Learn to explore relationships between two variables using scatter plots, correlation analysis, and regression lines.</p>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <button class="indicator-tab" data-index="2">Homework</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 04 
-                    ( 
-                    <a class="btn" href="HW/HW_04.pdf" download target="_blank">File</a> 
-                    | 
-                    <a class="btn" href="HW/Data/HW_04_Q1_Bike_Weather.csv" target="_blank">Q1 Data</a> 
-                    )
-                </h2>
-                <p>> due on Friday Feb 7 at 5PM on Gradescope</p>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 2.1 // Exploring Bivariate Relationships 
-                ( 
-                <a class="btn" href="Slides/Part_2_1.pdf" target="_blank">Slides</a> 
-                )
-                </h2>
-                <p>> use a scatterplot in most cases</p>
-                <hr>
-                <h3>
-                    Example // Coffee Production and GDP
-                    ( 
-                    <a class="btn" href="https://colab.research.google.com/drive/175lmgJat_zJ18ek4qo4N9zMag3E8YX3b?usp=sharing">Notebook</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_2_1/Beans_GDP.csv" target="_blank">Data</a> 
-                    )
-                </h3>
-                <h4>> data on countries' coffee production and GDP</h4>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 2.2 // Relationships Through Time
-                ( 
-                <a class="btn" href="Slides/Part_2_2.pdf" target="_blank">Slides</a> 
-                )
-                </h2>
-                <p>> use boxplots, line plots, and scatterplots in most cases</p>
-                <hr>
-                <h3>
-                    Examples // 
-                    ( 
-                    <a class="btn" href="https://colab.research.google.com/drive/1qNOg2QAmUlYrqT_eQe6IZWCW-xdnTJfY?usp=sharing">Notebook</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_2_1/Coffee_Per_Cap.csv" target="_blank">Coffee_Per_Cap</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_2_2/Coffee_Prices_CPI.csv" target="_blank">Coffee_Price_CPI</a> 
-                    | 
-                    <a class="btn" href="Examples/Part_2_2/Coffee_Oil.csv" target="_blank">Coffee_Oil</a> 
-                    )
-                </h3>
-                <h4>> data on the price of coffee and oil and money</h4>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="week_06">
-        <h1 class="subtitle">Week 06 <i>(Feb 10 - Feb 14)</i></h1>
-        <p class="subtitle_description">... MiniExam and Homework this week</p>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">MiniExam 03 
-                </h2>
-                <p>> wrapped in with MiniExam 04 next week</p>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2 class="subtitle">Homework 05 
-                </h2>
-                <p>> wrapped in with Homework 06 next week</p>
-            </div>
-        </div>
-
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 2.3 // Geographic Data 
-                ( 
-                <a class="btn" href="Slides/Part_2_3.pdf" target="_blank">Slides</a> 
-                | 
-                <a class="btn" href="Slides/Part_2_3.html" target="_blank">Interactive</a> 
-                )
-                </h2>
-                <p>> visualizing relationships between data in space</p>
-                <hr>
-                <h3>
-                    Example // Restaurants and Zipcodes ( 
-                    <a class="btn" href="https://colab.research.google.com/drive/1TYrlmgGtW9nsuLpaKlignT-T2Ns8UgkJ?usp=sharing">Notebook</a> 
-                    )
-                </h3>
-                <h4>> restaurants and the distance to downtown</h4>
-                <hr>
-                <div align="center">
-                    <div class="video_wrap">
-                    <iframe height="315" src="https://www.youtube.com/embed/0159KM8FXvM?si=sxS0RyvV12N7AiM0" frameborder="0" allowfullscreen></iframe>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="ECON_0150/Slides/Part_2_1.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" class="placeholder-bg">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Part 2.1 // Exploring Bivariate Relationships</h3>
+                        <p class="card-description">> relationships between two variables</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="ECON_0150/Examples/Part_2_1_Relationships.ipynb">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Example thumbnail" class="placeholder-bg">
+                        <div class="play-button">💻</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 2.1 // Coffee Production and GDP</h3>
+                        <p class="card-description">> analyzing relationships between coffee production and economic indicators</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="ECON_0150/HW/HW_04.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" class="placeholder-bg">
+                        <div class="play-button">📝</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 04</h3>
+                        <p class="card-description">> due on Friday February 7 at 5PM on Gradescope</p>
                     </div>
                 </div>
             </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-22">
+        <h1 class="subtitle">Part 2.2 ~ Relationships Through Time</h1>
+        <p>Explore how relationships change over time using time series analysis, trend analysis, and temporal patterns.</p>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Examples</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="ECON_0150/Slides/Part_2_2.pdf">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Tutorial thumbnail" class="placeholder-bg">
+                        <div class="play-button">📚</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Part 2.2 // Relationships Through Time</h3>
+                        <p class="card-description">> analyzing temporal relationships and trends</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="ECON_0150/Examples/Part_2_2_Time_Series.ipynb">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Examples thumbnail" class="placeholder-bg">
+                        <div class="play-button">💻</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Examples 2.2 // Coffee Consumption and Prices</h3>
+                        <p class="card-description">> time series analysis of coffee market data</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="carousel-container" id="part-23">
+        <h1 class="subtitle">Part 2.3 ~ Geographic Data</h1>
+        <p>Learn to work with geographic data, create maps, and analyze spatial relationships and patterns.</p>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Tutorial</button>
+                <button class="indicator-tab" data-index="1">Example</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card" data-video-id="iKt2LqHJSWI">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/iKt2LqHJSWI/maxresdefault.jpg" alt="Tutorial video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Part 2.3 // Geographic Data</h3>
+                        <p class="card-description">> working with spatial data and creating maps</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-card" data-video-id="ECON_0150/Examples/Part_2_3_Geography.ipynb">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Example thumbnail" class="placeholder-bg">
+                        <div class="play-button">💻</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Example 2.3 // Restaurants and Zipcodes</h3>
+                        <p class="card-description">> analyzing geographic distribution of restaurants</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MINIEXAMS -->
+    <div id="miniexams">
+        <h1 class="subtitle">MiniExams</h1>
+        <p>
+            Part 2 contains multiple MiniExams that test your understanding of multivariate analysis techniques. These exams focus on interpreting relationships, working with time series data, and geographic analysis.
+        </p>
+
+        <div class="carousel-card standalone-card">
+            <div class="card-video">
+                <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="MiniExam thumbnail" class="placeholder-bg">
+                <div class="play-button">📋</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">MiniExam 02</h3>
+                <p class="card-description">Focus on Week 04 material covering univariate analysis techniques.</p>
+            </div>
         </div>
 
+        <div class="carousel-card standalone-card">
+            <div class="card-video">
+                <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="MiniExam thumbnail" class="placeholder-bg">
+                <div class="play-button">📋</div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">MiniExam 03</h3>
+                <p class="card-description">Combined with MiniExam 04, covering Weeks 05-06 multivariate analysis material.</p>
+            </div>
+        </div>
     </div>
-    
-    <div style="margin-bottom:50%"></div>
 
-</div>
+    <div class="bottom-spacer"></div>
 
-<!-- RIGHT NAVIGATION -->
-    
-<div  class="right_div">
-    <nav>
-        <ul>
-            <span>Schedule</span>
-            <li><a href="#week_02">Week 02 ( HW )</a></li>
-            <li><a href="#week_03">Week 03 ( HW )</a></li>
-            <li><a href="#week_04">Week 04 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_05">Week 05 ( HW | ME )</a></li>
-            <li><a href="#week_06">Week 06 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_07">Week 07 ( HW | ME )</a></li>
-            <li><a href="#week_08">Week 08 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_09">Week 09 ( Break )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_10">Week 10 ( HW )</a></li>
-            <li><a href="#week_11">Week 11 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_12">Week 12 ( HW | ME )</a></li>
-            <li><a href="#week_13">Week 13 ( HW | ME )</a></li>
-            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
-            <li><a href="#week_14">Week 14 ( HW | ME )</a></li>
-            <li><a href="#week_15">Week 15 ( ME )</a></li>
-        </ul>
-    </nav>
-</div>
+    </div>
 
-</div></div>
+    <!-- RIGHT NAVIGATION -->
+    <div class="right_div">
+        <nav>
+            <ul>
+                <span>Contents</span>
+                <hr class="nav-hr-right">
+                <li class="nav-item-no-margin"><a href="#part-21" class="active nav-link-right">2.1 | Bivariate</a></li>
+                <li><a href="#part-22" class="nav-link-right">2.2 | Time Series</a></li>
+                <li><a href="#part-23" class="nav-link-right">2.3 | Geographic</a></li>
+                <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
+            </ul>
+        </nav>
+    </div>
+</div> <!-- Close wrapper -->
 
 </body>
 </html>

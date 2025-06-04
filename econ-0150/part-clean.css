@@ -116,8 +116,52 @@ li a:hover {
 }
 
 /* =============================================================================
+   NAVIGATION HELPERS
+   ============================================================================= */
+
+.nav-hr {
+    width: 80%;
+    margin: 20px 0 10px auto;
+}
+
+.nav-hr-top {
+    width: 80%;
+    margin: 10px 0 10px auto;
+}
+
+.nav-item-no-margin {
+    margin: 0;
+}
+
+/* =============================================================================
    TYPOGRAPHY & CONTENT
    ============================================================================= */
+
+.title-tight {
+    margin-bottom: -5px;
+}
+
+.subtitle-text {
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.placeholder-bg {
+    background: var(--main-md-color);
+}
+
+.nav-link-right {
+    font-size: 18px;
+}
+
+.nav-hr-right {
+    width: 80%;
+    margin: 20px 0 10px 0;
+}
+
+.bottom-spacer {
+    margin-bottom: 50%;
+}
 
 h3, h4 {
     color: var(--main-fg-color);  /* Grey for subtext */
@@ -215,7 +259,7 @@ hr {
 
 /* Carousel Indicator */
 .carousel-indicator {
-    margin: 10px 0 5px 0;
+    margin: 5px 0 5px 0;
     display: flex;
     justify-content: center;
     position: relative;
@@ -271,6 +315,7 @@ hr {
     display: flex;
     align-items: center;
     border-radius: 15px;
+    margin-top: -15px;
 }
 
 .carousel-track {
@@ -499,18 +544,6 @@ hr {
     align-items: center;
     justify-content: center;
     z-index: 10;
-}
-
-.carousel-arrow:hover {
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.carousel-arrow-left {
-    left: 20px;
-}
-
-.carousel-arrow-right {
-    right: 20px;
 }
 
 .carousel-arrow:hover {

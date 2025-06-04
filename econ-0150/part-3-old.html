@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+    
+<title>Economic Data Analysis | Part 3</title>
+
+<link rel="stylesheet" href="part-clean.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">
+<body>
+
+<div class="body_table"><div>
+<div class="left_div" align="right">
+    <nav>
+        <ul>
+            <a href="https://tayweid.github.io/ECON_0150/ECON_0150.html" class="title-link">
+                <span>ECONOMIC</span><br>
+                <span>DATA</span><br>
+                <span>ANALYSIS</span>
+            </a>
+            <br>
+            <li><a href="data.html">Data Hub</a></li>
+            <li><a href="part-1.html">Part 1</a></li>
+            <li><a href="part-2.html">Part 2</a></li>
+            <li><a class="active" href="">Part 3</a></li>
+            <li><a href="part-4.html">Part 4</a></li>
+            <li><a href="part-5.html">Part 5</a></li>
+            <li><a href="part-6.html">Part 6</a></li>
+            <li><a href="projects.html">Projects</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="content">
+    
+    <div class="description">
+        <h1 class="title" style="margin-bottom:-5px">Part 3 | Uncertainty in Data</h1>
+        <i style="font-size:20px; margin-left:20px">// separate relationships from noise //</i>
+    </div>
+
+    <div id="week_07">
+
+        <h1 class="subtitle">Week 07 <i>(Feb 17 - Feb 21)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 05+06 ( 
+                    <a class="btn" href="HW/HW_05_06.pdf" download target="_blank">File</a> 
+                    | 
+                    <a class="btn" href="HW/Data/HW05_06_Q1.csv" download target="_blank">Q1 Data</a> 
+                    | 
+                    <a class="btn" href="HW/Data/HW05_06_Q4.csv" download target="_blank">Q4 Data</a> 
+                    | 
+                    <a class="btn" href="https://colab.research.google.com/drive/1EAzcGLrGsmB0ZWbkZ7yFMvcmg-CP4x4L?usp=sharing" target="_blank">Solutions</a> 
+                    )
+                </h2>
+                <p>> due on Friday February 21 at 5PM on Gradescope (late due on Tuesday at 5PM)</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam 03+04
+                </h2>
+                <p>> focus on Week 05 and Week 06 material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 3.1 // Random Variables
+                ( 
+                <a class="btn" href="Slides/Part_3_1.html" target="_blank">Interactive</a> 
+                | 
+                <a class="btn" href="Slides/Part_3_1.pdf" target="_blank">Slides</a> 
+                | 
+                <a class="btn" href="https://drive.google.com/file/d/1ApbfI4L5gSXj0cJiq-HsHdlne-Xcq1WQ/view?usp=sharing">Notebook</a> 
+                )
+                </h2>
+                <p>> refresh of basic ideas in statistics</p>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/H6TvIT3JMIM?si=oEFRGI7eALDTXY5N" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 3.2 // Sampling, CLT
+                ( 
+                <a class="btn" href="Slides/Part_3_2.html" target="_blank">Interactive</a> 
+                | 
+                <a class="btn" href="Slides/Part_3_2.pdf" target="_blank">Slides</a> 
+                | 
+                <a class="btn" href="https://drive.google.com/file/d/1lpgBGXMTulEb8xtPhA232xWFlC3Cn-SZ/view?usp=sharing">Notebook</a> 
+                )
+                </h2>
+                <p>> one of the most powerful ideas in science</p>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/1MmnsOPqo5w?si=bdiWhEqS_l1x5l8h" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_08">
+        <h1 class="subtitle">Week 08 <i>(Feb 24 - Feb 28)</i></h1>
+        <p class="subtitle_description">... MiniExam and <i>(small)</i> Homework this week; second class is asynchronous</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam 05
+                ( 
+                <a class="btn" href="ME/ME_05_Demo.pdf" target="_blank">Demo</a> 
+                | 
+                <a class="btn" href="ME/ME_05_Demo_sols.pdf" target="_blank">Sols</a> 
+                )
+                </h2>
+                <p>> focus on Week 07 material and will look similar to ME 05 Demo</p>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/Uu8ebR817I4?si=_5swPlanVuu5UI3h" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework 07 ( 
+                    <a class="btn" href="HW/HW_07.pdf" download target="_blank">File</a> 
+                    | 
+                    <a class="btn" href="https://colab.research.google.com/drive/1wDmgi2X_OFR0qO5UkEoK05RAN-0mCq-z?usp=sharing" target="_blank">Solutions</a> 
+                    )
+                </h2>
+                <p>> due on Friday February 28 at 5PM on Gradescope</p>
+                <p>> if you email me and I don't get back to you, take it as permission to submit late</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 3.3 // Confidence Intervals
+                ( 
+                <a class="btn" href="Slides/Part_3_3.html" target="_blank">Interactive</a> 
+                | 
+                <a class="btn" href="Slides/Part_3_3.pdf" target="_blank">Slides</a> 
+                <!--| 
+                <a class="btn" href="https://drive.google.com/file/d/1lpgBGXMTulEb8xtPhA232xWFlC3Cn-SZ/view?usp=sharing">Notebook</a> -->
+                )
+                </h2>
+                <p>> how often the model is wrong</p>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/C487QIfcCKE?si=fQROhIqFhkcaTSu6" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2>Part 3.4 // Hypothesis Testing
+                ( 
+                <a class="btn" href="Slides/Part_3_4.html" target="_blank">Interactive</a> 
+                | 
+                <a class="btn" href="Slides/Part_3_4.pdf" target="_blank">Slides</a> 
+                <!--| 
+                <a class="btn" href="https://drive.google.com/file/d/1lpgBGXMTulEb8xtPhA232xWFlC3Cn-SZ/view?usp=sharing">Notebook</a> -->
+                )
+                </h2>
+                <p>> infering the truth from a sample</p>
+                <div align="center">
+                    <div class="video_wrap">
+                    <iframe height="315" src="https://www.youtube.com/embed/gZ4h7ieannI?si=UNXc4ui5m0aUokZu" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<!--
+
+    <div id="week_10">
+        <h1 class="subtitle">Week 10 <i>(Mar 17 - Mar 21)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework ...
+                </h2>
+                <p>> due on Friday ... at 5PM on Gradescope</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_11">
+        <h1 class="subtitle">Week 11 <i>(Mar 24 - Mar 28)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework ...
+                </h2>
+                <p>> due on Friday ... at 5PM on Gradescope</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_12">
+        <h1 class="subtitle">Week 12 <i>(Mar 31 - Apr 4)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework ...
+                </h2>
+                <p>> due on Friday ... at 5PM on Gradescope</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_13">
+        <h1 class="subtitle">Week 13 <i>(Apr 7 - Apr 11)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework ...
+                </h2>
+                <p>> due on Friday ... at 5PM on Gradescope</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="week_14">
+        <h1 class="subtitle">Week 14 <i>(Apr 14 - Apr 18)</i></h1>
+        <p class="subtitle_description">... MiniExam and Homework this week</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">Homework ...
+                </h2>
+                <p>> due on Friday ... at 5PM on Gradescope</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="week_15">
+        <h1 class="subtitle">Week 15 <i>(Apr 21 - Apr 22)</i></h1>
+        <p class="subtitle_description">... MiniExam this week; no Homework</p>
+
+        <div align="center" style="text-align: left;">
+            <div class="rounded-box">
+                <h2 class="subtitle">MiniExam ...
+                </h2>
+                <p>> focus on Week ... material</p>
+            </div>
+        </div>
+
+    </div>
+    -->
+
+    <div style="margin-bottom:50%"></div>
+
+</div>
+
+<!-- RIGHT NAVIGATION -->
+    
+<div  class="right_div">
+    <nav>
+        <ul>
+            <span>Schedule</span>
+            <li><a href="#week_02">Week 02 ( HW )</a></li>
+            <li><a href="#week_03">Week 03 ( HW )</a></li>
+            <li><a href="#week_04">Week 04 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_05">Week 05 ( HW | ME )</a></li>
+            <li><a href="#week_06">Week 06 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_07">Week 07 ( HW | ME )</a></li>
+            <li><a href="#week_08">Week 08 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_09">Week 09 ( Break )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_10">Week 10 ( HW )</a></li>
+            <li><a href="#week_11">Week 11 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_12">Week 12 ( HW | ME )</a></li>
+            <li><a href="#week_13">Week 13 ( HW | ME )</a></li>
+            <hr style="width: 170px; margin-top: 10px; margin-bottom: 10px; margin-left: 0; margin-right: 0;">
+            <li><a href="#week_14">Week 14 ( HW | ME )</a></li>
+            <li><a href="#week_15">Week 15 ( ME )</a></li>
+        </ul>
+    </nav>
+</div>
+
+</div></div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="part.js"></script>
+<script src="carousel.js"></script>
