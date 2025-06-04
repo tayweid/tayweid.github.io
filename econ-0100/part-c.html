@@ -6,12 +6,16 @@
     
 <title>Microeconomics | Part C</title>
 
-<link rel="stylesheet" href="part-clean.css">
+<!-- OPTIMIZED: Single combined font request -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- MODULAR CSS -->
+    <link rel="stylesheet" href="../course-assets/styles/main.css">
 
 </head>
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
 
@@ -21,9 +25,9 @@
         <ul>
             <span>MICRO</span>
             <span>-ECON</span>
-            <hr style="width: 80%; margin: 20px 0 10px auto;">
-            <li style="margin: 0;"><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
-            <hr style="width: 80%; margin: 10px 0 10px auto;">
+            <hr class="nav-hr">
+            <li class="nav-item-no-margin"><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
+            <hr class="nav-hr-top">
             <li><a href="part-a.html">Part A</a></li>
             <li><a href="part-b.html">Part B</a></li>
             <li><a class="active" href="">Part C</a></li>
@@ -37,7 +41,8 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title"> Part C | Markets fail with externalities</h1>        
+        <h1 class="title title-tight">Part C | Markets fail with externalities</h1>
+        <i class="subtitle-text">// what happens when markets don't work? //</i>        
         <p>
             In Part A we set up the landscape of what's possible. But we left with the question where on the PPF is best. In Part B we introduced markets as a way to arbitrate which point on the PPF we should choose. And we showed that competitive markets without externalities deliver a quantity that maximizes Total Surplus. 
         </p>
@@ -53,15 +58,6 @@
     <!-- CAROUSEL -->
     <div class="carousel-container" id="part-c1">
         <h1 class="subtitle">Block C1 ~ International Trade and Tariffs</h1>
-        <div class="carousel-indicator">
-            <div class="indicator-track">
-                <button class="indicator-tab active" data-index="0">Episode</button>
-                <button class="indicator-tab" data-index="1">Reading</button>
-                <button class="indicator-tab" data-index="2">Vignette</button>
-                <button class="indicator-tab" data-index="3">Homework</button>
-                <div class="indicator-slider"></div>
-            </div>
-        </div>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -84,29 +80,27 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 5 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 5 <a href="Reading/Ch_5.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Elasticity</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_C1.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette C1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette C1 <a href="Vignettes/Vignette_C1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_C1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Trade and elasticity practice problems</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Homework/HW_C.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📚</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Homework C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Homework C <a href="Homework/HW_C.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Assignment</a> <a href="Homework/HW_C_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Due: Friday October 18</p>
                     </div>
                 </div>
@@ -115,19 +109,19 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-c2">
-        <h1 class="subtitle">Block C2 ~ Taxes and Welfare</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
                 <button class="indicator-tab" data-index="1">Reading</button>
                 <button class="indicator-tab" data-index="2">Vignette</button>
-                <button class="indicator-tab" data-index="3">Demo</button>
+                <button class="indicator-tab" data-index="3">Homework</button>
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-c2">
+        <h1 class="subtitle">Block C2 ~ Taxes and Welfare</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -150,29 +144,27 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 8 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 8 <a href="Reading/Ch_8.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Taxes and markets</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_C2.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette C2 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette C2 <a href="Vignettes/Vignette_C2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a></h3>
                         <p class="card-description">Taxes practice problems</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Demos/Demo_C.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Demo thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📚</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Demo thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo C <a href="Demos/Demo_C.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_C_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Demo very similar to what you'll see on MiniExam C</p>
                     </div>
                 </div>
@@ -181,19 +173,19 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-c3">
-        <h1 class="subtitle">Block C3 ~ Externalities</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
                 <button class="indicator-tab" data-index="1">Reading</button>
-                <button class="indicator-tab" data-index="2">Extra</button>
-                <button class="indicator-tab" data-index="3">Extra</button>
+                <button class="indicator-tab" data-index="2">Vignette</button>
+                <button class="indicator-tab" data-index="3">Demo</button>
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-c3">
+        <h1 class="subtitle">Block C3 ~ Externalities</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -216,7 +208,7 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 10 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 10 <a href="Reading/Ch_10.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Externalities</p>
                     </div>
                 </div>
@@ -247,19 +239,19 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-c4">
-        <h1 class="subtitle">Block C4 ~ Corrective Taxes</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
-                <button class="indicator-tab" data-index="1">Extra</button>
+                <button class="indicator-tab" data-index="1">Reading</button>
                 <button class="indicator-tab" data-index="2">Extra</button>
                 <button class="indicator-tab" data-index="3">Extra</button>
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-c4">
+        <h1 class="subtitle">Block C4 ~ Corrective Taxes</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -311,42 +303,42 @@
                 <span>›</span>
             </button>
         </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Extra</button>
+                <button class="indicator-tab" data-index="2">Extra</button>
+                <button class="indicator-tab" data-index="3">Extra</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
     </div>
 
     <!-- RECITATIONS -->
 
     <div class="carousel-container" id="recitations">
         <h1 class="subtitle">Recitations</h1>
-        <div class="carousel-indicator">
-            <div class="indicator-track">
-                <button class="indicator-tab active" data-index="0">Vignette C1r</button>
-                <button class="indicator-tab" data-index="1">Vignette C2r</button>
-                <div class="indicator-slider"></div>
-            </div>
-        </div>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_C1.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C1r thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C1r thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette C1r ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette C1r <a href="Vignettes/Vignette_C1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_C1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Vignette C1r is an extended Vignette we examine in Recitation.</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_C2.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C2r thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette C2r thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette C2r ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette C2r <a href="Vignettes/Vignette_C2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a></h3>
                         <p class="card-description">Vignette C2r is an extended Vignette we examine in Recitation.</p>
                     </div>
                 </div>
@@ -354,6 +346,13 @@
             <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
                 <span>›</span>
             </button>
+        </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Vignette C1r</button>
+                <button class="indicator-tab" data-index="1">Vignette C2r</button>
+                <div class="indicator-slider"></div>
+            </div>
         </div>
     </div>
 
@@ -368,18 +367,19 @@
             Demos are a resource for you to use as you'd like. But my advice is to start by trying to solve it on your own and only then use the video and solutions to check your work. You're more than welcome to watch this video first, but you're not going to catch your weak points as easily, which is the main point.
         </p>
 
-        <div class="carousel-card standalone">
+        <div class="carousel-card standalone-card" data-video-id="lna7UhNOOro">
             <div class="card-video">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/lna7UhNOOro?si=O9MZQDoAjA2zxSlP" frameborder="0" allowfullscreen></iframe>
+                <img src="https://img.youtube.com/vi/lna7UhNOOro/maxresdefault.jpg" alt="Demo video thumbnail">
+                <div class="play-button">▶</div>
             </div>
             <div class="card-content">
-                <h3 class="card-title">Demo C ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                <h3 class="card-title">Demo C <a href="Demos/Demo_C.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_C_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                 <p class="card-description">Demo C is very similar to what you'll see on MiniExam C.</p>
             </div>
         </div>
     </div>
     
-    <div style="margin-bottom:50%"></div>
+    <div class="bottom-spacer"></div>
 
 </div>
 
@@ -388,13 +388,13 @@
         <nav>
             <ul>
                 <span>Contents</span>
-                <hr style="width: 80%; margin: 20px 0 10px 0;">
-                <li style="margin: 0;"><a href="#part-c1" class="active" style="font-size: 20px;">C1 | Trade</a></li>
-                <li><a href="#part-c2" style="font-size: 20px;">C2 | Taxes</a></li>
-                <li><a href="#part-c3" style="font-size: 20px;">C3 | Externalities</a></li>
-                <li><a href="#part-c4" style="font-size: 20px;">C4 | Corrective Taxes</a></li>
-                <li><a href="#recitations" style="font-size: 20px;">Recitations</a></li>
-                <li><a href="#miniexam" style="font-size: 20px;">MiniExam</a></li>
+                <hr class="nav-hr-right">
+                <li class="nav-item-no-margin"><a href="#part-c1" class="active nav-link-right">C1 | Trade</a></li>
+                <li><a href="#part-c2" class="nav-link-right">C2 | Taxes</a></li>
+                <li><a href="#part-c3" class="nav-link-right">C3 | Externalities</a></li>
+                <li><a href="#part-c4" class="nav-link-right">C4 | Corrective Taxes</a></li>
+                <li><a href="#recitations" class="nav-link-right">Recitations</a></li>
+                <li><a href="#miniexam" class="nav-link-right">MiniExam</a></li>
             </ul>
         </nav>
     </div>
@@ -403,5 +403,5 @@
 </body>
 </html>
 
-<script type="text/javascript" src="part.js"></script>
-<script src="carousel.js"></script>
+<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+<script src="../course-assets/scripts/main.js"></script>

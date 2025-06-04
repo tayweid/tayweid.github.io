@@ -1,0 +1,42 @@
+/* =============================================================================
+   BUTTONS
+   ============================================================================= */
+
+.btn {
+    border: none;
+    cursor: pointer;
+    font-size: 26px;
+    color: var(--main-fg-color);
+}
+
+.btn:hover {
+    color: var(--main-cool-blue);
+}
+
+/* =============================================================================
+   CONTENT BOXES
+   ============================================================================= */
+
+.rounded-box, 
+.rounded-box-textbook {
+    border: 2px solid var(--main-md-color);
+    border-radius: 15px;
+    padding: 1em;
+    width: 100%;
+    background-color: var(--main-bg-color);
+    transition: background-color 0.2s, border-color 0.2s;
+    margin: 5px 0;
+    box-sizing: border-box;
+    color: white;
+}
+
+.rounded-box > h2, 
+.rounded-box-textbook > h2 {
+    margin-top: 0px;
+    color: white;
+}
+
+.rounded-box:hover, 
+.rounded-box-textbook:hover {
+    background-color: #181818;
+}

@@ -6,12 +6,16 @@
     
 <title>Microeconomics | Part E</title>
 
-<link rel="stylesheet" href="part-clean.css">
+<!-- OPTIMIZED: Single combined font request -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- MODULAR CSS -->
+    <link rel="stylesheet" href="../course-assets/styles/main.css">
 
 </head>
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
 
@@ -21,9 +25,9 @@
         <ul>
             <span>MICRO</span>
             <span>-ECON</span>
-            <hr style="width: 80%; margin: 20px 0 10px auto;">
-            <li style="margin: 0;"><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
-            <hr style="width: 80%; margin: 10px 0 10px auto;">
+            <hr class="nav-hr">
+            <li class="nav-item-no-margin"><a class="btn" href="Syllabus.pdf" target="_blank">Syllabus</a></li>
+            <hr class="nav-hr-top">
             <li><a href="part-a.html">Part A</a></li>
             <li><a href="part-b.html">Part B</a></li>
             <li><a href="part-c.html">Part C</a></li>
@@ -37,7 +41,8 @@
 <div class="content">
 
     <div class="description">
-        <h1 class="title"> Part E | Sellers and market power</h1>        
+        <h1 class="title title-tight">Part E | Sellers and market power</h1>
+        <i class="subtitle-text">// how do firms respond to market structure? //</i>        
         <p>
             In Part A through Part D we've explored why we would want to coordinate and how to make coordination possible.
             Markets can organize economic activity efficiently in some contexts and fail in other contexts.
@@ -53,15 +58,6 @@
     <!-- CAROUSEL ---->
     <div class="carousel-container" id="part-e1">
         <h1 class="subtitle">Block E1 ~ Costs of Production</h1>
-        <div class="carousel-indicator">
-            <div class="indicator-track">
-                <button class="indicator-tab active" data-index="0">Episode</button>
-                <button class="indicator-tab" data-index="1">Reading</button>
-                <button class="indicator-tab" data-index="2">Vignette</button>
-                <button class="indicator-tab" data-index="3">Homework</button>
-                <div class="indicator-slider"></div>
-            </div>
-        </div>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -84,29 +80,27 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 13 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 13 <a href="Reading/Ch_13.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Costs of production</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_E1.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette E1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette E1 <a href="Vignettes/Vignette_E1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_E1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Production costs practice problems</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Homework/HW_E1.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📚</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Homework E1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Homework E1 <a href="Homework/HW_E1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Assignment</a> <a href="Homework/HW_E1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Due: Sunday November 10th</p>
                     </div>
                 </div>
@@ -115,10 +109,6 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-e2">
-        <h1 class="subtitle">Block E2 ~ Competitive Firms</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
@@ -128,6 +118,10 @@
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-e2">
+        <h1 class="subtitle">Block E2 ~ Competitive Firms</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -150,29 +144,27 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 14 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 14 <a href="Reading/Ch_14.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Competitive markets</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_E2.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette E2 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette E2 <a href="Vignettes/Vignette_E2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_E2_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Competitive firms practice problems</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Homework/HW_E2.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📚</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Homework thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Homework E2 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Homework E2 <a href="Homework/HW_E2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Assignment</a></h3>
                         <p class="card-description">Due: Monday November 18th</p>
                     </div>
                 </div>
@@ -181,19 +173,19 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-e3">
-        <h1 class="subtitle">Block E3 ~ Monopoly</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
                 <button class="indicator-tab" data-index="1">Reading</button>
-                <button class="indicator-tab" data-index="2">Extra</button>
-                <button class="indicator-tab" data-index="3">Extra</button>
+                <button class="indicator-tab" data-index="2">Vignette</button>
+                <button class="indicator-tab" data-index="3">Homework</button>
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-e3">
+        <h1 class="subtitle">Block E3 ~ Monopoly</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -216,7 +208,7 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 15 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 15 <a href="Reading/Ch_15.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Monopoly</p>
                     </div>
                 </div>
@@ -227,7 +219,7 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 16 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 16 <a href="Reading/Ch_16.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Monopolistic competition</p>
                     </div>
                 </div>
@@ -238,7 +230,7 @@
                         <div class="play-button">🎧</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Chapter 17 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Chapter 17 <a href="Reading/Ch_17.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Reading</a></h3>
                         <p class="card-description">Oligopoly</p>
                     </div>
                 </div>
@@ -247,19 +239,19 @@
                 <span>›</span>
             </button>
         </div>
-    </div>
-
-    <div class="carousel-container" id="part-e4">
-        <h1 class="subtitle">Block E4 ~ Market Structures</h1>
         <div class="carousel-indicator">
             <div class="indicator-track">
                 <button class="indicator-tab active" data-index="0">Episode</button>
-                <button class="indicator-tab" data-index="1">Demo</button>
+                <button class="indicator-tab" data-index="1">Reading</button>
                 <button class="indicator-tab" data-index="2">Extra</button>
                 <button class="indicator-tab" data-index="3">Extra</button>
                 <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
+    <div class="carousel-container" id="part-e4">
+        <h1 class="subtitle">Block E4 ~ Market Structures</h1>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -271,18 +263,17 @@
                         <div class="play-button">▶</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Episode E4 ( <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Episode E4 <a href="Notes/Episode_E4_Three_Markets.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Notes</a></h3>
                         <p class="card-description">Comparing market structures</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Demos/Demo_E.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Demo E thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📚</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Demo E thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo E ( Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo E <a href="Demos/Demo_E_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Demo very similar to what you'll see on MiniExam E</p>
                     </div>
                 </div>
@@ -309,42 +300,42 @@
                 <span>›</span>
             </button>
         </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Episode</button>
+                <button class="indicator-tab" data-index="1">Demo</button>
+                <button class="indicator-tab" data-index="2">Extra</button>
+                <button class="indicator-tab" data-index="3">Extra</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
     </div>
 
     <!-- RECITATIONS ---->
 
     <div class="carousel-container" id="recitations">
         <h1 class="subtitle">Recitations</h1>
-        <div class="carousel-indicator">
-            <div class="indicator-track">
-                <button class="indicator-tab active" data-index="0">Vignette E1r</button>
-                <button class="indicator-tab" data-index="1">Vignette E2r</button>
-                <div class="indicator-slider"></div>
-            </div>
-        </div>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_E1.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette E1r thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette E1r thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette E1r ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette E1r <a href="Vignettes/Vignette_E1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_E1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Vignette E1r is an extended Vignette we examine in Recitation.</p>
                     </div>
                 </div>
                 
-                <div class="carousel-card" data-video-id="Vignettes/Vignette_E2.pdf">
+                <div class="carousel-card">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette E2r thumbnail" style="background: var(--main-md-color);">
-                        <div class="play-button">📝</div>
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="Vignette E2r thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Vignette E2r ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Vignette E2r <a href="Vignettes/Vignette_E2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Vignette</a> <a href="Vignettes/Vignette_E2_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">Vignette E2r is an extended Vignette we examine in Recitation.</p>
                     </div>
                 </div>
@@ -353,21 +344,19 @@
                 <span>›</span>
             </button>
         </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Vignette E1r</button>
+                <button class="indicator-tab" data-index="1">Vignette E2r</button>
+                <div class="indicator-slider"></div>
+            </div>
+        </div>
     </div>
 
     <!-- PAST DEMOS ---->
 
     <div class="carousel-container" id="past-demos">
         <h1 class="subtitle">Past Demos</h1>
-        <div class="carousel-indicator">
-            <div class="indicator-track">
-                <button class="indicator-tab active" data-index="0">Demo E1</button>
-                <button class="indicator-tab" data-index="1">Demo E2</button>
-                <button class="indicator-tab" data-index="2">Demo E3</button>
-                <button class="indicator-tab" data-index="3">Demo E4</button>
-                <div class="indicator-slider"></div>
-            </div>
-        </div>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -379,7 +368,7 @@
                         <div class="play-button">▶</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo E1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo E1 <a href="Demos/Demo_E1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_E1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">A subsidy in a competitive market</p>
                     </div>
                 </div>
@@ -390,7 +379,7 @@
                         <div class="play-button">▶</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo E2 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo E2 <a href="Demos/Demo_E2.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_E2_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">A lump sum tax on a Monopolist</p>
                     </div>
                 </div>
@@ -401,7 +390,7 @@
                         <div class="play-button">▶</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo E3 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo E3 <a href="Demos/Demo_E3.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_E3_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">A merger of two Duopolist firms</p>
                     </div>
                 </div>
@@ -412,7 +401,7 @@
                         <div class="play-button">▶</div>
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Demo E4 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                        <h3 class="card-title">Demo E4 <a href="Demos/Demo_E4.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_E4_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                         <p class="card-description">A subsidy in two environments</p>
                     </div>
                 </div>
@@ -420,6 +409,15 @@
             <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
                 <span>›</span>
             </button>
+        </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">Demo E1</button>
+                <button class="indicator-tab" data-index="1">Demo E2</button>
+                <button class="indicator-tab" data-index="2">Demo E3</button>
+                <button class="indicator-tab" data-index="3">Demo E4</button>
+                <div class="indicator-slider"></div>
+            </div>
         </div>
     </div>
 
@@ -434,18 +432,19 @@
             The Demos below were used in past semesters and are a resource for you to use as you'd like. But my advice is to start by trying to solve it on your own and only then use the video and solutions to check your work. You're more than welcome to watch this video first, but you're not going to catch your weak points as easily, which is the main point.
         </p>
 
-        <div class="carousel-card standalone">
+        <div class="carousel-card standalone-card" data-video-id="UZDvSTNbv0w">
             <div class="card-video">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/UZDvSTNbv0w" frameborder="0" allowfullscreen></iframe>
+                <img src="https://img.youtube.com/vi/UZDvSTNbv0w/maxresdefault.jpg" alt="Demo video thumbnail">
+                <div class="play-button">▶</div>
             </div>
             <div class="card-content">
-                <h3 class="card-title">Demo E1 ( <i class="fa fa-download"></i> | Solutions <i class="fa fa-download"></i> )</h3>
+                <h3 class="card-title">Demo E1 <a href="Demos/Demo_E1.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Demo</a> <a href="Demos/Demo_E1_sols.pdf" class="download-link" target="_blank"><i class="fa fa-file-pdf-o"></i> Solutions</a></h3>
                 <p class="card-description">A subsidy in a competitive market - demo from past semester.</p>
             </div>
         </div>
     </div>
     
-    <div style="margin-bottom:50%"></div>
+    <div class="bottom-spacer"></div>
 
 </div>
 
@@ -454,14 +453,14 @@
         <nav>
             <ul>
                 <span>Contents</span>
-                <hr style="width: 80%; margin: 20px 0 10px 0;">
-                <li style="margin: 0;"><a href="#part-e1" class="active" style="font-size: 20px;">E1 | Costs</a></li>
-                <li><a href="#part-e2" style="font-size: 20px;">E2 | Competition</a></li>
-                <li><a href="#part-e3" style="font-size: 20px;">E3 | Monopoly</a></li>
-                <li><a href="#part-e4" style="font-size: 20px;">E4 | Market Structures</a></li>
-                <li><a href="#recitations" style="font-size: 20px;">Recitations</a></li>
-                <li><a href="#past-demos" style="font-size: 20px;">Past Demos</a></li>
-                <li><a href="#miniexam" style="font-size: 20px;">MiniExam</a></li>
+                <hr class="nav-hr-right">
+                <li class="nav-item-no-margin"><a href="#part-e1" class="active nav-link-right">E1 | Costs</a></li>
+                <li><a href="#part-e2" class="nav-link-right">E2 | Competition</a></li>
+                <li><a href="#part-e3" class="nav-link-right">E3 | Monopoly</a></li>
+                <li><a href="#part-e4" class="nav-link-right">E4 | Market Structures</a></li>
+                <li><a href="#recitations" class="nav-link-right">Recitations</a></li>
+                <li><a href="#past-demos" class="nav-link-right">Past Demos</a></li>
+                <li><a href="#miniexam" class="nav-link-right">MiniExam</a></li>
             </ul>
         </nav>
     </div>
@@ -470,5 +469,5 @@
 </body>
 </html>
 
-<script type="text/javascript" src="part.js"></script>
-<script src="carousel.js"></script>
+<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+<script src="../course-assets/scripts/main.js"></script>

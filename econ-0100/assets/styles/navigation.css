@@ -1,0 +1,69 @@
+/* =============================================================================
+   NAVIGATION
+   ============================================================================= */
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+ul > span {
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 2%;
+    font-size: 32px;
+    display: block;
+    line-height: 0.8;
+    color: white;  /* White for better contrast */
+}
+
+li a {
+    display: block;
+    padding: 4px 4px;
+    color: var(--main-fg-color);  /* Grey for sidebar navigation links */
+    text-decoration: none;
+}
+
+li a:hover {
+    color: var(--main-cool-white);
+}
+
+.active {
+    color: var(--main-cool-blue);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Right sidebar active links should be smaller */
+.right_div .active {
+    font-size: 18px !important;  /* Override inline styles */
+}
+
+/* =============================================================================
+   NAVIGATION HELPERS
+   ============================================================================= */
+
+.nav-hr {
+    width: 80%;
+    margin: 20px 0 10px auto;
+}
+
+.nav-hr-top {
+    width: 80%;
+    margin: 10px 0 10px auto;
+}
+
+.nav-hr-right {
+    width: 80%;
+    margin: 20px 0 10px 0;
+}
+
+.nav-item-no-margin {
+    margin: 0;
+}
+
+.nav-link-right {
+    font-size: 18px;
+}
