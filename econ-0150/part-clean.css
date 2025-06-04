@@ -137,13 +137,16 @@ li a:hover {
    TYPOGRAPHY & CONTENT
    ============================================================================= */
 
-.title-tight {
-    margin-bottom: -5px;
+.title.title-tight {
+    margin-bottom: -6px !important; /* Small negative margin to bring subtitle closer */
 }
 
 .subtitle-text {
     font-size: 20px;
     margin-left: 20px;
+    margin-top: 0px; /* No negative margin */
+    position: relative;
+    top: -2px; /* Very small positioning adjustment */
 }
 
 .placeholder-bg {
@@ -259,19 +262,20 @@ hr {
 
 /* Carousel Indicator */
 .carousel-indicator {
-    margin: 5px 0 5px 0;
+    margin: -20px 0 20px 0; /* Negative top margin to overlap carousel */
     display: flex;
     justify-content: center;
     position: relative;
+    z-index: 10; /* Ensure indicator appears above carousel */
 }
 
 .indicator-track {
     position: relative;
     display: inline-flex;
-    background: rgba(51, 51, 51, 0.5);  /* Semi-transparent background */
+    background: rgba(51, 51, 51, 0.9);  /* More opaque background for overlap */
     border-radius: 25px;
     padding: 4px;
-    border: 1px solid rgba(51, 51, 51, 0.3);  /* Semi-transparent border */
+    border: 1px solid rgba(51, 51, 51, 0.6);  /* Slightly stronger border to replace shadow */
 }
 
 .indicator-tab {

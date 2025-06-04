@@ -1,9 +1,7 @@
-// Scroll to top on page load (disabled on mobile to prevent glitches)
+// Scroll to top on page load
 $(document).ready(function(){
-    // Only scroll to top on desktop to avoid mobile scrolling issues
-    if (window.innerWidth > 1000) {
-        window.scrollTo(0, 0);
-    }
+    // Force scroll to top on all devices
+    window.scrollTo(0, 0);
 });
 
 $(window).scroll(function(){

@@ -41,10 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
             indicatorTabs.forEach((tab, index) => {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
-                        cards[index].scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'nearest',
-                            inline: 'center'
+                        // Scroll within the carousel track only, not the viewport
+                        const cardWidth = cards[index].offsetWidth + 40;
+                        const trackWidth = track.clientWidth;
+                        const targetScrollLeft = cards[index].offsetLeft - (trackWidth / 2) + (cardWidth / 2);
+                        track.scrollTo({
+                            left: Math.max(0, targetScrollLeft),
+                            behavior: 'smooth'
                         });
                     }
                 });
@@ -103,12 +106,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Initialize first tab as active and center first card
             const initializeSlider = () => {
                 updateSliderPosition(0);
-                // Center the first card
-                cards[0].scrollIntoView({
-                    behavior: 'auto',
-                    block: 'nearest',
-                    inline: 'center'
-                });
+                // Center the first card in the carousel track (not the viewport)
+                if (cards[0]) {
+                    const cardWidth = cards[0].offsetWidth + 40; // card width + gap
+                    const trackWidth = track.clientWidth;
+                    const targetScrollLeft = cards[0].offsetLeft - (trackWidth / 2) + (cardWidth / 2);
+                    track.scrollTo({
+                        left: Math.max(0, targetScrollLeft),
+                        behavior: 'auto'
+                    });
+                }
             };
             setTimeout(initializeSlider, 50);
             
@@ -122,15 +129,17 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Scroll the carousel track to center the active card
                         const targetCard = cards[activeIndex];
-                        const cardLeft = targetCard.offsetLeft;
-                        const cardWidth = targetCard.offsetWidth;
-                        const trackWidth = track.clientWidth;
-                        const targetScrollLeft = cardLeft - (trackWidth / 2) + (cardWidth / 2);
-                        
-                        track.scrollTo({
-                            left: targetScrollLeft,
-                            behavior: 'auto'
-                        });
+                        if (targetCard) {
+                            const cardLeft = targetCard.offsetLeft;
+                            const cardWidth = targetCard.offsetWidth;
+                            const trackWidth = track.clientWidth;
+                            const targetScrollLeft = cardLeft - (trackWidth / 2) + (cardWidth / 2);
+                            
+                            track.scrollTo({
+                                left: targetScrollLeft,
+                                behavior: 'auto'
+                            });
+                        }
                     }
                 }, 100);
             });

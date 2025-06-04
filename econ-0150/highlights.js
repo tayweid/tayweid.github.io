@@ -55,20 +55,31 @@ document.addEventListener('DOMContentLoaded', function() {
         carouselObserver.observe(container);
     });
     
-    // Observe MiniExam section for standalone card highlighting
-    const miniexamSection = document.querySelector('#miniexam');
-    const standaloneCard = document.querySelector('.standalone-card');
-    if (miniexamSection && standaloneCard) {
-        const standaloneObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    standaloneCard.classList.add('active');
-                } else {
-                    standaloneCard.classList.remove('active');
-                }
-            });
-        }, observerOptions);
+    // Observe MiniExam sections for standalone card highlighting
+    // Handle both singular (#miniexam) and plural (#miniexams) IDs
+    const miniexamSections = document.querySelectorAll('#miniexam, #miniexams');
+    
+    miniexamSections.forEach(section => {
+        const standaloneCards = section.querySelectorAll('.standalone-card');
         
-        standaloneObserver.observe(miniexamSection);
-    }
+        if (standaloneCards.length > 0) {
+            const standaloneObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Highlight all standalone cards in this section
+                        standaloneCards.forEach(card => {
+                            card.classList.add('active');
+                        });
+                    } else {
+                        // Remove highlight from all standalone cards in this section
+                        standaloneCards.forEach(card => {
+                            card.classList.remove('active');
+                        });
+                    }
+                });
+            }, observerOptions);
+            
+            standaloneObserver.observe(section);
+        }
+    });
 });
