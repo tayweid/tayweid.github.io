@@ -38,25 +38,31 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             // Tab click handlers
-            let isClickScrolling = false;
             indicatorTabs.forEach((tab, index) => {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
-                        isClickScrolling = true;
-                        updateSliderPosition(index);
                         cards[index].scrollIntoView({
                             behavior: 'smooth',
                             block: 'nearest',
                             inline: 'center'
                         });
-                        setTimeout(() => { isClickScrolling = false; }, 500);
                     }
                 });
             });
             
-            // Simple scroll tracking for indicator
+            // Fast-scroll responsive indicator
+            let scrollTimeout;
+            let isScrolling = false;
+            
             track.addEventListener('scroll', () => {
-                if (isClickScrolling) return;
+                // Disable transition during fast scrolling
+                if (!isScrolling) {
+                    isScrolling = true;
+                    indicatorSlider.style.transition = 'none';
+                }
+                
+                // Clear existing timeout
+                clearTimeout(scrollTimeout);
                 
                 // Find closest card to center
                 const trackCenter = track.scrollLeft + (track.clientWidth / 2);
@@ -73,7 +79,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
                 
-                updateSliderPosition(closestIndex);
+                // Update pill position immediately
+                if (indicatorTabs[closestIndex]) {
+                    const tab = indicatorTabs[closestIndex];
+                    const tabLeft = tab.offsetLeft;
+                    const tabWidth = tab.offsetWidth;
+                    
+                    indicatorSlider.style.left = '4px';
+                    indicatorSlider.style.transform = `translateX(${tabLeft - 2}px)`;
+                    indicatorSlider.style.width = `${tabWidth - 2}px`;
+                    
+                    indicatorTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                }
+                
+                // Re-enable transition after scrolling stops
+                scrollTimeout = setTimeout(() => {
+                    isScrolling = false;
+                    indicatorSlider.style.transition = 'transform 0.05s ease, width 0.05s ease';
+                }, 50);
             });
             
             // Initialize first tab as active and center first card
