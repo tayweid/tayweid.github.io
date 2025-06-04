@@ -1,5 +1,4 @@
-// Simplified Carousel Implementation
-// Removes auto-centering, intersection observers, and complex calculations
+// Simple Carousel Implementation
 
 document.addEventListener('DOMContentLoaded', function() {
     const carousels = document.querySelectorAll('.carousel');
@@ -28,8 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     const tabWidth = tab.offsetWidth;
                     
                     indicatorSlider.style.left = `${trackPaddingLeft}px`;
-                    indicatorSlider.style.transform = `translateX(${tabLeft - 2}px)`;
-                    indicatorSlider.style.width = `${tabWidth - 2}px`;
+                    indicatorSlider.style.transform = `translateX(${tabLeft}px)`;
+                    indicatorSlider.style.width = `${tabWidth - 4}px`;
                     
                     // Update active states
                     indicatorTabs.forEach(t => t.classList.remove('active'));
@@ -38,26 +37,21 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             // Tab click handlers
-            let isClickScrolling = false;
             indicatorTabs.forEach((tab, index) => {
                 tab.addEventListener('click', () => {
                     if (cards[index]) {
-                        isClickScrolling = true;
                         updateSliderPosition(index);
                         cards[index].scrollIntoView({
                             behavior: 'smooth',
                             block: 'nearest',
                             inline: 'center'
                         });
-                        setTimeout(() => { isClickScrolling = false; }, 500);
                     }
                 });
             });
             
             // Simple scroll tracking for indicator
             track.addEventListener('scroll', () => {
-                if (isClickScrolling) return;
-                
                 // Find closest card to center
                 const trackCenter = track.scrollLeft + (track.clientWidth / 2);
                 let closestIndex = 0;
@@ -112,9 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        // Simple one-card-at-a-time navigation
+        // Simple one-card navigation
         leftArrow.addEventListener('click', () => {
-            const cardWidth = cards[0].offsetWidth + 40; // card width + gap
+            const cardWidth = cards[0].offsetWidth + 40; // card + gap
             track.scrollBy({
                 left: -cardWidth,
                 behavior: 'smooth'
@@ -122,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         rightArrow.addEventListener('click', () => {
-            const cardWidth = cards[0].offsetWidth + 40; // card width + gap
+            const cardWidth = cards[0].offsetWidth + 40; // card + gap
             track.scrollBy({
                 left: cardWidth,
                 behavior: 'smooth'

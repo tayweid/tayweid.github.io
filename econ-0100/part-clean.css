@@ -386,6 +386,7 @@ hr {
 .card-title .fa-download {
     cursor: pointer;
     transition: color 0.2s ease;
+    color: white;
 }
 
 .card-title .fa-download:hover {

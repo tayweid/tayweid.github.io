@@ -1,26 +1,26 @@
-$(window).scroll(function(){
-    var scrollTop = $(document).scrollTop();
-    var anchors = $('body').find('div');
-    
-    for (var i = 0; i < anchors.length; i++){
-        if (scrollTop > $(anchors[i]).offset().top - 100 && scrollTop < $(anchors[i]).offset().top + $(anchors[i]).height() - 100) {
-            $('nav a[href="#' + $(anchors[i]).attr('id') + '"]').addClass('active');
-        } else {
-            $('nav a[href="#' + $(anchors[i]).attr('id') + '"]').removeClass('active');
-        }
+// Scroll to top on page load (disabled on mobile to prevent glitches)
+document.addEventListener('DOMContentLoaded', function() {
+    // Only scroll to top on desktop to avoid mobile scrolling issues
+    if (window.innerWidth > 1000) {
+        window.scrollTo(0, 0);
     }
 });
 
-function myFunction() {
-    var element = document.body;
-    element.classList.toggle("dark-mode");
-}
-
-function downloadNotebook() {
-    const link = document.createElement('a');
-    link.href = 'notebook.ipynb';
-    link.download = 'notebook.ipynb';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+// Scroll tracking for right sidebar only
+window.addEventListener('scroll', function() {
+    const scrollTop = document.documentElement.scrollTop;
+    const anchors = document.querySelectorAll('div[id]');
+    
+    anchors.forEach(anchor => {
+        const anchorTop = anchor.offsetTop;
+        const anchorHeight = anchor.offsetHeight;
+        
+        if (scrollTop > anchorTop - 100 && scrollTop < anchorTop + anchorHeight - 100) {
+            // Remove active from right sidebar links only
+            document.querySelectorAll('.right_div nav a').forEach(link => link.classList.remove('active'));
+            // Add active to current section link in right sidebar
+            const navLink = document.querySelector(`.right_div nav a[href="#${anchor.id}"]`);
+            if (navLink) navLink.classList.add('active');
+        }
+    });
+});
