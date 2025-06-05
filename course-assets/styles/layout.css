@@ -13,7 +13,7 @@
 }
 
 .left_div {
-    width: 200px;
+    width: 150px;
     flex-shrink: 0;
 }
 
@@ -24,14 +24,16 @@
 
 .left_div > nav {
     position: sticky;
-    top: 60px;
+    top: 50px;
     text-align: right;
+    padding-top: 0;
 }
 
 .right_div > nav {
     position: sticky;
-    top: 60px;
+    top: 50px;
     text-align: left;
+    padding-top: 0;
 }
 
 .content {
@@ -43,4 +45,16 @@
 .content > div {
     margin: 0 0 40px 0;
     max-width: 100%;
+}
+
+/* =============================================================================
+   COURSE-SPECIFIC OVERRIDES
+   ============================================================================= */
+
+.course-econ-0100 .left_div {
+    width: 150px;
+}
+
+.course-econ-0150 .left_div {
+    width: 200px;
 }

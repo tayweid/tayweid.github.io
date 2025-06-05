@@ -13,7 +13,7 @@ ul > span {
     font-weight: bold;
     margin-top: 5%;
     margin-bottom: 2%;
-    font-size: 32px;
+    font-size: 36px;
     display: block;
     line-height: 0.8;
     color: white;  /* White for better contrast */
@@ -24,6 +24,7 @@ li a {
     padding: 4px 4px;
     color: var(--main-fg-color);  /* Grey for sidebar navigation links */
     text-decoration: none;
+    font-size: 20px;  /* Match the active size for all part links */
 }
 
 li a:hover {
@@ -46,17 +47,17 @@ li a:hover {
    ============================================================================= */
 
 .nav-hr {
-    width: 80%;
+    width: 40%;
     margin: 20px 0 10px auto;
 }
 
 .nav-hr-top {
-    width: 80%;
+    width: 40%;
     margin: 10px 0 10px auto;
 }
 
 .nav-hr-right {
-    width: 80%;
+    width: 40%;
     margin: 20px 0 10px 0;
 }
 
