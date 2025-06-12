@@ -36,6 +36,31 @@
     font-size: 12px;
 }
 
+.practice-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: var(--main-md-color);
+    border-radius: 4px;
+    color: var(--main-fg-color);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.practice-link:hover {
+    background: var(--main-link-color);
+    color: white;
+    transform: none;
+}
+
+.practice-link i {
+    font-size: 12px;
+}
+
 .carousel-container {
     margin: 0;
     max-width: 100%;

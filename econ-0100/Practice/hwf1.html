@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    
+    <title>Practice | Homework F1</title>
+
+    <!-- OPTIMIZED: Single combined font request -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- MODULAR CSS -->
+    <link rel="stylesheet" href="../../course-assets/styles/main.css">
+    
+    <style>
+        /* Practice-specific styles */
+        .practice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .practice-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .practice-header .title {
+            margin-bottom: 10px;
+        }
+        
+        .practice-header .subtitle-text {
+            font-size: 28px;
+            font-style: italic;
+            margin-top: 15px;
+            padding-top: 15px;
+            position: relative;
+        }
+        
+        .practice-header .subtitle-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: var(--main-md-color);
+        }
+        
+        .homework-intro {
+            margin-bottom: 30px;
+            color: var(--main-fg-color);
+            line-height: 1.6;
+            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+        
+        .homework-scenario {
+            margin-bottom: 30px;
+        }
+        
+        .scenario-title {
+            color: var(--main-cool-blue);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+        
+        .scenario-text {
+            color: var(--main-fg-color);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
+        }
+        
+        .homework-question {
+            background: var(--main-bg-color);
+            border: 1px solid var(--main-md-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .question-title {
+            color: var(--main-cool-blue);
+            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .question-part {
+            margin-bottom: 15px;
+        }
+        
+        .question-text {
+            color: var(--main-fg-color);
+            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .answer-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .answer-input {
+            flex: 1;
+            max-width: 300px;
+            padding: 8px 12px;
+            font-size: 14px;
+            background: var(--main-md-color);
+            border: 1px solid var(--main-fg-color);
+            border-radius: 5px;
+            color: white;
+            outline: none;
+            transition: border-color 0.2s ease;
+            font-family: 'Roboto Slab', serif;
+            font-weight: 100;
+            font-style: italic;
+        }
+        
+        .answer-input:focus {
+            border-color: var(--main-cool-blue);
+        }
+        
+        .check-button {
+            background: var(--main-md-color);
+            color: var(--main-fg-color);
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Roboto Slab', serif;
+            font-weight: 100;
+        }
+        
+        .check-button:hover {
+            background: var(--main-link-color);
+            color: white;
+        }
+        
+        .answer-hint {
+            font-size: 12px;
+            color: var(--main-fg-color);
+            font-style: italic;
+            margin-left: 5px;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .feedback.correct {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+        
+        .feedback.incorrect {
+            background: rgba(244, 67, 54, 0.2);
+            border: 1px solid #f44336;
+            color: #f44336;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .nav-button {
+            background: var(--main-md-color);
+            color: var(--main-fg-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+        }
+        
+        .nav-button:hover {
+            background: var(--main-cool-blue);
+            color: white;
+        }
+        
+        
+        .subtitle-text a {
+            color: var(--main-cool-blue);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .subtitle-text a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper course-econ-0100">
+        <div class="content" style="max-width: 100%; margin: 0;">
+            <div class="practice-container">
+                <div class="practice-header">
+                    <h1 class="title">Practice | Homework F1</h1>
+                    <p class="subtitle-text">Due: Sunday, December 8th on <a href="https://gradescope.com" target="_blank">Gradescope</a></p>
+                </div>
+                
+                <div class="homework-intro">
+                    <p>Homework is designed to both test your knowledge and challenge you to apply familiar concepts in new applications. Answer clearly and completely use this sheet to show your work so you can later understand your thought process; you are welcomed and encouraged to work in groups as long as your work is your own. Submit your work on Gradescope when you're finished.</p>
+                </div>
+                
+                <div class="homework-scenario">
+                    <div class="scenario-title">Factor Markets and Income Distribution</div>
+                    <div class="scenario-text">
+                        Factor markets determine how income is distributed in the economy. Households sell their labor and capital to firms, who use these factors of production to create goods and services. The prices in factor markets - wages for labor and rent for capital - determine household incomes, which then become the budget constraints for consumer choice.
+                    </div>
+                </div>
+                
+                <!-- Q1 -->
+                <div class="homework-question">
+                    <div class="question-title">Q1. Labor Market Equilibrium</div>
+                    
+                    <div class="question-part">
+                        <div class="question-text">In a perfectly competitive labor market, if the demand for labor increases while the supply of labor remains constant, what happens to the equilibrium wage rate?</div>
+                        <div class="answer-row">
+                            <input type="text" class="answer-input" placeholder="Enter: increases, decreases, or stays the same" data-answers="increases|increase|goes up|rises|higher">
+                            <button class="check-button" onclick="checkAnswer(this)">Check</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="homework-question">
+                    <div class="question-title">Q2. Marginal Revenue Product</div>
+                    
+                    <div class="question-part">
+                        <div class="question-text">What determines a firm's demand for labor in the short run?</div>
+                        <div class="answer-row">
+                            <input type="text" class="answer-input" placeholder="Enter: marginal revenue product, marginal cost, etc." data-answers="marginal revenue product|mrp|marginal revenue product of labor|marginal product times price">
+                            <button class="check-button" onclick="checkAnswer(this)">Check</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="homework-question">
+                    <div class="question-title">Q3. Output Price Effects</div>
+                    
+                    <div class="question-part">
+                        <div class="question-text">If the price of the output produced by workers increases, what happens to the demand for labor?</div>
+                        <div class="answer-row">
+                            <input type="text" class="answer-input" placeholder="Enter: increases, decreases, or stays the same" data-answers="increases|increase|goes up|rises|shifts right">
+                            <button class="check-button" onclick="checkAnswer(this)">Check</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="homework-question">
+                    <div class="question-title">Q4. Monopsony Markets</div>
+                    
+                    <div class="question-part">
+                        <div class="question-text">In a monopsony labor market (where there is only one buyer of labor), how does the wage rate compare to the marginal revenue product of labor?</div>
+                        <div class="answer-row">
+                            <input type="text" class="answer-input" placeholder="Enter: higher, lower, or equal" data-answers="lower|less than|below|smaller|less">
+                            <button class="check-button" onclick="checkAnswer(this)">Check</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="homework-question">
+                    <div class="question-title">Q5. Economic Rent</div>
+                    
+                    <div class="question-part">
+                        <div class="question-text">What is the economic rent earned by a factor of production?</div>
+                        <div class="answer-row">
+                            <input type="text" class="answer-input" placeholder="Enter: payment above opportunity cost, etc." data-answers="payment above opportunity cost|surplus above opportunity cost|payment above next best alternative|excess payment|payment in excess of opportunity cost">
+                            <button class="check-button" onclick="checkAnswer(this)">Check</button>
+                        </div>
+                        <div class="feedback"></div>
+                    </div>
+                </div>
+                
+                <div class="navigation-buttons">
+                    <a href="../part-f.html" class="nav-button">← Back to Part F</a>
+                    <a href="../Homework/HW_F.pdf" class="nav-button" target="_blank">View Full Assignment →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function normalizeAnswer(answer) {
+            return answer.toLowerCase()
+                        .trim()
+                        .replace(/[^\w\s\.\/]/g, '') // Keep letters, numbers, spaces, periods, slashes
+                        .replace(/\s+/g, ' '); // Normalize spaces
+        }
+        
+        function checkAnswer(button) {
+            const questionPart = button.closest('.question-part');
+            const input = questionPart.querySelector('.answer-input');
+            const feedback = questionPart.querySelector('.feedback');
+            const correctAnswers = input.getAttribute('data-answers');
+            
+            const userAnswer = normalizeAnswer(input.value);
+            
+            if (userAnswer === '') {
+                feedback.textContent = 'Please enter an answer.';
+                feedback.className = 'feedback incorrect';
+                feedback.style.display = 'block';
+                return;
+            }
+            
+            const acceptableAnswers = correctAnswers.split('|').map(ans => normalizeAnswer(ans));
+            const isCorrect = acceptableAnswers.includes(userAnswer);
+            
+            if (isCorrect) {
+                feedback.textContent = 'Correct! Well done.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Not quite. Try again! Check your calculation or format.';
+                feedback.className = 'feedback incorrect';
+            }
+            
+            feedback.style.display = 'block';
+        }
+        
+        // Allow Enter key to submit answer
+        document.querySelectorAll('.answer-input').forEach(input => {
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const button = this.nextElementSibling;
+                    if (button && button.classList.contains('check-button')) {
+                        button.click();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
