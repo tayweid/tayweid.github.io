@@ -33,10 +33,10 @@ const EconApp = {
                             const tabLeft = tab.offsetLeft;
                             const tabWidth = tab.offsetWidth;
                             
-                            // The slider starts at left: 4px, but offsetLeft includes that padding
+                            // The slider starts at left: 1px, but offsetLeft includes that padding
                             // So we need to subtract the padding to align properly
-                            indicatorSlider.style.transform = `translateX(${tabLeft - 4}px)`;
-                            indicatorSlider.style.width = `${tabWidth}px`;
+                            indicatorSlider.style.transform = `translateX(${tabLeft - 1}px)`;
+                            indicatorSlider.style.width = `${tabWidth - 2}px`;
                             
                             // Update active states
                             indicatorTabs.forEach(t => t.classList.remove('active'));
@@ -113,10 +113,10 @@ const EconApp = {
                             const tabLeft = tab.offsetLeft;
                             const tabWidth = tab.offsetWidth;
                             
-                            // The slider starts at left: 4px, but offsetLeft includes that padding
+                            // The slider starts at left: 1px, but offsetLeft includes that padding
                             // So we need to subtract the padding to align properly
-                            indicatorSlider.style.transform = `translateX(${tabLeft - 4}px)`;
-                            indicatorSlider.style.width = `${tabWidth}px`;
+                            indicatorSlider.style.transform = `translateX(${tabLeft - 1}px)`;
+                            indicatorSlider.style.width = `${tabWidth - 2}px`;
                             
                             // Update active states immediately
                             indicatorTabs.forEach(t => t.classList.remove('active'));
@@ -130,8 +130,10 @@ const EconApp = {
                         }, 50); // Short delay to detect when scrolling has stopped
                     });
                     
-                    // Initialize first tab
-                    updateSliderPosition(0);
+                    // Initialize first tab with slight delay to ensure layout is ready
+                    setTimeout(() => {
+                        updateSliderPosition(0);
+                    }, 50);
                 }
                 
                 // Auto-setup video thumbnails and click handlers
