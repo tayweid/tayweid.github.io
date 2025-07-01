@@ -105,7 +105,9 @@
 }
 
 .course-links .separator {
-    color: #666;
+    border: none;
+    font-size: 26px;
+    color: var(--main-fg-color);
     margin: 0 0.5em;
 }
 
