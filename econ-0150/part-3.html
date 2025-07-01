@@ -45,16 +45,16 @@
     
     <div class="description">
         <h1 class="title title-tight">Part 3 | Uncertainty in Data</h1>
-        <i class="subtitle-text">// separate relationships from noise //</i>        
+        <i class="subtitle-text">// separate relationships from noise //</i>
         <p>
-            Part 3 addresses the question that separates good analysis from great analysis: how do you know if what you're seeing is real? Every dataset contains random variation, measurement errors, and sampling quirks that can masquerade as meaningful patterns. You'll learn to quantify uncertainty using probability distributions, construct confidence intervals, and distinguish genuine economic relationships from statistical noise. These tools transform you from someone who can describe data into someone who can draw reliable conclusions from it.
+            Part 3 addresses the question that separates good analysis from great analysis: how do you know if what you're seeing is real? Every dataset contains random variation and measurement errors that can masquerade as a meaningful pattern. In this part you'll learn to quantify uncertainty and to distinguish genuine relationships from statistical noise using the Central Limit Theorem and the General Linear Model. Understanding the ideas with these tools will transform you from someone who can describe data into someone who can draw reliable conclusions from it.
         </p>
     </div>
 
     <!-- CAROUSEL -->
     <div class="carousel-container" id="part-31">
         <h1 class="subtitle">Part 3.1 ~ Random Variables and Distributions</h1>
-        <p>Work with normal, binomial, and uniform distributions. Calculate probabilities using probability density functions. Understand expected values, variance, and standard deviations of random variables.</p>
+        <p>Refresh your understanding of random variables and other core ideas in statistics.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -123,7 +123,7 @@
     <!-- CAROUSEL -->
     <div class="carousel-container" id="part-32">
         <h1 class="subtitle">Part 3.2 ~ Sampling and Central Limit Theorem</h1>
-        <p>Use the Central Limit Theorem to understand sampling distributions. Calculate standard errors and apply the normal approximation for sample means regardless of population distribution shape.</p>
+        <p>Use the Central Limit Theorem to understand the distribution of a sample mean when you don't know the population distribution.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -192,7 +192,7 @@
     <!-- CAROUSEL -->
     <div class="carousel-container" id="part-33">
         <h1 class="subtitle">Part 3.3 ~ Confidence Intervals</h1>
-        <p>Calculate confidence intervals using t-distributions and z-distributions. Interpret confidence levels and margins of error. Understand what "95% confident" actually means in practice.</p>
+        <p>Calculate confidence intervals using the t-distribution. Interpret p-values and confidence intervals. Understand what "95% confident" actually means in practice.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -256,7 +256,7 @@
     <!-- CAROUSEL -->
     <div class="carousel-container" id="part-34">
         <h1 class="subtitle">Part 3.4 ~ Hypothesis Testing</h1>
-        <p>Conduct one-sample and two-sample t-tests. Calculate p-values and interpret statistical significance. Set up null and alternative hypotheses for research questions.</p>
+        <p>Conduct one-sample t-tests. Calculate p-values and interpret statistical results.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -324,31 +324,49 @@
             Part 3 contains multiple MiniExams testing your understanding of statistical concepts including random variables, sampling theory, confidence intervals, and hypothesis testing.
         </p>
 
-        <div class="carousel-card standalone-card">
-            <div class="card-video">
-                <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="MiniExam thumbnail" class="placeholder-bg">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 03+04</h3>
-                <p class="card-description">Focus on Week 05 and Week 06 material covering multivariate analysis and uncertainty concepts.</p>
-                <div class="card-downloads">
-                    <a href="ME/ME_03_04.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Exam
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        <div class="carousel-card standalone-card" data-video-id="Uu8ebR817I4">
-            <div class="card-video">
-                <img src="https://img.youtube.com/vi/Uu8ebR817I4/maxresdefault.jpg" alt="MiniExam video thumbnail">
-                <div class="play-button">▶</div>
+    <!-- CAROUSEL -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/default/maxresdefault.jpg" alt="MiniExam thumbnail" class="placeholder-bg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 03+04</h3>
+                        <p class="card-description">Focus on Week 05 and Week 06 material covering multivariate analysis and uncertainty.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-card" data-video-id="Uu8ebR817I4">
+                    <div class="card-video">
+                        <img src="https://img.youtube.com/vi/Uu8ebR817I4/maxresdefault.jpg" alt="MiniExam video thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 05</h3>
+                        <p class="card-description">Focus on Week 07 material, similar format to ME 05 Demo.</p>
+                    </div>
+                </div>
+
             </div>
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 05</h3>
-                <p class="card-description">Focus on Week 07 material, similar format to ME 05 Demo.</p>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+        </div>
+        <div class="carousel-indicator">
+            <div class="indicator-track">
+                <button class="indicator-tab active" data-index="0">MiniExam 03+04</button>
+                <button class="indicator-tab" data-index="1">MiniExam 05</button>
+                <div class="indicator-slider"></div>
             </div>
         </div>
+    </div>
+
     </div>
 
     <div class="bottom-spacer"></div>

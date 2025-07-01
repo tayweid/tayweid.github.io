@@ -33,10 +33,175 @@
 .rounded-box > h2, 
 .rounded-box-textbook > h2 {
     margin-top: 0px;
+    margin-bottom: 0.2em;
     color: white;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+.rounded-box > p,
+.rounded-box-textbook > p {
+    margin: 0;
+    color: #888;
+    font-size: 0.9em;
 }
 
 .rounded-box:hover, 
 .rounded-box-textbook:hover {
     background-color: #181818;
+}
+
+/* =============================================================================
+   COURSE OVERVIEW STYLES
+   ============================================================================= */
+
+.course-overview {
+    margin-top: 1em;
+}
+
+.course-part-link {
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.course-part-link:hover {
+    text-decoration: none;
+}
+
+.course-part-box {
+    border: 2px solid var(--main-md-color);
+    border-radius: 15px;
+    padding: 0.7em;
+    background-color: var(--main-bg-color);
+    transition: background-color 0.2s, border-color 0.2s;
+    margin: 3px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.course-part-box:hover {
+    background-color: #181818;
+}
+
+.course-part-box .part-title {
+    margin: 0;
+    color: white;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 1.1;
+}
+
+.course-part-box .part-description {
+    margin: 0;
+    color: #888;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.course-links {
+    font-size: 1.1em;
+    margin: 0.5em 0;
+}
+
+.course-links .separator {
+    color: #666;
+    margin: 0 0.5em;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 0.7em 0;
+}
+
+.section-heading {
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
+    font-size: 1.3em;
+}
+
+.info-list {
+    margin-top: 0.3em;
+    padding-left: 1.2em;
+    list-style-type: disc;
+}
+
+.info-list li {
+    margin-bottom: 0.3em;
+    color: #ccc;
+    font-size: 0.95em;
+}
+
+.info-columns {
+    display: flex;
+    gap: 2em;
+    margin: 0.5em 0;
+}
+
+.info-column {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .info-columns {
+        flex-direction: column;
+        gap: 1em;
+    }
+}
+
+/* =============================================================================
+   PROJECT STYLES
+   ============================================================================= */
+
+.project-label {
+    font-weight: bold;
+    margin-right: 0.3em;
+}
+
+.project-label.research {
+    color: #4CAF50; /* Green */
+}
+
+.project-label.data {
+    color: #2196F3; /* Blue */
+}
+
+.project-label.methods {
+    color: #FF9800; /* Orange */
+}
+
+.project-label.finding {
+    color: #E91E63; /* Pink */
+}
+
+.project-card {
+    border: 2px solid var(--main-md-color);
+    border-radius: 15px;
+    padding: 1.2em;
+    background-color: var(--main-bg-color);
+    transition: background-color 0.2s, border-color 0.2s;
+    margin: 1em 0;
+    box-sizing: border-box;
+}
+
+.project-card:hover {
+    background-color: #181818;
+}
+
+.project-card h2 {
+    margin: 0 0 0.4em 0;
+    color: white;
+    font-size: 1.4em;
+    font-weight: normal;
+}
+
+.project-detail {
+    margin: 0.2em 0;
+    line-height: 1.3;
+    padding-left: 1.5em;
+}
+
+.project-detail i {
+    color: #ccc;
 }

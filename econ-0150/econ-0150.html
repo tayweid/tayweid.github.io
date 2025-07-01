@@ -1,167 +1,151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     
-<title>Economic Data Analysis | Part 1</title>
+    <title>Economic Data Analysis | Course Overview</title>
 
-<link rel="stylesheet" href="jscss/Main.css">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
-
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-
-<!--<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&display=swap" rel="stylesheet">-->
-
-
-
-
-
-
-<!-- Add this in your HTML <head> section -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;700&display=swap" rel="stylesheet">
-
-
-
-
+    <!-- OPTIMIZED: Single combined font request -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- MODULAR CSS -->
+    <link rel="stylesheet" href="../course-assets/styles/main.css">
+</head>
 
 <body>
 
-<div class="body_table"><div>
-<div class="left_div" align="right">
-</div>
+<div class="wrapper course-econ-0150">
+    <div class="left_div">
+        <nav>
+            <ul>
+                <span>ECONOMIC</span>
+                <span>DATA</span>
+                <span>ANALYSIS</span>
+                <hr class="nav-hr">
+                <li class="nav-item-no-margin"><a class="btn" href="data.html">Data Hub</a></li>
+                <hr class="nav-hr-top">
+                <li><a href="part-1.html">Part 1</a></li>
+                <li><a href="part-2.html">Part 2</a></li>
+                <li><a href="part-3.html">Part 3</a></li>
+                <li><a href="part-4.html">Part 4</a></li>
+                <li><a href="part-5.html">Part 5</a></li>
+                <li><a href="part-6.html">Part 6</a></li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </div>
 
-<div class="content">
-    
-    <div class="description" style="; margin-bottom:-20px">
-        <h1 class="title" style="margin-bottom:-5px"> ECON 0150 | Economic Data Analysis</h1>
-<i style="font-size: 20px; margin-left: 20px; margin-bottom: 20px; display: block">The economist's data analysis pipeline.</i>
+    <div class="content">
+        
+        <div class="description">
+            <h1 class="title title-tight">ECON 0150 | Economic Data Analysis</h1>
+            <i class="subtitle-text">// The economist's data analysis pipeline //</i>
+            
+            <hr class="section-divider">
+            
+            <div class="course-links">
+                <a class="btn" href="Syllabus/Syllabus.pdf" target="_blank">Syllabus</a> 
+                <span class="separator">|</span>
+                <a class="btn" href="Slides/Part_0.pdf" target="_blank">Welcome Slides</a> 
+                <span class="separator">|</span> 
+                <span class="btn">Class Survey (</span><a class="btn" href="https://drive.google.com/file/d/1b8G9elIwqtvFR6GkZB7yxHxRq8pY58wQ/view?usp=sharing" target="_blank">Notebook</a><span class="separator"> | </span><a class="btn" href="Examples/Part_0/Part_0_Survey.csv" target="_blank">Data</a><span class="btn">)</span>
+            </div>
+            
+            <hr class="section-divider">
+            
+            <div class="info-columns">
+                
+                <div class="info-column">
+                    <h2 class="section-heading">Data Drop-Ins:</h2>
+                    <ul class="info-list">
+                        <li>Taylor: 2:30 - 4:30 PM, Thursday, 4702 Posvar (taylorjweidman@pitt.edu)</li>
+                        <li>Jacob: 10:30 AM - 12:30 PM, Tuesday, Posvar 4911 (JPS220@pitt.edu)</li>
+                        <li>Tucker: 9 - 11 AM, Monday, Posvar 4515 (TGF16@pitt.edu)</li>
+                    </ul>
+                </div>
 
-        <hr style="border: none; border-top: 1px solid grey;">
+                <div class="info-column">
+                    <h2 class="section-heading">Important Dates:</h2>
+                    <ul class="info-list">
+                        <li>Jan 20 - MLK Day, no class</li>
+                        <li>Mar 2-9 - Spring recess</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-overview">
+            
+            <a href="data.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Data Hub</h2>
+                    <p class="part-description">Additional data and code</p>
+                </div>
+            </a>
 
-        <h2>
-            <a class="btn" href="Syllabus/Syllabus.pdf" target="_blank">Syllabus</a> 
-            <span style="color: grey">//</span>
-            <a class="btn" href="Slides/Part_0.pdf" target="_blank">Welcome Slides</a> 
-            <span style="color: grey">//</span> 
-            Class Survey (<a class="btn" href="https://drive.google.com/file/d/1b8G9elIwqtvFR6GkZB7yxHxRq8pY58wQ/view?usp=sharing" target="_blank">Notebook</a><span style="color: grey">|</span><a class="btn" href="Examples/Part_0/Part_0_Survey.csv" target="_blank">Data</a>)
-        </h2>
+            <a href="part-1.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 1 // Univariate Exploratory Data Analysis</h2>
+                    <p class="part-description">Start by visualizing and summarizing variables</p>
+                </div>
+            </a>
 
-        <hr style="border: none; border-top: 1px solid grey;">
+            <a href="part-2.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 2 // Multivariate Exploratory Data Analysis</h2>
+                    <p class="part-description">Examine relationships between variables</p>
+                </div>
+            </a>
 
-        <h2>Important Dates:</h2>
-        <ul style="margin-top:-15px">
-            <li>Jan 20 - MLK Day, no class</li>
-            <li>Feb 26/27 - Anynchronous class</li>
-            <li>Mar 2-9 - Spring recess</li>
-        </ul>
+            <a href="part-3.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 3 // Building Linear Models</h2>
+                    <p class="part-description">Separate true relationships from noise</p>
+                </div>
+            </a>
 
-        <h2>Data Drop-Ins:</h2>
-        <ul style="margin-top:-15px">
-            <li>Taylor: 2:30 - 4:30 PM, Thursday, 4702 Posvar (taylorjweidman@pitt.edu)</li>
-            <li>Jacob: 10:30 AM - 12:30 PM, Tuesday, Posvar 4911 (JPS220@pitt.edu)</li>
-            <li>Tucker: 9 - 11 AM, Monday, Posvar 4515 (TGF16@pitt.edu)</li>
-        </ul>
+            <a href="part-4.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 4 // The General Linear Model</h2>
+                    <p class="part-description">Build models with multiple variables</p>
+                </div>
+            </a>
+
+            <a href="part-5.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 5 // Intermediate General Linear Model</h2>
+                    <p class="part-description">Model more complex relationships</p>
+                </div>
+            </a>
+
+            <a href="part-6.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Part 6 // Communicating With Data</h2>
+                    <p class="part-description">Effectively communicate your analysis to others</p>
+                </div>
+            </a>
+
+            <a href="projects.html" class="course-part-link">
+                <div class="course-part-box">
+                    <h2 class="part-title">Final Projects</h2>
+                    <p class="part-description">Demonstrating the complete pipeline</p>
+                </div>
+            </a>
+
+        </div>
+        
+        <div class="bottom-spacer"></div>
 
     </div>
-    
 
-    <div id="demo">
+</div> <!-- Close wrapper -->
 
-        <a href="https://tayweid.github.io/ECON_0150/Data.html" target="_blank" class="container-link">
-            <div align="center" style="text-align: left;">
-                <div class="rounded-box">
-                    <h2>Data Hub </h2>
-                    <p>> additional data and code</p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_1.html" target="_blank" class="container-link">
-            <div align="center" style="text-align: left;">
-                <div class="rounded-box">
-                    <h2>Part 1 // Univariate Exploratory Data Analysis</h2>
-                    <p>> start by visualizing and summarizing variables</p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_2.html" target="_blank" class="container-link">
-            <div align="center" style="text-align: left;">
-                <div class="rounded-box">
-                    <h2>Part 2 // Multivariate Exploratory Data Analysis</h2>
-                    <p>> examine relationships between variables</p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_3.html" target="_blank" class="container-link">
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 3 // Building Linear Models</h2>
-                <p>> separate true relationships from noise</p>
-            </div>
-        </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_4.html" target="_blank" class="container-link">
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 4 // The General Linear Model</h2>
-                <p>> build models with multiple variables</p>
-            </div>
-        </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_5.html" target="_blank" class="container-link">
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 5 // Intermediate General Linear Model</h2>
-                <p>> model more complex relationships</p>
-            </div>
-        </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Part_6.html" target="_blank" class="container-link">
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Part 6 // Communicating With Data</h2>
-                <p>> effectively communicate your analysis to others</p>
-            </div>
-        </div>
-        </a>
-
-        <a href="https://tayweid.github.io/ECON_0150/Projects.html" target="_blank" class="container-link">
-        <div align="center" style="text-align: left;">
-            <div class="rounded-box">
-                <h2>Final Projects</h2>
-                <p>> demonstrating the complete pipeline</p>
-            </div>
-        </div>
-        </a>
-
-    </div>
-    <div style="margin-bottom:50%"></div>
-
-</div>
-
-<!-- RIGHT NAVIGATION -->
-    
-<div  class="right_div">
-    <nav>
-    </nav>
-</div>
-
-</div></div>
+<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+<script src="../course-assets/scripts/main.js"></script>
 
 </body>
 </html>
-
-<script type="text/javascript" src="jscss/Part.js"></script>
