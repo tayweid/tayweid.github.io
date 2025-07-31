@@ -22,25 +22,13 @@ const EconApp = {
                 const indicator = container.querySelector('.carousel-indicator');
                 if (indicator) {
                     const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
-                    const indicatorSlider = indicator.querySelector('.indicator-slider');
                     
-                    // Simple slider position update
-                    const updateSliderPosition = (index) => {
+                    // Simple active state update
+                    const updateActiveIndicator = (index) => {
                         if (indicatorTabs[index]) {
-                            const tab = indicatorTabs[index];
-                            
-                            // Get tab position relative to its offsetParent (the track)
-                            const tabLeft = tab.offsetLeft;
-                            const tabWidth = tab.offsetWidth;
-                            
-                            // The slider starts at left: 1px, but offsetLeft includes that padding
-                            // So we need to subtract the padding to align properly
-                            indicatorSlider.style.transform = `translateX(${tabLeft - 1}px)`;
-                            indicatorSlider.style.width = `${tabWidth - 2}px`;
-                            
                             // Update active states
                             indicatorTabs.forEach(t => t.classList.remove('active'));
-                            tab.classList.add('active');
+                            indicatorTabs[index].classList.add('active');
                         }
                     };
                     
@@ -70,26 +58,14 @@ const EconApp = {
                                     behavior: 'smooth'
                                 });
                                 
-                                updateSliderPosition(index);
+                                updateActiveIndicator(index);
                             }
                         });
                     });
                     
-                    // Scroll event listener to sync indicator with manual scrolling (immediate updates)
-                    let scrollTimeout;
-                    let isScrolling = false;
-                    
+                    // Scroll event listener to sync indicator with manual scrolling
                     track.addEventListener('scroll', () => {
-                        // Disable transition during fast scrolling for immediate feedback
-                        if (!isScrolling) {
-                            isScrolling = true;
-                            indicatorSlider.style.transition = 'none';
-                        }
-                        
-                        // Clear existing timeout
-                        clearTimeout(scrollTimeout);
-                        
-                        // Find which card is most visible in the center - IMMEDIATE calculation
+                        // Find which card is most visible in the center
                         const trackRect = track.getBoundingClientRect();
                         const trackCenter = trackRect.left + trackRect.width / 2;
                         
@@ -107,32 +83,13 @@ const EconApp = {
                             }
                         });
                         
-                        // Update indicator IMMEDIATELY
-                        if (indicatorTabs[closestIndex]) {
-                            const tab = indicatorTabs[closestIndex];
-                            const tabLeft = tab.offsetLeft;
-                            const tabWidth = tab.offsetWidth;
-                            
-                            // The slider starts at left: 1px, but offsetLeft includes that padding
-                            // So we need to subtract the padding to align properly
-                            indicatorSlider.style.transform = `translateX(${tabLeft - 1}px)`;
-                            indicatorSlider.style.width = `${tabWidth - 2}px`;
-                            
-                            // Update active states immediately
-                            indicatorTabs.forEach(t => t.classList.remove('active'));
-                            tab.classList.add('active');
-                        }
-                        
-                        // Re-enable smooth transition after scrolling stops
-                        scrollTimeout = setTimeout(() => {
-                            isScrolling = false;
-                            indicatorSlider.style.transition = 'transform 0.05s ease, width 0.05s ease';
-                        }, 50); // Short delay to detect when scrolling has stopped
+                        // Update active indicator
+                        updateActiveIndicator(closestIndex);
                     });
                     
                     // Initialize first tab with slight delay to ensure layout is ready
                     setTimeout(() => {
-                        updateSliderPosition(0);
+                        updateActiveIndicator(0);
                     }, 50);
                 }
                 
@@ -141,6 +98,13 @@ const EconApp = {
                     const videoId = card.getAttribute('data-video-id');
                     const cardVideo = card.querySelector('.card-video');
                     const img = cardVideo?.querySelector('img');
+                    
+                    // Add error handler to ALL images in video cards
+                    if (img) {
+                        img.onerror = function() {
+                            this.classList.add('placeholder-bg');
+                        };
+                    }
                     
                     if (videoId && cardVideo) {
                         // Check if it's a YouTube video ID (11 characters, alphanumeric + hyphens/underscores)
