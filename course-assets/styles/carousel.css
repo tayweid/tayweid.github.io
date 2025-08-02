@@ -96,14 +96,14 @@
     gap: 12px;
     align-items: center;
     pointer-events: auto;  /* Re-enable pointer events for the track */
-    background: rgba(0, 0, 0, 0.5); /* Same as arrow buttons */
+    background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
     border-radius: 30px; /* Oval shape */
     padding: 7px 20px 10px 20px; /* More padding bottom for visual balance */
     transition: background 0.3s ease;
 }
 
 .indicator-track:hover {
-    background: rgba(0, 0, 0, 0.7); /* Same hover as arrow buttons */
+    background: rgba(0, 0, 0, 0.95); /* Almost fully opaque on hover */
 }
 
 .indicator-tab {
@@ -209,7 +209,6 @@
     scroll-snap-align: center;
     scroll-snap-stop: always;  /* Force stop at each card */
     overflow: hidden;
-    height: 540px; /* Fixed height for uniform cards */
     display: flex;
     flex-direction: column;
     opacity: 0.4;  /* More dimmed opacity for stronger focus effect */
@@ -490,8 +489,6 @@ img.placeholder-bg {
         flex: 0 0 auto;
         width: 100%;
         max-width: 100%;
-        height: auto; /* Auto height for mobile since width changes */
-        min-height: 350px; /* Minimum height for consistency */
     }
     
     .carousel-track {
