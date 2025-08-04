@@ -5,19 +5,18 @@
 @media screen and (max-width: 1000px) {
     .wrapper {
         max-width: 100%;
-        padding: 0 5px;
-        justify-content: center;
+        padding: 0 20px;
+        /* Keep flex layout since left sidebar remains */
     }
     
-    .left_div, 
     .right_div {
-        display: none;
+        display: none; /* Only hide right sidebar */
     }
     
     .content {
-        max-width: 100%;
-        padding: 15px 5px;
-        margin: 0 auto;
+        max-width: 610px; /* Keep same width as with both sidebars to prevent jump */
+        padding: 50px 30px; /* Keep same padding as desktop */
+        margin: 0 auto; /* Center content in available space */
     }
     
     .rounded-box, 
@@ -31,5 +30,22 @@
     /* Disable hover effects on mobile */
     p:hover {
         color: var(--main-fg-color);  /* Keep original color instead of white */
+    }
+}
+
+/* True mobile breakpoint - allow content to expand */
+@media screen and (max-width: 650px) {
+    .wrapper {
+        padding: 0 10px;
+        justify-content: center; /* Center when no sidebars */
+    }
+    
+    .left_div {
+        display: none; /* Hide left sidebar on mobile */
+    }
+    
+    .content {
+        max-width: 100%; /* Allow full width on mobile */
+        padding: 20px 10px; /* Reduced padding for mobile */
     }
 }

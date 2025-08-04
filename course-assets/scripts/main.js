@@ -22,6 +22,7 @@ const EconApp = {
                 const indicator = container.querySelector('.carousel-indicator');
                 if (indicator) {
                     const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
+                    let isProgrammaticScroll = false; // Flag to prevent flickering
                     
                     // Simple active state update
                     const updateActiveIndicator = (index) => {
@@ -49,6 +50,12 @@ const EconApp = {
                     indicatorTabs.forEach((tab, index) => {
                         tab.addEventListener('click', () => {
                             if (cards[index]) {
+                                // Set flag to prevent scroll event from updating indicator
+                                isProgrammaticScroll = true;
+                                
+                                // Update indicator immediately
+                                updateActiveIndicator(index);
+                                
                                 const targetScrollLeft = Math.max(0, 
                                     cards[index].offsetLeft - (track.clientWidth / 2) + (cards[index].offsetWidth / 2)
                                 );
@@ -58,13 +65,19 @@ const EconApp = {
                                     behavior: 'smooth'
                                 });
                                 
-                                updateActiveIndicator(index);
+                                // Clear flag after scroll animation completes
+                                setTimeout(() => {
+                                    isProgrammaticScroll = false;
+                                }, 600); // Slightly longer than typical smooth scroll duration
                             }
                         });
                     });
                     
                     // Scroll event listener to sync indicator with manual scrolling
                     track.addEventListener('scroll', () => {
+                        // Skip updates during programmatic scroll to prevent flickering
+                        if (isProgrammaticScroll) return;
+                        
                         // Find which card is most visible in the center
                         const trackRect = track.getBoundingClientRect();
                         const trackCenter = trackRect.left + trackRect.width / 2;
