@@ -92,14 +92,15 @@
 }
 
 .indicator-track {
-    --indicator-font-size: clamp(14px, 1.8vw, 18px); /* Match text clamp */
+    --indicator-icon-size: 36px;
+    position: relative;
     display: flex;
-    gap: calc(var(--indicator-font-size) * 0.7);
+    gap: 24px;
     align-items: center;
     pointer-events: auto;  /* Re-enable pointer events for the track */
     background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
-    border-radius: 30px; /* Oval shape */
-    padding: calc(var(--indicator-font-size) * 0.35) calc(var(--indicator-font-size) * 1.2);
+    border-radius: 40px; /* Oval shape */
+    padding: 16px 24px;
     transition: background 0.3s ease;
 }
 
@@ -111,64 +112,53 @@
     position: relative;
     background: transparent;
     border: none;
-    padding: 0;
+    padding: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: calc(var(--indicator-font-size) * 5);
-    height: calc(var(--indicator-font-size) * 1.6); /* Reduced height to bring elements closer */
+    width: var(--indicator-icon-size);
+    height: var(--indicator-icon-size);
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center the text+bar combo vertically */
+    justify-content: center;
+    z-index: 2;
 }
 
-.indicator-tab::after {
-    content: '';
+/* Icon styles */
+.indicator-tab svg {
+    width: var(--indicator-icon-size);
+    height: var(--indicator-icon-size);
+    fill: rgba(255, 255, 255, 0.5);
+    transition: fill 0.3s ease;
+}
+
+.indicator-tab:hover svg {
+    fill: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.active svg {
+    fill: white;
+}
+
+/* Sliding pill selector */
+.indicator-pill {
     position: absolute;
-    top: calc(50% + var(--indicator-font-size) * 0.65); /* Position bar lower to move combo down */
-    left: 0;
-    width: 100%;
-    height: 3px; /* Thin bar */
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    transition: all 0.3s ease;
+    top: 50%;
     transform: translateY(-50%);
+    height: calc(var(--indicator-icon-size) + 20px);
+    width: calc(var(--indicator-icon-size) + 20px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
 }
 
-.indicator-tab:hover::after {
-    background: rgba(255, 255, 255, 0.5);
-    height: 4px;
-}
-
-.indicator-tab.active::after {
-    background: rgba(255, 255, 255, 0.9);
-    height: 4px;
-    box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+/* Hide the old slider element and span text */
+.indicator-slider {
+    display: none;
 }
 
 .indicator-tab span {
-    position: relative;
-    z-index: 2;
-    font-size: var(--indicator-font-size);
-    color: rgba(255, 255, 255, 0.7);
-    font-family: 'Roboto Slab', serif;
-    font-weight: 300;
-    white-space: nowrap;
-    margin-bottom: calc(var(--indicator-font-size) * 0.1); /* Minimal space between text and bar */
-    transform: translateY(calc(var(--indicator-font-size) * -0.15)); /* Shift text up less to move combo down */
-}
-
-.indicator-tab:hover span {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.indicator-tab.active span {
-    color: white;
-    font-weight: 500;
-}
-
-/* Hide the old slider element */
-.indicator-slider {
     display: none;
 }
 
@@ -191,7 +181,7 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */
     flex: 1;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .carousel-track::-webkit-scrollbar {
