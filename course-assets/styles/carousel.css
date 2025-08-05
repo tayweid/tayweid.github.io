@@ -100,7 +100,7 @@
     pointer-events: auto;  /* Re-enable pointer events for the track */
     background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
     border-radius: 40px; /* Oval shape */
-    padding: 16px 24px;
+    padding: 8px 24px;
     transition: background 0.3s ease;
 }
 
@@ -144,8 +144,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    height: calc(var(--indicator-icon-size) + 20px);
-    width: calc(var(--indicator-icon-size) + 20px);
+    height: calc(var(--indicator-icon-size) + 12px);
+    width: calc(var(--indicator-icon-size) + 12px);
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
