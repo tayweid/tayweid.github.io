@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{graphicx}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ECON 0150 | Spring 2025}
+\lhead{Homework 2.1}
+\rfoot{\thepage}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}[.]
+
+\begin{document}
+
+\vspace*{-1cm}
+\noindent \textbf{ECON 0150 | Spring 2025 | Homework 2.1} \\
+\textbf{Due: } \\
+
+\noindent Homework is designed to both test your knowledge and challenge you to apply familiar concepts in new applications. \\
+Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Use the datafile to answer the following questions. Then submit your figures and answers to Gradescope.
+
+\section*{Q1. Bike Hires and Weather}
+
+\noindent In the following questions, we'll analyze a data set that includes the monthly number of bike hires in London as well as monthly weather data: minimum and maximum temperature in degrees Celsius, rain in millimeters, and hours of sunshine.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{HW4_image.png}
+\end{figure}
+
+\subsection*{a)} From the list below, how much did it rain in the month with the largest number of bike hires?
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item 7.6 mm
+    \item 27.6 mm
+    \item 137.6 mm
+    \item 157.6 mm
+\end{itemize}
+
+\subsection*{b)} When were bikes most popular?
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item In very sunny months
+    \item In moderately sunny months
+    \item In cloudy months
+    \item Sunshine and bike hires were not strongly related
+\end{itemize}
+
+\subsection*{c)} In months with what maximum temperatures were bikes most popular?
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item Between 5 C and 10 C
+    \item Between 15 C and 20 C
+    \item Between 25 C and 30 C
+    \item Maximum temperature and bike hires were not strongly related
+\end{itemize}
+
+\section*{Q2. A Relationship Between Variables}
+
+The dataset \texttt{coffee\_prod\_agr.csv} provides information on coffee production and employment in agriculture across different countries. Refer to the links below to answer the following question.
+
+\begin{itemize}
+    \item Data source (1): \url{https://ourworldindata.org/grapher/coffee-production-by-region?tab=table}
+    \item Data source (2): \url{https://data.worldbank.org/indicator/SL.AGR.EMPL.ZS}
+\end{itemize}
+
+\subsection*{a)} Who collects the data reported in each source? Briefly describe the role of the organization behind it.
+
+\subsection*{b)} Identify one potential limitation in the data. 
+%Example: The employment data reflects the share of workers in agriculture overall, not in coffee production specifically.
+
+\subsection*{c)} Using Python in a Colab Notebook and the dataset from the course page, create a visualization of the relationship between two variables of your choice. Upload your figure to Gradescope.
+
+\subsection*{d)} Describe the relationship: Is it positive, negative, or unclear?
+
+\subsection*{e)} How might this relationship relate to the correlation between coffee production and GDP?
+
+\subsection*{f)} Why might economists be interested in studying both of these relationships? What kinds of questions could they answer?
+
+\subsection*{g)} Go to the data sources and download the latest available data for the year 2020. Using this updated data, choose two variables and generate a figure. Upload both your figure and the cleaned dataset you used to Gradescope. Briefly describe the steps you followed to retrieve and clean the data.
+
+
+\vfill
+
+\noindent\hrulefill
+
+\noindent \small{\textit{ECON 0150 | Spring 2025 | Homework 04}} \\
+\textit{}
+
+\end{document}

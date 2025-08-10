@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{graphicx}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ECON 0150 | Spring 2025}
+\lhead{Homework 4.1}
+\rfoot{\thepage}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}[.]
+
+\begin{document}
+Homework is designed to both test your knowledge and challenge you to apply familiar concepts in new applications. Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Use the provided datasets to answer the following questions. Then submit your figures and answers to Gradescope.
+
+\section*{Q1. Linear Regression and the t-Test}
+
+Explain in your own words how a one-sample t-test can be represented as a linear regression model. What parameter in the regression corresponds to the mean being tested in a t-test? (1--2 sentences)
+
+\vspace{3cm}
+
+\section*{Q2. True or False? Explain your reasoning.}
+
+\begin{enumerate}[label=\alph*)]
+    \item The intercept in a regression model with no predictors equals the sample mean of the outcome variable.
+    
+    \vspace{2cm}
+    
+    \item The p-value for the intercept in a regression with no predictors tests whether the population mean equals zero.
+    
+    \vspace{2cm}
+    
+    \item The standard error of the intercept in a regression with no predictors equals the standard deviation of the dependent variable divided by the square root of the sample size.
+    
+    \vspace{2cm}
+\end{enumerate}
+
+\section*{Q3. Study Hours}
+
+An economics professor claims that students spend 6 hours per week on average studying for their economics class. You survey 20 students and record the following number of hours they reported studying per week:
+
+\begin{verbatim}
+study_hours = [5.2, 7.1, 4.8, 6.5, 8.0, 5.5, 7.3, 4.2, 6.7, 5.8, 
+               7.5, 6.2, 5.0, 7.8, 6.3, 4.5, 6.9, 5.7, 7.2, 6.0]
+\end{verbatim}
+
+\begin{enumerate}[label=\alph*)]
+    \item Use a one-sample t-test to test whether the average study time differs from the claimed 6 hours per week. What is the p-value for this test?
+    
+    \vspace{3cm}
+    
+    \item Use a regression model with only an intercept to perform a test of the default null hypothesis on the intercept coefficient. What is the p-value for this test?
+    
+    \vspace{3cm}
+    
+    \item Explain why the p-values differ with these two approaches.
+    
+    \vspace{3cm}
+\end{enumerate}
+
+\section*{Q4. Real Data t-Test: Pennsylvania Household Income}
+
+According to USAFacts, the median household income in Pennsylvania was reported to be \$73{,}824 in 2023.
+
+You are provided with a sample of median household incomes for a set of Pennsylvania counties. Use this sample to test whether the average median household income in these counties differs from the statewide benchmark.
+
+\begin{enumerate}[label=\alph*)]
+\item Using the provided dataset, conduct a one-sample t-test to assess whether the average median household income in the sample differs from \$73{,}824. Clearly report:
+\begin{itemize}
+\item the sample mean and standard deviation,
+\item the t-statistic and degrees of freedom,
+\item the p-value and 95\% confidence interval.
+\end{itemize}
+
+\item Based on your results, does the sample provide evidence that the average county income is significantly different from the statewide median? Briefly explain.
+
+\end{enumerate}
+
+\end{document}

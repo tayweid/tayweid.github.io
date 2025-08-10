@@ -1,0 +1,134 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{placeins}  
+\usepackage{hyperref}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ECON 0150 | Spring 2025}
+\lhead{Homework 4.2}
+\rfoot{\thepage}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}[.]
+
+\begin{document}
+
+Homework is designed to both test your knowledge and challenge you to apply familiar concepts in new applications. Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Use the provided datasets to answer the following questions. Then submit your figures and answers to Gradescope.
+
+\section*{Q1. Working Hours and Weekly Income}
+
+An economist is studying the relationship between time spent working (hours per week) and weekly income (in dollars) for part-time employees. The data for 15 randomly selected employees is:
+
+\begin{verbatim}
+hours_worked = [15, 22, 12, 25, 18, 10, 20, 28, 14, 16, 24, 19, 21, 17, 23]
+weekly_income = [320, 465, 255, 510, 385, 210, 420, 570, 305, 340, 
+                 490, 400, 445, 360, 475]
+\end{verbatim}
+
+\begin{enumerate}[label=\alph*)]
+    \item Create a scatter plot of weekly income versus hours worked. Does there appear to be a relationship?
+    
+    \vspace{3cm}
+    
+    \item Fit a linear regression model to predict weekly income based on hours worked. What is the interpretation of the intercept coefficient?
+    
+    \vspace{3cm}
+    
+    \item What is the interpretation of the slope coefficient?
+    
+    \vspace{3cm}
+    
+    \item What is the interpretation of the p-value of the slope coefficient?
+    
+    \vspace{3cm}
+\end{enumerate}
+
+\section*{Q2. County Unemployment and BMI}
+\subsection*{a)}
+
+Read the article: Zhang, Q., Lamichhane, R., \& Wang, Y. (2014). Associations between US adult obesity and state and county economic conditions in the recession. Journal of clinical medicine, 3(1), 153-166.\\
+\href{https://pmc.ncbi.nlm.nih.gov/articles/PMC4449673/}{Link}
+
+\vspace{0.3cm}
+
+Based on your reading, answer the following questions:
+
+\begin{enumerate}
+    \item What is the primary research question the authors are trying to answer?\\
+    \textbf{answer:}\\
+    The authors aim to investigate whether economic conditions at the state and county levels—particularly during the Great Recession—are associated with individual-level obesity.
+    \item What dataset(s) do the authors use for their analysis? Be specific about the years and key variables.\\
+    \textbf{answer:}\\
+    The authors use data from the Behavioral Risk Factor Surveillance System (BRFSS) pooled from the years 2007, 2009, and 2011. They link this individual-level health data to county-level and state-level economic indicators, primarily focusing on county unemployment rates, poverty rates, and median household income. 
+    
+    \item What are the main outcome variables, and what are the key explanatory variables?\\
+    \textbf{answer:}\\
+    \begin{itemize}
+      \item \textbf{outcome variables:} BMI, Obesity, and Overweight
+      \item \textbf{explanatory variables:} state-unemployment rate, county-unemployment rate
+    \end{itemize}
+    
+    \item Summarize the main findings in 2--3 sentences. What is the estimated effect of county unemployment on BMI?\\
+    \textbf{answer:}\\
+    The study finds that higher county-level unemployment is significantly associated with higher odds of individual obesity and physical inactivity. Specifically, a 1 percentage point increase in county unemployment is associated with a 0.4\% increase in the odds of obesity (OR = 1.004, p < 0.05) and a 0.6\% increase in the odds of physical inactivity (OR = 1.006, p < 0.01). These results are statistically significant and hold after adjusting for control variables.
+
+\end{enumerate}
+
+\subsection*{b)}
+
+You are provided with a sample of individual-level data from the 2011 Behavioral Risk Factor Surveillance System (BRFSS), which includes the following variables:
+
+\begin{itemize}
+    \item \texttt{bmi} -- individual Body Mass Index (kg/m\textsuperscript{2})
+    \item \texttt{Mental Healt} -- days of Poor Mental Health in the Past 30 Days
+    \item \texttt{county\_unemp} -- county-level unemployment rate (in percentage points)
+\end{itemize}
+
+\vspace{0.3cm}
+
+Using this data, estimate the following linear regression model:
+
+\[
+\texttt{bmi}_i = \beta_0 + \beta_1 \cdot \texttt{county\_unemp}_i + \varepsilon_i
+\]
+
+\begin{enumerate}
+    \item Report the estimated coefficients $\hat\beta_0$ and $\hat\beta_1$, along with their standard errors, $t$-statistics, and $p$-values. Also attach the code you run.
+    \textbf{answer:}
+    \input{Tables/HW_4.2_b}
+
+    \item Interpret the coefficient $\hat\beta_1$. What does it suggest about the relationship between county unemployment and individual BMI?\\
+    \textbf{answer:}\\
+    The coefficient indicates that county unemployment and BMI are positively correlated such that a 1 percentage point increase in county unemployment rate is associated with a 0.09 increase in BMI.
+
+    \item Identify the corresponding table and column in the Zhang et al. (2014) paper where a similar regression is reported. How does your estimated coefficient compare in magnitude, sign, and statistical significance?\\
+    \textbf{answer:}\\
+    A similar regression is shown in Table 2 column 7,8, and 9, specifically in the second row. The coefficient reported in the paper is very similar in magnitude and statistical significance.
+    
+\end{enumerate}
+
+\subsection*{c)}
+
+The 2011 BRFSS also includes information on mental health. The variable \texttt{menthlth} records the number of days in the past 30 days when the respondent’s mental health was "not good."
+
+\begin{enumerate}
+    \item Estimate the following regression model:
+    \[
+    \texttt{menthlth}_i = \beta_0 + \beta_1 \cdot \texttt{county\_unemp}_i + \varepsilon_i
+    \]
+    Report and interpret the estimated coefficient $\hat\beta_1$.
+\end{enumerate}
+\textbf{answer:}
+\input{Tables/HW_4.2_c}
+A 1 percentage point increase in the county unemployment rate is associated with 0.137 more bad mental health days per month, on average.
+\end{document}

@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{graphicx}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{ECON 0150 | Spring 2025}
+\lhead{Homework 4.2}
+\rfoot{\thepage}
+
+% Section formatting
+\titleformat{\section}{\large\bfseries}{}{0em}{}
+\titleformat{\subsection}[runin]{\bfseries}{}{0em}{}[.]
+
+\begin{document}
+
+Homework is designed to both test your knowledge and challenge you to apply familiar concepts in new applications. Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Use the provided datasets to answer the following questions. Then submit your figures and answers to Gradescope.
+
+\section*{Q1. Working Hours and Weekly Income}
+
+An economist is studying the relationship between time spent working (hours per week) and weekly income (in dollars) for part-time employees. The data for 15 randomly selected employees is:
+
+\begin{verbatim}
+hours_worked = [15, 22, 12, 25, 18, 10, 20, 28, 14, 16, 24, 19, 21, 17, 23]
+weekly_income = [320, 465, 255, 510, 385, 210, 420, 570, 305, 340, 
+                 490, 400, 445, 360, 475]
+\end{verbatim}
+
+\begin{enumerate}[label=\alph*)]
+    \item Create a scatter plot of weekly income versus hours worked. Does there appear to be a relationship?
+    
+    \vspace{3cm}
+    
+    \item Fit a linear regression model to predict weekly income based on hours worked. What is the interpretation of the intercept coefficient?
+    
+    \vspace{3cm}
+    
+    \item What is the interpretation of the slope coefficient?
+    
+    \vspace{3cm}
+    
+    \item What is the interpretation of the p-value of the slope coefficient?
+    
+    \vspace{3cm}
+\end{enumerate}
+
+\section*{Q2. County Unemployment and BMI}
+\subsection*{a)}
+
+Read the article: Zhang, Q., Lamichhane, R., \& Wang, Y. (2014). Associations between US adult obesity and state and county economic conditions in the recession. Journal of clinical medicine, 3(1), 153-166.\\
+\href{https://pmc.ncbi.nlm.nih.gov/articles/PMC4449673/}{https://pmc.ncbi.nlm.nih.gov/articles/PMC4449673/}
+
+\vspace{0.3cm}
+
+Based on your reading, answer the following questions:
+
+\begin{enumerate}
+    \item What is the primary research question the authors are trying to answer?
+    \item What dataset(s) do the authors use for their analysis? Be specific about the years and key variables.
+    \item What are the main outcome variables, and what are the key explanatory variables?
+    \item Summarize the main findings in 2--3 sentences. What is the estimated effect of county unemployment on BMI and physical activity? Is it statistically significant?
+\end{enumerate}
+
+\subsection*{b)}
+
+You are provided with a sample of individual-level data from the 2011 Behavioral Risk Factor Surveillance System (BRFSS), which includes the following variables:
+
+\begin{itemize}
+    \item \texttt{bmi} -- individual Body Mass Index (kg/m\textsuperscript{2})
+    \item \texttt{Mental Healt} -- days of Poor Mental Health in the Past 30 Days
+    \item \texttt{county\_unemp} -- county-level unemployment rate (in percentage points)
+\end{itemize}
+
+\vspace{0.3cm}
+
+Using this data, estimate the following linear regression model:
+
+\[
+\texttt{bmi}_i = \beta_0 + \beta_1 \cdot \texttt{county\_unemp}_i + \varepsilon_i
+\]
+
+\begin{enumerate}
+    \item Report the estimated coefficients $\hat\beta_0$ and $\hat\beta_1$, along with their standard errors, $t$-statistics, and $p$-values. Also attach the code you run. 
+    
+    \item Interpret the coefficient $\hat\beta_1$. What does it suggest about the relationship between county unemployment and individual BMI?
+
+    \item Identify the corresponding table and column in the Chen et al. (2014) paper where a similar regression is reported. How does your estimated coefficient compare in magnitude, sign, and statistical significance?
+\end{enumerate}
+
+\subsection*{c)}
+
+The 2011 BRFSS also includes information on mental health. The variable \texttt{menthlth} records the number of days in the past 30 days when the respondent’s mental health was "not good."
+
+\begin{enumerate}
+    \item Estimate the following regression model:
+    \[
+    \texttt{menthlth}_i = \beta_0 + \beta_1 \cdot \texttt{county\_unemp}_i + \varepsilon_i
+    \]
+    Report and interpret the estimated coefficient $\hat\beta_1$.
+\end{enumerate}
+
+
+\end{document}
