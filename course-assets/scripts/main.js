@@ -13,7 +13,7 @@ const EconApp = {
             lightbulb: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
     </svg>`,
-            pencil: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            dumbbell: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
     </svg>`,
             checkbox: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -40,7 +40,7 @@ const EconApp = {
                             <div class="indicator-track">
                                 ${Array.from(cards).map((card, index) => `
                                     <button class="indicator-tab ${index === 0 ? 'active' : ''}" data-index="${index}">
-                                        ${index === 0 ? this.icons.lightbulb : index === 1 ? this.icons.pencil : this.icons.checkbox}
+                                        ${index === 0 ? this.icons.lightbulb : index === 1 ? this.icons.dumbbell : this.icons.checkbox}
                                     </button>
                                 `).join('')}
                             </div>
