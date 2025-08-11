@@ -1,0 +1,36 @@
+{
+  "chart": {
+    "title": "Green coffee beans production",
+    "subtitle": "Measured in tonnes.",
+    "note": "Green coffee beans are coffee seeds (beans) that have not yet been roasted.",
+    "citation": "Food and Agriculture Organization of the United Nations (2025)",
+    "originalChartUrl": "https://ourworldindata.org/grapher/coffee-bean-production?v=1&csvType=full&useColumnShortNames=false",
+    "selection": [
+      "China",
+      "India",
+      "United States",
+      "European Union",
+      "Brazil"
+    ]
+  },
+  "columns": {
+    "Coffee, green | 00000656 || Production | 005510 || tonnes": {
+      "titleShort": "Coffee bean production",
+      "titleLong": "Coffee bean production - FAO",
+      "descriptionShort": "Green coffee beans are coffee seeds (beans) that have not yet been roasted.",
+      "shortUnit": "t",
+      "unit": "tonnes",
+      "timespan": "1961-2023",
+      "type": "Numeric",
+      "owidVariableId": 1018365,
+      "shortName": "coffee__green__00000656__production__005510__tonnes",
+      "lastUpdated": "2025-03-17",
+      "nextUpdate": "2026-03-17",
+      "citationShort": "Food and Agriculture Organization of the United Nations (2025) – with major processing by Our World in Data",
+      "citationLong": "Food and Agriculture Organization of the United Nations (2025) – with major processing by Our World in Data. “Coffee bean production – FAO” [dataset]. Food and Agriculture Organization of the United Nations, “Production: Crops and livestock products” [original data].",
+      "fullMetadata": "https://api.ourworldindata.org/v1/indicators/1018365.metadata.json"
+    }
+  },
+  "dateDownloaded": "2025-07-15",
+  "activeFilters": {}
+}
