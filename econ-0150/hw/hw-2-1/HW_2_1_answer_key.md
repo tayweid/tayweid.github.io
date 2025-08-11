@@ -8,7 +8,7 @@ Homework is designed to both test your knowledge and challenge you to apply fami
 
 In the following questions, we'll analyze a data set that includes the monthly number of bike hires in London as well as monthly weather data: minimum and maximum temperature in degrees Celsius, rain in millimeters, and hours of sunshine.
 
-<img src="Figures/HW4_image.png"/>
+<img src="i/HW4_image.png"/>
 
 a) From the list below, how much did it rain in the month with the largest number of bike hires?
 
@@ -52,7 +52,7 @@ One potential limitation is that the employment data (from the World Bank / ILO)
 
 c) Using Python in a Colab Notebook and the dataset from the course page, create a visualization of the relationship between two variables of your choice. Upload your figure to Gradescope.
 
-<img src="Figures/HW_2.1_c.png"/>
+<img src="i/HW_2_1_c.png"/>
 
 d) Describe the relationship: Is it positive, negative, or unclear?
 
