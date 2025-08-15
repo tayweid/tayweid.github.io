@@ -128,3 +128,7 @@ The econ-0100 course is currently undergoing reorganization according to a new s
 - Mobile-first approach with desktop enhancements
 - Sidebar navigation hidden on mobile
 - Carousel touch-friendly on mobile devices
+
+## Known Issues and Limitations
+
+- There is no slides folder
