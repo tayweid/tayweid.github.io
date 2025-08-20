@@ -14,16 +14,17 @@ format:
 
 ---
 
-### Example 1.5 | Starbucks Hours
+## Example 1.5 | Starbucks Hours
 <p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 ```{.python}
 # Load the data
 data = pd.read_csv(file_path + file_name)
 ```
+
 ---
 
-### Example 1.5 | Starbucks Hours
+## Example 1.5 | Starbucks Hours
 <p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 ```{.python}
@@ -36,40 +37,40 @@ plt.hist(data['open'], bins=20)
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
-::: {.fragment}
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times.png){fig-align="center"}
-:::
+. . .
 
-::: {.fragment}
+![](i/i_01.png)
+
+. . .
+
 *> maybe there's something specific about the US though?*
-:::
 
-::: {.fragment}
+. . .
+
 *> filter only the US locations*
-:::
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter only the US locations*
 
 <br>
 
-::: {.fragment}
+. . .
+
 ```{.python}
 # Decide whether each row's country code is 'US'
 data['COUNTRY_CODE'] == 'US'
 ```
-:::
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter only the US locations*
@@ -83,7 +84,7 @@ data['COUNTRY_CODE'] == 'US'
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter only the US locations*
@@ -100,7 +101,7 @@ us_data = data[data['COUNTRY_CODE'] == 'US']
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter only the US locations*
@@ -120,49 +121,49 @@ plt.hist(us_data['open'], bins=20)
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Opening_Times_US.png)
 
-<div class="fragment">
+. . .
+
 *> is there something different between the US and Canada?*
-</div>
 
-<div class="fragment">
+. . .
+
 *> filter for **BOTH** countries*
-</div>
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Lets us some Boolian logic :)</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Bool.png){fig-align="center"}
+![](i/Part_1_5_Bool.png)
 
-<div class="fragment">
+. . .
+
 *> is there something different between the US and Canada?*
-</div>
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
 
-<div class="fragment">
+. . .
+
 ```{.python code-line-numbers="4,7"}
 # Find the data in either the US or in Canada (CA)
 
 # Method 1: Using OR operator
 data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
 ```
-</div>
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
@@ -179,7 +180,7 @@ data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
@@ -196,7 +197,7 @@ data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
@@ -213,7 +214,7 @@ us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
 *> filter for **BOTH** countries*
@@ -233,22 +234,21 @@ plt.hist(us_ca_data['open'], bins=20)
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Opening_Times_US.png)
 
 ---
 
-
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What hours should a US coffee shop operate?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US_CA.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Opening_Times_US_CA.png)
 
 ---
 
-### A New Coffee Shop: Filter by Category
+## A New Coffee Shop: Filter by Category
 <p class="subheader">Q. What would the histogram for the following filtered data look like?</p>
 
 <br>
@@ -263,7 +263,7 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-### Part 1.5 | Filtering Data by Inequality
+## Part 1.5 | Filtering Data by Inequality
 <p class="subheader">Filtering continuous data requires using inequalities.</p>
 
 | Symbol | Python | | Example |
@@ -277,15 +277,15 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. How long do locations stay open?</p> 
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. How long do locations stay open?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open.png)
 
 <div class="fragment">
 *> but is it different by opening time?*
@@ -293,42 +293,42 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open.png)
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open_7AM.png)
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open_7AM_early.png)
 
 *> we can also compare to locations that open early*
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Do locations that open later in the morning stay open fewer hours?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open_7AM_early.png)
 
 *> but maybe this differs country?*
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png)
 
 <div class="fragment">
 *> maybe there's a more systematic way of showing these differences*
@@ -336,10 +336,10 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Duration_Line.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Duration_Line.png)
 
 <div class="fragment">
 *> but some filters have more shops, making it hard to compare*
@@ -347,13 +347,13 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ---
 
-### A New Coffee Shop: Filter by Inequality
+## A New Coffee Shop: Filter by Inequality
 <p class="subheader">Q. Does the hours open at early open locations differ by country?</p>
 
 *> normalizing the distributions allows us to compare between filters*
 
 <div class="fragment">
-![](../Examples/Part_1_5/i/Part_1_5_Starbucks_Duration_Line_Normalized.png){fig-align="center"}
+![](i/Part_1_5_Starbucks_Duration_Line_Normalized.png)
 </div>
 
 

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_1_3_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_1_3_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_1_3_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_1_3_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_1_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_1_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_1_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_1_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_1_3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_1_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_1_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_1_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_1_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_1_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_1_3</title>
+  <title>concept_1_3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_1_3_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_1_3_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_1_3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_1_3_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="Part_1_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_1_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_1_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_1_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_1_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_1_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_1_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_1_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_1_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_1_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -180,171 +180,124 @@ The economist’s data analysis pipeline.
 <p><br><br></p>
 <p><em>&gt; we’ll introduce geographic data structures later.</em></p>
 </section>
-<section id="cross-sectional-numerical-data" class="slide level2">
-<h2>Cross-Sectional (Numerical) Data</h2>
+<section id="exercise-data-structures" class="slide level2">
+<h2>Exercise: Data Structures</h2>
+<p><br><br></p>
+<p>Lets identify the data structure for each dataset.</p>
+<ul>
+<li><strong>Dataset 1:</strong> <code>us_real_gdp.csv</code></li>
+<li><strong>Dataset 2:</strong> <code>household_savings.csv</code></li>
+<li><strong>Dataset 3:</strong> <code>household_incomes.csv</code></li>
+</ul>
+</section>
+<section id="exercise-dataset-1" class="slide level2">
+<h2>Exercise: Dataset 1</h2>
 <p class="subheader">
-Exercise: Summarize cross_sectional_numerical_dataset.csv
+<code>us_real_gdp.csv</code> is a Time-Series Dataset
 </p>
 <div class="fragment">
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><br></p>
-<h4 id="summary">Summary</h4>
-<ul>
-<li>Focus: distribution
-<ul>
-<li><strong><em>Histogram</em></strong></li>
-<li><em>Boxplots</em></li>
-<li><em>Jitters</em></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><img data-src="../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Exercise.png"></p>
-</div></div>
+<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
 </div>
 </section>
-<section id="cross-sectional-numerical-data-1" class="slide level2">
-<h2>Cross-Sectional (Numerical) Data</h2>
+<section id="exercise-dataset-1-1" class="slide level2">
+<h2>Exercise: Dataset 1</h2>
 <p class="subheader">
-Exercise: Summarize cross_sectional_numerical_dataset.csv
+<code>us_real_gdp.csv</code> is a Time-Series Dataset
 </p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><br></p>
-<h4 id="summary-1">Summary</h4>
-<ul>
-<li>Focus: distribution
-<ul>
-<li><em>Histogram</em></li>
-<li><strong><em>Boxplots</em></strong></li>
-<li><strong><em>Jitters</em></strong></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><br> <img data-src="../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png"></p>
-</div></div>
+<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
+
+<img data-src="i/i_01.png" class="r-stretch"><p>Show the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
 </section>
-<section id="time-series-numerical-data" class="slide level2">
-<h2>Time-Series (Numerical) Data</h2>
+<section id="exercise-dataset-1-2" class="slide level2">
+<h2>Exercise: Dataset 1</h2>
 <p class="subheader">
-Exercise: Summarize time_series_numerical_dataset.csv
+<code>us_real_gdp.csv</code> is a Time-Series Dataset
+</p>
+<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
+
+<img data-src="i/i_02.png" class="r-stretch"><p>Show the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
+</section>
+<section id="exercise-dataset-1-3" class="slide level2">
+<h2>Exercise: Dataset 1</h2>
+<p class="subheader">
+<code>us_real_gdp.csv</code> is a Time-Series Dataset
+</p>
+<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
+
+<img data-src="i/i_03.png" class="r-stretch"><p>Focus on the <strong><em>relationship through time</em></strong> using a linegraph.</p>
+</section>
+<section id="exercise-dataset-2" class="slide level2">
+<h2>Exercise: Dataset 2</h2>
+<p class="subheader">
+<code>household_savings.csv</code> is a Cross-Sectional Dataset
 </p>
 <div class="fragment">
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><br></p>
-<h4 id="summary-2">Summary</h4>
-<ul>
-<li>Show: distribution
-<ul>
-<li><strong><em>Histogram</em></strong></li>
-<li><em>Boxplots</em></li>
-<li><em>Jittered Scatters</em></li>
-</ul></li>
-<li>Focus: time-path
-<ul>
-<li><em>Linegraph</em></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><img data-src="../Examples/Part_1_0/i/Part_1_3_Time_Series_Histogram.png"></p>
-</div></div>
+<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
 </div>
 </section>
-<section id="time-series-numerical-data-1" class="slide level2">
-<h2>Time-Series (Numerical) Data</h2>
+<section id="exercise-dataset-2-1" class="slide level2">
+<h2>Exercise: Dataset 2</h2>
 <p class="subheader">
-Exercise: Summarize time_series_numerical_dataset.csv
+<code>household_savings.csv</code> is a Cross-Sectional Dataset
 </p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><br></p>
-<h4 id="summary-3">Summary</h4>
-<ul>
-<li>Show: distribution
-<ul>
-<li><em>Histogram</em></li>
-<li><strong><em>Boxplots</em></strong></li>
-<li><strong><em>Jittered Scatters</em></strong></li>
-</ul></li>
-<li>Focus: time-path
-<ul>
-<li><em>Linegraph</em></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><br><br> <img data-src="../Examples/Part_1_0/i/Part_1_3_Time_Series_Box_Scatter.png"></p>
-</div></div>
-</section>
-<section id="time-series-numerical-data-2" class="slide level2">
-<h2>Time-Series (Numerical) Data</h2>
-<p class="subheader">
-Exercise: Summarize time_series_numerical_dataset.csv
-</p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p><br></p>
-<h4 id="summary-4">Summary</h4>
-<ul>
-<li>Show: distribution
-<ul>
-<li><em>Histogram</em></li>
-<li><em>Boxplots</em></li>
-<li><em>Jittered Scatters</em></li>
-</ul></li>
-<li>Focus: time-path
-<ul>
-<li><strong><em>Linegraph</em></strong></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><br> <img data-src="../Examples/Part_1_0/i/Part_1_3_Time_Series_Line_Smooth.png"></p>
-</div></div>
-</section>
-<section id="panel-numerical-data" class="slide level2">
-<h2>Panel (Numerical) Data</h2>
-<p class="subheader">
-Exercise: Summarize panel_numerical_dataset.csv
-</p>
-</section>
-<section id="panel-numerical-data-1" class="slide level2">
-<h2>Panel (Numerical) Data</h2>
-<p class="subheader">
-Exercise: Summarize panel_numerical_dataset.csv
-</p>
+<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
 
-<img data-src="../Examples/Part_1_0/i/Part_1_3_Panel_Line.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; not so great</em></p>
+<img data-src="i/i_04.png" class="r-stretch"><p>Focus on the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
+</section>
+<section id="exercise-dataset-2-2" class="slide level2">
+<h2>Exercise: Dataset 2</h2>
+<p class="subheader">
+<code>household_savings.csv</code> is a Cross-Sectional Dataset
+</p>
+<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
+
+<img data-src="i/i_05.png" class="r-stretch"><p>Focus on the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
+</section>
+<section id="exercise-dataset-3" class="slide level2">
+<h2>Exercise: Dataset 3</h2>
+<p class="subheader">
+<code>household_incomes.csv</code> is a Panel Dataset
+</p>
+<div class="fragment">
+<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
 </div>
 </section>
-<section id="panel-numerical-data-2" class="slide level2">
-<h2>Panel (Numerical) Data</h2>
+<section id="exercise-dataset-3-1" class="slide level2">
+<h2>Exercise: Dataset 3</h2>
 <p class="subheader">
-Exercise: Summarize panel_numerical_dataset.csv
+<code>household_incomes.csv</code> is a Panel Dataset
 </p>
+<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
 
-<img data-src="../Examples/Part_1_0/i/Part_1_3_Panel_Line_Highlight.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; a little better</em></p>
+<img data-src="i/i_06.png" class="r-stretch"><p><em>&gt; this is too noisy to communicate well</em></p>
 </section>
-<section id="panel-numerical-data-3" class="slide level2">
-<h2>Panel (Numerical) Data</h2>
+<section id="exercise-dataset-3-2" class="slide level2">
+<h2>Exercise: Dataset 3</h2>
 <p class="subheader">
-Exercise: Summarize panel_numerical_dataset.csv
+<code>household_incomes.csv</code> is a Panel Dataset
 </p>
+<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
 
-<img data-src="../Examples/Part_1_0/i/Part_1_3_Panel_Boxplot_Year.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; shows cross sectional variation through time</em></p>
-</div>
+<img data-src="i/i_07.png" class="r-stretch"><p><em>&gt; this is a little better</em></p>
 </section>
-<section id="panel-numerical-data-4" class="slide level2">
-<h2>Panel (Numerical) Data</h2>
+<section id="exercise-dataset-3-3" class="slide level2">
+<h2>Exercise: Dataset 3</h2>
 <p class="subheader">
-Exercise: Summarize panel_numerical_dataset.csv
+<code>household_incomes.csv</code> is a Panel Dataset
 </p>
+<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
 
-<img data-src="../Examples/Part_1_0/i/Part_1_3_Panel_Boxplot_Household.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; shows variation within the household</em></p>
+<img data-src="i/i_08.png" class="r-stretch"><p>Focus on the variation <em>among the households</em> within the year using a <strong><em>boxplot</em></strong>.</p>
+</section>
+<section id="exercise-dataset-3-4" class="slide level2">
+<h2>Exercise: Dataset 3</h2>
+<p class="subheader">
+<code>household_incomes.csv</code> is a Panel Dataset
+</p>
+<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
 
-</div>
+<img data-src="i/i_09.png" class="r-stretch"><p>Focus on the variation <em>within the household</em> using a <strong><em>boxplot</em></strong>.</p>
+
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -354,19 +307,19 @@ Exercise: Summarize panel_numerical_dataset.csv
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_1_3_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_1_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_1_3_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_1_3_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_1_3_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

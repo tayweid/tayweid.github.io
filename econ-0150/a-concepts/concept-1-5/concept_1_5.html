@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_1_5_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_1_5_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_1_5_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_1_5_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_1_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_1_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_1_5_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_1_5_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_1_5_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_1_5_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_1_5_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_1_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_1_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_1_5_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_1_5</title>
+  <title>concept_1_5</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_1_5_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_1_5_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_1_5_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_1_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_1_5_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_1_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_1_5_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -200,18 +200,16 @@ The economist’s data analysis pipeline.
 <p><br></p>
 <h3 id="part-1.5-filtering-data">Part 1.5 | Filtering Data</h3>
 </section>
-<section class="slide level2">
-
-<h3 id="example-1.5-starbucks-hours">Example 1.5 | Starbucks Hours</h3>
+<section id="example-1.5-starbucks-hours" class="slide level2">
+<h2>Example 1.5 | Starbucks Hours</h2>
 <p class="subheader">
 Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 </p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Load the data</span></span>
 <span id="cb1-2"><a href=""></a>data <span class="op">=</span> pd.read_csv(file_path <span class="op">+</span> file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="example-1.5-starbucks-hours-1">Example 1.5 | Starbucks Hours</h3>
+<section id="example-1.5-starbucks-hours-1" class="slide level2">
+<h2>Example 1.5 | Starbucks Hours</h2>
 <p class="subheader">
 Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 </p>
@@ -221,18 +219,13 @@ Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 <span id="cb2-4"><a href=""></a><span class="co"># Create histogram</span></span>
 <span id="cb2-5"><a href=""></a>plt.hist(data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
 <div class="fragment">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
+<p><img data-src="i/i_01.png"></p>
 </div>
 <div class="fragment">
 <p><em>&gt; maybe there’s something specific about the US though?</em></p>
@@ -241,9 +234,8 @@ Q. What hours should a US coffee shop operate?
 <p><em>&gt; filter only the US locations</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-1">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-1" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -254,9 +246,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb3-2"><a href=""></a>data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-2">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-2" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -265,9 +256,8 @@ Q. What hours should a US coffee shop operate?
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
 <span id="cb4-2"><a href=""></a><span class="co"># data['COUNTRY_CODE'] == 'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-3">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-3" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -279,9 +269,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb5-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
 <span id="cb5-5"><a href=""></a>us_data <span class="op">=</span> data[data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-4">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-4" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -296,34 +285,31 @@ Q. What hours should a US coffee shop operate?
 <span id="cb6-7"><a href=""></a><span class="co"># Create histogram</span></span>
 <span id="cb6-8"><a href=""></a>plt.hist(us_data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-5">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-5" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/Part_1_5_Starbucks_Opening_Times_US.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; is there something different between the US and Canada?</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; filter for <strong>BOTH</strong> countries</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-6">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-6" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Lets us some Boolian logic :)
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Bool.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/Part_1_5_Bool.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; is there something different between the US and Canada?</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-7">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-7" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -335,9 +321,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb7-4"><a href=""></a>data[(data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">|</span> (data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CA'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-8">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-8" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -350,9 +335,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb8-6"><a href=""></a><span class="co"># Method 2: Using isin()</span></span>
 <span id="cb8-7"><a href=""></a>data[data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-9">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-9" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -365,9 +349,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb9-6"><a href=""></a><span class="co"># Method 2: Using isin()</span></span>
 <span id="cb9-7"><a href=""></a>data[data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-10">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-10" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -380,9 +363,8 @@ Q. What hours should a US coffee shop operate?
 <span id="cb10-6"><a href=""></a><span class="co"># Method 2: Using isin() and define a new dataset</span></span>
 <span id="cb10-7"><a href=""></a>us_ca_data <span class="op">=</span> data[data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-11">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-11" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
@@ -398,25 +380,22 @@ Q. What hours should a US coffee shop operate?
 <span id="cb11-9"><a href=""></a><span class="co"># Create histogram</span></span>
 <span id="cb11-10"><a href=""></a>plt.hist(us_ca_data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-12">A New Coffee Shop: Filter by Category</h3>
+<section id="a-new-coffee-shop-filter-by-category-12" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-13">A New Coffee Shop: Filter by Category</h3>
+<img data-src="i/Part_1_5_Starbucks_Opening_Times_US.png" class="r-stretch"></section>
+<section id="a-new-coffee-shop-filter-by-category-13" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What hours should a US coffee shop operate?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Opening_Times_US_CA.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-category-14">A New Coffee Shop: Filter by Category</h3>
+<img data-src="i/Part_1_5_Starbucks_Opening_Times_US_CA.png" class="r-stretch"></section>
+<section id="a-new-coffee-shop-filter-by-category-14" class="slide level2">
+<h2>A New Coffee Shop: Filter by Category</h2>
 <p class="subheader">
 Q. What would the histogram for the following filtered data look like?
 </p>
@@ -426,9 +405,8 @@ Q. What would the histogram for the following filtered data look like?
 <p><em>&gt; it would contain no data!</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="part-1.5-filtering-data-by-inequality">Part 1.5 | Filtering Data by Inequality</h3>
+<section id="part-1.5-filtering-data-by-inequality" class="slide level2">
+<h2>Part 1.5 | Filtering Data by Inequality</h2>
 <p class="subheader">
 Filtering continuous data requires using inequalities.
 </p>
@@ -481,93 +459,80 @@ Filtering continuous data requires using inequalities.
 </tbody>
 </table>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. How long do locations stay open?
 </p>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-1">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-1" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. How long do locations stay open?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/Part_1_5_Starbucks_Time_Open.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; but is it different by opening time?</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-2">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-2" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Do locations that open later in the morning stay open fewer hours?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-3">A New Coffee Shop: Filter by Inequality</h3>
+<img data-src="i/Part_1_5_Starbucks_Time_Open.png" class="r-stretch"></section>
+<section id="a-new-coffee-shop-filter-by-inequality-3" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Do locations that open later in the morning stay open fewer hours?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-4">A New Coffee Shop: Filter by Inequality</h3>
+<img data-src="i/Part_1_5_Starbucks_Time_Open_7AM.png" class="r-stretch"></section>
+<section id="a-new-coffee-shop-filter-by-inequality-4" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Do locations that open later in the morning stay open fewer hours?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can also compare to locations that open early</em></p>
+<img data-src="i/Part_1_5_Starbucks_Time_Open_7AM_early.png" class="r-stretch"><p><em>&gt; we can also compare to locations that open early</em></p>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-5">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-5" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Do locations that open later in the morning stay open fewer hours?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; but maybe this differs country?</em></p>
+<img data-src="i/Part_1_5_Starbucks_Time_Open_7AM_early.png" class="r-stretch"><p><em>&gt; but maybe this differs country?</em></p>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-6">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-6" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Does the hours open at early open locations differ by country?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/Part_1_5_Starbucks_Time_Open_7AM_early_US_CA.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; maybe there’s a more systematic way of showing these differences</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-7">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-7" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Does the hours open at early open locations differ by country?
 </p>
 
-<img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Duration_Line.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/Part_1_5_Starbucks_Duration_Line.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; but some filters have more shops, making it hard to compare</em></p>
 </div>
 </section>
-<section class="slide level2">
-
-<h3 id="a-new-coffee-shop-filter-by-inequality-8">A New Coffee Shop: Filter by Inequality</h3>
+<section id="a-new-coffee-shop-filter-by-inequality-8" class="slide level2">
+<h2>A New Coffee Shop: Filter by Inequality</h2>
 <p class="subheader">
 Q. Does the hours open at early open locations differ by country?
 </p>
 <p><em>&gt; normalizing the distributions allows us to compare between filters</em></p>
 <div class="fragment">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../Examples/Part_1_5/i/Part_1_5_Starbucks_Duration_Line_Normalized.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
+<p><img data-src="i/Part_1_5_Starbucks_Duration_Line_Normalized.png"></p>
 </div>
 
 </section>
@@ -579,19 +544,19 @@ Q. Does the hours open at early open locations differ by country?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_1_5_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_1_5_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_1_5_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_1_5_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

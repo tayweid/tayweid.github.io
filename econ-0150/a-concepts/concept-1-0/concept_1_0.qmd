@@ -69,8 +69,20 @@ format:
 
 ---
 
+## Exercise: Variable Type
+
+<br><br>
+
+Lets identify the variable type for each dataset.
+
+- **Dataset 1:** `unemployment_status.csv`
+- **Dataset 2:** `employment_sector.csv`
+- **Dataset 3:** `economic_optimism.csv`
+
+---
+
 ## Exercise
-<p class="subheader">What type of variables are contained in `employment_status.csv`?</p>
+<p class="subheader">What type of variables are contained in `unemployment_status.csv`?</p>
 
 <br>
 
@@ -78,7 +90,7 @@ format:
 
 **Binary Categorical**: two categories *(Employed, Unemployed)*
 
-![](../Examples/Part_1_0/i/Part_1_1_Binary_Categorical_Exercise.png)
+![](i/Part_1_1_Binary_Categorical_Exercise.png)
 
 ---
 
@@ -91,7 +103,7 @@ format:
 
 **Nominal**: no inherent order *(Agriculture, Services, Unemployed)*
 
-![](../Examples/Part_1_0/i/Part_1_1_Nominal_Categorical_Exercise.png)
+![](i/Part_1_1_Nominal_Categorical_Exercise.png)
 
 ---
 
@@ -104,7 +116,7 @@ format:
 
 **Ordinal**: meaningful order without meaningful intervals *(Very Pessimistic to Very Optimistic)*
 
-![](../Examples/Part_1_0/i/Part_1_1_Ordinal_Categorical_Exercise.png)
+![](i/Part_1_1_Ordinal_Categorical_Exercise.png)
 
 ---
 
@@ -117,7 +129,7 @@ format:
 
 **Discrete Numerical**: countable numbers with meaningful intervals *(Number of Children in a Household)*
 
-![](../Examples/Part_1_0/i/Part_1_2_Discrete_Numerical_Exercise.png)
+![](i/Part_1_2_Discrete_Numerical_Exercise.png)
 
 ---
 
@@ -130,7 +142,7 @@ format:
 
 **Continuous Numerical**: quantities measurable on the reals *(Household Income in USD)*
 
-![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Exercise.png)
+![](i/Part_1_2_Continuous_Numerical_Exercise.png)
 
 ---
 
@@ -141,5 +153,5 @@ format:
 
 **Continuous Numerical**: quantities measurable on the reals *(Household Income in USD)*
 
-![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
+![](i/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
 

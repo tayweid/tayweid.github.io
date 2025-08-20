@@ -27,181 +27,142 @@ The way we understand data depends on the relationship between the data points.
 
 *> we'll introduce geographic data structures later.*
 
-
 ---
 
-## Cross-Sectional (Numerical) Data
-<p class="subheader">Exercise: Summarize cross_sectional_numerical_dataset.csv</p>
+## Exercise: Data Structures
 
-. . .
-
-::: {.columns}
-::: {.column width="40%"}
-
-<br>
-
-#### Summary
-
-- Focus: distribution
-  - ***Histogram***
-  - *Boxplots*
-  - *Jitters*
-:::
-
-::: {.column width="60%"}
-![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Exercise.png)
-
-:::
-:::
-
----
-
-## Cross-Sectional (Numerical) Data
-<p class="subheader">Exercise: Summarize cross_sectional_numerical_dataset.csv</p>
-
-::: {.columns}
-::: {.column width="40%"}
-
-<br>
-
-#### Summary
-
-- Focus: distribution
-  - *Histogram*
-  - ***Boxplots***
-  - ***Jitters***
-:::
-
-::: {.column width="60%"}
-<br>
-![](../Examples/Part_1_0/i/Part_1_2_Continuous_Numerical_Jitter_Boxplot_Exercise.png)
-
-:::
-:::
-
----
-
-## Time-Series (Numerical) Data
-<p class="subheader">Exercise: Summarize time_series_numerical_dataset.csv</p>
-
-. . .
-
-::: {.columns}
-::: {.column width="40%"}
-
-<br>
-
-#### Summary
-
-- Show: distribution
-  - ***Histogram***
-  - *Boxplots*
-  - *Jittered Scatters*
-- Focus: time-path
-  - *Linegraph*
-:::
-
-::: {.column width="60%"}
-![](../Examples/Part_1_0/i/Part_1_3_Time_Series_Histogram.png)
-
-:::
-:::
-
----
-
-## Time-Series (Numerical) Data
-<p class="subheader">Exercise: Summarize time_series_numerical_dataset.csv</p>
-
-::: {.columns}
-::: {.column width="40%"}
-
-<br>
-
-#### Summary
-
-- Show: distribution
-  - *Histogram*
-  - ***Boxplots***
-  - ***Jittered Scatters***
-- Focus: time-path
-  - *Linegraph*
-:::
-
-::: {.column width="60%"}
 <br><br>
-![](../Examples/Part_1_0/i/Part_1_3_Time_Series_Box_Scatter.png)
-:::
-:::
+
+Lets identify the data structure for each dataset.
+
+- **Dataset 1:** `us_real_gdp.csv`
+- **Dataset 2:** `household_savings.csv`
+- **Dataset 3:** `household_incomes.csv`
 
 ---
 
-## Time-Series (Numerical) Data
-<p class="subheader">Exercise: Summarize time_series_numerical_dataset.csv</p>
+## Exercise: Dataset 1
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
 
-::: {.columns}
-::: {.column width="40%"}
+. . .
 
-<br>
-
-#### Summary
-
-- Show: distribution
-  - *Histogram*
-  - *Boxplots*
-  - *Jittered Scatters*
-- Focus: time-path
-  - ***Linegraph***
-:::
-
-::: {.column width="60%"}
-<br>
-![](../Examples/Part_1_0/i/Part_1_3_Time_Series_Line_Smooth.png)
-:::
-:::
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
 
 ---
 
-## Panel (Numerical) Data
-<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
+## Exercise: Dataset 1
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
+
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+
+![](i/i_01.png)
+
+Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
 
 ---
 
-## Panel (Numerical) Data
-<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
+## Exercise: Dataset 1
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
 
-![](../Examples/Part_1_0/i/Part_1_3_Panel_Line.png){fig-align="center"}
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
 
-. . . 
+![](i/i_02.png)
 
-*> not so great*
-
----
-
-## Panel (Numerical) Data
-<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
-
-![](../Examples/Part_1_0/i/Part_1_3_Panel_Line_Highlight.png){fig-align="center"}
-
-*> a little better*
+Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
 
 ---
 
-## Panel (Numerical) Data
-<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
+## Exercise: Dataset 1
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
 
-![](../Examples/Part_1_0/i/Part_1_3_Panel_Boxplot_Year.png){fig-align="center"}
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
 
-. . . 
+![](i/i_03.png)
 
-*> shows cross sectional variation through time*
+Focus on the ***relationship through time*** using a linegraph.
 
 ---
 
-## Panel (Numerical) Data
-<p class="subheader">Exercise: Summarize panel_numerical_dataset.csv</p>
+## Exercise: Dataset 2
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
 
-![](../Examples/Part_1_0/i/Part_1_3_Panel_Boxplot_Household.png){fig-align="center"}
+. . .
 
-. . . 
+**Clue**: Each household (the unit of observation) appears only once. 
 
-*> shows variation within the household*
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
+
+**Clue**: Each household (the unit of observation) appears only once. 
+
+![](i/i_04.png)
+
+Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
+
+**Clue**: Each household (the unit of observation) appears only once. 
+
+![](i/i_05.png)
+
+Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+. . .
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_06.png)
+
+*> this is too noisy to communicate well*
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_07.png)
+
+*> this is a little better*
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_08.png)
+
+Focus on the variation *among the households* within the year using a ***boxplot***.
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_09.png)
+
+Focus on the variation *within the household* using a ***boxplot***.
+
+
