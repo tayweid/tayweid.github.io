@@ -1,0 +1,393 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.7 | Grouping Data*
+
+---
+
+## Grouping Data: Starbucks Promotions
+<p class="subheader">Q. Which promotional offers change behavior the most?</p>
+
+<br><br>
+
+- We have a dataset `starbucks_promotions.csv` with individual events (offers sent, transactions made)
+- Each row represents one event with an Offer ID, Event type, and Revenue
+- Raw data shows thousands of individual events
+
+<br><br>
+
+. . .
+
+*> looking at individual data won't easily tell us which offers work best...*
+
+. . .
+
+*> we need to **group** the data to see patterns*
+
+---
+
+## Grouping Data: The Process
+<p class="subheader">Transform individual rows into group summaries.</p>
+
+<br><br>
+
+::: {.incremental}
+1. **Filter** (if needed) - keep only relevant rows
+2. **Group** - organize rows by categorical variables
+3. **Aggregate** - summarize each group with statistics
+:::
+
+. . .
+
+<br><br>
+
+*> this transforms many rows into fewer, more meaningful summaries*
+
+---
+
+## Common Aggregation Functions
+<p class="subheader">What can we calculate for each group?</p>
+
+| Function | Purpose | Example Use |
+|----------|---------|-------------|
+| `.sum()` | Total values | Total revenue per offer |
+| `.count()` | Number of rows | Number of events per offer |
+| `.mean()` | Average values | Average transaction amount |
+| `.max()` | Maximum value | Highest single transaction |
+| `.min()` | Minimum value | Lowest transaction amount |
+
+. . .
+
+<br>
+
+*> choose the aggregation that answers your question*
+
+---
+
+## Starbucks Offers
+<p class="subheader">Q. Which promotional offers change behavior the most?</p>
+
+1. How likely is each offer-type to be used?
+
+. . .
+
+- How many times was each offer-type sent?
+- How many times was each offer-type used?
+
+. . .
+
+2. What's the average revenue per offer-type?
+
+. . .
+
+- What is the total revenue for each offer-type?
+- How many times was each offer-type sent?
+- What is the average revenue for each offer-type?
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How frequent is each offer-type?</p>
+
+Lets start by counting each offer-type in the ***categorical variable*** `Offer ID`.
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How frequent is each offer-type?</p>
+
+Lets start by counting each offer-type in the ***categorical variable*** `Offer ID`.
+
+![](i/i_01.png)
+
+. . .
+
+*> so Bogo 5 and 2off10 get sent most frequently*
+
+. . .
+
+*> but it also looks like there are multiple types in `Event'*
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How frequent is each offer-type?</p>
+
+Lets also group on `Event` to count event-types.
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How frequent is each offer-type?</p>
+
+Lets also group on `Event` to count event-types.
+
+![](i/i_02.png)
+
+. . .
+
+*> it looks like 'offer' may not actually be a transaction... lets investigate*
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each event-type?</p>
+
+Lets group on `Event` and find the total revenue by event-type.
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each event-type?</p>
+
+Lets group on `Event` and find the total revenue by event-type.
+
+![](i/i_03.png)
+
+. . .
+
+*> just as we suspected, "offer" events brings in 0 revenue*
+
+. . .
+
+*> so `Event` tells us whether the row is an 'offer' or a 'transaction'*
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each event-type?</p>
+
+Lets group on `Event` and find the total revenue by event-type.
+
+![](i/i_03.png)
+
+*> lets filter on `Event` to break this down by `Offer ID`*
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How many times was each offer-type sent?</p>
+
+. . .
+
+Lets filter `Event` for just 'offer' then group on `Offer ID` and count.
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How many times was each offer-type sent?</p>
+
+Lets filter `Event` for just 'offer' then group on `Offer ID` and count.
+
+![](i/i_04.png)
+
+. . .
+
+*> so Bogo 5 and 2off10 were sent most frequently*
+
+. . .
+
+*> lets check how often each offer-type was used*
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How many times was each offer-type used?</p>
+
+Lets filter `Event` for just 'transaction' then group on `Offer ID` and count.
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How many times was each offer-type used?</p>
+
+Lets filter `Event` for just 'transaction' then group on `Offer ID` and count.
+
+![](i/i_05.png)
+
+. . .
+
+*> so Bogo 5 and 2off10 were used most frequently*
+
+---
+
+## Starbucks Offers: Grouping and Counting
+<p class="subheader">How many times was each offer-type used?</p>
+
+Lets filter `Event` for just 'transaction' then group on `Offer ID` and count.
+
+![](i/i_05.png)
+
+*> does this mean they were the most effective?*
+
+. . .
+
+*> no! we want to find how likely an offer will turn into a transaction when sent*
+
+---
+
+## Starbucks Offers: Simple Transformations
+<p class="subheader">How likely is each offer-type to be used?</p>
+
+Lets divide the number of transactions by the number of offers sent by offer-type.
+
+---
+
+## Starbucks Offers: Simple Transformations
+<p class="subheader">How likely is each offer-type to be used?</p>
+
+Lets divide the number of transactions by the number of offers sent by offer-type.
+
+![](i/i_06.png)
+
+. . .
+
+*> Bogo 5, 3off7, and 2off10 have the highest use rate!*
+
+---
+
+## Starbucks Offers: Simple Transformations
+<p class="subheader">How likely is each offer-type to be used?</p>
+
+Lets divide the number of transactions by the number of offers sent by offer-type.
+
+![](i/i_06.png)
+
+*> this is a pretty reasonable way to measure 'effectiveness'*
+
+. . .
+
+*> but how much we can expect to bring in each time an offer is sent?*
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each offer-type?</p>
+
+Before finding average revenue by `Offer ID`, lets start by finding total revenue.
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each offer-type?</p>
+
+Before finding average revenue by `Offer ID`, lets start by finding total revenue.
+
+![](i/i_07.png)
+
+. . .
+
+*> 'Informative' brings in no revenue (*makes sense*)*
+
+. . .
+
+*> Bogo 5, 3off7, and 2off10 bring in the most revenue*
+
+---
+
+## Starbucks Offers: Grouping and Summing
+<p class="subheader">What is the total revenue for each offer-type?</p>
+
+Before finding average revenue by `Offer ID`, lets start by finding total revenue.
+
+![](i/i_07.png)
+
+*> does this mean 2off20 is the best promotion?*
+
+. . .
+
+*> not necessarily... lets find the average revenue by offer-type*
+
+---
+
+## Starbucks Offers: Grouping and Averaging
+<p class="subheader">What is the average transaction amount per offer type?</p>
+
+Lets find the average (mean) transaction amount by offer-type.
+
+---
+
+## Starbucks Offers: Grouping and Averaging
+<p class="subheader">What is the average transaction amount per offer type?</p>
+
+Lets find the average (mean) transaction amount by offer-type.
+
+![](i/i_08.png)
+
+. . .
+
+*> this tells us how much people spend per transaction if they use the offer*
+
+. . .
+
+*> it does not tell us how much revenue we can expect after sending an offer*
+
+---
+
+## Starbucks Offers: Grouping and Averaging
+<p class="subheader">What's the average revenue per offer-type?</p>
+
+Lets find how much revenue we can expect after sending each offer-type.
+
+![](i/i_09.png)
+
+---
+
+## Starbucks Offers: Effectiveness
+<p class="subheader">Which offers are truly most effective?</p>
+
+![](i/i_06.png)
+
+![](i/i_09.png)
+
+---
+
+## Starbucks Offers: Conclusions
+<p class="subheader">Q. Which promotional offers change behavior the most?</p>
+
+<br><br>
+
+1. The offer 3off7 has a high **redemption rate** but the discount may be costly.
+
+. . .
+
+*> people respond most to the 'best' deal*
+
+. . .
+
+2. The offer 5off20 has the highest **revenue** but a lower **redemption rate**.
+
+. . .
+
+*> people will spend the most when its required to redeam the offer*
+
+. . .
+
+3. The offer 2off10 is a more modest discount and is second in on **both metrics**.
+
+---
+
+## Part 1.7 | Grouping
+<p class="subheader">Summary</p>
+
+<br><br>
+
+::: {.incremental}
+- **Filtering** out irrelevant rows before grouping
+- **Group** by relevant columns to quickly summarize data <br>
+- **Aggregate** using *sum*, *count*, *mean*, *max*, etc.
+:::
+
+---
+
+## Exercise 1.7 | Starbucks Offers
+<p class="subheader">Q. Which promotional offers change behavior the most?</p>

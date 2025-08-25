@@ -1,0 +1,148 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.0 | Variable Types*
+
+---
+
+## Dimensions of Data
+<p class="subheader">Data comes in all shapes, sizes, and types.</p>
+
+#### Variable Type
+- Categorical data
+- Numerical data
+
+#### Data Structure
+- Cross-sectional data
+- Time series data
+- Panel data
+
+#### Number of Variables
+- Univariate (n=1)
+- Bivariate (n=2)
+- Multivariate (n>2)
+
+---
+
+## Variable Types: Categorical
+<p class="subheader">... data that's best recorded in categories</p>
+
+**Binary**: only two categories
+
+- Economics major (YES/NO)
+- Human (YES/NO)
+
+**Nominal**: categories cannot be ordered / ranked
+
+- Blood types (A, B, AB, 0)
+- Colors (Red, Blue, Green)
+
+**Ordinal**: categories have order / rank but not a meaningful scale
+
+- Education levels (High School, Bachelor's, Master's, PhD)
+- Survey responses (Strongly Disagree, Neutral, Agree, Strongly Agree)
+- Size categories (Small, Medium, Large)
+
+---
+
+## Variable Types: Numerical
+<p class="subheader">... data that's best recorded in numerical form</p>
+
+**Discrete**: countable numbers with meaningful intervals\
+
+- Number of children in a household (1, 2, ... )
+- Number of siblings (1, 2, ... )
+
+**Continuous**: quantities measurable on the reals
+
+- Household income
+- US GDP
+
+---
+
+## Exercise 1.0 | Variable Types
+
+<br><br>
+
+Lets identify the variable type for each dataset.
+
+- **Dataset 1:** `unemployment_status.csv`
+- **Dataset 2:** `employment_sector.csv`
+- **Dataset 3:** `economic_optimism.csv`
+- **Dataset 4:** `household_size.csv`
+- **Dataset 5:** `household_income.csv`
+
+---
+
+## Exercise: Employment Status
+<p class="subheader">What type of variables are contained in `employment_status.csv`?</p>
+
+<br>
+
+. . .
+
+**Binary Categorical**: two categories *(Employed, Unemployed)*
+
+![](i/i_01.png)
+
+---
+
+## Exercise: Employment Sector
+<p class="subheader">What type of variables are contained in `employment_sector.csv`?</p>
+
+<br>
+
+. . .
+
+**Nominal**: no inherent order *(Agriculture, Services, Unemployed)*
+
+![](i/i_02.png)
+
+---
+
+## Exercise: Economic Optimism
+<p class="subheader">What type of variables are contained in `economic_optimism.csv`?</p>
+
+<br>
+
+. . .
+
+**Ordinal**: meaningful order without meaningful intervals *(Very Pessimistic to Very Optimistic)*
+
+![](i/i_03.png)
+
+---
+
+## Exercise: Household Size
+<p class="subheader">What type of variables are contained in `household_size.csv`?</p>
+
+<br>
+
+. . .
+
+**Discrete Numerical**: countable numbers with meaningful intervals *(Number of Children in a Household)*
+
+![](i/i_04.png)
+
+---
+
+## Exercise: Household Income
+<p class="subheader">What type of variables are contained in `household_income.csv`?</p>
+
+<br>
+
+. . .
+
+**Continuous Numerical**: quantities measurable on the reals *(Income in USD)*
+
+![](i/i_05.png)
+

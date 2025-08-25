@@ -1,0 +1,628 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+<img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;">
+
+<br> <br>
+
+*Dr. Taylor Weidman*
+
+*taylorjweidman@pitt.edu | 4702 Posvar Hall*
+
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+<img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;">
+
+<br> <br>
+
+*<s>Dr.</s> **Taylor** <s>Weidman</s>*
+
+*taylorjweidman@pitt.edu | 4702 Posvar Hall*
+
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+<img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;">
+
+<br> <br>
+
+***Taylor***
+
+*taylorjweidman@pitt.edu | 4702 Posvar Hall*
+
+---
+
+## ECON 0150 | Economic **Dada** Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+<img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;">
+
+<br> <br>
+
+***Taylor***
+
+*taylorjweidman@pitt.edu | 4702 Posvar Hall*
+
+---
+
+## ECON 0150 | Economic **Dada** Analysis {.center}
+<p class="subheader-center">How economists do data analysis.</p>
+
+:::: {.columns}
+::: {.column width="33%"}
+<img src="i/dada_1.jpg">
+:::
+::: {.column width="33%"}
+<img src="i/dada_2.jpg">
+:::
+::: {.column width="33%"}
+<img src="i/dada_3.jpg">
+:::
+::::
+
+---
+
+## What is economic dada analysis?
+<p class="subheader">The data analysis done by economist fathers :)</p>
+
+---
+
+## What is economic data analysis?
+<p class="subheader">The data analysis done by economists :)</p>
+
+<br>
+
+::: {.fragment}
+Economists use data to build models and inform decisions.
+:::
+
+<br>
+
+::: {.fragment}
+#### Describing the landscape of economics
+- Have incomes risen in the last year?
+- How has unemployment changed?
+- Has the racial wealth gap narrowed?
+:::
+
+::: {.fragment}
+#### Distinguishing between economic theories
+- Do voters with neighbors of the same party vote more?
+- Does the gender of a Lyft driver impact rates of tipping?
+- Is cooperation higher in ‘easier’ repeated prisoner's dilemmas?
+:::
+
+---
+
+## Course Goals
+<p class="subheader">Developing the data analysis pipeline used by economists.</p>
+
+::: {.fragments}
+[**Skillset 1.** *Summarize data (tables and figures)*.  ]{.fragment}  
+[**Skillset 2**: *Build and interpret models (general linear model)*. ]{.fragment}  
+[**Skillset 3**: *Communicate findings (writting and presentations)*.
+]{.fragment}  
+:::
+
+. . .
+
+<br><br>
+
+***Goal**: I want you to be able to build appropriate statistical models for new problems and interpret their results.*
+
+---
+
+## Course Structure
+<p class="subheader">The course is divided into **six parts**.</p>
+
+::: {.fragments}
+[**Part 1**: *Summary Exploratory Data Analysis (EDA)*]{.fragment}  
+[**Part 2**: *Pattern Exploratory Data Analysis (EDA)*]{.fragment}  
+[**Part 3**: *Building Linear Models*]{.fragment}  
+[**Part 4**: *The General Linear Model*]{.fragment}  
+[**Part 5**: *Advanced GLM*]{.fragment}  
+[**Part 6**: *Communicating with Data*]{.fragment}
+:::
+
+---
+
+## Part 1: Summary EDA
+<p class="subheader">**Focus**: Understanding data through summarization (eg. tables and figures).</p>
+
+. . . 
+
+**Example**: Analyzing a dataset of wages.
+
+. . . 
+
+<br>
+
+::: columns
+
+::: column
+
+```{python}
+import pandas as pd
+
+# Create a small sample wage dataset
+df = pd.DataFrame({
+    'Wage':  [12, 13, 14, 14, 15, 16, 16, 17, 18, 18,
+              20, 20, 22, 22, 22, 25, 30, 35, 38, 40],
+    'EduYrs': [8, 10, 10, 11, 12, 12, 14, 14, 14, 15,
+               15, 15, 16, 16, 17, 17, 18, 19, 20, 20]
+})
+
+# Display the first few rows
+df.head(5).style \
+  .hide(axis="index") \
+  .set_properties(**{'font-size': '0.8em'}) \
+  .set_table_styles([
+      {'selector': 'th', 'props': [('font-size', '0.8em')]}
+  ])
+
+
+```
+
+:::
+
+::: column
+
+```{python}
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.DataFrame({
+    'Wage':  [12, 13, 14, 14, 15, 16, 16, 17, 18, 18,
+              20, 20, 22, 22, 22, 25, 30, 35, 38, 40],
+    'EduYrs': [8, 10, 10, 11, 12, 12, 14, 14, 14, 15,
+               15, 15, 16, 16, 17, 17, 18, 19, 20, 20]
+})
+
+# Set global font properties before creating any figures
+plt.rcParams.update({
+    'font.family': 'Times New Roman',  # Use Times New Roman
+    'font.size': 24,                   # Increase overall font size
+    'font.style': 'italic'             # Make text italic
+})
+
+fig, ax = plt.subplots(figsize=(5,3))
+
+ax.hist(df['Wage'], bins=10, edgecolor='white')
+ax.set_title('Histogram', fontweight='bold')
+ax.set_xlabel('Wages')
+ax.set_ylabel('Count');
+
+# Remove spines
+for spine in ["top","right"]:
+    ax.spines[spine].set_visible(False)
+
+# Remove ticks
+ax.tick_params(
+    left=False,
+    bottom=True, 
+    labelleft=False, 
+    labelbottom=True
+)
+```
+
+:::
+
+:::
+
+---
+
+## Part 2: Pattern EDA
+<p class="subheader">**Focus**: Understanding relationships between variables (eg. scatterplot).</p>
+
+. . .
+
+**Example**: Exploring a relationship - education and wages.
+
+. . . 
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+```{python}
+import pandas as pd
+
+df = pd.DataFrame({
+    'Wage':  [14, 15, 16, 18, 18, 20, 22, 22, 25, 30, 35],
+    'EduYrs': [10, 12, 12, 13, 14, 14, 15, 16, 16, 18, 19]
+})
+
+# Use pandas Styler to reduce font size and hide index
+df.head(7).style.set_table_styles([
+    {'selector': '.row_heading, .blank', 'props': [('display', 'none')]},
+    {'selector': 'th', 'props': [('font-size', '0.8em')]}
+]).set_properties(**{'font-size': '0.8em'})
+```
+
+:::
+
+::: {.column width="70%"}
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+
+# Set a random seed for reproducibility
+np.random.seed(123)
+
+N = 100
+# Randomly choose integer years of education between 8 and 20 (inclusive)
+EduYrs = np.random.randint(8, 21, size=N) + np.random.normal(0,1,size=N)
+
+
+# Generate Wage based on EduYrs plus some noise
+# e.g., wage ~ 5 + 1.5*EduYrs + random noise
+Wage = 5 + 1.5 * EduYrs + np.random.normal(0, 5, size=N)
+
+df = pd.DataFrame({
+    'Wage':  Wage,
+    'EduYrs': EduYrs
+})
+
+fig, ax = plt.subplots(figsize=(7,5))
+
+sns.regplot(
+    x="EduYrs",
+    y="Wage",
+    data=df,
+    lowess=True,                  # Enable LOESS smoothing
+    scatter_kws={'alpha': 0.3,    # Transparency for scatter
+                 'color': 'blue',
+                 'edgecolors': 'blue'},
+    line_kws={'color': 'red',    # Style the LOESS line
+              'linestyle': '--'},  # Note: linestyle as a key-value pair
+    ax=ax
+)
+
+# Add minimal styling
+ax.set_xlabel('Years of Education')
+ax.set_ylabel('Hourly Wage ($)')
+plt.grid(True, alpha=0.2)
+
+plt.show()
+```
+
+:::
+
+::::
+
+---
+
+## Part 3: Building Linear Models
+<p class="subheader">**Focus**: Sampling variation, Central Limit Theorem, and basic testing.</p>
+
+. . .
+
+**Example**: Is the difference from $25 a real pattern or just noise?
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Parameters
+n = 150  
+sample_mean = 27  
+null_mean = 25   
+s = 12
+se = s/np.sqrt(n-110)  
+df = n-1
+
+# Calculate t-stat and p-value
+t_stat = (sample_mean - null_mean) / se
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
+
+# Create data
+y = np.linspace(0, 60, 1000)
+t_sample = stats.t.pdf(y, df, sample_mean, se) * 2
+
+# Create distribution centered at null for shading
+y_null = np.linspace(0, 60, 1000)
+t_null = stats.t.pdf(y_null, df, null_mean, se) * 2
+
+# Data points
+np.random.seed(42)
+actual_wages = np.random.normal(sample_mean, s, n)
+
+# Plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5), gridspec_kw={'width_ratios': [2, 1]}, sharey=True)
+
+# Plot t-distributions
+ax1.plot(t_sample, y, color='grey', alpha=0.6)
+
+# Shade p-value region
+threshold = null_mean# + stats.t.ppf(0.975, df) * se
+idx = y <= threshold
+ax1.fill_between(t_sample[idx], y1=y[idx], y2=np.ones(len(y[idx]))*threshold, color='red', alpha=0.5)
+
+# Add mean lines and annotations
+ax1.axhline(null_mean, color='gray', linestyle='--', alpha=0.8)
+ax1.axhline(sample_mean, color='blue', linestyle='--', alpha=0.8)
+ax1.annotate('Null: $25', xy=(0.5, null_mean-1), xytext=(0.4, null_mean-10),
+       arrowprops=dict(facecolor='gray'))
+ax1.annotate('Sample Mean: $27', xy=(0.5, sample_mean+1), xytext=(0.3, sample_mean+10),
+       arrowprops=dict(facecolor='blue'))
+ax1.annotate(f'Probability the truth is less than \$25', xytext=(0.1, 2),  xy=(0.1, null_mean-2),
+      arrowprops=dict(facecolor='red'))
+
+# Right panel plots
+bp = ax2.boxplot(actual_wages, positions=[0], widths=0.3, zorder=1)
+sns.swarmplot(y=actual_wages, ax=ax2, color='grey', alpha=0.6, size=4, zorder=2)
+ax2.axhline(null_mean, color='gray', linestyle='--', alpha=0.8)
+ax2.axhline(sample_mean, color='blue', linestyle='--', alpha=0.8)
+
+# Formatting
+ax1.set_ylim(0, 60)
+ax2.set_ylim(0, 60)
+ax1.set_xlim([0,0.7])
+ax1.set_xticks([])
+ax2.set_xticks([])
+ax1.set_ylabel('Mean Hourly Wage ($/hour)')
+ax2.set_ylabel('')
+
+sns.despine()
+ax1.spines['bottom'].set_visible(False)
+ax2.spines['bottom'].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Part 4: Basic General Linear Model
+<p class="subheader">**Focus**: Single and multiple regression, residual analysis, and testing.</p>
+
+. . .
+
+**Example**: Is the positive slope a real pattern or just noise?
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Set a random seed for reproducibility
+np.random.seed(123)
+
+N = 50
+# Randomly choose integer years of education between 8 and 20 (inclusive)
+x = np.random.randint(8, 21, size=N) + np.random.normal(0, 1, size=N)
+
+# Generate Wage based on EduYrs plus some noise
+y = 5 + 1.5 * x + np.random.normal(0, 5, size=N)
+
+# Create a DataFrame
+df = pd.DataFrame({
+    'EduYrs': x,
+    'Wage': y
+})
+
+# Fit a regression line
+coeffs = np.polyfit(x, y, 1)
+line = np.poly1d(coeffs)
+
+# Create figure
+plt.figure(figsize=(12, 5))
+
+# Scatter plot of data
+plt.scatter(x, y, color='blue', alpha=0.2)
+
+# Regression line
+plt.plot(x, line(x), color='red', linestyle='-')
+
+# Horizontal line for null hypothesis
+plt.axhline(y.mean(), color="grey", linestyle="--")
+
+# Add deviations/residuals
+for i in range(len(x)):
+    plt.vlines(x[i], y[i], line(x[i]), colors='gray', alpha=0.3)
+
+# Add annotations
+# Add annotations with arrows
+plt.annotate("Fitted Line (Min. Sq. Residuals)", 
+             xy=(11, line(10)), 
+             xytext=(14, line(4)), 
+             arrowprops=dict(facecolor='red', arrowstyle="->"), 
+             color="red")
+
+plt.annotate("Null Hypothesis (No Slope at Mean)", 
+             xy=(9, y.mean()+1), 
+             xytext=(7, 38), 
+             arrowprops=dict(facecolor='black', arrowstyle="->"), 
+             color="black")
+
+
+# Labels and grid
+plt.xlabel('Education')
+plt.xlim(np.min(x),np.max(x))
+plt.ylabel('Wages')
+plt.grid(True, alpha=0.3)
+
+plt.show()
+```
+
+---
+
+## Part 5: More General Linear Model
+<p class="subheader">**Focus**: Fixed effects, repeated measures, time series.</p>
+
+. . .
+
+**Example**: Do different groups have different relationships?
+
+. . .
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Set a random seed for reproducibility
+np.random.seed(123)
+
+N = 50
+# Group 1: Generate data with a positive relationship and a specific intercept
+x1 = np.random.randint(8, 21, size=N) + np.random.normal(0, 1, size=N)
+y1 = 5 + 1.5 * x1 + np.random.normal(0, 5, size=N)
+
+# Group 2: Generate data with the same slope but a different intercept
+x2 = np.random.randint(8, 21, size=N) + np.random.normal(0, 1, size=N)
+y2 = 15 + 1.5 * x2 + np.random.normal(0, 5, size=N)
+
+# Combine data into a DataFrame
+df = pd.DataFrame({
+    'EduYrs': np.concatenate([x1, x2]),
+    'Wage': np.concatenate([y1, y2]),
+    'Group': ['Group 1'] * N + ['Group 2'] * N
+})
+
+# Fit a regression line through all data points
+coeffs_all = np.polyfit(df['EduYrs'], df['Wage'], 1)
+line_all = np.poly1d(coeffs_all)
+
+# Create figure
+plt.figure(figsize=(12, 5))
+
+# Scatter plot for each group
+plt.scatter(x1, y1, color='blue', alpha=0.1)
+plt.scatter(x2, y2, color='green', alpha=0.1)
+
+# Regression line for all data
+plt.plot(df['EduYrs'], line_all(df['EduYrs']), color='red', linestyle='-', alpha=0.1)
+
+# Add individual group regression lines
+coeffs_group1 = np.polyfit(x1, y1, 1)
+line_group1 = np.poly1d(coeffs_group1)
+plt.plot(x1, line_group1(x1), color='blue', linestyle='-', label='Group 1')
+
+coeffs_group2 = np.polyfit(x2, y2, 1)
+line_group2 = np.poly1d(coeffs_group2)
+plt.plot(x2, line_group2(x2), color='green', linestyle='-', label='Group 2')
+
+# Labels and grid
+plt.xlabel('Education')
+plt.ylabel('Wages')
+plt.grid(True, alpha=0.3)
+plt.legend()
+
+plt.show()
+
+```
+
+---
+
+## Part 6: Communicating with Data
+<p class="subheader">**Focus**: Clear narratives, effective visualization, presentation skills.</p>
+
+**Examples**: Some student work from last semester!
+
+
+# Course Logistics
+
+## Resources & Tools
+
+**Software**: Excel & Python
+
+**Website**: [ECON_0150](tayweid.github.io/econ-0150/econ-0150)
+
+**Optional Textbooks**:
+
+  - _Data Visualization and Analysis in R_ by Dustin Fife
+  - _How Charts Lie_ by Alberto Cairo
+  - _Analysis of Economic Data_ (2nd ed.) by Gary Koop
+
+---
+
+## Grading Breakdown
+
+**Homework (20%)**
+
+  - Fridays by 5PM; lowest 3 dropped.
+
+. . .
+
+**MiniExams (50%)**  
+
+  - Weekly in the first 10 minutes; lowest 3 dropped.
+  - Open-book, open-note (no electronics).
+
+. . .
+
+**Final Capstone (30%)**  
+
+  - Presentation + paper.
+  - Demonstrate full analysis from start to finish.
+
+. . .
+
+**Attenance (1% extra)**
+
+  - Just a small gift
+
+---
+
+## Policies
+
+**Email Policy**: 
+
+  - Response may take up to 1-2 days.
+  - Be concise with your questions.
+  - My email is off evenings and weekends.
+
+. . .
+
+**AI Policy**:
+
+  - Encouraged as a learning and coding tool :)
+  - Your work must be your own.
+  - Cite your source.
+
+. . .
+
+**Academic Conduct**: Adhere to the [Academic Integrity Code](https://www.provost.pitt.edu/info/ai1.html).
+
+--- 
+
+## Looking Ahead
+
+#### First Homework:
+
+- Due Friday at 5PM on Gradescope
+
+#### First MiniExam:
+- First class of Week 3 (September 8) during the first 20 minutes.
+- Bonus "preview" question on material not yet covered.
+
+---
+
+## Getting Set Up
+
+#### Excel:
+- Free for students through Pitt's institutional access
+
+#### Python:
+- [Google Colab Notebooks](https://colab.research.google.com/) (*recommended*)
+
+# Survey and Demo
+
