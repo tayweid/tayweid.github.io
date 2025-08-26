@@ -544,7 +544,7 @@ plt.show()
 
 **Software**: Excel & Python
 
-**Website**: [ECON_0150](tayweid.github.io/econ-0150/econ-0150)
+**Website**: [ECON_0150](https://tayweid.github.io/econ-0150/econ-0150.html)
 
 **Optional Textbooks**:
 
@@ -562,9 +562,9 @@ plt.show()
 
 . . .
 
-**MiniExams (50%)**  
+**MiniExams (2 × 15% + 1 × 10% + 2 × 5% + 1 × 0% = 50%)**  
 
-  - Weekly in the first 10 minutes; lowest 3 dropped.
+  - Roughly every two weeks; beginning of class
   - Open-book, open-note (no electronics).
 
 . . .

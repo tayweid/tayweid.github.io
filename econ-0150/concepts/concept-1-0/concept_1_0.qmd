@@ -14,6 +14,16 @@ format:
 
 ---
 
+## *Part 1.0 | Variable Types*
+
+We cannot typically understand our data without summarizing it. 
+
+![](i/visualizations.png)
+
+The main differentiators between a good and bad summarization tools is the dimension of the data and what you're trying to understand about the data. 
+
+---
+
 ## Dimensions of Data
 <p class="subheader">Data comes in all shapes, sizes, and types.</p>
 
