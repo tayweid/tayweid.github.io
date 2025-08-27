@@ -20,6 +20,8 @@ We cannot typically understand our data without summarizing it.
 
 ![](i/visualizations.png)
 
+. . .
+
 The main differentiators between a good and bad summarization tools is the dimension of the data and what you're trying to understand about the data. 
 
 ---
@@ -27,16 +29,23 @@ The main differentiators between a good and bad summarization tools is the dimen
 ## Dimensions of Data
 <p class="subheader">Data comes in all shapes, sizes, and types.</p>
 
-#### Variable Type
+**Variable Type**
+
 - Categorical data
 - Numerical data
 
-#### Data Structure
+. . .
+
+**Data Structure**
+
 - Cross-sectional data
 - Time series data
 - Panel data
 
-#### Number of Variables
+. . .
+
+**Number of Variables**
+
 - Univariate (n=1)
 - Bivariate (n=2)
 - Multivariate (n>2)
@@ -51,10 +60,14 @@ The main differentiators between a good and bad summarization tools is the dimen
 - Economics major (YES/NO)
 - Human (YES/NO)
 
+. . .
+
 **Nominal**: categories cannot be ordered / ranked
 
 - Blood types (A, B, AB, 0)
 - Colors (Red, Blue, Green)
+
+. . .
 
 **Ordinal**: categories have order / rank but not a meaningful scale
 
@@ -72,6 +85,8 @@ The main differentiators between a good and bad summarization tools is the dimen
 - Number of children in a household (1, 2, ... )
 - Number of siblings (1, 2, ... )
 
+. . .
+
 **Continuous**: quantities measurable on the reals
 
 - Household income
@@ -85,7 +100,7 @@ The main differentiators between a good and bad summarization tools is the dimen
 
 Lets identify the variable type for each dataset.
 
-- **Dataset 1:** `unemployment_status.csv`
+- **Dataset 1:** `employment_status.csv`
 - **Dataset 2:** `employment_sector.csv`
 - **Dataset 3:** `economic_optimism.csv`
 - **Dataset 4:** `household_size.csv`

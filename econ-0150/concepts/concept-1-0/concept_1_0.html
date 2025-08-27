@@ -139,30 +139,36 @@ The economist’s data analysis pipeline.
 <h2><em>Part 1.0 | Variable Types</em></h2>
 <p>We cannot typically understand our data without summarizing it.</p>
 
-<img data-src="i/visualizations.png" class="r-stretch"><p>The main differentiators between a good and bad summarization tools is the dimension of the data and what you’re trying to understand about the data.</p>
+<img data-src="i/visualizations.png" class="r-stretch"><div class="fragment">
+<p>The main differentiators between a good and bad summarization tools is the dimension of the data and what you’re trying to understand about the data.</p>
+</div>
 </section>
 <section id="dimensions-of-data" class="slide level2">
 <h2>Dimensions of Data</h2>
 <p class="subheader">
 Data comes in all shapes, sizes, and types.
 </p>
-<h4 id="variable-type">Variable Type</h4>
+<p><strong>Variable Type</strong></p>
 <ul>
 <li>Categorical data</li>
 <li>Numerical data</li>
 </ul>
-<h4 id="data-structure">Data Structure</h4>
+<div class="fragment">
+<p><strong>Data Structure</strong></p>
 <ul>
 <li>Cross-sectional data</li>
 <li>Time series data</li>
 <li>Panel data</li>
 </ul>
-<h4 id="number-of-variables">Number of Variables</h4>
+</div>
+<div class="fragment">
+<p><strong>Number of Variables</strong></p>
 <ul>
 <li>Univariate (n=1)</li>
 <li>Bivariate (n=2)</li>
 <li>Multivariate (n&gt;2)</li>
 </ul>
+</div>
 </section>
 <section id="variable-types-categorical" class="slide level2">
 <h2>Variable Types: Categorical</h2>
@@ -174,17 +180,21 @@ Data comes in all shapes, sizes, and types.
 <li>Economics major (YES/NO)</li>
 <li>Human (YES/NO)</li>
 </ul>
+<div class="fragment">
 <p><strong>Nominal</strong>: categories cannot be ordered / ranked</p>
 <ul>
 <li>Blood types (A, B, AB, 0)</li>
 <li>Colors (Red, Blue, Green)</li>
 </ul>
+</div>
+<div class="fragment">
 <p><strong>Ordinal</strong>: categories have order / rank but not a meaningful scale</p>
 <ul>
 <li>Education levels (High School, Bachelor’s, Master’s, PhD)</li>
 <li>Survey responses (Strongly Disagree, Neutral, Agree, Strongly Agree)</li>
 <li>Size categories (Small, Medium, Large)</li>
 </ul>
+</div>
 </section>
 <section id="variable-types-numerical" class="slide level2">
 <h2>Variable Types: Numerical</h2>
@@ -197,18 +207,20 @@ Data comes in all shapes, sizes, and types.
 <li>Number of children in a household (1, 2, … )</li>
 <li>Number of siblings (1, 2, … )</li>
 </ul>
+<div class="fragment">
 <p><strong>Continuous</strong>: quantities measurable on the reals</p>
 <ul>
 <li>Household income</li>
 <li>US GDP</li>
 </ul>
+</div>
 </section>
 <section id="exercise-1.0-variable-types" class="slide level2">
 <h2>Exercise 1.0 | Variable Types</h2>
 <p><br><br></p>
 <p>Lets identify the variable type for each dataset.</p>
 <ul>
-<li><strong>Dataset 1:</strong> <code>unemployment_status.csv</code></li>
+<li><strong>Dataset 1:</strong> <code>employment_status.csv</code></li>
 <li><strong>Dataset 2:</strong> <code>employment_sector.csv</code></li>
 <li><strong>Dataset 3:</strong> <code>economic_optimism.csv</code></li>
 <li><strong>Dataset 4:</strong> <code>household_size.csv</code></li>
