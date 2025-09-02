@@ -109,14 +109,14 @@ format:
 
 ---
 
-## Exercise: High Income Starbucks Customers
+## Exercise: Starbucks Customers Less Than $40k Income
 <p class="subheader">... use Excel and/or Python</p>
 
 <br><br>
 
-Lets use the data to examine whether customers between 45 - 55 years old spend the most among high income customers.
+Lets use the data to examine whether customers between 45 - 55 years old spend the most among customers making less than $40k.
 
-**Data**: *`Starbucks_Customer_Profiles_High_Income.csv`*
+**Data**: *`Starbucks_Customer_Profiles_40k.csv`*
 
 
 ---
@@ -306,6 +306,6 @@ Lets use the data to examine whether customers between 45 - 55 years old spend t
 
 <br><br>
 
-Lets use a boxplots and stripplot to examine the distribution of coffee consumption per capita among coffee-importing countries.
+Lets use a boxplot and stripplot to examine the distribution of coffee consumption per capita among coffee-importing countries in 2019.
 
-- **Data:** `Coffee_Per_Cap.csv`
+- **Data:** `Coffee_Per_Cap_2019.csv`

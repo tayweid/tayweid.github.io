@@ -10,7 +10,7 @@ format:
 
 <br> 
 
-### Part 1.4 | Numerical Variables by Category
+### *Part 1.4 | Numerical Variables by Category*
 
 ---
 

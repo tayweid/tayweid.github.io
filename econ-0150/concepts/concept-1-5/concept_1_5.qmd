@@ -10,7 +10,7 @@ format:
 
 <br> 
 
-### Part 1.5 | Filtering Data
+### *Part 1.5 | Filtering Data*
 
 ---
 
