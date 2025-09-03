@@ -1,4 +1,4 @@
-## Part 1.2 | Visualizaing Continuous Variables
+## Concept 1.2 | Visualizaing Continuous Variables
 
 If Starbucks decides to roll out a new product, they would want to understand their customer base before starting the campaign. The dataset Starbucks_Customer_Profiles.csv contains information about Starbucks' customers. How might we determine which age-groups tend to be Starbucks customers? 
 
@@ -6,23 +6,23 @@ A bar chart can give us a good idea of the age distribution of the sample. But s
 
 Can you spot anything misleading about this bar chart?
 
-<img src="Figures/Part_1_2_Starbucks_Customers_Age_Uneven.png" style="zoom:50%;" />
+<img src="i/Part_1_2_Starbucks_Customers_Age_Uneven.png" style="zoom:50%;" />
 
 The age groups are different sizes! This difference in age group makes it difficult to answer the original question about which age group is tends more to be Starbucks customers. The way this figure is constructed, it makes it look like the 50-64 age group has the most customers. Upon reflection, this isn't surprising, simply because the range for this age group is wider. When we put continuous variables into categories, the categories should be the same width — this turns our bar chart into a **histogram.**
 
-<img src="Figures/Part_1_2_Starbucks_Customers_Age_10.png" style="zoom:50%;" />
+<img src="i/Part_1_2_Starbucks_Customers_Age_10.png" style="zoom:50%;" />
 
 Starbucks seems to be most popular among the 55 - 64 age group. We can get a more precise estimate of this peak age using a histogram with narrower bin widths. Here's a histogram with age groups containing 5 years. 
 
-<img src="Figures/Part_1_2_Starbucks_Customers_Age_5.png" style="zoom:50%;" />
+<img src="i/Part_1_2_Starbucks_Customers_Age_5.png" style="zoom:50%;" />
 
 Right. Here’s a histogram with a bin width of 5 years. This makes it easier to see more detail of the most common ages in Starbucks. We can take this even further, looking at even a single age year. 
 
-<img src="Figures/Part_1_2_Starbucks_Customers_Age_1.png" style="zoom:50%;" />
+<img src="i/Part_1_2_Starbucks_Customers_Age_1.png" style="zoom:50%;" />
 
 You can see that there are many more 44-year-old customers than 45-year-old customers. Why might this be? There may be a real underlying reason for this difference, but it’s most likely to simply be chance. We've made the bins very narrow, making the categories small, leading to a larger role played by chance. That leads to the graph looking spiky. 
 
-![Part_1_2_Starbucks_Customers_Age_Full](Figures/Part_1_2_Starbucks_Customers_Age_Full.png)
+![](i/Part_1_2_Starbucks_Customers_Age_Full.png)
 
 We can reduce the spikiness from statistical noise by increasing the sample size. So fare we've used only 800 customers. When we increase the sample size to be much larger, the histogram becomes smoother. By adding more data we're able to smooth out the noise, making it easier to draw conclusions about Starbucks customers as a whole.
 
