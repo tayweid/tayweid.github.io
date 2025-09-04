@@ -109,8 +109,8 @@ format:
 
 ---
 
-## Exercise: Starbucks Customers Less Than $40k Income
-<p class="subheader">... use Excel and/or Python</p>
+## Exercise 1.2: Histograms
+<p class="subheader">Q. Which age group among those making $40k or less has the most Starbucks customers?</p>
 
 <br><br>
 
@@ -118,6 +118,28 @@ Lets use the data to examine whether customers between 45 - 55 years old spend t
 
 **Data**: *`Starbucks_Customer_Profiles_40k.csv`*
 
+---
+
+## Exercise 1.2: Histograms
+<p class="subheader">Q. Which age group among those making $40k or less has the most Starbucks customers?</p>
+
+. . .
+
+```{.python}
+# Histogram with 5 year bins
+sns.histplot(customers, x='age', bins=range(20,100,5))
+```
+
+. . .
+
+![](i/ex_01.png)
+
+. . .
+
+```{.python}
+# Save Figure
+plt.savefig('exercise_1_2_1.png')
+```
 
 ---
 
@@ -302,10 +324,41 @@ Lets use the data to examine whether customers between 45 - 55 years old spend t
 
 ---
 
-## Exercise: Boxplots + Stripplots
+## Exercise 1.2: Boxplots + Stripplots
+<p class="subheader">Show the distribution of coffee consumption per capita in 2019.</p>
 
 <br><br>
 
 Lets use a boxplot and stripplot to examine the distribution of coffee consumption per capita among coffee-importing countries in 2019.
 
 - **Data:** `Coffee_Per_Cap_2019.csv`
+
+---
+
+## Exercise 1.2: Boxplots + Stripplots
+<p class="subheader">Show the distribution of coffee consumption per capita in 2019.</p>
+
+. . .
+
+```{.python}
+# Boxplot with no outliers
+sns.boxplot(coffee, x='Coffee_2019', whis=(0,100))
+```
+
+. . .
+
+```{.python}
+# Stripplot
+sns.stripplot(coffee, x='Coffee_2019')
+```
+
+. . .
+
+![](i/ex_02.png)
+
+. . .
+
+```{.python}
+# Save Figure
+plt.savefig('exercise_1_2_2.png')
+```
