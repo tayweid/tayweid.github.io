@@ -1,0 +1,266 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.1 | Summarizing Categorical Variables*
+
+---
+
+## Summarizing Categorical Variables
+<p class="subheader">... use the appropriate summary tool for the variable type</p>
+
+---
+
+## Catagorical Variables: Visualizations
+<p class="subheader">Q. Which state has the most locations?</p>
+
+![](i/i_01.png)
+
+*> pay attention to which of these two figures is easier to answer the question*
+
+. . .
+
+*> it's pretty easy to see that it's CA from both of these figures* 
+
+---
+
+## Catagorical Variables: Visualizations
+<p class="subheader">Q. Does FL or WA have more shops?</p>
+
+![](i/i_01.png)
+
+*> pay attention to which of these two figures is easier to answer the question*
+
+. . .
+
+*> a bar graph is much easier to read* 
+
+---
+
+## Catagorical Variables: Visualizations
+<p class="subheader">Q. How many shops are in FL?</p>
+
+![](i/i_01.png)
+
+*> pay attention to which of these two figures is easier to answer the question*
+
+. . .
+
+*> now it takes a second to read the bar graph...* 
+
+---
+
+## Catagorical Variables: Bar Plots
+<p class="subheader">Q. How many shops are in FL?</p>
+
+![](i/i_02.png)
+
+*> pay attention to which of these two figures is easier to answer the question*
+
+. . .
+
+*> we can make the bar graph easier to read by placing the number near the bar*
+
+---
+
+## Catagorical Variables: Remove Clutter
+<p class="subheader">Q. How many shops are in the state with the second most locations?</p>
+
+![](i/i_03.png)
+
+*> removing clutter guides your eye to the important information*
+
+---
+
+## Catagorical Variables: Remove Clutter
+<p class="subheader">Q. How many shops are in the state with the second most locations?</p>
+
+![](i/i_04.png)
+
+*> removing clutter guides your eye to the important information*
+
+---
+
+## Catagorical Variables: Order by Size
+<p class="subheader">Q. How many shops are in the state with the second most locations?</p>
+
+![](i/i_05.png)
+
+*> states have no inherent order, but sorting can make comparisons easier*
+
+---
+
+## Binary Categorical Variables: CA vs Other
+<p class="subheader">Q. How does CA compare to the whole?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> instead of a nominal categorical variable, this is binary (CA / Other)*
+
+---
+
+## Binary Categorical Variables: Binary Visualization
+<p class="subheader">Q. How does CA compare to the whole?</p>
+
+![](i/i_07.png)
+
+. . .
+
+*> this question is much easier to see when visualizing the two categories*
+
+. . .
+
+*> here both the pie and the bar communicte the data effectively*
+
+---
+
+## Binary Categorical Variables: Percentages
+<p class="subheader">Q. How does CA compare to the whole?</p>
+
+![](i/i_08.png)
+
+*> if the question is about percentages, a pie chart may work best*
+
+---
+
+## Takeaways
+<p class="subheader">... use the right summary tool for the variable type</p>
+
+::: {.incremental}
+- Binary Categorical Variables: use a **pie chart** or **bar graph**
+- Nominal Categorical Variables: use a **bar graph**; maybe order by value
+- Ordinal Categorical Variables: use an **ordered bar graph**
+- Remove clutter; keep it simple
+- Place information near the object it describes
+::: 
+
+---
+
+## Exercises 1.1 | Categorical Variables
+
+Lets visualize coffee shops by state.
+
+- **Dataset 1:** `Coffee_Shops.csv`
+
+<br><br>
+
+Lets visualize the main variable in each dataset.
+
+- **Dataset 2:** `employment_status.csv`
+- **Dataset 3:** `household_savings.csv`
+- **Dataset 4:** `household_incomes.csv`
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">Summarize `Coffee_Shops.csv` as a nominal categorical variable.</p>
+
+. . .
+
+```{.python}
+# Load Dataset
+shops = pd.read_csv(file_path + 'Coffee_Shops.csv')
+```
+
+. . .
+
+```{.python}
+# Summary Table
+shops.value_counts()
+```
+
+. . .
+
+```{.python}
+# Countplot (bar plot)
+sns.countplot(data=shops, y='STATE', hue='STATE')
+```
+
+. . .
+
+![](i/i_04.png)
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">Summarize `Coffee_Shops.csv` as a binary categorical variable.</p>
+
+```{.python}
+# Load Dataset
+shops = pd.read_csv(file_path + 'Coffee_Shops.csv')
+```
+
+```{.python}
+# Create a binary categorical variable
+shops['CA'] = np.where(shops['STATE'] == 'CA', 'CA', 'Other')
+```
+
+. . .
+
+```{.python}
+# Countplot
+sns.countplot(data=shops, y='CA', hue='CA')
+```
+
+![](i/i_07.png)
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">Summarize `Coffee_Shops.csv` as a binary categorical variable.</p>
+
+```{.python}
+# Load Dataset
+shops = pd.read_csv(file_path + 'Coffee_Shops.csv')
+```
+
+```{.python}
+# Create a binary categorical variable
+shops['CA'] = np.where(shops['STATE'] == 'CA', 'CA', 'Other')
+```
+
+```{.python}
+# Pie Chart
+shops['CA'].value_counts().plot(kind='pie', autopct='%1.1f%%')
+```
+
+. . .
+
+![](i/i_08.png)
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">Summarize `employment_status.csv`.</p>
+
+. . .
+
+![](i/i_10.png)
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">Summarize `household_savings.csv`.</p>
+
+. . .
+
+![](i/i_11.png)
+
+---
+
+## Exercise: Dataset 4
+<p class="subheader">Summarize `household_incomes.csv`.</p>
+
+. . .
+
+![](i/i_12.png)

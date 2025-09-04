@@ -1,0 +1,130 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Not included in timeseries*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Did all countries increase their coffee consumption?</p>
+
+![](i/39.png)
+
+. . .
+
+*> a scatter plot can visualize changes between two points in time*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Did all countries increase their coffee consumption?</p>
+
+![](i/40.png)
+
+*> a 45 degree line shows all the possible points with no change*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Which countries increased their coffee consumption?</p>
+
+![](i/40.png)
+
+*> a 45 degree line shows all the possible points with no change*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Which countries decreased their coffee consumption?</p>
+
+![](i/42.png)
+
+*> points below the line show decreases*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Which countries decreased their coffee consumption?</p>
+
+![](i/42.png)
+
+*> this might also benefit from a log scale*
+
+---
+
+## Relationships Between Years
+<p class="subheader">Does the data confirm that the world is drinking more coffee?</p>
+
+![](i/43.png)
+
+*> colors can visualize both increases and decreases*
+
+---
+
+## Exercise: Timeseries
+
+We’re going to use a timeseries to visually examine coffee price through time.
+
+- **Data:** `Coffee_Prices_CPI.csv`
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">How do the two commodity prices relate to each other?</p>
+
+![](i/15.png)
+
+. . .
+
+*> difficult to tell because of the axis scale*
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">How do the two commodity prices relate to each other?</p>
+
+![](i/16.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
+
+![](i/16.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
+
+![](i/17.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">But are the two prices positively or negatively related to each other?</p>
+
+![](i/16.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">But are the two prices positively or negatively related to each other?</p>
+
+![](i/18.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">Does the price of oil determine the price of coffee?</p>
+
+![](i/18.png)

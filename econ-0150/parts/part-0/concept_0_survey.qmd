@@ -1,0 +1,129 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Welcome Survey Results*
+
+---
+
+## Where are you coming from?
+<p class="subheader">Lets measure your hometown using distance</p>
+
+---
+
+## Where are you coming from?
+<p class="subheader">Lets measure your hometown using distance</p>
+
+![](i/survey_01.png)
+
+. . .
+
+*> quite a few people coming internationally :)*
+
+. . .
+
+*> lets zoom in a bit to see more details about closer distances*
+
+---
+
+## Where are you coming from?
+<p class="subheader">Lets measure your hometown using distance</p>
+
+![](i/survey_02.png)
+
+. . .
+
+*> so many from Pittsburgh and the Philly area*
+
+---
+
+## When were you born?
+<p class="subheader">Lets use birthyear</p>
+
+---
+
+## When were you born?
+<p class="subheader">Lets use birthyear</p>
+
+![](i/survey_03.png)
+
+. . .
+
+*> so most were born in 2005*
+
+---
+
+## What is your major?
+<p class="subheader">Sorry if you're not on the list or have multiple :)</p>
+
+---
+
+## What is your major?
+<p class="subheader">Sorry if you're not on the list or have multiple :)</p>
+
+![](i/survey_04.png)
+
+. . .
+
+*> so most are Econ and many not on my limited list*
+
+---
+
+## Did you like your stats class?
+<p class="subheader">It's a prereq for the class</p>
+
+---
+
+## Did you like your stats class?
+<p class="subheader">It's a prereq for the class</p>
+
+![](i/survey_05.png)
+
+. . .
+
+*> so most generally liked it; some did not*
+
+---
+
+## Did you like your stats class?
+<p class="subheader">It's a prereq for the class</p>
+
+---
+
+## Is stats related to your excitement for this class?
+<p class="subheader">I would suspect a positive relationship</p>
+
+![](i/survey_06.png)
+
+---
+
+## Is confidence in Excel related to class excitement?
+<p class="subheader">I would expect it is</p>
+
+---
+
+## Is confidence in Excel related to class excitement?
+<p class="subheader">I would expect it is</p>
+
+![](i/survey_07.png)
+
+---
+
+## Is confidence in python related to excitement?
+<p class="subheader">Again I would expect it is</p>
+
+![](i/survey_08.png)
+
+
+
+
+
+

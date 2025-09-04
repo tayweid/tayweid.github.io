@@ -1,0 +1,189 @@
+
+---
+
+## Coffee Consumption Per Person
+<p class="subheader"> Does the data confirm that the world is drinking more coffee?</p>
+
+---
+
+## Coffee Consumption Per Person: Histograms
+<p class="subheader"> Does the data confirm that the world is drinking more coffee?</p>
+
+![](i/17.png)
+
+. . .
+
+*> compared to what...?*
+
+---
+
+## Coffee Consumption Per Person: Histograms
+<p class="subheader"> Does the data confirm that the world is drinking more coffee?</p>
+
+![](i/18.png)
+
+. . .
+
+*> this is still pretty unclear*
+
+. . .
+
+*> lets try using a boxplot for many years separately*
+
+---
+
+## Coffee Consumption Per Person: Boxplots
+<p class="subheader">Does the data confirm that the world is drinking more coffee?</p>
+
+![](i/29.png)
+
+. . .
+
+*> lets maybe start with a smaller question*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/29.png)
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/30.png)
+
+*> focus on the medians*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/34.png)
+
+*> ... when the median is below 5 kg per cap*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Between which two years was there the largest jump in the median?</p>
+
+![](i/30.png)
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Between which two years was there the largest jump in the median?</p>
+
+![](i/31.png)
+
+*> it's maybe a little difficult to see*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
+
+![](i/29.png)
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
+
+![](i/32.png)
+
+*> focus on the minimums*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">What patterns do we observe about the maximums?</p>
+
+![](i/33.png)
+
+*> same with the maximums*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/29.png)
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/35.png)
+
+*> look at the 25%*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/35.png)
+
+*> look at the 25% and compare it to 5 kg per cap*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/36.png)
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/29.png)
+
+. . .
+
+*> look at the range*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/37.png)
+
+*> look at the range*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/38.png)
+
+*> look at the range and select the largest*
+
+---
+
+## Multi-Period Boxplots
+<p class="subheader">In which year did all countries increase their coffee consumption?</p>
+
+![](i/29.png)
+
+. . .
+
+*> not visible in the figure!*
+
+---
+
+## Exercise: Coffee Per Capita Through Time
+<p class="subheader"> Does the data confirm that the world is drinking more coffee?</p>
+
+We’re going to use a boxplot to visually examine the distribution of coffee consumption per capita among coffee-importing countries.
+
+- **Data:** `Coffee_Per_Cap.csv`

@@ -1,0 +1,311 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.2 | Summarizing Numerical Variables*
+
+---
+
+## Summarizing Numerical Variables
+<p class="subheader">... use the appropriate summary tool for the variable type</p>
+
+---
+
+## Numerical Variables: Histograms
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_01.png)
+
+. . .
+
+*> the bin sizes aren't even, making it hard to interpret*
+
+---
+
+## Numerical Variables: Histograms
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_02.png)
+
+*> the bin sizes aren't even, making it hard to interpret*
+
+---
+
+## Histograms: Use equal sized bins
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_03.png)
+
+. . .
+
+*> but what if we want to distinguish between a 55 year old and a 60 year old?*
+
+---
+
+## Histograms: Use narrow enough bins
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_04.png)
+
+. . .
+
+*> what if we take this even further?*
+
+*> what if we compare 44 year olds to 45 year olds?*
+
+---
+
+## Histograms: Avoid visualizing noise
+<p class="subheader">Q. Do 44 or 45 year olds spend more at Starbucks?</p>
+
+![](i/i_05.png)
+
+. . .
+
+*> we can go too far, introducing statistical noise. how do we fix the problem?*
+
+. . .
+
+*> increase the sample size or the bin width!*
+
+---
+
+## Histograms: Balance resolution vs noise
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_06.png)
+
+*> larger sample has less noise!*
+
+---
+
+## Histograms: Balance resolution vs noise
+<p class="subheader">Q. Which age group has the most Starbucks customers?</p>
+
+![](i/i_07.png)
+
+*> larger bins also has less noise!*
+
+---
+
+## Histograms: Summary
+<p class="subheader">... use the right summary tool for the variable type</p>
+
+<br><br>
+
+:::{.incremental}
+- Use histograms to visualize continuous variables.
+- Make histograms with equally sized bins.
+- Histograms with bins that are too narrow increase statistical noise, which can obscure underlying relationships.
+:::
+
+---
+
+## Exercise: Starbucks Customers Less Than $40k Income
+<p class="subheader">... use Excel and/or Python</p>
+
+<br><br>
+
+Lets use the data to examine whether customers between 45 - 55 years old spend the most among customers making less than $40k.
+
+**Data**: *`Starbucks_Customer_Profiles_40k.csv`*
+
+
+---
+
+## Numerical Variables: Histograms
+<p class="subheader"> Q. Which countries drank an average amount of coffee?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> histogram bins make it impossible to see the exact values*
+
+---
+
+## Numerical Variables: Histograms
+<p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> again, histograms make it difficult to see statistical measures*
+
+---
+
+## Numerical Variables: Boxplots
+<p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
+
+![](i/i_09.png)
+
+. . .
+
+*> as we'll see, boxplots can tell us about quartiles*
+
+. . .
+
+*> but boxplots are still pretty unclear for our question*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
+
+![](i/i_10.png)
+
+*> here we can see the datapoints directly with the boxplot*
+
+. . .
+
+*> each point represents a country's coffee consumption*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
+
+![](i/i_11.png)
+
+*> each element of the boxplot represents one of these five quartiles*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which countries consumed more than 8 kg per capita?</p>
+
+![](i/i_12.png)
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which countries consumed more than 8 kg per capita?</p>
+
+![](i/i_13.png)
+
+*> we can highlight the relevant subsets of the data*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumed the most coffee per capita?</p>
+
+![](i/i_14.png)
+
+. . .
+
+*> we can find the exact values according to quartiles*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumed the most coffee per capita?</p>
+
+![](i/i_15.png)
+
+*> we can find the exact values according to quartiles*
+
+*> Finland consumed the most coffee per capita in 1999*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumed the least coffee per capita?</p>
+
+![](i/i_14.png)
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumed the least coffee per capita?</p>
+
+![](i/i_16.png)
+
+*> Russia consumed the least coffee per capita in 1999*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">How about the median?</p>
+
+![](i/i_14.png)
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">How about the median?</p>
+
+![](i/i_17.png)
+
+*> the US!*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumes more than exactly 25% of countries?</p>
+
+![](i/i_14.png)
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumes more than exactly 25% of countries?</p>
+
+![](i/i_18.png)
+
+*> Slovakia!*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumes more than exactly 75% of countries?</p>
+
+![](i/i_14.png)
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Which country consumes more than exactly 75% of countries?</p>
+
+![](i/i_19.png)
+
+*> Netherlands*
+
+---
+
+## Boxplots + Stripplots
+<p class="subheader">Boxplots show quartiles; stripplots show the data.</p>
+
+![](i/i_20.png)
+
+---
+
+## Boxplots + Stripplots: Summary
+<p class="subheader">Boxplots show quartiles; stripplots show the data.</p>
+
+<br><br>
+
+:::{.incremental}
+- Boxplots make it easy to show the quartiles.
+- Stripplots can show the distribution of the data.
+- We can highlight subsets of the data.
+:::
+
+---
+
+## Exercise: Boxplots + Stripplots
+
+<br><br>
+
+Lets use a boxplot and stripplot to examine the distribution of coffee consumption per capita among coffee-importing countries in 2019.
+
+- **Data:** `Coffee_Per_Cap_2019.csv`

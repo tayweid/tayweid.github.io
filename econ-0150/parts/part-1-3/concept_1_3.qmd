@@ -1,0 +1,338 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.3 | Data Structures and Relationships Through Time*
+
+---
+
+## Data Structures
+<p class="subheader">...three main relationships between data points.</p>
+
+The way we understand data depends on the relationship between the data points.
+
+| | Cross-Sectional | Time-Series | Panel Data |
+|-|----|---|----|
+| **Focus** | Multiple units, one time point | One unit, many times | Multiple units, many time points |
+| **Shape** | Wide format | Long format | Long format |
+| **Ex.** | Household income, 2025 | US GDP,   10 years | Household income, 10 years |
+
+<br>
+
+. . .
+
+*> we've spent the first part of the class on cross-sectional data*
+
+. . .
+
+*> we'll spend a bit of time on panel and geographic data later*
+
+---
+
+## Exercise 1.3 | Data Structures
+
+<br><br>
+
+Lets identify the data structure for each dataset.
+
+- **Dataset 1:** `household_savings.csv`
+- **Dataset 2:** `us_real_gdp.csv`
+- **Dataset 3:** `household_incomes.csv`
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
+
+. . .
+
+**Clue**: Each household (the unit of observation) appears only once. 
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
+
+**Clue**: Each household (the unit of observation) appears only once. 
+
+![](i/i_04.png)
+
+Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 1
+<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
+
+**Clue**: Each household (the unit of observation) appears only once. 
+
+![](i/i_05.png)
+
+Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
+
+. . .
+
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
+
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+
+![](i/i_01.png)
+
+Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
+
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+
+![](i/i_02.png)
+
+Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
+
+---
+
+## Exercise: Dataset 2
+<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
+
+**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+
+![](i/i_03.png)
+
+Focus on the ***relationship through time*** using a linegraph.
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+. . .
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_06.png)
+
+*> this is too noisy to communicate well*
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_07.png)
+
+*> this is a little better*
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_08.png)
+
+Focus on the variation *among the households* within the year using a ***boxplot***.
+
+---
+
+## Exercise: Dataset 3
+<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
+
+**Clue**: Each household (the unit of observation) has many appearances. 
+
+![](i/i_09.png)
+
+Focus on the variation *within the household* using a ***boxplot***.
+
+---
+
+## Coffee Prices Through Time
+<p class="subheader">What information should we use to set prices in January 2025?</p>
+
+---
+
+## Coffee Prices Through Time
+<p class="subheader">What information should we use to set prices in January 2025?</p>
+
+![](i/1.png)
+
+. . .
+
+*> it's difficult to know... do we choose the mode?*
+
+. . .
+
+*> lets just plot the price against time*
+
+---
+
+## Coffee Prices Through Time
+<p class="subheader">What information should we use to set prices in January 2025?</p>
+
+![](i/2.png)
+
+. . .
+
+*> lets indicate with a line that these points are in squence*
+
+---
+
+
+## Timeseries: Line Graph
+<p class="subheader">What information should we use to set prices in January 2025?</p>
+
+![](i/3.png)
+
+. . .
+
+*> we can zoom out to get a bigger picture*
+
+---
+
+## Timeseries: Line Graph
+<p class="subheader">What information should we use to set prices in January 2025?</p>
+
+![](i/4.png)
+
+---
+
+## Timeseries
+<p class="subheader">What years does the price of coffee decrease?</p>
+
+![](i/4.png)
+
+---
+
+## Timeseries: Background Shading
+<p class="subheader">What years does the price of coffee decrease?</p>
+
+![](i/5.png)
+
+*> we can show changes with background shading*
+
+---
+
+## Timeseries: Trends
+<p class="subheader">Do you notice a **trend** in price?</p>
+
+![](i/5.png)
+
+. . .
+
+*> maybe a slight increase in prices*
+
+. . .
+
+*> in addition to the overall trend, are there monthly patterns?*
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In addition to the overall trend, are there monthly patterns?</p>
+
+![](i/9.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In addition to the overall trend, are there monthly patterns?</p>
+
+![](i/10.png)
+
+. . .
+
+*> lets be more specific...*
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In which month was the record highest price set?</p>
+
+![](i/10.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In which month was the record highest price set?</p>
+
+![](i/11.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In which season are prices most spread out?</p>
+
+![](i/10.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">In which season are prices most spread out?</p>
+
+![](i/12.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/10.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/13.png)
+
+---
+
+## Timeseries: Summary
+<p class="subheader">Linegraphs show trends; multi-boxplots show between-period patterns.</p>
+
+<br><br>
+
+:::{.incremental}
+- Use a ***linegraph*** to show a numerical variable through time.
+- Highlight changes in a linegraph using ***shading***.
+- Use a ***multi-boxplot*** to show the distribution between multiple periods.
+:::
+
+---
+
+## Exercise: Timeseries
+
+<br><br>
+
+Lets use a linegraph and a multi-boxplot to examine the trends and seasonal patterns of coffee prices.
+
+- **Data:** `Coffee_Prices.csv`
