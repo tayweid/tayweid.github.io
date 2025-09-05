@@ -185,145 +185,27 @@ The economist’s data analysis pipeline.
 <p><em>&gt; we’ll spend a bit of time on panel and geographic data later</em></p>
 </div>
 </section>
-<section id="exercise-1.3-data-structures" class="slide level2">
-<h2>Exercise 1.3 | Data Structures</h2>
-<p><br><br></p>
-<p>Lets identify the data structure for each dataset.</p>
-<ul>
-<li><strong>Dataset 1:</strong> <code>household_savings.csv</code></li>
-<li><strong>Dataset 2:</strong> <code>us_real_gdp.csv</code></li>
-<li><strong>Dataset 3:</strong> <code>household_incomes.csv</code></li>
-</ul>
-</section>
-<section id="exercise-dataset-1" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
-<p class="subheader">
-<code>household_savings.csv</code> is a Cross-Sectional Dataset
-</p>
-<div class="fragment">
-<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
-</div>
-</section>
-<section id="exercise-dataset-1-1" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
-<p class="subheader">
-<code>household_savings.csv</code> is a Cross-Sectional Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
-
-<img data-src="i/i_04.png" class="r-stretch"><p>Focus on the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="exercise-dataset-1-2" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
-<p class="subheader">
-<code>household_savings.csv</code> is a Cross-Sectional Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) appears only once.</p>
-
-<img data-src="i/i_05.png" class="r-stretch"><p>Focus on the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="exercise-dataset-2" class="slide level2">
-<h2>Exercise: Dataset 2</h2>
-<p class="subheader">
-<code>us_real_gdp.csv</code> is a Time-Series Dataset
-</p>
-<div class="fragment">
-<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
-</div>
-</section>
-<section id="exercise-dataset-2-1" class="slide level2">
-<h2>Exercise: Dataset 2</h2>
-<p class="subheader">
-<code>us_real_gdp.csv</code> is a Time-Series Dataset
-</p>
-<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
-
-<img data-src="i/i_01.png" class="r-stretch"><p>Show the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="exercise-dataset-2-2" class="slide level2">
-<h2>Exercise: Dataset 2</h2>
-<p class="subheader">
-<code>us_real_gdp.csv</code> is a Time-Series Dataset
-</p>
-<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
-
-<img data-src="i/i_02.png" class="r-stretch"><p>Show the <strong><em>distribution</em></strong> using a <strong><em>histogram</em></strong> or a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="exercise-dataset-2-3" class="slide level2">
-<h2>Exercise: Dataset 2</h2>
-<p class="subheader">
-<code>us_real_gdp.csv</code> is a Time-Series Dataset
-</p>
-<p><strong>Clue</strong>: Each year’s GDP (the unit of observation) is connected through time.</p>
-
-<img data-src="i/i_03.png" class="r-stretch"><p>Focus on the <strong><em>relationship through time</em></strong> using a linegraph.</p>
-</section>
-<section id="exercise-dataset-3" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
-<p class="subheader">
-<code>household_incomes.csv</code> is a Panel Dataset
-</p>
-<div class="fragment">
-<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
-</div>
-</section>
-<section id="exercise-dataset-3-1" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
-<p class="subheader">
-<code>household_incomes.csv</code> is a Panel Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
-
-<img data-src="i/i_06.png" class="r-stretch"><p><em>&gt; this is too noisy to communicate well</em></p>
-</section>
-<section id="exercise-dataset-3-2" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
-<p class="subheader">
-<code>household_incomes.csv</code> is a Panel Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><p><em>&gt; this is a little better</em></p>
-</section>
-<section id="exercise-dataset-3-3" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
-<p class="subheader">
-<code>household_incomes.csv</code> is a Panel Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><p>Focus on the variation <em>among the households</em> within the year using a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="exercise-dataset-3-4" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
-<p class="subheader">
-<code>household_incomes.csv</code> is a Panel Dataset
-</p>
-<p><strong>Clue</strong>: Each household (the unit of observation) has many appearances.</p>
-
-<img data-src="i/i_09.png" class="r-stretch"><p>Focus on the variation <em>within the household</em> using a <strong><em>boxplot</em></strong>.</p>
-</section>
-<section id="coffee-prices-through-time" class="slide level2">
-<h2>Coffee Prices Through Time</h2>
+<section id="timeseries-coffee-prices" class="slide level2">
+<h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
 What information should we use to set prices in January 2025?
 </p>
 </section>
-<section id="coffee-prices-through-time-1" class="slide level2">
-<h2>Coffee Prices Through Time</h2>
+<section id="timeseries-coffee-prices-1" class="slide level2">
+<h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
 What information should we use to set prices in January 2025?
 </p>
 
-<img data-src="i/1.png" class="r-stretch"><div class="fragment">
+<img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; it’s difficult to know… do we choose the mode?</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; lets just plot the price against time</em></p>
 </div>
 </section>
-<section id="coffee-prices-through-time-2" class="slide level2">
-<h2>Coffee Prices Through Time</h2>
+<section id="timeseries-coffee-prices-2" class="slide level2">
+<h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
 What information should we use to set prices in January 2025?
 </p>

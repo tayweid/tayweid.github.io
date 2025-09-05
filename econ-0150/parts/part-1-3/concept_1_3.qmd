@@ -37,153 +37,15 @@ The way we understand data depends on the relationship between the data points.
 
 ---
 
-## Exercise 1.3 | Data Structures
-
-<br><br>
-
-Lets identify the data structure for each dataset.
-
-- **Dataset 1:** `household_savings.csv`
-- **Dataset 2:** `us_real_gdp.csv`
-- **Dataset 3:** `household_incomes.csv`
+## Timeseries: Coffee Prices
+<p class="subheader">What information should we use to set prices in January 2025?</p>
 
 ---
 
-## Exercise: Dataset 1
-<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
-
-. . .
-
-**Clue**: Each household (the unit of observation) appears only once. 
-
----
-
-## Exercise: Dataset 1
-<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
-
-**Clue**: Each household (the unit of observation) appears only once. 
-
-![](i/i_04.png)
-
-Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
-
----
-
-## Exercise: Dataset 1
-<p class="subheader">`household_savings.csv` is a Cross-Sectional Dataset</p>
-
-**Clue**: Each household (the unit of observation) appears only once. 
-
-![](i/i_05.png)
-
-Focus on the ***distribution*** using a ***histogram*** or a ***boxplot***.
-
----
-
-## Exercise: Dataset 2
-<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
-
-. . .
-
-**Clue**: Each year's GDP (the unit of observation) is connected through time. 
-
----
-
-## Exercise: Dataset 2
-<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
-
-**Clue**: Each year's GDP (the unit of observation) is connected through time. 
+## Timeseries: Coffee Prices
+<p class="subheader">What information should we use to set prices in January 2025?</p>
 
 ![](i/i_01.png)
-
-Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
-
----
-
-## Exercise: Dataset 2
-<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
-
-**Clue**: Each year's GDP (the unit of observation) is connected through time. 
-
-![](i/i_02.png)
-
-Show the ***distribution*** using a ***histogram*** or a ***boxplot***.
-
----
-
-## Exercise: Dataset 2
-<p class="subheader">`us_real_gdp.csv` is a Time-Series Dataset</p>
-
-**Clue**: Each year's GDP (the unit of observation) is connected through time. 
-
-![](i/i_03.png)
-
-Focus on the ***relationship through time*** using a linegraph.
-
----
-
-## Exercise: Dataset 3
-<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
-
-. . .
-
-**Clue**: Each household (the unit of observation) has many appearances. 
-
----
-
-## Exercise: Dataset 3
-<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
-
-**Clue**: Each household (the unit of observation) has many appearances. 
-
-![](i/i_06.png)
-
-*> this is too noisy to communicate well*
-
----
-
-## Exercise: Dataset 3
-<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
-
-**Clue**: Each household (the unit of observation) has many appearances. 
-
-![](i/i_07.png)
-
-*> this is a little better*
-
----
-
-## Exercise: Dataset 3
-<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
-
-**Clue**: Each household (the unit of observation) has many appearances. 
-
-![](i/i_08.png)
-
-Focus on the variation *among the households* within the year using a ***boxplot***.
-
----
-
-## Exercise: Dataset 3
-<p class="subheader">`household_incomes.csv` is a Panel Dataset</p>
-
-**Clue**: Each household (the unit of observation) has many appearances. 
-
-![](i/i_09.png)
-
-Focus on the variation *within the household* using a ***boxplot***.
-
----
-
-## Coffee Prices Through Time
-<p class="subheader">What information should we use to set prices in January 2025?</p>
-
----
-
-## Coffee Prices Through Time
-<p class="subheader">What information should we use to set prices in January 2025?</p>
-
-![](i/1.png)
 
 . . .
 
@@ -195,7 +57,7 @@ Focus on the variation *within the household* using a ***boxplot***.
 
 ---
 
-## Coffee Prices Through Time
+## Timeseries: Coffee Prices
 <p class="subheader">What information should we use to set prices in January 2025?</p>
 
 ![](i/2.png)
