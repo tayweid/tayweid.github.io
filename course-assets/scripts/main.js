@@ -21,6 +21,21 @@ const EconApp = {
     </svg>`
         },
         
+        // Helper function to get icon based on card type
+        getIconForCardType(cardType) {
+            switch(cardType) {
+                case 'concept':
+                    return this.icons.lightbulb;
+                case 'exercise':
+                    return this.icons.dumbbell;
+                case 'homework':
+                    return this.icons.checkbox;
+                default:
+                    // Fallback to checkbox if no type specified
+                    return this.icons.checkbox;
+            }
+        },
+        
         init() {
             const carousels = document.querySelectorAll('.carousel');
             
@@ -40,7 +55,7 @@ const EconApp = {
                             <div class="indicator-track">
                                 ${Array.from(cards).map((card, index) => `
                                     <button class="indicator-tab ${index === 0 ? 'active' : ''}" data-index="${index}">
-                                        ${index === 0 ? this.icons.lightbulb : index === 1 ? this.icons.dumbbell : this.icons.checkbox}
+                                        ${this.getIconForCardType(card.dataset.cardType)}
                                     </button>
                                 `).join('')}
                             </div>
