@@ -4,10 +4,6 @@ HW 1 Question 1 on Time Use
 
 - https://data-explorer.oecd.org/vis?tenant=archive&df[ds]=DisseminateArchiveDMZ&df[id]=DF_BLI&df[ag]=OECD&dq=...&to[TIME]=false
 
-HW 1 Q1 on Working Hours
-
-- 
-
 
 
 Part_1_7_Coffee_Bean_Productin.csv
