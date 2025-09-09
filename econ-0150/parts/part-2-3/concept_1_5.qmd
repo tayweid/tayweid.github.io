@@ -1,0 +1,488 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 1.5 | Filtering Data*
+
+---
+
+## A New US Coffee Shop
+<p class="subheader">Lets use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
+
+<br><br>
+
+- The coffee shop is opening in update New York, near the border to Canada.
+- You're asked to help make some decisions about how to run the shop when it opens.
+- The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_01.png)
+
+. . .
+
+*> so it seems best to open sometime in the morning...  makes sense*
+
+. . .
+
+*> but what if there's something specific about US coffee drinkers though?*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+*> here we've filtered for US locations*
+
+. . .
+
+*> so it seems US Starbucks open earlier*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+*> but maybe we should look at Canadian shops too...*
+
+. . .
+
+*> let filter for **BOTH** countries*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Lets us some Boolian logic :)</p>
+
+![](i/Part_1_5_Bool.png)
+
+. . .
+
+*> is there something different between the US and Canada?*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03.png)
+
+. . .
+
+*> so not much difference between when shops in the US and Canada open*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03_question.png)
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03_answer.png)
+
+*> no data! no coffee shop can be in the US AND Canada!*
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03.png)
+
+---
+
+## A New Coffee Shop: Filter by Category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_04.png)
+
+. . .
+
+*> so coffee shops in US and Canada open much earlier than the rest of the world*
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+- So lets open at 5 AM.
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+- So lets open earlier than 7 AM.
+- How long should we stay open?
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+. . .
+
+*> so most shops stay open for around 15 hours*
+
+. . .
+
+*> does that mean we should stay open for 15 hours?*
+
+---
+
+## A New Coffee Shop
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+*> lets filter for coffee shops that open before 7 AM*
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_07.png)
+
+. . .
+
+*> so shops that open early stay open longer*
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> but here we're looking at all shops globally!*
+
+*> our shop is opening in the US near Canada, so lets filter by country too*
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_06.png)
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> shops that open early will stay open longer in the US or Canada*
+
+. . .
+
+*> this is hard to see: maybe there's a more systematic way of showing differences*
+
+---
+
+## A New Coffee Shop: Filter by Inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_09.png)
+
+---
+
+## Exercise 1.5 | Coffee Shop Hours
+<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
+
+<br><br>
+
+- The coffee shop is opening in update New York, near the border to Canada.
+- You're asked to help make some decisions about how to run the shop when it opens.
+- The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
+
+---
+
+## Coffee Shop Hours: load the data
+<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
+
+```{.python}
+# Load the data
+data = pd.read_csv(file_path + file_name)
+```
+
+---
+
+## Coffee Shop Hours
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+---
+
+## Coffee Shop Hours: plot all opening times
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Histogram
+plt.hist(data['open'], bins=20)
+```
+
+. . .
+
+![](i/i_01.png)
+
+---
+
+## Filtering Data by Category
+<p class="subheader">Filtering categorical data requires logical operations.</p>
+
+| Logic | Python | | Example |
+|-----------|--------|--|---------|
+| Equals | == | | `data[data['shop'] == 'A']` |
+| Unequal | != | | `data[data['shop'] != 'A']` |
+| NOT | ~ | | `data[~(data['shop'] == 'A')]` |
+| In list | .isin() | | `data[data['shop'].isin(['A', 'B'])]` |
+| AND | & | | `(data['shop'] == 'A') & (data['open'] < 7)` |
+| OR | \| | | `(data['shop'] == 'A') | (data['open'] < 7)` |
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+data['COUNTRY_CODE'] == 'US'
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+# data['COUNTRY_CODE'] == 'US'
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+# data['COUNTRY_CODE'] == 'US'
+
+# Select the rows with True
+us_data = data[data['COUNTRY_CODE'] == 'US']
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Histogram of US locations
+plt.hist(us_data['open'], bins=20)
+```
+
+. . .
+
+![](i/i_02.png)
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Find the data in either the US or in Canada (CA)
+# Method 1: Using OR operator |
+data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+```
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Find the data in either the US or in Canada (CA)
+# Method 2: Using isin()
+data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+```
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Find the data in either the US or in Canada (CA)
+# Method 2: Using isin() and define a new dataset
+us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+```
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Create histogram
+plt.hist(us_ca_data['open'], bins=20)
+```
+
+. . .
+
+![](i/i_03.png)
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+What would this dataset look like?
+
+```{.python code-line-numbers="4,7"}
+data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
+```
+
+. . .
+
+*> it would contain no data!*
+
+![](i/i_03_answer.png)
+
+---
+
+## Filtering Data by Inequality
+<p class="subheader">Filtering numerical data requires inequalities.</p>
+
+| Symbol | Python | | Example |
+|--------|--------------|--------------|---------|
+| = | == | | `data[data['open'] == 7]` |
+| ≠ | != | | `data[data['open'] != 7]` |
+| < | < | | `data[data['open'] < 7]` |
+| > | > | | `data[data['open'] > 7]` |
+| ≤ | <= | | `data[data['open'] <= 7]` |
+| ≥ | >= | | `data[data['open'] >= 7]` |
+
+---
+
+## Coffee Shop Hours: filter for early opening shops
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Filter for shops that open before 7 AM
+early_data = data[data['open'] < 7]
+```
+
+---
+
+## Coffee Shop Hours: filter for early opening shops
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Create histogram of duration for early-opening shops
+plt.hist(early_data['duration_hr'], bins=20)
+```
+
+. . .
+
+![](i/i_07.png)
+
+---
+
+## Coffee Shop Hours: combine filters
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Filter for shops that open early AND are in US or Canada
+early_us_ca_data = data[(data['open'] < 7) & (data['COUNTRY_CODE'].isin(['US', 'CA']))]
+```
+
+---
+
+## Coffee Shop Hours: combine filters
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Create histogram of duration for early-opening US/CA shops
+plt.hist(early_us_ca_data['duration_hr'], bins=20)
+```
+
+. . .
+
+![](i/i_08.png)
+
+---
+
+## Coffee Shop Hours: compare opening times
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Compare early vs all shops in US/CA
+plt.hist(us_ca_data['duration_hr'], bins=20, alpha=0.5, label='All US/CA')
+plt.hist(early_us_ca_data['duration_hr'], bins=20, alpha=0.7, label='Early US/CA')
+plt.legend()
+```
+
+. . .
+
+![](i/i_09.png)
+
+---
+
+## Coffee Shop Hours: recommendation
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+- **Opening time**: Before 7 AM (around 5-6 AM)
+- **Duration**: About 16-17 hours (based on early-opening US/CA shops)
+- **Closing time**: Around 9-11 PM
+
+. . .
+
+*> this matches what successful coffee shops do in similar markets*
