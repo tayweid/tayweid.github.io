@@ -133,14 +133,14 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-1.3-data-structures-and-relationships-through-time"><em>Part 1.3 | Data Structures and Relationships Through Time</em></h3>
+<h3 id="part-1.3-relationships-through-time"><em>Part 1.3 | Relationships Through Time</em></h3>
 </section>
 <section id="data-structures" class="slide level2">
 <h2>Data Structures</h2>
 <p class="subheader">
 …three main relationships between data points.
 </p>
-<p>The way we understand data depends on the relationship between the data points.</p>
+<p>The most effective summarization tool depends on the relationship between the data points.</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 8%">
@@ -188,13 +188,13 @@ The economist’s data analysis pipeline.
 <section id="timeseries-coffee-prices" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2025?
+What information should we use to set prices in January 2026?
 </p>
 </section>
 <section id="timeseries-coffee-prices-1" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2025?
+What information should we use to set prices in January 2026?
 </p>
 
 <img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
@@ -207,117 +207,177 @@ What information should we use to set prices in January 2025?
 <section id="timeseries-coffee-prices-2" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2025?
+What information should we use to set prices in January 2026?
 </p>
 
-<img data-src="i/2.png" class="r-stretch"><div class="fragment">
+<img data-src="i/i_02.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; lets indicate with a line that these points are in squence</em></p>
 </div>
 </section>
 <section id="timeseries-line-graph" class="slide level2">
 <h2>Timeseries: Line Graph</h2>
 <p class="subheader">
-What information should we use to set prices in January 2025?
+What information should we use to set prices in January 2026?
 </p>
 
-<img data-src="i/3.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; we can zoom out to get a bigger picture</em></p>
-</div>
-</section>
-<section id="timeseries-line-graph-1" class="slide level2">
-<h2>Timeseries: Line Graph</h2>
-<p class="subheader">
-What information should we use to set prices in January 2025?
-</p>
-
-<img data-src="i/4.png" class="r-stretch"></section>
-<section id="timeseries" class="slide level2">
-<h2>Timeseries</h2>
-<p class="subheader">
-What years does the price of coffee decrease?
-</p>
-
-<img data-src="i/4.png" class="r-stretch"></section>
-<section id="timeseries-background-shading" class="slide level2">
-<h2>Timeseries: Background Shading</h2>
-<p class="subheader">
-What years does the price of coffee decrease?
-</p>
-
-<img data-src="i/5.png" class="r-stretch"><p><em>&gt; we can show changes with background shading</em></p>
-</section>
+<img data-src="i/i_03.png" class="r-stretch"></section>
 <section id="timeseries-trends" class="slide level2">
 <h2>Timeseries: Trends</h2>
 <p class="subheader">
 Do you notice a <strong>trend</strong> in price?
 </p>
 
-<img data-src="i/5.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; maybe a slight increase in prices</em></p>
+<img data-src="i/i_03.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; there was a <strong>positive trend</strong> in 2021</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; in addition to the overall trend, are there monthly patterns?</em></p>
+<p><em>&gt; we can zoom out to get a bigger picture</em></p>
 </div>
 </section>
-<section id="seasonality-multi-boxplot" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
+<section id="timeseries-trends-subtrends" class="slide level2">
+<h2>Timeseries: Trends + Subtrends</h2>
+<p class="subheader">
+Do you notice a <strong>trend</strong> in price?
+</p>
+
+<img data-src="i/i_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; how have prices changed since 2000?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; prices have increased somewhat, with many periods of decrease</em></p>
+</div>
+</section>
+<section id="timeseries-background-shading" class="slide level2">
+<h2>Timeseries: Background Shading</h2>
+<p class="subheader">
+What information should we use to set prices in January 2026?
+</p>
+
+<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; with background shading its easier to see periods with a negative trend in price</em></p>
+</section>
+<section id="exercise-1.3-timeseries" class="slide level2">
+<h2>Exercise 1.3: Timeseries</h2>
+<p><br><br></p>
+<p>Lets use a linegraph to examine the trends in coffee prices.</p>
+<ul>
+<li><strong>Data:</strong> <code>Coffee_Prices.csv</code></li>
+</ul>
+</section>
+<section id="timeseries" class="slide level2">
+<h2>Timeseries</h2>
+<p class="subheader">
+What information should we use to set prices in January 2026?
+</p>
+
+<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; could there be seasonal trends within the larger trend?</em></p>
+</div>
+</section>
+<section id="seasonality-january" class="slide level2">
+<h2>Seasonality: January</h2>
+<p class="subheader">
+What information should we use to set prices in January 2026?
+</p>
+
+<img data-src="i/i_08.png" class="r-stretch"><p><em>&gt; a boxplot gives us a picture of the prices just in January</em></p>
+<div class="fragment">
+<p><em>&gt; lets compare this to other months</em></p>
+</div>
+</section>
+<section id="seasonality-monthly-boxplots" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
 <p class="subheader">
 In addition to the overall trend, are there monthly patterns?
 </p>
 
-<img data-src="i/9.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-1" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
-<p class="subheader">
-In addition to the overall trend, are there monthly patterns?
-</p>
-
-<img data-src="i/10.png" class="r-stretch"><div class="fragment">
+<img data-src="i/i_09.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; lets be more specific…</em></p>
 </div>
 </section>
-<section id="seasonality-multi-boxplot-2" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
+<section id="seasonality-monthly-boxplots-1" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
 <p class="subheader">
 In which month was the record highest price set?
 </p>
 
-<img data-src="i/10.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-3" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
+<img data-src="i/i_09.png" class="r-stretch"></section>
+<section id="seasonality-monthly-boxplots-2" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
 <p class="subheader">
 In which month was the record highest price set?
 </p>
 
-<img data-src="i/11.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-4" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
+<img data-src="i/i_10_max.png" class="r-stretch"><p><em>&gt; look at the maximums</em></p>
+</section>
+<section id="seasonality-monthly-boxplots-3" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
+<p class="subheader">
+In which month was the record highest price set?
+</p>
+
+<img data-src="i/i_11.png" class="r-stretch"></section>
+<section id="seasonality-monthly-boxplots-4" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
 <p class="subheader">
 In which season are prices most spread out?
 </p>
 
-<img data-src="i/10.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-5" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
+<img data-src="i/i_09.png" class="r-stretch"></section>
+<section id="seasonality-monthly-boxplots-5" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
 <p class="subheader">
 In which season are prices most spread out?
 </p>
 
-<img data-src="i/12.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-6" class="slide level2">
+<img data-src="i/i_10_range.png" class="r-stretch"><p><em>&gt; look at the ranges</em></p>
+</section>
+<section id="seasonality-monthly-boxplots-6" class="slide level2">
+<h2>Seasonality: Monthly Boxplots</h2>
+<p class="subheader">
+In which season are prices most spread out?
+</p>
+
+<img data-src="i/i_12.png" class="r-stretch"></section>
+<section id="seasonality-multi-boxplot" class="slide level2">
 <h2>Seasonality: Multi-Boxplot</h2>
 <p class="subheader">
 What is the trend in median price?
 </p>
 
-<img data-src="i/10.png" class="r-stretch"></section>
-<section id="seasonality-multi-boxplot-7" class="slide level2">
+<img data-src="i/i_10_median.png" class="r-stretch"><p><em>&gt; look at the medians…</em></p>
+</section>
+<section id="seasonality-multi-boxplot-1" class="slide level2">
 <h2>Seasonality: Multi-Boxplot</h2>
 <p class="subheader">
 What is the trend in median price?
 </p>
 
-<img data-src="i/13.png" class="r-stretch"></section>
+<img data-src="i/i_10_median.png" class="r-stretch"><p><em>&gt; look at the medians… pretty difficult to see</em></p>
+</section>
+<section id="seasonality-quartile-lineplot" class="slide level2">
+<h2>Seasonality: Quartile Lineplot</h2>
+<p class="subheader">
+What is the trend in median price?
+</p>
+
+<img data-src="i/i_13.png" class="r-stretch"></section>
+<section id="seasonality-quartile-lineplot-1" class="slide level2">
+<h2>Seasonality: Quartile Lineplot</h2>
+<p class="subheader">
+What is the trend in median price?
+</p>
+
+<img data-src="i/i_14.png" class="r-stretch"></section>
+<section id="seasonality-quartile-lineplot-2" class="slide level2">
+<h2>Seasonality: Quartile Lineplot</h2>
+<p class="subheader">
+What is the difference between the largest and the smallest median price per pound?
+</p>
+
+<img data-src="i/i_14.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; something like $1.30 - $1.21 = $0.09</em></p>
+</div>
+</section>
 <section id="timeseries-summary" class="slide level2">
 <h2>Timeseries: Summary</h2>
 <p class="subheader">
@@ -332,10 +392,10 @@ Linegraphs show trends; multi-boxplots show between-period patterns.
 </ul>
 </div>
 </section>
-<section id="exercise-timeseries" class="slide level2">
-<h2>Exercise: Timeseries</h2>
+<section id="exercise-1.3-seasonality" class="slide level2">
+<h2>Exercise 1.3: Seasonality</h2>
 <p><br><br></p>
-<p>Lets use a linegraph and a multi-boxplot to examine the trends and seasonal patterns of coffee prices.</p>
+<p>Lets use a multi-boxplot to examine the seasonal patterns of coffee prices.</p>
 <ul>
 <li><strong>Data:</strong> <code>Coffee_Prices.csv</code></li>
 </ul>

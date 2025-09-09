@@ -2,7 +2,7 @@
 
 We've focussed on **Crosssectional Data** so far, data that has been collected at one point in time from many units. We classified the variables in **Crossectional Data** as either **Categorical** or **Numerical**. We developed best practices for visualizing Categorical Variables with **Bar Charts**: order the bars; place numers near bars; avoid clutter. We developed best practices for visualizing Numerical Variables with **Histograms**: use equal sized bins; balance resolution against noise; label the horizontal axis. We discussed visualizing Numerical Variables with **Boxplots + Stripplots**, making it easier to see the quantiles and the datapoints directly. But often the insight in our data isn't easy to see through the lense of Crosssectional visualizations.
 
-### Timeseries: Line Graphs
+### Timeseries and Line Graphs: Coffee Prices
 
 The price of coffee beans is always on the mind of coffee shop owners.  How might you use the historical data on coffee prices to help you plan for coffee prices six months from now?
 
@@ -38,7 +38,17 @@ Which intervals was the trend **negative**? We can look at the timeseries direct
 
 Here I've shaded the quarters which had a negative trend, starting above where they ended. This makes it exceptionally easy to see the time intervals with a negative trend. We could have alternatively shaded the regions with a positive trend, which would have made it easier to answer a question about quarters with a positive trend. 
 
-### Seasonal Variation
+### Excel Exercise 1.3 | Timeseries
+
+Lets focus on the prices between 2015 and 2025. We'll show the Line Graph.
+
+To plot a line graph in Excel is somewhat more complex than you would expect. You have to select the values first, go to insert, select the line graph, which will give you a line graph with row numbers on the horizontal axis. Then you have to right click the horizontal axis and select data then use the 'Horizontal (Category) axis labels' to select the column with the dates. 
+
+### Python Exercise 1.3 | Timeseries
+
+Lets focus on the prices between 2015 and 2025. We'll show the Line Graph.
+
+### Seasonality: Coffee Prices
 
 As these subtrends show, coffee prices fluctuate a lot throughout the year. If we're trying to set prices for six months from now, what data do you think we should be looking at? 
 
@@ -86,10 +96,10 @@ With only the median displayed, we can see its variation more easily. What is th
 
 The most appropriate visualization is a plot that displays only the necessary information. To show the sequence structure of the data, use a **Line Graph**. When we're interested in subsequences, Boxplots helped us compare the spread of the prices in different months. Then to view the typical prices across different months, we use a Line Graph of just the medians. 
 
-### Excel Exercise
+### Excel Exercise 1.3 | Seasonal Prices
 
-Lets focus on the prices between 2015 and 2025. We'll show the Line Graph and the Boxplots.
+Lets focus on the prices between 2015 and 2025. We'll show the Boxplots.
 
-### Python Exercise
+### Python Exercise 1.3 | Seasonal Prices
 
-Lets focus on the prices between 2015 and 2025. We'll show the Line Graph and the Boxplots.
+Lets focus on the prices between 2015 and 2025. We'll show the Boxplots.

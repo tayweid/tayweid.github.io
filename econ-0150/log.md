@@ -1,5 +1,28 @@
 ## ECON 0150 | Log
 
+#### September 9, 2025
+
+I think I'm going to make another change:
+
+Part 1: Exploratory Data Analysis
+
+I want four different distributions with the same summary stats but very different histograms like anscomb for Part 1.2.
+
+1. Cross Sectional Data: Categorical Data (Bar); Numerical Data (Histogram; Boxplot)
+2. Timeseries Data (Line; Boxplot)
+3. Panel Data: Long (MultiLine; MultiBoxplot); Wide (Scatterplot)
+4. Bivariate (Boxplot; Scatterplot) with Anscomb
+5. Geographic (Map; Chloropleth)
+
+Part 2: Data Operations
+
+1. Clean
+2. Transform
+3. Filter
+4. Group
+5. Reshape
+6. Merge
+
 #### September 3, 2025
 
 - prepare the survey in slides and talk it through at the start of day 2. this way it's visually interesting, doesn't get caught up with notebooks before covering them, and shows not tells why summarization is powerful
