@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_2_2_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_2_2_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_2_2_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_2_2_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_2_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_2_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_2_2_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_2_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_2_2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_2_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_2_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_2_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_2_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_2_2_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_2_2</title>
+  <title>concept_2_2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_2_2_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_2_2_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_2_2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_2_2_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="Part_2_2_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_2_2_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_2_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_2_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_2_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_2_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_2_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_2_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_2_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_2_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -135,547 +135,13 @@ The economist’s data analysis pipeline.
 <p><br></p>
 <h3 id="part-2.2-relationships-through-time"><em>Part 2.2 | Relationships Through Time</em></h3>
 </section>
-<section id="exercise-coffee-per-capita-through-time" class="slide level2">
-<h2>Exercise: Coffee Per Capita Through Time</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-<p>We’re going to use a boxplot to visually examine the distribution of coffee consumption per capita among coffee-importing countries.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-</section>
-<section id="relationships-through-time" class="slide level2">
-<h2>Relationships Through Time</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/17.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; compared to what…?</em></p>
-</div>
-</section>
-<section id="relationships-through-time-1" class="slide level2">
-<h2>Relationships Through Time</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/18.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; this is still pretty unclear</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets focus on one year for a sec</em></p>
-</div>
-</section>
-<section id="single-period-boxplots" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/19.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; boxplots can tell us about quartiles</em></p>
-</section>
-<section id="single-period-boxplots-1" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; adding a jittered scatter makes it even clearer</em></p>
-</section>
-<section id="single-period-boxplots-2" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which countries consume more than 8 kg per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="single-period-boxplots-3" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which countries consume more than 8 kg per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/21.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; we can highlight the relevant subsets of the data</em></p>
-</div>
-</section>
-<section id="single-period-boxplots-4" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes the most coffee per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; we can find the exact values according to quartiles</em></p>
-</div>
-</section>
-<section id="single-period-boxplots-5" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes the most coffee per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/22.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-6" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-How about the least consumption per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-7" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-How about the least consumption per capita?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/23.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-8" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-How about the median?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-9" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-How about the median?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/24.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-10" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes more than exactly 25% of countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-11" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes more than exactly 25% of countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/25.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-12" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes more than exactly 75% of countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/20.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-13" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Which country consumes more than exactly 75% of countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/26.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; we can find the exact values according to quartiles</em></p>
-</section>
-<section id="single-period-boxplots-14" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/27.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
-<p><br><br></p>
-<div>
-<ul>
-<li class="fragment">Boxplots make it easy to show the distribution and quartiles.</li>
-<li class="fragment">Filtering can highlight particular subsets of the data.</li>
-</ul>
-</div>
-</section>
-<section id="exercise-boxplots" class="slide level2">
-<h2>Exercise: Boxplots</h2>
-<p class="subheader">
-Exploring Coffee Consumption Distribution
-</p>
-<p>Lets use boxplots examine the distribution of coffee consumption per capita among coffee-importing countries in code.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-</section>
-<section id="single-period-boxplots-15" class="slide level2">
-<h2>Single-Period Boxplots</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/28.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; no - boxplots can visualize the distribution of the data, but we need something else for comparison through time</em></p>
-</section>
-<section id="multi-period-boxplots" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; lets maybe start with a smaller question</em></p>
-</div>
-</section>
-<section id="multi-period-boxplots-1" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="multi-period-boxplots-2" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/30.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; focus on the medians</em></p>
-</section>
-<section id="multi-period-boxplots-3" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/34.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; … when the median is above 5 kg per cap</em></p>
-</section>
-<section id="multi-period-boxplots-4" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Between which two years was there the largest jump in the median?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/30.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="multi-period-boxplots-5" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Between which two years was there the largest jump in the median?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/31.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; it’s maybe a little difficult to see</em></p>
-</section>
-<section id="multi-period-boxplots-6" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="multi-period-boxplots-7" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/32.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; focus on the minimums</em></p>
-</section>
-<section id="multi-period-boxplots-8" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-What patterns do we observe about the maximums?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/33.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; same with the maximums</em></p>
-</section>
-<section id="multi-period-boxplots-9" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; look at the 25%</em></p>
-</div>
-</section>
-<section id="multi-period-boxplots-10" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/35.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; look at the 25% and compare it to 5 kg per cap</em></p>
-</section>
-<section id="multi-period-boxplots-11" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/36.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="multi-period-boxplots-12" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; look at the range</em></p>
-</div>
-</section>
-<section id="multi-period-boxplots-13" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/37.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; look at the range</em></p>
-</section>
-<section id="multi-period-boxplots-14" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/38.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; look at the range and select the largest</em></p>
-</section>
-<section id="multi-period-boxplots-15" class="slide level2">
-<h2>Multi-Period Boxplots</h2>
-<p class="subheader">
-In which year did all countries increase their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/29.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; not visible in the figure!</em></p>
-</div>
-</section>
-<section id="exercise-multi-period-boxplots" class="slide level2">
-<h2>Exercise: Multi-Period Boxplots</h2>
-<p>We’re going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries. - <strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></p>
-</section>
-<section id="relationships-between-years" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Did all countries increase their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/39.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; a scatter plot can visualize changes between two points in time</em></p>
-</div>
-</section>
-<section id="relationships-between-years-1" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Did all countries increase their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/40.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; a 45 degree line shows all the possible points with no change</em></p>
-</section>
-<section id="relationships-between-years-2" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Which countries increased their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/40.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; a 45 degree line shows all the possible points with no change</em></p>
-</section>
-<section id="relationships-between-years-3" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Which countries decreased their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/42.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; points below the line show decreases</em></p>
-</section>
-<section id="relationships-between-years-4" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Which countries decreased their coffee consumption?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/42.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; this might also benefit from a log scale</em></p>
-</section>
-<section id="relationships-between-years-5" class="slide level2">
-<h2>Relationships Between Years</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="../Examples/Part_2_1/i/43.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; colors can visualize both increases and decreases</em></p>
-</section>
-<section id="exercise-timeseries" class="slide level2">
-<h2>Exercise: Timeseries</h2>
-<p>We’re going to use a timeseries to visually examine coffee price through time.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Prices_CPI.csv</code></li>
-</ul>
-</section>
-<section id="relationships-through-many-periods" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What information should we use to set prices in January 2025?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/1.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; again, it’s difficult to know… do we choose the mode?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets just scatter the price against time</em></p>
-</div>
-</section>
-<section id="relationships-through-many-periods-1" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What information should we use to set prices in January 2025?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/2.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; lets indicate with a line that these points are in squence</em></p>
-</div>
-</section>
-<section id="relationships-through-many-periods-2" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What information should we use to set prices in January 2025?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/3.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; we can zoom out to get a bigger picture</em></p>
-</div>
-</section>
-<section id="relationships-through-many-periods-3" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What information should we use to set prices in January 2025?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="relationships-through-many-periods-4" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What years does the price of coffee decrease?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/4.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="relationships-through-many-periods-5" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. What years does the price of coffee decrease?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/5.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; we can show changes with background shading</em></p>
-</div>
-</section>
-<section id="relationships-through-many-periods-6" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. Do you notice a <strong>trend</strong> in price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/5.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
-<p><em>&gt; maybe we should adjust the price acording to a general increase in prices…</em></p>
-</div>
-</section>
-<section id="relationships-through-many-periods-7" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. Do you notice a <strong>trend</strong> in price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/6.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; adjusting for inflation makes the picture clearer</em></p>
-</section>
-<section id="relationships-through-many-periods-8" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. Do you notice a <strong>trend</strong> in price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/7.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; adjusting for inflation makes the picture clearer</em></p>
-</section>
-<section id="relationships-through-many-periods-9" class="slide level2">
-<h2>Relationships Through Many Periods</h2>
-<p class="subheader">
-Q. Do you notice a <strong>trend</strong> in price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/8.png" class="quarto-figure quarto-figure-center r-stretch"><p><em>&gt; adjusted for inflation makes the picture clearer</em></p>
-</section>
-<section id="exercise-timeseries-1" class="slide level2">
-<h2>Exercise: Timeseries</h2>
-<p>We’re going to use a timeseries to visually examine coffee price through time. - <strong>Data:</strong> <code>Coffee_Prices_CPI.csv</code></p>
-</section>
-<section id="timeseries-seasonality" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-Years matter. But within the year, does month matter?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/9.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-1" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-Years matter. But within the year, does month matter?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-2" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-In which month was the record highest price set?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-3" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-In which month was the record highest price set?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/11.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-4" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-In which season are prices most spread out?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-5" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-In which season are prices most spread out?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/12.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-6" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-What is the trend in median price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/10.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-7" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-What is the trend in median price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/13.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="timeseries-seasonality-8" class="slide level2">
-<h2>Timeseries: Seasonality</h2>
-<p class="subheader">
-What is the trend in median price?
-</p>
-
-<img data-src="../Examples/Part_2_2/i/14.png" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="timeseries-relationships-through-time" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
 How do the two commodity prices relate to each other?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/15.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i_alt/15.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; difficult to tell because of the axis scale</em></p>
 </div>
 </section>
@@ -685,35 +151,35 @@ How do the two commodity prices relate to each other?
 How do the two commodity prices relate to each other?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/16.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/16.png" class="r-stretch"></section>
 <section id="timeseries-relationships-through-time-2" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
 In which years did oil and coffee prices move in <strong>opposite</strong> directions?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/16.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/16.png" class="r-stretch"></section>
 <section id="timeseries-relationships-through-time-3" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
 In which years did oil and coffee prices move in <strong>opposite</strong> directions?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/17.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/17.png" class="r-stretch"></section>
 <section id="timeseries-relationships-through-time-4" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
 But are the two prices positively or negatively related to each other?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/16.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/16.png" class="r-stretch"></section>
 <section id="timeseries-relationships-through-time-5" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
 But are the two prices positively or negatively related to each other?
 </p>
 
-<img data-src="../Examples/Part_2_2/i/18.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/18.png" class="r-stretch"></section>
 <section id="timeseries-relationships-through-time-6" class="slide level2">
 <h2>Timeseries: Relationships Through Time</h2>
 <p class="subheader">
@@ -721,7 +187,7 @@ Does the price of oil determine the price of coffee?
 </p>
 
 
-<img data-src="../Examples/Part_2_2/i/18.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="i_alt/18.png" class="r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -730,19 +196,19 @@ Does the price of oil determine the price of coffee?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_2_2_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_2_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_2_2_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_2_2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_2_2_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

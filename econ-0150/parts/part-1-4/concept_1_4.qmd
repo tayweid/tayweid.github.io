@@ -10,7 +10,33 @@ format:
 
 <br> 
 
-### *Part 1.4 | Numerical Variables by Category*
+### *Part 1.4 | Panel Data*
+
+---
+
+## Panel Data: Long Format vs Wide Format
+<p class="subheader">Panel data comes in one of two formats.</p>
+
+Panel Data in ***Long Format*** uses lists each entry as a row, using a column (eg. *Shop*) to record the group.
+
+```{python}
+import pandas as pd
+sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv', index_col='transaction_id')
+sales[['Hours', 'Shop']].head()
+```
+
+---
+
+## Panel Data: Long Format vs Wide Format
+<p class="subheader">Panel data comes in one of two formats.</p>
+
+Panel Data in ***Wide Format*** uses lists each group as a row, using a column to record each entry.
+
+```{python}
+import pandas as pd
+coffee = pd.read_csv('data/Coffee_Per_Cap.csv', index_col='Code')
+coffee[['1999', '2019']].head()
+```
 
 ---
 
@@ -18,7 +44,6 @@ format:
 <p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
 
 <br>
-
 
 - You manage three coffee shops and are considering where to hire a new barista.
 - You have a dataset containing information about the transactions taking place at all three coffee shops throughout the day.
@@ -83,13 +108,13 @@ format:
 ## Hiring a Barista: Transactions by Shop
 <p class="subheader">Q. Which shift is the busiest?</p>
 
-![](i/i_04.png)
+![](i/i_05.png)
 
 *> instead, lets use a line graph*
 
 ---
 
-## Part 1.4 | Numerical Variables by Category
+## Part 1.4 | Panel Data Using Line Graphs
 
 <br><br>
 
@@ -108,7 +133,7 @@ format:
 
 . . .
 
-```{.python code-line-numbers="1-3"}
+```{.python}
 # Load Dataset
 sales = pd.read_csv(file_path + 'Coffee_Sales_Reciepts.csv')
 sales.head()
@@ -124,14 +149,18 @@ sales[['Hours', 'Shop']].head()
 
 *> you'll see a few more columns in your dataset*
 
+. . .
+
+*> this is **Long-Format Panel Data**: transactions are all in the same column*
+
 ---
 
 ## Exercise 1.4 | Bar Chart
 <p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
 
-```{.python code-line-numbers="1-2"}
+```{.python}
 # Bar graph
-sns.countplot(data=sales, x='Shop', hue='Shop')
+sns.countplot(sales, x='Shop', hue='Shop')
 ```
 
 . . .
@@ -143,9 +172,9 @@ sns.countplot(data=sales, x='Shop', hue='Shop')
 ## Exercise 1.4 | Histogram
 <p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
 
-```{.python code-line-numbers="1-2"}
+```{.python}
 # Create a histogram
-sns.histplot(data=sales, x='Hours', bins=range(0,24,1))
+sns.histplot(sales, x='Hours', bins=range(0,24,1))
 ```
 
 . . .
@@ -154,15 +183,26 @@ sns.histplot(data=sales, x='Hours', bins=range(0,24,1))
 
 ---
 
-## Exercise 1.4 | Multiple Line Graph
+## Exercise 1.4 | Multi-Histogram
+<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+
+```{.python}
+# Create a multi-histogram
+sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1))
+```
+
+. . .
+
+![](i/i_03.png)
+
+---
+
+## Exercise 1.4 | Count Hourly by Shop
 <p class="subheader">Q. Which shift is the busiest?</p>
 
-```{.python code-line-numbers="1-2"}
+```{.python}
 # Create hourly counts by shop
 hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
-
-# Figure
-sns.lineplot(data=hourly_counts, x='Hours', y='Count', hue='Shop)
 ```
 
 . . .
@@ -178,16 +218,402 @@ sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count').head()
 ## Exercise 1.4 | Multiple Line Graph
 <p class="subheader">Q. Which shift is the busiest?</p>
 
-```{.python code-line-numbers="4-5"}
-# Create hourly counts by shop
-hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
-
-# Figure
-sns.lineplot(data=hourly_counts, x='Hours', y='Count', hue='Shop)
+```{.python}
+# Multiple-Line Graph
+sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly')
 ```
 
 . . .
 
 ![](i/i_04.png)
 
+---
+
+## Exercise 1.4 | Multiple Line Graph
+<p class="subheader">Q. Which shift is the busiest?</p>
+
+```{.python}
+# Multiple-Line Graph
+sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', fill=False)
+```
+
+. . .
+
+![](i/i_05.png)
+
+---
+
+## Panel Data: Coffee Consumption Per Capita
+<p class="subheader">Is the world drinking more coffee?</p>
+
+Lets examine whether the world is drinking more coffee today than in the 1990s. 
+
+- **Data:** `Coffee_Per_Cap.csv`
+
+---
+
+## Panel Data: Coffee Consumption Per Capita
+<p class="subheader">Is the world drinking more coffee?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> compared to what...?*
+
+---
+
+## Panel Data: Coffee Consumption Per Capita
+<p class="subheader">Is the world drinking more coffee?</p>
+
+![](i/i_07.png)
+
+. . .
+
+*> this is still pretty unclear: histograms aren't great for comparison*
+
+. . .
+
+*> lets use a multi-boxplot*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> this is better: it looks like the distribution is shifted higher!*
+
+. . .
+
+*> lets examine the years in between to see how the distribution evolved*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+![](i/i_09_c.png)
+
+. . .
+
+*> lets ask some smaller more focussed questions*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/i_09.png)
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/i_10.png)
+
+*> focus on the medians*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+
+![](i/i_14.png)
+
+*> ... when the median is above 5 kg per cap*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years saw the largest jump in the median?</p>
+
+![](i/i_10.png)
+
+*> ... a little difficult to see*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years saw the largest jump in the median?</p>
+
+![](i/i_11.png)
+
+*> ... a little difficult to see*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
+
+![](i/i_09.png)
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
+
+![](i/i_12.png)
+
+*> focus on the minimums*
+
+. . .
+
+*> yes!*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">What patterns do we observe about the maximums?</p>
+
+![](i/i_13.png)
+
+*> same with the maximums*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/i_09.png)
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/i_15.png)
+
+. . .
+
+*> look at the 25%*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/i_15.png)
+
+*> look at the 25% and compare it to 5 kg per cap*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+
+![](i/i_16.png)
+
+*> all of them*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/i_09.png)
+
+. . .
+
+*> look at the range*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/i_17.png)
+
+*> look at the range*
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">Which year saw the greatest difference between any two countries?</p>
+
+![](i/i_18.png)
+
+*> look at the range and select the largest*
+
+---
+
+## Exercise 1.4 | Multi-Boxplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+We're going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries. 
+
+- **Data:** `Coffee_Per_Cap.csv`
+
+. . . 
+
+```{python}
+import pandas as pd
+percap = pd.read_csv('data/Coffee_Per_Cap.csv', index_col=0)
+percap[['Code', '1999', '2009','2019']].head()
+```
+
+. . .
+
+*> this is **Wide-Format Panel Data**: each year is in a separate column*
+
+
+---
+
+## Exercise 1.4 | Multi-Boxplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+With wide-format panel data seaborn looks a little different.
+
+```{.python}
+# Wide Format Multi-Boxplot
+sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 100))
+```
+
+. . .
+
+![](i/i_09.png)
+
+---
+
+## Panel Data: Multi-Boxplots
+<p class="subheader">In which year did most countries increase their coffee consumption?</p>
+
+![](i/i_09_c.png)
+
+. . .
+
+*> not visible in the figure!*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_09_c.png)
+
+. . .
+
+*> also not visible with this figure!*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> better, but this figure still doesn't let us keep track of countries between years...*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_19.png)
+
+. . .
+
+*> a scatter plot can visualize changes between two points in time*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_20.png)
+
+*> a 45 degree line shows all the possible points with no change*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_20.png)
+
+*> a 45 degree line shows all the possible points with no change*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_21.png)
+
+*> points above the line increased*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">How many countries decreased their coffee consumption between 1999 and 2019?</p>
+
+![](i/i_22.png)
+
+*> points below the line decreased*
+
+---
+
+## Panel Data: Relationships Between Years
+<p class="subheader">Does the data confirm that the world is drinking more coffee?</p>
+
+![](i/i_23.png)
+
+*> we can use colors to visualize both increases and decreases*
+
+---
+
+## Exercise 1.4 | Scatterplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+We're going to use a scatterplot to visually examine how countries' coffee consumption changed between 1999 and 2019. 
+
+- **Data:** `Coffee_Per_Cap.csv`
+
+---
+
+## Exercise 1.4 | Scatterplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+```{.python}
+# Wide Format Scatterplot
+sns.scatterplot(percap, x='1999', y='2019')
+```
+
+---
+
+## Exercise 1.4 | Scatterplots
+<p class="subheader">Is the world drinking more coffee?</p>
+
+```{.python}
+# Wide Format Scatterplot
+sns.scatterplot(percap, x='1999', y='2019')
+```
+
+![](i/i_19.png)
+
+
+---
+
+## Part 1.4 | Panel Data Using Scatterplots
+
+<br><br>
+
+#### Summary
+
+::: {.incremental}
+- Multi-Boxplots can help visualize changes in the distribution, but cannot track individual changes.
+- Scatterplots can show how repeated observations change through time within a single unit.
+- A 45 degree line and colors can help visually communicate changes.
+:::
 
