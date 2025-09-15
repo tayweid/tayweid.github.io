@@ -209,8 +209,8 @@ The economist’s data analysis pipeline.
 Panel data comes in one of two formats.
 </p>
 <p>Panel Data in <strong><em>Long Format</em></strong> uses lists each entry as a row, using a column (eg. <em>Shop</em>) to record the group.</p>
-<div id="d3dd86de" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="479">
+<div id="17dab5e2" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -278,8 +278,8 @@ Panel data comes in one of two formats.
 Panel data comes in one of two formats.
 </p>
 <p>Panel Data in <strong><em>Wide Format</em></strong> uses lists each group as a row, using a column to record each entry.</p>
-<div id="d6691cc6" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="480">
+<div id="6f01b6d0" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -436,8 +436,8 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <span id="cb1-3"><a href=""></a>sales.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="c46b0a72" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="481">
+<div id="a5cf9ad2" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -540,8 +540,8 @@ Q. Which shift is the busiest?
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Create hourly counts by shop</span></span>
 <span id="cb5-2"><a href=""></a>hourly_counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div id="c4a53a2b" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="482">
+<div id="72f853de" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -604,14 +604,18 @@ Q. Which shift is the busiest?
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Multi-Lineplot</span></span>
+<span id="cb6-2"><a href=""></a>sns.lineplot(hourly_counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="exercise-1.4-multiple-line-graph" class="slide level2">
 <h2>Exercise 1.4 | Multiple Line Graph</h2>
 <p class="subheader">
 Q. Which shift is the busiest?
 </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb6-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
+<span id="cb7-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_04.png"></p>
 </div>
@@ -621,8 +625,8 @@ Q. Which shift is the busiest?
 <p class="subheader">
 Q. Which shift is the busiest?
 </p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb7-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
+<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_05.png"></p>
 </div>
@@ -817,8 +821,8 @@ Is the world drinking more coffee?
 <li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
 </ul>
 <div class="fragment">
-<div id="6f618238" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="483">
+<div id="076df613" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -897,8 +901,8 @@ Is the world drinking more coffee?
 Is the world drinking more coffee?
 </p>
 <p>With wide-format panel data seaborn looks a little different.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Wide Format Multi-Boxplot</span></span>
-<span id="cb8-2"><a href=""></a>sns.boxplot(percap[[<span class="st">'1999'</span>,<span class="st">'2004'</span>,<span class="st">'2009'</span>,<span class="st">'2014'</span>,<span class="st">'2019'</span>]], orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Wide Format Multi-Boxplot</span></span>
+<span id="cb9-2"><a href=""></a>sns.boxplot(percap[[<span class="st">'1999'</span>,<span class="st">'2004'</span>,<span class="st">'2009'</span>,<span class="st">'2014'</span>,<span class="st">'2019'</span>]], orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_09.png"></p>
 </div>
@@ -1004,16 +1008,16 @@ Is the world drinking more coffee?
 <p class="subheader">
 Is the world drinking more coffee?
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb9-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
+<span id="cb10-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="exercise-1.4-scatterplots-2" class="slide level2">
 <h2>Exercise 1.4 | Scatterplots</h2>
 <p class="subheader">
 Is the world drinking more coffee?
 </p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb10-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
+<span id="cb11-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="i/i_19.png" class="r-stretch"></section>
 <section id="part-1.4-panel-data-using-scatterplots" class="slide level2">

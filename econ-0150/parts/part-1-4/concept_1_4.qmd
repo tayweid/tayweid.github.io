@@ -213,6 +213,13 @@ sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv')
 sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count').head()
 ```
 
+. . .
+
+```{.python}
+# Multi-Lineplot
+sns.lineplot(hourly_counts, x='Hours', y='Hours', hue='Shop')
+```
+
 ---
 
 ## Exercise 1.4 | Multiple Line Graph
