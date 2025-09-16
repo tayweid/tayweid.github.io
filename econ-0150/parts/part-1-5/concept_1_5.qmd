@@ -7,18 +7,18 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader">The economist's data analysis pipeline.</p>
+<p class="subheader-center">The economist's data analysis skillset.</p>
 
 <br> 
 
-### *Part 1.5 | Relationships Between Variables*
+### *Part 1.5 | Bivariate Relationships*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
-![](i/1.png)
+![](i/c_01.png)
 
 . . .
 
@@ -33,7 +33,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
-![](i/2.png)
+![](i/c_02.png)
 
 . . .
 
@@ -44,7 +44,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
-![](i/3.png)
+![](i/c_03.png)
 
 . . .
 
@@ -55,26 +55,27 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
-![](i/3.png)
+![](i/c_03.png)
 
-*> *
+. . .
+
+*> look at the horizontal axis and select all that are greater than 2*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
+![](i/c_04.png)
 
-![](i/4.png)
-
-*> we can also easily use the scale on the axis*
+*> look at the horizontal axis and select all that are greater than 2*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
-![](i/3.png)
+![](i/c_03.png)
 
 *> and we can use either axis*
 
@@ -83,7 +84,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
-![](i/5.png)
+![](i/c_05.png)
 
 *> and we can use either axis*
 
@@ -92,7 +93,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
-![](i/3.png)
+![](i/c_03.png)
 
 *> we can also compare BETWEEN data points*
 
@@ -101,7 +102,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
-![](i/6.png)
+![](i/c_06.png)
 
 *> we can also compare BETWEEN data points*
 
@@ -110,7 +111,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
-![](i/7.png)
+![](i/c_07.png)
 
 *> separating lines can help make comparisons between ratios*
 
@@ -119,7 +120,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
-![](i/8.png)
+![](i/c_08.png)
 
 *> separating lines can help make comparisons between ratios*
 
@@ -128,7 +129,16 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
-![](i/9.png)
+![](i/c_07.png)
+
+*> separating lines can help make comparisons between ratios*
+
+---
+
+## Relationships Between Variables
+<p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
+
+![](i/c_09.png)
 
 *> separating lines can help make comparisons between ratios*
 
@@ -137,40 +147,38 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Do the GDPs of the upper or lower pair differ by a larger amount?</p>
 
-![](i/10.png)
+![](i/c_10.png)
 
 . . .
 
-*> we can also use the scale on the axis to measure differences*
+*> use the differences on the horizontal axis to measure differences*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
-![](i/10.png)
+![](i/c_10.png)
 
 . . .
 
-*> but the scale matters - this question is difficult to answer*
+*> this question is difficult to answer with this scale*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
-![](i/11.png)
+![](i/c_11.png)
 
-*> a log scale makes RATIOS easier to visualize*
+*> a log scale makes RATIOS easier to visualize: each tick is 10x larger*
 
 ---
 
 ## Relationships Between Variables
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
-![](i/11.png)
-
-. . .
+![](i/c_11.png)
 
 *> a log scale also makes it easier to see SCALING*
 
@@ -179,7 +187,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
-![](i/12.png)
+![](i/c_12.png)
 
 . . .
 
@@ -190,7 +198,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
-![](i/13.png)
+![](i/c_13.png)
 
 . . .
 
@@ -201,7 +209,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
-![](i/14.png)
+![](i/c_14.png)
 
 . . .
 
@@ -212,7 +220,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which country in the Americas produces the most coffee?</p>
 
-![](i/14.png)
+![](i/c_14.png)
 
 *> looks positive, but we'll formally test this in Part 4*
 
@@ -221,7 +229,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which country in the Americas produces the most coffee?</p>
 
-![](i/15.png)
+![](i/c_15.png)
 
 *> *
 
@@ -230,7 +238,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
-![](i/15.png)
+![](i/c_15.png)
 
 *> we can use the horizontal axis*
 
@@ -239,7 +247,7 @@ format:
 ## Relationships Between Variables
 <p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
-![](i/16.png)
+![](i/c_16.png)
 
 *> we can use a vertical line here to find the closest on the horizontal axis*
 
@@ -265,3 +273,68 @@ format:
 We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.
 
 - **Data:** `Beans_GDP.csv`
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">How do the two commodity prices relate to each other?</p>
+
+![](i/c_18.png)
+
+. . .
+
+*> difficult to tell because of the axis scale*
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">How do the two commodity prices relate to each other?</p>
+
+![](i/c_19.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
+
+![](i/c_19.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
+
+![](i/c_20.png)
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">But are the two prices positively or negatively related to each other?</p>
+
+![](i/c_20.png)
+
+. . .
+
+*> this is difficult to see with just a Multi-Lineplot...*
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">But are the two prices positively or negatively related to each other?</p>
+
+![](i/c_21.png)
+
+. . .
+
+*> a Scatterplot can show the relationship between two variables through time*
+
+---
+
+## Timeseries: Relationships Through Time
+<p class="subheader">Does the price of oil determine the price of coffee?</p>
+
+![](i/c_21.png)
+
+. . .
+
+*> a Scatterplot can only show associations not causation* :(

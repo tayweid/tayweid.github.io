@@ -11,3 +11,19 @@ We have Homework 1.3 and 1.4 due this week, which I'll post before class tomorro
 Anyway, looking forward to seeing you tomorrow!
 
 Taylor
+
+#### Economic Data Analysis | Week 4
+
+Hi folks!
+
+I hope your weekend was lovely! We're back at it this week, finishing up Part 1 before MiniExam 1 next week. 
+
+Last class we introduced Panel Data, data with both a cross-sectional and timeseries dimension. We looked at transactions by coffee shop, using a Multi-Linegraph to find which shift was the busiest. Then we ended by using Multi-Boxplots to examine how coffee consumption patterns have changed through time for many coffee importing countries. On the way out the door I asked you to find how many countries increased their coffee consumption during the 20 years we had data for. You told me that Boxplots could not answer this question and I told you that we have a tool that can.
+
+This week we're introducing the Scatterplot! We'll start by using the Scatterplot for panel data, wrapping up Part 1.4. Then we'll explore the scatterplot in more detail with Bivariate Data in Part 1.5. If we have time we'll close out Part 1 with Geographic Data.
+
+This is a big week: Scatterplot is an S-Tier tool.
+
+See you tomorrow!
+
+Taylor
