@@ -15,7 +15,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_01.png)
@@ -30,7 +30,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_02.png)
@@ -41,7 +41,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_03.png)
@@ -52,7 +52,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 ![](i/c_03.png)
@@ -63,7 +63,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 ![](i/c_04.png)
@@ -72,7 +72,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](i/c_03.png)
@@ -81,7 +81,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](i/c_05.png)
@@ -90,7 +90,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_03.png)
@@ -99,7 +99,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_06.png)
@@ -108,7 +108,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_07.png)
@@ -117,7 +117,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_08.png)
@@ -126,7 +126,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
 ![](i/c_07.png)
@@ -135,7 +135,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
 ![](i/c_09.png)
@@ -144,7 +144,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Do the GDPs of the upper or lower pair differ by a larger amount?</p>
 
 ![](i/c_10.png)
@@ -155,7 +155,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](i/c_10.png)
@@ -166,7 +166,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](i/c_11.png)
@@ -175,7 +175,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](i/c_11.png)
@@ -184,7 +184,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](i/c_12.png)
@@ -195,7 +195,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
 ![](i/c_13.png)
@@ -206,7 +206,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
 ![](i/c_14.png)
@@ -217,7 +217,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country in the Americas produces the most coffee?</p>
 
 ![](i/c_14.png)
@@ -226,7 +226,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country in the Americas produces the most coffee?</p>
 
 ![](i/c_15.png)
@@ -235,7 +235,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
 ![](i/c_15.png)
@@ -244,7 +244,7 @@ format:
 
 ---
 
-## Relationships Between Variables
+## Cross-Sectional Relationships
 <p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
 
 ![](i/c_16.png)
@@ -267,16 +267,26 @@ format:
 
 ---
 
-## Exercise: Scatterplots
+## Exercise: Cross-Sectional Scatterplots
 <p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
 
 We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.
 
-- **Data:** `Beans_GDP.csv`
+- **Data:** `Beans_GDP_2019.csv`
 
 ---
 
-## Timeseries: Relationships Through Time
+## Exercise: Cross-Sectional Scatterplots
+<p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
+
+```{.python}
+# Scatterplot
+sns.scatterplot(gdp, x='GDP', y='coffee_prod')
+```
+
+---
+
+## Timeseries Relationships
 <p class="subheader">How do the two commodity prices relate to each other?</p>
 
 ![](i/c_18.png)
@@ -287,28 +297,28 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">How do the two commodity prices relate to each other?</p>
 
 ![](i/c_19.png)
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
 
 ![](i/c_19.png)
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
 
 ![](i/c_20.png)
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">But are the two prices positively or negatively related to each other?</p>
 
 ![](i/c_20.png)
@@ -319,7 +329,7 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">But are the two prices positively or negatively related to each other?</p>
 
 ![](i/c_21.png)
@@ -330,7 +340,7 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ---
 
-## Timeseries: Relationships Through Time
+## Timeseries Relationships
 <p class="subheader">Does the price of oil determine the price of coffee?</p>
 
 ![](i/c_21.png)
@@ -338,3 +348,22 @@ We’re going to use a scatterplot to visually examine the relationship between 
 . . .
 
 *> a Scatterplot can only show associations not causation* :(
+
+---
+
+## Exercise: Timeseries Scatterplots
+<p class="subheader">Visualizing Coffee Prices and Oil Prices</p>
+
+We’re going to use a scatterplot to visually examine the relationship between coffee prices and oil prices.
+
+- **Data:** `Coffee_Oil.csv`
+
+---
+
+## Exercise: Timeseries Scatterplots
+<p class="subheader">Visualizing Coffee Prices and Oil Prices</p>
+
+```{.python}
+# Scatterplot
+sns.scatterplot(gdp, x='GDP', y='coffee_prod')
+```

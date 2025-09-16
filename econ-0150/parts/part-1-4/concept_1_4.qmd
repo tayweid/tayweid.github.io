@@ -547,15 +547,6 @@ sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 1
 ## Panel Data: Relationships Between Years
 <p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
 
-![](i/i_20.png)
-
-*> a 45 degree line shows all the possible points with no change*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
 ![](i/i_21.png)
 
 *> points above the line increased*
