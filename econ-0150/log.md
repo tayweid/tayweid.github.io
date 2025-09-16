@@ -1,5 +1,11 @@
 ## ECON 0150 | Log
 
+#### September 16, 2025
+
+so I think I want to record exercises like I did homework, with a direct to camera with a laptop, then have the screen recording to the side. eventually I want a concept video also rerecord, and have the Livestream recorded too, added as a separate card, with the script including discussion questions 
+
+I also think the motivation isn't quite right yet. I think it's close. I want to start with a dataset that we want to learn something from, then walk through how we might answer the question from the data, which requires some skills.
+
 #### September 9, 2025
 
 I think I'm going to make another change:
