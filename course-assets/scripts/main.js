@@ -206,6 +206,49 @@ const EconApp = {
                     }
                 });
             });
+            
+            // Also process standalone cards with video IDs (like MiniExam cards)
+            const standaloneCards = document.querySelectorAll('.carousel-card.standalone-card[data-video-id]');
+            standaloneCards.forEach(card => {
+                const videoId = card.getAttribute('data-video-id');
+                const cardVideo = card.querySelector('.card-video');
+                const img = cardVideo?.querySelector('img');
+                
+                // Add error handler to images
+                if (img) {
+                    img.onerror = function() {
+                        this.classList.add('placeholder-bg');
+                    };
+                }
+                
+                if (videoId && cardVideo) {
+                    // Check if it's a YouTube video ID (11 characters, alphanumeric + hyphens/underscores)
+                    const isYouTubeId = /^[a-zA-Z0-9_-]{11}$/.test(videoId);
+                    
+                    if (isYouTubeId) {
+                        // Auto-load YouTube thumbnail
+                        if (img) {
+                            img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                            img.classList.remove('placeholder-bg');
+                            img.alt = 'Video thumbnail';
+                        }
+                        
+                        // Add real video play button if it doesn't exist
+                        if (!cardVideo.querySelector('.play-button')) {
+                            const playButton = document.createElement('div');
+                            playButton.className = 'play-button';
+                            playButton.textContent = '▶';
+                            cardVideo.appendChild(playButton);
+                        }
+                        
+                        // Add click handler to open YouTube video
+                        cardVideo.style.cursor = 'pointer';
+                        cardVideo.addEventListener('click', () => {
+                            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                        });
+                    }
+                }
+            });
         }
     },
 
