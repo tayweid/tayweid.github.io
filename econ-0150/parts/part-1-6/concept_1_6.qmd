@@ -496,7 +496,7 @@ data.head().style.hide(axis="index")
 
 Data Dimensions:
 
-1. **Data Structure**: Cross-Sectional
+1. **Data Structure**: Timeseries
 2. **Number of Variables**: Univariate
 3. **Variable Type(s)**: Numerical
 

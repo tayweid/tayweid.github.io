@@ -1,0 +1,332 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 2.1 | Data Cleaning*
+
+---
+
+## Data Cleaning
+<p class="subheader">Q. Are students who live further away older?</p>
+
+---
+
+## Data Cleaning
+<p class="subheader">Q. Are students who live further away older?</p>
+
+Let's examine age and distance from Pittsburgh.
+
+. . .
+
+![](i/c_01.png)
+
+
+---
+
+## Data Cleaning
+<p class="subheader">Q. Are students who live further away older?</p>
+
+Let's examine age and distance from Pittsburgh.
+
+![](i/c_02.png)
+
+. . .
+
+*> the birthday data is stored as text: "08/15/2005"*
+
+. . .
+
+*> we need to extract the year to calculate age*
+
+---
+
+## String Parsing
+<p class="subheader">Extracting useful information from text</p>
+
+**What we have**: "08/15/2005"
+
+. . .
+
+**What we need**: 2005
+
+. . .
+
+![](i/c_03.png)
+
+---
+
+## Distance from Pittsburgh
+<p class="subheader">Q. Are students who live further away older?</p>
+
+![](i/c_04.png)
+
+. . .
+
+*> lots of different formats!*
+
+---
+
+## Distance from Pittsburgh
+<p class="subheader">Answers can be in many creative forms...</p>
+
+- "0 miles"
+- "~500"
+- "about 1000"
+- "2.5 hours"
+- "very far"
+
+. . .
+
+*> computers can't do math with text*
+
+---
+
+## Type Conversion
+<p class="subheader">Converting text to numbers</p>
+
+We can convert text to numbers, forcing errors to become NA.
+
+![](i/c_05.png)
+
+. . .
+
+*> entries like "very far" become NA*
+
+. . .
+
+*> entries like "500" become 500.0*
+
+---
+
+## Missing Values
+<p class="subheader">What happened to the non-numeric entries?</p>
+
+```{python}
+# Load the data
+import pandas as pd
+data = pd.read_csv('../part-0/data/Fall_2025_Survey_raw.csv')
+data['distance'] = data['Approximately how many miles away from Pittsburgh is your hometown?']
+data['new'] = pd.to_numeric(data['distance'], errors='coerce')
+data[['new', 'Approximately how many miles away from Pittsburgh is your hometown?']].head()
+```
+
+---
+
+## Missing Values
+<p class="subheader">What happened to the non-numeric entries?</p>
+
+```{python}
+# Load the data
+import pandas as pd
+data = pd.read_csv('../part-0/data/Fall_2025_Survey_raw.csv')
+data['distance'] = data['Approximately how many miles away from Pittsburgh is your hometown?']
+data['new'] = pd.to_numeric(data['distance'], errors='coerce')
+subdata = data[~(data['new']>0)]
+subdata[['new', 'Approximately how many miles away from Pittsburgh is your hometown?']].head()
+```
+
+. . .
+
+*> they all became NaN (Not Available)*
+
+. . .
+
+*> we need to decide what to do with them*
+
+---
+
+## Handling Missing Values
+<p class="subheader">Two main approaches</p>
+
+After replacing problematic values, there are generally two options.
+
+**Option 1**: Drop the missing values
+
+- Removes entire rows with NA
+- Reduces sample size
+- Simple and clean
+
+. . .
+
+**Option 2**: Replace with a value
+
+- Fill with 0, mean, or median
+- Keeps sample size
+- May introduce bias
+
+. . .
+
+*> for distance, dropping makes sense - we can't guess locations*
+
+---
+
+## After Cleaning
+<p class="subheader">Q. Are students who live further away older?</p>
+
+![](i/c_06.png)
+
+. . .
+
+*> as expected, there does not seem to be much of a relationship*
+
+---
+
+## Summary
+<p class="subheader">Some common data cleaning operations</p>
+
+<br><br>
+
+:::{.incremental}
+- **String Parsing**: Extract information from text
+- **Type Conversion**: Change text to numbers
+- **Missing Values**: Drop or replace NAs
+:::
+
+---
+
+## Exercise 2.1 | Data Cleaning
+
+<br><br>
+
+Let's find the median birthyear and the mean hometown distance from Pittsburgh.
+
+- **Data**: `Fall_2025_Survey_raw.csv`
+
+---
+
+## Exercise 2.1 | Birthday to Birthyear
+<p class="subheader">Extract year from birthday text</p>
+
+. . .
+
+```{.python}
+# Convert birthday to datetime
+survey['birthday'] = pd.to_datetime(survey['Approximately how many miles away from Pittsburgh is your hometown?'])
+```
+
+. . .
+
+```{.python}
+# Extract year from date
+survey['birthyear'] = survey['birthday'].dt.year
+```
+
+. . .
+
+```{.python}
+sns.histplot(survey, x='birthyear')
+```
+
+![](i/c_03.png)
+
+---
+
+## Exercise 2.1 | Distance Conversion (Simple)
+<p class="subheader">Convert distance text to numbers</p>
+
+. . .
+
+
+```{.python}
+# Convert to numeric, errors become NA
+survey['distance'] = pd.to_numeric(survey['Approximately how many miles away from Pittsburgh is your hometown?'], errors='coerce')
+```
+
+. . .
+
+```{.python}
+# Check how many became NA
+survey['distance'].isna().sum()
+```
+
+---
+
+## Exercise 2.1 | Handle Missing Values
+<p class="subheader">Two approaches to NAs</p>
+
+. . .
+
+**Drop missing values:**
+```{.python}
+# Remove rows where distance is NA
+survey_dropped = survey.dropna(subset=['distance_clean'])
+```
+
+. . .
+
+**Replace with a value:**
+```{.python}
+# Replace NA with median distance
+median_dist = survey['distance_clean'].median()
+survey['distance_filled'] = survey['distance_clean'].fillna(median_dist)
+```
+
+. . .
+
+```{.python}
+# Or replace with 0
+survey['distance_zero'] = survey['distance_clean'].fillna(0)
+```
+
+---
+
+## Exercise 2.1 | Distance Conversion (Replace)
+<p class="subheader">Convert distance text to numbers</p>
+
+. . .
+
+
+```{.python}
+# Replace non-numeric
+replacements = {
+    '400-450ish miles ': 400, 
+    'live in pittsburgh': 0,
+    '176 miles away': 176,
+    '0 (it’s Pittsburgh)': 0,
+    '350 miles': 350,
+    '240 miles': 240,
+    '388 miles': 388,
+    '17 miles': 17,
+    '300 miles': 300,
+    '7293 mi': 7293,
+    '4 miles ': 4,
+    '27 miles': 27,
+    '255 (near Philly)': 255,
+    '4,000': 4000,
+    '650 miles': 650,
+    '250 miles': 250,
+    '318 mi': 318,
+    '300 mi': 300,
+    '1000+': 1000,
+    '305 miles': 305
+}
+data['distance'] = data['distance'].replace(replacements)
+data['distance'] = pd.to_numeric(data['distance'])
+```
+
+. . .
+
+```{.python}
+# Check how many became NA
+survey['distance'].isna().sum()
+```
+
+---
+
+## Exercise 2.1 | Scatterplot
+<p class="subheader">Check that it worked</p>
+
+```{.python}
+# Create scatterplot
+sns.scatterplot(data=survey_dropped, x='distance_clean', y='age')
+```
+
+![](i/c_06.png)

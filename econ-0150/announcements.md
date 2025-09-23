@@ -27,3 +27,22 @@ This is a big week: Scatterplot is an S-Tier tool.
 See you tomorrow!
 
 Taylor
+
+
+
+#### Economic Data Analysis | Week 5 and MiniExam 1
+
+Hi folks,
+
+Congrats on making it through Part 1! We've covered how to explore and summarize data appropriately. We started the semester with exploratory data analysis with nice and well organized datasets. Everything I've given you so far has been in the right format to easily summarize. But sometimes we don't get datasets that are nicely set up for our question at hand. 
+
+On Tuesday (tomorrow) after MiniExam 1 we start Part 2, where we begin developing basic skills of data operations. We'll begin with cleaning data, then talk about grouping, transforming, reshaping, and merging. These skills will set up all the foundational skills to use data to develop statistical models starting in Part 3.
+
+MiniExam 1 will take place during the first 20 minutes of class on Tuesday (tomorrow). As I mentioned in class, the MiniExam 1 Demo is posted at the bottom of the Part 1 page. If you feel good about the Demo, the Homework, and the Exercises we've done in class, you're going to be in good shape going into the MiniExam. And don't hesitate to reach out before the next MiniExam if you feel like you'd want more resources next time.
+
+
+
+See you tomorrow,
+
+Taylor
+
