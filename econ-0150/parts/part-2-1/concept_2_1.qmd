@@ -209,7 +209,7 @@ Let's find the median birthyear and the mean hometown distance from Pittsburgh.
 
 ```{.python}
 # Convert birthday to datetime
-survey['birthday'] = pd.to_datetime(survey['Approximately how many miles away from Pittsburgh is your hometown?'])
+survey['birthday'] = pd.to_datetime(survey['When is your birthday?'])
 ```
 
 . . .
@@ -326,7 +326,7 @@ survey['distance'].isna().sum()
 
 ```{.python}
 # Create scatterplot
-sns.scatterplot(data=survey_dropped, x='distance_clean', y='age')
+sns.scatterplot(data, x='distance', y='age')
 ```
 
 ![](i/c_06.png)

@@ -291,8 +291,8 @@ Converting text to numbers
 <p class="subheader">
 What happened to the non-numeric entries?
 </p>
-<div id="f7a09969" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div id="528955d6" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -354,8 +354,8 @@ What happened to the non-numeric entries?
 <p class="subheader">
 What happened to the non-numeric entries?
 </p>
-<div id="29ac05d3" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="7a8f780f" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -481,7 +481,7 @@ Extract year from birthday text
 </p>
 <div class="fragment">
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Convert birthday to datetime</span></span>
-<span id="cb1-2"><a href=""></a>survey[<span class="st">'birthday'</span>] <span class="op">=</span> pd.to_datetime(survey[<span class="st">'Approximately how many miles away from Pittsburgh is your hometown?'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href=""></a>survey[<span class="st">'birthday'</span>] <span class="op">=</span> pd.to_datetime(survey[<span class="st">'When is your birthday?'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Extract year from date</span></span>
@@ -570,7 +570,7 @@ Convert distance text to numbers
 Check that it worked
 </p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Create scatterplot</span></span>
-<span id="cb11-2"><a href=""></a>sns.scatterplot(data<span class="op">=</span>survey_dropped, x<span class="op">=</span><span class="st">'distance_clean'</span>, y<span class="op">=</span><span class="st">'age'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href=""></a>sns.scatterplot(data, x<span class="op">=</span><span class="st">'distance'</span>, y<span class="op">=</span><span class="st">'age'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 <img data-src="i/c_06.png" class="r-stretch"></section>
