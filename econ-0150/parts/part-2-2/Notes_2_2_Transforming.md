@@ -1,22 +1,22 @@
-## Part 1.4 | Transformations
+## Part 2.2 | Transformations
 
 ### Real Coffee Prices
 
 Last time we talked about timeseries and the price of coffee. Coffee shop owners are always interested in the price of coffee in the future. We saw that **line graphs** are great tools for showing **trends** in a squence of data. We used a linegraph to see that the price of coffee in 2021 had an increasing trend. 
 
-![](/Users/taylorjweidman/PROJECTS/tayweid.github.io/econ-0150/parts/part-1-3/i/i_03.png)
+![](../part-1-3/i/i_03.png)
 
 Then we zoomed out all the way to 2000 to see if the trend over the last 25 years is also increasing. 
 
-![](/Users/taylorjweidman/PROJECTS/tayweid.github.io/econ-0150/parts/part-1-3/i/i_04.png)
+![](../part-1-3/i/i_04.png)
 
 This line graph represents daily coffee prices in US dollars per pound recorded from 2001 to 2025. This showed us some longer term trends. We saw that while there was an upward trend in 2021, the overall trend was much weaker. This longer interval makes it possible to see shorter subtrends within the larger trend. But not every trend was positive. We used this longer view and highlighted the subintervals with negative trends in price.
 
-![](/Users/taylorjweidman/PROJECTS/tayweid.github.io/econ-0150/parts/part-1-3/i/i_05.png)
+![](../part-1-3/i/i_05.png)
 
 The trend is negative when the prices generally fall over a given period. We can see that parts of the time series have negative trends even while the overall trend of the time series is positive. Lets zoom out even futher, going back to the 70s. 
 
-![](/Users/taylorjweidman/PROJECTS/tayweid.github.io/econ-0150/parts/part-1-3/i/i_06.png)
+![](i/i_cpi_01.png)
 
 What do you notice about this figure? First, we might recognize that the upward trend in prices looks somewhat specific to the period after 2000. Prices seem to vary, as shown by the positive and negative subtrends, but the decadeslong trend in prices looks relatively flat. Second, we can see that we're comparing prices in 1970's dollars to prices in 2020's dollars, which doesn't give us a consistent price level. So while this long term figure gives us a long term view, this isn't particularly useful in helping us understand how prices have evolved since the 1970s.
 

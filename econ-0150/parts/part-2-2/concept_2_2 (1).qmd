@@ -10,7 +10,7 @@ format:
 
 <br> 
 
-### *Part 1.4 | Transforming Data*
+### *Part 2.2 | Transforming Data*
 
 ---
 
@@ -54,7 +54,7 @@ format:
 
 ---
 
-## Exercise 1.4 | Real Coffee Prices
+## Exercise 2.2 | Real Price Adjustment
 <p class="subheader">Is there a trend in the real price of coffee?</p>
 
 <br><br>
@@ -168,7 +168,24 @@ Lets add 24 if the number is negative.
 
 ---
 
-## Exercise 1.4 | Starbucks' Global Capacity
+## Exercise 2.2 | Starbucks' Global Capacity
+<p class="subheader">How many shops are open at any given time?</p>
+
+<br><br>
+
+- Starbucks manages many shops globally and needs to maintain server capacity for all of them around the clock.
+
+. . .
+
+- We want to investigate how many coffee shops are open at any given hour to better understand server loads and Starbucks' global capacity needs.
+
+. . .
+
+- It's also just pretty interesting.
+
+---
+
+## Exercise 2.2 | Starbucks' Global Capacity
 <p class="subheader">How many shops are opening at any given time?</p>
 
 Looking at the data is a good place to start.
