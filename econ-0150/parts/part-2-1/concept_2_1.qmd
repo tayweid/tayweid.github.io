@@ -209,20 +209,20 @@ Let's find the median birthyear and the mean hometown distance from Pittsburgh.
 
 ```{.python}
 # Convert birthday to datetime
-survey['birthday'] = pd.to_datetime(survey['When is your birthday?'])
+survey['Birthday'] = pd.to_datetime(survey['When is your birthday?'])
 ```
 
 . . .
 
 ```{.python}
 # Extract year from date
-survey['birthyear'] = survey['birthday'].dt.year
+survey['Birthyear'] = survey['Birthday'].dt.year
 ```
 
 . . .
 
 ```{.python}
-sns.histplot(survey, x='birthyear')
+sns.histplot(survey, x='Birthyear')
 ```
 
 ![](i/c_03.png)
@@ -237,14 +237,14 @@ sns.histplot(survey, x='birthyear')
 
 ```{.python}
 # Convert to numeric, errors become NA
-survey['distance'] = pd.to_numeric(survey['Approximately how many miles away from Pittsburgh is your hometown?'], errors='coerce')
+survey['Distance'] = pd.to_numeric(survey['Approximately how many miles away from Pittsburgh is your hometown?'], errors='coerce')
 ```
 
 . . .
 
 ```{.python}
 # Check how many became NA
-survey['distance'].isna().sum()
+survey['Distance'].isna().sum()
 ```
 
 ---
@@ -257,7 +257,7 @@ survey['distance'].isna().sum()
 **Drop missing values:**
 ```{.python}
 # Remove rows where distance is NA
-survey_dropped = survey.dropna(subset=['distance_clean'])
+survey_dropped = survey.dropna()
 ```
 
 . . .
@@ -265,15 +265,15 @@ survey_dropped = survey.dropna(subset=['distance_clean'])
 **Replace with a value:**
 ```{.python}
 # Replace NA with median distance
-median_dist = survey['distance_clean'].median()
-survey['distance_filled'] = survey['distance_clean'].fillna(median_dist)
+median_dist = survey['Distance'].median()
+survey['Distance_median'] = survey['Distance'].fillna(median_dist)
 ```
 
 . . .
 
 ```{.python}
 # Or replace with 0
-survey['distance_zero'] = survey['distance_clean'].fillna(0)
+survey['Distance_zero'] = survey['Distance'].fillna(0)
 ```
 
 ---
@@ -308,15 +308,15 @@ replacements = {
     '1000+': 1000,
     '305 miles': 305
 }
-data['distance'] = data['distance'].replace(replacements)
-data['distance'] = pd.to_numeric(data['distance'])
+data['Distance_Clean'] = data['Approximately how many miles away from Pittsburgh is your hometown?'].replace(replacements)
+data['Distance_Clean'] = pd.to_numeric(data['Distance_Clean'])
 ```
 
 . . .
 
 ```{.python}
 # Check how many became NA
-survey['distance'].isna().sum()
+survey['Distance_Clean'].isna().sum()
 ```
 
 ---
@@ -326,7 +326,7 @@ survey['distance'].isna().sum()
 
 ```{.python}
 # Create scatterplot
-sns.scatterplot(data, x='distance', y='age')
+sns.scatterplot(data, x='Distance', y='age')
 ```
 
 ![](i/c_06.png)
