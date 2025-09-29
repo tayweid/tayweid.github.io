@@ -52,25 +52,7 @@ The main differentiators between a good and bad summarization tools is the dimen
 
 ---
 
-Instead of the slides that follow, use the survey figures and build up variable types in cross-section. Show an output of the data, then a summary table, then a figure.
-
-- Confident in excel? This has two options, or categories, for you to pick. So we'll call it a binary categorical variable.
-
-- Major? This has many categories, so it's not binary. How might we organize them? Well they don't have a real inherent order. In practice, there's no order. So we'll call these nominal categorical.
-
-- I should ask a question that's not so easy to confuse with numerical, like Strongly Agree, Agree, Neutral, ...
-
-- How much did you like you stats class? This is also not binary. And the categories are in numbers which we can create an order for. So like the last example, this can be ordered. Do the intervals between numbers have meaning? Like, what does one mean? Well it's not really counting something meaningful. So we say that it's still an ordinal categorical variable.
-
-- Birthyear? Now here, we're storing it in numbers, and the interval does have meaning. So this is definitely not a categorical variable. Instead, this is what we call a numerical variable. And the options are in integers, so we call this a discrete numerical variable.
-
-- Distance to Pittsburgh? Again, the numbers here are meaningful, so it's numerical. And even though we're asking for miles, I could definitely answer this with 2.3 miles, which is roughly how far my house is from Pitt.
-
-- Stats and this class? These are two ordinal categorical variables. So it's no longer just one variable at a time. This is what we call bivariate. 
-
-These are variable types in cross-section. I've asked you once. Now I've also collected some data from last semester. I have average grades by MiniExam. This is timeseries, since we're measuring one thing, the average MiniExam grade in the class, through time. Even though there are a lot of students in the class, this is one unit of measure since we're looking at the average.
-
-Then I also was interested to see how students felt about python once we got started with the tool. I asked how confident they were at the beginning and then again half way through. This is what we call panel data. I see many people through time.
+EXTRA MATERIAL IN NOTES GOES HERE
 
 ---
 

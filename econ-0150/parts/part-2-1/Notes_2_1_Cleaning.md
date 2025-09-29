@@ -1,7 +1,5 @@
 ## Part 2.1 |Data Cleaning
 
-### 
-
 ### Outline
 
 we've developed a systematic method for summarizing data

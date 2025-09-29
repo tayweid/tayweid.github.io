@@ -56,10 +56,6 @@ Then we'll plot this using Seaborn. The syntax may be familiar at this point. We
 sns.lineplot(data, x='date', y='price')
 ```
 
-### Percent Change in Coffee Prices
-
-Use an elasticity to measure how prices change. 
-
 ### Global Location Openings
 
 Starbucks doesn't just think about the price of coffee. With cafes on six continents, there is always someone having their morning coffee at Starbucks. Starbucks has a massive operation to make sure their shops are able to open every morning. They need all the building for the shop, the utilities to be on, the staff to be on site, and the computer servers to be up and running. This is a huge undertaking and requires considerable resources. Starbucks is very interested in the resource load these shop openings have throughout the world on their infrastructure. And we can use Starbucks shop openings to give us a picture of when the global workforce is coming online. We might wonder how many Starbucks cafes are openning at any given hour of the day. 
@@ -101,3 +97,4 @@ What does this tell us? First, we can see a small bump during morning hours in t
 
 
 ### Python Exercise 1.4 | Global Location Openings
+
