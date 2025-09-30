@@ -10,7 +10,7 @@ format:
 
 <br> 
 
-### *Part 1.5 | Filtering Data*
+### *Part 2.3 | Filtering Data*
 
 ---
 
@@ -264,7 +264,7 @@ data = pd.read_csv(file_path + file_name)
 
 ```{.python}
 # Histogram
-plt.hist(data['open'], bins=20)
+sns.histplot(hours, x='open', bins=range(0,25,1))
 ```
 
 . . .
@@ -292,7 +292,7 @@ plt.hist(data['open'], bins=20)
 
 ```{.python}
 # Decide whether each row's country code is 'US'
-data['COUNTRY_CODE'] == 'US'
+us_codes = hours['COUNTRY_CODE'] == 'US'
 ```
 
 ---
@@ -302,20 +302,10 @@ data['COUNTRY_CODE'] == 'US'
 
 ```{.python}
 # Decide whether each row's country code is 'US'
-# data['COUNTRY_CODE'] == 'US'
-```
-
----
-
-## Coffee Shop Hours: filter for US locations
-<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
-
-```{.python}
-# Decide whether each row's country code is 'US'
-# data['COUNTRY_CODE'] == 'US'
+us_codes = hours['COUNTRY_CODE'] == 'US'
 
 # Select the rows with True
-us_data = data[data['COUNTRY_CODE'] == 'US']
+us_hours = hours[us_codes]
 ```
 
 ---
@@ -325,10 +315,8 @@ us_data = data[data['COUNTRY_CODE'] == 'US']
 
 ```{.python}
 # Histogram of US locations
-plt.hist(us_data['open'], bins=20)
+sns.histplot(us_hours, x='open', bins=range(0,25,1))
 ```
-
-. . .
 
 ![](i/i_02.png)
 
@@ -340,7 +328,7 @@ plt.hist(us_data['open'], bins=20)
 ```{.python}
 # Find the data in either the US or in Canada (CA)
 # Method 1: Using OR operator |
-data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
+us_ca = hours[(hours['COUNTRY_CODE'] == 'US') | (hours['COUNTRY_CODE'] == 'CA')]
 ```
 
 ---
@@ -351,18 +339,7 @@ data[(data['COUNTRY_CODE'] == 'US') | (data['COUNTRY_CODE'] == 'CA')]
 ```{.python}
 # Find the data in either the US or in Canada (CA)
 # Method 2: Using isin()
-data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
-```
-
----
-
-## Coffee Shop Hours: shops in either US or CA
-<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
-
-```{.python}
-# Find the data in either the US or in Canada (CA)
-# Method 2: Using isin() and define a new dataset
-us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
+us_ca = hours[hours['COUNTRY_CODE'].isin(['US', 'CA'])]
 ```
 
 ---
@@ -372,10 +349,9 @@ us_ca_data = data[data['COUNTRY_CODE'].isin(['US', 'CA'])]
 
 ```{.python}
 # Create histogram
-plt.hist(us_ca_data['open'], bins=20)
-```
+sns.histplot(us_ca, x='open', bins=range(0,25,1))
 
-. . .
+```
 
 ![](i/i_03.png)
 
@@ -387,7 +363,7 @@ plt.hist(us_ca_data['open'], bins=20)
 What would this dataset look like?
 
 ```{.python code-line-numbers="4,7"}
-data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
+hours[(hours['COUNTRY_CODE'] == 'US') & (hours['COUNTRY_CODE'] == 'CN')]
 ```
 
 . . .
@@ -417,7 +393,7 @@ data[(data['COUNTRY_CODE'] == 'US') & (data['COUNTRY_CODE'] == 'CN')]
 
 ```{.python}
 # Filter for shops that open before 7 AM
-early_data = data[data['open'] < 7]
+early_hours = hours[hours['open'] < 7]
 ```
 
 ---
@@ -427,10 +403,9 @@ early_data = data[data['open'] < 7]
 
 ```{.python}
 # Create histogram of duration for early-opening shops
-plt.hist(early_data['duration_hr'], bins=20)
-```
+sns.histplot(early_hours, x='duration_hr', bins=range(0,25,1))
 
-. . .
+```
 
 ![](i/i_07.png)
 
@@ -441,7 +416,7 @@ plt.hist(early_data['duration_hr'], bins=20)
 
 ```{.python}
 # Filter for shops that open early AND are in US or Canada
-early_us_ca_data = data[(data['open'] < 7) & (data['COUNTRY_CODE'].isin(['US', 'CA']))]
+early_us_ca = hours[(hours['open'] < 7) & (hours['COUNTRY_CODE'].isin(['US', 'CA']))]
 ```
 
 ---
@@ -451,10 +426,9 @@ early_us_ca_data = data[(data['open'] < 7) & (data['COUNTRY_CODE'].isin(['US', '
 
 ```{.python}
 # Create histogram of duration for early-opening US/CA shops
-plt.hist(early_us_ca_data['duration_hr'], bins=20)
-```
+sns.histplot(early_us_ca, x='duration_hr', bins=range(0,25,1))
 
-. . .
+```
 
 ![](i/i_08.png)
 
@@ -465,12 +439,10 @@ plt.hist(early_us_ca_data['duration_hr'], bins=20)
 
 ```{.python}
 # Compare early vs all shops in US/CA
-plt.hist(us_ca_data['duration_hr'], bins=20, alpha=0.5, label='All US/CA')
-plt.hist(early_us_ca_data['duration_hr'], bins=20, alpha=0.7, label='Early US/CA')
+sns.histplot(us_ca, x='duration_hr', bins=range(0,25,1), label='All US/CA')
+sns.histplot(early_us_ca, x='duration_hr', bins=range(0,25,1), label='Early US/CA')
 plt.legend()
 ```
-
-. . .
 
 ![](i/i_09.png)
 

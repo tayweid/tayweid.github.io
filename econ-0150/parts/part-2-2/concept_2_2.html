@@ -277,7 +277,7 @@ How many shops are opening at any given time?
 </p>
 <p>Looking at the data is a good place to start.</p>
 <p><br></p>
-<div id="041a758d" class="cell" data-execution_count="1">
+<div id="f6a61b9b" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display" data-execution_count="1">
 <div>
 <style scoped="">
@@ -431,7 +431,7 @@ How many shops are opening at any given time?
 </p>
 <p>Looking at the data is a good place to start.</p>
 <p><br></p>
-<div id="6531282d" class="cell" data-execution_count="2">
+<div id="900d110a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 <style scoped="">
@@ -551,9 +551,161 @@ Normalize the negative values to 24 hours.
 </div>
 <div class="fragment">
 <p><img data-src="i/i_03.png"></p>
-
 </div>
 </section>
+<section id="scatterplot-linear-scale" class="slide level2">
+<h2>Scatterplot: Linear Scale</h2>
+<p class="subheader">
+Q. Is there a relationship between GDP and coffee production?
+</p>
+
+<img data-src="i/c_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; a scatterplot effectively visualizes scross sectional data with two dimensions</em></p>
+</div>
+</section>
+<section id="scatterplot-linear-scale-1" class="slide level2">
+<h2>Scatterplot: Linear Scale</h2>
+<p class="subheader">
+Which countries produce less coffee per dollar than Brazil?
+</p>
+
+<img data-src="i/c_05.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
+</section>
+<section id="scatterplot-linear-scale-2" class="slide level2">
+<h2>Scatterplot: Linear Scale</h2>
+<p class="subheader">
+Which countries produce less coffee per dollar than Brazil?
+</p>
+
+<img data-src="i/c_06.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
+</section>
+<section id="scatterplot-linear-scale-3" class="slide level2">
+<h2>Scatterplot: Linear Scale</h2>
+<p class="subheader">
+Which countries produce more coffee per dollar than Brazil?
+</p>
+
+<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
+</section>
+<section id="scatterplot-linear-scale-4" class="slide level2">
+<h2>Scatterplot: Linear Scale</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+
+<img data-src="i/c_09.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; small values are bunched; large data is very separated</em></p>
+</div>
+</section>
+<section id="scatterplot-log-scale" class="slide level2">
+<h2>Scatterplot: Log Scale</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+
+<img data-src="i/c_10.png" class="r-stretch"><p><em>&gt; we can fix this by applying a log transformation</em></p>
+</section>
+<section id="scatterplot-log-scale-1" class="slide level2">
+<h2>Scatterplot: Log Scale</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+
+<img data-src="i/c_10.png" class="r-stretch"><p><em>&gt; looks positive, but we’ll formally test this in Part 4</em></p>
+</section>
+<section id="exercise-2.2-log-transformation" class="slide level2">
+<h2>Exercise 2.2 | Log Transformation</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+<div id="4a04fe41" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">country</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">GMT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="scatterplot-log-scale-2" class="slide level2">
+<h2>Scatterplot: Log Scale</h2>
+<p class="subheader">
+How does GDP relate to coffee production in the Americas?
+</p>
+
+<img data-src="i/c_10.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; lets use a filter with this data</em></p>
+</div>
+</section>
+<section id="filtering-data-next-time" class="slide level2">
+<h2>Filtering Data: next time!</h2>
+<p class="subheader">
+How does GDP relate to coffee production in the Americas?
+</p>
+
+
+<img data-src="i/c_11.png" class="r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

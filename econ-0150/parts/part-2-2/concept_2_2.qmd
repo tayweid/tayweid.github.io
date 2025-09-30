@@ -267,3 +267,101 @@ sns.histplot(hours, x='OpenGMT24')
 
 ![](i/i_03.png)
 
+---
+
+## Scatterplot: Linear Scale
+<p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
+
+![](i/c_04.png)
+
+. . .
+
+*> a scatterplot effectively visualizes scross sectional data with two dimensions*
+
+---
+
+## Scatterplot: Linear Scale
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
+
+![](i/c_05.png)
+
+*> separating lines can help make comparisons between ratios*
+
+---
+
+## Scatterplot: Linear Scale
+<p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
+
+![](i/c_06.png)
+
+*> separating lines can help make comparisons between ratios*
+
+---
+
+## Scatterplot: Linear Scale
+<p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
+
+![](i/c_07.png)
+
+*> separating lines can help make comparisons between ratios*
+
+---
+
+## Scatterplot: Linear Scale
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+![](i/c_09.png)
+
+. . .
+
+*> small values are bunched; large data is very separated*
+
+---
+
+## Scatterplot: Log Scale
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+![](i/c_10.png)
+
+*> we can fix this by applying a log transformation*
+
+---
+
+## Scatterplot: Log Scale
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+![](i/c_10.png)
+
+*> looks positive, but we'll formally test this in Part 4*
+
+---
+
+## Exercise 2.2 | Log Transformation
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{python}
+# Import packages
+import pandas as pd
+
+# Load data
+hours = pd.read_csv('data/Starbucks_Location_Hours.csv')
+hours[['country', 'open', 'close', 'GMT']].head()
+```
+
+---
+
+## Scatterplot: Log Scale
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
+
+![](i/c_10.png)
+
+. . .
+
+*> lets use a filter with this data*
+
+---
+
+## Filtering Data: next time!
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
+
+![](i/c_11.png)

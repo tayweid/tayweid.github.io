@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_1_5_files/libs/clipboard/clipboard.min.js"></script>
-<script src="concept_1_5_files/libs/quarto-html/tabby.min.js"></script>
-<script src="concept_1_5_files/libs/quarto-html/popper.min.js"></script>
-<script src="concept_1_5_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="concept_1_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="concept_1_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="concept_1_5_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_2_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_2_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_2_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_2_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>concept_1_5</title>
+  <title>concept_2_3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="concept_1_5_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="concept_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="concept_1_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="concept_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="concept_1_5_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -198,7 +198,7 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-1.5-filtering-data">Part 1.5 | Filtering Data</h3>
+<h3 id="part-2.3-filtering-data"><em>Part 2.3 | Filtering Data</em></h3>
 </section>
 <section id="a-new-us-coffee-shop" class="slide level2">
 <h2>A New US Coffee Shop</h2>
@@ -439,7 +439,7 @@ Q. When might be a good time for the coffee shop to open?
 Q. When might be a good time for the coffee shop to open?
 </p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Histogram</span></span>
-<span id="cb2-2"><a href=""></a>plt.hist(data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href=""></a>sns.histplot(hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_01.png"></p>
 </div>
@@ -504,7 +504,7 @@ Filtering categorical data requires logical operations.
 Q. When might be a good time for the coffee shop to open?
 </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
-<span id="cb3-2"><a href=""></a>data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href=""></a>us_codes <span class="op">=</span> hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-filter-for-us-locations-1" class="slide level2">
 <h2>Coffee Shop Hours: filter for US locations</h2>
@@ -512,75 +512,54 @@ Q. When might be a good time for the coffee shop to open?
 Q. When might be a good time for the coffee shop to open?
 </p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
-<span id="cb4-2"><a href=""></a><span class="co"># data['COUNTRY_CODE'] == 'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href=""></a>us_codes <span class="op">=</span> hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
+<span id="cb4-5"><a href=""></a>us_hours <span class="op">=</span> hours[us_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-filter-for-us-locations-2" class="slide level2">
 <h2>Coffee Shop Hours: filter for US locations</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
-<span id="cb5-2"><a href=""></a><span class="co"># data['COUNTRY_CODE'] == 'US'</span></span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
-<span id="cb5-5"><a href=""></a>us_data <span class="op">=</span> data[data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="coffee-shop-hours-filter-for-us-locations-3" class="slide level2">
-<h2>Coffee Shop Hours: filter for US locations</h2>
-<p class="subheader">
-Q. When might be a good time for the coffee shop to open?
-</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Histogram of US locations</span></span>
-<span id="cb6-2"><a href=""></a>plt.hist(us_data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_02.png"></p>
-</div>
-</section>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Histogram of US locations</span></span>
+<span id="cb5-2"><a href=""></a>sns.histplot(us_hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_02.png" class="r-stretch"></section>
 <section id="coffee-shop-hours-shops-in-either-us-or-ca" class="slide level2">
 <h2>Coffee Shop Hours: shops in either US or CA</h2>
 <p class="subheader">
 Q. When might be a good time for a US coffee shop to open?
 </p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
-<span id="cb7-2"><a href=""></a><span class="co"># Method 1: Using OR operator |</span></span>
-<span id="cb7-3"><a href=""></a>data[(data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">|</span> (data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CA'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
+<span id="cb6-2"><a href=""></a><span class="co"># Method 1: Using OR operator |</span></span>
+<span id="cb6-3"><a href=""></a>us_ca <span class="op">=</span> hours[(hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">|</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CA'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-shops-in-either-us-or-ca-1" class="slide level2">
 <h2>Coffee Shop Hours: shops in either US or CA</h2>
 <p class="subheader">
 Q. When might be a good time for a US coffee shop to open?
 </p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
-<span id="cb8-2"><a href=""></a><span class="co"># Method 2: Using isin()</span></span>
-<span id="cb8-3"><a href=""></a>data[data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
+<span id="cb7-2"><a href=""></a><span class="co"># Method 2: Using isin()</span></span>
+<span id="cb7-3"><a href=""></a>us_ca <span class="op">=</span> hours[hours[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-shops-in-either-us-or-ca-2" class="slide level2">
 <h2>Coffee Shop Hours: shops in either US or CA</h2>
 <p class="subheader">
 Q. When might be a good time for a US coffee shop to open?
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
-<span id="cb9-2"><a href=""></a><span class="co"># Method 2: Using isin() and define a new dataset</span></span>
-<span id="cb9-3"><a href=""></a>us_ca_data <span class="op">=</span> data[data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Create histogram</span></span>
+<span id="cb8-2"><a href=""></a>sns.histplot(us_ca, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_03.png" class="r-stretch"></section>
 <section id="coffee-shop-hours-shops-in-either-us-or-ca-3" class="slide level2">
 <h2>Coffee Shop Hours: shops in either US or CA</h2>
 <p class="subheader">
 Q. When might be a good time for a US coffee shop to open?
 </p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Create histogram</span></span>
-<span id="cb10-2"><a href=""></a>plt.hist(us_ca_data[<span class="st">'open'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_03.png"></p>
-</div>
-</section>
-<section id="coffee-shop-hours-shops-in-either-us-or-ca-4" class="slide level2">
-<h2>Coffee Shop Hours: shops in either US or CA</h2>
-<p class="subheader">
-Q. When might be a good time for a US coffee shop to open?
-</p>
 <p>What would this dataset look like?</p>
-<div class="sourceCode" id="cb11" data-code-line-numbers="4,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a>data[(data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">&amp;</span> (data[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CN'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9" data-code-line-numbers="4,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>hours[(hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">&amp;</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CN'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; it would contain no data!</em></p>
 <p><img data-src="i/i_03_answer.png"></p>
@@ -645,52 +624,46 @@ Filtering numerical data requires inequalities.
 <p class="subheader">
 Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Filter for shops that open before 7 AM</span></span>
-<span id="cb12-2"><a href=""></a>early_data <span class="op">=</span> data[data[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Filter for shops that open before 7 AM</span></span>
+<span id="cb10-2"><a href=""></a>early_hours <span class="op">=</span> hours[hours[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-filter-for-early-opening-shops-1" class="slide level2">
 <h2>Coffee Shop Hours: filter for early opening shops</h2>
 <p class="subheader">
 Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening shops</span></span>
-<span id="cb13-2"><a href=""></a>plt.hist(early_data[<span class="st">'duration_hr'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_07.png"></p>
-</div>
-</section>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening shops</span></span>
+<span id="cb11-2"><a href=""></a>sns.histplot(early_hours, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_07.png" class="r-stretch"></section>
 <section id="coffee-shop-hours-combine-filters" class="slide level2">
 <h2>Coffee Shop Hours: combine filters</h2>
 <p class="subheader">
 Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Filter for shops that open early AND are in US or Canada</span></span>
-<span id="cb14-2"><a href=""></a>early_us_ca_data <span class="op">=</span> data[(data[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>) <span class="op">&amp;</span> (data[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>]))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Filter for shops that open early AND are in US or Canada</span></span>
+<span id="cb12-2"><a href=""></a>early_us_ca <span class="op">=</span> hours[(hours[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>) <span class="op">&amp;</span> (hours[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>]))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-combine-filters-1" class="slide level2">
 <h2>Coffee Shop Hours: combine filters</h2>
 <p class="subheader">
 Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening US/CA shops</span></span>
-<span id="cb15-2"><a href=""></a>plt.hist(early_us_ca_data[<span class="st">'duration_hr'</span>], bins<span class="op">=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_08.png"></p>
-</div>
-</section>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening US/CA shops</span></span>
+<span id="cb13-2"><a href=""></a>sns.histplot(early_us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_08.png" class="r-stretch"></section>
 <section id="coffee-shop-hours-compare-opening-times" class="slide level2">
 <h2>Coffee Shop Hours: compare opening times</h2>
 <p class="subheader">
 Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href=""></a><span class="co"># Compare early vs all shops in US/CA</span></span>
-<span id="cb16-2"><a href=""></a>plt.hist(us_ca_data[<span class="st">'duration_hr'</span>], bins<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'All US/CA'</span>)</span>
-<span id="cb16-3"><a href=""></a>plt.hist(early_us_ca_data[<span class="st">'duration_hr'</span>], bins<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'Early US/CA'</span>)</span>
-<span id="cb16-4"><a href=""></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_09.png"></p>
-</div>
-</section>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Compare early vs all shops in US/CA</span></span>
+<span id="cb14-2"><a href=""></a>sns.histplot(us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>), label<span class="op">=</span><span class="st">'All US/CA'</span>)</span>
+<span id="cb14-3"><a href=""></a>sns.histplot(early_us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>), label<span class="op">=</span><span class="st">'Early US/CA'</span>)</span>
+<span id="cb14-4"><a href=""></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_09.png" class="r-stretch"></section>
 <section id="coffee-shop-hours-recommendation" class="slide level2">
 <h2>Coffee Shop Hours: recommendation</h2>
 <p class="subheader">
@@ -714,19 +687,19 @@ Q. How long might be good for the coffee shop to stay open?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="concept_1_5_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="concept_1_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="concept_1_5_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="concept_1_5_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
