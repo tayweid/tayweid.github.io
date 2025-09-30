@@ -277,8 +277,8 @@ How many shops are opening at any given time?
 </p>
 <p>Looking at the data is a good place to start.</p>
 <p><br></p>
-<div id="f6a61b9b" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="1">
+<div id="2fbc9ecf" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -431,8 +431,8 @@ How many shops are opening at any given time?
 </p>
 <p>Looking at the data is a good place to start.</p>
 <p><br></p>
-<div id="900d110a" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="19d7147d" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -618,8 +618,8 @@ How does GDP relate to coffee production?
 <p class="subheader">
 How does GDP relate to coffee production?
 </p>
-<div id="4a04fe41" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="83e98672" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -639,47 +639,53 @@ How does GDP relate to coffee production?
 <thead>
 <tr class="header" style="text-align: right;">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">country</th>
-<th data-quarto-table-cell-role="th">open</th>
-<th data-quarto-table-cell-role="th">close</th>
-<th data-quarto-table-cell-role="th">GMT</th>
+<th data-quarto-table-cell-role="th">Code</th>
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th">coffee_prod</th>
+<th data-quarto-table-cell-role="th">Entity</th>
+<th data-quarto-table-cell-role="th">GDP</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>HK</td>
-<td>8</td>
-<td>22</td>
-<td>8</td>
+<td data-quarto-table-cell-role="th">49</td>
+<td>AGO</td>
+<td>2019</td>
+<td>0.013257</td>
+<td>Angola</td>
+<td>0.227856</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>HK</td>
-<td>7</td>
-<td>22</td>
-<td>8</td>
+<td data-quarto-table-cell-role="th">189</td>
+<td>BOL</td>
+<td>2019</td>
+<td>0.024841</td>
+<td>Bolivia</td>
+<td>0.098836</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>HK</td>
-<td>8</td>
-<td>22</td>
-<td>8</td>
+<td data-quarto-table-cell-role="th">248</td>
+<td>BRA</td>
+<td>2019</td>
+<td>3.011745</td>
+<td>Brazil</td>
+<td>3.080049</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>HK</td>
-<td>8</td>
-<td>22</td>
-<td>8</td>
+<td data-quarto-table-cell-role="th">307</td>
+<td>BDI</td>
+<td>2019</td>
+<td>0.014059</td>
+<td>Burundi</td>
+<td>0.009110</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>HK</td>
-<td>8</td>
-<td>20</td>
-<td>8</td>
+<td data-quarto-table-cell-role="th">416</td>
+<td>CMR</td>
+<td>2019</td>
+<td>0.034061</td>
+<td>Cameroon</td>
+<td>0.094488</td>
 </tr>
 </tbody>
 </table>
@@ -687,6 +693,32 @@ How does GDP relate to coffee production?
 </div>
 </div>
 </div>
+</section>
+<section id="exercise-2.2-log-transformation-1" class="slide level2">
+<h2>Exercise 2.2 | Log Transformation</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Log both x and y variables</span></span>
+<span id="cb4-2"><a href=""></a>gdp[<span class="st">'log_GDP'</span>] <span class="op">=</span> np.log(gdp[<span class="st">'GDP'</span>])</span>
+<span id="cb4-3"><a href=""></a>gdp[<span class="st">'log_prod'</span>] <span class="op">=</span> np.log(gdp[<span class="st">'coffee_prod'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Plot the log variables</span></span>
+<span id="cb5-2"><a href=""></a>sns.scatterplot(gdp, y<span class="op">=</span><span class="st">'log_prod'</span>, x<span class="op">=</span><span class="st">'log_GDP'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><img data-src="i/c_10.png"></p>
+</div>
+</section>
+<section id="exercise-2.2-log-transformation-2" class="slide level2">
+<h2>Exercise 2.2 | Log Transformation</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Use a log scale without transforming the variable</span></span>
+<span id="cb6-2"><a href=""></a>sns.scatterplot(gdp, y<span class="op">=</span><span class="st">'coffee_prod'</span>, x<span class="op">=</span><span class="st">'GDP'</span>)</span>
+<span id="cb6-3"><a href=""></a>plt.xscale(<span class="st">'log'</span>)</span>
+<span id="cb6-4"><a href=""></a>plt.yscale(<span class="st">'log'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="scatterplot-log-scale-2" class="slide level2">
 <h2>Scatterplot: Log Scale</h2>
@@ -704,8 +736,11 @@ How does GDP relate to coffee production in the Americas?
 How does GDP relate to coffee production in the Americas?
 </p>
 
+<img data-src="i/c_11.png" class="r-stretch"><div class="fragment">
+<p><em>&gt;</em></p>
 
-<img data-src="i/c_11.png" class="r-stretch"></section>
+</div>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

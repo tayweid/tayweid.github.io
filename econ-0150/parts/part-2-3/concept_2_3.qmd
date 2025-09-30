@@ -278,12 +278,12 @@ sns.histplot(hours, x='open', bins=range(0,25,1))
 
 | Logic | Python | | Example |
 |-----------|--------|--|---------|
-| Equals | == | | `data[data['shop'] == 'A']` |
-| Unequal | != | | `data[data['shop'] != 'A']` |
-| NOT | ~ | | `data[~(data['shop'] == 'A')]` |
-| In list | .isin() | | `data[data['shop'].isin(['A', 'B'])]` |
-| AND | & | | `(data['shop'] == 'A') & (data['open'] < 7)` |
-| OR | \| | | `(data['shop'] == 'A') | (data['open'] < 7)` |
+| Equals | == | | `df[df['shop'] == 'A']` |
+| Unequal | != | | `df[df['shop'] != 'A']` |
+| NOT | ~ | | `df[~(df['shop'] == 'A')]` |
+| In list | .isin() | | `df[df['shop'].isin(['A', 'B'])]` |
+| AND | & | | `(df['shop'] == 'A') & (df['open'] < 7)` |
+| OR | \| | | `(df['shop'] == 'A') | (df['open'] < 7)` |
 
 ---
 
@@ -357,7 +357,7 @@ sns.histplot(us_ca, x='open', bins=range(0,25,1))
 
 ---
 
-## Coffee Shop Hours: shops in either US or CA
+## Coffee Shop Hours: shops in both US and CA
 <p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
 
 What would this dataset look like?
@@ -379,12 +379,12 @@ hours[(hours['COUNTRY_CODE'] == 'US') & (hours['COUNTRY_CODE'] == 'CN')]
 
 | Symbol | Python | | Example |
 |--------|--------------|--------------|---------|
-| = | == | | `data[data['open'] == 7]` |
-| ≠ | != | | `data[data['open'] != 7]` |
-| < | < | | `data[data['open'] < 7]` |
-| > | > | | `data[data['open'] > 7]` |
-| ≤ | <= | | `data[data['open'] <= 7]` |
-| ≥ | >= | | `data[data['open'] >= 7]` |
+| = | == | | `df[df['open'] == 7]` |
+| ≠ | != | | `df[df['open'] != 7]` |
+| < | < | | `df[df['open'] < 7]` |
+| > | > | | `df[df['open'] > 7]` |
+| ≤ | <= | | `df[df['open'] <= 7]` |
+| ≥ | >= | | `df[df['open'] >= 7]` |
 
 ---
 

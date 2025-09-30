@@ -340,12 +340,43 @@ sns.histplot(hours, x='OpenGMT24')
 <p class="subheader">How does GDP relate to coffee production?</p>
 
 ```{python}
-# Import packages
-import pandas as pd
+file_path = 'https://tayweid.github.io/econ-0150/parts/part-1-5/data/'
+gdp = pd.read_csv(file_path + 'Beans_GDP_2019.csv', index_col=0)
+gdp.head()
+```
 
-# Load data
-hours = pd.read_csv('data/Starbucks_Location_Hours.csv')
-hours[['country', 'open', 'close', 'GMT']].head()
+---
+
+## Exercise 2.2 | Log Transformation
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{.python}
+# Log both x and y variables
+gdp['log_GDP'] = np.log(gdp['GDP'])
+gdp['log_prod'] = np.log(gdp['coffee_prod'])
+```
+
+. . .
+
+```{.python}
+# Plot the log variables
+sns.scatterplot(gdp, y='log_prod', x='log_GDP')
+```
+
+. . .
+
+![](i/c_10.png)
+
+---
+
+## Exercise 2.2 | Log Transformation
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{.python}
+# Use a log scale without transforming the variable
+sns.scatterplot(gdp, y='coffee_prod', x='GDP')
+plt.xscale('log')
+plt.yscale('log')
 ```
 
 ---
@@ -365,3 +396,7 @@ hours[['country', 'open', 'close', 'GMT']].head()
 <p class="subheader">How does GDP relate to coffee production in the Americas?</p>
 
 ![](i/c_11.png)
+
+. . .
+
+*>*

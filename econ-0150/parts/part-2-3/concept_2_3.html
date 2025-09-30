@@ -463,37 +463,37 @@ Filtering categorical data requires logical operations.
 <td>Equals</td>
 <td>==</td>
 <td></td>
-<td><code>data[data['shop'] == 'A']</code></td>
+<td><code>df[df['shop'] == 'A']</code></td>
 </tr>
 <tr class="even">
 <td>Unequal</td>
 <td>!=</td>
 <td></td>
-<td><code>data[data['shop'] != 'A']</code></td>
+<td><code>df[df['shop'] != 'A']</code></td>
 </tr>
 <tr class="odd">
 <td>NOT</td>
 <td>~</td>
 <td></td>
-<td><code>data[~(data['shop'] == 'A')]</code></td>
+<td><code>df[~(df['shop'] == 'A')]</code></td>
 </tr>
 <tr class="even">
 <td>In list</td>
 <td>.isin()</td>
 <td></td>
-<td><code>data[data['shop'].isin(['A', 'B'])]</code></td>
+<td><code>df[df['shop'].isin(['A', 'B'])]</code></td>
 </tr>
 <tr class="odd">
 <td>AND</td>
 <td>&amp;</td>
 <td></td>
-<td><code>(data['shop'] == 'A') &amp; (data['open'] &lt; 7)</code></td>
+<td><code>(df['shop'] == 'A') &amp; (df['open'] &lt; 7)</code></td>
 </tr>
 <tr class="even">
 <td>OR</td>
 <td>|</td>
 <td></td>
-<td><code>(data['shop'] == 'A') | (data['open'] &lt; 7)</code></td>
+<td><code>(df['shop'] == 'A') | (df['open'] &lt; 7)</code></td>
 </tr>
 </tbody>
 </table>
@@ -553,8 +553,8 @@ Q. When might be a good time for a US coffee shop to open?
 <span id="cb8-2"><a href=""></a>sns.histplot(us_ca, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="i/i_03.png" class="r-stretch"></section>
-<section id="coffee-shop-hours-shops-in-either-us-or-ca-3" class="slide level2">
-<h2>Coffee Shop Hours: shops in either US or CA</h2>
+<section id="coffee-shop-hours-shops-in-both-us-and-ca" class="slide level2">
+<h2>Coffee Shop Hours: shops in both US and CA</h2>
 <p class="subheader">
 Q. When might be a good time for a US coffee shop to open?
 </p>
@@ -584,37 +584,37 @@ Filtering numerical data requires inequalities.
 <td>=</td>
 <td>==</td>
 <td></td>
-<td><code>data[data['open'] == 7]</code></td>
+<td><code>df[df['open'] == 7]</code></td>
 </tr>
 <tr class="even">
 <td>≠</td>
 <td>!=</td>
 <td></td>
-<td><code>data[data['open'] != 7]</code></td>
+<td><code>df[df['open'] != 7]</code></td>
 </tr>
 <tr class="odd">
 <td>&lt;</td>
 <td>&lt;</td>
 <td></td>
-<td><code>data[data['open'] &lt; 7]</code></td>
+<td><code>df[df['open'] &lt; 7]</code></td>
 </tr>
 <tr class="even">
 <td>&gt;</td>
 <td>&gt;</td>
 <td></td>
-<td><code>data[data['open'] &gt; 7]</code></td>
+<td><code>df[df['open'] &gt; 7]</code></td>
 </tr>
 <tr class="odd">
 <td>≤</td>
 <td>&lt;=</td>
 <td></td>
-<td><code>data[data['open'] &lt;= 7]</code></td>
+<td><code>df[df['open'] &lt;= 7]</code></td>
 </tr>
 <tr class="even">
 <td>≥</td>
 <td>&gt;=</td>
 <td></td>
-<td><code>data[data['open'] &gt;= 7]</code></td>
+<td><code>df[df['open'] &gt;= 7]</code></td>
 </tr>
 </tbody>
 </table>
