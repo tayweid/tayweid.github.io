@@ -29,3 +29,22 @@ Part_1_8_Coffee_Prices
 Part_1_8_Coffee_Oil
 
 - Energy Institute via Our World in Data (2022). Oil — crude prices since 1861 (current $)
+
+
+
+Marriage Rates
+
+- https://ec.europa.eu/eurostat/databrowser/view/DEMO_NIND__custom_6759888/default/table?lang=en
+
+Amazon Sales
+
+- https://www.kaggle.com/datasets/chriskachmar/amazon-top-50-bestselling-books-2009-2022?resource=download
+
+Heathrow Weather
+
+- https://www.metoffice.gov.uk/pub/data/weather/uk/climate/stationdata/heathrowdata.txt
+
+Bike Rentals
+
+- https://data.london.gov.uk/dataset/number-bicycle-hires
+

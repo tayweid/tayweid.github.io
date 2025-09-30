@@ -134,8 +134,8 @@
 
 /* Concept cards: large solid dots */
 .indicator-tab.concept-indicator::before {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     border: 2px solid transparent;
@@ -148,47 +148,38 @@
 
 .indicator-tab.concept-indicator.active::before {
     width: 34px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.5); /* Keep same fill as non-active */
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
     border: 2px solid var(--main-cool-blue);
-    border-radius: 12px;
+    border-radius: 9px;
     box-sizing: border-box;
 }
 
 /* Exercise cards: hollow circles with connector */
 .indicator-tab.exercise-indicator {
     position: relative;
-    padding-left: 20px; /* Add padding for the connector line */
-}
-
-/* Reduce gap before exercise indicators */
-.indicator-tab + .indicator-tab.exercise-indicator {
-    margin-left: -12px; /* Tighter spacing when exercise follows another tab */
-}
-
-/* Add normal spacing after exercise indicators */
-.indicator-tab.exercise-indicator + .indicator-tab {
-    margin-left: 12px; /* Compensate for the reduced spacing before */
 }
 
 /* Exercise connector line */
 .indicator-tab.exercise-indicator::after {
     content: '';
     position: absolute;
-    left: -3px; /* Moved slightly more right */
+    right: 100%;
     top: 50%;
-    width: 18px; /* Slightly shorter line */
+    width: 12px;
     height: 1px;
     background: rgba(255, 255, 255, 0.5);
     transform: translateY(-50%);
+    margin-right: 4px;
 }
 
 .indicator-tab.exercise-indicator::before {
-    width: 10px;
-    height: 10px;
+    width: 18px;
+    height: 18px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
+    box-sizing: border-box;
 }
 
 .indicator-tab.exercise-indicator:hover::before {
@@ -196,11 +187,11 @@
 }
 
 .indicator-tab.exercise-indicator.active::before {
-    width: 20px;
-    height: 10px; /* No vertical growth - same as original */
-    border-color: var(--main-cool-blue);
-    border-radius: 8px; /* More rounded to reduce flat edges */
-    border-width: 2px; /* Maintain border width */
+    width: 34px;
+    height: 18px;
+    border: 2px solid var(--main-cool-blue);
+    border-radius: 9px;
+    box-sizing: border-box;
 }
 
 
@@ -213,38 +204,35 @@
 .indicator-tab + .indicator-tab.homework-indicator::after {
     content: '';
     position: absolute;
-    left: -16px; /* Moved left for better positioning */
+    right: 100%;
     top: 50%;
-    width: 1px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.3);
+    width: 2px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
     transform: translateY(-50%);
+    margin-right: 9px;
 }
 
 .indicator-tab.homework-indicator::before {
-    width: 24px;
-    height: 24px;
-    background: transparent;
-    border: 9px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%; /* Full circle */
-    box-sizing: border-box; /* Include border in dimensions */
-    outline: 2px solid transparent; /* Prepare for active state */
-    outline-offset: -2px;
+    width: 18px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    box-sizing: border-box;
 }
 
 .indicator-tab.homework-indicator:hover::before {
-    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .indicator-tab.homework-indicator.active::before {
     width: 34px;
-    height: 24px;
-    background: transparent;
-    border: 9px solid rgba(255, 255, 255, 0.5);
-    border-radius: 12px; /* Pill shape when active */
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--main-cool-blue);
+    border-radius: 9px;
     box-sizing: border-box;
-    outline: 2px solid var(--main-cool-blue); /* Blue outline inside bounds */
-    outline-offset: -2px;
 }
 
 /* Remove SVG styles */
