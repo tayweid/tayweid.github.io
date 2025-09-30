@@ -52,11 +52,20 @@ const EconApp = {
                     if (!indicator.querySelector('.indicator-track')) {
                         const indicatorHTML = `
                             <div class="indicator-track">
-                                ${Array.from(cards).map((card, index) => `
-                                    <button class="indicator-tab ${index === 0 ? 'active' : ''}" data-index="${index}">
-                                        ${this.getIconForCard(card)}
-                                    </button>
-                                `).join('')}
+                                ${Array.from(cards).map((card, index) => {
+                                    let indicatorClass = '';
+                                    if (card.classList.contains('concept-card')) {
+                                        indicatorClass = 'concept-indicator';
+                                    } else if (card.classList.contains('exercise-card')) {
+                                        indicatorClass = 'exercise-indicator';
+                                    } else if (card.classList.contains('homework-card')) {
+                                        indicatorClass = 'homework-indicator';
+                                    }
+                                    return `
+                                        <button class="indicator-tab ${indicatorClass} ${index === 0 ? 'active' : ''}" data-index="${index}">
+                                        </button>
+                                    `;
+                                }).join('')}
                             </div>
                         `;
                         indicator.innerHTML = indicatorHTML;
@@ -64,30 +73,14 @@ const EconApp = {
                     
                     const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
                     const indicatorTrack = indicator.querySelector('.indicator-track');
-                    let indicatorPill = indicator.querySelector('.indicator-pill');
                     let isProgrammaticScroll = false; // Flag to prevent flickering
                     
-                    // Create pill if it doesn't exist
-                    if (!indicatorPill && indicatorTrack) {
-                        indicatorPill = document.createElement('div');
-                        indicatorPill.className = 'indicator-pill';
-                        indicatorTrack.appendChild(indicatorPill);
-                    }
-                    
-                    // Simple active state update with pill animation
+                    // Simple active state update
                     const updateActiveIndicator = (index) => {
                         if (indicatorTabs[index]) {
                             // Update active states
                             indicatorTabs.forEach(t => t.classList.remove('active'));
                             indicatorTabs[index].classList.add('active');
-                            
-                            // Move the pill to the active tab
-                            if (indicatorPill) {
-                                const tabRect = indicatorTabs[index].getBoundingClientRect();
-                                const trackRect = indicatorTrack.getBoundingClientRect();
-                                const leftPosition = tabRect.left - trackRect.left + (tabRect.width / 2) - (indicatorPill.offsetWidth / 2);
-                                indicatorPill.style.left = `${leftPosition}px`;
-                            }
                         }
                     };
                     
@@ -158,10 +151,8 @@ const EconApp = {
                         updateActiveIndicator(closestIndex);
                     });
                     
-                    // Initialize pill position
-                    setTimeout(() => {
-                        updateActiveIndicator(0);
-                    }, 100);
+                    // Initialize active indicator
+                    updateActiveIndicator(0);
                 }
                 
                 // Auto-setup video thumbnails and click handlers

@@ -46,3 +46,18 @@ See you tomorrow,
 
 Taylor
 
+
+
+#### Economic Data Analysis | Week 6
+
+Hi folks,
+
+Congrats on making it through MiniExam 1! We started the semester getting familiar with data and developing a systematic method for understanding what it contains. We started Part 2 by recognizing that not every dataset is nice enough to apply exploratory data analysis to on it's own, so we developed our first type of Data Operation in Part 2.1: Data Cleaning. This week we're doing more interesting work, continuing Part 2.2: Transforming Data, and Part 2.3: Filtering Data, allowing us to ask questions of subgroups within our data.
+
+As always, you'll have homework for both parts, due on Friday at 5 with a no questions asked extension if you email me.
+
+By the end of Part 2 you'll have a full set of data skills in hand before we start building the foundations of the statistical models we use in the field in Part 3.
+
+See you tomorrow!
+
+Taylor

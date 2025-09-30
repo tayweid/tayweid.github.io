@@ -92,16 +92,16 @@
 }
 
 .indicator-track {
-    --indicator-icon-size: 36px;
     position: relative;
     display: flex;
-    gap: 24px;
+    gap: 20px; /* Increased gap to accommodate exercise connectors */
     align-items: center;
     pointer-events: auto;  /* Re-enable pointer events for the track */
     background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
-    border-radius: 40px; /* Oval shape */
-    padding: 8px 24px;
+    border-radius: 20px; /* Oval shape */
+    padding: 8px 16px;
     transition: background 0.3s ease;
+    overflow: visible; /* Allow connector lines to be visible */
 }
 
 .indicator-track:hover {
@@ -112,49 +112,149 @@
     position: relative;
     background: transparent;
     border: none;
-    padding: 8px;
+    padding: 0;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: var(--indicator-icon-size);
-    height: var(--indicator-icon-size);
+    width: auto;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2;
+    overflow: visible; /* Ensure pseudo-elements can extend outside */
 }
 
-/* Icon styles */
-.indicator-tab svg {
-    width: var(--indicator-icon-size);
-    height: var(--indicator-icon-size);
-    fill: rgba(255, 255, 255, 0.5);
-    transition: fill 0.3s ease;
+/* Dot styles for different card types */
+
+.indicator-tab::before {
+    content: '';
+    display: block;
+    transition: all 0.3s ease;
 }
 
-.indicator-tab:hover svg {
-    fill: rgba(255, 255, 255, 0.7);
-}
-
-.indicator-tab.active svg {
-    fill: white;
-}
-
-/* Sliding pill selector */
-.indicator-pill {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    height: calc(var(--indicator-icon-size) + 12px);
-    width: calc(var(--indicator-icon-size) + 12px);
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+/* Concept cards: large solid dots */
+.indicator-tab.concept-indicator::before {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+    border: 2px solid transparent;
+    box-sizing: border-box;
 }
 
-/* Hide the old slider element and span text */
-.indicator-slider {
+.indicator-tab.concept-indicator:hover::before {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.concept-indicator.active::before {
+    width: 34px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.5); /* Keep same fill as non-active */
+    border: 2px solid var(--main-cool-blue);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+/* Exercise cards: hollow circles with connector */
+.indicator-tab.exercise-indicator {
+    position: relative;
+    padding-left: 20px; /* Add padding for the connector line */
+}
+
+/* Reduce gap before exercise indicators */
+.indicator-tab + .indicator-tab.exercise-indicator {
+    margin-left: -12px; /* Tighter spacing when exercise follows another tab */
+}
+
+/* Add normal spacing after exercise indicators */
+.indicator-tab.exercise-indicator + .indicator-tab {
+    margin-left: 12px; /* Compensate for the reduced spacing before */
+}
+
+/* Exercise connector line */
+.indicator-tab.exercise-indicator::after {
+    content: '';
+    position: absolute;
+    left: -3px; /* Moved slightly more right */
+    top: 50%;
+    width: 18px; /* Slightly shorter line */
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%);
+}
+
+.indicator-tab.exercise-indicator::before {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+}
+
+.indicator-tab.exercise-indicator:hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.exercise-indicator.active::before {
+    width: 20px;
+    height: 10px; /* No vertical growth - same as original */
+    border-color: var(--main-cool-blue);
+    border-radius: 8px; /* More rounded to reduce flat edges */
+    border-width: 2px; /* Maintain border width */
+}
+
+
+/* Homework cards: solid squares */
+.indicator-tab.homework-indicator {
+    position: relative;
+}
+
+/* Add vertical separator line before homework */
+.indicator-tab + .indicator-tab.homework-indicator::after {
+    content: '';
+    position: absolute;
+    left: -16px; /* Moved left for better positioning */
+    top: 50%;
+    width: 1px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%);
+}
+
+.indicator-tab.homework-indicator::before {
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 9px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%; /* Full circle */
+    box-sizing: border-box; /* Include border in dimensions */
+    outline: 2px solid transparent; /* Prepare for active state */
+    outline-offset: -2px;
+}
+
+.indicator-tab.homework-indicator:hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.homework-indicator.active::before {
+    width: 34px;
+    height: 24px;
+    background: transparent;
+    border: 9px solid rgba(255, 255, 255, 0.5);
+    border-radius: 12px; /* Pill shape when active */
+    box-sizing: border-box;
+    outline: 2px solid var(--main-cool-blue); /* Blue outline inside bounds */
+    outline-offset: -2px;
+}
+
+/* Remove SVG styles */
+.indicator-tab svg {
+    display: none;
+}
+
+/* Hide the old slider element, pill, and span text */
+.indicator-slider,
+.indicator-pill {
     display: none;
 }
 
