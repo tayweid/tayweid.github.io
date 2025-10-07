@@ -61,3 +61,19 @@ By the end of Part 2 you'll have a full set of data skills in hand before we sta
 See you tomorrow!
 
 Taylor
+
+#### Economic Data Analysis | Week 7 + MiniExam 2
+
+Hi folks,
+
+I hope your weekend was lovely and full of sunshine. This week we're rounding out the rest of the basic skillset for working with data. What if we want to compare average costs by employee or total ridership by bus route? On Tuesday we'll talk about tools and approaches for **Grouping**. Then on Thursday we'll close out Part 2 with our last data operation: **Merging Datasets**. 
+
+MiniExam 2 will take place during the first 20 minutes of class on Tuesday October 14, a week from tomorrow, and will cover everything in Part 2.
+
+Next week we will have covered the core skillsets for working with data. We are now on the doorstep to begin working with the core ideas to start building real statistical models. These are the big ideas that allow us to generate new knowlege from data, some of the biggest ideas we have in science. Get hyped.
+
+
+
+Warmly,
+
+Taylor

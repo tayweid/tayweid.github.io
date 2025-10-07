@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_2_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_2_3_files/libs/clipboard/clipboard.min.js"></script>
 <script src="concept_2_3_files/libs/quarto-html/tabby.min.js"></script>
 <script src="concept_2_3_files/libs/quarto-html/popper.min.js"></script>
 <script src="concept_2_3_files/libs/quarto-html/tippy.umd.min.js"></script>
@@ -186,6 +186,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -207,7 +210,7 @@ Lets use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 </p>
 <p><br><br></p>
 <ul>
-<li>The coffee shop is opening in update New York, near the border to Canada.</li>
+<li>The coffee shop is opening in upstate New York, near the border to Canada.</li>
 <li>You’re asked to help make some decisions about how to run the shop when it opens.</li>
 <li>The dataset <code>Starbucks_Location_Hours.csv</code> contains information about Starbucks coffee shops globally.</li>
 </ul>
@@ -217,6 +220,87 @@ Lets use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
+<div class="fragment">
+<div id="d3d0873f" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="71">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><em>&gt; we should use a figure</em></p>
+</div>
 </section>
 <section id="a-new-coffee-shop-1" class="slide level2">
 <h2>A New Coffee Shop</h2>
@@ -231,8 +315,8 @@ Q. When might be a good time for the coffee shop to open?
 <p><em>&gt; but what if there’s something specific about US coffee drinkers though?</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-filter-by-category" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-filter-by-category" class="slide level2">
+<h2>Opening Time: filter by category</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
@@ -242,8 +326,8 @@ Q. When might be a good time for the coffee shop to open?
 <p><em>&gt; so it seems US Starbucks open earlier</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-filter-by-category-1" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-filter-by-category-1" class="slide level2">
+<h2>Opening Time: filter by category</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
@@ -253,25 +337,25 @@ Q. When might be a good time for the coffee shop to open?
 <p><em>&gt; let filter for <strong>BOTH</strong> countries</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-filter-by-category-2" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Lets us some Boolian logic :)
 </p>
 
-<img data-src="i/Part_1_5_Bool.png" class="r-stretch"><div class="fragment">
+<img data-src="i/i_Bool.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; is there something different between the US and Canada?</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-filter-by-category-3" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-1" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
 
 <img data-src="i/i_02.png" class="r-stretch"></section>
-<section id="a-new-coffee-shop-filter-by-category-4" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-2" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
@@ -280,30 +364,30 @@ Q. When might be a good time for the coffee shop to open?
 <p><em>&gt; so not much difference between when shops in the US and Canada open</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-filter-by-category-5" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-3" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
 
 <img data-src="i/i_03_question.png" class="r-stretch"></section>
-<section id="a-new-coffee-shop-filter-by-category-6" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-4" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
 
 <img data-src="i/i_03_answer.png" class="r-stretch"><p><em>&gt; no data! no coffee shop can be in the US AND Canada!</em></p>
 </section>
-<section id="a-new-coffee-shop-filter-by-category-7" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-5" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
 
 <img data-src="i/i_03.png" class="r-stretch"></section>
-<section id="a-new-coffee-shop-filter-by-category-8" class="slide level2">
-<h2>A New Coffee Shop: Filter by Category</h2>
+<section id="opening-time-combining-filters-6" class="slide level2">
+<h2>Opening Time: combining filters</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
@@ -312,123 +396,30 @@ Q. When might be a good time for the coffee shop to open?
 <p><em>&gt; so coffee shops in US and Canada open much earlier than the rest of the world</em></p>
 </div>
 </section>
-<section id="a-new-coffee-shop-2" class="slide level2">
-<h2>A New Coffee Shop</h2>
+<section id="opening-time-conclusions" class="slide level2">
+<h2>Opening Time: conclusions</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
-<ul>
-<li>So lets open at 5 AM.</li>
-</ul>
-</section>
-<section id="a-new-coffee-shop-3" class="slide level2">
-<h2>A New Coffee Shop</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
+<p><br></p>
 <ul>
 <li>So lets open earlier than 7 AM.</li>
-<li>How long should we stay open?</li>
 </ul>
 </section>
-<section id="a-new-coffee-shop-4" class="slide level2">
-<h2>A New Coffee Shop</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_05.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; so most shops stay open for around 15 hours</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; does that mean we should stay open for 15 hours?</em></p>
-</div>
-</section>
-<section id="a-new-coffee-shop-5" class="slide level2">
-<h2>A New Coffee Shop</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; lets filter for coffee shops that open before 7 AM</em></p>
-</section>
-<section id="a-new-coffee-shop-filter-by-inequality" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_05.png" class="r-stretch"></section>
-<section id="a-new-coffee-shop-filter-by-inequality-1" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; so shops that open early stay open longer</em></p>
-</div>
-</section>
-<section id="a-new-coffee-shop-filter-by-inequality-2" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; but here we’re looking at all shops globally!</em></p>
-<p><em>&gt; our shop is opening in the US near Canada, so lets filter by country too</em></p>
-</div>
-</section>
-<section id="a-new-coffee-shop-filter-by-inequality-3" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_06.png" class="r-stretch"></section>
-<section id="a-new-coffee-shop-filter-by-inequality-4" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; shops that open early will stay open longer in the US or Canada</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; this is hard to see: maybe there’s a more systematic way of showing differences</em></p>
-</div>
-</section>
-<section id="a-new-coffee-shop-filter-by-inequality-5" class="slide level2">
-<h2>A New Coffee Shop: Filter by Inequality</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="exercise-1.5-coffee-shop-hours" class="slide level2">
-<h2>Exercise 1.5 | Coffee Shop Hours</h2>
+<section id="exercise-2.3-filter-by-category" class="slide level2">
+<h2>Exercise 2.3 | Filter by Category</h2>
 <p class="subheader">
 Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 </p>
 <p><br><br></p>
 <ul>
-<li>The coffee shop is opening in update New York, near the border to Canada.</li>
+<li>The coffee shop is opening in upstate New York, near the border to Canada.</li>
 <li>You’re asked to help make some decisions about how to run the shop when it opens.</li>
 <li>The dataset <code>Starbucks_Location_Hours.csv</code> contains information about Starbucks coffee shops globally.</li>
 </ul>
 </section>
-<section id="coffee-shop-hours-load-the-data" class="slide level2">
-<h2>Coffee Shop Hours: load the data</h2>
-<p class="subheader">
-Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
-</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Load the data</span></span>
-<span id="cb1-2"><a href=""></a>data <span class="op">=</span> pd.read_csv(file_path <span class="op">+</span> file_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="coffee-shop-hours" class="slide level2">
-<h2>Coffee Shop Hours</h2>
+<section id="coffee-shop-hours-filter-by-category" class="slide level2">
+<h2>Coffee Shop Hours: filter by category</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
@@ -438,8 +429,8 @@ Q. When might be a good time for the coffee shop to open?
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Histogram</span></span>
-<span id="cb2-2"><a href=""></a>sns.histplot(hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Histogram</span></span>
+<span id="cb1-2"><a href=""></a>sns.histplot(hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_01.png"></p>
 </div>
@@ -503,21 +494,29 @@ Filtering categorical data requires logical operations.
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
-<span id="cb3-2"><a href=""></a>us_codes <span class="op">=</span> hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
+<span id="cb2-2"><a href=""></a>us_codes <span class="op">=</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-filter-for-us-locations-1" class="slide level2">
 <h2>Coffee Shop Hours: filter for US locations</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
 </p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
-<span id="cb4-2"><a href=""></a>us_codes <span class="op">=</span> hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span></span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
-<span id="cb4-5"><a href=""></a>us_hours <span class="op">=</span> hours[us_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
+<span id="cb3-2"><a href=""></a>us_codes <span class="op">=</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>)</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
+<span id="cb3-5"><a href=""></a>us_hours <span class="op">=</span> hours[us_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="coffee-shop-hours-filter-for-us-locations-2" class="slide level2">
+<h2>Coffee Shop Hours: filter for US locations</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Select the rows with country code equal to 'US'</span></span>
+<span id="cb4-2"><a href=""></a>us_hours <span class="op">=</span> hours[hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-filter-for-us-locations-3" class="slide level2">
 <h2>Coffee Shop Hours: filter for US locations</h2>
 <p class="subheader">
 Q. When might be a good time for the coffee shop to open?
@@ -564,6 +563,309 @@ Q. When might be a good time for a US coffee shop to open?
 <p><em>&gt; it would contain no data!</em></p>
 <p><img data-src="i/i_03_answer.png"></p>
 </div>
+</section>
+<section id="opening-time" class="slide level2">
+<h2>Opening Time</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<p><br></p>
+<ul>
+<li>So lets open earlier than 7 AM.</li>
+<li>How long should we stay open?</li>
+</ul>
+<div class="fragment">
+<div id="d084038a" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="72">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="duration" class="slide level2">
+<h2>Duration</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_05.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so most shops stay open for around 15 hours</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; does that mean we should stay open for 15 hours?</em></p>
+</div>
+</section>
+<section id="duration-filter-by-inequality" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>=</td>
+<td>Equal to</td>
+</tr>
+<tr class="even">
+<td>≠</td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="even">
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="odd">
+<td>≤</td>
+<td>Less than or equal to</td>
+</tr>
+<tr class="even">
+<td>≥</td>
+<td>Greater than or equal to</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="duration-filter-by-inequality-1" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; lets filter for coffee shops that open before 7 AM</em></p>
+</section>
+<section id="duration-filter-by-inequality-2" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<p>How would we filter for coffee shops that open before 7 AM?</p>
+<p><br></p>
+<div id="51041644" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="73">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; use “<code>open</code> &lt; 7”</em></p>
+</div>
+</section>
+<section id="duration-filter-by-inequality-3" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_05.png" class="r-stretch"></section>
+<section id="duration-filter-by-inequality-4" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so shops that open early stay open longer</em></p>
+</div>
+</section>
+<section id="duration-filter-by-inequality-5" class="slide level2">
+<h2>Duration: filter by inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; but here we’re looking at all shops globally!</em></p>
+<p><em>&gt; our shop is opening in the US near Canada, so lets filter by country too</em></p>
+</div>
+</section>
+<section id="duration-filter-on-category-and-inequality" class="slide level2">
+<h2>Duration: filter on category and inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; shops that open early will stay open longer in the US or Canada</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; this is hard to see: maybe there’s a more systematic way of showing differences</em></p>
+</div>
+</section>
+<section id="duration-conclusions" class="slide level2">
+<h2>Duration: conclusions</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_09.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-recommendation" class="slide level2">
+<h2>Coffee Shop Hours: recommendation</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<ul>
+<li><strong>Opening time</strong>: Before 7 AM (around 5-6 AM)</li>
+<li><strong>Duration</strong>: About 16-17 hours (based on early-opening US/CA shops)</li>
+<li><strong>Closing time</strong>: Around 9-11 PM</li>
+</ul>
+<div class="fragment">
+<p><em>&gt; this matches what successful coffee shops do in similar markets</em></p>
+</div>
+</section>
+<section id="exercise-2.3-filter-by-inequality" class="slide level2">
+<h2>Exercise 2.3 | Filter by Inequality</h2>
+<p class="subheader">
+Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
+</p>
 </section>
 <section id="filtering-data-by-inequality" class="slide level2">
 <h2>Filtering Data by Inequality</h2>
@@ -663,22 +965,8 @@ Q. How long might be good for the coffee shop to stay open?
 <span id="cb14-3"><a href=""></a>sns.histplot(early_us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>), label<span class="op">=</span><span class="st">'Early US/CA'</span>)</span>
 <span id="cb14-4"><a href=""></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="coffee-shop-hours-recommendation" class="slide level2">
-<h2>Coffee Shop Hours: recommendation</h2>
-<p class="subheader">
-Q. How long might be good for the coffee shop to stay open?
-</p>
-<ul>
-<li><strong>Opening time</strong>: Before 7 AM (around 5-6 AM)</li>
-<li><strong>Duration</strong>: About 16-17 hours (based on early-opening US/CA shops)</li>
-<li><strong>Closing time</strong>: Around 9-11 PM</li>
-</ul>
-<div class="fragment">
-<p><em>&gt; this matches what successful coffee shops do in similar markets</em></p>
 
-</div>
-</section>
+<img data-src="i/i_09.png" class="r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">

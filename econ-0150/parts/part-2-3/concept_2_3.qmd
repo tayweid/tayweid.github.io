@@ -19,7 +19,7 @@ format:
 
 <br><br>
 
-- The coffee shop is opening in update New York, near the border to Canada.
+- The coffee shop is opening in upstate New York, near the border to Canada.
 - You're asked to help make some decisions about how to run the shop when it opens.
 - The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
 
@@ -27,6 +27,22 @@ format:
 
 ## A New Coffee Shop
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+. . .
+
+```{python}
+import pandas as pd
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
+```
+
+. . .
+
+<br>
+
+*> we should use a figure*
 
 ---
 
@@ -45,7 +61,7 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: filter by category
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_02.png)
@@ -58,7 +74,7 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: filter by category
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_02.png)
@@ -71,10 +87,10 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Lets us some Boolian logic :)</p>
 
-![](i/Part_1_5_Bool.png)
+![](i/i_Bool.png)
 
 . . .
 
@@ -82,14 +98,14 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_02.png)
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_03.png)
@@ -100,14 +116,14 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_03_question.png)
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_03_answer.png)
@@ -116,14 +132,14 @@ format:
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_03.png)
 
 ---
 
-## A New Coffee Shop: Filter by Category
+## Opening Time: combining filters
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ![](i/i_04.png)
@@ -134,127 +150,28 @@ format:
 
 ---
 
-## A New Coffee Shop
+## Opening Time: conclusions
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
-- So lets open at 5 AM.
-
----
-
-## A New Coffee Shop
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+<br>
 
 - So lets open earlier than 7 AM.
-- How long should we stay open?
+
 
 ---
 
-## A New Coffee Shop
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_05.png)
-
-. . .
-
-*> so most shops stay open for around 15 hours*
-
-. . .
-
-*> does that mean we should stay open for 15 hours?*
-
----
-
-## A New Coffee Shop
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_05.png)
-
-*> lets filter for coffee shops that open before 7 AM*
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_05.png)
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_07.png)
-
-. . .
-
-*> so shops that open early stay open longer*
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_06.png)
-
-. . .
-
-*> but here we're looking at all shops globally!*
-
-*> our shop is opening in the US near Canada, so lets filter by country too*
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_06.png)
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_08.png)
-
-. . .
-
-*> shops that open early will stay open longer in the US or Canada*
-
-. . .
-
-*> this is hard to see: maybe there's a more systematic way of showing differences*
-
----
-
-## A New Coffee Shop: Filter by Inequality
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-![](i/i_09.png)
-
----
-
-## Exercise 1.5 | Coffee Shop Hours
+## Exercise 2.3 | Filter by Category
 <p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 <br><br>
 
-- The coffee shop is opening in update New York, near the border to Canada.
+- The coffee shop is opening in upstate New York, near the border to Canada.
 - You're asked to help make some decisions about how to run the shop when it opens.
 - The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
 
 ---
 
-## Coffee Shop Hours: load the data
-<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
-
-```{.python}
-# Load the data
-data = pd.read_csv(file_path + file_name)
-```
-
----
-
-## Coffee Shop Hours
+## Coffee Shop Hours: filter by category
 <p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ---
@@ -292,7 +209,7 @@ sns.histplot(hours, x='open', bins=range(0,25,1))
 
 ```{.python}
 # Decide whether each row's country code is 'US'
-us_codes = hours['COUNTRY_CODE'] == 'US'
+us_codes = (hours['COUNTRY_CODE'] == 'US')
 ```
 
 ---
@@ -302,10 +219,20 @@ us_codes = hours['COUNTRY_CODE'] == 'US'
 
 ```{.python}
 # Decide whether each row's country code is 'US'
-us_codes = hours['COUNTRY_CODE'] == 'US'
+us_codes = (hours['COUNTRY_CODE'] == 'US')
 
 # Select the rows with True
 us_hours = hours[us_codes]
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Select the rows with country code equal to 'US'
+us_hours = hours[hours['COUNTRY_CODE'] == 'US']
 ```
 
 ---
@@ -371,6 +298,156 @@ hours[(hours['COUNTRY_CODE'] == 'US') & (hours['COUNTRY_CODE'] == 'CN')]
 *> it would contain no data!*
 
 ![](i/i_03_answer.png)
+
+---
+
+## Opening Time
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+<br>
+
+- So lets open earlier than 7 AM.
+- How long should we stay open?
+
+. . .
+
+```{python}
+import pandas as pd
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
+```
+
+---
+
+## Duration
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+. . .
+
+*> so most shops stay open for around 15 hours*
+
+. . .
+
+*> does that mean we should stay open for 15 hours?*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+| Symbol | Meaning |
+|--------|--------------|
+| = | Equal to |
+| ≠ | Not equal to |
+| < | Less than |
+| > | Greater than |
+| ≤ | Less than or equal to |
+| ≥ | Greater than or equal to |
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+*> lets filter for coffee shops that open before 7 AM*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+How would we filter for coffee shops that open before 7 AM?
+
+<br>
+
+```{python}
+import pandas as pd
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
+```
+
+. . .
+
+*> use "`open` < 7"*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_07.png)
+
+. . .
+
+*> so shops that open early stay open longer*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> but here we're looking at all shops globally!*
+
+*> our shop is opening in the US near Canada, so lets filter by country too*
+
+---
+
+## Duration: filter on category and inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_08.png)
+
+. . .
+
+*> shops that open early will stay open longer in the US or Canada*
+
+. . .
+
+*> this is hard to see: maybe there's a more systematic way of showing differences*
+
+---
+
+## Duration: conclusions
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_09.png)
+
+---
+
+## Coffee Shop Hours: recommendation
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+- **Opening time**: Before 7 AM (around 5-6 AM)
+- **Duration**: About 16-17 hours (based on early-opening US/CA shops)
+- **Closing time**: Around 9-11 PM
+
+. . .
+
+*> this matches what successful coffee shops do in similar markets*
+
+---
+
+## Exercise 2.3 | Filter by Inequality
+<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 ---
 
@@ -446,15 +523,4 @@ plt.legend()
 
 ![](i/i_09.png)
 
----
 
-## Coffee Shop Hours: recommendation
-<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
-
-- **Opening time**: Before 7 AM (around 5-6 AM)
-- **Duration**: About 16-17 hours (based on early-opening US/CA shops)
-- **Closing time**: Around 9-11 PM
-
-. . .
-
-*> this matches what successful coffee shops do in similar markets*

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_1_7_files/libs/clipboard/clipboard.min.js"></script>
-<script src="concept_1_7_files/libs/quarto-html/tabby.min.js"></script>
-<script src="concept_1_7_files/libs/quarto-html/popper.min.js"></script>
-<script src="concept_1_7_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="concept_1_7_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="concept_1_7_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="concept_1_7_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_2_4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_2_4_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_2_4_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_2_4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_2_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_2_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_2_4_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>concept_1_7</title>
+  <title>concept_2_4</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="concept_1_7_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="concept_1_7_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_2_4_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_2_4_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="concept_1_7_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_2_4_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="concept_1_7_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="concept_1_7_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="concept_1_7_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="concept_1_7_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_2_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_2_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_2_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_2_4_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -121,6 +121,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -133,10 +136,10 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-1.7-grouping-data"><em>Part 1.7 | Grouping Data</em></h3>
+<h3 id="part-2.4-grouping-data"><em>Part 2.4 | Grouping Data</em></h3>
 </section>
-<section id="grouping-data-starbucks-promotions" class="slide level2">
-<h2>Grouping Data: Starbucks Promotions</h2>
+<section id="behavior-change-starbucks-promo-offers" class="slide level2">
+<h2>Behavior Change: Starbucks Promo Offers</h2>
 <p class="subheader">
 Q. Which promotional offers change behavior the most?
 </p>
@@ -146,10 +149,76 @@ Q. Which promotional offers change behavior the most?
 <li>Each row represents one event with an Offer ID, Event type, and Revenue</li>
 <li>Raw data shows thousands of individual events</li>
 </ul>
-<p><br><br></p>
-<div class="fragment">
-<p><em>&gt; looking at individual data won’t easily tell us which offers work best…</em></p>
+</section>
+<section id="behavior-change-starbucks-promo-offers-1" class="slide level2">
+<h2>Behavior Change: Starbucks Promo Offers</h2>
+<p class="subheader">
+Q. Which promotional offers change behavior the most?
+</p>
+<div id="fd7c7cf1" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="65">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Event</th>
+<th data-quarto-table-cell-role="th">Revenue</th>
+<th data-quarto-table-cell-role="th">Offer ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>transaction</td>
+<td>34.56</td>
+<td>2off10</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>transaction</td>
+<td>18.97</td>
+<td>2off10</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>transaction</td>
+<td>33.90</td>
+<td>Bogo 5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>transaction</td>
+<td>18.01</td>
+<td>Bogo 10</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>transaction</td>
+<td>19.11</td>
+<td>Bogo 10</td>
+</tr>
+</tbody>
+</table>
+
 </div>
+</div>
+</div>
+<p><em>&gt; looking at individual data won’t easily tell us which offers work best…</em></p>
 <div class="fragment">
 <p><em>&gt; we need to <strong>group</strong> the data to see patterns</em></p>
 </div>
@@ -218,81 +287,101 @@ What can we calculate for each group?
 <p><em>&gt; choose the aggregation that answers your question</em></p>
 </div>
 </section>
-<section id="starbucks-offers" class="slide level2">
-<h2>Starbucks Offers</h2>
+<section id="behavior-change-starbucks-promo-offers-2" class="slide level2">
+<h2>Behavior Change: Starbucks Promo Offers</h2>
 <p class="subheader">
 Q. Which promotional offers change behavior the most?
 </p>
+<p><br><br></p>
 <ol type="1">
 <li>How likely is each offer-type to be used?</li>
 </ol>
-<div class="fragment">
-<ul>
-<li>How many times was each offer-type sent?</li>
-<li>How many times was each offer-type used?</li>
-</ul>
-</div>
 <div class="fragment">
 <ol start="2" type="1">
 <li>What’s the average revenue per offer-type?</li>
 </ol>
 </div>
-<div class="fragment">
-<ul>
-<li>What is the total revenue for each offer-type?</li>
-<li>How many times was each offer-type sent?</li>
-<li>What is the average revenue for each offer-type?</li>
-</ul>
-</div>
 </section>
-<section id="starbucks-offers-grouping-and-counting" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="grouping-and-counting" class="slide level2">
+<h2>Grouping and Counting</h2>
 <p class="subheader">
 How frequent is each offer-type?
 </p>
 <p>Lets start by counting each offer-type in the <strong><em>categorical variable</em></strong> <code>Offer ID</code>.</p>
 </section>
-<section id="starbucks-offers-grouping-and-counting-1" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="grouping-and-counting-1" class="slide level2">
+<h2>Grouping and Counting</h2>
 <p class="subheader">
 How frequent is each offer-type?
 </p>
 <p>Lets start by counting each offer-type in the <strong><em>categorical variable</em></strong> <code>Offer ID</code>.</p>
 
 <img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; so Bogo 5 and 2off10 get sent most frequently</em></p>
+<p><em>&gt; so Bogo 5 and 2off10 appear most frequently</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; but it also looks like there are multiple types in `Event’</em></p>
+<p><em>&gt; but how much revenue does each offer-type bring in?</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-counting-2" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="grouping-and-summing" class="slide level2">
+<h2>Grouping and Summing</h2>
 <p class="subheader">
-How frequent is each offer-type?
+What is the total revenue for each offer-type?
 </p>
-<p>Lets also group on <code>Event</code> to count event-types.</p>
+<p>Lets find total revenue by <code>Offer ID</code>.</p>
 </section>
-<section id="starbucks-offers-grouping-and-counting-3" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="grouping-and-summing-1" class="slide level2">
+<h2>Grouping and Summing</h2>
+<p class="subheader">
+What is the total revenue for each offer-type?
+</p>
+<p>Lets find total revenue by <code>Offer ID</code>.</p>
+
+<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; ‘Informative’ brings in no revenue (</em>makes sense<em>)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; Bogo 5, 3off7, and 2off10 bring in the most revenue</em></p>
+</div>
+</section>
+<section id="grouping-and-summing-2" class="slide level2">
+<h2>Grouping and Summing</h2>
+<p class="subheader">
+What is the total revenue for each offer-type?
+</p>
+<p>Lets find total revenue by <code>Offer ID</code>.</p>
+
+<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
+<p><em>how many rows would you expect if we group by <code>Event</code>?</em></p>
+</div>
+</section>
+<section id="grouping-and-counting-2" class="slide level2">
+<h2>Grouping and Counting</h2>
 <p class="subheader">
 How frequent is each offer-type?
 </p>
-<p>Lets also group on <code>Event</code> to count event-types.</p>
+<p>Lets group on <code>Event</code> to count event-types.</p>
+</section>
+<section id="grouping-and-counting-3" class="slide level2">
+<h2>Grouping and Counting</h2>
+<p class="subheader">
+How frequent is each offer-type?
+</p>
+<p>Lets group on <code>Event</code> to count event-types.</p>
 
 <img data-src="i/i_02.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; it looks like ‘offer’ may not actually be a transaction… lets investigate</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-summing" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
+<section id="grouping-and-summing-3" class="slide level2">
+<h2>Grouping and Summing</h2>
 <p class="subheader">
 What is the total revenue for each event-type?
 </p>
 <p>Lets group on <code>Event</code> and find the total revenue by event-type.</p>
 </section>
-<section id="starbucks-offers-grouping-and-summing-1" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
+<section id="grouping-and-summing-4" class="slide level2">
+<h2>Grouping and Summing</h2>
 <p class="subheader">
 What is the total revenue for each event-type?
 </p>
@@ -305,17 +394,17 @@ What is the total revenue for each event-type?
 <p><em>&gt; so <code>Event</code> tells us whether the row is an ‘offer’ or a ‘transaction’</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-summing-2" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
+<section id="grouping-and-summing-5" class="slide level2">
+<h2>Grouping and Summing</h2>
 <p class="subheader">
 What is the total revenue for each event-type?
 </p>
 <p>Lets group on <code>Event</code> and find the total revenue by event-type.</p>
 
-<img data-src="i/i_03.png" class="r-stretch"><p><em>&gt; lets filter on <code>Event</code> to break this down by <code>Offer ID</code></em></p>
+<img data-src="i/i_03.png" class="r-stretch"><p><em>&gt; so how many times was each offer-type actually sent?</em></p>
 </section>
-<section id="starbucks-offers-grouping-and-counting-4" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="filtering-grouping-and-counting" class="slide level2">
+<h2>Filtering, Grouping, and Counting</h2>
 <p class="subheader">
 How many times was each offer-type sent?
 </p>
@@ -323,29 +412,84 @@ How many times was each offer-type sent?
 <p>Lets filter <code>Event</code> for just ‘offer’ then group on <code>Offer ID</code> and count.</p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-counting-5" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="filtering-grouping-and-counting-1" class="slide level2">
+<h2>Filtering, Grouping, and Counting</h2>
 <p class="subheader">
 How many times was each offer-type sent?
 </p>
 <p>Lets filter <code>Event</code> for just ‘offer’ then group on <code>Offer ID</code> and count.</p>
 
 <img data-src="i/i_04.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; so Bogo 5 and 2off10 were sent most frequently</em></p>
+<p><em>&gt; so Bogo 5, Bogo 10, and 2off10 were sent most frequently</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; lets check how often each offer-type was used</em></p>
+<p><em>&gt; how much did each offer-type bring in on average?</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-counting-6" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="grouping-and-averaging" class="slide level2">
+<h2>Grouping and Averaging</h2>
+<p class="subheader">
+What is the average transaction amount per offer type?
+</p>
+<p>Lets find the average (mean) transaction amount by offer-type.</p>
+</section>
+<section id="grouping-and-averaging-1" class="slide level2">
+<h2>Grouping and Averaging</h2>
+<p class="subheader">
+What is the average transaction amount per offer type?
+</p>
+<p>Lets find the average (mean) revenue we can expect after sending each offer-type.</p>
+
+<img data-src="i/i_09.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; this tells us how much Starbucks expects to bring in after sending each offer type</em></p>
+</div>
+</section>
+<section id="grouping-and-averaging-2" class="slide level2">
+<h2>Grouping and Averaging</h2>
+<p class="subheader">
+What is the average transaction amount per offer type?
+</p>
+<p>Lets find the average (mean) revenue we can expect after sending each offer-type.</p>
+
+<img data-src="i/i_09.png" class="r-stretch"><p><em>&gt; but how can ‘2off20’ have an average below 20?</em></p>
+<div class="fragment">
+<p><em>&gt; this includes offers that were not accepted!</em></p>
+</div>
+</section>
+<section id="filtering-grouping-and-averaging" class="slide level2">
+<h2>Filtering, Grouping, and Averaging</h2>
+<p class="subheader">
+What’s the average revenue per offer-type?
+</p>
+<p>Lets filter <code>Event</code> for just ‘transaction’ then group on <code>Offer ID</code> and find the average (mean) transaction amount.</p>
+
+<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; does this mean ‘2off20’ changes behavior the most?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; not necessarliy!</em></p>
+</div>
+</section>
+<section id="filtering-grouping-and-averaging-1" class="slide level2">
+<h2>Filtering, Grouping, and Averaging</h2>
+<p class="subheader">
+What’s the average revenue per offer-type?
+</p>
+<p>Lets filter <code>Event</code> for just ‘transaction’ then group on <code>Offer ID</code> and find the average (mean) transaction amount.</p>
+
+<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; this doesn’t tell us how often people actually used the offers</em></p>
+</div>
+</section>
+<section id="filtering-grouping-and-counting-2" class="slide level2">
+<h2>Filtering, Grouping, and Counting</h2>
 <p class="subheader">
 How many times was each offer-type used?
 </p>
 <p>Lets filter <code>Event</code> for just ‘transaction’ then group on <code>Offer ID</code> and count.</p>
 </section>
-<section id="starbucks-offers-grouping-and-counting-7" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="filtering-grouping-and-counting-3" class="slide level2">
+<h2>Filtering, Grouping, and Counting</h2>
 <p class="subheader">
 How many times was each offer-type used?
 </p>
@@ -355,8 +499,8 @@ How many times was each offer-type used?
 <p><em>&gt; so Bogo 5 and 2off10 were used most frequently</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-counting-8" class="slide level2">
-<h2>Starbucks Offers: Grouping and Counting</h2>
+<section id="filtering-grouping-and-counting-4" class="slide level2">
+<h2>Filtering, Grouping, and Counting</h2>
 <p class="subheader">
 How many times was each offer-type used?
 </p>
@@ -367,15 +511,15 @@ How many times was each offer-type used?
 <p><em>&gt; no! we want to find how likely an offer will turn into a transaction when sent</em></p>
 </div>
 </section>
-<section id="starbucks-offers-simple-transformations" class="slide level2">
-<h2>Starbucks Offers: Simple Transformations</h2>
+<section id="filtering-grouping-and-transforming" class="slide level2">
+<h2>Filtering, Grouping, and Transforming</h2>
 <p class="subheader">
 How likely is each offer-type to be used?
 </p>
 <p>Lets divide the number of transactions by the number of offers sent by offer-type.</p>
 </section>
-<section id="starbucks-offers-simple-transformations-1" class="slide level2">
-<h2>Starbucks Offers: Simple Transformations</h2>
+<section id="filtering-grouping-and-transforming-1" class="slide level2">
+<h2>Filtering, Grouping, and Transforming</h2>
 <p class="subheader">
 How likely is each offer-type to be used?
 </p>
@@ -385,8 +529,8 @@ How likely is each offer-type to be used?
 <p><em>&gt; Bogo 5, 3off7, and 2off10 have the highest use rate!</em></p>
 </div>
 </section>
-<section id="starbucks-offers-simple-transformations-2" class="slide level2">
-<h2>Starbucks Offers: Simple Transformations</h2>
+<section id="filtering-grouping-and-transforming-2" class="slide level2">
+<h2>Filtering, Grouping, and Transforming</h2>
 <p class="subheader">
 How likely is each offer-type to be used?
 </p>
@@ -394,71 +538,9 @@ How likely is each offer-type to be used?
 
 <img data-src="i/i_06.png" class="r-stretch"><p><em>&gt; this is a pretty reasonable way to measure ‘effectiveness’</em></p>
 <div class="fragment">
-<p><em>&gt; but how much we can expect to bring in each time an offer is sent?</em></p>
+<p><em>&gt; but lets also consider how much spending behavior changes too</em></p>
 </div>
 </section>
-<section id="starbucks-offers-grouping-and-summing-3" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
-<p class="subheader">
-What is the total revenue for each offer-type?
-</p>
-<p>Before finding average revenue by <code>Offer ID</code>, lets start by finding total revenue.</p>
-</section>
-<section id="starbucks-offers-grouping-and-summing-4" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
-<p class="subheader">
-What is the total revenue for each offer-type?
-</p>
-<p>Before finding average revenue by <code>Offer ID</code>, lets start by finding total revenue.</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; ‘Informative’ brings in no revenue (</em>makes sense<em>)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; Bogo 5, 3off7, and 2off10 bring in the most revenue</em></p>
-</div>
-</section>
-<section id="starbucks-offers-grouping-and-summing-5" class="slide level2">
-<h2>Starbucks Offers: Grouping and Summing</h2>
-<p class="subheader">
-What is the total revenue for each offer-type?
-</p>
-<p>Before finding average revenue by <code>Offer ID</code>, lets start by finding total revenue.</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><p><em>&gt; does this mean 2off20 is the best promotion?</em></p>
-<div class="fragment">
-<p><em>&gt; not necessarily… lets find the average revenue by offer-type</em></p>
-</div>
-</section>
-<section id="starbucks-offers-grouping-and-averaging" class="slide level2">
-<h2>Starbucks Offers: Grouping and Averaging</h2>
-<p class="subheader">
-What is the average transaction amount per offer type?
-</p>
-<p>Lets find the average (mean) transaction amount by offer-type.</p>
-</section>
-<section id="starbucks-offers-grouping-and-averaging-1" class="slide level2">
-<h2>Starbucks Offers: Grouping and Averaging</h2>
-<p class="subheader">
-What is the average transaction amount per offer type?
-</p>
-<p>Lets find the average (mean) transaction amount by offer-type.</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this tells us how much people spend per transaction if they use the offer</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; it does not tell us how much revenue we can expect after sending an offer</em></p>
-</div>
-</section>
-<section id="starbucks-offers-grouping-and-averaging-2" class="slide level2">
-<h2>Starbucks Offers: Grouping and Averaging</h2>
-<p class="subheader">
-What’s the average revenue per offer-type?
-</p>
-<p>Lets find how much revenue we can expect after sending each offer-type.</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
 <section id="starbucks-offers-effectiveness" class="slide level2">
 <h2>Starbucks Offers: Effectiveness</h2>
 <p class="subheader">
@@ -493,8 +575,8 @@ Q. Which promotional offers change behavior the most?
 </ol>
 </div>
 </section>
-<section id="part-1.7-grouping" class="slide level2">
-<h2>Part 1.7 | Grouping</h2>
+<section id="part-2.4-grouping" class="slide level2">
+<h2>Part 2.4 | Grouping</h2>
 <p class="subheader">
 Summary
 </p>
@@ -507,8 +589,8 @@ Summary
 </ul>
 </div>
 </section>
-<section id="exercise-1.7-starbucks-offers" class="slide level2">
-<h2>Exercise 1.7 | Starbucks Offers</h2>
+<section id="exercise-2.4-starbucks-offers" class="slide level2">
+<h2>Exercise 2.4 | Starbucks Offers</h2>
 <p class="subheader">
 Q. Which promotional offers change behavior the most?
 </p>
@@ -522,19 +604,19 @@ Q. Which promotional offers change behavior the most?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="concept_1_7_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="concept_1_7_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="concept_1_7_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="concept_1_7_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_2_4_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

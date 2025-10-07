@@ -1,134 +1,82 @@
-## Part 1.5 Grouping Data
+## Part 2.4 Grouping
 
-Like many restaurants and retailers, Starbucks offers a variety of discounts and promotions to help entice customers and boost their business.
+One of the basic ideas in economics is that people respond to incentives. Like many restaurants and retailers, Starbucks offers a variety of incentives to help entice customers to change their behavior. Every time you make a purchase, unless you're using cash, Starbucks will keep track of you and your decisions. If you use a promo code, Starbucks knows what you've bought in the past, and that you're using the promo now. Starbucks preserves a record of every time a customer uses an offer so they can determine which offers are most effective at changing behavior. We're going to use this data to examine which of their promos changes behavior the most. 
 
-But how can they tell which promotions are working?
+*How can they tell which promotions are working?* This table contains a record of every time an offer has been sent to a customer (an “Offer”) or used for a purchase (a “Transaction”). 
 
-This table contains a record of every time an offer has been sent to a customer (an “Offer”) or used for a purchase (a “Transaction”).
+*Can you tell from the table which offer types are most effective?* Clearly not. As is typical for large datasets, the dataset itself can give a nice picture of what's in the data, but it's very difficult to get a sense of the data and the relationships in the data without doing something else. 
 
-**Table with Event, Offer ID, Revenue ($)**
+*What should we do here to try to understand which offers have been sent?* Well we could count up the offers sent and then make a bar chart of counts by `Offer ID`! 
 
-Can you tell from the table which offer types are most effective? Clearly not. As is typical for large datasets, it's very difficult to get a sense of the data and the relationships in the data without doing something else. 
+![](i/i_01.png)
 
-We also can’t make a useful visualization directly from the table either. The data just isn’t in the right format. 
+*Does this tell us which offers were most effective?* Not directly. It tells us which offers were sent, but we want to understand something meaningful about how effective the offers were when they were sent. 
 
-Here is a more useful-looking table of total revenue from each promotion.
+*What's a way we could measure how much revenue each offer brings in?* Lets add up the revenue by `Offer ID`. Here is a more useful-looking table and figure of total revenue from each promotion. 
 
-**Table with Offer ID, Revenue**
+![](i/i_07.png)
 
-How did we get from the original table to this?
+*How did we get this from the original table?* I made this table from the original data by **grouping** rows by their Offer ID, and **summing** the revenues. Every good data analysis program has this functionality. Notice that our grouped table has 5 rows, corresponding to the 5 different Offer IDs. But that’s not the only column we can group by.
 
-Added up the revenue associated with each type of offer.
+*How many rows would you expect if we group by `Event`?* We get one for every cateogy in the column. There are only two rows, because there are only two types of values in `Event`
 
-We made this table from the original data by **grouping** rows by their Offer ID, and **summing** the revenues. Every good data analysis program has this functionality.
+![](i/i_02.png)
 
-*Reproduce the table above by grouping and summing.*
+*How much revenue do you think is brought in for each of these two Event-Types?* Here’s what we get when we group by `Event` and then sum up the revenue in each group. The sum value for 'offer' is 0 because there is no revenue from these values. 
 
-To reproduce the table above we need to group by Offer ID and then sum.
+![](i/i_03.png)
 
-Notice that our grouped table has 5 rows, corresponding to the 5 different Offer IDs. But that’s not the only column we can group by.
+#### Grouping and Filtering
 
-How many rows would you expect if we group by “Event”?
+*Now we have an idea of how grouping works, how might we use the data to find out which offer has changed behavior the most?* We saw earlier that of all Starbucks' offers, *2off10* brought in the most revenue in total. 
 
-Here’s what we get when we group by “Event” and then sum.
+*But does this mean that 2off10 is the most effective?* Not necessarily. It might be that Starbucks sent out way more of this offer. It turns out '2off10' is sent out way more often than '5off20' and '3off7'.
 
-**Table with Event, Revenue**
+![](i/i_04.png)
 
-There are only two rows, because there are only two types of Event, and the sum value for “Offer” is 0 because there is no revenue from these Events.
+*How might we compare revenue by offers according to how often they were sent out?* Lets find the average revenue by Offer-Type! When we group by Offer ID and take the mean we get surprisingly small numbers. 
 
-*Produce a table that counts the number of each type of Event.*
+![](i/i_09.png)
 
-To count the number of each Event we should group by Event and then count.
+*How can the average spend be only 8.81 for the offer "5 off when you spend 20”?* Should the spending be at least 20? We forgot to remove the Offer rows! All the Offer rows in the table had a revenue of 0. 
 
-Now we have an idea of how grouping works, let’s use it to find out which offer has been most successful.
+*How should we fix this problem?* Lets filter for only Transaction rows then find the mean. We can see now that *5off20* brings in the most Revenue per Transaction. 
 
+![](i/i_08.png)
 
+*Do you think that means it is the most effective offer?* It depends what we mean by effective. You have to spend at least $20 to unlock this offer, so it’s not surprising that the average spend is high. 
 
-## Grouping and Filtering
+*How would we measure which offer changed behavior the most?* Even though Mean Revenue by Offer Type is useful, I would want to know which offer would be most likely to be used upon being sent. In other words, what is the Redeption Rate by Offer Type? I want to know how likely the offer is to be used once it's sent. 
 
-**Table with Offer ID, Revenue**
+#### Grouping, Filtering, and Transforming
 
-We saw earlier that of all Starbucks' offers, *2off10* brought in the most revenue in total. But we also want our offers to encourage customers to spend more individually.
+*Mechanically, how would we go about finding the Redemption Rate?* All we need is the number of Transactions divided by the number of Offers. To start, lets filter for Transactions, then group by `Offer ID`, then count. 
 
-Which command would help us find the average spend per transaction?
+![](i/i_05.png)
 
-**Table with Offer ID, Revenue/mean**
+Then we can do the same thing for all the offers sent out: filter for 'Offer', group by `Offer ID`, then count. 
 
-When we group by Offer ID and take the mean we get surprisingly small numbers. How can the average spend be only 8.81 for the offer  "5 off when you spend 20”?
+![](i/i_04a.png)
 
-We forgot to remove the Offer rows.
+Then all we need to do is divide the number of Transactions per Offer-Type by the number of Offers per Offer-Type.
 
-All the Offer rows in the table had a revenue of 0. Before we can find the mean revenue, we need to filter for only Transaction rows.
+![](i/i_06.png)
 
-*Filter for Transactions only and then find the mean revenue for each Offer ID.*
+#### Conclusions
 
-**Table with Event, Revenue, Offer ID**
+As usual, our question informs our analysis. The main question we might be interested in are which offer changes behavior the most. We can either look at behavior as whether the buyer used the offer or how much they spent when the used the offer. 
 
-Filter Event == Transaction, Group by == Mean
+If we look at how much revenue would we expect each offer type to bring in, according to 'Mean Revenue per Offer-Type', it looks like *5off20* is the most effective by this metric. However, at $5 per transaction it's fairly expensive for Starbucks. 
 
-To find the mean transaction amount we should filter for Event = Transaction, then group by Offer ID and get the mean.
+Instead, if we look at how likely is the buyer to purchase something with the offer, according to 'Redemption Rate per Offer-Type', *5off20* doesn't look so good on this metric — less than half of the *5off20* offers sent to customers are ever used.
 
-We can see now that *5off20* brings in the most Revenue per Transaction. Do you think that means it is the most effective offer?
+If we look at both together:
 
-It depends what we mean by effective.
+- *2off10* ranks second on both metrics, while *3off7* is best for Transactions per Offer and third best for Revenue per Offer.
 
-You have to spend at least $20 to unlock this offer, so it’s not surprising that the average spend is high.
-
-What other measure of a promotion’s success could be helpful?
-
-Both Transactions per Offer and Revenue per Offer seem like a relevant measure of a promotion’s success. We’ll explore each of them before we make our final recommendation.
-
-## Drawing Conclusions
-
-To measure the success of each Starbucks promotion, we need to know how many times it was sent out in the first place.
-
-*Produce a table showing the number of Offers for each Offer ID.*
-
-**Table with Event, Revenue, Offer ID**
-
-Filter on Event == Offer, Group by Offer ID == Count
-
-To find the number of Offers for each Offer ID we should filter for Event = Offer, group by Offer ID and then count.
-
-To see what proportion of Offers resulted in Transactions, we will also need to count the number of Transactions.
-
-Produce a table showing the number of Transactions for each Offer ID .
-
-**Table with Row, Event, Revenue, Offer ID**
-
-Filter on Event == Transaction, Group by Offer ID == Count
-
-To find the number of Transactions for each Offer ID we should filter for Event = Transaction, group by Offer ID and then count.
-
-The table below has both the columns you just worked out as well as the total revenue we found earlier.
-
-**Table with Offer ID, Offers, Transactions, Revenue**
-
-Make a new column showing the Revenue per Offer for each of the Offer IDs.
-
-To create the Revenue per Offer column we should divide revenue by number of offers. Selecting “Revenue / Offers” will apply this formula to each row of the table.
-
-**Figure Showing Revenue per Offer**
-
-It looks like *5off20* is the most effective by this metric, though at $5 per transaction it's fairly expensive for Starbucks. Let’s look at Transactions per Offer — the portion of offers that actually get used.
-
-We'll start by constructing the new column "Transactions/Offer"
-
-**Figure Showing Revenue per Offer**
-
-*5off20* doesn't look so good on this metric — less than half of the *5off20* offers sent to customers are ever used.
-
-**Show Both Figures**
-
-Which two offers rank in the top three on **both** Transactions per Offer and Revenue per Offer?
-
-*2off10* ranks second on both metrics, while *3off7* is best for Transactions per Offer and third best for Revenue per Offer.
-
-*3off7* and *2off10* do a similar job of bringing in customers and revenue. But the cost of offering these discounts for the cafe is not the same.
+- *3off7* and *2off10* do a similar job of bringing in customers and revenue. But the cost of offering these discounts for the cafe is not the same.
 
 Which would you recommend as the most cost effective offer?
-
-2 off when you spend 10.
 
 *2off10* is a smaller discount than *3off7* both in dollars ($2 vs. $3) and as a percentage of the sale (20% vs. 43%)
 
