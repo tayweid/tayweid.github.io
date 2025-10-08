@@ -68,3 +68,22 @@ li a:hover {
 .nav-link-right {
     font-size: 18px;
 }
+
+/* =============================================================================
+   RIGHT SIDEBAR SCROLL INDICATOR
+   ============================================================================= */
+
+.right_div ul {
+    position: relative;
+    overflow: visible;
+}
+
+.scroll-indicator {
+    position: absolute;
+    left: -8px;
+    width: 3px;
+    background: var(--main-cool-blue);
+    transition: top 0.3s ease, height 0.3s ease;
+    border-radius: 2px;
+    pointer-events: none;
+}

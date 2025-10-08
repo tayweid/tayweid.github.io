@@ -250,17 +250,80 @@ const EconApp = {
         init() {
             // Force scroll to top on page load
             window.scrollTo(0, 0);
-            
+
+            // Create scroll indicator for right sidebar
+            const rightNavUl = document.querySelector('.right_div ul');
+            let indicator = null;
+            let currentActiveId = null;
+            let lastActiveLink = null;
+
+            if (rightNavUl) {
+                indicator = document.createElement('div');
+                indicator.className = 'scroll-indicator';
+                rightNavUl.appendChild(indicator);
+            }
+
+            // Function to update indicator position with expand/shrink animation
+            const updateIndicator = (activeLink) => {
+                if (indicator && activeLink) {
+                    const newTop = activeLink.offsetTop;
+                    const newHeight = activeLink.offsetHeight;
+
+                    if (lastActiveLink && lastActiveLink !== activeLink) {
+                        // Get current position
+                        const currentTop = parseInt(indicator.style.top) || lastActiveLink.offsetTop;
+                        const currentHeight = parseInt(indicator.style.height) || lastActiveLink.offsetHeight;
+
+                        // Calculate expanded position to cover both old and new
+                        const expandedTop = Math.min(currentTop, newTop);
+                        const expandedBottom = Math.max(currentTop + currentHeight, newTop + newHeight);
+                        const expandedHeight = expandedBottom - expandedTop;
+
+                        // First: expand to cover both
+                        indicator.style.top = `${expandedTop}px`;
+                        indicator.style.height = `${expandedHeight}px`;
+
+                        // Then: shrink to new position after a delay
+                        setTimeout(() => {
+                            indicator.style.top = `${newTop}px`;
+                            indicator.style.height = `${newHeight}px`;
+                        }, 150); // Half of the 0.3s transition time
+                    } else {
+                        // First load or no previous position - just go directly
+                        indicator.style.top = `${newTop}px`;
+                        indicator.style.height = `${newHeight}px`;
+                    }
+
+                    lastActiveLink = activeLink;
+                    indicator.style.opacity = '1';
+                }
+                // Don't hide indicator if no active link - keep it at last position
+            };
+
             // Active navigation highlighting on scroll
             window.addEventListener('scroll', () => {
                 const scrollTop = document.documentElement.scrollTop;
+                const viewportMiddle = scrollTop + (window.innerHeight / 2);
                 const anchors = document.querySelectorAll('body div[id]');
-                
+                let newActiveId = null;
+                let closestDistance = Infinity;
+
+                // Find the section closest to the middle of the viewport
                 anchors.forEach(anchor => {
                     const anchorTop = anchor.offsetTop;
                     const anchorHeight = anchor.offsetHeight;
-                    
-                    if (scrollTop > anchorTop - 100 && scrollTop < anchorTop + anchorHeight - 100) {
+                    const anchorMiddle = anchorTop + (anchorHeight / 2);
+                    const distance = Math.abs(viewportMiddle - anchorMiddle);
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        newActiveId = anchor.id;
+                    }
+                });
+
+                // Update active states
+                anchors.forEach(anchor => {
+                    if (anchor.id === newActiveId) {
                         document.querySelectorAll(`nav a[href="#${anchor.id}"]`).forEach(link => {
                             link.classList.add('active');
                         });
@@ -270,6 +333,15 @@ const EconApp = {
                         });
                     }
                 });
+
+                // Only update indicator if active section changed
+                if (newActiveId !== currentActiveId) {
+                    currentActiveId = newActiveId;
+                    if (rightNavUl) {
+                        const activeLink = rightNavUl.querySelector('.nav-link-right.active');
+                        updateIndicator(activeLink);
+                    }
+                }
             });
         }
     },

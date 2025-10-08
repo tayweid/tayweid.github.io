@@ -136,22 +136,22 @@
 .indicator-tab.concept-indicator::before {
     width: 18px;
     height: 18px;
-    background: rgba(255, 255, 255, 0.5);
+    background: transparent;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
     box-sizing: border-box;
 }
 
 .indicator-tab.concept-indicator:hover::before {
-    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.7);
 }
 
 .indicator-tab.concept-indicator.active::before {
-    width: 34px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px solid var(--main-cool-blue);
-    border-radius: 9px;
+    width: 26px;
+    height: 26px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
     box-sizing: border-box;
 }
 
@@ -187,10 +187,11 @@
 }
 
 .indicator-tab.exercise-indicator.active::before {
-    width: 34px;
-    height: 18px;
-    border: 2px solid var(--main-cool-blue);
-    border-radius: 9px;
+    width: 26px;
+    height: 26px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
     box-sizing: border-box;
 }
 
@@ -216,22 +217,22 @@
 .indicator-tab.homework-indicator::before {
     width: 18px;
     height: 18px;
-    background: rgba(255, 255, 255, 0.5);
+    background: transparent;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
     box-sizing: border-box;
 }
 
 .indicator-tab.homework-indicator:hover::before {
-    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(255, 255, 255, 0.7);
 }
 
 .indicator-tab.homework-indicator.active::before {
-    width: 34px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px solid var(--main-cool-blue);
-    border-radius: 9px;
+    width: 26px;
+    height: 26px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
     box-sizing: border-box;
 }
 
@@ -291,11 +292,9 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    opacity: 0.4;  /* More dimmed opacity for stronger focus effect */
 }
 
 .carousel-card.active {
-    opacity: 1;
     /* Removed blue border and box shadow */
 }
 
