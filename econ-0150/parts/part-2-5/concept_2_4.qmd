@@ -1,0 +1,303 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 2.5 | Merging Data*
+
+---
+
+## Final Project Preview
+<p class="subheader">Exploring real questions with real data</p>
+
+<br><br>
+
+Lets start working through a project together:
+
+::: {.incremental}
+- **Question 1**: Were there systematic patterns in vote share changes between 2020 and 2024?
+- **Question 2**: Do income levels relate to these voting shifts?
+- **Data**: MIT Election Lab (county-level returns) + Census (median income)
+:::
+
+. . .
+
+<br>
+
+*> this is the kind of analysis you'll do for your final project*
+
+---
+
+## The Data Challenge
+<p class="subheader">We have two separate datasets that need to be connected</p>
+
+<br>
+
+**Dataset 1**: Presidential election results by county
+
+- County name
+- State
+- Vote counts for 2020
+- Vote counts for 2024
+
+. . .
+
+**Dataset 2**: Median household income by county
+
+- County identifier
+- Median income
+
+---
+
+## Step 1: Explore Vote Shares
+<p class="subheader">Q. What do county-level vote shares look like?</p>
+
+```{.python}
+# Calculate vote shares
+elections['dem_share_2020'] = elections['dem_2020'] / elections['total_2020']
+elections['dem_share_2024'] = elections['dem_2024'] / elections['total_2024']
+```
+
+. . .
+
+```{.python}
+# Histogram of 2024 vote shares
+sns.histplot(elections, x='dem_share_2024', bins=30)
+```
+
+. . .
+
+*> first, let's understand what we're working with*
+
+---
+
+## Step 2: Compare Elections
+<p class="subheader">Q. How did county vote shares change between 2020 and 2024?</p>
+
+```{.python}
+# Scatterplot comparing elections
+sns.scatterplot(elections, x='dem_share_2020', y='dem_share_2024', alpha=0.5)
+
+# Add 45-degree line
+plt.plot([0,1], [0,1], 'r--', alpha=0.5)
+```
+
+. . .
+
+*> points above the line shifted more Democratic*
+
+. . .
+
+*> points below the line shifted more Republican*
+
+. . .
+
+*> but what explains these shifts?*
+
+---
+
+## Step 3: Add Income Data
+<p class="subheader">Q. Does county income relate to voting shifts?</p>
+
+To answer this, we need to:
+
+::: {.incremental}
+1. Load the income data
+2. **Merge** it with our election data
+3. Calculate the vote share change
+4. Visualize the relationship
+:::
+
+. . .
+
+<br>
+
+*> but how do we connect two separate datasets?*
+
+---
+
+## Merging Data: The Concept
+<p class="subheader">Combining datasets based on common identifiers</p>
+
+<br>
+
+**The Key**: Find a common column that uniquely identifies observations
+
+<br>
+
+::: {.incremental}
+- In our case: County FIPS codes (Federal Information Processing Standards)
+- FIPS uniquely identify every US county
+- Format: State code (2 digits) + County code (3 digits) = 5 digits total
+:::
+
+. . .
+
+<br>
+
+*> example: Allegheny County, PA = 42003*
+
+---
+
+## Types of Merges
+<p class="subheader">Different ways to combine datasets</p>
+
+| Merge Type | Description | Example |
+|------------|-------------|---------|
+| **1:1** | Each row in A matches exactly one row in B | County → County |
+| **1:m** | One row in A matches multiple rows in B | State → Counties |
+| **m:1** | Multiple rows in A match one row in B | Counties → State |
+| **m:m** | Multiple rows in A match multiple in B | (Usually a mistake!) |
+
+. . .
+
+<br>
+
+*> our county merge is 1:1 - each county appears once in each dataset*
+
+---
+
+## Step 3: Create County Identifiers
+<p class="subheader">Building FIPS codes from state and county codes</p>
+
+```{.python}
+# Election data has separate state and county FIPS
+elections['county_fips'] = (elections['state_fips'].astype(str).str.zfill(2) + 
+                            elections['county_fips'].astype(str).str.zfill(3))
+```
+
+. . .
+
+```{.python}
+# Income data already has full FIPS
+income = pd.read_csv('county_income.csv')
+income.head()
+```
+
+. . .
+
+*> now both datasets have matching county identifiers*
+
+---
+
+## Step 4: Perform the Merge
+<p class="subheader">Combining our datasets</p>
+
+```{.python}
+# Merge datasets on county FIPS
+merged = pd.merge(elections, 
+                  income, 
+                  left_on='county_fips',
+                  right_on='FIPS',
+                  how='inner')
+```
+
+. . .
+
+**Merge options:**
+- `inner`: Keep only counties in both datasets
+- `left`: Keep all counties from elections data
+- `right`: Keep all counties from income data  
+- `outer`: Keep all counties from either dataset
+
+. . .
+
+*> we use 'inner' to focus on counties with complete data*
+
+---
+
+## Step 5: Calculate Vote Shifts
+<p class="subheader">Creating our analysis variable</p>
+
+```{.python}
+# Calculate the shift in Democratic vote share
+merged['dem_shift'] = merged['dem_share_2024'] - merged['dem_share_2020']
+```
+
+. . .
+
+```{.python}
+# Quick summary
+print(f"Mean shift: {merged['dem_shift'].mean():.3f}")
+print(f"Counties shifting more Democratic: {(merged['dem_shift'] > 0).sum()}")
+print(f"Counties shifting more Republican: {(merged['dem_shift'] < 0).sum()}")
+```
+
+. . .
+
+*> now we can explore the relationship with income*
+
+---
+
+## Step 6: Analyze the Relationship
+<p class="subheader">Q. Does county income relate to voting shifts?</p>
+
+```{.python}
+# Scatterplot of income vs vote shift
+sns.scatterplot(merged, 
+                x='median_income', 
+                y='dem_shift',
+                alpha=0.3)
+
+# Add horizontal line at zero
+plt.axhline(y=0, color='r', linestyle='--', alpha=0.5)
+
+plt.xlabel('Median Household Income ($)')
+plt.ylabel('Change in Democratic Vote Share (2024-2020)')
+```
+
+. . .
+
+*> what patterns do you see?*
+
+---
+
+## Common Merge Issues
+<p class="subheader">Watch out for these problems</p>
+
+<br>
+
+::: {.incremental}
+- **Missing values**: Some counties might not have income data
+- **Duplicate keys**: Same county appearing multiple times
+- **Type mismatches**: FIPS stored as numbers vs strings
+- **Different naming**: "St. Louis" vs "Saint Louis"
+:::
+
+. . .
+
+<br>
+
+```{.python}
+# Check for duplicates before merging
+elections['county_fips'].duplicated().sum()
+income['FIPS'].duplicated().sum()
+```
+
+---
+
+## Summary
+<p class="subheader">Merging allows us to answer richer questions</p>
+
+<br><br>
+
+::: {.incremental}
+- **Identify** common columns to join on (FIPS codes)
+- **Prepare** data for merging (create consistent identifiers)
+- **Merge** using appropriate join type (inner, left, right, outer)
+- **Transform** to create analysis variables (vote shift)
+- **Analyze** the combined dataset
+:::
+
+. . .
+
+<br>
+
+*> this workflow is essential for your final projects*
