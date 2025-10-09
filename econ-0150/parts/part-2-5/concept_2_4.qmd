@@ -59,31 +59,32 @@ Lets start working through a project together:
 ## Step 1: Explore Vote Shares
 <p class="subheader">Q. What do county-level vote shares look like?</p>
 
+First understand what we're working with.
+
+. . .
+
 ```{.python}
-# Calculate vote shares
-elections['dem_share_2020'] = elections['dem_2020'] / elections['total_2020']
-elections['dem_share_2024'] = elections['dem_2024'] / elections['total_2024']
+# Histogram of 2024 vote shares
+sns.histplot(elections, x='2020')
 ```
 
 . . .
 
 ```{.python}
 # Histogram of 2024 vote shares
-sns.histplot(elections, x='dem_share_2024', bins=30)
+sns.histplot(elections, x='2024')
 ```
-
-. . .
-
-*> first, let's understand what we're working with*
 
 ---
 
 ## Step 2: Compare Elections
 <p class="subheader">Q. How did county vote shares change between 2020 and 2024?</p>
 
+Second, lets look at the relationship between Democratic Share in 2020 and 2024.
+
 ```{.python}
 # Scatterplot comparing elections
-sns.scatterplot(elections, x='dem_share_2020', y='dem_share_2024', alpha=0.5)
+sns.scatterplot(elections, x='2020', y='2024', alpha=0.5)
 
 # Add 45-degree line
 plt.plot([0,1], [0,1], 'r--', alpha=0.5)
@@ -92,8 +93,6 @@ plt.plot([0,1], [0,1], 'r--', alpha=0.5)
 . . .
 
 *> points above the line shifted more Democratic*
-
-. . .
 
 *> points below the line shifted more Republican*
 
@@ -154,7 +153,6 @@ To answer this, we need to:
 | **1:1** | Each row in A matches exactly one row in B | County → County |
 | **1:m** | One row in A matches multiple rows in B | State → Counties |
 | **m:1** | Multiple rows in A match one row in B | Counties → State |
-| **m:m** | Multiple rows in A match multiple in B | (Usually a mistake!) |
 
 . . .
 
@@ -164,44 +162,22 @@ To answer this, we need to:
 
 ---
 
-## Step 3: Create County Identifiers
-<p class="subheader">Building FIPS codes from state and county codes</p>
-
-```{.python}
-# Election data has separate state and county FIPS
-elections['county_fips'] = (elections['state_fips'].astype(str).str.zfill(2) + 
-                            elections['county_fips'].astype(str).str.zfill(3))
-```
-
-. . .
-
-```{.python}
-# Income data already has full FIPS
-income = pd.read_csv('county_income.csv')
-income.head()
-```
-
-. . .
-
-*> now both datasets have matching county identifiers*
-
----
-
-## Step 4: Perform the Merge
+## Step 3: Perform the Merge
 <p class="subheader">Combining our datasets</p>
 
 ```{.python}
 # Merge datasets on county FIPS
-merged = pd.merge(elections, 
+data = pd.merge(elections, 
                   income, 
                   left_on='county_fips',
-                  right_on='FIPS',
+                  right_on='county_fips',
                   how='inner')
 ```
 
 . . .
 
 **Merge options:**
+
 - `inner`: Keep only counties in both datasets
 - `left`: Keep all counties from elections data
 - `right`: Keep all counties from income data  
@@ -213,21 +189,19 @@ merged = pd.merge(elections,
 
 ---
 
-## Step 5: Calculate Vote Shifts
+## Step 4: Calculate Vote Shifts
 <p class="subheader">Creating our analysis variable</p>
 
 ```{.python}
 # Calculate the shift in Democratic vote share
-merged['dem_shift'] = merged['dem_share_2024'] - merged['dem_share_2020']
+data['dem_shift'] = data['2024'] - data['2016']
 ```
 
 . . .
 
 ```{.python}
-# Quick summary
-print(f"Mean shift: {merged['dem_shift'].mean():.3f}")
-print(f"Counties shifting more Democratic: {(merged['dem_shift'] > 0).sum()}")
-print(f"Counties shifting more Republican: {(merged['dem_shift'] < 0).sum()}")
+# Summarize this new variable
+sns.histplot(elections, x='dem_shift')
 ```
 
 . . .
@@ -236,12 +210,12 @@ print(f"Counties shifting more Republican: {(merged['dem_shift'] < 0).sum()}")
 
 ---
 
-## Step 6: Analyze the Relationship
+## Step 5: Analyze the Relationship
 <p class="subheader">Q. Does county income relate to voting shifts?</p>
 
 ```{.python}
 # Scatterplot of income vs vote shift
-sns.scatterplot(merged, 
+sns.scatterplot(data, 
                 x='median_income', 
                 y='dem_shift',
                 alpha=0.3)
@@ -250,7 +224,7 @@ sns.scatterplot(merged,
 plt.axhline(y=0, color='r', linestyle='--', alpha=0.5)
 
 plt.xlabel('Median Household Income ($)')
-plt.ylabel('Change in Democratic Vote Share (2024-2020)')
+plt.ylabel('Change in Democratic Vote Share (2024-2016)')
 ```
 
 . . .
@@ -296,8 +270,203 @@ income['FIPS'].duplicated().sum()
 - **Analyze** the combined dataset
 :::
 
+
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">Part 2: Data Operations Practice</p>
+
+<br> 
+
+### *Practice Problems for MiniExam 2*
+
+---
+
+## Practice 1: Trace the Filter
+<p class="subheader">Which products remain after filtering?</p>
+
+| Product_ID | Category | Price | In_Stock |
+|------------|----------|-------|----------|
+| P001 | Electronics | 299 | True |
+| P002 | Clothing | 49 | False |
+| P003 | Electronics | 89 | True |
+| P004 | Food | 12 | True |
+| P005 | Clothing | 79 | True |
+
+**Filter:** `(Price < 100) AND (In_Stock == True)`
+
 . . .
+
+*Answer: P003, P004*
+
+---
+
+## Practice 2: Multi-Step Operations
+<p class="subheader">Track data through multiple transformations</p>
+
+| Sale_ID | Store | Amount |
+|---------|-------|--------|
+| S001 | North | 120 |
+| S002 | South | 80 |
+| S003 | North | 150 |
+| S004 | South | 90 |
+| S005 | North | 100 |
+
+**Operations:**
+
+1. Filter for Amount >= 100
+2. Group by Store
+3. Calculate mean Amount
+
+. . .
+
+*Answer: North, 125*
+
+---
+
+## Practice 3: Data Cleaning Decisions
+<p class="subheader">What cleaning is needed for each entry?</p>
+
+| Response_ID | Duration |
+|------------|----------|
+| R001 | "5 minutes" |
+| R002 | "180" |
+| R003 | "about 3 min" |
+| R004 | "N/A" |
+
+For each entry, select ALL that apply:
+
+. . .
+
+**R001:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
+
+. . .
+
+**R002:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
+
+. . .
+
+**R003:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
+
+. . .
+
+**R004:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
+
+---
+
+## Practice 4: Build Complex Filters
+<p class="subheader">Construct the correct boolean logic</p>
+
+**Goal:** Find all employees who:
+
+- Work in either Tech or Sales departments
+- AND have been with company more than 2 years
+- AND earn less than $70,000
+
+. . .
+
+Use these components to construct a filter:
+
+1. (Department == 'Tech')  
+2. (Years > 2)  
+3. (Department == 'Sales')  
+4. (Salary < 70000)
+
+. . .
+
+*Answer: (1 OR 3) AND 2 AND 4*
+
+---
+
+## Practice 5: Choose the Right Transformation
+<p class="subheader">Why transform data?</p>
+
+**Scenario:** Comparing test scores across different schools where class sizes vary dramatically (10-50 students)
+
+You have:
+
+- Total_Points_Earned (all students combined)
+- Number_of_Students
+
+. . .
+
+Which transformation makes schools comparable?
+
+a) Total_Points_Earned + Number_of_Students  
+b) Total_Points_Earned - Number_of_Students  
+c) Total_Points_Earned / Number_of_Students  
+d) Total_Points_Earned * Number_of_Students  
+
+. . .
+
+**Answer: c) Creates average score per student**
+
+---
+
+## Practice 6: Predict Grouping Output
+<p class="subheader">What will the grouped data look like?</p>
+
+| Order_ID | Customer | Amount | Region |
+|----------|----------|--------|--------|
+| O001 | Alice | 50 | East |
+| O002 | Bob | 30 | West |
+| O003 | Alice | 70 | East |
+| O004 | Charlie | 40 | East |
+| O005 | Bob | 60 | West |
+
+We've `Grouped by Customer` then `Summed by Amount`.
+
+. . .
+
+How many rows in output? _____
+
+. . .
+
+What's the sum for Bob? _____
+
+. . .
+
+Which customer has highest total? _____
+
+. . .
+
+*Answers: 3 rows, 90, Alice (120)*
+
+---
+
+## Tips for MiniExam 2
+<p class="subheader">Key concepts to remember</p>
 
 <br>
 
-*> this workflow is essential for your final projects*
+**Filtering:**
+
+- AND: both conditions must be true
+- OR: at least one condition must be true  
+
+. . .
+
+**Grouping:**
+
+- Output has one row per group
+- Choose the right aggregation (sum, mean, count, etc.)
+
+---
+
+## Tips for MiniExam 2
+<p class="subheader">Key concepts to remember</p>
+
+<br>
+
+**Transformations:**
+
+- Division normalizes for fair comparison
+- Log transformation helps with different scales
+
+. . .
+
+**Data Cleaning:**
+
+- Text → Number needs type conversion
+- Missing values: drop or fill (not both!)
+- Consistent format before analysis

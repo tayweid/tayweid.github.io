@@ -245,15 +245,14 @@ We have two separate datasets that need to be connected
 <p class="subheader">
 Q. What do county-level vote shares look like?
 </p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Calculate vote shares</span></span>
-<span id="cb1-2"><a href=""></a>elections[<span class="st">'dem_share_2020'</span>] <span class="op">=</span> elections[<span class="st">'dem_2020'</span>] <span class="op">/</span> elections[<span class="st">'total_2020'</span>]</span>
-<span id="cb1-3"><a href=""></a>elections[<span class="st">'dem_share_2024'</span>] <span class="op">=</span> elections[<span class="st">'dem_2024'</span>] <span class="op">/</span> elections[<span class="st">'total_2024'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>First understand what we’re working with.</p>
 <div class="fragment">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Histogram of 2024 vote shares</span></span>
-<span id="cb2-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'dem_share_2024'</span>, bins<span class="op">=</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Histogram of 2024 vote shares</span></span>
+<span id="cb1-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'2020'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p><em>&gt; first, let’s understand what we’re working with</em></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Histogram of 2024 vote shares</span></span>
+<span id="cb2-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'2024'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-2-compare-elections" class="slide level2">
@@ -261,15 +260,14 @@ Q. What do county-level vote shares look like?
 <p class="subheader">
 Q. How did county vote shares change between 2020 and 2024?
 </p>
+<p>Second, lets look at the relationship between Democratic Share in 2020 and 2024.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Scatterplot comparing elections</span></span>
-<span id="cb3-2"><a href=""></a>sns.scatterplot(elections, x<span class="op">=</span><span class="st">'dem_share_2020'</span>, y<span class="op">=</span><span class="st">'dem_share_2024'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-2"><a href=""></a>sns.scatterplot(elections, x<span class="op">=</span><span class="st">'2020'</span>, y<span class="op">=</span><span class="st">'2024'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb3-3"><a href=""></a></span>
 <span id="cb3-4"><a href=""></a><span class="co"># Add 45-degree line</span></span>
 <span id="cb3-5"><a href=""></a>plt.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], <span class="st">'r--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; points above the line shifted more Democratic</em></p>
-</div>
-<div class="fragment">
 <p><em>&gt; points below the line shifted more Republican</em></p>
 </div>
 <div class="fragment">
@@ -349,11 +347,6 @@ Different ways to combine datasets
 <td>Multiple rows in A match one row in B</td>
 <td>Counties → State</td>
 </tr>
-<tr class="even">
-<td><strong>m:m</strong></td>
-<td>Multiple rows in A match multiple in B</td>
-<td>(Usually a mistake!)</td>
-</tr>
 </tbody>
 </table>
 <div class="fragment">
@@ -361,75 +354,62 @@ Different ways to combine datasets
 <p><em>&gt; our county merge is 1:1 - each county appears once in each dataset</em></p>
 </div>
 </section>
-<section id="step-3-create-county-identifiers" class="slide level2">
-<h2>Step 3: Create County Identifiers</h2>
-<p class="subheader">
-Building FIPS codes from state and county codes
-</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Election data has separate state and county FIPS</span></span>
-<span id="cb4-2"><a href=""></a>elections[<span class="st">'county_fips'</span>] <span class="op">=</span> (elections[<span class="st">'state_fips'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.zfill(<span class="dv">2</span>) <span class="op">+</span> </span>
-<span id="cb4-3"><a href=""></a>                            elections[<span class="st">'county_fips'</span>].astype(<span class="bu">str</span>).<span class="bu">str</span>.zfill(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Income data already has full FIPS</span></span>
-<span id="cb5-2"><a href=""></a>income <span class="op">=</span> pd.read_csv(<span class="st">'county_income.csv'</span>)</span>
-<span id="cb5-3"><a href=""></a>income.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; now both datasets have matching county identifiers</em></p>
-</div>
-</section>
-<section id="step-4-perform-the-merge" class="slide level2">
-<h2>Step 4: Perform the Merge</h2>
+<section id="step-3-perform-the-merge" class="slide level2">
+<h2>Step 3: Perform the Merge</h2>
 <p class="subheader">
 Combining our datasets
 </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Merge datasets on county FIPS</span></span>
-<span id="cb6-2"><a href=""></a>merged <span class="op">=</span> pd.merge(elections, </span>
-<span id="cb6-3"><a href=""></a>                  income, </span>
-<span id="cb6-4"><a href=""></a>                  left_on<span class="op">=</span><span class="st">'county_fips'</span>,</span>
-<span id="cb6-5"><a href=""></a>                  right_on<span class="op">=</span><span class="st">'FIPS'</span>,</span>
-<span id="cb6-6"><a href=""></a>                  how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Merge datasets on county FIPS</span></span>
+<span id="cb4-2"><a href=""></a>data <span class="op">=</span> pd.merge(elections, </span>
+<span id="cb4-3"><a href=""></a>                  income, </span>
+<span id="cb4-4"><a href=""></a>                  left_on<span class="op">=</span><span class="st">'county_fips'</span>,</span>
+<span id="cb4-5"><a href=""></a>                  right_on<span class="op">=</span><span class="st">'county_fips'</span>,</span>
+<span id="cb4-6"><a href=""></a>                  how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><strong>Merge options:</strong> - <code>inner</code>: Keep only counties in both datasets - <code>left</code>: Keep all counties from elections data - <code>right</code>: Keep all counties from income data<br>
-- <code>outer</code>: Keep all counties from either dataset</p>
+<p><strong>Merge options:</strong></p>
+<ul>
+<li><code>inner</code>: Keep only counties in both datasets</li>
+<li><code>left</code>: Keep all counties from elections data</li>
+<li><code>right</code>: Keep all counties from income data<br>
+</li>
+<li><code>outer</code>: Keep all counties from either dataset</li>
+</ul>
 </div>
 <div class="fragment">
 <p><em>&gt; we use ‘inner’ to focus on counties with complete data</em></p>
 </div>
 </section>
-<section id="step-5-calculate-vote-shifts" class="slide level2">
-<h2>Step 5: Calculate Vote Shifts</h2>
+<section id="step-4-calculate-vote-shifts" class="slide level2">
+<h2>Step 4: Calculate Vote Shifts</h2>
 <p class="subheader">
 Creating our analysis variable
 </p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Calculate the shift in Democratic vote share</span></span>
-<span id="cb7-2"><a href=""></a>merged[<span class="st">'dem_shift'</span>] <span class="op">=</span> merged[<span class="st">'dem_share_2024'</span>] <span class="op">-</span> merged[<span class="st">'dem_share_2020'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Calculate the shift in Democratic vote share</span></span>
+<span id="cb5-2"><a href=""></a>data[<span class="st">'dem_shift'</span>] <span class="op">=</span> data[<span class="st">'2024'</span>] <span class="op">-</span> data[<span class="st">'2016'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Quick summary</span></span>
-<span id="cb8-2"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Mean shift: </span><span class="sc">{</span>merged[<span class="st">'dem_shift'</span>]<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb8-3"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Counties shifting more Democratic: </span><span class="sc">{</span>(merged[<span class="st">'dem_shift'</span>] <span class="op">&gt;</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb8-4"><a href=""></a><span class="bu">print</span>(<span class="ss">f"Counties shifting more Republican: </span><span class="sc">{</span>(merged[<span class="st">'dem_shift'</span>] <span class="op">&lt;</span> <span class="dv">0</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Summarize this new variable</span></span>
+<span id="cb6-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'dem_shift'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><em>&gt; now we can explore the relationship with income</em></p>
 </div>
 </section>
-<section id="step-6-analyze-the-relationship" class="slide level2">
-<h2>Step 6: Analyze the Relationship</h2>
+<section id="step-5-analyze-the-relationship" class="slide level2">
+<h2>Step 5: Analyze the Relationship</h2>
 <p class="subheader">
 Q. Does county income relate to voting shifts?
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Scatterplot of income vs vote shift</span></span>
-<span id="cb9-2"><a href=""></a>sns.scatterplot(merged, </span>
-<span id="cb9-3"><a href=""></a>                x<span class="op">=</span><span class="st">'median_income'</span>, </span>
-<span id="cb9-4"><a href=""></a>                y<span class="op">=</span><span class="st">'dem_shift'</span>,</span>
-<span id="cb9-5"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb9-6"><a href=""></a></span>
-<span id="cb9-7"><a href=""></a><span class="co"># Add horizontal line at zero</span></span>
-<span id="cb9-8"><a href=""></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb9-9"><a href=""></a></span>
-<span id="cb9-10"><a href=""></a>plt.xlabel(<span class="st">'Median Household Income ($)'</span>)</span>
-<span id="cb9-11"><a href=""></a>plt.ylabel(<span class="st">'Change in Democratic Vote Share (2024-2020)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Scatterplot of income vs vote shift</span></span>
+<span id="cb7-2"><a href=""></a>sns.scatterplot(data, </span>
+<span id="cb7-3"><a href=""></a>                x<span class="op">=</span><span class="st">'median_income'</span>, </span>
+<span id="cb7-4"><a href=""></a>                y<span class="op">=</span><span class="st">'dem_shift'</span>,</span>
+<span id="cb7-5"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb7-6"><a href=""></a></span>
+<span id="cb7-7"><a href=""></a><span class="co"># Add horizontal line at zero</span></span>
+<span id="cb7-8"><a href=""></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb7-9"><a href=""></a></span>
+<span id="cb7-10"><a href=""></a>plt.xlabel(<span class="st">'Median Household Income ($)'</span>)</span>
+<span id="cb7-11"><a href=""></a>plt.ylabel(<span class="st">'Change in Democratic Vote Share (2024-2016)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><em>&gt; what patterns do you see?</em></p>
 </div>
@@ -450,9 +430,9 @@ Watch out for these problems
 </div>
 <div class="fragment">
 <p><br></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Check for duplicates before merging</span></span>
-<span id="cb10-2"><a href=""></a>elections[<span class="st">'county_fips'</span>].duplicated().<span class="bu">sum</span>()</span>
-<span id="cb10-3"><a href=""></a>income[<span class="st">'FIPS'</span>].duplicated().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Check for duplicates before merging</span></span>
+<span id="cb8-2"><a href=""></a>elections[<span class="st">'county_fips'</span>].duplicated().<span class="bu">sum</span>()</span>
+<span id="cb8-3"><a href=""></a>income[<span class="st">'FIPS'</span>].duplicated().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="summary" class="slide level2">
@@ -470,9 +450,315 @@ Merging allows us to answer richer questions
 <li class="fragment"><strong>Analyze</strong> the combined dataset</li>
 </ul>
 </div>
-<div class="fragment">
+</section>
+<section id="econ-0150-economic-data-analysis-1" class="slide level2 center">
+<h2>ECON 0150 | Economic Data Analysis</h2>
+<p class="subheader-center">
+Part 2: Data Operations Practice
+</p>
 <p><br></p>
-<p><em>&gt; this workflow is essential for your final projects</em></p>
+<h3 id="practice-problems-for-miniexam-2"><em>Practice Problems for MiniExam 2</em></h3>
+</section>
+<section id="practice-1-trace-the-filter" class="slide level2">
+<h2>Practice 1: Trace the Filter</h2>
+<p class="subheader">
+Which products remain after filtering?
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Product_ID</th>
+<th>Category</th>
+<th>Price</th>
+<th>In_Stock</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P001</td>
+<td>Electronics</td>
+<td>299</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td>P002</td>
+<td>Clothing</td>
+<td>49</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<td>P003</td>
+<td>Electronics</td>
+<td>89</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td>P004</td>
+<td>Food</td>
+<td>12</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<td>P005</td>
+<td>Clothing</td>
+<td>79</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Filter:</strong> <code>(Price &lt; 100) AND (In_Stock == True)</code></p>
+<div class="fragment">
+<p><em>Answer: P003, P004</em></p>
+</div>
+</section>
+<section id="practice-2-multi-step-operations" class="slide level2">
+<h2>Practice 2: Multi-Step Operations</h2>
+<p class="subheader">
+Track data through multiple transformations
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Sale_ID</th>
+<th>Store</th>
+<th>Amount</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S001</td>
+<td>North</td>
+<td>120</td>
+</tr>
+<tr class="even">
+<td>S002</td>
+<td>South</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>S003</td>
+<td>North</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td>S004</td>
+<td>South</td>
+<td>90</td>
+</tr>
+<tr class="odd">
+<td>S005</td>
+<td>North</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Operations:</strong></p>
+<ol type="1">
+<li>Filter for Amount &gt;= 100</li>
+<li>Group by Store</li>
+<li>Calculate mean Amount</li>
+</ol>
+<div class="fragment">
+<p><em>Answer: North, 125</em></p>
+</div>
+</section>
+<section id="practice-3-data-cleaning-decisions" class="slide level2">
+<h2>Practice 3: Data Cleaning Decisions</h2>
+<p class="subheader">
+What cleaning is needed for each entry?
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Response_ID</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>R001</td>
+<td>“5 minutes”</td>
+</tr>
+<tr class="even">
+<td>R002</td>
+<td>“180”</td>
+</tr>
+<tr class="odd">
+<td>R003</td>
+<td>“about 3 min”</td>
+</tr>
+<tr class="even">
+<td>R004</td>
+<td>“N/A”</td>
+</tr>
+</tbody>
+</table>
+<p>For each entry, select ALL that apply:</p>
+<div class="fragment">
+<p><strong>R001:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
+</div>
+<div class="fragment">
+<p><strong>R002:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
+</div>
+<div class="fragment">
+<p><strong>R003:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
+</div>
+<div class="fragment">
+<p><strong>R004:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
+</div>
+</section>
+<section id="practice-4-build-complex-filters" class="slide level2">
+<h2>Practice 4: Build Complex Filters</h2>
+<p class="subheader">
+Construct the correct boolean logic
+</p>
+<p><strong>Goal:</strong> Find all employees who:</p>
+<ul>
+<li>Work in either Tech or Sales departments</li>
+<li>AND have been with company more than 2 years</li>
+<li>AND earn less than $70,000</li>
+</ul>
+<div class="fragment">
+<p>Use these components to construct a filter:</p>
+<ol type="1">
+<li>(Department == ‘Tech’)<br>
+</li>
+<li>(Years &gt; 2)<br>
+</li>
+<li>(Department == ‘Sales’)<br>
+</li>
+<li>(Salary &lt; 70000)</li>
+</ol>
+</div>
+<div class="fragment">
+<p><em>Answer: (1 OR 3) AND 2 AND 4</em></p>
+</div>
+</section>
+<section id="practice-5-choose-the-right-transformation" class="slide level2">
+<h2>Practice 5: Choose the Right Transformation</h2>
+<p class="subheader">
+Why transform data?
+</p>
+<p><strong>Scenario:</strong> Comparing test scores across different schools where class sizes vary dramatically (10-50 students)</p>
+<p>You have:</p>
+<ul>
+<li>Total_Points_Earned (all students combined)</li>
+<li>Number_of_Students</li>
+</ul>
+<div class="fragment">
+<p>Which transformation makes schools comparable?</p>
+<ol type="a">
+<li>Total_Points_Earned + Number_of_Students<br>
+</li>
+<li>Total_Points_Earned - Number_of_Students<br>
+</li>
+<li>Total_Points_Earned / Number_of_Students<br>
+</li>
+<li>Total_Points_Earned * Number_of_Students</li>
+</ol>
+</div>
+<div class="fragment">
+<p><strong>Answer: c) Creates average score per student</strong></p>
+</div>
+</section>
+<section id="practice-6-predict-grouping-output" class="slide level2">
+<h2>Practice 6: Predict Grouping Output</h2>
+<p class="subheader">
+What will the grouped data look like?
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Order_ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>O001</td>
+<td>Alice</td>
+<td>50</td>
+<td>East</td>
+</tr>
+<tr class="even">
+<td>O002</td>
+<td>Bob</td>
+<td>30</td>
+<td>West</td>
+</tr>
+<tr class="odd">
+<td>O003</td>
+<td>Alice</td>
+<td>70</td>
+<td>East</td>
+</tr>
+<tr class="even">
+<td>O004</td>
+<td>Charlie</td>
+<td>40</td>
+<td>East</td>
+</tr>
+<tr class="odd">
+<td>O005</td>
+<td>Bob</td>
+<td>60</td>
+<td>West</td>
+</tr>
+</tbody>
+</table>
+<p>We’ve <code>Grouped by Customer</code> then <code>Summed by Amount</code>.</p>
+<div class="fragment">
+<p>How many rows in output? _____</p>
+</div>
+<div class="fragment">
+<p>What’s the sum for Bob? _____</p>
+</div>
+<div class="fragment">
+<p>Which customer has highest total? _____</p>
+</div>
+<div class="fragment">
+<p><em>Answers: 3 rows, 90, Alice (120)</em></p>
+</div>
+</section>
+<section id="tips-for-miniexam-2" class="slide level2">
+<h2>Tips for MiniExam 2</h2>
+<p class="subheader">
+Key concepts to remember
+</p>
+<p><br></p>
+<p><strong>Filtering:</strong></p>
+<ul>
+<li>AND: both conditions must be true</li>
+<li>OR: at least one condition must be true</li>
+</ul>
+<div class="fragment">
+<p><strong>Grouping:</strong></p>
+<ul>
+<li>Output has one row per group</li>
+<li>Choose the right aggregation (sum, mean, count, etc.)</li>
+</ul>
+</div>
+</section>
+<section id="tips-for-miniexam-2-1" class="slide level2">
+<h2>Tips for MiniExam 2</h2>
+<p class="subheader">
+Key concepts to remember
+</p>
+<p><br></p>
+<p><strong>Transformations:</strong></p>
+<ul>
+<li>Division normalizes for fair comparison</li>
+<li>Log transformation helps with different scales</li>
+</ul>
+<div class="fragment">
+<p><strong>Data Cleaning:</strong></p>
+<ul>
+<li>Text → Number needs type conversion</li>
+<li>Missing values: drop or fill (not both!)</li>
+<li>Consistent format before analysis</li>
+</ul>
 
 </div>
 </section>
