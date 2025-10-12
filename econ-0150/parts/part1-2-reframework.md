@@ -8,6 +8,33 @@ Every data visualization follows three steps. Students must internalize this fra
 2. **TRANSFORM** - How do we summarize or reshape it?
 3. **ENCODE** - How do we turn numbers into visual elements?
 
+
+
+#### Additional Notes
+
+I want to also maybe discuss the idea of data being the realization of an unknown random variable. The idea is that to connect data early in the semester to the ideas of probability and statistics later on. I think this should go along with setting up nice notation for data, with i as the cross-sectional index and t as the timeseries index. 
+
+It might be worth doing a class on a data framework with the survey data. Talk about the 
+
+This makes it easy to talk about Katherine's emphasis on the data generating process. "Look at this random variable. Who is doing the generating? What's included? What does it leave out? What does it miss?"
+
+Maybe the thing goes like:
+
+- Here's a datapoint x_i. This came from some random variable that we do not necessarily know. Some examples of random variables are like these <exmaple pdfs and pmfs>. 
+- If we were to draw from a known random variable like this 10,000 times, we can see that the data we've collected matches the distribution very closely.
+- But often we don't know what the distribution is. With most data, you will only see the realization of the random variable, not the random variable itself. 
+- Data is just repeated realizations of some random variable. If I draw many realizations from a random variable, I have many datapoints. 
+- We use this i to tell us the index of the datapoint, which is there to help us keep track of the datapoints.
+- We can have multiple indexs, typically i and j. Lets say we have individual students in many sections of ECON 0150. We'll use i to denote the student and j to denote the section. 
+- Then we can also look at data through time, which we typically index with t. So I can have a student i in class j with a test score at time t. I might call this datapoint x_{ijt}, which looks a bit fussy, but this way of writing things out turns out to be very helpful later on.
+- You may be tempted to look at a distribution in your data and guess the random variable behind the data generating process. But guessing is not great science. And it turns out we have methods where we don't need to guess. 
+- For now all we need to think about is the datapoints (what we call data) and not the data generating process itself. 
+- How we interact with data depends largely on what we want to know. Even in simple datasets, there are too many to manage. 
+- SELECT
+- TRANSFORM
+- ENCODE
+- Go through some examples with the survey
+
 ---
 
 ## Part 1.0: Introduction to the Framework (NEW - 30 minutes)
@@ -203,7 +230,30 @@ Give them a business question and raw data. Make them:
 - **Data cleaning** → Part 6 "Real Data Workshop" before projects
 - **Cut entirely** → GMT timezone, inflation adjustment, complex string parsing
 
-### Time savings:
-- Old Part 2: 2.5 weeks
-- New integrated approach: 0 additional weeks (embedded in Part 1)
-- Net gain: 2.5 weeks for more statistics/modeling
+
+
+#### Additional Notes
+
+Part 2.3: Filtering - covers global opening hour, where we go through and filter by location and duration. This is cross-sectional data that we turn into a timeseries.
+
+> Maybe we do this as a transition from cross-section into timeseries. 
+
+Part 2.1: Cleaning - covers the survey and is so boring. 
+
+>  Save this for Part 6.
+
+Part 2.2: Transforming - covers maily coffee prices and global opening hours. 
+
+> We've already talked about data operations as the second step, so the cpi conversion would fit naturally in timeseries. Maybe just drop the GMT example or add it to the discussion on timeseries, merging it with the filtering example. 
+
+Part 2.4: Grouping - covers starbucks promos and is a bit too long.
+
+> I think this might go well with categorical data. Maybe start with the existing simple categorical data, then talk about how sometimes we need to transform the data to be easy to summarize by category. Instead of just counting, sometimes we want other types of transformations. 
+
+Part 2.5: Merging - covers elections data, an interesting example, but not an interesting concept.
+
+> Maybe theres a way to use this in bivariate data. 
+
+I wonder if there's a way to organize this so that by the end of Part 1 we've built up a framework for data using x_{ijt}, a framework for data operations, and a framework for visualizations. Building up a framework for data operations in the middle of this would releive my concern about sprinkling in different operations throughout. And it might even be possible to do a simple data cleaning when using GMT. 
+
+I want to offload some of the exercises to videos since this will add time and content. Maybe it makes sense again to separate out this first part into two parts. 
