@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_3_1_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_3_1_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_3_1_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_3_1_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_3_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_3_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_3_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_3_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_3_1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_3_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_3_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_3_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_3_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_3_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_3_1</title>
+  <title>concept_3_1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_3_1_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_3_1_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_3_1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_3_1_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -27,13 +27,78 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_3_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_3_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_3_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_3_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_3_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_3_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_3_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_3_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_3_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_3_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -129,120 +194,117 @@
 
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
-<p class="subheader">
-The economist’s data analysis pipeline.
+<p class="subheader-center">
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-3.1-location-dispersion-random-variables"><em>Part 3.1 | Location, Dispersion, Random Variables</em></h3>
+<h3 id="part-3.1-populations-and-random-variables"><em>Part 3.1 | Populations and Random Variables</em></h3>
 </section>
-<section id="statistics" class="slide level2">
-<h2>Statistics</h2>
+<section id="from-data-to-understanding" class="slide level2">
+<h2>From Data to Understanding</h2>
 <p class="subheader">
-Why not just use visuals?
+We’ve spent Part 1 &amp; 2 understanding our data… but what comes next?
 </p>
-<p><em>&gt; A picture is worth a thousand summary stats.</em></p>
-<div class="fragment">
-<p><em>&gt; But sometimes we want something more precise and concrete.</em></p>
 <p><br></p>
-</div>
-<div class="fragment">
-<p><strong>Q.</strong> What is the ‘middle’ age in the class?</p>
+<div>
 <ul>
-<li>Measures of Location: <strong>Mean, Median, Mode</strong></li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Q.</strong> How spread out are the ages in the class?</p>
-<ul>
-<li>Measures of Dispersion / Spread: <strong>Variance, Standard Deviation, Range</strong></li>
+<li class="fragment">We’ve mastered <strong>visualizing</strong> data</li>
+<li class="fragment">We’ve developed skills to <strong>summarize</strong> and <strong>transform</strong> data</li>
+<li class="fragment">But sometimes we need something more <strong>precise</strong> and <strong>quantifiable</strong></li>
+<li class="fragment">And sometimes we want to say something about the <strong>population</strong>, not just our <strong>sample</strong></li>
 </ul>
 </div>
 </section>
-<section id="measure-of-central-tendency-location" class="slide level2">
-<h2>Measure of Central Tendency (Location)</h2>
+<section id="two-groups-one-question" class="slide level2">
+<h2>Two Groups, One Question</h2>
 <p class="subheader">
-What is the “center” of the data?
+Which group sleeps longer?
 </p>
-<div class="fragment">
-<p><strong>Mode</strong>: <em>the value that appears most often</em></p>
+<div id="e875f7e9" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-2-output-1.png" width="950" height="468"></p>
+</figure>
+</div>
+</div>
 </div>
 <div class="fragment">
+<p><em>&gt; the distributions overlap… how can we compare them precisely?</em></p>
+</div>
+</section>
+<section id="measures-of-location" class="slide level2">
+<h2>Measures of Location</h2>
+<p class="subheader">
+Where is the “center” of each group?
+</p>
 <p><br></p>
-<p><strong>Median</strong>: <em>the value separating the higher and lower halves</em></p>
-</div>
-<div class="fragment">
-<ul>
-<li>If there are an odd number of values, choose the middle-ranked value</li>
-<li>If there are an even number of values, take the mean of the middle two</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Mean</strong>: the center of mass</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}\]</span></p>
-</div>
+<p><strong>Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}\]</span></p>
 </section>
-<section id="central-tendency-location-class-age-example" class="slide level2">
-<h2>Central Tendency (Location): Class Age Example</h2>
+<section id="measures-of-location-1" class="slide level2">
+<h2>Measures of Location</h2>
 <p class="subheader">
-What the center age in the class?
+Where is the “center” of each group?
 </p>
-<p><br><br><br></p>
-<blockquote>
-<p>see notebook</p>
-</blockquote>
+<p><br></p>
+<p><strong>Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
+<div class="fragment">
+<div id="e9800842" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Calculate means</span></span>
+<span id="cb1-2"><a href=""></a>mean_A <span class="op">=</span> group_A.mean()</span>
+<span id="cb1-3"><a href=""></a>mean_B <span class="op">=</span> group_B.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment">
+<div id="7f7c21f1" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-stdout">
+<pre><code>Group A mean: 6.86 hours
+Group B mean: 6.81 hours</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; group A sleeps longer <strong>on average</strong></em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; but notice the spread!</em></p>
+</div>
 </section>
-<section id="central-tendency-location-tennis-example" class="slide level2">
-<h2>Central Tendency (Location): Tennis Example</h2>
-<p class="subheader">
-Where should you stand on the court?
-</p>
-<p><br><br><br></p>
-<blockquote>
-<p>see notebook</p>
-</blockquote>
-</section>
-<section id="measure-of-dispersion" class="slide level2">
-<h2>Measure of Dispersion</h2>
+<section id="measures-of-dispersion" class="slide level2">
+<h2>Measures of Dispersion</h2>
 <p class="subheader">
 How spread out is the data?
 </p>
-</section>
-<section id="measure-of-dispersion-tennis-example" class="slide level2">
-<h2>Measure of Dispersion: Tennis Example</h2>
-<p class="subheader">
-How far do you have to run?
-</p>
-<p><br><br><br></p>
-<blockquote>
-<p>see notebook</p>
-</blockquote>
-</section>
-<section id="measure-of-dispersion-1" class="slide level2">
-<h2>Measure of Dispersion</h2>
-<p class="subheader">
-How spread out is the data?
-</p>
+<p><br></p>
 <p><strong>Range</strong>: difference between the largest and smallest value in the data</p>
 <div class="fragment">
 <ul>
 <li>Simple but doesn’t respond to changes near the middle of the distribution</li>
 </ul>
 </div>
-<div class="fragment">
+</section>
+<section id="measures-of-dispersion-1" class="slide level2">
+<h2>Measures of Dispersion</h2>
+<p class="subheader">
+How spread out is the data?
+</p>
+<p><br></p>
 <p><strong>Mean Deviation</strong>: difference between each value and the average</p>
-<p><span class="math display">\[ \sum \frac{x_i - \bar{x}}{n} = \frac{X - \bar{X}}{n}\]</span></p>
-</div>
+<p><span class="math display">\[ \sum \frac{x_i - \bar{x}}{n}\]</span></p>
 <div class="fragment">
 <ul>
 <li>Simple but the average of the difference is zero…</li>
 </ul>
 </div>
-<div class="fragment">
+</section>
+<section id="measures-of-dispersion-2" class="slide level2">
+<h2>Measures of Dispersion</h2>
+<p class="subheader">
+How spread out is the data?
+</p>
+<p><br></p>
 <p><strong>Mean Absolute Deviation</strong>: absolute value of the difference from the average</p>
-<p><span class="math display">\[ \sum \frac{|x_i - \bar{x}|}{n} = \frac{|X - \bar{X}|}{n}\]</span></p>
-</div>
+<p><span class="math display">\[ \sum \frac{|x_i - \bar{x}|}{n}\]</span></p>
 <div class="fragment">
 <ul>
 <li>The mean isn’t zero</li>
@@ -250,13 +312,14 @@ How spread out is the data?
 </ul>
 </div>
 </section>
-<section id="measure-of-dispersion-2" class="slide level2">
-<h2>Measure of Dispersion</h2>
+<section id="measures-of-dispersion-3" class="slide level2">
+<h2>Measures of Dispersion</h2>
 <p class="subheader">
 How spread out is the data?
 </p>
+<p><br></p>
 <p><strong>Variance</strong>: average squared difference from the mean</p>
-<p><span class="math display">\[ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n} = \frac{X - \bar{X}}{n}\]</span></p>
+<p><span class="math display">\[ Var_X = \sum \frac{(x_i - \bar{x})^2}{n}\]</span></p>
 <div class="fragment">
 <ul>
 <li>Treats negatives appropriately</li>
@@ -266,13 +329,13 @@ How spread out is the data?
 </ul>
 </div>
 </section>
-<section id="measure-of-dispersion-3" class="slide level2">
-<h2>Measure of Dispersion</h2>
+<section id="measures-of-dispersion-4" class="slide level2">
+<h2>Measures of Dispersion</h2>
 <p class="subheader">
 How spread out is the data?
 </p>
-<p><strong>Standard Deviation</strong>: a sort of average deviation from the mean</p>
-<p><span class="math display">\[ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}{n}}\]</span></p>
+<p><br></p>
+<p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
 <div class="fragment">
 <ul>
 <li>Treats negatives appropriately</li>
@@ -282,253 +345,177 @@ How spread out is the data?
 </ul>
 </div>
 </section>
-<section id="random-variables" class="slide level2">
-<h2>Random Variables</h2>
+<section id="measures-of-dispersion-5" class="slide level2">
+<h2>Measures of Dispersion</h2>
 <p class="subheader">
-What is data? … some fancy definitions….
+How spread out is the data?
 </p>
-<p><strong>Random Variable</strong>: <em>a function that assigns a number to each possible outcome of a random process (discrete or continuous)</em></p>
-<div class="fragment">
-<p><em>&gt; the random variable is like a deck with any collection of cards</em></p>
-</div>
-<div class="fragment">
-<p><strong>Probability Mass/Density Function</strong>: <em>a function that assigns probabilities to each possible outcome</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the probability function is like which cards are in the deck</em></p>
-</div>
-<div class="fragment">
-<p><strong>Observation</strong>: <em>a realization of a random variable</em> . . .</p>
-<p><em>&gt; the observation is the card you drew</em></p>
-</div>
-<div class="fragment">
-<p><strong>Sample</strong>: <em>a collection of observations</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the sample is the record of cards you’ve drawn</em></p>
 <p><br></p>
+<p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
+<div id="af21eb86" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Calculate standard deviations</span></span>
+<span id="cb3-2"><a href=""></a>std_A <span class="op">=</span> group_A.std()</span>
+<span id="cb3-3"><a href=""></a>std_B <span class="op">=</span> group_B.std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p><em>&gt; are the ages in the survey a random variable or observations?</em></p>
+<div id="18c48acd" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-stdout">
+<pre><code>Group A std dev: 1.39 hours
+Group B std dev: 0.69 hours</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; Group A has <strong>more variability</strong> - some sleep much less, some much more</em></p>
 </div>
 </section>
-<section id="random-variables-1" class="slide level2">
-<h2>Random Variables</h2>
+<section id="sample-vs-population" class="slide level2">
+<h2>Sample vs Population</h2>
 <p class="subheader">
-What is data? A sample.
+What if I told you these groups are from different counties?
 </p>
-<p><strong>Random Variable</strong>: <em>a function that assigns a number to each possible outcome of a random process (discrete or continuous)</em></p>
-<p><strong>Probability Mass/Density Function</strong>: <em>a function that assigns probabilities to each possible outcome</em></p>
-<p><strong>Observation</strong>: <em>a realization of a random variable</em></p>
-<p><strong>Sample</strong>: <em>a collection of observations</em></p>
+<div id="41e4386a" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-7-output-1.png" width="950" height="468"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Old question: “Which <strong>group</strong> sleeps longer?” <em>(about the <strong>data</strong>)</em></p>
+</div>
+<div class="fragment">
+<p>New question: “Which <strong>county</strong> sleeps longer?” <em>(about the <strong>population</strong>)</em></p>
+</div>
 </section>
-<section id="some-known-distributions" class="slide level2">
-<h2>Some Known Distributions</h2>
+<section id="sample-vs-population-1" class="slide level2">
+<h2>Sample vs Population</h2>
 <p class="subheader">
-… some well understood random variables
+The data is a sample drawn from a population.
 </p>
 
-<img data-src="../Examples/Part_3_1/i/distributions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="random-variables-known-distribution" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
+<img data-src="i/sample.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="sample-vs-population-2" class="slide level2">
+<h2>Sample vs Population</h2>
 <p class="subheader">
-What is data?
+What’s the difference between our data and the population?
 </p>
-<p><br><br></p>
-<p><strong>If we know the distribution:</strong></p>
-<div class="fragment">
-<ul>
-<li>We can compute mean, standard deviation, etc.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>We can easily answer questions about the population.</li>
-</ul>
-</div>
-</section>
-<section id="random-variables-known-distribution-1" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
-<p class="subheader">
-Example: Rich Person Bet
-</p>
-<p>We’ll toss a coin once:</p>
-<ul>
-<li>If it’s heads, you get $10 million</li>
-<li>If it’s tails, you pay $1 million</li>
-</ul>
-<p>What are expected value (theoretical mean), variance, and standard deviation of the change in your wealth after this coin toss?</p>
-<div class="fragment">
-<p><br><br></p>
-<blockquote>
-<p>lets solve this theoretically and by simulation in python</p>
-</blockquote>
-</div>
-<div class="fragment">
-<p><em>&gt; we’ll find that the “sampling error” matches the distribution</em></p>
-</div>
-</section>
-<section id="random-variables-known-distribution-2" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
-<p class="subheader">
-Example: Bus Times
-</p>
-<div class="fragment">
-<ol type="1">
-<li>If I arrive at a random time, what’s my expected wait time until the next bus?</li>
-</ol>
-</div>
-<div class="fragment">
-<blockquote>
-<p>find the expected value of wait time</p>
-</blockquote>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>What’s the probability I’ll have to wait more than 20 minutes?</li>
-</ol>
-</div>
-<div class="fragment">
-<blockquote>
-<p>find the area under the curve beyond 20 minutes</p>
-</blockquote>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>What’s the probability my wait will be between 5 and 15 minutes?</li>
-</ol>
-</div>
-<div class="fragment">
-<blockquote>
-<p>find the area under the curve between 5 and 15 minutes</p>
-</blockquote>
-</div>
-</section>
-<section id="random-variables-known-distribution-3" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
-<p class="subheader">
-Example: Bus Times
-</p>
-
-<img data-src="../Examples/Part_3_1/i/bus_wait_times.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="random-variables-known-distribution-4" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
-<p class="subheader">
-Example: Manufaturing Defects
-</p>
-<p>Manufacturing defects of a part follow a normal distribution <em>(in cm)</em> with:</p>
-<ul>
-<li><code>target_length = 100</code></li>
-<li><code>standard_error = 0.1</code></li>
-</ul>
 <p><br></p>
-<div class="fragment">
-<p>We expect this to be normally distributed:</p>
+<div>
+<ul>
+<li class="fragment"><strong>The Data</strong>: 50 individuals we happened to sample from each county</li>
+<li class="fragment"><strong>The Population</strong>: All people who could live in these counties
+<ul>
+<li class="fragment">Even if we surveyed everyone today, tomorrow would bring new residents</li>
+<li class="fragment">The <strong>population</strong> is a theoretical concept - an infinite pool of possibilities</li>
+</ul></li>
+</ul>
 </div>
 <div class="fragment">
-<ul>
-<li>Multiple independent factors contribute to each defect.</li>
-<li>Small defects are more common than large ones.</li>
-<li>Positive and negative defects are equally likely.</li>
-</ul>
+<p><br></p>
+<p><em>&gt; we observe <strong>samples</strong> but want to understand <strong>populations</strong></em></p>
 </div>
 </section>
-<section id="random-variables-known-distribution-5" class="slide level2">
-<h2>Random Variables: Known Distribution</h2>
+<section id="data-is-a-sample" class="slide level2">
+<h2>Data is a Sample</h2>
 <p class="subheader">
-Example: Manufaturing Defects
+A random variable generates our data.
 </p>
-<p>Manufacturing defects of a part follow a normal distribution <em>(in cm)</em> with:</p>
-<ul>
-<li><code>target_length = 100</code></li>
-<li><code>standard_error = 0.1</code></li>
-</ul>
+<p><strong>Random Variable</strong>: A function that assigns numbers to random outcomes</p>
 <div class="fragment">
-<ol type="1">
-<li>How many parts will be shorter than 99 cm?</li>
-</ol>
+<div id="231fdcde" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-8-output-1.png" width="1141" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <div class="fragment">
-<blockquote>
-<p>find the area under the curve below 99 cm</p>
-</blockquote>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>How many parts will have defects greater than 1/2 cm?</li>
-</ol>
-</div>
-<div class="fragment">
-<blockquote>
-<p>find the area under the curve between 100 - 1/2 and 100 + 1/2</p>
-</blockquote>
+<p><em>&gt; data is a <strong>sample</strong> drawn from these a <strong>random variable</strong></em></p>
 </div>
 </section>
-<section id="random-variables-2" class="slide level2">
-<h2>Random Variables</h2>
+<section id="known-distribution" class="slide level2">
+<h2>Known Distribution</h2>
 <p class="subheader">
-… main definitions
+What questions can we answer?
 </p>
-<p><strong>If we know the distribution:</strong></p>
+<p>If we know County A:</p>
+<p><span class="math display">\[x_i \sim N(μ=7.2, σ=1.5)\]</span></p>
 <div class="fragment">
 <ul>
-<li>We know the distribution, mean, standard deviation, etc.
-<ol type="1">
-<li>Probability function (<span class="math inline">\(f\)</span>)</li>
-<li>Mean (<span class="math inline">\(\mu\)</span>)</li>
-<li>Standard deviation (<span class="math inline">\(\sigma\)</span>)</li>
-</ol></li>
+<li>What proportion of the population sleeps less than 5 hours?</li>
 </ul>
 </div>
 <div class="fragment">
-<p><strong>If we don’t know the distribution:</strong></p>
+<ul>
+<li>What proportion of the population sleeps more than 9 hours?</li>
+</ul>
 </div>
 <div class="fragment">
 <ul>
-<li>We can compute
-<ol type="1">
-<li>Sample size (<span class="math inline">\(n\)</span>)</li>
-<li>Sample mean (<span class="math inline">\(\bar{x}\)</span>)</li>
-<li>Sample standard deviation (<span class="math inline">\(S\)</span>)</li>
-</ol></li>
-<li>But how might we find the distribution?</li>
+<li>How much sleep does the middle 95% of the population get?</li>
 </ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><em>&gt; with known distributions, we can answer <strong>any</strong> probability question!</em></p>
 </div>
 </section>
-<section id="random-variables-unknown-distribution" class="slide level2">
-<h2>Random Variables: Unknown Distribution</h2>
+<section id="random-variables-come-in-many-shapes" class="slide level2">
+<h2>Random Variables Come in Many Shapes</h2>
 <p class="subheader">
-What is the distribution of ages in this class?
+Which distribution fits your data?
 </p>
-<ul>
-<li><p>Sample size (<span class="math inline">\(n\)</span>):</p></li>
-<li><p>Sample mean (<span class="math inline">\(\bar{x}\)</span>):</p></li>
-<li><p>Sample standard deviation (<span class="math inline">\(S\)</span>):</p></li>
-</ul>
-<div class="fragment">
-<p><em>&gt; these are descriptives of the </em><strong>sample</strong> <em>not the distribution (<span class="math inline">\(\mu \neq \bar{x}\)</span>)</em></p>
-</div>
-<div class="fragment">
-<p><br><br></p>
-<blockquote>
-<p>see notebook</p>
-</blockquote>
-</div>
-<div class="fragment">
-<p><em>&gt; we cannot see the distribution… we only observe realizations from it</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; what </em><strong>can</strong> <em>we say about ages when we don’t know the distribution?</em></p>
-</div>
-</section>
-<section id="random-variables-unknown-distribution-1" class="slide level2">
-<h2>Random Variables: Unknown Distribution</h2>
-<p class="subheader">
-What can we know when we don’t know the distribution?
-</p>
-<p><br><br><br></p>
-<p><em>&gt; … next time!</em></p>
 
+<img data-src="i/distributions.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="but-what-if-we-dont-know-the-distribution" class="slide level2">
+<h2>But What If We Don’t Know the Distribution?</h2>
+<p class="subheader">
+How do we move from sample to population?
+</p>
+<p><strong>What we observe:</strong></p>
+<ul>
+<li>Sample size: <span class="math inline">\(n = 50\)</span></li>
+<li>Sample mean: <span class="math inline">\(\bar{x} = 7.24\)</span> hours</li>
+<li>Sample standard deviation: <span class="math inline">\(s = 1.48\)</span> hours</li>
+</ul>
+<div class="fragment">
+<p><strong>What we want to know:</strong></p>
+<ul>
+<li>Population mean: <span class="math inline">\(\mu = ?\)</span></li>
+<li>Population standard deviation: <span class="math inline">\(\sigma = ?\)</span></li>
+<li>Population distribution: <span class="math inline">\(f(x) = ?\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p><em>&gt; the sample statistics are <strong>not</strong> the same as population parameters!</em></p>
+<p><em>&gt; <span class="math inline">\(\bar{x} \neq \mu\)</span>, and <span class="math inline">\(s \neq \sigma\)</span></em></p>
+</div>
+</section>
+<section id="the-central-question" class="slide level2">
+<h2>The Central Question</h2>
+<p class="subheader">
+Can we say anything about the population when we only have a sample?
+</p>
+<p><br></p>
+<div>
+<ul>
+<li class="fragment">The <strong>Central Limit Theorem</strong> - our bridge to inference</li>
+<li class="fragment"><strong>Confidence intervals</strong> - quantifying uncertainty</li>
+<li class="fragment"><strong>Hypothesis testing</strong> - making decisions with data</li>
+<li class="fragment">Moving from description to <strong>inference</strong></li>
+</ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><em>&gt; without seeing the population we can still answer questions about the population!</em></p>
+
+</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -538,19 +525,19 @@ What can we know when we don’t know the distribution?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_3_1_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_3_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_3_1_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_3_1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_3_1_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

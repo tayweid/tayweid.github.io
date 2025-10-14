@@ -7,101 +7,120 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader">The economist's data analysis pipeline.</p>
+<p class="subheader-center">The economist's data analysis skillset.</p>
 
 <br> 
 
-### *Part 3.1 | Location, Dispersion, Random Variables*
+### *Part 3.1 | Populations and Random Variables*
 
 ---
 
-## Statistics
-<p class="subheader"> Why not just use visuals?</p>
-
-*> A picture is worth a thousand summary stats.*
-
-. . .
-
-*> But sometimes we want something more precise and concrete.*
+## From Data to Understanding
+<p class="subheader">We've spent Part 1 & 2 understanding our data... but what comes next?</p>
 
 <br>
 
-. . . 
-
-**Q.** What is the ‘middle’ age in the class?
-
-- Measures of Location: **Mean, Median, Mode**
-
-. . .
-
-**Q.** How spread out are the ages in the class?
-
-- Measures of Dispersion / Spread: **Variance, Standard Deviation, Range**
+:::{.incremental}
+- We've mastered **visualizing** data
+- We've developed skills to **summarize** and **transform** data
+- But sometimes we need something more **precise** and **quantifiable**
+- And sometimes we want to say something about the **population**, not just our **sample**
+:::
 
 ---
 
-## Measure of Central Tendency (Location)
-<p class="subheader"> What is the "center" of the data?</p>
+## Two Groups, One Question
+<p class="subheader">Which group sleeps longer?</p>
+
+```{python}
+#| echo: false
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sleep data for two groups
+group_A = np.random.normal(7.2, 1.5, 50)  # Higher mean, higher variance
+group_B = np.random.normal(6.8, 0.8, 50)  # Lower mean, lower variance
+
+# Create dataframe
+sleep_data = pd.DataFrame({
+    'Hours': np.concatenate([group_A, group_B]),
+    'Group': ['Group A']*50 + ['Group B']*50
+})
+
+# Create figure
+fig, ax = plt.subplots(figsize=(10, 5))
+
+# Boxplot + stripplot
+sns.boxplot(data=sleep_data, y='Group', x='Hours', ax=ax, width=0.3, color='white', whis=(0, 100))
+sns.stripplot(data=sleep_data, y='Group', x='Hours', ax=ax, size=6, hue='Group')
+
+ax.set_ylabel('')
+ax.set_title('Sleep Patterns')
+ax.grid(True, alpha=0.2, axis='y')
+sns.despine(trim=True, offset=True)
+plt.tight_layout()
+plt.show()
+```
 
 . . .
 
-**Mode**: *the value that appears most often*
+*> the distributions overlap... how can we compare them precisely?*
 
-. . .
+---
+
+## Measures of Location
+<p class="subheader">Where is the "center" of each group?</p>
 
 <br>
 
-**Median**: *the value separating the higher and lower halves*
-
-. . .
-
-- If there are an odd number of values, choose the middle-ranked value
-- If there are an even number of values, take the mean of the middle two
-
-. . .
-
-**Mean**: the center of mass
-
-. . .
-
+**Mean**: The average value
 $$\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}$$
 
 ---
 
-## Central Tendency (Location): Class Age Example
-<p class="subheader"> What the center age in the class?</p>
+## Measures of Location
+<p class="subheader">Where is the "center" of each group?</p>
 
-<br><br><br>
+<br>
 
-> see notebook
+**Mean**: The average value
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+
+. . .
+
+```{python}
+#| echo: true
+# Calculate means
+mean_A = group_A.mean()
+mean_B = group_B.mean()
+```
+
+. . .
+
+```{python}
+print(f"Group A mean: {mean_A:.2f} hours")
+print(f"Group B mean: {mean_B:.2f} hours")
+```
+
+. . .
+
+*> group A sleeps longer **on average***
+
+. . .
+
+*> but notice the spread!*
 
 ---
 
-## Central Tendency (Location): Tennis Example
-<p class="subheader"> Where should you stand on the court?</p>
-
-<br><br><br>
-
-> see notebook
-
----
-
-## Measure of Dispersion
+## Measures of Dispersion
 <p class="subheader"> How spread out is the data?</p>
 
----
-
-## Measure of Dispersion: Tennis Example
-<p class="subheader"> How far do you have to run?</p>
-
-<br><br><br>
-
-> see notebook
-
----
-
-## Measure of Dispersion
-<p class="subheader"> How spread out is the data?</p>
+<br>
 
 **Range**: difference between the largest and smallest value in the data
 
@@ -109,21 +128,32 @@ $$\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}$$
 
 - Simple but doesn't respond to changes near the middle of the distribution 
 
-. . .
+
+---
+
+## Measures of Dispersion
+<p class="subheader"> How spread out is the data?</p>
+
+<br>
 
 **Mean Deviation**: difference between each value and the average
 
-$$ \sum \frac{x_i - \bar{x}}{n} = \frac{X - \bar{X}}{n}$$
+$$ \sum \frac{x_i - \bar{x}}{n}$$
 
 . . .
 
 - Simple but the average of the difference is zero...
 
-. . .
+---
+
+## Measures of Dispersion
+<p class="subheader"> How spread out is the data?</p>
+
+<br>
 
 **Mean Absolute Deviation**: absolute value of the difference from the average
 
-$$ \sum \frac{|x_i - \bar{x}|}{n} = \frac{|X - \bar{X}|}{n}$$
+$$ \sum \frac{|x_i - \bar{x}|}{n}$$
 
 . . .
 
@@ -132,12 +162,14 @@ $$ \sum \frac{|x_i - \bar{x}|}{n} = \frac{|X - \bar{X}|}{n}$$
 
 ---
 
-## Measure of Dispersion
+## Measures of Dispersion
 <p class="subheader"> How spread out is the data?</p>
+
+<br>
 
 **Variance**: average squared difference from the mean
 
-$$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n} = \frac{X - \bar{X}}{n}$$
+$$ Var_X = \sum \frac{(x_i - \bar{x})^2}{n}$$
 
 . . .
 
@@ -148,12 +180,13 @@ $$ Var(X) = \sum \frac{(x_i - \bar{x})^2}{n} = \frac{X - \bar{X}}{n}$$
 
 ---
 
-## Measure of Dispersion
-<p class="subheader"> How spread out is the data?</p>
+## Measures of Dispersion
+<p class="subheader">How spread out is the data?</p>
 
-**Standard Deviation**: a sort of average deviation from the mean
+<br>
 
-$$ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}{n}}$$
+**Standard Deviation**: A measure of spread
+$$S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}$$
 
 . . .
 
@@ -164,247 +197,229 @@ $$ \sigma_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}} = \sqrt{\frac{X - \bar{X}}
 
 ---
 
-## Random Variables
-<p class="subheader"> What is data? ... some fancy definitions....</p>
-
-**Random Variable**: *a function that assigns a number to each possible outcome of a random process (discrete or continuous)*
-
-. . .
-
-*> the random variable is like a deck with any collection of cards*
-
-. . .
-
-**Probability Mass/Density Function**: *a function that assigns probabilities to each possible outcome*
-
-. . .
-
-*> the probability function is like which cards are in the deck*
-
-. . .
-
-**Observation**: *a realization of a random variable*
-. . .
-
-*> the observation is the card you drew*
-
-. . .
-
-**Sample**: *a collection of observations*
-
-. . .
-
-*> the sample is the record of cards you've drawn*
+## Measures of Dispersion
+<p class="subheader">How spread out is the data?</p>
 
 <br>
 
+**Standard Deviation**: A measure of spread
+$$S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}$$
+
+```{python}
+#| echo: true
+# Calculate standard deviations
+std_A = group_A.std()
+std_B = group_B.std()
+```
+
 . . .
 
-*> are the ages in the survey a random variable or observations?*
+```{python}
+print(f"Group A std dev: {std_A:.2f} hours")
+print(f"Group B std dev: {std_B:.2f} hours")
+```
 
-## Random Variables
-<p class="subheader"> What is data? A sample.</p>
+. . .
 
-**Random Variable**: *a function that assigns a number to each possible outcome of a random process (discrete or continuous)*
-
-**Probability Mass/Density Function**: *a function that assigns probabilities to each possible outcome*
-
-**Observation**: *a realization of a random variable*
-
-**Sample**: *a collection of observations*
+*> Group A has **more variability** - some sleep much less, some much more*
 
 ---
 
-## Some Known Distributions
-<p class="subheader"> ... some well understood random variables</p>
+## Sample vs Population
+<p class="subheader">What if I told you these groups are from different counties?</p>
 
-![](../Examples/Part_3_1/i/distributions.png){fig-align="center"}
+```{python}
+#| echo: false
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sleep data for two groups
+group_A = np.random.normal(7.2, 1.5, 50)  # Higher mean, higher variance
+group_B = np.random.normal(6.8, 0.8, 50)  # Lower mean, lower variance
+
+# Create dataframe
+sleep_data = pd.DataFrame({
+    'Hours': np.concatenate([group_A, group_B]),
+    'Group': ['Group A']*50 + ['Group B']*50
+})
+
+# Create figure
+fig, ax = plt.subplots(figsize=(10, 5))
+
+# Boxplot + stripplot
+sns.boxplot(data=sleep_data, y='Group', x='Hours', ax=ax, width=0.3, color='white', whis=(0, 100))
+sns.stripplot(data=sleep_data, y='Group', x='Hours', ax=ax, size=6, hue='Group')
+
+ax.set_ylabel('')
+ax.set_title('Sleep Patterns')
+ax.grid(True, alpha=0.2, axis='y')
+sns.despine(trim=True, offset=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+Old question: "Which **group** sleeps longer?" *(about the **data**)*
+
+. . .
+
+New question: "Which **county** sleeps longer?" *(about the **population**)*
 
 ---
 
-## Random Variables: Known Distribution
-<p class="subheader"> What is data?</p>
+## Sample vs Population
+<p class="subheader">The data is a sample drawn from a population.</p>
 
-<br><br>
-
-**If we know the distribution:**
-
-. . .
-
-- We can compute mean, standard deviation, etc.
-
-. . .
-
-- We can easily answer questions about the population. 
+![](i/sample.png){fig-align="center"}
 
 ---
 
-## Random Variables: Known Distribution
-<p class="subheader"> Example: Rich Person Bet</p>
-
-We'll toss a coin once:
-
-- If it's heads, you get $10 million
-- If it's tails, you pay $1 million
-
-What are expected value (theoretical mean), variance, and standard deviation of the change in your wealth after this coin toss?
-
-. . .
-
-<br><br>
-
-> lets solve this theoretically and by simulation in python
-
-. . .
-
-*> we'll find that the "sampling error" matches the distribution*
-
----
-
-## Random Variables: Known Distribution
-<p class="subheader"> Example: Bus Times </p>
-
-. . .
-
-1. If I arrive at a random time, what's my expected wait time until the next bus?
-
-. . .
-
-> find the expected value of wait time
-
-. . .
-
-2. What's the probability I'll have to wait more than 20 minutes?
-
-. . .
-
-> find the area under the curve beyond 20 minutes
-
-. . .
-
-3. What's the probability my wait will be between 5 and 15 minutes?
-
-. . .
-
-> find the area under the curve between 5 and 15 minutes
-
----
-
-## Random Variables: Known Distribution
-<p class="subheader"> Example: Bus Times </p>
-
-![](../Examples/Part_3_1/i/bus_wait_times.png){fig-align="center"}
-
----
-
-## Random Variables: Known Distribution
-<p class="subheader"> Example: Manufaturing Defects </p>
-
-Manufacturing defects of a part follow a normal distribution *(in cm)* with:
-
-- `target_length = 100`
-- `standard_error = 0.1`
+## Sample vs Population
+<p class="subheader">What's the difference between our data and the population?</p>
 
 <br>
 
+:::{.incremental}
+- **The Data**: 50 individuals we happened to sample from each county
+- **The Population**: All people who could live in these counties
+    - Even if we surveyed everyone today, tomorrow would bring new residents
+    - The **population** is a theoretical concept - an infinite pool of possibilities
+:::
+
 . . .
 
+<br>
 
-We expect this to be normally distributed:
-
-. . .
-
-- Multiple independent factors contribute to each defect.
-- Small defects are more common than large ones.
-- Positive and negative defects are equally likely.
+*> we observe **samples** but want to understand **populations***
 
 ---
 
-## Random Variables: Known Distribution
-<p class="subheader"> Example: Manufaturing Defects </p>
+## Data is a Sample
+<p class="subheader">A random variable generates our data.</p>
 
-Manufacturing defects of a part follow a normal distribution *(in cm)* with:
-
-- `target_length = 100`
-- `standard_error = 0.1`
+**Random Variable**: A function that assigns numbers to random outcomes
 
 . . .
 
-1. How many parts will be shorter than 99 cm?
+```{python}
+#| echo: false
+# Visualize the true distributions
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+# Left: The theoretical distributions
+x = np.linspace(2, 12, 100)
+y_A = (1/np.sqrt(2*np.pi*1.5**2)) * np.exp(-(x-7.2)**2/(2*1.5**2))
+y_B = (1/np.sqrt(2*np.pi*0.8**2)) * np.exp(-(x-6.8)**2/(2*0.8**2))
+
+ax1.plot(x, y_A, label='County A: μ=7.2, σ=1.5', color='blue', linewidth=2)
+ax1.plot(x, y_B, label='County B: μ=6.8, σ=0.8', color='orange', linewidth=2)
+ax1.fill_between(x, y_A, alpha=0.3, color='blue')
+ax1.fill_between(x, y_B, alpha=0.3, color='orange')
+ax1.set_xlabel('Hours of Sleep')
+ax1.set_ylabel('Probability Density')
+ax1.set_title('True Population Distributions')
+ax1.legend()
+ax1.grid(True, alpha=0.2)
+
+# Right: Our samples
+ax2.hist(group_A, alpha=0.5, label='County A Sample', bins=15, density=True, color='blue')
+ax2.hist(group_B, alpha=0.5, label='County B Sample', bins=15, density=True, color='orange')
+ax2.set_xlabel('Hours of Sleep')
+ax2.set_ylabel('Density')
+ax2.set_title('Our Sample Data')
+ax2.legend()
+ax2.grid(True, alpha=0.2)
+
+plt.tight_layout()
+plt.show()
+```
 
 . . .
 
-> find the area under the curve below 99 cm
-
-. . .
-
-2. How many parts will have defects greater than 1/2 cm?
-
-. . .
-
-> find the area under the curve between 100 - 1/2 and 100 + 1/2
+*> data is a **sample** drawn from these a **random variable***
 
 ---
 
-## Random Variables
-<p class="subheader"> ... main definitions</p>
+## Known Distribution
+<p class="subheader">What questions can we answer?</p>
 
-**If we know the distribution:**
+If we know County A:
 
-. . .
-
-- We know the distribution, mean, standard deviation, etc.
-  1. Probability function ($f$)
-  2. Mean ($\mu$)
-  3. Standard deviation ($\sigma$)
+$$x_i \sim N(μ=7.2, σ=1.5)$$
 
 . . .
 
-**If we don't know the distribution:**
+- What proportion of the population sleeps less than 5 hours?
 
 . . .
 
-- We can compute 
-  1. Sample size ($n$)
-  2. Sample mean ($\bar{x}$)
-  3. Sample standard deviation ($S$)
+- What proportion of the population sleeps more than 9 hours?
 
-- But how might we find the distribution?
+. . .
+
+- How much sleep does the middle 95% of the population get?
+
+. . .
+
+<br> 
+
+*> with known distributions, we can answer **any** probability question!*
 
 ---
 
-## Random Variables: Unknown Distribution
-<p class="subheader"> What is the distribution of ages in this class?</p>
+## Random Variables Come in Many Shapes
+<p class="subheader">Which distribution fits your data?</p>
 
-- Sample size ($n$): 
-
-- Sample mean ($\bar{x}$):
-
-- Sample standard deviation ($S$):
-
-. . .
-
-*> these are descriptives of the ***sample** *not the distribution ($\mu \neq \bar{x}$)*
-
-. . .
-
-<br><br>
-
-> see notebook
-
-. . .
-
-*> we cannot see the distribution... we only observe realizations from it*
-
-. . .
-
-*> what ***can** *we say about ages when we don't know the distribution?*
+![](i/distributions.png){fig-align="center"}
 
 ---
 
-## Random Variables: Unknown Distribution
-<p class="subheader"> What can we know when we don't know the distribution?</p>
+## But What If We Don't Know the Distribution?
+<p class="subheader">How do we move from sample to population?</p>
 
-<br><br><br>
+**What we observe:**
 
-*> ... next time!*
+- Sample size: $n = 50$
+- Sample mean: $\bar{x} = 7.24$ hours
+- Sample standard deviation: $s = 1.48$ hours
+
+. . .
+
+**What we want to know:**
+
+- Population mean: $\mu = ?$
+- Population standard deviation: $\sigma = ?$
+- Population distribution: $f(x) = ?$
+
+. . .
+
+*> the sample statistics are **not** the same as population parameters!*
+
+*> $\bar{x} \neq \mu$, and $s \neq \sigma$*
+
+---
+
+## The Central Question
+<p class="subheader">Can we say anything about the population when we only have a sample?</p>
+
+
+<br>
+
+:::{.incremental}
+- The **Central Limit Theorem** - our bridge to inference
+- **Confidence intervals** - quantifying uncertainty
+- **Hypothesis testing** - making decisions with data
+- Moving from description to **inference**
+:::
+
+. . .
+
+<br>
+
+*> without seeing the population we can still answer questions about the population!*

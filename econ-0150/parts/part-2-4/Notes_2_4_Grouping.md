@@ -1,3 +1,5 @@
+- the two means doesn't work well. maybe take out the wrong one so we stay on track. it's already long enough. somehow add it to part 1.
+
 ## Part 2.4 Grouping
 
 One of the basic ideas in economics is that people respond to incentives. Like many restaurants and retailers, Starbucks offers a variety of incentives to help entice customers to change their behavior. Every time you make a purchase, unless you're using cash, Starbucks will keep track of you and your decisions. If you use a promo code, Starbucks knows what you've bought in the past, and that you're using the promo now. Starbucks preserves a record of every time a customer uses an offer so they can determine which offers are most effective at changing behavior. We're going to use this data to examine which of their promos changes behavior the most. 

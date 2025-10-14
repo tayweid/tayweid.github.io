@@ -3,6 +3,13 @@
 ## Core Pedagogical Principle
 Every data visualization follows three steps. Students must internalize this framework from Day 1.
 
+#### Extra Notes
+
+- i want to move the ideas of random variables and what data is into part 1. i want to be able to do more with summary stats in part 1, which would be helpful to have at least talked about random variables.
+- then part 2 will be known distributions
+- part 3 will be unknown distributions
+- parts 4-6 will be the same
+
 ### The Three Steps:
 1. **SELECT** - What subset of data are we looking at?
 2. **TRANSFORM** - How do we summarize or reshape it?
