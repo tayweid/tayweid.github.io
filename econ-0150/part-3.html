@@ -17,7 +17,6 @@
 
 </head>
 
-
 <body>
 
 <div class="wrapper course-econ-0150">
@@ -42,17 +41,22 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title title-tight">Part 3 | Uncertainty in Data</h1>
-        <i class="subtitle-text">// separate relationships from noise //</i>
+        <h1 class="title title-tight">Part 3 | Univariate General Linear Model</h1>
+        <i class="subtitle-text">// understanding the population from a sample //</i>
         <p>
-            Part 3 addresses the question that separates good analysis from great analysis: how do you know if what you're seeing is real? Every dataset contains random variation and measurement errors that can masquerade as a meaningful pattern. In this part you'll learn to quantify uncertainty and to distinguish genuine relationships from statistical noise using the Central Limit Theorem and the General Linear Model. Understanding the ideas with these tools will transform you from someone who can describe data into someone who can draw reliable conclusions from it.
+            Data is a sample drawn from an unobservable population. 
+            While we can summarize our data, our main questions are typically about the unobservable population our sample was drawn from. 
+            Part 3 develops the most basic tools of the General Linear Model, which allow us to make inferences about unknown populations from known samples.
+            The core idea: the Central Limit Theorem tells us the distribution of the sample mean without needing to know the population distribution. 
+            This idea forms the backbone of modern empirical science.
+            It's difficult to overstate how important this idea has been in our modern world. 
         </p>
     </div>
 
     <!-- Part 3.1 -->
     <div class="carousel-container" id="part-31">
-        <h1 class="subtitle">Part 3.1 ~ Random Variables and Distributions</h1>
-        <p>Refresh your understanding of random variables and other core ideas in statistics.</p>
+        <h1 class="subtitle">Part 3.1 ~ Random Variables</h1>
+        <p>Data is a sample drawn from an unobservable population. We can summarize the sample, but our questions are about the population.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -66,7 +70,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Concept 3.1 // Random Variables</h3>
-                        <p class="card-description">Refresh of basic ideas in statistics</p>
+                        <p class="card-description">Data is the realization of repeated draws from the population random variable.</p>
                         <div class="card-downloads">
                             <a href="parts/part-3-1/concept_3_1.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Slides
@@ -84,7 +88,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Exercise 3.1 // Random Variables</h3>
-                        <p class="card-description">Interactive examples working with distributions</p>
+                        <p class="card-description">Interactive examples working with random variables.</p>
                         <div class="card-downloads">
                             <!--<a href="https://drive.google.com/file/d/1ApbfI4L5gSXj0cJiq-HsHdlne-Xcq1WQ/view?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
@@ -121,7 +125,7 @@
     <!-- Part 3.2 -->
     <div class="carousel-container" id="part-32">
         <h1 class="subtitle">Part 3.2 ~ Sampling and Central Limit Theorem</h1>
-        <p>Use the Central Limit Theorem to understand the distribution of a sample mean when you don't know the population distribution.</p>
+        <p>The Central Limit Theorem tells us the distribution of the sample mean despite not knowing the population distribution.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
@@ -288,7 +292,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">Homework 3.4</h3>
-                        <p class="card-description">Continuation covering hypothesis testing</p>
+                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
                         <div class="card-downloads">
                             <!--<a href="hw/hw-3-4/HW_3_4.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
