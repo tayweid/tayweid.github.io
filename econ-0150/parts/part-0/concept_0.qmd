@@ -6,7 +6,7 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader-center">How economists do data analysis.</p>
+<p class="subheader-center">The economist's data analysis skillset.</p>
 <img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;">
 
 <br> <br>
@@ -602,7 +602,7 @@ plt.show()
 
 **Academic Conduct**: Adhere to the [Academic Integrity Code](https://www.provost.pitt.edu/info/ai1.html).
 
---- 
+---
 
 ## Looking Ahead
 

@@ -6,7 +6,7 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader-center">The economist's data analysis pipeline.</p>
+<p class="subheader-center">The economist's data analysis skillset.</p>
 
 <br> 
 

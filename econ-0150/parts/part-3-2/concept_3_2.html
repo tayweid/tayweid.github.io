@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_3_2_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_3_2_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_3_2_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_3_2_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_3_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_3_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_3_2_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_3_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_3_2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_3_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_3_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_3_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_3_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_3_2_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_3_2</title>
+  <title>concept_3_2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_3_2_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_3_2_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_3_2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_3_2_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="Part_3_2_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_3_2_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_3_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_3_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_3_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_3_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_3_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_3_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_3_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_3_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -129,11 +129,11 @@
 
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
-<p class="subheader">
-The economist’s data analysis pipeline.
+<p class="subheader-center">
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-3.2-sampling-sample-means-central-limit-theorem"><em>Part 3.2 | Sampling, Sample Means, Central Limit Theorem</em></h3>
+<h3 id="part-3.2-sampling-and-the-central-limit-theorem"><em>Part 3.2 | Sampling and the Central Limit Theorem</em></h3>
 </section>
 <section id="a-big-question" class="slide level2">
 <h2>A Big Question</h2>
@@ -142,19 +142,20 @@ If all we see is the sample, how do we learn about a population?
 </p>
 <p><br><br></p>
 <div class="fragment">
-<p><em>&gt; in general, we can’t know a population distribution</em></p>
+<ul>
+<li>In general, a population’s random variables will be unobservable.</li>
+</ul>
 </div>
 <div class="fragment">
-<p><em>&gt; in general, we only see a sample</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; if we only see a sample, what </em>can <em>we say about the population?</em></p>
+<ul>
+<li>If we only see a sample, what <em>can </em>we say about the population?</li>
+</ul>
 </div>
 </section>
-<section id="known-parameters" class="slide level2">
-<h2>Known Parameters</h2>
+<section id="random-variables-known" class="slide level2">
+<h2>Random Variables: Known</h2>
 <p class="subheader">
-Example: Normally distributed wait times
+If we know the random variable, we can learn many things about the population.
 </p>
 <div class="columns">
 <div class="column" style="width:40%;">
@@ -173,244 +174,318 @@ Example: Normally distributed wait times
 </ul></li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div id="94041653" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-2-output-1.png" width="662" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img data-src="i/c_01.png"></p>
 </div></div>
 <div class="fragment">
 <p><br></p>
-<p><em>&gt; with known parameters, we can calculate everything exactly</em></p>
+<p><em>&gt; when we know the probability function, we can calculate everything exactly</em></p>
 </div>
 </section>
-<section id="sampling-error" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-known-1" class="slide level2">
+<h2>Random Variables: Known</h2>
 <p class="subheader">
-But if all we see is the sample, how do we learn about a population?
+If we know the random variable, we can learn many things about the population.
 </p>
 
-<img data-src="../Examples/Part_3_1/i/sample.png" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<img data-src="i/distributions.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; but what can we know about the population if we only see the sample?</em></p>
+</div>
+</section>
+<section id="random-variables-unknown" class="slide level2">
+<h2>Random Variables: Unknown</h2>
+<p class="subheader">
+But if all we see is the sample, what can we know about a population?
+</p>
+
+<img data-src="i/sample.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; how do we learn about <span class="math inline">\(\mu\)</span> if all we have is <span class="math inline">\(n\)</span>, <span class="math inline">\(\bar{x}\)</span>, and <span class="math inline">\(S\)</span>?</em></p>
 </div>
 </section>
-<section id="population-vs-sample" class="slide level2">
-<h2>Population vs Sample</h2>
+<section id="exercise-3.2-sampling-dice-sample-size-n1" class="slide level2">
+<h2>Exercise 3.2 | Sampling Dice (sample size: n=1)</h2>
 <p class="subheader">
-Question: How close are x̄ and s to μ and σ?
+Lets pretend we don’t know the probability function for dice.
+</p>
+<p><br></p>
+<p>Lets start with something boring.</p>
+<p><br></p>
+<ol type="1">
+<li>Roll a dice once (sample size: n=1).</li>
+<li>We’ll plot the distribution of our samples.</li>
+</ol>
+</section>
+<section id="exercise-3.2-sampling-variability" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+Your samples have a lot of variability!
+</p>
+
+<img data-src="i/c_02.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; this variability perfectly matches what we would expect from a fair dice</em></p>
+</div>
+</section>
+<section id="exercise-3.2-sampling-dice-n2" class="slide level2">
+<h2>Exercise 3.2 | Sampling Dice (n=2)</h2>
+<p class="subheader">
+Lets pretend we don’t know the probability function for dice.
+</p>
+<p><br></p>
+<p>Next is something slighly less boring.</p>
+<p><br></p>
+<ol type="1">
+<li>Roll a dice once (sample size: n=2).</li>
+<li>We’ll plot the distribution of our samples.</li>
+</ol>
+</section>
+<section id="exercise-3.2-sampling-variability-1" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+Like before, each sample has a slighly different sample mean.
+</p>
+
+<img data-src="i/c_03.png" class="r-stretch"><p><br></p>
+<div class="fragment">
+<p><em>&gt; theres a lot of variability in your sample means!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
+</div>
+</section>
+<section id="exercise-3.2-sampling-variability-2" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_04.png" class="r-stretch"><div class="fragment">
+<p><br></p>
+<p><em>&gt; our sample means are more bunched (like a pyramid) in the middle! why?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; there are more ways to get 7/2 than 2/2!</em></p>
+</div>
+</section>
+<section id="exercise-3.2-sampling-dice-n3" class="slide level2">
+<h2>Exercise 3.2 | Sampling Dice (n=3)</h2>
+<p class="subheader">
+Lets pretend we don’t know the probability function for dice.
+</p>
+<p><br></p>
+<p>Next is something even less boring.</p>
+<p><br></p>
+<ol type="1">
+<li>Roll a dice once (sample size: n=3).</li>
+<li>We’ll plot the distribution of our samples.</li>
+</ol>
+</section>
+<section id="exercise-3.2-sampling-variability-3" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_05.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; theres a even more variability in your sample means!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
+</div>
+</section>
+<section id="exercise-3.2-sampling-variability-4" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_06.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=3?</em></p>
+</section>
+<section id="exercise-3.2-sampling-variability-5" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=3?</em></p>
+</section>
+<section id="exercise-3.2-sampling-variability-6" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; there’s some curvature to the shape</em></p>
+</section>
+<section id="exercise-3.2-sampling-dice-n30" class="slide level2">
+<h2>Exercise 3.2 | Sampling Dice (n=30)</h2>
+<p class="subheader">
+Lets pretend we don’t know the probability function for dice.
+</p>
+<p><br></p>
+<p>Next is something very un-boring.</p>
+<p><br></p>
+<ol type="1">
+<li>Roll a dice once (sample size: n=30).</li>
+<li>We’ll plot the distribution of our samples.</li>
+</ol>
+</section>
+<section id="exercise-3.2-sampling-variability-7" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+The variability in the sample mean with a larger sample size.
+</p>
+
+<img data-src="i/c_08.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; theres a even more ways your sample could look!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
+</div>
+</section>
+<section id="exercise-3.2-sampling-variability-8" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+What happens when we really increase the sample size?
+</p>
+
+<img data-src="i/c_09.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=30?</em></p>
+</section>
+<section id="exercise-3.2-sampling-variability-9" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+What happens when we really increase the sample size?
+</p>
+
+<img data-src="i/c_09.png" class="r-stretch"><p><em>&gt; the distribution of sample means gets tighter and more bell-shaped</em></p>
+</section>
+<section id="exercise-3.2-sampling-variability-10" class="slide level2">
+<h2>Exercise 3.2 | Sampling Variability</h2>
+<p class="subheader">
+What happens when we really increase the sample size?
+</p>
+
+<img data-src="i/c_10.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; what is this probability function in red?</em></p>
+</div>
+</section>
+<section id="random-variables-known-2" class="slide level2">
+<h2>Random Variables: Known</h2>
+<p class="subheader">
+If we know the random variable, we can learn many things about the population.
 </p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<p>Instead of <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span>, we know:</p>
 <ul>
-<li>A sample of observations</li>
-<li>Sample statistics (x̄, s)</li>
+<li>Probability wait time &lt; 10:
+<ul>
+<li>P(X &lt; 10) = 0.21</li>
+</ul></li>
+<li>Probability wait time &gt; 15:
+<ul>
+<li>P(X &gt; 15) = 0.11</li>
+</ul></li>
+<li>Probability between 10 - 15:
+<ul>
+<li>P(10 &lt; X &lt; 15) = 0.59</li>
+</ul></li>
 </ul>
 </div><div class="column" style="width:60%;">
-<div id="f4f79a5b" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-3-output-1.png" width="662" height="277"></p>
-</figure>
-</div>
-</div>
-</div>
+<p><img data-src="i/c_01.png"></p>
 </div></div>
 <p><br></p>
-<div class="fragment">
-<p><em>&gt; we want to systematically measure the “closeness” of the sample/population</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets do a simpler example using die rolls</em></p>
-</div>
+<p><em>&gt; when we know the probability function, we can calculate everything exactly</em></p>
 </section>
-<section id="sampling-error-1" class="slide level2">
-<h2>Sampling Error</h2>
-<p class="subheader">
-Die Rolling Example: if we take multiple samples, we get different sample means.
-</p>
-<div id="706bb7a9" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="277"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; each sample gives us a different estimate of the population mean</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets plot these sample means (<span class="math inline">\(\bar{x}\)</span>)</em></p>
-</div>
-</section>
-<section id="sampling-error-2" class="slide level2">
-<h2>Sampling Error</h2>
-<p class="subheader">
-Die Rolling Example: sample means approach a normal distribution as sample size grows.
-</p>
-<div id="6b91f987" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-error-3" class="slide level2">
-<h2>Sampling Error</h2>
-<p class="subheader">
-Die Rolling Example: sample means approach a normal distribution as sample size grows.
-</p>
-<div id="2262d018" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-error-4" class="slide level2">
-<h2>Sampling Error</h2>
-<p class="subheader">
-Die Rolling Example: sample means approach a normal distribution as sample size grows.
-</p>
-<div id="ed8bc03c" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-error-5" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-1" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
 If we take multiple samples, we get different sample means.
 </p>
-<p><em>&gt; lets return to the wait time example</em></p>
-<div class="fragment">
-<div id="d49f2549" class="cell" data-execution_count="7">
+<p>Each sample gives us a different estimate of the population mean.</p>
+<div id="1e0d2eac" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><em>&gt; each sample gives us a different estimate of the population mean</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets plot these sample means (<span class="math inline">\(\bar{x}\)</span>)</em></p>
-</div>
 </section>
-<section id="sampling-error-6" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-2" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
 If we take multiple samples, their means will vary.
 </p>
 <p><br><br></p>
-<div id="ba845b99" class="cell" data-execution_count="8">
+<div id="42c67ee7" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="sampling-error-7" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-3" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
 If we take multiple samples, their means will vary, and by much less than the original distribution.
 </p>
 <p><br><br></p>
-<div id="c3bf2930" class="cell" data-execution_count="9">
+<div id="e8b27f7a" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="fragment">
 <p><em>&gt; why? think about rolling two dice… it’s much less likely to get a 2 than a 7</em></p>
-</div>
 </section>
-<section id="sampling-error-8" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-4" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
-If we take multiple samples, their means will follow a normal distribution.
+As sample size grows, the distribution of the sample means approaches a normal distribution.
 </p>
 <p><br><br></p>
-<div id="88421a21" class="cell" data-execution_count="10">
+<div id="5e40e249" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="sampling-error-9" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-5" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
+As sample size grows, the normal distribution the sample means approach gets narrower.
 </p>
 <p><br><br></p>
-<div id="28150b61" class="cell" data-execution_count="11">
+<div id="6add7602" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="sampling-error-10" class="slide level2">
-<h2>Sampling Error</h2>
+<section id="random-variables-unknown-6" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
+The normal distribution the sample means approach is centered on the population mean!
 </p>
 <p><br><br></p>
-<div id="51bfd283" class="cell" data-execution_count="12">
+<div id="cbb7fbc7" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="sampling-error-11" class="slide level2">
-<h2>Sampling Error</h2>
-<p class="subheader">
-If we take multiple samples, their distribution is narrower with larger sample sizes.
-</p>
-<p><br><br></p>
-<div id="ff23ff03" class="cell" data-execution_count="13">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="277"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
 </figure>
 </div>
 </div>
@@ -420,16 +495,16 @@ If we take multiple samples, their distribution is narrower with larger sample s
 <p><span class="math display">\[\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)\]</span></p>
 </div>
 </section>
-<section id="clt-the-magic-of-large-samples" class="slide level2">
-<h2>CLT: The Magic of Large Samples</h2>
+<section id="random-variables-unknown-7" class="slide level2">
+<h2>Random Variables: Unknown</h2>
 <p class="subheader">
-The CLT works for any distribution shape as sample size increases.
+This works for (nearly) any distribution shape as sample size increases.
 </p>
-<div id="45a9f152" class="cell" data-execution_count="14">
+<div id="ecff8c09" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="566"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="565"></p>
 </figure>
 </div>
 </div>
@@ -451,14 +526,14 @@ The distribution of sample means approximates a normal distribution as sample si
 <h4 id="implications">Implications:</h4>
 <ul>
 <li>We can predict the behavior of x̄</li>
-<li>This works for ANY distribution</li>
+<li>This works for (nearly) ANY distribution</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<div id="56ddaa55" class="cell" data-execution_count="15">
+<div id="abfefc1e" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_3_2_files/figure-revealjs/cell-16-output-1.png" width="470" height="278"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-9-output-1.png" width="470" height="277"></p>
 </figure>
 </div>
 </div>
@@ -474,19 +549,19 @@ The distribution of sample means approximates a normal distribution as sample si
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_3_2_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_3_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_3_2_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_3_2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_3_2_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

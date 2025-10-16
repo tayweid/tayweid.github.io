@@ -1,4 +1,8 @@
-## Outline
+## Part 3.3 | Confidence Intervals
+
+### How close are the sample mean ($\bar{x}$) and the population mean ($\mu$)?
+
+
 
 - We've found the distribution of sample means
 - Lets use it!

@@ -11,65 +11,41 @@ format:
 
 <br> 
 
-### *Part 3.1 | Populations and Random Variables*
+### *Part 3.1 | Data vs the Population*
 
 ---
 
-## From Data to Understanding
-<p class="subheader">We've spent Part 1 & 2 understanding our data... but what comes next?</p>
+## Inferences From Data
+<p class="subheader">What can we infer about those not in our data?</p>
 
-<br>
+<br><br>
 
 :::{.incremental}
-- We've mastered **visualizing** data
-- We've developed skills to **summarize** and **transform** data
-- But sometimes we need something more **precise** and **quantifiable**
-- And sometimes we want to say something about the **population**, not just our **sample**
+- We've mastered **summarizing** data
+- But often we want to say something about the **population**, not just our **data**
 :::
 
 ---
 
-## Two Groups, One Question
+## Data Question 1: Sleep Time in Two Samples
 <p class="subheader">Which group sleeps longer?</p>
 
-```{python}
-#| echo: false
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Set random seed for reproducibility
-np.random.seed(42)
-
-# Generate sleep data for two groups
-group_A = np.random.normal(7.2, 1.5, 50)  # Higher mean, higher variance
-group_B = np.random.normal(6.8, 0.8, 50)  # Lower mean, lower variance
-
-# Create dataframe
-sleep_data = pd.DataFrame({
-    'Hours': np.concatenate([group_A, group_B]),
-    'Group': ['Group A']*50 + ['Group B']*50
-})
-
-# Create figure
-fig, ax = plt.subplots(figsize=(10, 5))
-
-# Boxplot + stripplot
-sns.boxplot(data=sleep_data, y='Group', x='Hours', ax=ax, width=0.3, color='white', whis=(0, 100))
-sns.stripplot(data=sleep_data, y='Group', x='Hours', ax=ax, size=6, hue='Group')
-
-ax.set_ylabel('')
-ax.set_title('Sleep Patterns')
-ax.grid(True, alpha=0.2, axis='y')
-sns.despine(trim=True, offset=True)
-plt.tight_layout()
-plt.show()
-```
+![](i/c_01.png)
 
 . . .
 
-*> the distributions overlap... how can we compare them precisely?*
+*> everyone in Group A sleeps longer than anyone in Group B*
+
+---
+
+## Data Question 2: Sleep Time in Two Samples
+<p class="subheader">Which group sleeps longer?</p>
+
+![](i/c_02.png)
+
+. . .
+
+*> these distributions overlap... lets compare them more precisely*
 
 ---
 
@@ -93,14 +69,35 @@ $$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
 
 . . .
 
-```{python}
-#| echo: true
+```{.python}
 # Calculate means
 mean_A = group_A.mean()
 mean_B = group_B.mean()
 ```
 
 . . .
+
+```{python}
+# Generate sleep data for two groups
+import numpy as np
+group_A = np.random.normal(7.2, 1.5, 50)  # Higher mean, higher variance
+group_B = np.random.normal(6.8, 0.8, 50)  # Lower mean, lower variance
+
+# Calculate means
+mean_A = group_A.mean()
+mean_B = group_B.mean()
+
+print(f"Group A mean: {mean_A:.2f} hours")
+print(f"Group B mean: {mean_B:.2f} hours")
+```
+
+---
+
+## Data Question 2: Sleep Time in Two Samples
+<p class="subheader">Which group sleeps longer?</p>
+
+![](i/c_03.png)
+
 
 ```{python}
 print(f"Group A mean: {mean_A:.2f} hours")
@@ -113,7 +110,7 @@ print(f"Group B mean: {mean_B:.2f} hours")
 
 . . .
 
-*> but notice the spread!*
+*> but some in Group B sleep longer than most in Group A!*
 
 ---
 
@@ -226,42 +223,9 @@ print(f"Group B std dev: {std_B:.2f} hours")
 ---
 
 ## Sample vs Population
-<p class="subheader">What if I told you these groups are from different counties?</p>
+<p class="subheader">Both groups are 50 people selected from two different counties.</p>
 
-```{python}
-#| echo: false
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Set random seed for reproducibility
-np.random.seed(42)
-
-# Generate sleep data for two groups
-group_A = np.random.normal(7.2, 1.5, 50)  # Higher mean, higher variance
-group_B = np.random.normal(6.8, 0.8, 50)  # Lower mean, lower variance
-
-# Create dataframe
-sleep_data = pd.DataFrame({
-    'Hours': np.concatenate([group_A, group_B]),
-    'Group': ['Group A']*50 + ['Group B']*50
-})
-
-# Create figure
-fig, ax = plt.subplots(figsize=(10, 5))
-
-# Boxplot + stripplot
-sns.boxplot(data=sleep_data, y='Group', x='Hours', ax=ax, width=0.3, color='white', whis=(0, 100))
-sns.stripplot(data=sleep_data, y='Group', x='Hours', ax=ax, size=6, hue='Group')
-
-ax.set_ylabel('')
-ax.set_title('Sleep Patterns')
-ax.grid(True, alpha=0.2, axis='y')
-sns.despine(trim=True, offset=True)
-plt.tight_layout()
-plt.show()
-```
+![](i/c_03.png)
 
 . . .
 
@@ -276,112 +240,150 @@ New question: "Which **county** sleeps longer?" *(about the **population**)*
 ## Sample vs Population
 <p class="subheader">The data is a sample drawn from a population.</p>
 
-![](i/sample.png){fig-align="center"}
+![](i/sample.png)
 
 ---
 
 ## Sample vs Population
-<p class="subheader">What's the difference between our data and the population?</p>
+<p class="subheader">We observe **samples** but want to understand **populations**.</p>
 
-<br>
+<br><br>
 
 :::{.incremental}
-- **The Data**: 50 individuals we happened to sample from each county
-- **The Population**: All people who could live in these counties
+- **Data**: 50 individuals we happened to sample from both counties
+- **Population**: All people who could live in these counties
     - Even if we surveyed everyone today, tomorrow would bring new residents
-    - The **population** is a theoretical concept - an infinite pool of possibilities
+    - The population is a theoretical concept - an infinite pool of possibilities
 :::
+
+---
+
+## Sample vs Population
+<p class="subheader"> What is data? A sample.</p>
+
+**Random Variable**: a random process about a population
 
 . . .
 
-<br>
+- the random variable is like a deck of cards
 
-*> we observe **samples** but want to understand **populations***
+. . .
+
+**Probability (Mass/Density) Function**: a function that assigns probabilities to each possible outcome
+
+. . .
+
+- the probability function is like which cards are in the deck
+
+. . .
+
+**Observation**: a realization of a random variable
+. . .
+
+- the observation is the card you drew
+
+. . .
+
+**Sample**: a collection of observations
+
+. . .
+
+- the sample is the record of cards you've drawn
 
 ---
 
 ## Data is a Sample
 <p class="subheader">A random variable generates our data.</p>
 
-**Random Variable**: A function that assigns numbers to random outcomes
+**Random Variable**: a random process about a population
+
+**Probability Function**: a function that assigns probabilities to each possibility
 
 . . .
 
-```{python}
-#| echo: false
-# Visualize the true distributions
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
-
-# Left: The theoretical distributions
-x = np.linspace(2, 12, 100)
-y_A = (1/np.sqrt(2*np.pi*1.5**2)) * np.exp(-(x-7.2)**2/(2*1.5**2))
-y_B = (1/np.sqrt(2*np.pi*0.8**2)) * np.exp(-(x-6.8)**2/(2*0.8**2))
-
-ax1.plot(x, y_A, label='County A: μ=7.2, σ=1.5', color='blue', linewidth=2)
-ax1.plot(x, y_B, label='County B: μ=6.8, σ=0.8', color='orange', linewidth=2)
-ax1.fill_between(x, y_A, alpha=0.3, color='blue')
-ax1.fill_between(x, y_B, alpha=0.3, color='orange')
-ax1.set_xlabel('Hours of Sleep')
-ax1.set_ylabel('Probability Density')
-ax1.set_title('True Population Distributions')
-ax1.legend()
-ax1.grid(True, alpha=0.2)
-
-# Right: Our samples
-ax2.hist(group_A, alpha=0.5, label='County A Sample', bins=15, density=True, color='blue')
-ax2.hist(group_B, alpha=0.5, label='County B Sample', bins=15, density=True, color='orange')
-ax2.set_xlabel('Hours of Sleep')
-ax2.set_ylabel('Density')
-ax2.set_title('Our Sample Data')
-ax2.legend()
-ax2.grid(True, alpha=0.2)
-
-plt.tight_layout()
-plt.show()
-```
+![](i/c_04.png)
 
 . . .
 
-*> data is a **sample** drawn from these a **random variable***
+*> **data** is a **sample** drawn from a **random variable***
 
 ---
 
-## Known Distribution
-<p class="subheader">What questions can we answer?</p>
+## Probability Functions
+<p class="subheader">Random variables can have many kinds of probability functions.</p>
 
-If we know County A:
+![](i/distributions.png)
+
+---
+
+## Exercise 3.1 | Known Distribution
+<p class="subheader">We can answer **many** kinds of probability questions when we know the distribution.</p>
+
+County A's probability function:
 
 $$x_i \sim N(μ=7.2, σ=1.5)$$
 
 . . .
 
-- What proportion of the population sleeps less than 5 hours?
+1. What proportion of the population sleeps less than 5 hours?
 
 . . .
 
-- What proportion of the population sleeps more than 9 hours?
+![](i/c_05.png)
 
 . . .
 
-- How much sleep does the middle 95% of the population get?
-
-. . .
-
-<br> 
-
-*> with known distributions, we can answer **any** probability question!*
+```{.python}
+stats.norm.cdf(5, loc=mu, scale=sigma).item()
+```
 
 ---
 
-## Random Variables Come in Many Shapes
-<p class="subheader">Which distribution fits your data?</p>
+## Exercise 3.1 | Known Distribution
+<p class="subheader">We can answer **many** kinds of probability questions when we know the distribution.</p>
 
-![](i/distributions.png){fig-align="center"}
+County A's probability function:
+
+$$x_i \sim N(μ=7.2, σ=1.5)$$
+
+2. What proportion of the population sleeps more than 9 hours?
+
+. . .
+
+![](i/c_06.png)
+
+. . .
+
+```{.python}
+1 - stats.norm.cdf(9, loc=mu, scale=sigma).item()
+```
 
 ---
 
-## But What If We Don't Know the Distribution?
-<p class="subheader">How do we move from sample to population?</p>
+## Exercise 3.1 | Known Distribution
+<p class="subheader">We can answer **many** kinds of probability questions when we know the distribution.</p>
+
+County A's probability function:
+
+$$x_i \sim N(μ=7.2, σ=1.5)$$
+
+3. How much sleep does the middle 92% of the population get?
+
+. . .
+
+![](i/c_07.png)
+
+. . .
+
+```{.python}
+lower_bound = stats.norm.ppf(0.04, loc=mu, scale=sigma)
+upper_bound = stats.norm.ppf(0.96, loc=mu, scale=sigma)
+```
+
+---
+
+## Unknown Distributions
+<p class="subheader">What can we say about an unknown population if all see see is the sample?</p>
 
 **What we observe:**
 
@@ -397,29 +399,31 @@ $$x_i \sim N(μ=7.2, σ=1.5)$$
 - Population standard deviation: $\sigma = ?$
 - Population distribution: $f(x) = ?$
 
-. . .
+---
 
-*> the sample statistics are **not** the same as population parameters!*
+## Unknown Distributions
+<p class="subheader">What can we say about an unknown population if all see see is the sample?</p>
 
-*> $\bar{x} \neq \mu$, and $s \neq \sigma$*
+The sample statistics ($\bar{x}, S$) are **not** the population parameters ($\mu, \sigma$).
+
+$$\bar{x} \neq \mu$$
+$$s \neq \sigma$$
 
 ---
 
 ## The Central Question
-<p class="subheader">Can we say anything about the population when we only have a sample?</p>
+<p class="subheader">What can we say about an unknown population if all see see is the sample?</p>
 
-
-<br>
+<br><br>
 
 :::{.incremental}
-- The **Central Limit Theorem** - our bridge to inference
-- **Confidence intervals** - quantifying uncertainty
-- **Hypothesis testing** - making decisions with data
-- Moving from description to **inference**
+- Part 3.2 | **Central Limit Theorem** - the distribution of the sample mean
+- Part 3.3 | **Confidence Intervals** - the closeness of the sample mean to the truth
+- Part 3.4 | **Hypothesis Testing** - the probability we are wrong
 :::
 
 . . .
 
 <br>
 
-*> without seeing the population we can still answer questions about the population!*
+*> we can answer questions about an unknown population using just a sample*
