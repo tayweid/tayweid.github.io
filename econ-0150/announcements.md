@@ -93,3 +93,19 @@ Get some good sleep tonight. See you in class.
 Warmly,
 
 Taylor
+
+#### Economic Data Analysis: Week 9 + MiniExam 3
+
+Hi folks,
+
+Welcome to Week 9! Hope your weekend was lovely. Last week after MiniExam 2 we started developing the foundational idea in statistical modeling: we never observe the population directly; but with the CLT we don't need to see the population to make claims about it. This week we're building the tools to leverage those ideas to make inferences about unknown populations.
+
+Homework 3.1 and Homework 3.2 are posted on the Part 3 page. Although the framework might feel new, much of these concepts will feel like review to many of you. If you're feeling unfamiliar working with random variables and sampling, maybe spend a bit more time on the homework in this part, or drop by office hours for me or the UTAs. 
+
+**MiniExam 3** is scheduled for next week, **Tuesday October 28**. As usual, this will take place at the beginning of class, followed by a quick break, then an introduction to Part 4: Bivariate General Linear Model.
+
+
+
+Yours, 
+
+Taylor

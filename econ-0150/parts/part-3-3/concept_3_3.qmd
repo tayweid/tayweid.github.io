@@ -12,25 +12,39 @@ format:
 
 <br> 
 
-### *Part 3.3 | Central Limit Theorem and Confidence Intervals*
+### *Part 3.3 | Closeness: Sample / Population*
 
 ---
 
 ## A Big Question
-<p class="subheader">We found $\bar{x}$ follows a normal distribution around $\mu$... now what?</p>
+<p class="subheader">How close are the sample mean ($\bar{x}$) and the population mean ($\mu$)?</p>
 
 <br><br>
 
-*> how can we use this to learn about the population?*
-
-. . .
-
-*> lets systematize how "close" $\bar{x}$ and $\mu$ are*
+:::{.incremental}
+- We found $\bar{x}$ follows a normal distribution around $\mu$.
+- How can we use this to learn about the population?
+- Lets systematize how "close" $\bar{x}$ and $\mu$ are.
+:::
 
 ---
 
-## The Distribution of $\bar{x}$
-<p class="subheader">Remember: sample means follow a normal distribution with mean ($\mu$) and standard error (SE = $\frac{\sigma}{\sqrt{n}}$).</p>
+## Central Limit Theorem: Refresher
+<p class="subheader">The sample mean follows a normal distribution around the true mean ($\mu$).</p>
+
+The standard deviation of the sample means is the standard error:
+$$SE = \frac{\sigma}{\sqrt{n}}$$
+
+. . .
+
+*> as the sample size grows, the variability in sample means gets smaller*
+
+---
+
+## Example: Wait Times
+<p class="subheader">$\mu = 12$ and $\sigma = 2.5$<p>
+
+**Smaller Sample Size**: $n = 30$
 
 ```{python}
 #| echo: false
@@ -54,7 +68,7 @@ sample_size = 30
 samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
 means = [np.mean(s) for s in samples]
 
-plt.figure(figsize=(9, 3))
+plt.figure(figsize=(10, 2))
 plt.hist(means, bins=20, alpha=0.7, density=True)
 x = np.linspace(10, 14, 1000)
 y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
@@ -69,24 +83,67 @@ plt.tight_layout()
 plt.show()
 ```
 
-*> $\mu = 12$ and $\sigma = 2.5$ and $n = 30$.*
+. . .
+
+**Larger Sample Size**: $n = 200$
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np 
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+np.random.seed(123)
+n_samples = 500
+sample_size = 200
+samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
+means = [np.mean(s) for s in samples]
+
+plt.figure(figsize=(10, 2))
+plt.hist(means, bins=20, alpha=0.7, density=True)
+x = np.linspace(10, 14, 1000)
+y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
+plt.plot(x, y, 'r-')
+plt.yticks([])
+plt.xticks([6, 12, 18])
+plt.xlabel('$\\bar{x}$ (minutes)', fontsize=16)
+plt.xlim(6,18)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
 
 ---
 
-## Why SE = $\sigma/\sqrt{n}$?
+## Standard Error Mathematically
 <p class="subheader">The standard error (SE) measures the precision of the estimate.</p>
 
 . . .
 
-Consider n independent observations, each with variance $\sigma^2$.
+With $n$ independent observations, each has a variance of $\sigma^2$.
 
 . . .
 
-1. The sum of $n$ samples has variance $n\sigma^2$ $\big(VAR(a) + VAR(b) = VAR(a + b)\Big)$
+1. The sum of $n$ samples has variance $n\sigma^2$:
+
+$$VAR(a) + VAR(b) = VAR(a + b)$$
 
 . . .
 
-2. Divide by $n$ to find that the mean of $n$ is $\frac{\sigma^2}{n}$ $\Big( nVAR(a) = VAR(n^2a)\Big)$
+2. Divide by $n$ to find that the mean of $n$ is $\frac{\sigma^2}{n}$:
+
+$$\frac{VAR\big(a\big)}{n} = VAR\Big(\frac{a}{n^2}\Big)$$
 
 . . .
 
@@ -94,12 +151,12 @@ Therefore the standard error is $\sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt
 
 ---
 
-## Confidence Intervals
-<p class="subheader">If we know $\sigma$, we can calculate probabilities.</p>
+## Confidence Intervals: Known $\sigma$
+<p class="subheader">If we know $\sigma = 2.5$, we can calculate probabilities.</p>
 
 . . .
 
-*> what's the probability $\bar{x}$ is within one standard error of $\mu$?*
+What's the probability $\bar{x}$ is within one standard error of $\mu = 12$ with $n=30$?
 
 . . .
 
@@ -110,19 +167,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 
-x = np.linspace(-4, 4, 1000)
-y = stats.norm.pdf(x, 0, 1)
+x = np.linspace(11, 13, 1000)
+sigma = 2.5
+mu = 12
+se = sigma/np.sqrt(sample_size)
+y = stats.norm.pdf(x, mu, se)
 
-plt.figure(figsize=(9, 3))
+plt.figure(figsize=(10, 3))
 plt.plot(x, y, 'b-', alpha=0.5)
-plt.fill_between(x[(x >= -1) & (x <= 1)], 
-                 y[(x >= -1) & (x <= 1)], 
+plt.fill_between(x[(x >= mu - se) & (x <= mu + se)], 
+                 y[(x >= mu - se) & (x <= mu + se)], 
                  color='blue', alpha=0.3)
-plt.axvline(x=-1, color='red', linestyle='--')
-plt.axvline(x=1, color='red', linestyle='--')
-plt.axvline(x=0, color='green', linestyle='--')
+plt.axvline(x=mu - se, color='red', linestyle='--')
+plt.axvline(x=mu + se, color='red', linestyle='--')
+plt.axvline(x=mu, color='green', linestyle='--')
 plt.yticks([])
-plt.xlabel('Standard Errors from Mean', fontsize=16)
+plt.xlabel('Wait Times', fontsize=16)
 
 sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
 plt.tight_layout()
@@ -131,7 +191,7 @@ plt.show()
 
 . . .
 
-*> $P(|\bar{x} - \mu| \leq \frac{\sigma}{\sqrt{n}}) \approx 0.68$*
+*> $P(\mu - SE \leq \bar{x} \leq \mu + SE) \approx 0.68$*
 
 . . .
 
@@ -141,130 +201,56 @@ plt.show()
 
 *> we call $[\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]$ a 68% confidence interval*
 
-
 ---
 
-## Two Perspectives
-<p class="subheader">There are two mathematically equivalent perspectives to think about "closeness" between $\mu$ and $\bar{x}$.</p>
+## Exercise 3.3 | Confidence Intervals: Known $\sigma$
+<p class="subheader">$\mu = 12$ and $\sigma = 2.5$ and $n=30$<p>
 
-. . .
-
-Perspective 1: probability $\bar{x}$ is close to $\mu$
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-# Setup
-x = np.linspace(8, 16, 1000)
-mu = 12
-sigma = 2.5
-n = 30
-se = sigma/np.sqrt(n)
-sample_mean = 11.6  # Example sample mean
-
-fig, ax1 = plt.subplots(1, 1, figsize=(9, 2))
-
-# First plot: x̄ around μ
-y1 = stats.norm.pdf(x, mu, se)
-ax1.plot(x, y1, 'b-', alpha=0.5)
-ax1.axvline(x=mu, color='green', linestyle='--', label='$\mu$')
-ax1.axvline(x=sample_mean, color='red', linestyle='--', label='$\\bar{x}$')
-ax1.fill_between(x[(x >= mu-se) & (x <= mu+se)], 
-                 y1[(x >= mu-se) & (x <= mu+se)], 
-                 color='blue', alpha=0.3)
-ax1.set_title('Distribution centered on $\mu$')
-ax1.set_yticks([])
-ax1.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-4, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
-. . .
-
-Perspective 2: probability $\mu$ is close to $\bar{x}$
-
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-# Setup
-x = np.linspace(8, 16, 1000)
-mu = 12
-sigma = 2.5
-n = 30
-se = sigma/np.sqrt(n)
-
-fig, ax2 = plt.subplots(1, 1, figsize=(9, 2))
-
-# Second plot: μ around x̄
-sample_mean = 11.6  # Example sample mean
-y2 = stats.norm.pdf(x, sample_mean, se)
-ax2.plot(x, y2, 'b-', alpha=0.5)
-ax2.axvline(x=mu, color='green', linestyle='--', label='$\mu$')
-ax2.axvline(x=sample_mean, color='red', linestyle='--', label='$\\bar{x}$')
-ax2.fill_between(x[(x >= sample_mean-se) & (x <= sample_mean+se)], 
-                 y2[(x >= sample_mean-se) & (x <= sample_mean+se)], 
-                 color='blue', alpha=0.3)
-ax2.set_title('Distribution centered on $\\bar{x}$')
-ax2.set_yticks([])
-ax2.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-4, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Difference Center Points
-<p class="subheader">There are two mathematically equivalent perspectives to think about "closeness" between $\mu$ and $\bar{x}$.</p>
-
-![](../Examples/Part_3_3/i/Confidence_Intervals_Around_Mean.png){fig-align="center"}
-
-. . .
-
-*> this is huge! we can center the confidence interval around $\bar{x}$ instead of $\mu$!*
-
----
-
-## Using Confidence Intervals
-<p class="subheader">Example: $\bar{x} = 102.3$, $\sigma=1.6$, and $n=100$</p>
-
-**Question 1:** what's the probability $\mu$ is closer than 0.1 to $\bar{x}$?
-
-. . .
-
-```python
-distance = 0.1
-se = sigma / np.sqrt(n)
-probability = stats.norm.cdf(distance/se) - stats.norm.cdf(-distance/se)
-```
-
-. . .
-
-**Question 2:** what's the 95% CI?
+**Question:** what's the probability $\bar{x}$ is closer than $2\cdot SE$ to $\mu$?
 
 . . .
 
 ```python
 se = sigma / np.sqrt(n)
-ci = stats.norm.interval(0.95, loc=x_bar, scale=se)
+probability = stats.norm.cdf(mu+2*se, loc=mean, scale=se) - stats.norm.cdf(mu-2*se, loc=mean, scale=se)
 ```
 
 ---
 
-## One Problem Remains
-<p class="subheader">We don't know $\sigma$ either!</p>
+## Exercise 3.3 | Simulating Confidence Intervals
+<p class="subheader">Calculate the 95% confidence interval for waiting times.</p>
+
+Generate some sample data.
+
+```{python}
+#| echo: true
+sample = np.random.normal(12, 2.5, 30)
+```
+
+. . .
+
+Calculate sample statistics. 
+
+```{python}
+#| echo: true
+x_bar = np.mean(sample)
+s = np.std(sample, ddof=1)
+n = len(sample)
+se = s / np.sqrt(n)
+```
+
+. . .
+
+*> if we took many samples, 95% of the time this interval would contain the truth*
+
+. . .
+
+*> we often just say: "we're 95% confident the truth is in this interval"*
+
+---
+
+## Confidence Intervals: Unknown $\sigma$
+<p class="subheader">What if we don't know $\sigma$ either?</p>
 
 . . .
 
@@ -398,75 +384,31 @@ plt.show()
 
 ---
 
-## Putting It All Together
+## Exercise 3.3 | Normal vs t
+<p class="subheader">The probability of closeness will be too large if we use the Normal instead of t.</p>
+
+
+
+---
+
+## Unknown $\sigma$
 <p class="subheader">Now we can quantify our uncertainty about an unknown $\mu$.</p>
 
 . . .
 
-1. $\bar{x}$ follows a normal distribution around $\mu$.
+1. $\bar{x}$ follows a normal distribution around an unknown $\mu$.
 
 . . .
 
-2. We can center the distribution on $\bar{x}$ instead.
+2. Using $s$ adds uncertainty, captured by t-distribution.
 
 . . .
 
-3. Using $s$ adds uncertainty, captured by t-distribution.
+3. We can use the t-distribution to make probability statements about $\mu$.
 
 . . .
 
-4. We can use the t-distribution to make probability statements about $\mu$.
-
----
-
-## Example: Wait Times
-<p class="subheader">Calculate the 95% confidence interval for waiting times.</p>
-
-Generate some sample data.
-
-```{python}
-#| echo: true
-sample = np.random.normal(12, 2.5, 30)
-```
-
-. . .
-
-Calculate sample statistics. 
-
-```{python}
-#| echo: true
-x_bar = np.mean(sample)
-s = np.std(sample, ddof=1)
-n = len(sample)
-se = s / np.sqrt(n)
-```
-
-. . .
-
-Calculate how many standard errors the 95% CI is from $\bar{x}$.
-
-```{python}
-#| echo: true
-t_crit = stats.t.ppf(0.975, n-1)
-```
-
-. . .
-
-Calculate the CI from the critical value.
-
-```{python}
-#| echo: true
-margin = t_crit * se
-ci = [x_bar - margin, x_bar + margin]
-```
-
-. . .
-
-*> if we took many samples, 95% of the time this interval would contain the truth*
-
-. . .
-
-*> we often just say: "we're 95% confident the truth is in this interval"*
+**Next Time**: We'll center the distribution on $\bar{x}$ instead of $\mu$ to develop a test of closeness.
 
 ---
 
