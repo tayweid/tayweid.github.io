@@ -1,0 +1,27 @@
+
+```{python}
+#| echo: true
+#| eval: false
+# Simulation parameters
+n_samples = 1000
+sample_size = 30
+true_mu = 12
+true_sigma = 2.5
+
+# Count how many CIs contain the truth
+contains_truth = 0
+
+for i in range(n_samples):
+    sample = np.random.normal(true_mu, true_sigma, sample_size)
+    x_bar = np.mean(sample)
+    s = np.std(sample, ddof=1)
+    se = s / np.sqrt(sample_size)
+    
+    # 95% CI using t-distribution
+    t_crit = stats.t.ppf(0.975, df=sample_size-1)
+    ci_lower = x_bar - t_crit * se
+    ci_upper = x_bar + t_crit * se
+    
+    if ci_lower <= true_mu <= ci_upper:
+        contains_truth += 1
+```
