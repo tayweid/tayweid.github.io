@@ -57,7 +57,7 @@ Standard error: ______________
 □ The sample means will approximately follow a normal distribution  
 □ The sample means will approximately follow a t-distribution
 
-###### Q4. You take repeated samples of size n=50 from a population and plot the sample means. Which statement best explains what you expect to see?
+###### Q3. You take repeated samples of size n=50 from a population and plot the sample means. Which statement best explains what you expect to see?
 
 □ The histogram will look exactly like the population distribution  
 □ The histogram will be normal with the same spread as the population  
@@ -66,7 +66,7 @@ Standard error: ______________
 
 Briefly explain your choice: _______________________________________________________________
 
-###### Q5. A researcher is testing whether a job training program impacts earnings. The collected data shows athat increases in earnings after the program have a sample mean of \$450 and a standard error of \$200.
+###### Q4. A researcher is testing whether a job training program impacts earnings. The collected data shows athat increases in earnings after the program have a sample mean of \$450 and a standard error of \$200.
 
 **a)** Which of the following correctly describes the sampling distribution of the sample means under the null hypothesis of no effect?
 
@@ -82,7 +82,7 @@ Briefly explain your choice: ___________________________________________________
 □ If the job training program truly had no effect, we'd observe a difference of \$450 or more extreme 2.8% of the time  
 □ The probability that our conclusion is wrong is 2.8%  
 
-###### Q6. A researcher is testing a null hypothesis that average incomes in the county are equal to \$50,000. The sample mean is \$56,500 and the sample standard error is \$2000. The researcher has decided in advance to reject the null hypothesis if it lies at least 3 standard errors away from the sample mean. 
+###### Q5. A researcher is testing a null hypothesis that average incomes in the county are equal to \$50,000. The sample mean is \$56,500 and the sample standard error is \$2000. The researcher has decided in advance to reject the null hypothesis if it lies at least 3 standard errors away from the sample mean. 
 
 **a)** Use figure of the probability density function of the sampling distribution to show the confidence interval the researcher has constructed for this test.
 
