@@ -1,6 +1,6 @@
 **Name: ________________________________________________________________________________________________________ **                          **Student ID: ________________________________________________________________________________________________________ **
 
-## ECON 0150 | MiniExam 05 | Demo
+## ECON 0150 | MiniExam 3 | Demo
 
 This MiniExam will take 8 minutes with a quick break to follow. MiniExams are designed to both test your knowledge and challenge you to apply familiar concepts in new environments. Treat it as if you're trying to show me that you understand the material. Answer clearly, completely, and concisely. 
 
