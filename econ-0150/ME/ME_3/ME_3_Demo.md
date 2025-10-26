@@ -12,10 +12,6 @@ ________ I will complete this MiniExam solely using my own work.
 ________ I will not use any digital resources unless explicitly allowed by the instructor.
 ________ I will not communicate directly or indirectly with others during the MiniExam.
 
-
-
-
-
 ###### Q1. A restaurant's customer wait times follow a *uniform* distribution with mean (μ) = 15 minutes and standard deviation (σ) = 3 minutes.
 
 **a)** If you take a sample of  $n=1$ customer wait times, the sampling distribution of the mean (x̄) will have:
@@ -47,8 +43,8 @@ Standard error: ______________
 
 □ The same shape as the original population
 □ Exactly normal with variance = 9
-□ Approximately normal with variance = 9
-□ Approximately normal with variance = 9/50
+□ Approximately normal with a standard deviation of = $3$
+□ Approximately normal with a standard deviation of = $3/\sqrt{50}$
 
 **b)** Due to the Central Limit Theorem, we know that:
 
@@ -86,10 +82,6 @@ Briefly explain your choice: ___________________________________________________
 
 **a)** Use figure of the probability density function of the sampling distribution to show the confidence interval the researcher has constructed for this test.
 
-
-
-**b)** Write down the values of the upper and lower bounds of this confidence interval. Be as specific as possible.  _______________________________________________________________
-
-
+**b)** Write down the values of the upper and lower bounds of this confidence interval.  _______________________________________________________________
 
 **c)** Using this confidence interval, is the researcher able to reject the null hypothesis of an average income of \$50,000?
