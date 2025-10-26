@@ -14,22 +14,6 @@ ________ I will not communicate directly or indirectly with others during the Mi
 
 
 
-###### Q1. A researcher is testing whether a job training program impacts earnings. The collected data shows a sample mean difference of \$450 (treatment - control) with a standard error of \$200.
-
-**a)** Which of the following correctly describes the sampling distribution of the mean difference under the null hypothesis of no effect?
-
-□ It follows a normal distribution centered at \$450  
-□ It follows a normal distribution centered at \$0  
-□ It follows a t-distribution centered at \$450  
-□ It follows a t-distribution centered at \$0  
-
-**b)** The p-value for this test is 0.028. Which statement most accurately explains what this p-value means?
-
-□ There's a 2.8% chance that the job training program has no effect  
-□ There's a 2.8% chance that the sample mean difference is \$450  
-□ If the job training program truly had no effect, we'd observe a difference of \$450 or more extreme 2.8% of the time  
-□ The probability that our conclusion is wrong is 2.8%  
-
 ###### Q2. Consider a simple linear regression model: y = β₀ + β₁x + ε, where β₁ = 0.75 with standard error 0.25.
 
 **a)** The interpretation of the coefficient β₁ is:

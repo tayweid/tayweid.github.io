@@ -52,3 +52,7 @@
 - What if our hypothesis is 2 instead?
 - Well the default null with OLS is $\beta_0 = 0$. So lets just shift the y-values down by 2. Call this `y_shifted`  and test whether this is different from zero. 
 - In this way we can test any hypothesis we'd like. Just shift the values and test the sampling distribution against zero. This is what we call a t-test.
+
+## Part 4 | Bivariate GLM
+
+CLAUDE PROMPT: ok i'm working on going from the basic ideas of a t-test, where we use the sample statistics and the clt to construct the sampling distribution which we use to tests null hypotheses to testing lines through data with the general linear model. and i'm working on slides to do that move. i have good slides talking about minimizing the sum of squared errors. but i want an intuitive and simple way to get from simply looking at the the sample mean to using the sum of squared errors and fitting lines in the univariate case first. can you talk through a way to make that connection without it feeling disconnected or like we're introducing unneccessary mechinery?
