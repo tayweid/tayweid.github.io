@@ -1,0 +1,786 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 3.5 | The Simplest Linear Model*
+
+
+---
+
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
+
+<br><br><br><br>
+
+
+We just developed the simplest GLM!
+
+---
+
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
+
+<br>
+
+**What is a GLM?**
+
+-  Basically just a line drawn through the data.
+
+. . .
+
+**Linear Model Equation**: $y = mx + b$
+
+- We call $y$ the 'outcome variable' (numerical only in this class)
+
+. . .
+
+- We call $x$ the 'predictor variable' (categorical or numerical)
+
+. . .
+
+- Can have more than one predictor variable: $y = m_1 x_1 + m_2 x_2 + b$
+
+. . .
+
+- If you want to be fancy, write it like: $y_i = mx_i + b + \epsilon_i$
+
+
+---
+
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
+
+<br>
+
+**How do we choose the line?**
+
+- We minimize the 'wrongness' of the model.
+
+. . .
+
+**Mean Sqaured Error**: $MSE = \frac{1}{n} \sum_i \epsilon_i^2$
+
+- This $\epsilon_i$ is just how wrong our model is for data point $i$
+
+. . .
+
+- This is just the average distance between the line and a data point.
+
+. . .
+
+- This is very similar to *Variance*!
+
+---
+
+## GLM: Intercept-Only
+<p class="subheader">A model with no x ( basically: x=0 ).</p>
+
+The simplest GLM is using only an intercept term: $y=b$.
+
+- The data $x_i$ is in blue.
+- The model $b$ is in red.
+- The error $\epsilon_i$ is in green.
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.widgets import Slider
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Initial plot
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11, 3))
+
+# Plot 1: Data points and horizontal line
+x = np.arange(1, n+1)
+line_mean = np.mean(data)
+ax1.scatter(x, data, alpha=0.7)
+
+ax1.set_title('Raw Data', fontsize=20)
+ax1.set_xticks([])
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+ax1.grid(False)
+
+# Plot 2: High b
+x = np.arange(1, n+1)
+line_mean = 2.5
+ax2.scatter(x, data, alpha=0.7)
+line, = ax2.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax2.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax2.set_title('Choosing b=2.5', fontsize=20)
+ax2.set_xticks([])
+ax2.grid(False)
+
+# Plot 3: 
+x = np.arange(1, n+1)
+line_mean = 1.5
+ax3.scatter(x, data, alpha=0.7)
+line, = ax3.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax3.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax3.set_title('Choosing b=1.5', fontsize=20)
+ax3.set_xticks([])
+ax3.grid(False)
+
+sns.despine(left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> what should we choose for b to minimize the model's error?*
+
+---
+
+## GLM: Line Fitting and the Sample Mean
+<p class="subheader">The sample mean minimizes the MSE.</p>
+
+We minimize the MSE by choosing $b$ to be equal to the sample mean $\bar{y}$.
+
+<br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.widgets import Slider
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# GSample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Initial plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Plot 1: Data
+x = np.arange(1, n+1)
+line_mean = np.mean(data)
+ax1.scatter(x, data, alpha=0.7)
+line, = ax1.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+error_lines = []
+for i in range(n):
+    error_line, = ax1.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+    error_lines.append(error_line)
+
+ax1.set_title('Choosing b=$\\bar{y}$', fontsize=20)
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+
+ax1.set_xticks([])
+ax1.grid(False)
+
+sns.despine(ax=ax1, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+# Plot 2: Mean squared error visualization
+
+line_values = np.linspace(-10+line_mean, 10+line_mean, 100)
+mse_values = np.array([np.mean((data - val)**2) for val in line_values])
+ax2.plot(line_values, mse_values, 'b-', linewidth=2)
+
+ax2.set_yticks([])
+
+ax2.axvline(line_mean, color='r', linestyle='--')
+
+ax2.scatter([line_mean], [np.mean((data - line_mean)**2)], color='r', s=100, zorder=2)
+
+ax2.set_xlabel('Intercept Parameter: b', fontsize=20)
+ax2.set_title('Mean Squared Error', fontsize=20)
+ax2.grid(False)
+sns.despine(ax=ax2, left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> when we've minimized MSE, it's equal to the Variance!*
+
+---
+
+## GLM: Sampling Error and Line Fitting
+<p class="subheader">Like before, if we take many samples, we get slighly different means and slighly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Use the same sample data as in the previous slides
+original_data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2.0, 1.9, 2.1]
+
+# For demonstrating sampling error, create multiple samples
+np.random.seed(42)  # Reset seed for reproducibility
+num_samples = 8
+sample_size = 30  # Smaller than original to show variation
+samples = []
+sample_means = []
+
+# Generate random samples and calculate their means
+for i in range(num_samples):
+    # Take a random sample with replacement from the original data
+    sample = np.random.choice(original_data, size=sample_size, replace=True)
+    samples.append(sample)
+    sample_means.append(np.mean(sample))
+
+# Create a figure with subplots for each sample
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+# Plot each sample with its mean line
+for i, (ax, sample, mean) in enumerate(zip(axes, samples, sample_means)):
+    x = np.arange(1, len(sample) + 1)
+    ax.scatter(x, sample, alpha=0.7)
+    ax.axhline(mean, color='r', linestyle='-', linewidth=2)
+    
+    # Add vertical lines for errors
+    for j in range(len(sample)):
+        ax.plot([x[j], x[j]], [sample[j], mean], 'g--', alpha=0.5)
+    
+    ax.set_title(f'Sample {i+1}: Mean = {mean:.2f}', fontsize=14)
+    ax.set_xticks([])
+    ax.set_ylim(0, 4)  # Consistent y-axis for all plots
+    
+    # Set y-label only for left plots
+    if i % 4 == 0:
+        ax.set_ylabel('Wait Time Difference', fontsize=14)
+    
+    # Despine to match previous slides
+    sns.despine(ax=ax, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+
+plt.show()
+```
+
+---
+
+## GLM: Distribution Around the Sample Mean
+<p class="subheader">The intercept terms follow a t-distribution centered on the true mean.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+# Simulate many sample means
+sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
+                          for _ in range(n_samples)])
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0.5, density=True, 
+         edgecolor='white', label='Sample Means')
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means), max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+# Add vertical line for true mean
+plt.axvline(true_mean, color='black', linestyle='-', linewidth=2, label='True Mean')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> we only observe one sample mean, so we center the distribution there*
+
+---
+
+## GLM: Distribution Around the Sample Mean
+<p class="subheader">We center the sampling distribution on our observed sample mean.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2#np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+sample_mean = 1.97
+
+# Simulate many sample means
+sample_means = np.array([np.mean(np.random.normal(true_mean, true_std, sample_size)) 
+                          for _ in range(n_samples)])
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0.05, density=True, 
+         edgecolor='white')
+plt.axvline(true_mean, color='black', linestyle='-', linewidth=2, label='True Mean', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0.1)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> what is the probability of seeing this if the average wait time is 1.8 minutes?*
+
+---
+
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2#np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+
+sample_mean = 1.97
+
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True, 
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> here we're centering the t-distribution on the observed sample mean*
+
+. . .
+
+*> as before, this is mathematically equivalent to centering on the null*
+
+---
+
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2#np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+
+sample_mean = 1.97
+
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True, 
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2#np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+
+sample_mean = 1.97
+equally_extreme = np.round(null - (sample_mean-null),2)
+
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True, 
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+plt.axvline(equally_extreme, color='red', alpha=0.2, linestyle='-', linewidth=2, label=f'Equally Extreme: {equally_extreme}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+<br><br>
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Parameters
+true_mean = 2#np.mean(data)
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+sample_mean = 1.97
+equally_extreme = np.round(null - (sample_mean-null),2)
+
+plt.figure(figsize=(10, 4))
+
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True, 
+         edgecolor='white')
+
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical lines
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+plt.axvline(equally_extreme, color='red', alpha=0.2, linestyle='-', linewidth=2, label=f'Equally Extreme: {equally_extreme}')
+
+# Shade the tails for p-value
+# Right tail (values >= sample_mean)
+x_right = x[x >= sample_mean]
+y_right = stats.norm.pdf(x_right, null, true_std / np.sqrt(sample_size))
+plt.fill_between(x_right, 0, y_right, color='blue', alpha=0.3, label='p-value area')
+
+# Left tail (values <= equally_extreme)
+x_left = x[x <= equally_extreme]
+y_left = stats.norm.pdf(x_left, null, true_std / np.sqrt(sample_size))
+plt.fill_between(x_left, 0, y_left, color='blue', alpha=0.3)
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## GLM: Intercept Model
+<p class="subheader">A t-test is a linear model with only an intercept: $y = \beta_0 + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 30
+y = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Create the plot
+plt.figure(figsize=(11, 3))
+
+# Plot the data points
+plt.scatter(range(1, n+1), y, alpha=0.7, label='Data Points')
+
+# Plot the horizontal line at the mean
+mean_y = np.mean(y)
+plt.axhline(mean_y, color='r', linestyle='-', linewidth=2, label=f'Mean (β₀ = {mean_y:.2f})')
+
+# Add vertical lines for errors
+for i in range(n):
+    plt.plot([i+1, i+1], [y[i], mean_y], 'g--', alpha=0.4)
+
+# Calculate Sum of Squared Errors (SSE)
+sse = np.sum((y - mean_y)**2)
+
+plt.ylabel('Wait Time Difference', fontsize=16)
+plt.grid(False)
+sns.despine(left=False, bottom=True, right=True, top=True, trim=True)
+plt.xticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the sample mean $\beta_0$ minimizes the sum of squared errors*
+
+. . .
+
+*> the p-value tells us the probability of the data given the default null*
+
+. . .
+
+*> the best guess of the true mean is $\beta_0$*
+
+. . .
+
+*> this is the simplest version of an OLS regression model*
+
+---
+
+## Exercise 3.5 | Difference in Wait Times
+<p class="subheader">Are wait times different in the morning and afternoon?</p>
+
+---
+
+## Looking Forward: Part 4
+<p class="subheader">Bivariate General Linear Model</p>
+
+. . .
+
+**In Part 4 we will explore:**
+
+- Part 4.1 | Numerical Predictors
+- Part 4.2 | Categorical Predictors
+- Part 4.3 | Timeseries Models
+- Part 4.4 | Causality
+
+*> all built on the same statistical foundation we explored today*

@@ -109,3 +109,19 @@ Homework 3.1 and Homework 3.2 are posted on the Part 3 page. Although the framew
 Yours, 
 
 Taylor
+
+#### Economic Data Analysis: Week 10 + MiniExam 3
+
+Hi folks,
+
+It was so fun seeing everyone on Sunday for the review session. Hope that was helpful! 
+
+After we finish MiniExam 3 on Tuesday (tomorrow) we're going to build statistical models using the primary software tools we use in the field: Ordinary Least Squares. As you'll see, the hypothesis testing framework we've just developed is the simplest  possible linear model. 
+
+On Thursday we begin Part 4 by extending the General Linear Model to handle relationships between variables, what you may have learned as "regression". We'll discuss how bivariate GLMs are a simple extension of the univariate GLM framework we've just built in Part 3.
+
+As always sleep well and see you tomorrow!
+
+Warmly,
+
+Taylor
