@@ -18,8 +18,6 @@ format:
 ## GLM: bivariate data
 <p class="subheader">Do people wait longer later in the day?</p>
 
-Lets compare two models.
-
 ```{python}
 #| echo: false
 #| fig-align: center
@@ -84,7 +82,83 @@ plt.tight_layout()
 ## GLM: bivariate data
 <p class="subheader">Do people wait longer later in the day?</p>
 
-Lets compare two models.
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+
+ax1.set_title(f'Raw Data \n', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2: Intercept-only model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax2.axhline(mean_wait, color='red', linestyle='-', linewidth=2, label=f'$\\beta_0$ = {mean_wait:.2f}; $\\beta_1$ = 0')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('', fontsize=14)
+ax2.set_title(f'Model 1: \n $y = \\beta_0 + \\epsilon$', fontsize=16)
+ax2.legend(loc=4)
+
+# Plot 3
+ax3.set_yticks([])
+ax3.set_xticks([])
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=True, bottom=True, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> but in general we don't ask many questions about vertical incercepts*
+
+---
+
+## GLM: bivariate data
+<p class="subheader">Do people wait longer later in the day?</p>
 
 ```{python}
 #| echo: false
@@ -155,12 +229,15 @@ sns.despine(ax=ax3, left=True, bottom=True, right=True, top=True, trim=True)
 plt.tight_layout()
 ```
 
+Lets compare two models.
+
+- **Model 1** (Intercept Only): $y = b$
+- **Model 2** (Intercept+Slope): $y = mx + b$
+
 ---
 
 ## GLM: bivariate data
 <p class="subheader">Do people wait longer later in the day?</p>
-
-Lets compare two models.
 
 ```{python}
 #| echo: false
@@ -246,22 +323,16 @@ plt.tight_layout()
 
 . . .
 
-*> allowing a slope (β₁) improves model fit (MSE) when there's a relationship*
+*> a slope (β₁) improves model fit (MSE; 'wrongness') when there's a relationship*
 
 . . .
 
 *> the intercept is no longer the mean*
 
-. . .
-
-*> the slope (β₁) gives the best guess of the relationship between x and y*
-
 ---
 
-## GLM: bivariate data
-<p class="subheader">Do people wait longer later in the day?</p>
-
-Lets compare two models.
+## Bivariate GLM: minimizing MSE
+<p class="subheader">Which model minimizes the models' 'wrongness' (Mean Squared Error)?</p>
 
 ```{python}
 #| echo: false
@@ -274,9 +345,9 @@ import pandas as pd
 
 # Update Matplotlib parameters
 plt.rcParams.update({
-    'font.family': 'serif',              # Set the font family
-    'font.serif': ['Times New Roman'],   # Use a specific serif font
-    'font.style': 'italic',              # Set the font style to italic
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
 })
 
 # Set a seed for reproducibility
@@ -284,68 +355,183 @@ np.random.seed(42)
 
 # Generate wait times dataset
 n = 60
-minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
-wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
-wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+minutes_after_open = np.linspace(0, 600, n)  
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  
+wait_times = np.maximum(0, wait_times)  
 
-# Fit regression models
-slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
-mean_wait = np.mean(wait_times)
+# Fit the optimal regression model
+slope_opt, intercept_opt, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
 
-# Calculate MSE for both models
-mse_mean = np.mean((wait_times - mean_wait)**2)
-mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+# Define three different models
+# Model A: Too steep
+slope_a, intercept_a = 0.02, 3.5
 
-# Create a figure with two subplots
-fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+# Model B: Too shallow  
+slope_b, intercept_b = 0.004, 7
 
-ax1.set_title(f'Raw Data \n', fontsize=16)
+# Model C: Optimal (from regression)
+slope_c, intercept_c = slope_opt, intercept_opt
 
-# Plot 1: Intercept-only model (t-test approach)
+# Calculate MSE for all models
+mse_a = np.mean((wait_times - (intercept_a + slope_a * minutes_after_open))**2)
+mse_b = np.mean((wait_times - (intercept_b + slope_b * minutes_after_open))**2)
+mse_c = np.mean((wait_times - (intercept_c + slope_c * minutes_after_open))**2)
+
+# Create a figure with three subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(12, 4))
+
+# Plot 1: Model A (too steep)
 ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line_a = intercept_a + slope_a * x_line
+ax1.plot(x_line, y_line_a, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept_a:.1f}, $\\beta_1$ = {slope_a:.3f}')
+
+# Add vertical error lines for Model A (show subset for clarity)
+for i in range(0, n, 3):  
+    y_pred = intercept_a + slope_a * minutes_after_open[i]
+    ax1.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
 
 ax1.set_xlabel('Minutes After Opening', fontsize=14)
 ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax1.set_title(f'Model A\nMSE = {mse_a:.2f}', fontsize=16)
+ax1.legend(loc=4)
 
-# Plot 2: Intercept-only model
+# Plot 2: Model B (too shallow)
 ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
-ax2.axhline(mean_wait, color='red', linestyle='-', linewidth=2, label=f'$\\beta_0$ = {mean_wait:.2f}; $\\beta_1$ = 0')
+y_line_b = intercept_b + slope_b * x_line
+ax2.plot(x_line, y_line_b, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept_b:.1f}, $\\beta_1$ = {slope_b:.3f}')
 
-# Add vertical error lines for intercept-only model
-for i in range(0, n, 1):  # Show errors for every 5th point
+# Add vertical error lines for Model B
+for i in range(0, n, 3):  
+    y_pred = intercept_b + slope_b * minutes_after_open[i]
     ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
-             [wait_times[i], mean_wait], 'green', linestyle=':', alpha=0.5)
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
 
 ax2.set_xlabel('Minutes After Opening', fontsize=14)
-ax2.set_ylabel('', fontsize=14)
-ax2.set_title(f'Model 1: \n $y = \\beta_0 + \\epsilon$', fontsize=16)
+ax2.set_title(f'Model B\nMSE = {mse_b:.2f}', fontsize=16)
 ax2.legend(loc=4)
 
-# Plot 3: Linear regression model
+# Plot 3: Model C (optimal)
 ax3.scatter(minutes_after_open, wait_times, alpha=0.7)
-x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
-y_line = intercept + slope * x_line
-ax3.plot(x_line, y_line, 'r-', linewidth=2, 
-        label=f'$\\beta_0$ = {intercept:.2f}, $\\beta_1$ = {slope:.2f}')
+y_line_c = intercept_c + slope_c * x_line
+ax3.plot(x_line, y_line_c, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept_c:.1f}, $\\beta_1$ = {slope_c:.3f}')
 
-# Add vertical error lines for regression model
-for i in range(0, n, 1):  # Show errors for every 5th point
-    y_pred = intercept + slope * minutes_after_open[i]
+# Add vertical error lines for Model C
+for i in range(0, n, 3):  
+    y_pred = intercept_c + slope_c * minutes_after_open[i]
     ax3.plot([minutes_after_open[i], minutes_after_open[i]], 
              [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
 
 ax3.set_xlabel('Minutes After Opening', fontsize=14)
-ax3.set_title(f'Model 2: \n $y = \\beta_0 + \\beta_1 x + \\epsilon$', fontsize=16)
+ax3.set_title(f'Model C\nMSE = {mse_c:.2f}', fontsize=16)
 ax3.legend(loc=4)
 
 # Use the same styling as your other plots
 sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
 sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
 sns.despine(ax=ax3, left=False, bottom=False, right=True, top=True, trim=True)
+
 plt.tight_layout()
 ```
 
-*> but could this slope be just sampling error?*
+. . .
+
+*> Model C minimizes MSE!*
+
+---
+
+## Bivariate GLM: minimizing MSE
+<p class="subheader">GLM selects the $\beta_1$ with the smallest MSE.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  
+wait_times = np.maximum(0, wait_times)  
+
+# Fit the optimal regression model
+slope_opt, intercept_opt, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+
+# Create a figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+
+# LEFT PLOT: Model C (optimal)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept_opt + slope_opt * x_line
+ax1.plot(x_line, y_line, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept_opt:.2f}, $\\beta_1$ = {slope_opt:.3f}')
+
+# Add vertical error lines
+for i in range(0, n, 3):  
+    y_pred = intercept_opt + slope_opt * minutes_after_open[i]
+    ax1.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax1.set_title('Model C: \n $y = \\beta_0 + \\beta_1 x + \\varepsilon$', fontsize=16)
+ax1.legend(loc=4)
+
+# RIGHT PLOT: MSE as a function of beta_1
+# Try different slopes while keeping intercept fixed at optimal
+beta_1_range = np.linspace(-0.005, 0.025, 100)
+mse_values = []
+
+for beta_1 in beta_1_range:
+    # Calculate predictions with this slope (using optimal intercept)
+    predictions = intercept_opt + beta_1 * minutes_after_open
+    mse = np.mean((wait_times - predictions)**2)
+    mse_values.append(mse)
+
+# Plot MSE vs beta_1
+ax2.plot(beta_1_range, mse_values, 'b-', linewidth=2)
+ax2.axvline(slope_opt, color='red', linestyle='--', linewidth=2, 
+            label=f'$\\hat{{\\beta}}_1$ = {slope_opt:.3f}')
+ax2.scatter([slope_opt], [min(mse_values)], color='red', s=100, zorder=5)
+
+ax2.set_xlabel('Slope ($\\beta_1$)', fontsize=14)
+ax2.set_ylabel('Mean Squared Error', fontsize=14)
+ax2.set_title('MSE for Different Slopes', fontsize=16)
+ax2.legend()
+
+# Style both plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+```
+
+. . .
+
+*> this slope (β₁) gives the best guess of the relationship between x and y*
+
+. . .
+
+*> but what if the true slope is zero ... could this slope be just sampling error?*
 
 ---
 
@@ -760,40 +946,591 @@ plt.tight_layout()
 plt.show()
 ```
 
+*> p-value: the 'surprisingness' of our sample if $\beta_1 = 0$*
+
+. . .
+
+*> the probability of seeing our sample by chance if there is no relationship*
+
+. . .
+
 *> a small p-value is evidence against the null hypothesis ($\beta_1 = 0$)*
-
-. . .
-
-*> p-value: the 'surprisingness' of our sample*
-
-. . .
-
-*> the probability of seeing our sample by chance (if there is no relationship)*
 
 ---
 
-## Exercise 4.1 | 
-<p class="subheader">Does wait time change throughout the day?</p>
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">Many possible models we might observe by chance if the null ($\beta_1 = 0$) were true.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 50
+
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Simulate what we'd see under the null hypothesis
+# Generate many samples under H0: slope = 0
+n_null_samples = 50
+null_intercepts = []
+null_slopes = []
+
+for i in range(n_null_samples):
+    # Under null, y = intercept + noise (no relationship with x)
+    # Generate y values with just an intercept (mean) and noise
+    y_null = np.mean(y) + np.random.normal(0, noise_std, n)
+    
+    # Fit a line to this null-generated data
+    slope_null, intercept_null, _, _, _ = stats.linregress(x, y_null)
+    null_slopes.append(slope_null)
+    null_intercepts.append(intercept_null)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot the null distribution lines FIRST (so they're behind)
+x_line = np.array([min(x), max(x)])
+for i in range(n_null_samples):
+    y_line_null = null_intercepts[i] + null_slopes[i] * x_line
+    ax.plot(x_line, y_line_null, color='gray', linewidth=0.5, alpha=0.3)
+ax.plot(x_line, y_line_null, color='gray', linewidth=0.5, alpha=0.3, label='Null Slopes')
+
+# Plot data points
+ax.scatter(x, y, alpha=0.1, s=40, zorder=5)
+
+# Plot main regression line LAST (so it's on top)
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'Sample slope = {slope_main:.4f}', zorder=10)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc='upper left')
+
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> how likely does it look like this slope was drawn from the null slopes?*
+
+. . .
+
+*> p-value: the probability a slope as extreme as ours under the null ($\beta_1=0$)*
+
+---
+
+## Exercise 4.1 | Happiness and Per Capita GDP
+<p class="subheader">Are wealtheir countries happier?</p>
+
+<br><br>
+
+```{.python}
+# Model: y = b + mx
+model = smf.ols('Life_Evaluation ~ log_GDP_PerCap', data).fit() # Intercept is included by default
+print(model.summary().tables[1])
+```
+
+. . .
+
+<br>
+
+```{.python}
+# Visualize: Numerical x Numerical
+sns.regplot(data=data, y='Life_Evaluation', x='log_GDP_PerCap')#, ci=None), line_kws={'color': 'red'}
+```
 
 ---
 
 ## GLM: predictions
-<p class="subheader">What wait time should we expect at noon?</p>
+<p class="subheader">What wait time should we expect at 100 minutes after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot data points - highlight those near 100 minutes
+for i, (xi, yi) in enumerate(zip(x, y)):
+    ax.scatter(xi, yi, alpha=0.8, s=60, color='blue', zorder=6)
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc=4)
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+---
+
+## GLM: predictions
+<p class="subheader">What wait time should we expect at 100 minutes after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot data points - highlight those near 100 minutes
+for i, (xi, yi) in enumerate(zip(x, y)):
+    if abs(xi - 100) < 30:  # Points within 30 minutes of 100
+        ax.scatter(xi, yi, alpha=0.8, s=60, color='blue', zorder=6)
+    else:
+        ax.scatter(xi, yi, alpha=0.05, s=40, zorder=5, color='blue')
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+# HIGHLIGHT THE PREDICTION AT 100 MINUTES
+x_pred = 100
+y_pred = intercept_main + slope_main * x_pred
+
+# Add vertical line at x=100
+ax.axvline(x=100, color='green', linestyle='--', alpha=0.5, linewidth=1.5, zorder=3)
+
+# Add shaded region around x=100
+ax.axvspan(70, 130, alpha=0.1, color='green', zorder=1)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc=4)
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
 
 ---
 
-## Exercise 4.1 | 
-<p class="subheader">What wait time should we expect at noon?</p>
+## GLM: predictions
+<p class="subheader">What wait time should we expect at 100 minutes after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot data points - highlight those near 100 minutes
+for i, (xi, yi) in enumerate(zip(x, y)):
+    if abs(xi - 100) < 30:  # Points within 30 minutes of 100
+        ax.scatter(xi, yi, alpha=0.8, s=60, color='blue', zorder=6)
+    else:
+        ax.scatter(xi, yi, alpha=0.05, s=40, zorder=5, color='blue')
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+# HIGHLIGHT THE PREDICTION AT 100 MINUTES
+x_pred = 100
+y_pred = intercept_main + slope_main * x_pred
+
+# Add vertical line at x=100
+ax.axvline(x=100, color='green', linestyle='--', alpha=0.5, linewidth=1.5, zorder=3)
+
+# Add horizontal line showing the prediction
+ax.plot([0, x_pred], [y_pred, y_pred], 'green', linestyle=':', alpha=0.7, linewidth=1.5, zorder=3)
+
+# Add the prediction point
+ax.scatter([x_pred], [y_pred], color='green', s=150, marker='*', 
+           label=f'Prediction at 100 min: {y_pred:.1f}', zorder=11)
+
+# Add shaded region around x=100
+ax.axvspan(70, 130, alpha=0.1, color='green', zorder=1)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc=4)
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> you can find this with a calculator!*
+
+. . .
+
+*> plug $x=100$ into the equation $y = 4.31 + 0.011 x$*
+
+
+---
+
+## GLM: predictions
+<p class="subheader">What wait time should we expect at 200 minutes after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot data points - highlight those near 100 minutes
+for i, (xi, yi) in enumerate(zip(x, y)):
+    if abs(xi - 200) < 30:  # Points within 30 minutes of 200
+        ax.scatter(xi, yi, alpha=0.8, s=60, color='blue', zorder=6)
+    else:
+        ax.scatter(xi, yi, alpha=0.05, s=40, zorder=5, color='blue')
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+# HIGHLIGHT THE PREDICTION AT 100 MINUTES
+x_pred = 200
+y_pred = intercept_main + slope_main * x_pred
+
+# Add vertical line at x=200
+ax.axvline(x=200, color='green', linestyle='--', alpha=0.5, linewidth=1.5, zorder=3)
+
+# Add shaded region around x=100
+ax.axvspan(170, 230, alpha=0.1, color='green', zorder=1)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc=4)
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## GLM: predictions
+<p class="subheader">What wait time should we expect at 200 minutes after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(7, 5))
+
+# Plot data points - highlight those near 100 minutes
+for i, (xi, yi) in enumerate(zip(x, y)):
+    if abs(xi - 200) < 30:  # Points within 30 minutes of 200
+        ax.scatter(xi, yi, alpha=0.8, s=60, color='blue', zorder=6)
+    else:
+        ax.scatter(xi, yi, alpha=0.05, s=40, zorder=5, color='blue')
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+# HIGHLIGHT THE PREDICTION AT 100 MINUTES
+x_pred = 200
+y_pred = intercept_main + slope_main * x_pred
+
+# Add vertical line at x=200
+ax.axvline(x=200, color='green', linestyle='--', alpha=0.5, linewidth=1.5, zorder=3)
+
+# Add shaded region around x=100
+ax.axvspan(170, 230, alpha=0.1, color='green', zorder=1)
+
+# Add horizontal line showing the prediction
+ax.plot([0, x_pred], [y_pred, y_pred], 'green', linestyle=':', alpha=0.7, linewidth=1.5, zorder=3)
+
+# Add the prediction point
+ax.scatter([x_pred], [y_pred], color='green', s=150, marker='*', 
+           label=f'Prediction at 200 min: {y_pred:.1f}', zorder=11)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_title('', fontsize=16)
+ax.legend(loc=4)
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Exercise 4.1 | Happiness and Per Capita GDP
+<p class="subheader">Are wealtheir countries happier?</p>
+
+<br><br>
+
+```{.python}
+# Parameters
+b0, b1 = model.params  # intercept, slope
+```
+
+. . .
+
+<br>
+
+```{.python}
+# Predict: Log GDP of 3
+prediction = b0 + b1 * 3
+print(prediction)
+```
 
 ---
 
 ## GLM: interpretation
-<p class="subheader">How much longer will we wait in one hour from now?</p>
+<p class="subheader">How much does wait time increase every minute after open?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              
+    'font.serif': ['Times New Roman'],   
+    'font.style': 'italic',              
+})
+# Set seed for reproducibility
+np.random.seed(42)
+# Define true parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+n = 100
+# Generate one sample dataset
+x = np.linspace(0, 600, n)
+y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+# Fit the main model
+slope_main, intercept_main, r_value, p_value, std_err_main = stats.linregress(x, y)
+# Create the figure
+fig, ax = plt.subplots(1, 1, figsize=(8, 5))
+
+# Plot all data points faintly
+ax.scatter(x, y, alpha=0.05, s=40, zorder=5, color='blue')
+
+# Plot main regression line
+x_line = np.array([min(x), max(x)])
+y_line_main = intercept_main + slope_main * x_line
+ax.plot(x_line, y_line_main, 'r-', linewidth=2.5, 
+        label=f'$\\hat{{y}} = {intercept_main:.2f} + {slope_main:.3f}x$', zorder=10)
+
+# DEMONSTRATE SLOPE WITH TWO PREDICTIONS
+x1 = 200
+x2 = 300  # 100 minutes later
+y1_pred = intercept_main + slope_main * x1
+y2_pred = intercept_main + slope_main * x2
+
+# Highlight data points near these x values
+for i, (xi, yi) in enumerate(zip(x, y)):
+    if abs(xi - x1) < 20 or abs(xi - x2) < 20:
+        ax.scatter(xi, yi, alpha=0.6, s=60, color='blue', zorder=6)
+
+# Add vertical lines at both x values
+ax.axvline(x=x1, color='green', linestyle='--', alpha=0.4, linewidth=1.5, zorder=3)
+ax.axvline(x=x2, color='green', linestyle='--', alpha=0.4, linewidth=1.5, zorder=3)
+
+# Add horizontal prediction lines
+ax.plot([0, x1], [y1_pred, y1_pred], 'green', linestyle=':', alpha=0.5, linewidth=1.5, zorder=3)
+ax.plot([0, x2], [y2_pred, y2_pred], 'green', linestyle=':', alpha=0.5, linewidth=1.5, zorder=3)
+
+# Add prediction points
+ax.scatter([x1], [y1_pred], color='green', s=150, marker='o', zorder=11)
+ax.scatter([x2], [y2_pred], color='green', s=150, marker='o', zorder=11)
+
+# SHOW THE SLOPE VISUALLY
+# Get y-axis limits to position arrows
+ylims = ax.get_ylim()
+y_bottom = ylims[0] + 0.5  # Just above bottom axis
+
+# Draw horizontal arrow showing change in x (near bottom of plot)
+ax.annotate('', xy=(x2, y_bottom), xytext=(x1, y_bottom),
+            arrowprops=dict(arrowstyle='<->', color='purple', lw=2))
+ax.text((x1+x2)/2, y_bottom + 0.5, f'Δx = {x2-x1:.0f} min', 
+        ha='center', fontsize=12, color='purple')
+
+# Draw vertical arrow showing change in y (near left side of plot)
+x_left = 20  # Just to the right of y-axis
+ax.annotate('', xy=(x_left, y2_pred+0.3), xytext=(x_left, y1_pred-0.3),
+            arrowprops=dict(arrowstyle='<->', color='purple', lw=2))
+ax.text(x_left + 20, (y1_pred+y2_pred)/2, f'Δy = {y2_pred-y1_pred:.2f}', 
+        va='center', fontsize=12, color='purple')
+
+# Connect the two predictions with a light line to show they're on the regression line
+ax.plot([x1, x2], [y1_pred, y2_pred], 'g-', alpha=0.3, linewidth=3, zorder=9)
+
+ax.set_xlabel('Minutes After Opening', fontsize=14)
+ax.set_ylabel('Wait Time (minutes)', fontsize=14)
+ax.set_xlim(0, 620)
+ax.legend(loc='upper left')
+sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> $\beta_1$ tells us how much $y$ increases with every 1 unit increase in $x$*
 
 ---
 
-## Exercise 4.1 | 
-<p class="subheader">How much longer will we wait in one hour from now?</p>
+## Exercise 4.1 | Happiness and Per Capita GDP
+<p class="subheader">How much does happiness increase for each additional $1,000 of per capita GDP? </p>
 
 ---
 

@@ -27,6 +27,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="concept_4_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
@@ -140,8 +205,7 @@ The economist’s data analysis stillset.
 <p class="subheader">
 Do people wait longer later in the day?
 </p>
-<p>Lets compare two models.</p>
-<div id="d68c563b" class="cell" data-execution_count="1">
+<div id="7f9e0695" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -156,8 +220,7 @@ Do people wait longer later in the day?
 <p class="subheader">
 Do people wait longer later in the day?
 </p>
-<p>Lets compare two models.</p>
-<div id="b1a2a929" class="cell" data-execution_count="2">
+<div id="896a0046" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -166,14 +229,16 @@ Do people wait longer later in the day?
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><em>&gt; but in general we don’t ask many questions about vertical incercepts</em></p>
+</div>
 </section>
 <section id="glm-bivariate-data-2" class="slide level2">
 <h2>GLM: bivariate data</h2>
 <p class="subheader">
 Do people wait longer later in the day?
 </p>
-<p>Lets compare two models.</p>
-<div id="f682e11c" class="cell" data-execution_count="3">
+<div id="a0c67edf" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -182,23 +247,18 @@ Do people wait longer later in the day?
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><em>&gt; allowing a slope (β₁) improves model fit (MSE) when there’s a relationship</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the intercept is no longer the mean</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the slope (β₁) gives the best guess of the relationship between x and y</em></p>
-</div>
+<p>Lets compare two models.</p>
+<ul>
+<li><strong>Model 1</strong> (Intercept Only): <span class="math inline">\(y = b\)</span></li>
+<li><strong>Model 2</strong> (Intercept+Slope): <span class="math inline">\(y = mx + b\)</span></li>
+</ul>
 </section>
 <section id="glm-bivariate-data-3" class="slide level2">
 <h2>GLM: bivariate data</h2>
 <p class="subheader">
 Do people wait longer later in the day?
 </p>
-<p>Lets compare two models.</p>
-<div id="c8bed11f" class="cell" data-execution_count="4">
+<div id="5be30ad8" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -207,18 +267,62 @@ Do people wait longer later in the day?
 </div>
 </div>
 </div>
-<p><em>&gt; but could this slope be just sampling error?</em></p>
+<div class="fragment">
+<p><em>&gt; a slope (β₁) improves model fit (MSE; ‘wrongness’) when there’s a relationship</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the intercept is no longer the mean</em></p>
+</div>
+</section>
+<section id="bivariate-glm-minimizing-mse" class="slide level2">
+<h2>Bivariate GLM: minimizing MSE</h2>
+<p class="subheader">
+Which model minimizes the models’ ‘wrongness’ (Mean Squared Error)?
+</p>
+<div id="6a033ec1" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; Model C minimizes MSE!</em></p>
+</div>
+</section>
+<section id="bivariate-glm-minimizing-mse-1" class="slide level2">
+<h2>Bivariate GLM: minimizing MSE</h2>
+<p class="subheader">
+GLM selects the <span class="math inline">\(\beta_1\)</span> with the smallest MSE.
+</p>
+<div id="2aa88d25" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="369"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; this slope (β₁) gives the best guess of the relationship between x and y</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; but what if the true slope is zero … could this slope be just sampling error?</em></p>
+</div>
 </section>
 <section id="bivariate-glm-sampling-error" class="slide level2">
 <h2>Bivariate GLM: sampling error</h2>
 <p class="subheader">
 Like before, if we take many samples, we get slighly different slopes and slighly different fits.
 </p>
-<div id="b700f647" class="cell" data-execution_count="5">
+<div id="7caaaf05" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="566"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="566"></p>
 </figure>
 </div>
 </div>
@@ -229,11 +333,11 @@ Like before, if we take many samples, we get slighly different slopes and slighl
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population slope.
 </p>
-<div id="aa2a3774" class="cell" data-execution_count="6">
+<div id="b65ad9e6" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
 </figure>
 </div>
 </div>
@@ -250,11 +354,11 @@ The slope coefficient follows a normal distribution centered on the population s
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population slope.
 </p>
-<div id="308fd1a1" class="cell" data-execution_count="7">
+<div id="f5ae20cf" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
 </figure>
 </div>
 </div>
@@ -266,11 +370,11 @@ The slope coefficient follows a normal distribution centered on the population s
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population slope.
 </p>
-<div id="bf037087" class="cell" data-execution_count="8">
+<div id="60c2d1f6" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
 </figure>
 </div>
 </div>
@@ -283,11 +387,11 @@ The slope coefficient follows a normal distribution centered on the population s
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population slope.
 </p>
-<div id="278eb17b" class="cell" data-execution_count="9">
+<div id="cb6b8fc1" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
@@ -299,51 +403,177 @@ The slope coefficient follows a normal distribution centered on the population s
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population slope.
 </p>
-<div id="a24def2e" class="cell" data-execution_count="10">
+<div id="376336e0" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_1_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><em>&gt; a small p-value is evidence against the null hypothesis (<span class="math inline">\(\beta_1 = 0\)</span>)</em></p>
+<p><em>&gt; p-value: the ‘surprisingness’ of our sample if <span class="math inline">\(\beta_1 = 0\)</span></em></p>
 <div class="fragment">
-<p><em>&gt; p-value: the ‘surprisingness’ of our sample</em></p>
+<p><em>&gt; the probability of seeing our sample by chance if there is no relationship</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; the probability of seeing our sample by chance (if there is no relationship)</em></p>
+<p><em>&gt; a small p-value is evidence against the null hypothesis (<span class="math inline">\(\beta_1 = 0\)</span>)</em></p>
 </div>
 </section>
-<section id="exercise-4.1" class="slide level2">
-<h2>Exercise 4.1 |</h2>
+<section id="bivariate-glm-sampling-distribution-of-slopes-5" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
 <p class="subheader">
-Does wait time change throughout the day?
+Many possible models we might observe by chance if the null (<span class="math inline">\(\beta_1 = 0\)</span>) were true.
 </p>
+<div id="f1e51cc5" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-14-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; how likely does it look like this slope was drawn from the null slopes?</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; p-value: the probability a slope as extreme as ours under the null (<span class="math inline">\(\beta_1=0\)</span>)</em></p>
+</div>
+</section>
+<section id="exercise-4.1-happiness-and-per-capita-gdp" class="slide level2">
+<h2>Exercise 4.1 | Happiness and Per Capita GDP</h2>
+<p class="subheader">
+Are wealtheir countries happier?
+</p>
+<p><br><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Model: y = b + mx</span></span>
+<span id="cb1-2"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'Life_Evaluation ~ log_GDP_PerCap'</span>, data).fit() <span class="co"># Intercept is included by default</span></span>
+<span id="cb1-3"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Visualize: Numerical x Numerical</span></span>
+<span id="cb2-2"><a href=""></a>sns.regplot(data<span class="op">=</span>data, y<span class="op">=</span><span class="st">'Life_Evaluation'</span>, x<span class="op">=</span><span class="st">'log_GDP_PerCap'</span>)<span class="co">#, ci=None), line_kws={'color': 'red'}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="glm-predictions" class="slide level2">
 <h2>GLM: predictions</h2>
 <p class="subheader">
-What wait time should we expect at noon?
+What wait time should we expect at 100 minutes after open?
 </p>
+<div id="f0c2c127" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-15-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="exercise-4.1-1" class="slide level2">
-<h2>Exercise 4.1 |</h2>
+<section id="glm-predictions-1" class="slide level2">
+<h2>GLM: predictions</h2>
 <p class="subheader">
-What wait time should we expect at noon?
+What wait time should we expect at 100 minutes after open?
 </p>
+<div id="ae704674" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-16-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="glm-predictions-2" class="slide level2">
+<h2>GLM: predictions</h2>
+<p class="subheader">
+What wait time should we expect at 100 minutes after open?
+</p>
+<div id="2542020f" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-17-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; you can find this with a calculator!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; plug <span class="math inline">\(x=100\)</span> into the equation <span class="math inline">\(y = 4.31 + 0.011 x\)</span></em></p>
+</div>
+</section>
+<section id="glm-predictions-3" class="slide level2">
+<h2>GLM: predictions</h2>
+<p class="subheader">
+What wait time should we expect at 200 minutes after open?
+</p>
+<div id="a1cdda9c" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-18-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="glm-predictions-4" class="slide level2">
+<h2>GLM: predictions</h2>
+<p class="subheader">
+What wait time should we expect at 200 minutes after open?
+</p>
+<div id="8b04ca31" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-19-output-1.png" class="quarto-figure quarto-figure-center" width="663" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4.1-happiness-and-per-capita-gdp-1" class="slide level2">
+<h2>Exercise 4.1 | Happiness and Per Capita GDP</h2>
+<p class="subheader">
+Are wealtheir countries happier?
+</p>
+<p><br><br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Parameters</span></span>
+<span id="cb3-2"><a href=""></a>b0, b1 <span class="op">=</span> model.params  <span class="co"># intercept, slope</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Predict: Log GDP of 3</span></span>
+<span id="cb4-2"><a href=""></a>prediction <span class="op">=</span> b0 <span class="op">+</span> b1 <span class="op">*</span> <span class="dv">3</span></span>
+<span id="cb4-3"><a href=""></a><span class="bu">print</span>(prediction)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="glm-interpretation" class="slide level2">
 <h2>GLM: interpretation</h2>
 <p class="subheader">
-How much longer will we wait in one hour from now?
+How much does wait time increase every minute after open?
 </p>
+<div id="ee7c1260" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-20-output-1.png" class="quarto-figure quarto-figure-center" width="759" height="471"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; <span class="math inline">\(\beta_1\)</span> tells us how much <span class="math inline">\(y\)</span> increases with every 1 unit increase in <span class="math inline">\(x\)</span></em></p>
+</div>
 </section>
-<section id="exercise-4.1-2" class="slide level2">
-<h2>Exercise 4.1 |</h2>
+<section id="exercise-4.1-happiness-and-per-capita-gdp-2" class="slide level2">
+<h2>Exercise 4.1 | Happiness and Per Capita GDP</h2>
 <p class="subheader">
-How much longer will we wait in one hour from now?
+How much does happiness increase for each additional $1,000 of per capita GDP?
 </p>
 </section>
 <section id="the-general-linear-model" class="slide level2">
