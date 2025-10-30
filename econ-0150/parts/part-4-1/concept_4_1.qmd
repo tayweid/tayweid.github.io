@@ -1,0 +1,921 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis stillset.</p>
+
+<br> 
+
+### *Part 4.1 | Numerical Predictors*
+
+---
+
+## GLM: bivariate data
+<p class="subheader">Do people wait longer later in the day?</p>
+
+Lets compare two models.
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+
+ax1.set_title(f'Raw Data \n ', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2
+ax2.set_yticks([])
+ax2.set_xticks([])
+
+# Plot 3
+ax3.set_yticks([])
+ax3.set_xticks([])
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=True, bottom=True, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=True, bottom=True, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+---
+
+## GLM: bivariate data
+<p class="subheader">Do people wait longer later in the day?</p>
+
+Lets compare two models.
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+
+ax1.set_title(f'Raw Data \n', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2: Intercept-only model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax2.axhline(mean_wait, color='red', linestyle='-', linewidth=2, label=f'$\\beta_0$ = {mean_wait:.2f}; $\\beta_1$ = 0')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('', fontsize=14)
+ax2.set_title(f'Model 1: \n $y = \\beta_0 + \\epsilon$', fontsize=16)
+ax2.legend(loc=4)
+
+# Plot 3
+ax3.set_yticks([])
+ax3.set_xticks([])
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=True, bottom=True, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+---
+
+## GLM: bivariate data
+<p class="subheader">Do people wait longer later in the day?</p>
+
+Lets compare two models.
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+
+ax1.set_title(f'Raw Data \n', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2: Intercept-only model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax2.axhline(mean_wait, color='red', linestyle='-', linewidth=2, label=f'$\\beta_0$ = {mean_wait:.2f}; $\\beta_1$ = 0')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('', fontsize=14)
+ax2.set_title(f'Model 1: \n $y = \\beta_0 + \\epsilon$', fontsize=16)
+ax2.legend(loc=4)
+
+# Plot 3: Linear regression model
+ax3.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax3.plot(x_line, y_line, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept:.2f}, $\\beta_1$ = {slope:.2f}')
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax3.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+ax3.set_xlabel('Minutes After Opening', fontsize=14)
+ax3.set_title(f'Model 2: \n $y = \\beta_0 + \\beta_1 x + \\epsilon$', fontsize=16)
+ax3.legend(loc=4)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> allowing a slope (β₁) improves model fit (MSE) when there's a relationship*
+
+. . .
+
+*> the intercept is no longer the mean*
+
+. . .
+
+*> the slope (β₁) gives the best guess of the relationship between x and y*
+
+---
+
+## GLM: bivariate data
+<p class="subheader">Do people wait longer later in the day?</p>
+
+Lets compare two models.
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 4))
+
+ax1.set_title(f'Raw Data \n', fontsize=16)
+
+# Plot 1: Intercept-only model (t-test approach)
+ax1.scatter(minutes_after_open, wait_times, alpha=0.7)
+
+ax1.set_xlabel('Minutes After Opening', fontsize=14)
+ax1.set_ylabel('Wait Time (minutes)', fontsize=14)
+
+# Plot 2: Intercept-only model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+ax2.axhline(mean_wait, color='red', linestyle='-', linewidth=2, label=f'$\\beta_0$ = {mean_wait:.2f}; $\\beta_1$ = 0')
+
+# Add vertical error lines for intercept-only model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], mean_wait], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('', fontsize=14)
+ax2.set_title(f'Model 1: \n $y = \\beta_0 + \\epsilon$', fontsize=16)
+ax2.legend(loc=4)
+
+# Plot 3: Linear regression model
+ax3.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax3.plot(x_line, y_line, 'r-', linewidth=2, 
+        label=f'$\\beta_0$ = {intercept:.2f}, $\\beta_1$ = {slope:.2f}')
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax3.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+ax3.set_xlabel('Minutes After Opening', fontsize=14)
+ax3.set_title(f'Model 2: \n $y = \\beta_0 + \\beta_1 x + \\epsilon$', fontsize=16)
+ax3.legend(loc=4)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax1, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+*> but could this slope be just sampling error?*
+
+---
+
+## Bivariate GLM: sampling error
+<p class="subheader">Like before, if we take many samples, we get slighly different slopes and slighly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Define true parameters (for the data generation process)
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+
+# Function to generate a single sample dataset
+def generate_sample(n=20):
+    x = np.linspace(0, 600, n)
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, n)
+    return x, y
+
+# Generate 8 different samples and fit models
+n_examples = 8
+samples = []
+slopes = []
+intercepts = []
+
+for i in range(n_examples):
+    x, y = generate_sample()
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    samples.append((x, y))
+    slopes.append(slope)
+    intercepts.append(intercept)
+
+# Create subplot grid for the 8 examples
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+for i, ax in enumerate(axes):
+    x, y = samples[i]
+    slope = slopes[i]
+    intercept = intercepts[i]
+    
+    # Plot data points
+    ax.scatter(x, y, alpha=0.5, s=20)
+    
+    # Plot regression line
+    x_line = np.array([min(x), max(x)])
+    y_line = intercept + slope * x_line
+    ax.plot(x_line, y_line, 'r-', linewidth=2)
+    
+    # Clean up axis labels - only show y-axis label for leftmost plots
+    if i % 4 == 0:
+        ax.set_ylabel('Wait Time', fontsize=12)
+    # Only show x-axis label for bottom plots
+    if i >= 4:
+        ax.set_xlabel('Minutes After Opening', fontsize=12)
+    else:
+        ax.set_xlabel('')
+    
+    # Set title
+    ax.set_title(f'Sample {i+1}: Slope = {slope:.4f}', fontsize=12)
+    ax.set_ylim(1,15)
+    
+    sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population slope.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+sample_size = 20
+n_simulations = 1000
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.2, density=True, 
+         color='red', edgecolor='white', label='Sample Slopes')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=true_slope, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+# Add vertical line for true slope
+plt.axvline(true_slope, color='black', linestyle='--', linewidth=2, 
+           label=f'True Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.xlim(-0.005,0.025)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the slopes follow a normal distribution around the population relationship!*
+
+. . .
+
+*> this lets us perform a t-test on the slope!*
+
+---
+
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population slope.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+sample_size = 20
+n_simulations = 1000
+
+sample_slope = 0.008
+se_slope = np.std(slope_coefficients)
+
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.05, density=True, 
+         color='red', edgecolor='white', label='Sample Slopes')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=true_slope, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+# Add vertical line for true slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2, 
+           label=f'Sample Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.xlim(-0.005,0.025)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> we don't know the entire distribution, just our sample slope*
+
+---
+
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population slope.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+sample_size = 20
+n_simulations = 1000
+
+sample_slope = 0.008
+se_slope = np.std(slope_coefficients)
+
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.02, density=True, 
+         color='red', edgecolor='white')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=0, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+# Add vertical line for true slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2, 
+           label=f'Sample Slope')
+plt.axvline(0, color='black', linestyle='-', linewidth=2, 
+           label=f'Default Null')
+# Add vertical line for null hypothesis (slope = 0)
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.xlim(-0.005,0.025)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> center the distribution on our null*
+
+*> check the distance from the sample*
+
+---
+
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population slope.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+sample_size = 20
+n_simulations = 1000
+sample_slope = 0.008
+se_slope = np.std(slope_coefficients)
+null=0
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.02, density=True, 
+         color='red', edgecolor='white')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(-max(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=null, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+
+# Add vertical line for true slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2, 
+           label=f'Sample Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.axvline(0, color='black', linestyle='-', linewidth=2, 
+           label=f'Default Null')
+plt.axvline(-sample_slope, color='red', linestyle='--', linewidth=2, alpha=0.3,
+           label=f'Equally Extreme')
+
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.xlim(-0.025,0.025)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> the p-value is the probability of something as far from the null as our sample*
+
+---
+
+## Bivariate GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population slope.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+# Set random seed for reproducibility
+np.random.seed(42)
+# True parameters
+true_intercept = 5
+true_slope = 0.01
+noise_std = 4.0
+sample_size = 20
+n_simulations = 1000
+sample_slope = 0.008
+se_slope = np.std(slope_coefficients)
+null=0
+# Generate x values (same for all simulations)
+x = np.linspace(0, 600, sample_size)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    # Generate y with noise
+    y = true_intercept + true_slope * x + np.random.normal(0, noise_std, sample_size)
+    
+    # Calculate regression slope
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
+# Create the plot
+plt.figure(figsize=(10, 4))
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.01, density=True, 
+         color='red', edgecolor='white')
+# Overlay theoretical t-distribution
+# Standard error of the slope
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(-max(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=sample_size-2, loc=null, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+
+# Add vertical line for true slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2, 
+           label=f'Sample Slope')
+# Add vertical line for null hypothesis (slope = 0)
+plt.axvline(0, color='black', linestyle='-', linewidth=2, 
+           label=f'Default Null')
+plt.axvline(-sample_slope, color='red', linestyle='--', linewidth=2, alpha=0.3,
+           label=f'Equally Extreme')
+
+# SHADE P-VALUE REGIONS
+# Right tail (beyond sample slope)
+x_right = x_pdf[x_pdf >= sample_slope]
+y_right = stats.t.pdf(x_right, df=sample_size-2, loc=null, scale=se_slope)
+plt.fill_between(x_right, 0, y_right, alpha=0.3, color='blue', label='p-Value')
+
+# Left tail (beyond negative sample slope)
+x_left = x_pdf[x_pdf <= -sample_slope]
+y_left = stats.t.pdf(x_left, df=sample_size-2, loc=null, scale=se_slope)
+plt.fill_between(x_left, 0, y_left, alpha=0.3, color='blue')
+
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.xlim(-0.025,0.025)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> a small p-value is evidence against the null hypothesis ($\beta_1 = 0$)*
+
+. . .
+
+*> p-value: the 'surprisingness' of our sample*
+
+. . .
+
+*> the probability of seeing our sample by chance (if there is no relationship)*
+
+---
+
+## Exercise 4.1 | 
+<p class="subheader">Does wait time change throughout the day?</p>
+
+---
+
+## GLM: predictions
+<p class="subheader">What wait time should we expect at noon?</p>
+
+---
+
+## Exercise 4.1 | 
+<p class="subheader">What wait time should we expect at noon?</p>
+
+---
+
+## GLM: interpretation
+<p class="subheader">How much longer will we wait in one hour from now?</p>
+
+---
+
+## Exercise 4.1 | 
+<p class="subheader">How much longer will we wait in one hour from now?</p>
+
+---
+
+## The General Linear Model
+<p class="subheader">GLM performs a t-test on all model coefficients.</p>
+
+. . .
+
+**Univariate** *(Part 3)*: $y = \beta_0 + \epsilon$
+
+. . .
+
+- Equivalent to a one-sample t-test
+- Tests whether $\beta_0 = \mu_0$ (default null)
+
+. . .
+
+**Numerical Predictor**: $y = \beta_0 + \beta_1 x + \epsilon$
+
+. . .
+
+- $x$ is a numerical variable (like age, income, temperature, etc.)
+- Tests both intercept ($\beta_0 = 0$) and slope ($\beta_1 = 0$)
+- Null hypothesis on slope: no relationship between x and y ($\beta_1 = 0$)
+
+
+---
+
+## The General Linear Model
+<p class="subheader">GLM uses the idea of a t-test with any coefficient.</p>
+
+**Categorical Predictor** *(next time)*: $y = \beta_0 + \beta_1 x + \epsilon$
+
+. . .
+
+- $x$ is a categorical variable (like age, income, temperature, etc.)
+- Equivalent to a two-sample t-test (when $x$ is binary)
+
+. . .
+
+**Multivariate GLM** *(Part 5)*:
+
+. . .
+
+- Adds more predictor variables: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon$
+- Each coefficient has its own t-test against the null that it equals zero
+
+---
+
+## Economic Applications
+<p class="subheader">GLM is the workhorse statistical tool in empirical economics.</p>
+
+. . .
+
+**Labor Economics:** *relationship between education and wages.*
+
+$$\text{wage} = \beta_0 + \beta_1 \text{education} + \varepsilon$$
+
+. . .
+
+**Policy Analysis:** *relationship between minimum wages and employment.*
+
+$$\text{employment} = \beta_0 + \beta_1 \text{minimum_wage} + \varepsilon$$
+
+. . .
+
+**Political Economy:** *relationship between neighbor's party and voter turnout*
+
+$$\text{voted} = \beta_0 + \beta_1 \text{neighborhood_politics} + \varepsilon$$
+
+---
+
+## Bivariate GLM: Numerical Predictors 
+<p class="subheader">Summary</p>
+
+. . .
+
+**GLM Framework:** 
+
+- *T-tests and regression are part of the same very flexible framework.*
+
+. . .
+
+**Numerical Predictors:** 
+
+- *Bivariate GLM extends the t-test by allowing continuous predictors.*
+
+. . .
+
+**Same Distribution:** 
+
+- *Coefficient estimates follow t-distributions centered on the true population values.*
+
+. . .
+
+**Same Interpretation:** 
+
+- *The p-values have the same interpretation: probability of seeing results this extreme if the null is true.*
+
+---
+
+## Looking Forward
+<p class="subheader">Extending the GLM framework</p>
+
+. . .
+
+**Next Up:**
+
+- Part 4.2 | Bad Models
+- Part 4.3 | Categorical Predictors
+- Part 4.4 | Timeseries
+- Part 4.5 | Causality
+
+. . .
+
+**Later:**
+
+- Part 5.1 | Numerical Controls
+- Part 5.2 | Categorical Controls
+- Part 5.3 | Interactions
+- Part 5.4 | Model Selection
+
+. . .
+
+*> all built on the same statistical foundation*

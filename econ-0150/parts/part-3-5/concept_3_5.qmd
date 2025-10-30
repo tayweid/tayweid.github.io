@@ -7,7 +7,7 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader">The economist's data analysis pipeline.</p>
+<p class="subheader">The economist's data analysis stillset.</p>
 
 <br> 
 

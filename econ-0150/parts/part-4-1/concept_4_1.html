@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_3_5_files/libs/clipboard/clipboard.min.js"></script>
-<script src="concept_3_5_files/libs/quarto-html/tabby.min.js"></script>
-<script src="concept_3_5_files/libs/quarto-html/popper.min.js"></script>
-<script src="concept_3_5_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="concept_3_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="concept_3_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="concept_3_5_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_4_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_4_1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_4_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_4_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_4_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_4_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_4_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>concept_3_5</title>
+  <title>concept_4_1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="concept_3_5_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="concept_3_5_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_4_1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_4_1_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -28,12 +28,12 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="concept_3_5_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_4_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="concept_3_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="concept_3_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="concept_3_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="concept_3_5_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_4_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_4_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_4_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_4_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -133,291 +133,339 @@
 The economist’s data analysis stillset.
 </p>
 <p><br></p>
-<h3 id="part-3.5-the-simplest-linear-model"><em>Part 3.5 | The Simplest Linear Model</em></h3>
+<h3 id="part-4.1-numerical-predictors"><em>Part 4.1 | Numerical Predictors</em></h3>
 </section>
-<section id="general-linear-model-glm" class="slide level2">
-<h2>General Linear Model (GLM)</h2>
+<section id="glm-bivariate-data" class="slide level2">
+<h2>GLM: bivariate data</h2>
 <p class="subheader">
-The General Linear Model just draws lines through data points.
+Do people wait longer later in the day?
 </p>
-<p><br><br><br><br></p>
-<p>We just developed the simplest GLM!</p>
-</section>
-<section id="general-linear-model-glm-1" class="slide level2">
-<h2>General Linear Model (GLM)</h2>
-<p class="subheader">
-The General Linear Model just draws lines through data points.
-</p>
-<p><br></p>
-<p><strong>What is a GLM?</strong></p>
-<ul>
-<li>Basically just a line drawn through the data.</li>
-</ul>
-<div class="fragment">
-<p><strong>Linear Model Equation</strong>: <span class="math inline">\(y = mx + b\)</span></p>
-<ul>
-<li>We call <span class="math inline">\(y\)</span> the ‘outcome variable’ (numerical only in this class)</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>We call <span class="math inline">\(x\)</span> the ‘predictor variable’ (categorical or numerical)</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Can have more than one predictor variable: <span class="math inline">\(y = m_1 x_1 + m_2 x_2 + b\)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>If you want to be fancy, write it like: <span class="math inline">\(y_i = mx_i + b + \epsilon_i\)</span></li>
-</ul>
-</div>
-</section>
-<section id="general-linear-model-glm-2" class="slide level2">
-<h2>General Linear Model (GLM)</h2>
-<p class="subheader">
-The General Linear Model just draws lines through data points.
-</p>
-<p><br></p>
-<p><strong>How do we choose the line?</strong></p>
-<ul>
-<li>We minimize the ‘wrongness’ of the model.</li>
-</ul>
-<div class="fragment">
-<p><strong>Mean Sqaured Error</strong>: <span class="math inline">\(MSE = \frac{1}{n} \sum_i \epsilon_i^2\)</span></p>
-<ul>
-<li>This <span class="math inline">\(\epsilon_i\)</span> is just how wrong our model is for data point <span class="math inline">\(i\)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>This is just the average distance between the line and a data point.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>This is very similar to <em>Variance</em>!</li>
-</ul>
-</div>
-</section>
-<section id="glm-intercept-only" class="slide level2">
-<h2>GLM: Intercept-Only</h2>
-<p class="subheader">
-A model with no x ( basically: x=0 ).
-</p>
-<p>The simplest GLM is using only an intercept term: <span class="math inline">\(y=b\)</span>.</p>
-<ul>
-<li>The data <span class="math inline">\(x_i\)</span> is in blue.</li>
-<li>The model <span class="math inline">\(b\)</span> is in red.</li>
-<li>The error <span class="math inline">\(\epsilon_i\)</span> is in green.</li>
-</ul>
-<div class="fragment">
-<div id="1daf3f7b" class="cell" data-execution_count="1">
+<p>Lets compare two models.</p>
+<div id="d68c563b" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; what should we choose for b to minimize the model’s error?</em></p>
-</div>
-</section>
-<section id="glm-line-fitting-and-the-sample-mean" class="slide level2">
-<h2>GLM: Line Fitting and the Sample Mean</h2>
-<p class="subheader">
-The sample mean minimizes the MSE.
-</p>
-<p>We minimize the MSE by choosing <span class="math inline">\(b\)</span> to be equal to the sample mean <span class="math inline">\(\bar{y}\)</span>.</p>
-<p><br></p>
-<div id="398dd3c7" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; when we’ve minimized MSE, it’s equal to the Variance!</em></p>
-</div>
-</section>
-<section id="glm-sampling-error-and-line-fitting" class="slide level2">
-<h2>GLM: Sampling Error and Line Fitting</h2>
-<p class="subheader">
-Like before, if we take many samples, we get slighly different means and slighly different fits.
-</p>
-<div id="f8887fd9" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="567"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="glm-distribution-around-the-sample-mean" class="slide level2">
-<h2>GLM: Distribution Around the Sample Mean</h2>
+<section id="glm-bivariate-data-1" class="slide level2">
+<h2>GLM: bivariate data</h2>
 <p class="subheader">
-The intercept terms follow a t-distribution centered on the true mean.
+Do people wait longer later in the day?
 </p>
-<p><br><br></p>
-<div id="4f783c28" class="cell" data-execution_count="4">
+<p>Lets compare two models.</p>
+<div id="b1a2a929" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; we only observe one sample mean, so we center the distribution there</em></p>
-</div>
-</section>
-<section id="glm-distribution-around-the-sample-mean-1" class="slide level2">
-<h2>GLM: Distribution Around the Sample Mean</h2>
-<p class="subheader">
-We center the sampling distribution on our observed sample mean.
-</p>
-<p><br><br></p>
-<div id="13425521" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; what is the probability of seeing this if the average wait time is 1.8 minutes?</em></p>
-</div>
-</section>
-<section id="glm-finding-p-values" class="slide level2">
-<h2>GLM: Finding p-values</h2>
-<p class="subheader">
-The probability of something as extreme as our sample mean given the null.
-</p>
-<p><br><br></p>
-<div id="74c051b2" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; here we’re centering the t-distribution on the observed sample mean</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; as before, this is mathematically equivalent to centering on the null</em></p>
-</div>
-</section>
-<section id="glm-finding-p-values-1" class="slide level2">
-<h2>GLM: Finding p-values</h2>
-<p class="subheader">
-The probability of something as extreme as our sample mean given the null.
-</p>
-<p><br><br></p>
-<div id="c96dc401" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="373"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="glm-finding-p-values-2" class="slide level2">
-<h2>GLM: Finding p-values</h2>
+<section id="glm-bivariate-data-2" class="slide level2">
+<h2>GLM: bivariate data</h2>
 <p class="subheader">
-The probability of something as extreme as our sample mean given the null.
+Do people wait longer later in the day?
 </p>
-<p><br><br></p>
-<div id="c621cbfb" class="cell" data-execution_count="8">
+<p>Lets compare two models.</p>
+<div id="f682e11c" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="glm-finding-p-values-3" class="slide level2">
-<h2>GLM: Finding p-values</h2>
-<p class="subheader">
-The probability of something as extreme as our sample mean given the null.
-</p>
-<p><br><br></p>
-<div id="7287ad78" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="373"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="glm-intercept-model" class="slide level2">
-<h2>GLM: Intercept Model</h2>
-<p class="subheader">
-A t-test is a linear model with only an intercept: <span class="math inline">\(y = \beta_0 + \epsilon\)</span>
-</p>
-<div id="1494e169" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_3_5_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="373"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; the sample mean <span class="math inline">\(\beta_0\)</span> minimizes the sum of squared errors</em></p>
+<p><em>&gt; allowing a slope (β₁) improves model fit (MSE) when there’s a relationship</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; the p-value tells us the probability of the data given the default null</em></p>
+<p><em>&gt; the intercept is no longer the mean</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; the best guess of the true mean is <span class="math inline">\(\beta_0\)</span></em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; this is the simplest version of an OLS regression model</em></p>
+<p><em>&gt; the slope (β₁) gives the best guess of the relationship between x and y</em></p>
 </div>
 </section>
-<section id="exercise-3.5-difference-in-wait-times" class="slide level2">
-<h2>Exercise 3.5 | Difference in Wait Times</h2>
+<section id="glm-bivariate-data-3" class="slide level2">
+<h2>GLM: bivariate data</h2>
 <p class="subheader">
-Are wait times different in the morning and afternoon?
+Do people wait longer later in the day?
+</p>
+<p>Lets compare two models.</p>
+<div id="c8bed11f" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="373"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; but could this slope be just sampling error?</em></p>
+</section>
+<section id="bivariate-glm-sampling-error" class="slide level2">
+<h2>Bivariate GLM: sampling error</h2>
+<p class="subheader">
+Like before, if we take many samples, we get slighly different slopes and slighly different fits.
+</p>
+<div id="b700f647" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="566"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="bivariate-glm-sampling-distribution-of-slopes" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
+<p class="subheader">
+The slope coefficient follows a normal distribution centered on the population slope.
+</p>
+<div id="aa2a3774" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; the slopes follow a normal distribution around the population relationship!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; this lets us perform a t-test on the slope!</em></p>
+</div>
+</section>
+<section id="bivariate-glm-sampling-distribution-of-slopes-1" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
+<p class="subheader">
+The slope coefficient follows a normal distribution centered on the population slope.
+</p>
+<div id="308fd1a1" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; we don’t know the entire distribution, just our sample slope</em></p>
+</section>
+<section id="bivariate-glm-sampling-distribution-of-slopes-2" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
+<p class="subheader">
+The slope coefficient follows a normal distribution centered on the population slope.
+</p>
+<div id="bf037087" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; center the distribution on our null</em></p>
+<p><em>&gt; check the distance from the sample</em></p>
+</section>
+<section id="bivariate-glm-sampling-distribution-of-slopes-3" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
+<p class="subheader">
+The slope coefficient follows a normal distribution centered on the population slope.
+</p>
+<div id="278eb17b" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; the p-value is the probability of something as far from the null as our sample</em></p>
+</section>
+<section id="bivariate-glm-sampling-distribution-of-slopes-4" class="slide level2">
+<h2>Bivariate GLM: sampling distribution of slopes</h2>
+<p class="subheader">
+The slope coefficient follows a normal distribution centered on the population slope.
+</p>
+<div id="a24def2e" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_1_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; a small p-value is evidence against the null hypothesis (<span class="math inline">\(\beta_1 = 0\)</span>)</em></p>
+<div class="fragment">
+<p><em>&gt; p-value: the ‘surprisingness’ of our sample</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the probability of seeing our sample by chance (if there is no relationship)</em></p>
+</div>
+</section>
+<section id="exercise-4.1" class="slide level2">
+<h2>Exercise 4.1 |</h2>
+<p class="subheader">
+Does wait time change throughout the day?
 </p>
 </section>
-<section id="looking-forward-part-4" class="slide level2">
-<h2>Looking Forward: Part 4</h2>
+<section id="glm-predictions" class="slide level2">
+<h2>GLM: predictions</h2>
 <p class="subheader">
-Bivariate General Linear Model
+What wait time should we expect at noon?
+</p>
+</section>
+<section id="exercise-4.1-1" class="slide level2">
+<h2>Exercise 4.1 |</h2>
+<p class="subheader">
+What wait time should we expect at noon?
+</p>
+</section>
+<section id="glm-interpretation" class="slide level2">
+<h2>GLM: interpretation</h2>
+<p class="subheader">
+How much longer will we wait in one hour from now?
+</p>
+</section>
+<section id="exercise-4.1-2" class="slide level2">
+<h2>Exercise 4.1 |</h2>
+<p class="subheader">
+How much longer will we wait in one hour from now?
+</p>
+</section>
+<section id="the-general-linear-model" class="slide level2">
+<h2>The General Linear Model</h2>
+<p class="subheader">
+GLM performs a t-test on all model coefficients.
 </p>
 <div class="fragment">
-<p><strong>In Part 4 we will explore:</strong></p>
+<p><strong>Univariate</strong> <em>(Part 3)</em>: <span class="math inline">\(y = \beta_0 + \epsilon\)</span></p>
+</div>
+<div class="fragment">
 <ul>
-<li>Part 4.1 | Numerical Predictors</li>
-<li>Part 4.2 | Categorical Predictors</li>
-<li>Part 4.3 | Timeseries Models</li>
-<li>Part 4.4 | Causality</li>
+<li>Equivalent to a one-sample t-test</li>
+<li>Tests whether <span class="math inline">\(\beta_0 = \mu_0\)</span> (default null)</li>
 </ul>
-<p><em>&gt; all built on the same statistical foundation we explored today</em></p>
+</div>
+<div class="fragment">
+<p><strong>Numerical Predictor</strong>: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(x\)</span> is a numerical variable (like age, income, temperature, etc.)</li>
+<li>Tests both intercept (<span class="math inline">\(\beta_0 = 0\)</span>) and slope (<span class="math inline">\(\beta_1 = 0\)</span>)</li>
+<li>Null hypothesis on slope: no relationship between x and y (<span class="math inline">\(\beta_1 = 0\)</span>)</li>
+</ul>
+</div>
+</section>
+<section id="the-general-linear-model-1" class="slide level2">
+<h2>The General Linear Model</h2>
+<p class="subheader">
+GLM uses the idea of a t-test with any coefficient.
+</p>
+<p><strong>Categorical Predictor</strong> <em>(next time)</em>: <span class="math inline">\(y = \beta_0 + \beta_1 x + \epsilon\)</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(x\)</span> is a categorical variable (like age, income, temperature, etc.)</li>
+<li>Equivalent to a two-sample t-test (when <span class="math inline">\(x\)</span> is binary)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Multivariate GLM</strong> <em>(Part 5)</em>:</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Adds more predictor variables: <span class="math inline">\(y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon\)</span></li>
+<li>Each coefficient has its own t-test against the null that it equals zero</li>
+</ul>
+</div>
+</section>
+<section id="economic-applications" class="slide level2">
+<h2>Economic Applications</h2>
+<p class="subheader">
+GLM is the workhorse statistical tool in empirical economics.
+</p>
+<div class="fragment">
+<p><strong>Labor Economics:</strong> <em>relationship between education and wages.</em></p>
+<p><span class="math display">\[\text{wage} = \beta_0 + \beta_1 \text{education} + \varepsilon\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Policy Analysis:</strong> <em>relationship between minimum wages and employment.</em></p>
+<p><span class="math display">\[\text{employment} = \beta_0 + \beta_1 \text{minimum_wage} + \varepsilon\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Political Economy:</strong> <em>relationship between neighbor’s party and voter turnout</em></p>
+<p><span class="math display">\[\text{voted} = \beta_0 + \beta_1 \text{neighborhood_politics} + \varepsilon\]</span></p>
+</div>
+</section>
+<section id="bivariate-glm-numerical-predictors" class="slide level2">
+<h2>Bivariate GLM: Numerical Predictors</h2>
+<p class="subheader">
+Summary
+</p>
+<div class="fragment">
+<p><strong>GLM Framework:</strong></p>
+<ul>
+<li><em>T-tests and regression are part of the same very flexible framework.</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Numerical Predictors:</strong></p>
+<ul>
+<li><em>Bivariate GLM extends the t-test by allowing continuous predictors.</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Same Distribution:</strong></p>
+<ul>
+<li><em>Coefficient estimates follow t-distributions centered on the true population values.</em></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Same Interpretation:</strong></p>
+<ul>
+<li><em>The p-values have the same interpretation: probability of seeing results this extreme if the null is true.</em></li>
+</ul>
+</div>
+</section>
+<section id="looking-forward" class="slide level2">
+<h2>Looking Forward</h2>
+<p class="subheader">
+Extending the GLM framework
+</p>
+<div class="fragment">
+<p><strong>Next Up:</strong></p>
+<ul>
+<li>Part 4.2 | Bad Models</li>
+<li>Part 4.3 | Categorical Predictors</li>
+<li>Part 4.4 | Timeseries</li>
+<li>Part 4.5 | Causality</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Later:</strong></p>
+<ul>
+<li>Part 5.1 | Numerical Controls</li>
+<li>Part 5.2 | Categorical Controls</li>
+<li>Part 5.3 | Interactions</li>
+<li>Part 5.4 | Model Selection</li>
+</ul>
+</div>
+<div class="fragment">
+<p><em>&gt; all built on the same statistical foundation</em></p>
 
 </div>
 </section>
@@ -429,19 +477,19 @@ Bivariate General Linear Model
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="concept_3_5_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="concept_3_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="concept_3_5_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="concept_3_5_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_4_1_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

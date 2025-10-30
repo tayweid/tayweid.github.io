@@ -42,35 +42,42 @@
 <div class="content">
     
     <div class="description">
-        <h1 class="title title-tight">Part 4 | General Linear Model</h1>
+        <h1 class="title title-tight">Part 4 | Bivariate GLM</h1>
         <i class="subtitle-text">// build simple models of relationships //</i> 
 
         <p>
-            Part 4 introduces the workhorse of empirical economics: regression analysis. In Part 3, we used regression with a single predictor to test whether patterns in our data were real or just noise. But economic relationships are rarely so simple. The General Linear Model not only lets us test simple hypotheses, but also lets us handle multiple predictors of different types - continuous, categorical, and their interactions - while maintaining our core tools of visualization and residual analysis. These tools are the foundation for modern science. 
+            Part 4 introduces the workhorse of empirical economics: regression analysis. 
+            In Part 3, we developed the simplest statistical model of samples with unknown population parameters.
+            This model allowed us to test simple hypotheses about the population parameters.
+            But economic relationships are rarely so simple. 
+            The General Linear Model not only lets us test simple hypotheses, but also lets us handle relationships between variables of different types - continuous, categorical, and their interactions - while maintaining our core tools of visualization and residual analysis. 
+            These tools are the foundation of modern science. 
         </p>
     </div>
 
     <!-- Part 4.1 -->
     <div class="carousel-container" id="part-41">
-        <h1 class="subtitle">Part 4.1 ~ Extending the t-Test</h1>
-        <p>The two-sample t-Test is a simple extension of the one-sample t-Test that tests for differences in means.</p>
+        <h1 class="subtitle">Part 4.1 ~ Numerical Predictors</h1>
+        <p>Finding relationships between numerical variables.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="oFZ18YGq0vk">
+                <div class="carousel-card concept-card" data-video-id="">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/oFZ18YGq0vk/maxresdefault.jpg" alt="Video thumbnail">
-                        <div class="play-button">▶</div>
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Concept 4.1 // Extending the t-Test</h3>
-                        <p class="card-description">A simple extension of the t-test</p>
+                        <h3 class="card-title">Concept 4.1 // Numerical Predictors</h3>
+                        <p class="card-description">The slope parameters follow a normal distribution.</p>
                         <div class="card-downloads">
-                            <!--<a href="Slides/Part_4_1.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-1/concept_4_1.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>-->
+                            </a>
+                            <a href="parts/part-4-1/concept_4_1.html" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Interactive
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -80,9 +87,18 @@
                         <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Exercise 4.1 // Interactive t-Test Extensions</h3>
-                        <p class="card-description">Interactive examples extending basic t-tests</p>
+                        <h3 class="card-title">Exercise 4.1 // Numerical Predictors</h3>
+                        <p class="card-description">Relationship between happiness and GDP per capita.</p>
                         <div class="card-downloads">
+                            <a href="https://colab.research.google.com/drive/15sWU-m6XJj47n-W0D1D89199-iKv98wZ?usp=sharing" class="download-link" target="_blank">
+                                <i class="fa fa-external-link"></i> Notebook
+                            </a>
+                            <a href="parts/part-4-1/data/Life_Evaluation_GDP_PerCap.csv" class="download-link" target="_blank">
+                                <i class="fa fa-file-text-o"></i> Happiness/GDP
+                            </a>
+                            <a href="https://www.worldhappiness.report/data-sharing/" class="download-link" target="_blank">
+                                <i class="fa fa-external-link"></i> Happiness Source
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -95,12 +111,12 @@
                         <h3 class="card-title">Homework 4.1</h3>
                         <p class="card-description">Due on Friday at 5PM on Gradescope</p>
                         <div class="card-downloads">
-                            <!--<a href="hw/hw-4-1//HW_4_1.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-1/HW_4_1.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
                             </a>
                             <a href="https://colab.research.google.com/drive/1K5Eyyix6N6tx_GClfPLreNJE83-1eeWP?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
-                            </a>-->
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -114,25 +130,27 @@
 
     <!-- Part 4.2 -->
     <div class="carousel-container" id="part-42">
-        <h1 class="subtitle">Part 4.2 ~ Simple Linear Models</h1>
-        <p>The t-Test is a simple type of linear regression model. Use simple linear regression to build more complex relationships between variables. Interpret coefficients and p-values. Assess model assumptions using residual plots.</p>
+        <h1 class="subtitle">Part 4.2 ~ Model Residuals</h1>
+        <p>Checking the assumptions of the linear regression model using residuals.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="H75oWpLJS3Q">
+                <div class="carousel-card concept-card" data-video-id="">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/H75oWpLJS3Q/maxresdefault.jpg" alt="Video thumbnail">
-                        <div class="play-button">▶</div>
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Concept 4.2 // Simple Linear Models</h3>
-                        <p class="card-description">The workhorse statistical model in science</p>
+                        <h3 class="card-title">Concept 4.2 // Model Residuals</h3>
+                        <p class="card-description">Checking the assumptions of the linear regression model using residuals.</p>
                         <div class="card-downloads">
-                            <!--<a href="Slides/Part_4_2.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-2/concept_4_2.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>-->
+                            </a>
+                            <a href="parts/part-4-2/concept_4_2.html" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Interactive
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -142,9 +160,12 @@
                         <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Exercise 4.2 // Interactive Linear Models</h3>
-                        <p class="card-description">Interactive examples with linear regression</p>
+                        <h3 class="card-title">Exercise 4.2 // Model Residuals</h3>
+                        <p class="card-description">Checking the assumptions of the linear regression model using residuals.</p>
                         <div class="card-downloads">
+                            <a href="https://colab.research.google.com/drive/1pJ58lJ_q-pT73jD6-r0w000000000000?usp=sharing" class="download-link" target="_blank">
+                                <i class="fa fa-external-link"></i> Notebook
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -157,12 +178,12 @@
                         <h3 class="card-title">Homework 4.2</h3>
                         <p class="card-description">Due on Friday at 5PM on Gradescope</p>
                         <div class="card-downloads">
-                            <!--<a href="hw/hw-4-2/HW_4_2.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-2/HW_4_2.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
                             </a>
                             <a href="https://colab.research.google.com/drive/1fZbVKnxyWyh2poepN45ek82TcPOfCRFD?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
-                            </a>-->
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -176,25 +197,27 @@
 
     <!-- Part 4.3 -->
     <div class="carousel-container" id="part-43">
-        <h1 class="subtitle">Part 4.3 ~ Indicator Variables</h1>
-        <p>Use indicator variables to include multiple intercepts by category. Interpret indicator coefficients and p-values.</p>
+        <h1 class="subtitle">Part 4.3 ~ Categorical Predictors</h1>
+        <p>Finding relationships between categorical variables.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="xlHNJavEOb0">
+                <div class="carousel-card concept-card" data-video-id="">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/xlHNJavEOb0/maxresdefault.jpg" alt="Video thumbnail">
-                        <div class="play-button">▶</div>
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Concept 4.3 // Indicator Variables</h3>
-                        <p class="card-description">A binary indicator variable takes the values of 1 and 0.</p>
+                        <h3 class="card-title">Concept 4.3 // Categorical Predictors</h3>
+                        <p class="card-description">Two-sample t-test in disguise.</p>
                         <div class="card-downloads">
-                            <!--<a href="Slides/Part_4_3.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-3/concept_4_3.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>-->
+                            </a>
+                            <a href="parts/part-4-3/concept_4_3.html" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Interactive
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -204,8 +227,8 @@
                         <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Exercise 4.3 // Neighborhood Data Analysis</h3>
-                        <p class="card-description">Using indicator variables with neighborhood datasets</p>
+                        <h3 class="card-title">Exercise 4.3 // Categorical Predictors</h3>
+                        <p class="card-description">Finding relationships between categorical variables.</p>
                         <div class="card-downloads">
                             <!--<a href="https://colab.research.google.com/drive/1giDgonN38SInFtYvMnxRkzWZIrDw7hMx?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
@@ -241,25 +264,27 @@
 
     <!-- Part 4.4 -->
     <div class="carousel-container" id="part-44">
-        <h1 class="subtitle">Part 4.4 ~ Statistical Controls</h1>
-        <p>Build multiple regression models with several predictors. Interpret partial regression coefficients and p-values.</p>
+        <h1 class="subtitle">Part 4.4 ~ Timeseries Models</h1>
+        <p>Building models of relationships between variables over time.</p>
         <div class="carousel">
             <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                 <span>‹</span>
             </button>
             <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="sODqMR9CTjw">
+                <div class="carousel-card concept-card" data-video-id="">
                     <div class="card-video">
-                        <img src="https://img.youtube.com/vi/sODqMR9CTjw/maxresdefault.jpg" alt="Video thumbnail">
-                        <div class="play-button">▶</div>
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Concept 4.4 // Statistical Controls</h3>
-                        <p class="card-description">Use multivariate regressions for statistical controls</p>
+                        <h3 class="card-title">Concept 4.4 // Timeseries Models</h3>
+                        <p class="card-description">Be very careful. Check for autocorrelation.</p>
                         <div class="card-downloads">
-                            <!--<a href="Slides/Part_4_4.pdf" class="download-link" target="_blank">
+                            <a href="parts/part-4-4/concept_4_4.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>-->
+                            </a>
+                            <a href="parts/part-4-4/concept_4_4.html" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Interactive
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -269,8 +294,8 @@
                         <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Exercise 4.4 // USA Census Data</h3>
-                        <p class="card-description">Statistical controls with real census data</p>
+                        <h3 class="card-title">Exercise 4.4 // Timeseries Models</h3>
+                        <p class="card-description">Building models of relationships between variables through time.</p>
                         <div class="card-downloads">
                             <!--<a href="https://colab.research.google.com/drive/1KOLW_fKQS1EpF1gh-bMw7GVw9pwj_OI9?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
@@ -287,7 +312,74 @@
                         <h3 class="card-title">Homework 4.4</h3>
                         <p class="card-description">Due on Friday at 5PM on Gradescope</p>
                         <div class="card-downloads">
-                            <!--<a href="hw/hw-4-4/HW_4_4.pdf" class="download-link" target="_blank">
+                            <!--<a href="parts/part-4-4/HW_4_4.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Assignment
+                            </a>
+                            <a href="https://colab.research.google.com/drive/1iAbTGs5Xm7xz8ka-e6UCKxhqjMM1wzq8?usp=sharing" class="download-link" target="_blank">
+                                <i class="fa fa-external-link"></i> Notebook
+                            </a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                <span>›</span>
+            </button>
+            <div class="carousel-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Part 4.5 -->
+    <div class="carousel-container" id="part-45">
+        <h1 class="subtitle">Part 4.5 ~ Causal Inference</h1>
+        <p>Causal inference using the General Linear Model.</p>
+        <div class="carousel">
+            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                <span>‹</span>
+            </button>
+            <div class="carousel-track">
+                <div class="carousel-card concept-card" data-video-id="">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Concept 4.5 // Causal Inference</h3>
+                        <p class="card-description">Causal inference using the General Linear Model.</p>
+                        <div class="card-downloads">
+                            <a href="parts/part-4-5/concept_4_5.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Slides
+                            </a>
+                            <a href="parts/part-4-5/concept_4_5.html" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Interactive
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-card exercise-card">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Exercise 4.5 // </h3>
+                        <p class="card-description"></p>
+                        <div class="card-downloads">
+                            <!--<a href="https://colab.research.google.com/drive/1iAbTGs5Xm7xz8ka-e6UCKxhqjMM1wzq8?usp=sharing" class="download-link" target="_blank">
+                                <i class="fa fa-external-link"></i> Notebook
+                            </a>-->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="carousel-card homework-card">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Homework 4.5</h3>
+                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
+                        <div class="card-downloads">
+                            <!--<a href="parts/part-4-5/HW_4_5.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
                             </a>
                             <a href="https://colab.research.google.com/drive/1iAbTGs5Xm7xz8ka-e6UCKxhqjMM1wzq8?usp=sharing" class="download-link" target="_blank">
@@ -308,7 +400,7 @@
     <div id="miniexams">
         <h1 class="subtitle">MiniExams</h1>
         <p>
-            Part 4 MiniExam tests your understanding of linear modeling concepts including t-tests, regression analysis, indicator variables, and statistical controls.
+            Part 4 MiniExam tests your understanding of linear modeling concepts including numerical predictors, model assumptions, categorical predictors, timeseries models, and causal inference.
         </p>
 
         <div class="carousel-card standalone-card" data-video-id="dpZ5buc6H_Q homework-card">
@@ -316,7 +408,7 @@
                 <img src="" alt="Video thumbnail" class="placeholder-bg">
             </div>
             <div class="card-content">
-                <h3 class="card-title">MiniExam 06</h3>
+                <h3 class="card-title">MiniExam 4</h3>
                 <p class="card-description">Try solving the demo then check against the video.</p>
                         <div class="card-downloads">
                         </div>
@@ -334,10 +426,11 @@
             <ul>
                 <span>Contents</span>
                 <hr class="nav-hr-right">
-                <li class="nav-item-no-margin"><a href="#part-41" class="active nav-link-right">4.1 | t-Test</a></li>
-                <li><a href="#part-42" class="nav-link-right">4.2 | Linear Models</a></li>
-                <li><a href="#part-43" class="nav-link-right">4.3 | Dummy Variables</a></li>
-                <li><a href="#part-44" class="nav-link-right">4.4 | Controls</a></li>
+                <li class="nav-item-no-margin"><a href="#part-41" class="active nav-link-right">4.1 | Numerical</a></li>
+                <li><a href="#part-42" class="nav-link-right">4.2 | Residuals</a></li>
+                <li><a href="#part-43" class="nav-link-right">4.3 | Categorical</a></li>
+                <li><a href="#part-44" class="nav-link-right">4.4 | Timeseries</a></li>
+                <li><a href="#part-45" class="nav-link-right">4.5 | Causality</a></li>
                 <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
             </ul>
         </nav>
