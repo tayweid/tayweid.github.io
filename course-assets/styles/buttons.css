@@ -13,6 +13,36 @@
     color: var(--main-cool-blue);
 }
 
+/* Non-interactive button-look element */
+.btn-static {
+    cursor: default;
+}
+
+.btn.btn-static:hover {
+    color: var(--main-fg-color);
+}
+
+/* Simple utility */
+.text-center {
+    text-align: center;
+}
+
+/* HR flanking a centered text/link */
+.hr-with-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hr-with-text .section-divider {
+    flex: 1;
+    margin: 0; /* align to text baseline */
+}
+
+.hr-with-text .btn {
+    white-space: nowrap;
+}
+
 /* =============================================================================
    CONTENT BOXES
    ============================================================================= */
@@ -102,6 +132,10 @@
 .course-links {
     font-size: 1.1em;
     margin: 0.5em 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4em 0.8em;
 }
 
 .course-links .separator {

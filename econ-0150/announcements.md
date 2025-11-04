@@ -125,3 +125,15 @@ As always sleep well and see you tomorrow!
 Warmly,
 
 Taylor
+
+#### Economic Data Analysis: Week 11
+
+Hi folks,
+
+I hope you all had a nice weekend. Can't wait to show you Maxine's costume!
+
+On Tuesday we're starting by discussing final projects for the class, then starting Part 4.2, developing the tools to evaluate the whether our statistical models are well set up. On Thursday we're starting Part 4.3, extending the GLM to use categorical predictors.
+
+Yours,
+
+Taylor
