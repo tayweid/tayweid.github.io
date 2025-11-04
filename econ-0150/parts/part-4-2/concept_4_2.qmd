@@ -1,0 +1,1039 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis skillset.</p>
+
+<br> 
+
+### *Part 4.3 | Model Residuals and Diagnostics*
+
+---
+
+## General Linear Model
+<p class="subheader">... a flexible approach to run many statistical tests.</p>
+
+**The Linear Model**: $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$
+
+. . .
+
+- $\beta_0$ is the intercept (value of $\bar{y}$ when x = 0)
+- $\beta_1$ is the slope (change in y per unit change in x)
+- $\varepsilon_i$ is the error term (random noise around the model)
+
+. . .
+
+**OLS Estimation**: Minimizes $\sum_{i=1}^n \varepsilon_i^2$
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## GLM: Intercept Model
+<p class="subheader">A one-sample t-test is a horizontal line model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2.0, 1.9, 2.1]
+
+# Create the plot
+plt.figure(figsize=(11, 3))
+
+# Plot the data points
+plt.scatter(range(1, n+1), data, alpha=0.7, label='Data Points')
+
+# Plot the horizontal line at the mean
+mean_data = np.mean(data)
+plt.axhline(mean_data, color='r', linestyle='-', linewidth=2, label=f'Mean ($\\beta_0$ = {mean_data:.2f})')
+
+# Add vertical lines for errors
+for i in range(n):
+    plt.plot([i+1, i+1], [data[i], mean_data], 'g--', alpha=0.4)
+
+plt.ylabel('Temperature Difference (°C)', fontsize=16)
+plt.grid(False)
+plt.legend()
+plt.xticks([])
+sns.despine(bottom=True, trim=True)
+
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \varepsilon$$
+
+. . .
+
+*> the intercept $\beta_0$ is the estimated mean temperature*
+
+. . .
+
+*> the p-value is the probability of seeing $\beta_0$ if the null is true*
+
+---
+
+## GLM: Intercept + Slope
+<p class="subheader">A regression is a test of relationships.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
+
+ax2.set_xlabel('Minutes After Opening', fontsize=14)
+ax2.set_ylabel('Wait Time', fontsize=14)
+ax2.legend()
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+$$\text{WaitTime} = \beta_0 + \beta_1 \text{MinutesAfterOpening} + \epsilon$$
+
+. . .
+
+*> the intercept parameter $\beta_0$ is the estimated temperature at 0 on the horizontal*
+
+. . .
+
+*> the slope parameter $\beta_1$ is the estimated change in y for a 1 unit change in x*
+
+. . .
+
+*> the p-value is the probability of seeing parameter ($\beta_0$ or $\beta_1$) if the null is true*
+
+---
+
+## GLM: Intercept + Slope
+<p class="subheader">A regression is a test of relationships.</p>
+
+Do you think the model on the right offers good predictions?
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data (years)
+education = np.concatenate([np.random.randint(10, 13, 50), 
+                           np.random.randint(13, 17, 70),
+                           np.random.randint(17, 22, 30)])
+
+# Generate wage data with more pronounced heteroskedasticity
+base_wage = 20000
+education_effect = 2000
+error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
+wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+
+# Sample data
+np.random.seed(42)
+x = np.linspace(0, 10, 50)
+y_linear = 2 + 0.5 * x + np.random.normal(0, 1, 50)
+y_nonlinear = 2 + 0.5 * x + 0.2 * x**2 + np.random.normal(0, 1, 50)
+
+# Create subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Linear model
+from scipy import stats
+slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_linear)
+y_pred1 = intercept1 + slope1 * x
+residuals1 = y_linear - y_pred1
+
+ax1.scatter(y_pred1, residuals1, alpha=0.7)
+ax1.axhline(y=0, color='r', linestyle='-')
+ax1.set_xlabel('Fitted Values ($\hat{y}$)')
+ax1.set_ylabel('Residuals ($\hat{\\varepsilon}$)')
+
+# Nonlinear model fitted with linear regression
+slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_nonlinear)
+y_pred2 = intercept2 + slope2 * x
+residuals2 = y_nonlinear - y_pred2
+
+ax2.scatter(y_pred2, residuals2, alpha=0.7)
+ax2.axhline(y=0, color='r', linestyle='-')
+ax2.set_xlabel('Fitted Values ($\hat{y}$)')
+
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> no... our model isn't set up correctly to handle the data!*
+
+---
+
+## GLM Assumptions
+<p class="subheader">Our test results are only valid when the model assumptions are valid.</p>
+
+<br>
+
+. . .
+
+1. **Linearity**: The relationship between X and Y is linear
+   
+. . . 
+
+2. **Homoskedasticity**: Equal error variance across all values of X
+
+. . .
+
+3. **Normality**: Errors are normally distributed
+
+. . .
+
+4. **Independence**: Observations are independent from each other
+
+
+---
+
+## GLM Assumptions: why check?
+<p class="subheader">Assumption violations affect our inferences</p>
+
+<br>
+
+**If assumptions are violated:**
+
+- Coefficient estimates may be biased
+- Standard errors may be wrong
+- p-values may be misleading
+- Predictions may be unreliable
+
+. . .
+
+*> to test whether the model is 'specified', we can calculate the residuals and the model predictions*
+
+---
+
+## Model Residuals
+<p class="subheader">... we can directly examine the error of the model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=0.1)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=1)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+<br>
+
+```python
+# Calculate residuals
+residuals = model.resid
+sns.histplot(residuals)
+```
+
+. . .
+
+*> this is $\varepsilon$*
+
+---
+
+## Model Predictions
+<p class="subheader">... we can directly examine the predictions of the model.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Set a seed for reproducibility
+np.random.seed(42)
+
+# Generate wait times dataset
+n = 60
+minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
+wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+
+# Fit regression models
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+mean_wait = np.mean(wait_times)
+
+# Calculate MSE for both models
+mse_mean = np.mean((wait_times - mean_wait)**2)
+mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
+
+# Create a figure with two subplots
+fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
+
+# Plot 2: Linear regression model
+ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=1)
+
+# Add vertical error lines for regression model
+for i in range(0, n, 1):  # Show errors for every 5th point
+    y_pred = intercept + slope * minutes_after_open[i]
+    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
+             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.1)
+
+# Use the same styling as your other plots
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+<br>
+
+. . .
+
+```python
+# Calculate predictions
+predictions = model.predict()
+sns.histplot(predictions)
+```
+. . .
+
+*> this is $\hat{y}$, the model prediction*
+
+---
+
+## Exercise 4.2 | Residual Plot of Happiness and GDP
+<p class="subheader">Is income higher for those more highly educated?</p>
+
+<br><br>
+
+A **Residual Plot** directly visualizes the error for each model estimate.
+
+
+```python
+plt.scatter(predictions, residuals)
+```
+
+---
+
+## Assumption 1: Checking for Linearity
+<p class="subheader">The error term should be unrelated to the fitted value.</p>
+
+Which figure shows linearity?
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data (years)
+education = np.concatenate([np.random.randint(10, 13, 50), 
+                           np.random.randint(13, 17, 70),
+                           np.random.randint(17, 22, 30)])
+
+# Generate wage data with more pronounced heteroskedasticity
+base_wage = 20000
+education_effect = 2000
+error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
+wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+
+# Sample data
+np.random.seed(42)
+x = np.linspace(0, 10, 50)
+y_linear = 2 + 0.5 * x + np.random.normal(0, 1, 50)
+y_nonlinear = 2 + 0.5 * x + 0.2 * x**2 + np.random.normal(0, 1, 50)
+
+# Create subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Linear model
+from scipy import stats
+slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_linear)
+y_pred1 = intercept1 + slope1 * x
+residuals1 = y_linear - y_pred1
+
+ax1.scatter(y_pred1, residuals1, alpha=0.7)
+ax1.axhline(y=0, color='r', linestyle='-')
+ax1.set_xlabel('Fitted Values ($\hat{y}$)')
+ax1.set_ylabel('Residuals ($\hat{\\varepsilon}$)')
+
+# Nonlinear model fitted with linear regression
+slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_nonlinear)
+y_pred2 = intercept2 + slope2 * x
+residuals2 = y_nonlinear - y_pred2
+
+ax2.scatter(y_pred2, residuals2, alpha=0.7)
+ax2.axhline(y=0, color='r', linestyle='-')
+ax2.set_xlabel('Fitted Values ($\hat{y}$)')
+
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> the left figure shows that the model is equally wrong everywhere*
+
+. . .
+
+*> the right figure shows that the model is a good fit at only some values*
+
+---
+
+## Assumption 1: Checking for Linearity
+<p class="subheader">A non-linear relationship will produce non-linear residuals.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import pandas as pd
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate age data
+age = np.random.uniform(18, 65, 150)
+
+# Generate income with a STRONGLY non-linear relationship to age
+# Income follows a pronounced inverted U shape with age
+true_income = 20000 + 4000 * age - 70 * (age-40)**2
+noise = np.random.normal(0, 15000, len(age))
+income = true_income + noise
+
+# Create DataFrame
+data = pd.DataFrame({
+    'age': age,
+    'income': income
+})
+
+# Fit linear model
+X_linear = sm.add_constant(age)
+linear_model = sm.OLS(income, X_linear).fit()
+
+# Fit quadratic model
+age_squared = age**2
+X_quadratic = sm.add_constant(np.column_stack((age, age_squared)))
+quadratic_model = sm.OLS(income, X_quadratic).fit()
+
+# Predictions for plotting
+age_range = np.linspace(18, 65, 100)
+X_linear_pred = sm.add_constant(age_range)
+linear_predictions = linear_model.predict(X_linear_pred)
+
+age_range_squared = age_range**2
+X_quadratic_pred = sm.add_constant(np.column_stack((age_range, age_range_squared)))
+quadratic_predictions = quadratic_model.predict(X_quadratic_pred)
+
+# Create the plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+# Linear regression plot
+ax1.scatter(age, income, alpha=0.6, color='#4C72B0')
+ax1.plot(age_range, linear_predictions, color='red', linewidth=2, 
+         label=f'Linear: R² = {linear_model.rsquared:.2f}')
+ax1.set_title('Linear Regression: Age vs. Income', fontsize=14)
+ax1.set_xlabel('Age (years)', fontsize=12)
+ax1.set_ylabel('Annual Income ($)', fontsize=12)
+ax1.legend()
+
+# Add true curve to highlight the actual relationship
+ax1.plot(age_range, 20000 + 4000 * age_range - 70 * (age_range-40)**2, 
+         color='green', linestyle='--', linewidth=2, label='True relationship')
+ax1.legend()
+
+# Residuals of linear model
+residuals = income - linear_model.predict(X_linear)
+sns.regplot(x=age, y=residuals, lowess=True, scatter_kws={'alpha': 0.4}, 
+            line_kws={'color': 'red'}, ax=ax2)
+ax2.axhline(y=0, color='black', linestyle='--')
+ax2.set_title('Residuals vs. Age (Linear Model)', fontsize=14)
+ax2.set_xlabel('Age (years)', fontsize=12)
+ax2.set_ylabel('Residuals ($)', fontsize=12)
+# Add annotation highlighting the pattern
+ax2.annotate('Clear U-shaped pattern\nin residuals', xy=(40, -40000), xytext=(45, -60000),
+            arrowprops=dict(facecolor='black', shrink=0.05, width=1), fontsize=12)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> linear model misses curvature, leading to systematic errors*
+
+*> check your residuals*
+
+---
+
+## Handling Non-Linear Relationships
+<p class="subheader">Transform variables to become linear</p>
+
+Adding a square term or performing a log transformation can fix the problem.
+
+. . .
+
+<br>
+
+*instead of*
+
+$$\text{income} = \beta_0 + \beta_1 \text{age} + \varepsilon$$
+
+. . .
+
+*we could use*
+
+$$\text{income} = \beta_0 + \beta_1 \text{age} + \beta_2 \text{age}^2 + \varepsilon$$
+
+. . .
+
+It's also common to log transform either the $x$ or $y$ variable. 
+
+---
+
+## Assumption 2: Homoskedasticity
+<p class="subheader">Residuals should be spread out the same everywhere.</p>
+
+Which one of these figures shows homoskedasticity?
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Sample data
+np.random.seed(42)
+x = np.linspace(0, 10, 50)
+
+# Homoskedastic errors
+y_homo = 2 + 0.5 * x + np.random.normal(0, 1, 50)
+
+# Heteroskedastic errors (variance increases with x)
+y_hetero = 2 + 0.5 * x + np.random.normal(0, 0.2 + 0.3 * x, 50)
+
+# Create subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+
+# Homoskedastic model
+slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_homo)
+y_pred1 = intercept1 + slope1 * x
+residuals1 = y_homo - y_pred1
+
+ax1.scatter(y_pred1, residuals1, alpha=0.7)
+ax1.axhline(y=0, color='r', linestyle='-')
+ax1.set_xlabel('Fitted Values ($\hat{y}$)')
+ax1.set_ylabel('Residuals ($\hat{\\varepsilon}$)')
+
+# Heteroskedastic model
+slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_hetero)
+y_pred2 = intercept2 + slope2 * x
+residuals2 = y_hetero - y_pred2
+
+ax2.scatter(y_pred2, residuals2, alpha=0.7)
+ax2.axhline(y=0, color='r', linestyle='-')
+ax2.set_xlabel('Fitted Values ($\hat{y}$)')
+
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> the left figure shows constant variability (homoskedasticity)*
+
+. . .
+
+*> the right figure shows increasing variability (heteroskedasticity)*
+
+. . .
+
+*> residual plots should show that the model is equally wrong everywhere*
+
+---
+
+## Assumption 2: Homoskedasticity
+<p class="subheader">When the spread of residuals changes across values of X</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data (years)
+education = np.concatenate([np.random.randint(10, 13, 50), 
+                           np.random.randint(13, 17, 70),
+                           np.random.randint(17, 22, 30)])
+
+# Generate wage data with more pronounced heteroskedasticity
+base_wage = 20000
+education_effect = 2000
+error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
+wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+
+# Fit regression line
+slope, intercept, r_value, p_value, std_err = stats.linregress(education, wages)
+
+
+# Add regression line
+x_line = np.array([min(education), max(education)])
+y_line = intercept + slope * x_line
+
+# Use the same data from previous slide
+# Calculate residuals
+predictions = intercept + slope * education
+residuals = wages - predictions
+
+# Create figure with two panels
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Left panel: Scatter with regression line and spread highlighted
+ax1.scatter(education, wages, alpha=0.6, color='#4C72B0')
+ax1.plot(x_line, y_line, color='red', linewidth=2)
+
+# Add shaded regions to show increasing spread
+x_regions = [12, 16, 20]
+for i in range(len(x_regions)):
+    x = x_regions[i]
+    y_pred = intercept + slope * x
+    spread = 4 * 2000 * np.sqrt(x) / 3
+    ax1.fill_between([x-0.5, x+0.5], 
+                     [y_pred-spread, y_pred-spread],
+                     [y_pred+spread, y_pred+spread],
+                     color='gray', alpha=0.3)
+    
+ax1.set_title('Education vs. Wages: Increasing Spread', fontsize=14)
+ax1.set_xlabel('Years of Education', fontsize=12)
+ax1.set_ylabel('Annual Wage ($)', fontsize=12)
+
+# Add annotations for different education levels
+ax1.annotate('High school\n(less spread)', xy=(11.5, 60000), fontsize=10)
+ax1.annotate('Bachelor\'s\n(medium spread)', xy=(15.5, 68000), fontsize=10)
+ax1.annotate('PhD\n(more spread)', xy=(19.5, 76000), fontsize=10)
+
+# Right panel: Residuals plot showing heteroskedasticity
+ax2.scatter(education, residuals, alpha=0.6, color='#4C72B0')
+ax2.axhline(y=0, color='red', linestyle='-', linewidth=2)
+
+ax2.set_title('Residuals vs. Education: Heteroskedasticity', fontsize=14)
+ax2.set_xlabel('Years of Education', fontsize=12)
+ax2.set_ylabel('Residuals ($)', fontsize=12)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> notice how the spread of points increases with more education*
+
+. . .
+
+*> PhD wages vary more than high school wages*
+
+---
+
+## Assumption 2: Homoskedasticity
+<p class="subheader">Heteroskedasticity affects how we measure uncertainty in our estimates</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data (years)
+education = np.concatenate([np.random.randint(10, 13, 50), 
+                           np.random.randint(13, 17, 70),
+                           np.random.randint(17, 22, 30)])
+
+# Generate wage data with more pronounced heteroskedasticity
+base_wage = 20000
+education_effect = 2000
+error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
+wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+
+# Use statsmodels for better standard error calculation
+X = sm.add_constant(education)
+model = sm.OLS(wages, X).fit()
+robust_model = sm.OLS(wages, X).fit(cov_type='HC3')  # Robust standard errors
+
+# Get standard errors
+std_err = model.bse[1]  # Standard error for slope
+robust_std_err = robust_model.bse[1]  # Robust standard error for slope
+
+# Parameters for plotting
+x_range = np.linspace(min(education), max(education), 100)
+X_pred = sm.add_constant(x_range)
+y_pred = model.predict(X_pred)
+
+# Calculate confidence intervals
+conf_level = 0.95
+degrees_freedom = len(education) - 2
+t_critical = stats.t.ppf((1 + conf_level) / 2, degrees_freedom)
+
+# Standard confidence interval
+std_ci_width = t_critical * std_err
+std_lower = y_pred - std_ci_width * x_range
+std_upper = y_pred + std_ci_width * x_range
+
+# Robust confidence interval
+robust_ci_width = t_critical * robust_std_err
+robust_lower = y_pred - robust_ci_width * x_range
+robust_upper = y_pred + robust_ci_width * x_range
+
+# Create figure
+plt.figure(figsize=(10, 4))
+plt.scatter(education, wages, alpha=0.6, color='#4C72B0', label='Data points')
+plt.plot(x_range, y_pred, color='red', linewidth=2, label='Regression line')
+
+# Add regular confidence interval
+plt.fill_between(x_range, std_lower, std_upper, color='red', alpha=0.2, 
+                label=f'Standard CI (±{std_err:.0f})')
+
+# Add robust confidence interval
+plt.fill_between(x_range, robust_lower, robust_upper, color='green', alpha=0.2,
+                label=f'Robust CI (±{robust_std_err:.0f})')
+
+plt.title('Impact of Heteroskedasticity on Confidence Intervals', fontsize=14)
+plt.xlabel('Years of Education', fontsize=12)
+plt.ylabel('Annual Wage ($)', fontsize=12)
+plt.legend()
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> standard methods assume constant spread (homoskedasticity)*
+
+. . .
+
+*> like using the wrong ruler to measure uncertainty*
+
+. . .
+
+*> with heteroskedasticity, we need robust standard errors*
+
+. . .
+
+*> these adjust for the changing spread in our data*
+
+---
+
+## Handling Heteroskedasticity
+<p class="subheader">Robust standard errors give more accurate measures of uncertainty</p>
+
+```python
+# Fit the model with robust standard errors (HC3: heteroskedastic-constant)
+robust_model = smf.ols('wages ~ education', data=df).fit(cov_type='HC3')
+```
+
+. . .
+
+*> robust standard errors give more accurate confidence intervals*
+
+. . .
+
+*> and more reliable hypothesis tests*
+
+. . .
+
+*> especially important when heteroskedasticity is pronounced*
+
+
+---
+
+## Assumption 3: Normality
+<p class="subheader">Residuals should be normally distributed</p>
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+# Sample data
+np.random.seed(42)
+n = 1000
+# Normal errors
+normal_residuals = np.random.normal(0, 1, n)
+# Skewed errors
+skewed_residuals = stats.skewnorm.rvs(5, size=n)
+skewed_residuals = skewed_residuals - skewed_residuals.mean()  # Center at 0
+
+# Create subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+
+# Normal histogram with curve
+sns.histplot(normal_residuals, kde=True, ax=ax1)
+ax1.set_xlabel('Residuals ($\hat{\\varepsilon}$)')
+ax1.set_yticks([])
+ax1.set_ylabel('')
+
+# Skewed histogram with curve
+sns.histplot(skewed_residuals, kde=True, ax=ax2)
+ax2.set_xlabel('Residuals ($\hat{\\varepsilon}$)')
+ax2.set_yticks([])
+ax2.set_ylabel('')
+
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+```
+
+. . .
+
+*> left shows a nice bell shape (roughly normally distributed)*
+
+. . .
+
+*> right shows a skewed distribution (not normally distributed)*
+
+. . .
+
+*> by the CLT we can still use regression without this if the sample is large*
+
+---
+
+## Assumption 4: Indepedence
+<p class="subheader">Observations are independent from each other</p>
+
+<br><br>
+
+We'll return to this assumption in **Part 4.4 | Timeseries**.
+
+
+---
+
+## Looking Forward
+<p class="subheader">Extending the GLM framework</p>
+
+. . .
+
+**Next Up:**
+
+- Part 4.3 | Categorical Predictors
+- Part 4.4 | Timeseries
+- Part 4.5 | Causality
+
+. . .
+
+**Later:**
+
+- Part 5.1 | Numerical Controls
+- Part 5.2 | Categorical Controls
+- Part 5.3 | Interactions
+- Part 5.4 | Model Selection
+
+. . .
+
+*> all built on the same statistical foundation*

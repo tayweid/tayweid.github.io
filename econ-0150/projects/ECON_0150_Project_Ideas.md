@@ -1,6 +1,10 @@
 ## ECON 0150 | Final Project Ideas
 
-### Proposal 1: The Relationship between Unemployment Benefits on Job Recovery Rates
+These are just some examples. Use them as a starting point. Make them your own.
+
+
+
+#### Proposal 1: The Relationship between Unemployment Benefits on Job Recovery Rates
 
 **Research Question:** How are changes in unemployment benefits related to the rate of job recovery in the U.S.?
 
@@ -19,7 +23,9 @@
 3. **Insights:** 
    - Discuss the potential trade-offs between providing financial security and incentivizing job-seeking behavior.
 
-### Proposal 2: Gender Wage Gap Trends in Tech Industries
+
+
+#### Proposal 2: Gender Wage Gap Trends in Tech Industries
 
 **Research Question:** What factors are related to the gender wage gap in the technology sector, and how has it evolved over time?
 
@@ -42,7 +48,9 @@
 - Suggest potential policy recommendations to address the wage gap.
 - Highlight limitations, such as the role of negotiation practices or job responsibilities.
 
-### Proposal 3: The Effect of Minimum Wage Increases on Inflation
+
+
+#### Proposal 3: The Effect of Minimum Wage Increases on Inflation
 
 **Research Question:** Do state-level increases in the minimum wage contribute to higher inflation rates?
 
@@ -65,7 +73,9 @@
 
    - Discuss implications for policymakers, especially concerning balancing wage growth and economic stability.
 
-### Proposal 4: Voter Turnout Analysis Across States
+
+
+#### Proposal 4: Voter Turnout Analysis Across States
 
 **Research Question:** What factors were most strongly correlated with voter turnout across states in the 2024 U.S. presi- dential election?
 
@@ -84,7 +94,7 @@
 
 
 
-### Proposal 5: Analysis of Vote Share by Party
+#### Proposal 5: Analysis of Vote Share by Party
 
 **Research Question:** How did economic conditions influence vote shares for the two major parties in the 2024 election?
 
@@ -103,7 +113,7 @@
 
 
 
-### Proposal 6: Impact of Voting Methods on Election Outcomes
+#### Proposal 6: Impact of Voting Methods on Election Outcomes
 
 **Research Question:** Did the availability of early voting or mail-in ballots relate to the outcome of the 2024 presidential election?
 

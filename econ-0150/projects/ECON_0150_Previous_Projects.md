@@ -1,4 +1,6 @@
-# ECON 0150 | Student Projects
+## ECON 0150 | Student Projects
+
+These are some examples of excellent work from past semesters. Feel free to use them as a guide. But you will need to make them your own. 
 
 ## The Championship Effect
 
