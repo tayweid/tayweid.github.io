@@ -54,3 +54,15 @@
 - Well we'd get a very strange result. Zero GDP is outside of the domain of the model: no data lives here. So the model has nothing to say here. If we force it to say something, it will say something strange.
 - Exercise 4.1 | 
 - GLM isn't always correct: we need some things to be true for the model to not give us biased results.
+
+
+
+#### 4.2 | OLS Assumptions
+
+when visualizing linearity, we often use a residual plot which uses residuals on the vertical and predicted value on the horizontal. since we're later going to deal with more complicated models, we can't just use the horizontal axis. we need one variable that captures the whole model, which conveniently can be the predicted output. 
+
+the same idea holds for homoskedasticity. we can think of it in the context of the X variable as the predictor, but when we build more complex models, we actually want to use the predicted values because it scales. we can't visualize more complicated models on one axis.
+
+#### 4.3 | Categorical Predictor
+
+I want to change the exercise to be more interesting.

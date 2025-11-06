@@ -216,28 +216,17 @@ The economist’s data analysis skillset.
 <div class="fragment">
 <p><strong>OLS Estimation</strong>: Minimizes <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span></p>
 </div>
-<div class="fragment">
-<div id="a11e1950" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
 </section>
 <section id="glm-intercept-model" class="slide level2">
 <h2>GLM: Intercept Model</h2>
 <p class="subheader">
 A one-sample t-test is a horizontal line model.
 </p>
-<div id="8cdb49d6" class="cell" data-execution_count="2">
+<div id="1c7c120e" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
 </figure>
 </div>
 </div>
@@ -255,11 +244,11 @@ A one-sample t-test is a horizontal line model.
 <p class="subheader">
 A regression is a test of relationships.
 </p>
-<div id="504f2f78" class="cell" data-execution_count="3">
+<div id="abf071fd" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="279"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="279"></p>
 </figure>
 </div>
 </div>
@@ -278,20 +267,19 @@ A regression is a test of relationships.
 <section id="glm-intercept-slope-1" class="slide level2">
 <h2>GLM: Intercept + Slope</h2>
 <p class="subheader">
-A regression is a test of relationships.
+Which model do you think offers better predictions?
 </p>
-<p>Do you think the model on the right offers good predictions?</p>
-<div id="dd434559" class="cell" data-execution_count="4">
+<div id="28697936" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; no… our model isn’t set up correctly to handle the data!</em></p>
+<p><em>&gt; our model will offer inaccurate predictions if some assumptions aren’t met</em></p>
 </div>
 </section>
 <section id="glm-assumptions" class="slide level2">
@@ -343,11 +331,11 @@ Assumption violations affect our inferences
 <p class="subheader">
 … we can directly examine the error of the model.
 </p>
-<div id="d61dd07e" class="cell" data-execution_count="5">
+<div id="ab2699f7" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
 </figure>
 </div>
 </div>
@@ -367,11 +355,11 @@ Assumption violations affect our inferences
 <p class="subheader">
 … we can directly examine the predictions of the model.
 </p>
-<div id="bffbf397" class="cell" data-execution_count="6">
+<div id="959fc1b8" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
 </figure>
 </div>
 </div>
@@ -389,23 +377,22 @@ Assumption violations affect our inferences
 <section id="exercise-4.2-residual-plot-of-happiness-and-gdp" class="slide level2">
 <h2>Exercise 4.2 | Residual Plot of Happiness and GDP</h2>
 <p class="subheader">
-Is income higher for those more highly educated?
+A <strong>Residual Plot</strong> directly visualizes the error for each model estimate.
 </p>
 <p><br><br></p>
-<p>A <strong>Residual Plot</strong> directly visualizes the error for each model estimate.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>plt.scatter(predictions, residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Residual Plot: predictions against residuals</span></span>
+<span id="cb3-2"><a href=""></a>plt.scatter(predictions, residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="assumption-1-checking-for-linearity" class="slide level2">
 <h2>Assumption 1: Checking for Linearity</h2>
 <p class="subheader">
 The error term should be unrelated to the fitted value.
 </p>
-<p>Which figure shows linearity?</p>
-<div id="12d16c44" class="cell" data-execution_count="7">
+<div id="21fba63b" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
 </figure>
 </div>
 </div>
@@ -422,18 +409,17 @@ The error term should be unrelated to the fitted value.
 <p class="subheader">
 A non-linear relationship will produce non-linear residuals.
 </p>
-<div id="d926d91a" class="cell" data-execution_count="8">
+<div id="ffc93b63" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="375"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
 <p><em>&gt; linear model misses curvature, leading to systematic errors</em></p>
-<p><em>&gt; check your residuals</em></p>
 </div>
 </section>
 <section id="handling-non-linear-relationships" class="slide level2">
@@ -461,11 +447,11 @@ Transform variables to become linear
 Residuals should be spread out the same everywhere.
 </p>
 <p>Which one of these figures shows homoskedasticity?</p>
-<div id="af0f5584" class="cell" data-execution_count="9">
+<div id="94a90983" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
 </figure>
 </div>
 </div>
@@ -483,49 +469,22 @@ Residuals should be spread out the same everywhere.
 <section id="assumption-2-homoskedasticity-1" class="slide level2">
 <h2>Assumption 2: Homoskedasticity</h2>
 <p class="subheader">
-When the spread of residuals changes across values of X
+The spread of residuals should not change across values of X.
 </p>
-<div id="378e96c3" class="cell" data-execution_count="10">
+<div id="9cc32894" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="471"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1142" height="471"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; notice how the spread of points increases with more education</em></p>
+<p><em>&gt; the spread of points increases as education increases</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; PhD wages vary more than high school wages</em></p>
-</div>
-</section>
-<section id="assumption-2-homoskedasticity-2" class="slide level2">
-<h2>Assumption 2: Homoskedasticity</h2>
-<p class="subheader">
-Heteroskedasticity affects how we measure uncertainty in our estimates
-</p>
-<div id="dae4f50e" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; standard methods assume constant spread (homoskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; like using the wrong ruler to measure uncertainty</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; with heteroskedasticity, we need robust standard errors</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; these adjust for the changing spread in our data</em></p>
 </div>
 </section>
 <section id="handling-heteroskedasticity" class="slide level2">
@@ -533,40 +492,31 @@ Heteroskedasticity affects how we measure uncertainty in our estimates
 <p class="subheader">
 Robust standard errors give more accurate measures of uncertainty
 </p>
+<p><br><br></p>
+<p>Robust Standard Errors adjust for the changing spread in our data.</p>
+<div class="fragment">
+<p>Use robust standard errors to give more accurate hypothesis tests.</p>
+</div>
+<div class="fragment">
+<p><br><br></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Fit the model with robust standard errors (HC3: heteroskedastic-constant)</span></span>
 <span id="cb4-2"><a href=""></a>robust_model <span class="op">=</span> smf.ols(<span class="st">'wages ~ education'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; robust standard errors give more accurate confidence intervals</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; and more reliable hypothesis tests</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; especially important when heteroskedasticity is pronounced</em></p>
 </div>
 </section>
 <section id="assumption-3-normality" class="slide level2">
 <h2>Assumption 3: Normality</h2>
 <p class="subheader">
-Residuals should be normally distributed
+Residuals should be normally distributed.
 </p>
-<div id="586b4514" class="cell" data-execution_count="12">
+<p>By the CLT we can still use GLM without this <em>so long as</em> the sample is large.</p>
+<div id="602ef1ae" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-13-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
 </figure>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p><em>&gt; left shows a nice bell shape (roughly normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; right shows a skewed distribution (not normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; by the CLT we can still use regression without this if the sample is large</em></p>
 </div>
 </section>
 <section id="assumption-4-indepedence" class="slide level2">
@@ -575,7 +525,7 @@ Residuals should be normally distributed
 Observations are independent from each other
 </p>
 <p><br><br></p>
-<p>We’ll return to this assumption in <strong>Part 4.4 | Timeseries</strong>.</p>
+<p>We’ll return to this assumption in <strong><em>Part 4.4 | Timeseries</em></strong>.</p>
 </section>
 <section id="looking-forward" class="slide level2">
 <h2>Looking Forward</h2>

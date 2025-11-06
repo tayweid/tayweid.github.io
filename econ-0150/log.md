@@ -85,3 +85,21 @@ use this for visualization by category https://youtu.be/ZUeWXNK-9yA?si=LEYkZq8h0
 economist charts https://www.youtube.com/watch?v=cGGkAGBre3A&t=0s
 
 more on fixing slides https://youtu.be/zZ4dmIMlHvI?si=zlwtZDPEseH9prup
+
+#### June 9 Meeting Notes
+
+\- my outline
+
+\- what worked, what didn't: structure, miniexams, slides, examples, coding, homework
+
+\- what Im changing: idea, example, practice, practice
+
+\- goals: make a broadly teachable / copyable curriculum, modifiable content for instructors, systematic examples and assessments
+
+\- Bukky's plan
+
+\- coding?
+
+\- use SPRING 25 materials?
+
+\- build examples?

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_4_3_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_4_3_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_4_3_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_4_3_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_4_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_4_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_4_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_4_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_4_3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_4_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_4_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_4_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_4_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_4_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_4_3</title>
+  <title>concept_4_3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_4_3_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_4_3_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_4_3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_4_3_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -27,13 +27,78 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_4_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_4_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_4_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_4_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_4_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_4_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_4_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_4_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_4_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_4_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -130,10 +195,10 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader">
-The economist’s data analysis pipeline.
+The economist’s data analysis workflow.
 </p>
 <p><br></p>
-<h3 id="part-4.3-two-sample-tests-regression-assumptions"><em>Part 4.3 | Two Sample Tests &amp; Regression Assumptions</em></h3>
+<h3 id="part-4.3-categorical-predictors"><em>Part 4.3 | Categorical Predictors</em></h3>
 </section>
 <section id="general-linear-model" class="slide level2">
 <h2>General Linear Model</h2>
@@ -151,28 +216,17 @@ The economist’s data analysis pipeline.
 <div class="fragment">
 <p><strong>OLS Estimation</strong>: Minimizes <span class="math inline">\(\sum_{i=1}^n \varepsilon_i^2\)</span></p>
 </div>
-<div class="fragment">
-<div id="4ea3c24a" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="one-sample-t-test" class="slide level2">
-<h2>One-Sample T-Test</h2>
+<section id="glm-intercept-model" class="slide level2">
+<h2>GLM: Intercept Model</h2>
 <p class="subheader">
 A one-sample t-test is a horizontal line model.
 </p>
-<div id="ad169be2" class="cell" data-execution_count="2">
+<div id="d44b6027" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1045" height="278"></p>
 </figure>
 </div>
 </div>
@@ -185,16 +239,16 @@ A one-sample t-test is a horizontal line model.
 <p><em>&gt; the p-value is the probability of seeing <span class="math inline">\(\beta_0\)</span> if the null is true</em></p>
 </div>
 </section>
-<section id="relationships-between-variables" class="slide level2">
-<h2>Relationships Between Variables</h2>
+<section id="glm-intercept-slope" class="slide level2">
+<h2>GLM: Intercept + Slope</h2>
 <p class="subheader">
-A test of relationships is a slope model.
+A regression is a test of relationships.
 </p>
-<div id="2237f1ba" class="cell" data-execution_count="3">
+<div id="536310e1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="279"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="279"></p>
 </figure>
 </div>
 </div>
@@ -210,136 +264,180 @@ A test of relationships is a slope model.
 <p><em>&gt; the p-value is the probability of seeing parameter (<span class="math inline">\(\beta_0\)</span> or <span class="math inline">\(\beta_1\)</span>) if the null is true</em></p>
 </div>
 </section>
-<section id="new-setting-two-samples" class="slide level2">
-<h2>New Setting: Two Samples</h2>
+<section id="glm-city-greenspace-and-temperature" class="slide level2">
+<h2>GLM: City Greenspace and Temperature</h2>
 <p class="subheader">
-Is temperature lower with more green space?
+Q. Is temperature lower in neighborhoods with more green space?
 </p>
-<div id="bcf0634f" class="cell" data-execution_count="4">
+<div id="10bf9495" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="fragment">
+<p><em>Q. Does temperature change as we move out on the horizontal axis?</em></p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
 </div>
 <div class="fragment">
-<p><em>&gt; how would we interpret <span class="math inline">\(\beta_0\)</span> here?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the average temperature at <span class="math inline">\(x=0\)</span>, which is Low Green Space locations</em></p>
+<p><em>&gt; the GLM performs a t-test on <span class="math inline">\(\beta_1\)</span>, whether the difference is significant</em></p>
 </div>
 </section>
-<section id="new-setting-two-samples-1" class="slide level2">
-<h2>New Setting: Two Samples</h2>
+<section id="glm-city-greenspace-and-temperature-1" class="slide level2">
+<h2>GLM: City Greenspace and Temperature</h2>
 <p class="subheader">
-Is temperature lower with more green space?
+Q. Does temperature change as we move out on the horizontal axis?
 </p>
-<div id="02aa1743" class="cell" data-execution_count="5">
+<div id="60dc3ad0" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
-<div class="fragment">
-<p><em>&gt; how would we interpret <span class="math inline">\(\beta_1\)</span> here?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; one unit increase in <span class="math inline">\(x\)</span>, which puts us in High Green Space</em></p>
-</div>
-</section>
-<section id="new-setting-two-samples-2" class="slide level2">
-<h2>New Setting: Two Samples</h2>
-<p class="subheader">
-Is temperature lower with more green space?
-</p>
-<div id="ade60202" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="374"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
 <div class="fragment">
-<p><em>&gt; <span class="math inline">\(\beta_0\)</span> is the mean temperature in low green space cities (22.03°C)</em></p>
+<p>How would we interpret <span class="math inline">\(\beta_0\)</span> here?</p>
 </div>
 <div class="fragment">
-<p><em>&gt; <span class="math inline">\(\beta_1\)</span> is the temperature difference in high green space cities (-3.02°C)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the t-test on <span class="math inline">\(\beta_1\)</span> tests if this difference is significant</em></p>
+<p><em>&gt; <span class="math inline">\(\beta_0\)</span> is the mean temperature in (<span class="math inline">\(x=0\)</span>) low green space cities (22.03°C)</em></p>
 </div>
 </section>
-<section id="example-neighborhood-income-and-pollution" class="slide level2">
-<h2>Example: Neighborhood Income and Pollution</h2>
+<section id="glm-city-greenspace-and-temperature-2" class="slide level2">
+<h2>GLM: City Greenspace and Temperature</h2>
+<p class="subheader">
+Q. Does temperature change as we move out on the horizontal axis?
+</p>
+<div id="9ecffe70" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
+<div class="fragment">
+<p>How would we interpret <span class="math inline">\(\beta_1\)</span> here?</p>
+</div>
+<div class="fragment">
+<p><em>&gt; Cities with Green Space (x=1) have a temperature that is lower by <span class="math inline">\(\beta_1\)</span></em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; ie. a one unit increase in <span class="math inline">\(x\)</span> changes temperature by <span class="math inline">\(\beta_1\)</span></em></p>
+</div>
+</section>
+<section id="glm-city-greenspace-and-temperature-3" class="slide level2">
+<h2>GLM: City Greenspace and Temperature</h2>
+<p class="subheader">
+Q. Does temperature change as we move out on the horizontal axis?
+</p>
+<div id="ac7ec40f" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; p-value on <span class="math inline">\(\beta_1\)</span>: probability of a slope as extreme as <span class="math inline">\(\beta_1\)</span> under the null dist</em></p>
+</div>
+</section>
+<section id="exercise-neighborhood-income-and-pollution" class="slide level2">
+<h2>Exercise: Neighborhood Income and Pollution</h2>
 <p class="subheader">
 Do low-income neighborhoods face higher pollution levels?
 </p>
 <p><strong>Step 1: Summarize the data</strong></p>
 <div class="fragment">
-<div id="0e66a609" class="cell" data-execution_count="7">
+<p><br></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Visualize Binary Predictor</span></span>
+<span id="cb1-2"><a href=""></a>sns.scatterplot(data, x<span class="op">=</span><span class="st">'low_income'</span>, y<span class="op">=</span><span class="st">'pollution'</span>)</span>
+<span id="cb1-3"><a href=""></a>plt.xticks([<span class="dv">0</span>,<span class="dv">1</span>], labels<span class="op">=</span>[<span class="st">'No'</span>, <span class="st">'Yes'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div id="4a8b4c1d" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-8-output-1.png" width="1047" height="374"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-8-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="exercise-neighborhood-income-and-pollution-1" class="slide level2">
+<h2>Exercise: Neighborhood Income and Pollution</h2>
+<p class="subheader">
+Do low-income neighborhoods face higher pollution levels?
+</p>
 <p><strong>Step 2: Build a model</strong></p>
-</div>
 <div class="fragment">
 <p><span class="math display">\[Pollution = \beta_0 + \beta_1 \cdot LowIncome + \varepsilon\]</span></p>
 </div>
 </section>
-<section id="example-neighborhood-income-and-pollution-1" class="slide level2">
-<h2>Example: Neighborhood Income and Pollution</h2>
+<section id="exercise-neighborhood-income-and-pollution-2" class="slide level2">
+<h2>Exercise: Neighborhood Income and Pollution</h2>
 <p class="subheader">
 Do low-income neighborhoods face higher pollution levels?
 </p>
 <p><strong>Step 3: Estimate the model</strong></p>
 <div class="fragment">
-<div id="34b0d623" class="cell" data-execution_count="8">
+<div id="d7f8ef8d" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-9-output-1.png" width="1047" height="374"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-9-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Model: y = b + mx</span></span>
+<span id="cb2-2"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'pollution ~ low_income'</span>, data).fit() <span class="co"># Intercept is included by default</span></span>
+<span id="cb2-3"><a href=""></a><span class="bu">print</span>(model.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
 <ul>
-<li><p><span class="math inline">\(\beta_0\)</span> = Mean pollution in high-income areas (24.8)</p></li>
-<li><p><span class="math inline">\(\beta_1\)</span> = Additional pollution in low-income areas (+15.0)</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span> = Mean pollution in high-income areas (23.9)</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> = Additional pollution in low-income areas (15.9)</p></li>
 </ul>
 </div>
 </section>
-<section id="example-neighborhood-income-and-pollution-2" class="slide level2">
-<h2>Example: Neighborhood Income and Pollution</h2>
+<section id="exercise-neighborhood-income-and-pollution-3" class="slide level2">
+<h2>Exercise: Neighborhood Income and Pollution</h2>
 <p class="subheader">
 Do low-income neighborhoods face higher pollution levels?
 </p>
-<p><strong>Step 4: Interpret and communicate the findings</strong></p>
-<div id="de9d3251" class="cell" data-execution_count="9">
+<p><strong>Step 4: Check the residuals</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>sns.scatterplot(x<span class="op">=</span>model.predict(), y<span class="op">=</span>model.resid, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-2"><a href=""></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb3-3"><a href=""></a>plt.xlabel(<span class="st">'Fitted Values'</span>)</span>
+<span id="cb3-4"><a href=""></a>plt.ylabel(<span class="st">'Residuals'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-neighborhood-income-and-pollution-4" class="slide level2">
+<h2>Exercise: Neighborhood Income and Pollution</h2>
+<p class="subheader">
+Do low-income neighborhoods face higher pollution levels?
+</p>
+<p><strong>Step 5: Interpret and communicate the findings</strong></p>
+<div id="995733c7" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_4_3_files/figure-revealjs/cell-10-output-1.png" width="1047" height="374"></p>
+<p><img data-src="concept_4_3_files/figure-revealjs/cell-10-output-1.png" width="1047" height="374"></p>
 </figure>
 </div>
 </div>
@@ -348,10 +446,10 @@ Do low-income neighborhoods face higher pollution levels?
 <p><em>&gt; A significant positive <span class="math inline">\(\beta_1\)</span> suggests environmental quality differences between neighborhoods</em></p>
 </div>
 </section>
-<section id="key-takeaways" class="slide level2">
-<h2>Key Takeaways</h2>
+<section id="glm-summary-so-far" class="slide level2">
+<h2>GLM: Summary <em>(so far)</em></h2>
 <p class="subheader">
-Regression provides a unified framework for statistical testing
+GLM’s unified framework for testing statistical models
 </p>
 <div class="fragment">
 <p><strong>One-Sample T-Test</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with only an intercept</p>
@@ -382,19 +480,19 @@ Regression provides a unified framework for statistical testing
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_4_3_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_4_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_4_3_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_4_3_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_4_3_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
