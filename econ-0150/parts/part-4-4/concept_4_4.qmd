@@ -1,0 +1,1179 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis workflow.</p>
+
+<br> 
+
+### *Part 4.4 | The Problem of Timeseries*
+
+---
+
+## Timeseries Analysis 
+<p class="subheader">We often want to model relationships through time.</p>
+
+
+```{python}
+# Visualization of serial correlation in a time series
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from statsmodels.graphics.tsaplots import plot_acf
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation (as before)
+n = 100
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 0.02 * time
+
+# Create 2x1 subplot figure
+fig, axs = plt.subplots(1, 1, figsize=(11, 4))
+
+# Plot the time series
+axs.plot(time, series, color='blue', linewidth=2)
+axs.scatter(time, series, alpha=0.5, color='blue')
+axs.set_xlabel('Time (t)')
+axs.set_ylabel('Y', rotation=0)
+axs.spines['top'].set_visible(False)
+axs.spines['right'].set_visible(False)
+axs.set_yticks([-3,0,3])
+
+sns.despine(trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+Data related in time has a special problem: 
+
+. . .
+
+- Observations are related to their past values (autocorrelation).
+
+. . .
+
+- This violates **Assumption 4: Independence**.
+
+---
+
+## Timeseries Analysis: Autocorrelation
+<p class="subheader">We can check whether values in timeseries are related to their own past values.</p>
+
+. . .
+
+A **Lag Plot** shows the value today ($t$) against the value yesterday ($t-1$).
+
+. . .
+
+```{python}
+# Visualization of autocorrelation in a time series
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+from statsmodels.nonparametric.smoothers_lowess import lowess
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation
+n = 120
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.9  # Increased correlation parameter for more visible effect
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 0.02 * time
+
+# Create lagged version for scatterplot
+current = series[1:]
+lagged = series[:-1]
+
+# Create figure
+fig, ax = plt.subplots(figsize=(6, 6))
+
+# Plot scatter with alpha for density visualization
+ax.scatter(lagged, current, alpha=0.6, color='blue', s=80)
+
+# Add identity line (perfect correlation)
+min_val = min(np.min(current), np.min(lagged))
+max_val = max(np.max(current), np.max(lagged))
+ax.plot([min_val, max_val], [min_val, max_val], color='gray', linestyle='--', alpha=0.4, 
+         label='Identity Line (Y$_{t}$ = Y$_{t-1}$)')
+
+# Calculate correlation coefficient
+corr = np.corrcoef(lagged, current)[0, 1]
+
+# Add annotation
+ax.text(0.05, 0.95, f"Correlation: {corr:.3f}", transform=ax.transAxes, 
+        fontsize=14, va='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+
+# Styling
+ax.set_xlabel('Y$_{t-1}$ (Previous Value)', fontsize=14)
+ax.set_ylabel('Y$_t$ (Current Value)', fontsize=14)
+
+sns.despine(trim=True)
+
+plt.show()
+```
+
+. . .
+
+*> autocorrelation tells us today's value depends on yesterday's value*
+
+---
+
+## Timeseries: Model 1 (Levels)
+<p class="subheader">The standard approach has problems with time series.</p>
+
+$$\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon$$
+
+```{python}
+# Visualization of serial correlation in a time series
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from statsmodels.graphics.tsaplots import plot_acf
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation (as before)
+n = 100
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 0.02 * time
+
+# Create 2x1 subplot figure
+fig, axs = plt.subplots(1, 1, figsize=(11, 4))
+
+# Plot the time series
+axs.plot(time, series, color='blue', linewidth=2)
+axs.scatter(time, series, alpha=0.5, color='blue')
+axs.set_xlabel('Time (t)')
+axs.set_ylabel('Y', rotation=0)
+axs.spines['top'].set_visible(False)
+axs.spines['right'].set_visible(False)
+axs.set_yticks([-3,0,3])
+
+# Fit regression line
+X = sm.add_constant(time)
+model = sm.OLS(series, X).fit()
+pred_y = model.predict(X)
+
+# Sort for plotting
+axs.plot(time, pred_y[time], color='red', linewidth=2)
+
+# Styling
+axs.set_xlabel('Time (t)')
+axs.set_ylabel('Y', rotation=0)
+axs.spines['top'].set_visible(False)
+axs.spines['right'].set_visible(False)
+axs.set_yticks([-3,0,3])
+
+sns.despine(trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 1 (Levels)
+<p class="subheader">The standard approach has problems with time series.</p>
+
+$$\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon$$
+
+```{python}
+# Visualization of serial correlation in a time series
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+from statsmodels.graphics.tsaplots import plot_acf
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation (as before)
+n = 100
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 0.02 * time
+
+# Create 2x1 subplot figure
+fig, axs = plt.subplots(1, 1, figsize=(11, 4))
+
+# Plot the time series
+axs.plot(time, series, color='blue', linewidth=2)
+axs.scatter(time, series, alpha=0.5, color='blue')
+
+# Fit regression line
+X = sm.add_constant(time)
+model = sm.OLS(series, X).fit()
+pred_y = model.predict(X)
+
+# Plot regression line
+axs.plot(time, pred_y, color='red', linewidth=2)
+
+# Add error lines from model to data points
+for t_i, (actual, predicted) in enumerate(zip(series, pred_y)):
+    axs.plot([t_i, t_i], [predicted, actual], color='green', 
+             linestyle='--', alpha=0.5, linewidth=1)
+
+# Styling
+axs.set_xlabel('Time (t)')
+axs.set_ylabel('Y', rotation=0)
+axs.spines['top'].set_visible(False)
+axs.spines['right'].set_visible(False)
+axs.set_yticks([-3,0,3])
+
+sns.despine(trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> you can see it will often be wrong in the same direction repeatedly*
+
+---
+
+## Timeseries: Model 1 (Levels)
+<p class="subheader">GLM's confidence levels requres that the error terms are independent.</p>
+
+$$\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon$$
+
+```{python}
+# Visualization of autocorrelated residuals (only levels regression)
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate time
+n = 100
+time = np.arange(n)
+
+# Generate two correlated time series with serial correlation
+# First series (x)
+x_random = np.random.normal(0, 1, n)
+x_series = np.zeros(n)
+x_series[0] = x_random[0]
+for t in range(1, n):
+    x_series[t] = 0.8 * x_series[t-1] + x_random[t]
+x_series += 0.03 * time  # Add trend
+
+# Second series (y) - correlated with x but with its own dynamics
+y_random = np.random.normal(0, 1, n)
+y_series = np.zeros(n)
+y_series[0] = y_random[0]
+for t in range(1, n):
+    y_series[t] = 0.75 * y_series[t-1] + 0.4 * x_series[t] + y_random[t]
+y_series += 0.02 * time  # Add trend
+
+# Fit time series regression (levels)
+X = sm.add_constant(x_series)
+model = sm.OLS(y_series, X).fit()
+residuals = model.resid
+
+# Create figure - only first row (2 plots)
+fig, axs = plt.subplots(1, 2, figsize=(11, 4.5))
+
+# Plot residuals from levels regression over time
+axs[0].scatter(time, residuals, alpha=0.5, color='green')
+axs[0].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[0].set_title('Residual Plot', fontsize=16)
+axs[0].set_xlabel('Time')
+axs[0].set_ylabel('Residual')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot current residual vs lagged residual for levels regression
+lagged_resid = residuals[:-1]
+current_resid = residuals[1:]
+axs[1].scatter(lagged_resid, current_resid, alpha=0.5, color='green')
+
+# Add regression line to show autocorrelation
+X_resid = sm.add_constant(lagged_resid)
+resid_model = sm.OLS(current_resid, X_resid).fit()
+pred_resid = resid_model.predict(X_resid)
+sort_idx = np.argsort(lagged_resid)
+axs[1].plot(lagged_resid[sort_idx], pred_resid[sort_idx], color='red', linestyle='--', linewidth=2)
+
+# Calculate autocorrelation coefficient
+autocorr = np.corrcoef(lagged_resid, current_resid)[0, 1]
+axs[1].set_title(f'Residual Lag Plot: Autocorrelation = {autocorr:.2f}', fontsize=16)
+axs[1].set_xlabel('Residual(t-1)')
+axs[1].set_ylabel('Residual(t)')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[1].axvline(x=0, color='black', linestyle='--', alpha=0.3)
+
+sns.despine(ax=axs[0], trim=True)
+sns.despine(ax=axs[1], trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> this 'levels' model shows strong patterns in residuals (autocorrelation)*
+
+---
+
+## Exercise 4.4 | Model 1 (Levels)
+<p class="subheader">Examine a levels model of the relationship between GDP and unemployment.</p>
+
+$$\text{Y} = \beta_0 + \beta_1 \times \text{t} + \varepsilon$$
+
+. . .
+
+```python
+# 1. Fit the levels model
+model1 = smf.ols('gdp ~ unemployment', data=data).fit()
+print(model1.summary().tables[1])
+```
+
+---
+
+## Timeseries: Model 2 (First Differences)
+<p class="subheader">We can fix some issues of autocorrelation by looking at changes instead of levels.</p>
+
+. . .
+
+$$\Delta \text{Y}_t = \text{Y}_t - \text{Y}_{t-1}$$
+
+. . .
+
+```{python}
+# Visualization of first differences transformation
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation
+n = 101 # Increase to 101 for 100 differences
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 0.02 * time
+
+# Calculate first differences
+diff_series = np.diff(series)
+diff_time = time[1:]
+
+# Create figure
+fig, axs = plt.subplots(2, 1, figsize=(11, 4))
+
+# Plot the original time series
+axs[0].plot(time, series, color='blue', linewidth=2, label='Original (no relationship)')
+axs[0].scatter(time, series, alpha=0.5, color='blue')
+axs[0].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[0].set_ylabel('$Y_t$', rotation=0, fontsize=14, ha='right')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+axs[0].set_yticks([-4,0,4])
+axs[0].legend()
+sns.despine(ax=axs[0], trim=True)
+
+# Plot the differenced series
+axs[1].plot(diff_time, diff_series, color='green', linewidth=2, label='First Differences (no relationship)')
+axs[1].scatter(diff_time, diff_series, alpha=0.5, color='green')
+axs[1].axhline(y=0, color='red', linestyle='--', alpha=1)
+axs[1].set_xlabel('Time (t)', fontsize=12)
+axs[1].set_ylabel('$\\Delta Y_t$', rotation=0, fontsize=14, ha='right')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].set_yticks([-4,0,4])
+axs[1].legend()
+sns.despine(ax=axs[1], trim=True)
+
+# Align y-axes for better comparison
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> differences (correctly in this case) shows no relationship*
+
+. . .
+
+*> what would first differences look like if there WAS a positive trend?*
+
+---
+
+## Timeseries: Model 2 (First Differences)
+<p class="subheader">What would first differences look like if there WAS a positive trend?</p>
+
+```{python}
+# Visualization of first differences transformation
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation
+n = 101 # Increase to 101 for 100 differences
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 2 * time
+
+# Calculate first differences
+diff_series = np.diff(series)
+diff_time = time[1:]
+
+# Create figure
+fig, axs = plt.subplots(2, 1, figsize=(11, 5))
+
+# Plot the original time series
+axs[0].plot(time, series, color='blue', linewidth=2, label='Original')
+axs[0].scatter(time, series, alpha=0.5, color='blue')
+axs[0].set_ylabel('$Y_t$', rotation=0, fontsize=14, ha='right')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+axs[0].set_yticks([])
+axs[0].legend()
+sns.despine(ax=axs[0], trim=True)
+
+# Plot the differenced series
+axs[1].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[1].set_xlabel('Time (t)', fontsize=12)
+axs[1].set_ylabel('$\\Delta Y_t$', rotation=0, fontsize=14, ha='right')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].set_yticks([-4,0,4])
+sns.despine(ax=axs[1], trim=True)
+
+# Align y-axes for better comparison
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 2 (First Differences)
+<p class="subheader">What would first differences look like if there WAS a positive trend?</p>
+
+```{python}
+# Visualization of first differences transformation
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate a time series with substantial serial correlation
+n = 101 # Increase to 101 for 100 differences
+time = np.arange(n)
+random_component = np.random.normal(0, 1, n)
+
+# Create a serially correlated series with AR(1) process
+rho = 0.8  # serial correlation parameter
+series = np.zeros(n)
+series[0] = random_component[0]
+for t in range(1, n):
+    series[t] = rho * series[t-1] + random_component[t]
+
+# Add a slight upward trend
+series += 2 * time
+
+# Calculate first differences
+diff_series = np.diff(series)
+diff_time = time[1:]
+
+# Create figure
+fig, axs = plt.subplots(2, 1, figsize=(11, 5))
+
+# Plot the original time series
+axs[0].plot(time, series, color='blue', linewidth=2, label='Original')
+axs[0].scatter(time, series, alpha=0.5, color='blue')
+axs[0].set_ylabel('$Y_t$', rotation=0, fontsize=14, ha='right')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+axs[0].set_yticks([])
+axs[0].legend()
+sns.despine(ax=axs[0], trim=True)
+
+# Plot the differenced series
+axs[1].plot(diff_time, diff_series, color='green', linewidth=2, label='First Differences')
+axs[1].scatter(diff_time, diff_series, alpha=0.5, color='green')
+axs[1].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+
+# Fit and plot regression line for differenced series
+X = sm.add_constant(diff_time)
+model = sm.OLS(diff_series, X).fit()
+pred_y = model.predict(X)
+axs[1].plot(diff_time, pred_y, color='red', linestyle='--', linewidth=2, label='Regression Line')
+
+axs[1].set_xlabel('Time (t)', fontsize=12)
+axs[1].set_ylabel('$\\Delta Y_t$', rotation=0, fontsize=14, ha='right')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].set_yticks([-4,0,4])
+axs[1].legend()
+sns.despine(ax=axs[1], trim=True)
+
+# Align y-axes for better comparison
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the vertical intercept $\beta_0$ is positive!*
+
+. . .
+
+*> the slope coefficient $\beta_1$ is zero!*
+
+---
+
+## Timeseries: Model 2 (First Differences)
+<p class="subheader">First differences reduces but does not eliminate the problem of autocorrelation.</p>
+
+```{python}
+# Visualization of differenced regression residuals (only second row)
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate time
+n = 100
+time = np.arange(n)
+
+# Generate two correlated time series with serial correlation
+# First series (x)
+x_random = np.random.normal(0, 1, n)
+x_series = np.zeros(n)
+x_series[0] = x_random[0]
+for t in range(1, n):
+    x_series[t] = 0.8 * x_series[t-1] + x_random[t]
+x_series += 0.03 * time  # Add trend
+
+# Second series (y) - correlated with x but with its own dynamics
+y_random = np.random.normal(0, 1, n)
+y_series = np.zeros(n)
+y_series[0] = y_random[0]
+for t in range(1, n):
+    y_series[t] = 0.75 * y_series[t-1] + 0.4 * x_series[t] + y_random[t]
+y_series += 0.02 * time  # Add trend
+
+# Fit differenced time series regression
+diff_x = np.diff(x_series)
+diff_y = np.diff(y_series)
+X_diff = sm.add_constant(diff_x)
+model_diff = sm.OLS(diff_y, X_diff).fit()
+residuals_diff = model_diff.resid
+
+# Create figure - only second row (2 plots)
+fig, axs = plt.subplots(1, 2, figsize=(11, 5))
+
+# Plot residuals from differenced regression over time
+axs[0].scatter(time[1:], residuals_diff, alpha=0.7, color='green')
+axs[0].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[0].set_title('Residual Plot', fontsize=16)
+axs[0].set_xlabel('Time')
+axs[0].set_ylabel('Residual')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot current residual vs lagged residual for differenced regression
+lagged_resid_diff = residuals_diff[:-1]
+current_resid_diff = residuals_diff[1:]
+axs[1].scatter(lagged_resid_diff, current_resid_diff, alpha=0.7, color='green')
+
+# Add regression line to show autocorrelation
+X_resid_diff = sm.add_constant(lagged_resid_diff)
+resid_diff_model = sm.OLS(current_resid_diff, X_resid_diff).fit()
+pred_resid_diff = resid_diff_model.predict(X_resid_diff)
+diff_sort_idx = np.argsort(lagged_resid_diff)
+axs[1].plot(lagged_resid_diff[diff_sort_idx], pred_resid_diff[diff_sort_idx], color='black', linewidth=2)
+
+# Calculate autocorrelation coefficient
+autocorr_diff = np.corrcoef(lagged_resid_diff, current_resid_diff)[0, 1]
+axs[1].set_title(f'Residual Lag Plot \n (Autocorrelation = {autocorr_diff:.2f})', fontsize=16)
+axs[1].set_xlabel('Residual(t-1)')
+axs[1].set_ylabel('Residual(t)')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].axhline(y=0, color='black', linestyle='--', alpha=0.3)
+axs[1].axvline(x=0, color='black', linestyle='--', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Exercise 4.4 | Model 2
+<p class="subheader">Examine a first difference model of the relationship between GDP and unemployment.</p>
+
+. . .
+
+<br>
+
+```python
+# Step 1. Create first differences variables
+data['gdp_diff'] = data['gdp'].diff()
+data['unemployment_diff'] = data['unemployment'].diff() 
+```
+
+. . .
+
+<br>
+
+```python
+# Step 2. Drop the first row which has NaN due to differencing
+data = data.dropna()
+```
+
+. . .
+
+<br>
+
+```python
+# Step 3. Fit the differences model
+model2 = smf.ols('gdp_diff ~ unemployment_diff', data=data).fit()
+print(model2.summary().tables[1])
+```
+
+---
+
+## Timeseries: Model 3 (Double First Differences)
+<p class="subheader">Sometimes we want to measure how two variables move together.</p>
+
+. . .
+
+$$\Delta \text{Y}_t = \beta_0 + \beta_1 \times \Delta \text{X}_t + \varepsilon_t$$
+
+. . .
+
+```{python}
+# Visualization of differences regression
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate time
+n = 101
+time = np.arange(n)
+
+# Generate two correlated time series with serial correlation (as before)
+# First series (x)
+x_random = np.random.normal(0, 1, n)
+x_series = np.zeros(n)
+x_series[0] = x_random[0]
+for t in range(1, n):
+    x_series[t] = 0.8 * x_series[t-1] + x_random[t]
+x_series += 0.03 * time  # Add trend
+
+# Second series (y) - correlated with x but with its own dynamics
+y_random = np.random.normal(0, 1, n)
+y_series = np.zeros(n)
+y_series[0] = y_random[0]
+for t in range(1, n):
+    y_series[t] = 0.75 * y_series[t-1] + 0.4 * x_series[t] + y_random[t]
+y_series += 0.02 * time  # Add trend
+
+# Calculate first differences
+diff_x = np.diff(x_series)
+diff_y = np.diff(y_series)
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Plot the differenced data
+ax.scatter(diff_x, diff_y, alpha=0.5, color='green')
+
+# Fit regression line to differenced data
+X_diff = sm.add_constant(diff_x)
+model_diff = sm.OLS(diff_y, X_diff).fit()
+pred_y_diff = model_diff.predict(X_diff)
+
+# Sort for plotting
+sort_idx = np.argsort(diff_x)
+ax.plot(diff_x[sort_idx], pred_y_diff[sort_idx], color='red', linewidth=2)
+
+# Styling
+ax.set_xlabel('ΔX', fontsize=12)
+ax.set_ylabel('ΔY', fontsize=12)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_yticks([-4,0,4])
+ax.set_xticks([-4,0,4])
+ax.axhline(y=0, color='black', linestyle='--', alpha=0.3)
+ax.axvline(x=0, color='black', linestyle='--', alpha=0.3)
+
+sns.despine(ax=ax, offset=10, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 3 (Double First Differences)
+<p class="subheader">Relating changes in X to changes in Y.</p>
+
+$$\Delta \text{Y}_t = \beta_0 + \beta_1 \times \Delta \text{X}_t + \varepsilon_t$$
+
+<br>
+
+- Further reduces serial correlation in the error terms.
+
+. . .
+
+- $\beta_0$ captures time trend in $Y$
+
+. . .
+
+- $\beta_1$ captures the short-term relationship between variables.
+
+. . .
+
+- Clear interpretation: how do changes in X relate to changes in Y?
+
+---
+
+## Exercise 4.4 | Model 3
+<p class="subheader">Examine a double first difference model of the relationship between GDP and unemployment.</p>
+
+<br>
+
+. . .
+
+```python
+# Step 1. Create first differences variables
+data['gdp_diff'] = df['gdp'].diff()
+df['unemployment_diff'] = df['unemployment'].diff()
+```
+
+<br>
+
+. . .
+
+```python
+# Drop the first row which has NaN due to differencing
+data = data.dropna()
+```
+
+. . .
+
+<br>
+
+```python
+# Fit the differences model
+model3 = smf.ols('gdp_diff ~ unemployment_diff', data=data).fit()
+print(model3.summary())
+```
+
+<br>
+
+. . .
+
+*> $\beta_1$ now represents the short-term relationship between changes in X and Y*
+
+---
+
+## Timeseries: Model 4 (Growth Rates)
+<p class="subheader">Proportional changes provide interpretable coefficients: </p>
+
+. . .
+
+$$g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}$$
+
+. . .
+
+```{python}
+# Visualization of growth rates vs first differences
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate exponential growth time series 
+n = 101
+time = np.arange(n)
+growth_rate = 0.05  # 5% growth rate
+
+# Create base series with exponential growth and some noise
+base_level = 100  # starting value
+exp_series = base_level * (1 + growth_rate) ** time
+exp_series *= (1 + 0.03 * np.random.normal(0, 1, n))
+
+# Calculate first differences
+abs_diff = np.diff(exp_series)
+pct_change = np.diff(exp_series) / exp_series[:-1]  # percentage change
+
+# Create figure
+fig, axs = plt.subplots(3, 1, figsize=(11, 5))
+
+# Plot the original time series
+axs[0].plot(time, exp_series, color='blue', linewidth=2)
+axs[0].scatter(time, exp_series, alpha=0.5, color='blue')
+axs[0].set_title('Original Series (Exponential Growth)', fontsize=14)
+axs[0].set_ylabel('$Y$')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot the absolute differences
+axs[1].set_title('First Differences', fontsize=14)
+axs[1].set_ylabel('$\\Delta Y$')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+
+# Plot the percentage changes
+axs[2].set_title('Percentage Changes', fontsize=14)
+axs[2].set_xlabel('Time', fontsize=12)
+axs[2].set_ylabel('%$\\Delta Y$')
+axs[2].spines['top'].set_visible(False)
+axs[2].spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 4 (Growth Rates)
+<p class="subheader">Proportional changes provide interpretable coefficients: </p>
+
+$$g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}$$
+
+```{python}
+# Visualization of growth rates vs first differences
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate exponential growth time series 
+n = 101
+time = np.arange(n)
+growth_rate = 0.05  # 5% growth rate
+
+# Create base series with exponential growth and some noise
+base_level = 100  # starting value
+exp_series = base_level * (1 + growth_rate) ** time
+exp_series *= (1 + 0.03 * np.random.normal(0, 1, n))
+
+# Calculate first differences
+abs_diff = np.diff(exp_series)
+pct_change = np.diff(exp_series) / exp_series[:-1]  # percentage change
+
+# Create figure
+fig, axs = plt.subplots(3, 1, figsize=(11, 5))
+
+# Plot the original time series
+axs[0].plot(time, exp_series, color='blue', linewidth=2)
+axs[0].scatter(time, exp_series, alpha=0.5, color='blue')
+axs[0].set_title('Original Series (Exponential Growth)', fontsize=14)
+axs[0].set_ylabel('$Y$')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot the absolute differences
+axs[1].plot(time[1:], abs_diff, color='green', linewidth=2)
+axs[1].scatter(time[1:], abs_diff, alpha=0.5, color='green')
+axs[1].set_title('Absolute Differences (Growing Over Time)', fontsize=14)
+axs[1].set_ylabel('$\\Delta Y$')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+
+# Plot the percentage changes
+axs[2].set_title('Percentage Changes', fontsize=14)
+axs[2].set_xlabel('Time', fontsize=12)
+axs[2].set_ylabel('%$\\Delta Y$')
+axs[2].spines['top'].set_visible(False)
+axs[2].spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 4 (Growth Rates)
+<p class="subheader">Proportional changes provide interpretable coefficients: </p>
+
+$$g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}$$
+
+```{python}
+# Visualization of growth rates vs first differences
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate exponential growth time series 
+n = 101
+time = np.arange(n)
+growth_rate = 0.05  # 5% growth rate
+
+# Create base series with exponential growth and some noise
+base_level = 100  # starting value
+exp_series = base_level * (1 + growth_rate) ** time
+exp_series *= (1 + 0.03 * np.random.normal(0, 1, n))
+
+# Calculate first differences
+abs_diff = np.diff(exp_series)
+pct_change = np.diff(exp_series) / exp_series[:-1]  # percentage change
+
+# Create figure
+fig, axs = plt.subplots(3, 1, figsize=(11, 5))
+
+# Plot the original time series
+axs[0].plot(time, exp_series, color='blue', linewidth=2)
+axs[0].scatter(time, exp_series, alpha=0.5, color='blue')
+axs[0].set_title('Original Series (Exponential Growth)', fontsize=14)
+axs[0].set_ylabel('$Y$')
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot the absolute differences
+axs[1].plot(time[1:], abs_diff, color='green', linewidth=2)
+axs[1].scatter(time[1:], abs_diff, alpha=0.5, color='green')
+axs[1].set_title('Absolute Differences (Growing Over Time)', fontsize=14)
+axs[1].set_ylabel('$\\Delta Y$')
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+
+# Plot the percentage changes
+axs[2].plot(time[1:], pct_change, color='red', linewidth=2)
+axs[2].scatter(time[1:], pct_change, alpha=0.5, color='red')
+axs[2].axhline(y=growth_rate, color='black', linestyle='--', alpha=0.6, label='True Growth Rate (5%)')
+axs[2].set_title('Percentage Changes (Stationary Around Growth Rate)', fontsize=14)
+axs[2].set_xlabel('Time', fontsize=12)
+axs[2].set_ylabel('%$\\Delta Y$')
+axs[2].spines['top'].set_visible(False)
+axs[2].spines['right'].set_visible(False)
+axs[2].legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 4 (Growth Rates)
+<p class="subheader">Is the growth in Y related to the growth in X?</p>
+
+. . .
+
+$$g_Y = \beta_0 + \beta_1 \times g_X + \varepsilon_t$$
+
+. . .
+
+```{python}
+# Visualization of growth rates regression
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate time
+n = 101
+time = np.arange(n)
+
+# Start with higher base values
+base_x = 100
+base_y = 200
+
+# Generate two series with exponential growth
+# X series with 3% average growth plus noise
+growth_rate_x = 0.03
+x_series = base_x * (1 + growth_rate_x) ** time
+x_series *= (1 + 0.04 * np.random.normal(0, 1, n))
+
+# Y series with 4% average growth plus relation to X plus noise
+growth_rate_y = 0.04
+y_series = base_y * (1 + growth_rate_y) ** time
+# Add some relationship to x_series growth
+for t in range(1, n):
+    if t > 1:
+        x_growth = (x_series[t] - x_series[t-1]) / x_series[t-1]
+        y_series[t] *= (1 + 0.5 * x_growth)  # Y growth affected by X growth
+y_series *= (1 + 0.03 * np.random.normal(0, 1, n))
+
+# Calculate growth rates
+x_growth = np.diff(x_series) / x_series[:-1]
+y_growth = np.diff(y_series) / y_series[:-1]
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Plot the growth rate data
+ax.scatter(x_growth, y_growth, alpha=0.5, color='blue')
+
+# Fit regression line
+X_growth = sm.add_constant(x_growth)
+model_growth = sm.OLS(y_growth, X_growth).fit()
+pred_y_growth = model_growth.predict(X_growth)
+
+# Sort for plotting
+sort_idx = np.argsort(x_growth)
+ax.plot(x_growth[sort_idx], pred_y_growth[sort_idx], color='red', linewidth=2, linestyle='--')
+
+# Styling
+ax.set_xlabel('X Growth Rate', fontsize=12)
+ax.set_ylabel('Y Growth Rate', fontsize=12)
+ax.set_title('', fontsize=14)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.axhline(y=0, color='black', linestyle='--', alpha=0.3)
+ax.axvline(x=0, color='black', linestyle='--', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Timeseries: Model 4 (Growth Rates)
+<p class="subheader">Is the growth in Y related to the growth in X?</p>
+
+$$g_Y = \beta_0 + \beta_1 \times g_X + \varepsilon_t$$
+
+<br>
+
+Growth rate models have the advantages of first differences and can scale better.
+
+. . .
+
+- This is natural for variables with exponential growth.
+
+. . .
+
+- $\beta_0$ is Y's baseline growth rate.
+
+. . .
+
+- $\beta_1$ is how Y's growth responds to a 1 percentage point increase in X's growth.
+
+---
+
+## Exercise 4.4 | Model 4
+<p class="subheader">Examine a growth rates model of the relationship between GDP and unemployment.</p>
+
+<br>
+
+```python
+# Step 1. Calculate growth rates (percentage changes)
+data['gdp_growth'] = data['gdp'].pct_change() # in percentage points
+data['unemployment_growth'] = data['unemployment'].pct_change()
+```
+
+. . .
+
+<br>
+
+```python
+# Step 2. Drop rows with NaN values
+data = data.dropna()
+```
+
+. . .
+
+<br>
+
+```python
+# Step 3. Fit the growth rate model
+model4 = smf.ols('gdp_growth ~ unemployment_growth', data=data).fit()
+print(model4.summary())
+```
+
+<br>
+
+. . .
+
+*> $\beta_1$ is now expressed in percentage point terms*

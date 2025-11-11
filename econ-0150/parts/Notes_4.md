@@ -65,4 +65,7 @@ the same idea holds for homoskedasticity. we can think of it in the context of t
 
 #### 4.3 | Categorical Predictor
 
-I want to change the exercise to be more interesting.
+
+
+#### 4.4 | Timeseries Predictor
+

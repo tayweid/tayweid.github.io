@@ -137,3 +137,42 @@ On Tuesday we're starting by discussing final projects for the class, then start
 Yours,
 
 Taylor
+
+#### Attendence Announcement
+
+scatterplot of ME 3 vs attendance, i put in a lot of work to make this class work for my students. this is the time in the semester when its easy to get tired. its part of your job as a student to learn how to deal with fategue. i'm an athelete. I would not be able to do what I do if I just trained all the time. taking the time to recover is just about as important to performance as putting in the work. for mental training like being a student, recovery is maybe even more important. if you're in this room I beleive you to be one of the better students in the world.
+
+#### Economic Data Analysis | Homework 4.1 and 4.2; MiniExam 4 and MiniExam 5
+
+Hi folks,
+
+Just a quick midweek update that I've posted Homework 4.1 in which you'll test a finding in the health economics literature. Then tomorrow in class we'll work on Homework 4.2 together. 
+
+I've also gone ahead and scheduled the remaining MiniExams this semester. To give us a bit extra breathing room, they are both on Thursdays.
+
+- MiniExam 4 is just over a week from today: Thursday November 13
+- MiniExam 5 is on our last day of class: Thursday December 4
+
+As always, let me know if you have any questions or concerns. 
+
+Here for you,
+
+Taylor
+
+
+
+#### Economic Data Analysis: Week 12 + MiniExam 4
+
+Hi folks,
+
+I hope your weekend was filled with lovely thoughts about your final projects! Tomorrow we're wrapping up Part 4.3 with an Exercise very similar to what you'll see on Homework 4.3. We'll also cover Part 4.4, Timeseries. 
+
+Then on Thursday we'll sit down and take **MiniExam 4**. As usual we'll take a 5 minute break and come back together to develop a modeling technique to separate causation from correlation. 
+
+I'm also posting a MiniExam Demo and working on scheduling a review session on Wednesday. I'll send out more information about that when I have it. 
+
+See you tomorrow!
+
+Yours,
+
+Taylor

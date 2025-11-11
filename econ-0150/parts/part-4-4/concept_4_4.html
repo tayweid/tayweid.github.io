@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_4_4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_4_4_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_4_4_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_4_4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_4_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_4_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_4_4_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_4_4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_4_4_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_4_4_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_4_4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_4_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_4_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_4_4_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_4_4</title>
+  <title>concept_4_4</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_4_4_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_4_4_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_4_4_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_4_4_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_4_4_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_4_4_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_4_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_4_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_4_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_4_4_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_4_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_4_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_4_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_4_4_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -195,451 +195,418 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader">
-The economist’s data analysis pipeline.
+The economist’s data analysis workflow.
 </p>
 <p><br></p>
-<h3 id="part-4.4-ols-assumptions-multiple-regression"><em>Part 4.4 | OLS Assumptions; Multiple Regression</em></h3>
+<h3 id="part-4.4-the-problem-of-timeseries"><em>Part 4.4 | The Problem of Timeseries</em></h3>
 </section>
-<section id="ols-assumptions" class="slide level2">
-<h2>OLS Assumptions</h2>
+<section id="timeseries-analysis" class="slide level2">
+<h2>Timeseries Analysis</h2>
 <p class="subheader">
-Our test results are only valid when the model assumptions are valid.
+We often want to model relationships through time.
 </p>
-<p><br></p>
-<ol type="1">
-<li><strong>Linearity</strong>: The relationship between X and Y is linear</li>
-</ol>
-<div class="fragment">
-<ol start="2" type="1">
-<li><strong>Independence</strong>: Observations are independent from each other</li>
-</ol>
+<div id="8e55ff70" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-2-output-1.png" width="1047" height="372"></p>
+</figure>
+</div>
+</div>
 </div>
 <div class="fragment">
-<ol start="3" type="1">
-<li><strong>Homoskedasticity</strong>: Equal error variance across all values of X</li>
-</ol>
+<p>Data related in time has a special problem:</p>
 </div>
 <div class="fragment">
-<ol start="4" type="1">
-<li><strong>Normality</strong>: Errors are normally distributed</li>
-</ol>
-</div>
-</section>
-<section id="model-diagnostics-why-check-assumptions" class="slide level2">
-<h2>Model Diagnostics: Why Check Assumptions?</h2>
-<p class="subheader">
-Assumption violations affect our inferences
-</p>
-<p><br></p>
-<p><strong>If assumptions are violated:</strong></p>
 <ul>
-<li>Coefficient estimates may be biased</li>
-<li>Standard errors may be wrong</li>
-<li>p-values may be misleading</li>
-<li>Predictions may be unreliable</li>
-</ul>
-<div class="fragment">
-<p><em>&gt; to test whether the model is ‘specified’, we can calculate the residuals and the model predictions</em></p>
-</div>
-</section>
-<section id="example-education-and-income" class="slide level2">
-<h2>Example: Education and Income</h2>
-<p class="subheader">
-Is income higher for those more highly educated?
-</p>
-</section>
-<section id="model-residuals" class="slide level2">
-<h2>Model Residuals</h2>
-<p class="subheader">
-… we can directly examine the error of the model.
-</p>
-<div id="2dd2a561" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Calculate residuals</span></span>
-<span id="cb1-2"><a href=""></a>residuals <span class="op">=</span> model.resid</span>
-<span id="cb1-3"><a href=""></a>residuals.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; this is <span class="math inline">\(\varepsilon\)</span></em></p>
-</div>
-</section>
-<section id="model-predictions" class="slide level2">
-<h2>Model Predictions</h2>
-<p class="subheader">
-… we can directly examine the predictions of the model.
-</p>
-<div id="7c27758a" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-3-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="278"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><br></p>
-<div class="fragment">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Calculate predictions</span></span>
-<span id="cb2-2"><a href=""></a>predictions <span class="op">=</span> model.predict()</span>
-<span id="cb2-3"><a href=""></a>predictions.hist()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; this is <span class="math inline">\(\hat{y}\)</span>, the model prediction</em></p>
-</div>
-</section>
-<section id="residual-plot" class="slide level2">
-<h2>Residual Plot</h2>
-<p class="subheader">
-… we can directly observe the error according to the model estimates.
-</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>plt.scatter(predictions, residuals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="assumption-1-checking-for-linearity" class="slide level2">
-<h2>Assumption 1: Checking for Linearity</h2>
-<p class="subheader">
-The error term should be unrelated to the fitted value.
-</p>
-<p><em>&gt; which one of these figures shows linearity?</em></p>
-<div id="76acb169" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="372"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; the left one is what we want to see</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; residual plots should show that the model is equally wrong everywhere</em></p>
-</div>
-</section>
-<section id="non-linear-relationships" class="slide level2">
-<h2>Non-Linear Relationships</h2>
-<p class="subheader">
-A non-linear relationship will produce non-linear residuals.
-</p>
-<div id="bf20adf5" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; sometimes relationships aren’t linear</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; linear model misses curvature, leading to systematic errors</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; check your residuals</em></p>
-</div>
-</section>
-<section id="handling-non-linear-relationships" class="slide level2">
-<h2>Handling Non-Linear Relationships</h2>
-<p class="subheader">
-Transform variables to become linear
-</p>
-<p><em>&gt; here, adding a squared term captures the curvature in our data</em></p>
-<p><span class="math display">\[\text{income} = \beta_0 + \beta_1 \text{age} + \beta_2 \text{age}^2 + \varepsilon\]</span></p>
-<p><em>instead of</em></p>
-<p><span class="math display">\[\text{income} = \beta_0 + \beta_1 \text{age} + \varepsilon\]</span></p>
-<div class="fragment">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>df[<span class="st">'age_squared'</span>] <span class="op">=</span> df[<span class="st">'age'</span>]<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb4-2"><a href=""></a>quadratic_model <span class="op">=</span> smf.ols(<span class="st">'income ~ age + age_squared'</span>, data<span class="op">=</span>df).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; coefficient interpretations change:</em></p>
-<ul>
-<li>β₁ = effect of age when age = 0 (not very meaningful here)</li>
-<li>β₂ = how the effect of age changes as age increases</li>
+<li>Observations are related to their past values (autocorrelation).</li>
 </ul>
 </div>
 <div class="fragment">
-<p><em>&gt; other common transformations: log(y) ~ x or y ~ log(x) or log(y) ~ log(x)</em></p>
-</div>
-</section>
-<section id="assumption-3-homoskedasticity" class="slide level2">
-<h2>Assumption 3: Homoskedasticity</h2>
-<p class="subheader">
-Residuals should be spread out the same everywhere.
-</p>
-<p><em>&gt; which one of these figures shows homoskedasticity?</em></p>
-<div id="1bbf7207" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1044" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; the left figure shows constant variability (homoskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the right one has increasing variability (heteroskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; residual plots should show that the model is equally wrong everywhere</em></p>
-</div>
-</section>
-<section id="heteroskedasticity" class="slide level2">
-<h2>Heteroskedasticity</h2>
-<p class="subheader">
-When the spread of residuals changes across values of X
-</p>
-<div id="b270412b" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="471"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; notice how the spread of points increases with more education</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; PhD wages vary more than high school wages</em></p>
-</div>
-</section>
-<section id="heteroskedasticity-1" class="slide level2">
-<h2>Heteroskedasticity</h2>
-<p class="subheader">
-It affects how we measure uncertainty in our estimates
-</p>
-<div id="49849510" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="951" height="375"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; standard methods assume constant spread (homoskedasticity)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; like using the wrong ruler to measure uncertainty</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; with heteroskedasticity, we need robust standard errors</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; these adjust for the changing spread in our data</em></p>
-</div>
-</section>
-<section id="handling-heteroskedasticity" class="slide level2">
-<h2>Handling Heteroskedasticity</h2>
-<p class="subheader">
-Robust standard errors give more accurate measures of uncertainty
-</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Fit the model with robust standard errors (HC3: heteroskedastic-constant)</span></span>
-<span id="cb5-2"><a href=""></a>robust_model <span class="op">=</span> smf.ols(<span class="st">'wages ~ education'</span>, data<span class="op">=</span>df).fit(cov_type<span class="op">=</span><span class="st">'HC3'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; robust standard errors give more accurate confidence intervals</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; and more reliable hypothesis tests</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; especially important when heteroskedasticity is pronounced</em></p>
-</div>
-</section>
-<section id="assumption-4-normality" class="slide level2">
-<h2>Assumption 4: Normality</h2>
-<p class="subheader">
-Residuals should be normally distributed
-</p>
-<div id="25d6fda3" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="276"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; left shows a nice bell shape (roughly normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; right shows a skewed distribution (not normally distributed)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; by the CLT we can still use regression without this if the sample is large</em></p>
-</div>
-</section>
-<section id="multiple-regression" class="slide level2">
-<h2>Multiple Regression</h2>
-<p class="subheader">
-Wages depend on more than just education
-</p>
-<p><em>Wages also depend on:</em></p>
 <ul>
-<li>Experience</li>
-<li>Industry</li>
-<li>Location</li>
-<li>And many other factors</li>
-</ul>
-<div class="fragment">
-<p><em>&gt; how can we handle multiple relationships at once?</em></p>
-</div>
-</section>
-<section id="modeling-relationships-separately" class="slide level2">
-<h2>Modeling Relationships Separately</h2>
-<p class="subheader">
-What if we build a regression model for both relationships separately?
-</p>
-<div id="8f358e1d" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="1143" height="471"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; does this mean years of experience has a negative relationship with wages?</em></p>
-</div>
-</section>
-<section id="the-challenge-related-variables" class="slide level2">
-<h2>The Challenge: Related Variables</h2>
-<p class="subheader">
-Education and experience are correlated!
-</p>
-<div id="b8bb0c26" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="759" height="471"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; more education usually means less work experience</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; if we look at one without accounting for the other, we get misleading results</em></p>
-</div>
-</section>
-<section id="multiple-regression-1" class="slide level2">
-<h2>Multiple Regression</h2>
-<p class="subheader">
-We can adjust for multiple variables simultaneously.
-</p>
-<div id="2627ba73" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Part_4_4_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="483" height="470"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; multiple regression gives each variable’s effect “holding others constant”</em></p>
-</div>
-</section>
-<section id="the-multiple-regression-equation" class="slide level2">
-<h2>The Multiple Regression Equation</h2>
-<p class="subheader">
-Extending the best-fitting line to multiple dimensions
-</p>
-<p><br></p>
-<div class="fragment">
-<p><strong>Single Variable:</strong></p>
-<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \epsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Multiple Variables:</strong></p>
-<p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Experience} + \epsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li><span class="math inline">\(\beta_0\)</span> = Base wage (intercept)</li>
-<li><span class="math inline">\(\beta_1\)</span> = Effect of one more year of education, <em>holding experience constant</em></li>
-<li><span class="math inline">\(\beta_2\)</span> = Effect of one more year of experience, <em>holding education constant</em></li>
+<li>This violates <strong>Assumption 4: Independence</strong>.</li>
 </ul>
 </div>
 </section>
-<section id="example-testing-with-multiple-regression" class="slide level2">
-<h2>Example: Testing with Multiple Regression</h2>
+<section id="timeseries-analysis-autocorrelation" class="slide level2">
+<h2>Timeseries Analysis: Autocorrelation</h2>
 <p class="subheader">
-We can test individual variables or groups of variables
+We can check whether values in timeseries are related to their own past values.
 </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb6-2"><a href=""></a></span>
-<span id="cb6-3"><a href=""></a><span class="co"># Fit multiple regression model</span></span>
-<span id="cb6-4"><a href=""></a>model <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + AGE'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><em>&gt; can test each one like before (t-test)</em></p>
+<p>A <strong>Lag Plot</strong> shows the value today (<span class="math inline">\(t\)</span>) against the value yesterday (<span class="math inline">\(t-1\)</span>).</p>
 </div>
 <div class="fragment">
-<p><em>&gt; “Are education AND age related to wages?”</em></p>
+<div id="f7968f8f" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-3-output-1.png" width="519" height="510"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 <div class="fragment">
-<p><em>&gt; does this mean the model without <code>AGE</code> was wrong?</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; how do we know if we’ve included everything?</em></p>
+<p><em>&gt; autocorrelation tells us today’s value depends on yesterday’s value</em></p>
 </div>
 </section>
-<section id="indicator-dummy-variables" class="slide level2">
-<h2>Indicator (dummy) Variables</h2>
+<section id="timeseries-model-1-levels" class="slide level2">
+<h2>Timeseries: Model 1 (Levels)</h2>
 <p class="subheader">
-… we can easily turn numerical or categorical variables into indicator variables.
+The standard approach has problems with time series.
 </p>
-<p><br></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># 1. Simple binary indicator (above/below threshold)</span></span>
-<span id="cb7-2"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ I(EDU &gt; 12)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># 2. Multiple thresholds/categories</span></span>
-<span id="cb8-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ I(EDU &gt; 12) + I(EDU &lt; 9)'</span>, data<span class="op">=</span>data).fit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><span class="math display">\[\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon\]</span></p>
+<div id="0cae6d69" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-4-output-1.png" width="1047" height="372"></p>
+</figure>
 </div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># 3. Indicators from existing categorical variable</span></span>
-<span id="cb9-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + C(DEGFIELD) data=data).fit()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 </section>
-<section id="looking-forward" class="slide level2">
-<h2>Looking Forward</h2>
+<section id="timeseries-model-1-levels-1" class="slide level2">
+<h2>Timeseries: Model 1 (Levels)</h2>
 <p class="subheader">
-Next steps in building the general linear model…
+The standard approach has problems with time series.
 </p>
-<p><br></p>
+<p><span class="math display">\[\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon\]</span></p>
+<div id="08a851c6" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-5-output-1.png" width="1047" height="372"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><em>&gt; you can see it will often be wrong in the same direction repeatedly</em></p>
+</section>
+<section id="timeseries-model-1-levels-2" class="slide level2">
+<h2>Timeseries: Model 1 (Levels)</h2>
+<p class="subheader">
+GLM’s confidence levels requres that the error terms are independent.
+</p>
+<p><span class="math display">\[\text{Y} = \beta_0 + \beta_1 \cdot \text{t} + \varepsilon\]</span></p>
+<div id="5ce9b239" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-6-output-1.png" width="1045" height="421"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="fragment">
-<p><strong>Next topics:</strong></p>
+<p><em>&gt; this ‘levels’ model shows strong patterns in residuals (autocorrelation)</em></p>
+</div>
+</section>
+<section id="exercise-4.4-model-1-levels" class="slide level2">
+<h2>Exercise 4.4 | Model 1 (Levels)</h2>
+<p class="subheader">
+Examine a levels model of the relationship between GDP and unemployment.
+</p>
+<p><span class="math display">\[\text{Y} = \beta_0 + \beta_1 \times \text{t} + \varepsilon\]</span></p>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># 1. Fit the levels model</span></span>
+<span id="cb1-2"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'gdp ~ unemployment'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb1-3"><a href=""></a><span class="bu">print</span>(model1.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="timeseries-model-2-first-differences" class="slide level2">
+<h2>Timeseries: Model 2 (First Differences)</h2>
+<p class="subheader">
+We can fix some issues of autocorrelation by looking at changes instead of levels.
+</p>
+<div class="fragment">
+<p><span class="math display">\[\Delta \text{Y}_t = \text{Y}_t - \text{Y}_{t-1}\]</span></p>
+</div>
+<div class="fragment">
+<div id="b23009db" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-7-output-1.png" width="1045" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; differences (correctly in this case) shows no relationship</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; what would first differences look like if there WAS a positive trend?</em></p>
+</div>
+</section>
+<section id="timeseries-model-2-first-differences-1" class="slide level2">
+<h2>Timeseries: Model 2 (First Differences)</h2>
+<p class="subheader">
+What would first differences look like if there WAS a positive trend?
+</p>
+<div id="23662f05" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-8-output-1.png" width="1045" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-2-first-differences-2" class="slide level2">
+<h2>Timeseries: Model 2 (First Differences)</h2>
+<p class="subheader">
+What would first differences look like if there WAS a positive trend?
+</p>
+<div id="ec299000" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-9-output-1.png" width="1045" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; the vertical intercept <span class="math inline">\(\beta_0\)</span> is positive!</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; the slope coefficient <span class="math inline">\(\beta_1\)</span> is zero!</em></p>
+</div>
+</section>
+<section id="timeseries-model-2-first-differences-3" class="slide level2">
+<h2>Timeseries: Model 2 (First Differences)</h2>
+<p class="subheader">
+First differences reduces but does not eliminate the problem of autocorrelation.
+</p>
+<div id="683a7833" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-10-output-1.png" width="1045" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-4.4-model-2" class="slide level2">
+<h2>Exercise 4.4 | Model 2</h2>
+<p class="subheader">
+Examine a first difference model of the relationship between GDP and unemployment.
+</p>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Step 1. Create first differences variables</span></span>
+<span id="cb2-2"><a href=""></a>data[<span class="st">'gdp_diff'</span>] <span class="op">=</span> data[<span class="st">'gdp'</span>].diff()</span>
+<span id="cb2-3"><a href=""></a>data[<span class="st">'unemployment_diff'</span>] <span class="op">=</span> data[<span class="st">'unemployment'</span>].diff() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Step 2. Drop the first row which has NaN due to differencing</span></span>
+<span id="cb3-2"><a href=""></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Step 3. Fit the differences model</span></span>
+<span id="cb4-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'gdp_diff ~ unemployment_diff'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb4-3"><a href=""></a><span class="bu">print</span>(model2.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="timeseries-model-3-double-first-differences" class="slide level2">
+<h2>Timeseries: Model 3 (Double First Differences)</h2>
+<p class="subheader">
+Sometimes we want to measure how two variables move together.
+</p>
+<div class="fragment">
+<p><span class="math display">\[\Delta \text{Y}_t = \beta_0 + \beta_1 \times \Delta \text{X}_t + \varepsilon_t\]</span></p>
+</div>
+<div class="fragment">
+<div id="ab756a40" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-11-output-1.png" width="1047" height="469"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-3-double-first-differences-1" class="slide level2">
+<h2>Timeseries: Model 3 (Double First Differences)</h2>
+<p class="subheader">
+Relating changes in X to changes in Y.
+</p>
+<p><span class="math display">\[\Delta \text{Y}_t = \beta_0 + \beta_1 \times \Delta \text{X}_t + \varepsilon_t\]</span></p>
+<p><br></p>
 <ul>
-<li>Omitted variable bias</li>
-<li>Fixed effects</li>
-<li>Multicollinearity</li>
-<li>Causality</li>
-<li>Basic time series</li>
-<li>Multiple slope models</li>
+<li>Further reduces serial correlation in the error terms.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> captures time trend in <span class="math inline">\(Y\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_1\)</span> captures the short-term relationship between variables.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Clear interpretation: how do changes in X relate to changes in Y?</li>
+</ul>
+</div>
+</section>
+<section id="exercise-4.4-model-3" class="slide level2">
+<h2>Exercise 4.4 | Model 3</h2>
+<p class="subheader">
+Examine a double first difference model of the relationship between GDP and unemployment.
+</p>
+<p><br></p>
+<div class="fragment">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Step 1. Create first differences variables</span></span>
+<span id="cb5-2"><a href=""></a>data[<span class="st">'gdp_diff'</span>] <span class="op">=</span> df[<span class="st">'gdp'</span>].diff()</span>
+<span id="cb5-3"><a href=""></a>df[<span class="st">'unemployment_diff'</span>] <span class="op">=</span> df[<span class="st">'unemployment'</span>].diff()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Drop the first row which has NaN due to differencing</span></span>
+<span id="cb6-2"><a href=""></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Fit the differences model</span></span>
+<span id="cb7-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'gdp_diff ~ unemployment_diff'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb7-3"><a href=""></a><span class="bu">print</span>(model3.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><em>&gt; <span class="math inline">\(\beta_1\)</span> now represents the short-term relationship between changes in X and Y</em></p>
+</div>
+</section>
+<section id="timeseries-model-4-growth-rates" class="slide level2">
+<h2>Timeseries: Model 4 (Growth Rates)</h2>
+<p class="subheader">
+Proportional changes provide interpretable coefficients:
+</p>
+<div class="fragment">
+<p><span class="math display">\[g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}\]</span></p>
+</div>
+<div class="fragment">
+<div id="84e4197b" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-12-output-1.png" width="1045" height="469"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-4-growth-rates-1" class="slide level2">
+<h2>Timeseries: Model 4 (Growth Rates)</h2>
+<p class="subheader">
+Proportional changes provide interpretable coefficients:
+</p>
+<p><span class="math display">\[g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}\]</span></p>
+<div id="4fe3335d" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-13-output-1.png" width="1045" height="469"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-4-growth-rates-2" class="slide level2">
+<h2>Timeseries: Model 4 (Growth Rates)</h2>
+<p class="subheader">
+Proportional changes provide interpretable coefficients:
+</p>
+<p><span class="math display">\[g_Y = \frac{\text{Y}_t - \text{Y}_{t-1}}{\text{Y}_{t-1}} = \frac{\Delta \text{Y}_t}{\text{Y}_{t-1}}\]</span></p>
+<div id="89a0d395" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-14-output-1.png" width="1045" height="469"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-4-growth-rates-3" class="slide level2">
+<h2>Timeseries: Model 4 (Growth Rates)</h2>
+<p class="subheader">
+Is the growth in Y related to the growth in X?
+</p>
+<div class="fragment">
+<p><span class="math display">\[g_Y = \beta_0 + \beta_1 \times g_X + \varepsilon_t\]</span></p>
+</div>
+<div class="fragment">
+<div id="4c246b4b" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_4_4_files/figure-revealjs/cell-15-output-1.png" width="1045" height="469"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="timeseries-model-4-growth-rates-4" class="slide level2">
+<h2>Timeseries: Model 4 (Growth Rates)</h2>
+<p class="subheader">
+Is the growth in Y related to the growth in X?
+</p>
+<p><span class="math display">\[g_Y = \beta_0 + \beta_1 \times g_X + \varepsilon_t\]</span></p>
+<p><br></p>
+<p>Growth rate models have the advantages of first differences and can scale better.</p>
+<div class="fragment">
+<ul>
+<li>This is natural for variables with exponential growth.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_0\)</span> is Y’s baseline growth rate.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_1\)</span> is how Y’s growth responds to a 1 percentage point increase in X’s growth.</li>
+</ul>
+</div>
+</section>
+<section id="exercise-4.4-model-4" class="slide level2">
+<h2>Exercise 4.4 | Model 4</h2>
+<p class="subheader">
+Examine a growth rates model of the relationship between GDP and unemployment.
+</p>
+<p><br></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Step 1. Calculate growth rates (percentage changes)</span></span>
+<span id="cb8-2"><a href=""></a>data[<span class="st">'gdp_growth'</span>] <span class="op">=</span> data[<span class="st">'gdp'</span>].pct_change() <span class="co"># in percentage points</span></span>
+<span id="cb8-3"><a href=""></a>data[<span class="st">'unemployment_growth'</span>] <span class="op">=</span> data[<span class="st">'unemployment'</span>].pct_change()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Step 2. Drop rows with NaN values</span></span>
+<span id="cb9-2"><a href=""></a>data <span class="op">=</span> data.dropna()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><br></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Step 3. Fit the growth rate model</span></span>
+<span id="cb10-2"><a href=""></a>model4 <span class="op">=</span> smf.ols(<span class="st">'gdp_growth ~ unemployment_growth'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb10-3"><a href=""></a><span class="bu">print</span>(model4.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><em>&gt; <span class="math inline">\(\beta_1\)</span> is now expressed in percentage point terms</em></p>
 
 </div>
 </section>
@@ -651,19 +618,19 @@ Next steps in building the general linear model…
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_4_4_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_4_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_4_4_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_4_4_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_4_4_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
