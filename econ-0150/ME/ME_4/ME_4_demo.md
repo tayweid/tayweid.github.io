@@ -1,6 +1,6 @@
 **Name: ________________________________________________________________________________________________________ **                          **Student ID: ________________________________________________________________________________________________________ **
 
-## ECON 0150 | MiniExam 06 Demo
+## ECON 0150 | MiniExam 4 | Demo
 
 This MiniExam will take 8 minutes with a quick break to follow. MiniExams are designed to both test your knowledge and challenge you to apply familiar concepts in new environments. Treat it as if you're trying to show me that you understand the material. Answer clearly, completely, and concisely. 
 
@@ -14,54 +14,80 @@ ________ I will not communicate directly or indirectly with others during the Mi
 
 
 
-###### Q2. Consider a simple linear regression model: y = β₀ + β₁x + ε, where β₁ = 0.75 with standard error 0.25.
 
-**a)** The interpretation of the coefficient β₁ is:
 
-□ For every one-unit increase in y, x increases by 0.75 units on average  
-□ For every one-unit increase in x, y increases by 0.75 units on average  
-□ When x = 0, y equals 0.75 on average  
-□ 75% of the variation in y is explained by x  
 
-**b)** To test whether there's a statistically significant relationship between x and y, we test:
 
-□ H₀: β₀ = 0 versus H₁: β₀ ≠ 0  
-□ H₀: β₁ = 0 versus H₁: β₁ ≠ 0  
-□ H₀: β₁ = 0.75 versus H₁: β₁ ≠ 0.75  
-□ H₀: y = 0 versus H₁: y ≠ 0  
+###### Q1. You have data on student study hours per week (`study_hours`, 0-40) and their final exam scores (`exam_score`, 0-100). You want to test whether students who study more have higher exam scores.
 
-**c)** The null distribution for testing the above hypothesis follows a:
+**a) Write down a statistical model to test this question.**
 
-□ Normal distribution with mean 0 and standard deviation 0.25  
-□ Normal distribution with mean 0.75 and standard deviation 0.25  
-□ t-distribution with mean 0 and standard error 0.25  
-□ t-distribution with mean 0.75 and standard error 0.25  
+__________________________ = __________________________ + __________________________ × __________________________ + __________________________
 
-###### Q3. A researcher conducted a study on climate action, running a regression model predicting a city's carbon emission reduction (percentage points) based on renewable energy investment (millions of dollars), with the following results:
+**b) Sketch (*to the right ->*) how you would visualize this model.**
+
+
+
+**c) What part of your statistical model would indicate a relationship exists?**
+
+
+
+###### Q2. You want to test whether those with a college degree have higher salaries using a dataset with the variables `college_degree` (1 = Yes, 0 = No) and `salary` (in thousands).
+
+**a) Write down a statistical model to test this question.**
+
+__________________________ = __________________________ + __________________________ × __________________________ + __________________________
+
+**b) Sketch (*to the right ->*) how you would visualize this model.**
+
+
+
+###### Q3. A researcher is studying whether those with more years of work experience (`experience`) earn higher hourly wages using a sample with $n=200$ workers. Their regression output shows:
 
 ```
-                            coef    std err          t      P>|t|      [0.025    0.975]
-intercept                  2.750      0.931      2.954      0.007      0.857      4.643
-investment                 1.246      0.325      3.834      0.001      0.586      1.906
+                            coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept                 12.500      1.200     10.417      0.000      10.133      14.867
+experience                 0.750      0.478      1.570      0.120      -0.197       1.697
+------------------------------------------------------------------------------
 ```
 
-**a)** The most accurate interpretation of the intercept coefficient is:
+**a) Sketch (*to the right ->*) how you would visualize this model.**
 
-□ The average emission reduction across all cities is 2.75 percentage points  
-□ When renewable investment is zero, the predicted emission reduction is 2.75 percentage points  
-□ The emission reduction increases by 2.75 percentage points for each million dollars invested  
-□ 2.75% of the variation in emission reduction is explained by renewable investment  
 
-**b)** The 95% confidence interval for the investment coefficient tells us that:
 
-□ We are 95% confident that renewable investment has a statistically significant effect on emission reduction  
-□ If we took many samples, 95% of the calculated confidence intervals would contain the true investment coefficient  
-□ 95% of cities have an investment effect between 0.586 and 1.906  
-□ The true investment coefficient is between 0.586 and 1.906 with 95% probability  
+**b) Interpret the Intercept coefficient (12.50) in context:**
 
-**c)** Which statement about the regression results is correct?
 
-□ Both the intercept and investment have statistically significant effects at α=0.05  
-□ The effect of the intercept is exactly 2.954 times larger than the effect of investment  
-□ The p-value on investment indicates there's a 0.1% chance that renewable investment increases emission reduction  
-□ We've proven that renewable investment causes emission reduction 
+
+**c) Interpret the coefficient on `experience` (0.75) in context:**
+
+
+
+###### Q4. Consider the p-value of 0.120 for the experience coefficient from Q3.
+
+**a) Write a complete interpretation of this p-value. What exactly does it tell us?**
+
+
+
+**b) Should we reject the null hypothesis that experience has no effect on wages? (Use α = 0.05)**
+
+□ Yes □ No
+
+**c) Explain your reasoning for part (b):**
+
+
+
+###### Q5. Draw the sampling distribution under the null hypothesis (H₀: β₁ = 0) for the experience coefficient. Label the axes. Mark where our observed coefficient (0.75) would be. Shade the region(s) that represent the p-value.
+
+
+
+
+
+###### Q6. A student wants to test whether students who live on/off campus have different GPA using data from 100 students. Students living on campus have an average GPA of 3.2 and students off campus have an average GPA of 2.9.
+
+**a) If we code on_campus as 1 for yes and 0 for no, what would β₀ represent in the model?**
+
+
+
+**b) What would β₁ equal based on the information given?**       β₁ = _____________
