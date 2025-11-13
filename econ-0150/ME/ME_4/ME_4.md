@@ -14,130 +14,79 @@ ________ I will not communicate directly or indirectly with others during the Mi
 
 
 
+###### Q1. A study uses data from 80 employees to examine whether remote workers have different productivity scores than in-office workers. Remote workers have an average productivity score of 82 and in-office workers have an average score of 78.
+
+**a) If we code `remote` as 1 for remote workers and 0 for in-office workers, write the regression model:**
+
+__________________________ = __________________________ + __________________________ × __________________________ + __________________________
+
+**b) Based on the information given, what would β₀ equal?**       β₀ = _____________
+
+**c) Based on the information given, what would β₁ equal?**       β₁ = _____________
+
+**d) What is the default null hypothesis for $\beta_1$?**     __________________________
+
+
+
+###### Q2. You want to test whether temperature predicts ice cream sales using daily data from a local shop with variables `temperature` (in °F) and `sales` (in dollars).
+
+**a) Write down a statistical model to test this question.**
+
+__________________________ = __________________________ + __________________________ × __________________________ + __________________________
+
+**b) What part of your statistical model would indicate that temperature affects sales?**
+
+
+
+**c) Sketch (*to the right ->*) how you would visualize this model.**
+
+
+
+###### Q3. You want to examine whether `age` predicts `hourly_wages` using a sample of n=250 workers.
+
+**a) Write down a statistical model to test this relationship.**
+
+__________________________ = __________________________ + __________________________ × __________________________ + __________________________
+
+**b) If your regression yields β₁ = 0.85, interpret this coefficient in context:**
+
+
+
+###### Q4. Draw the sampling distribution under the null hypothesis (H₀: β₁ = 0) for a slope coefficient that has an observed value of -2.3 with a p-value of 0.045. Mark our observed coefficient and shade the region(s) that represent the p-value.
 
 
 
 
-###### Q1. A healthcare economist studies whether a telemedicine program reduces emergency room visits. In a sample of 120 patients, those with telemedicine access had 1.8 fewer ER visits per year than those without access. The standard error is 0.65 visits.
 
-**a)** If the null hypothesis is true (no effect of telemedicine), the sampling distribution of the difference in means would be:
-
-□ A normal distribution with mean = -1.8 and SE = 0.65  
-□ A normal distribution with mean = 0 and SE = 0.65  
-□ A t-distribution with mean = -1.8 and SE = 0.65  
-□ A t-distribution with mean = 0 and SE = 0.65  
-
-**b)** Which statement correctly interprets a 95% confidence interval of (-3.08, -0.52) for this study?
-
-□ We are 95% certain that the true effect of telemedicine is between -3.08 and -0.52 visits  
-□ 95% of patients in the study had a reduction between 0.52 and 3.08 visits  
-□ If we repeated this study many times, about 95% of the resulting confidence intervals would contain the true effect  
-□ The p-value for this result is exactly 0.05  
-
-###### Q2. A population has a true mean of μ = 75 and standard deviation σ = 20. Researchers take samples of size n = 64.
-
-**a)** Which statement about the standard error of the sampling distribution is true?
-
-□ If the sample size doubles, the standard error is cut in half  
-□ If the sample size doubles, the standard error doubles  
-□ If the sample size is quadrupled, the standard error is cut in half  
-□ If the sample size is quadrupled, the standard error doubles 
-
-**b)** If we reject the null hypothesis that μ = 70 with α = 0.05, we can conclude that:
-
-□ The probability that μ = 70 is less than 5%  
-□ If the true mean were 70, we'd observe our sample mean or more extreme less than 5% of the time  
-□ There is a 95% chance that μ = 75  
-□ We've proven that μ = 75  
-
-###### Q3. A social policy researcher studied the relationship between public library funding (dollars per capita) and high school graduation rates (%), with the following regression results:
-
-```
-                            coef    std err          t      P>|t|      [0.025    0.975]
-intercept                 74.892      3.247     23.064      0.000     68.459     81.325
-library_funding            0.897      0.234      3.833      0.003      0.434      1.360
-```
-
-**a)** What is the best interpretation of the coefficient on library_funding?
-
-□ For each additional dollar of library funding per capita, the graduation rate is predicted to be 0.897% higher  
-□ Increasing library funding by $1 causes the graduation rate to increase by 0.897%  
-□ Cities that increase library funding see graduation rates increase 0.897 times  
-□ Graduation rates and library funding have a correlation of 0.897  
-
-**b)** The t-statistic of 3.833 for library_funding indicates:
-
-□ Library funding is 3.833 times more important than other factors affecting graduation rates  
-□ The coefficient is 3.833 standard errors away from zero  
-□ We can be 3.833 times more confident in this result than a typical finding  
-□ There is a 3.833% chance that the relationship occurred by random chance  
-
-**c)** Based on the regression results, what is the predicted graduation rate for a city with library funding of $0 per capita?
-
-□ 74.892%  
-□ 75.789%  
-□ 101.802%  
-□ Cannot be determined from the information provided  
-
-
-
-1. Below are two residual plots from separate regression analyses:
-
-![](/Users/taylorjweidman/Library/CloudStorage/GoogleDrive-plusdirt@gmail.com/Other computers/Macbook Air/PROJECTS/tayweid.github.io/econ-0150/ME/ME_4/ME_07_residual_plot.png)
-
-a) Which regression assumption is violated in Plot A?
-
-□ Linearity
-□ Normality
-□ Homoskedasticity
-□ Independence
-
-b) The most appropriate approach to address the issue in Plot A would be:
-
-□ Transform the dependent variable (e.g., take the log)
-□ Add a squared term of the independent variable to the model
-□ Use robust standard errors
-□ Remove outliers from the dataset
-
-2. An economist studies the relationship between advertising spending, product quality ratings, and monthly sales. Here are the regression results:
+###### Q5. A researcher collected data on 150 employees and wants to test whether having a graduate degree affects annual income. The regression output shows:
 
 ```
-                            OLS Regression Results                            
-==============================================================================
-                 coef    std err          t      P>|t|      [0.025      0.975]
+                            coef    std err          t      P>|t|      [0.025      0.975]
 ------------------------------------------------------------------------------
-Intercept     23.846      2.514      9.485      0.000      18.819      28.873
-ad_spending    0.385      0.067      5.746      0.000       0.251       0.519
-quality_rating 5.927      0.894      6.630      0.000       4.139       7.715
-==============================================================================
+Intercept                 45.200      2.100     21.524      0.000      41.044      49.356
+graduate_degree           18.500      5.250      3.524      0.001       8.129      28.871
+------------------------------------------------------------------------------
 ```
+Note: `graduate_degree` is coded as 1 = Yes, 0 = No; income is in thousands of dollars.
 
-a) Write the estimated regression equation for this model.
+**a) Sketch (*to the right ->*) how you would visualize the fitted model. Label intercept and slope using the fitted values.**
 
-□ sales = 23.846 + 0.385 × ad_spending + 5.927 × quality_rating
-□ sales = 23.846 + 5.927 × ad_spending + 0.385 × quality_rating
-□ ad_spending = 23.846 + 0.385 × sales + 5.927 × quality_rating
-□ sales = 23.846 × (0.385 × ad_spending) × (5.927 × quality_rating)
 
-b) If we had instead run a simple regression of sales on quality_rating only (without including ad_spending), the coefficient on quality_rating would likely be:
 
-□ The same as in the multiple regression (5.927)
-□ Lower than in the multiple regression (<5.927)
-□ Higher than in the multiple regression (>5.927)
-□ Cannot be determined from the information provided
+**b) Interpret the Intercept coefficient (45.20) in context:**
 
-3. A health economist wants to study whether patient recovery time differs between hospitals with different levels of nurse-to-patient ratios. They have data on recovery time and nurse-to-patient ratios for 85 hospitals.
 
-a) What regression model would be most appropriate to answer this question?
 
-□ RecoveryTime = β₀ + β₁ × NurseRatio + ε
-□ RecoveryTime = β₀ + β₁ × I(NurseRatio > threshold) + ε
-□ NurseRatio = β₀ + β₁ × RecoveryTime + ε
-□ log(RecoveryTime) = β₀ + β₁ × log(NurseRatio) + ε
+**c) Interpret the coefficient on `graduate_degree` (18.50) in context:**
 
-b) The researcher runs an appropriate model and finds a significant negative relationship between nurse-to-patient ratios and recovery time (p = 0.003). Which of the following is the most accurate interpretation of this result?
 
-□ Hospitals with higher nurse-to-patient ratios have significantly lower patient recovery times
-□ Increasing nurse-to-patient ratios causes shorter recovery times
-□ The data shows a negative correlation between nurse staffing levels and how long patients stay in the hospital
-□ Hospitals should hire more nurses to reduce patient recovery times
+
+**d) What does the p-value of 0.001 for the graduate_degree coefficient mean? *(select one)***
+
+□ Out of 1000 samples where graduate degrees truly matter, only 1 would show a coefficient this large
+□ If graduate degrees are unrelated to income, 0.1% of samples would have a coefficient this far from zero
+□ Only 0.1% of the income difference between groups is due to random chance
+□ There's a 99.9% probability that the true coefficient is at least 18.5
+□ The coefficient of 18.5 has a 0.1% margin of error
+
+**e) Sketch (*to the right ->*) a residual plot showing heteroskedasticity in this model.**
