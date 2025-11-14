@@ -8,37 +8,37 @@ Economists rely on data to build economic models of decisionmaking. This course 
 
 The course follows a central arc, beginning with a toolset for understanding data, building a highly flexible model for inference, and culminating in a capstone project that you will communicate to your peers. We will emphasize practical applications through a systematic approach to data types, exploratory analysis, statistical modeling, and communication of the data. Each week builds progressively toward a final project, where you will address an economic question using the skills developed in the course. We will consider applications in a variety of areas not strictly limited to economics, although economic data will be the main focus. The course is proceeds in six parts. 
 
-##### Part 1: Summary Exploratory Data Analysis (Weeks 1 - 3)
+##### Part 1: Summary Exploratory Data Analysis
 
 *Making decisions with data involves understanding what the data says. Most data cannot be understood simply by looking at a spreadsheet. Data is easiest to understand when visualized appropriately. The appropriate data visualization depends on the data type. Part 1 indroduces approaches for summarizing data with figures and tables using python and spreadsheets.*
 
 Topics include Python, Excel, visualizing and summarizing nominal categorical variables, ordinal categorical variables, continuous variables, and data transformations.
 
-##### Part 2: Pattern Exploratory Data Analysis (Weeks 4 - 5)
+##### Part 2: Pattern Exploratory Data Analysis
 
 *Not only do we care about single variables, but we often also care about the relationships between variables. Like summary EDA, the relationships between variables is easiest to understand when visualized. And like summary EDA, the most effective data visualization depends on the variable types. Part 2 introduces approaches for exploring the relationships between variables using python and spreadsheets.*
 
 Topics include relationships between categorical variables, between continuous variables, and relationships between mixed types, and a simple model of causal relationships.
 
-##### Part 3: Building Linear Models (Weeks 6 - 7)
+##### Part 3: Building Linear Models
 
 *But how do we know if these patterns represent real relationships or just random noise? To determine whether there is a true underlying relationship, we use deviations from means to build intuition about sampling variation and the Central Limit Theorem. This lets us test our observed patterns using the most basic form of the General Linear Model.*
 
 Topics include random variables, sampling, normal distribution, confidence intervals, hypothesis testing, and correlation.
 
-##### Part 4: The General Linear Model (Weeks 8 and 10)
+##### Part 4: The General Linear Model
 
 *In Part 3, we used regression with a single predictor to test whether patterns in our data were real or just noise. But economic relationships are rarely so simple. The General Linear Model not only lets us test simple hypotheses, but also lets us handle multiple predictors of different types - continuous, categorical, and their interactions - while maintaining our core tools of visualization and residual analysis.*
 
 Topics include simple regression, categorical predictors, multi-category predictors, multivariate regression.
 
-##### Part 5: Intermediate GLM (Weeks 11 - 13)
+##### Part 5: Intermediate GLM
 
 *Economic variables don't always play by simple rules - they can be binary outcomes, ordered categories, repeated measures, or time series. We extend the General Linear Model to handle these special cases, using our understanding of data types to choose the right modeling strategy for each situation.*
 
 Topics include fixed effects, interactions, seasonality, panel methods, time series, and model selection. 
 
-##### Part 6: Communicating with Data (Weeks 14 - 15)
+##### Part 6: Communicating with Data
 
 *We've built from description to modeling, but insights are only useful if others can understand them. Here we focus on crafting clear narratives about economic relationships, choosing the right visualizations for our findings, and presenting results with slides in ways that are easily understandable.*
 
@@ -81,7 +81,7 @@ Your highest grades will count for a relatively large portion of your grade. Thi
 
 ***Homework*** (20%) is due most Fridays at 5PM, one assignment per topic. There will typically be multiple homework assignmets per week. MiniExams and the Final Project make up the largest part of your final grade. The best predictor of success on MiniExams and the Final Project is the quality of your practice. Homework is intended to give you a considerable amount of low-stakes guided practice, and therefore are graded primarily for effort. Group work is *strongly* encouraged, but your work should be your own. Three will be automatically dropped.
 
-***MiniExams*** (2 × 15% + 1 × 10% + 2 × 5% + 1 × 0% = 50%) are designed for you to demonstrate competency and mastery. Five non-cumulative MiniExams will take place during the first part of Tuesday class (*nearly*) every other week. MiniExams will focus primarily on the material covered the current part, and may often include a preview question on upcoming material for extra credit. Your top two Miniexam scores will each count as 15% of your grade. Your third highest MiniExam scores will each count as 10% of your grade. Your fourth and fifth highest Miniexam scores will each count as 5% of your grade. Your lowest Miniexam score will be dropped. 
+***MiniExams*** (1 × 20% + 1 × 15% + 1 × 10% + 1 × 5%+ 1 × 0% = 50%) are designed for you to demonstrate competency and mastery. Five non-cumulative MiniExams will take place during the first part of Tuesday class (*nearly*) every other week. MiniExams will focus primarily on the material covered the current part, and may often include a preview question on upcoming material for extra credit. Your top two Miniexam scores will each count as 15% of your grade. Your third highest MiniExam scores will each count as 10% of your grade. Your fourth and fifth highest Miniexam scores will each count as 5% of your grade. Your lowest Miniexam score will be dropped. 
 
 During MiniExams:
 
