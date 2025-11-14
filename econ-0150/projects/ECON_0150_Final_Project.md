@@ -14,7 +14,7 @@ Make this your own and have fun with it! There are general guidelines, but don't
 
 - *Project groups of 2-3: select and submit to your group and a general question of interest to you.*
 
-**Friday, November 14 (in Homework)**
+**Tuesday, November 18**
 
 - *Project proposal: Select a topic/question, a descriptive figure, and a statistical model.*
 
