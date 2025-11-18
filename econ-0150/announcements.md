@@ -176,3 +176,19 @@ See you tomorrow!
 Yours,
 
 Taylor
+
+#### Economic Data Analysis: Week 13
+
+Hi folks,
+
+Sad news: we only have one more full week of new concepts. But it will be a big one.
+
+Tomorrow we'll start Part 5 with an example of a final project: using census records to estimate the gender wage gap. We'll talk through finding the dataset, setting up the dataset in a Colab Notebook, building a simple model of the gender wage gap using Part 5.1, Categorical Controls.
+
+Thursday we'll extend this Multivariate GLM framework with Interactions to test whether there are differential returns to education by gender. Then we'll save model selection for when we get back from Thanksgiving Break.
+
+
+
+Yours,
+
+Taylor

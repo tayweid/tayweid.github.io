@@ -1,0 +1,692 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 5.2 | Time Series: Differences, Seasonality, and Elasticities*
+
+---
+
+Slides removed and moved to Part 4.4
+
+---
+
+## Seasonal Patterns in Economic Data
+<p class="subheader">Many economic variables follow seasonal patterns.</p>
+
+```{python}
+# Visualization of seasonal patterns in economic data
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate quarterly data for 10 years (40 quarters)
+n = 40
+time = np.arange(n)
+years = time // 4
+quarters = time % 4
+
+# Create a trend component
+trend = 0.05 * time
+
+# Create seasonal effects (Q1 typically low, Q3 typically high)
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Create a cyclical component (business cycle of ~5 years)
+cycle = 0.3 * np.sin(2 * np.pi * time / 20)
+
+# Add all components with some noise
+series = trend + seasonal + cycle + 0.1 * np.random.normal(0, 1, n)
+series = 100 * np.exp(series)  # Convert to exponential for more realistic scaling
+
+# Create figure
+fig, axs = plt.subplots(2, 1, figsize=(11, 5))
+
+# Plot the time series
+axs[0].plot(time, series, color='blue', linewidth=2)
+axs[0].scatter(time, series, alpha=0.7, color='blue')
+for year in range(10):
+    if year < 9:  # Don't add line after the last year
+        axs[0].axvline(x=year*4 + 3.5, color='gray', linestyle='--', alpha=0.5)
+
+# Add year labels between the vertical lines
+for year in range(10):
+    axs[0].text(year*4 + 1.5, np.max(series) + 5, f"Year {year+1}", 
+                fontsize=10, ha='center')
+
+axs[0].set_title('Quarterly Economic Data with Seasonality', fontsize=14)
+axs[0].set_ylabel('Value')
+axs[0].set_xticks([])
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot the seasonal patterns
+# Group by quarter and calculate mean
+q_means = [np.mean(series[quarters == q]) for q in range(4)]
+
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].spines['bottom'].set_visible(False)
+axs[1].spines['left'].set_visible(False)
+axs[1].set_xticks([])
+axs[1].set_yticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Seasonal Patterns in Economic Data
+<p class="subheader">Many economic variables follow seasonal patterns.</p>
+
+```{python}
+# Visualization of seasonal patterns in economic data
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate quarterly data for 10 years (40 quarters)
+n = 40
+time = np.arange(n)
+years = time // 4
+quarters = time % 4
+
+# Create a trend component
+trend = 0.05 * time
+
+# Create seasonal effects (Q1 typically low, Q3 typically high)
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Create a cyclical component (business cycle of ~5 years)
+cycle = 0.3 * np.sin(2 * np.pi * time / 20)
+
+# Add all components with some noise
+series = trend + seasonal + cycle + 0.1 * np.random.normal(0, 1, n)
+series = 100 * np.exp(series)  # Convert to exponential for more realistic scaling
+
+# Create figure
+fig, axs = plt.subplots(2, 1, figsize=(11, 5))
+
+# Plot the time series
+axs[0].plot(time, series, color='blue', linewidth=2)
+axs[0].scatter(time, series, alpha=0.7, color='blue')
+for year in range(10):
+    if year < 9:  # Don't add line after the last year
+        axs[0].axvline(x=year*4 + 3.5, color='gray', linestyle='--', alpha=0.5)
+
+# Add year labels between the vertical lines
+for year in range(10):
+    axs[0].text(year*4 + 1.5, np.max(series) + 5, f"Year {year+1}", 
+                fontsize=10, ha='center')
+
+axs[0].set_title('Quarterly Economic Data with Seasonality', fontsize=14)
+axs[0].set_ylabel('Value')
+axs[0].set_xticks([])
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+
+# Plot the seasonal patterns
+# Group by quarter and calculate mean
+q_means = [np.mean(series[quarters == q]) for q in range(4)]
+
+axs[1].bar(range(4), q_means, color='green', alpha=0.7)
+axs[1].set_ylabel('Average Value')
+axs[1].set_xticks(range(4))
+axs[1].set_xticklabels(['Q1', 'Q2', 'Q3', 'Q4'])
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> there are regular spikes in Q3!*
+
+. . .
+
+*> but there is also an increase over time*
+
+---
+
+## Model 5: Deseasonalization
+<p class="subheader">We can remove seasonal patterns to see the trend more clearly.</p>
+
+```{python}
+# Visualization of deseasonalization
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate quarterly data for 8 years (32 quarters)
+n = 32
+time = np.arange(n)
+years = time // 4
+quarters = time % 4
+
+# Create a trend component
+trend = 0.05 * time
+
+# Create seasonal effects (Q1 typically low, Q3 typically high)
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Create a cyclical component (business cycle of ~5 years)
+cycle = 0.3 * np.sin(2 * np.pi * time / 20)
+
+# Add all components with some noise
+series = trend + seasonal + cycle + 0.1 * np.random.normal(0, 1, n)
+series = 100 * np.exp(series)  # Convert to exponential for more realistic scaling
+
+# Convert to pandas Series for seasonal_decompose
+ts = pd.Series(series)
+
+# Apply seasonal decomposition
+decomposition = seasonal_decompose(ts, model='multiplicative', period=4)
+
+# Create figure for visualization
+fig, axs = plt.subplots(4, 1, figsize=(11, 5))
+
+# Plot original data
+axs[0].plot(time, decomposition.observed, color='blue', linewidth=2)
+axs[0].scatter(time, decomposition.observed, alpha=0.7, color='blue')
+axs[0].set_title('Original Data', fontsize=14)
+axs[0].set_xticks([])
+axs[0].spines['top'].set_visible(False)
+axs[0].spines['right'].set_visible(False)
+axs[0].set_xticks([0,30])
+axs[0].set_xlim(-1,30)
+sns.despine(ax=axs[0], trim=True)
+
+# Plot trend component
+axs[1].plot(time, decomposition.trend, color='red', linewidth=2)
+axs[1].set_title('Trend Component', fontsize=14)
+axs[1].set_xticks([])
+axs[1].spines['top'].set_visible(False)
+axs[1].spines['right'].set_visible(False)
+axs[1].set_xlim(-1,30)
+axs[1].set_xticks([0,30])
+sns.despine(ax=axs[1], trim=True)
+
+# Plot seasonal component
+axs[2].plot(time, decomposition.seasonal, color='green', linewidth=2)
+axs[2].set_title('Seasonal Component', fontsize=14)
+axs[2].set_xticks([])
+axs[2].spines['top'].set_visible(False)
+axs[2].spines['right'].set_visible(False)
+axs[2].set_xlim(-1,30)
+axs[2].set_xticks([0,30])
+sns.despine(ax=axs[2], trim=True)
+
+# Plot residual (random) component
+axs[3].plot(time, decomposition.resid, color='purple', linewidth=2)
+axs[3].scatter(time, decomposition.resid, alpha=0.7, color='purple')
+axs[3].set_title('Residual Component', fontsize=14)
+axs[3].set_xlabel('Time (Quarters)')
+axs[3].spines['top'].set_visible(False)
+axs[3].spines['right'].set_visible(False)
+
+axs[3].set_xlim(-1,30)
+sns.despine(ax=axs[3], trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> seasonal decomposition separates trend, seasonal, and residual components*
+
+---
+
+## Model 5: Deseasonalization with Fixed Effects
+<p class="subheader">Using seasonal dummies to adjust for quarterly patterns.</p>
+
+```{python}
+# Visualization of seasonal fixed effects in growth regression
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate data for 8 years (32 quarters)
+n = 32
+time = np.arange(n)
+quarters = time % 4
+years = time // 4
+
+# Create seasonal effects using the same pattern from your example
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Generate X variable (e.g., income growth)
+# Base growth rate + seasonal pattern + random noise
+x_growth = 0.02 + 0.7 * seasonal + 0.03 * np.random.normal(0, 1, n)
+
+# Generate Y variable (e.g., consumption growth)
+# Depends on x_growth with a coefficient of 0.8 + seasonal pattern + random noise
+slope = 0.8
+y_growth = 0.01 + slope * x_growth + 0.5 * seasonal + 0.02 * np.random.normal(0, 1, n)
+
+# Create a DataFrame for easier analysis
+df = pd.DataFrame({
+    'time': time,
+    'quarter': quarters,
+    'x_growth': x_growth,
+    'y_growth': y_growth
+})
+
+# Create quarter dummy variables
+for q in range(1, 4):  # Q1 is the reference category
+    df[f'Q{q+1}'] = (df['quarter'] == q).astype(int)
+
+# Run regression with seasonal fixed effects
+X = sm.add_constant(df[['x_growth', 'Q2', 'Q3', 'Q4']])
+model = sm.OLS(df['y_growth'], X).fit()
+
+# Extract coefficients
+intercept = model.params[0]
+slope_coef = model.params[1]
+q2_effect = model.params[2]
+q3_effect = model.params[3]
+q4_effect = model.params[4]
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Create a color palette for quarters
+colors = ['#1f77b4', '#2ca02c', '#d62728', '#ff7f0e']  # blue, green, red, orange
+
+# Plot scatter by quarter
+for q in range(4):
+    quarter_data = df[df['quarter'] == q]
+    ax.scatter(quarter_data['x_growth'], quarter_data['y_growth'], 
+               color=colors[q], alpha=0.7, s=80, 
+               label=f'Q{q+1}')
+
+# Plot regression lines for each quarter
+x_range = np.linspace(df['x_growth'].min() - 0.01, df['x_growth'].max() + 0.01, 100)
+
+# Add legend, labels and title
+ax.legend(title='Quarter', fontsize=12)
+ax.set_xlabel('X Growth Rate', fontsize=14)
+ax.set_xlim(-0.2,0.3)
+ax.set_ylabel('Y Growth Rate', fontsize=14)
+ax.set_ylim(-0.3,0.4)
+
+# Add grid and styling
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+sns.despine(trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Model 5: Deseasonalization with Fixed Effects
+<p class="subheader">Using seasonal dummies to adjust for quarterly patterns.</p>
+
+```{python}
+# Visualization of seasonal fixed effects in growth regression
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate data for 8 years (32 quarters)
+n = 32
+time = np.arange(n)
+quarters = time % 4
+years = time // 4
+
+# Create seasonal effects using the same pattern from your example
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Generate X variable (e.g., income growth)
+# Base growth rate + seasonal pattern + random noise
+x_growth = 0.02 + 0.7 * seasonal + 0.03 * np.random.normal(0, 1, n)
+
+# Generate Y variable (e.g., consumption growth)
+# Depends on x_growth with a coefficient of 0.8 + seasonal pattern + random noise
+slope = 0.8
+y_growth = 0.01 + slope * x_growth + 0.5 * seasonal + 0.02 * np.random.normal(0, 1, n)
+
+# Create a DataFrame for easier analysis
+df = pd.DataFrame({
+    'time': time,
+    'quarter': quarters,
+    'x_growth': x_growth,
+    'y_growth': y_growth
+})
+
+# Create quarter dummy variables
+for q in range(1, 4):  # Q1 is the reference category
+    df[f'Q{q+1}'] = (df['quarter'] == q).astype(int)
+
+# Run regression with seasonal fixed effects
+X = sm.add_constant(df[['x_growth', 'Q2', 'Q3', 'Q4']])
+model = sm.OLS(df['y_growth'], X).fit()
+
+# Extract coefficients
+intercept = model.params[0]
+slope_coef = model.params[1]
+q2_effect = model.params[2]
+q3_effect = model.params[3]
+q4_effect = model.params[4]
+
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+
+# Create a color palette for quarters
+colors = ['#1f77b4', '#2ca02c', '#d62728', '#ff7f0e']  # blue, green, red, orange
+
+# Plot scatter by quarter
+for q in range(4):
+    quarter_data = df[df['quarter'] == q]
+    ax.scatter(quarter_data['x_growth'], quarter_data['y_growth'], 
+               color=colors[q], alpha=0.7, s=80, 
+               label=f'Q{q+1}')
+
+# Plot regression lines for each quarter
+x_range = np.linspace(df['x_growth'].min() - 0.01, df['x_growth'].max() + 0.01, 100)
+
+# Q1 line (base intercept)
+ax.plot(x_range, intercept + slope_coef * x_range, 
+        color=colors[0], linewidth=2, linestyle='-')
+
+# Q2 line
+ax.plot(x_range, (intercept + q2_effect) + slope_coef * x_range, 
+        color=colors[1], linewidth=2, linestyle='-')
+
+# Q3 line
+ax.plot(x_range, (intercept + q3_effect) + slope_coef * x_range, 
+        color=colors[2], linewidth=2, linestyle='-')
+
+# Q4 line
+ax.plot(x_range, (intercept + q4_effect) + slope_coef * x_range, 
+        color=colors[3], linewidth=2, linestyle='-')
+
+# Add legend, labels and title
+ax.legend(title='Quarter', fontsize=12)
+ax.set_xlabel('X Growth Rate', fontsize=14)
+ax.set_xlim(-0.2,0.3)
+ax.set_ylabel('Y Growth Rate', fontsize=14)
+ax.set_ylim(-0.3,0.4)
+
+# Add grid and styling
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+sns.despine(trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Model 5: Deseasonalization with Fixed Effects
+<p class="subheader">Using seasonal dummies to adjust for quarterly patterns.</p>
+
+```{python}
+# Visualization of seasonal fixed effects with intercept visualization
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import statsmodels.api as sm
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate data for 8 years (32 quarters)
+n = 32
+time = np.arange(n)
+quarters = time % 4
+years = time // 4
+
+# Create seasonal effects using the same pattern
+seasonal_pattern = np.array([-0.2, 0.1, 0.3, -0.1])  # Quarterly seasonal pattern
+seasonal = np.array([seasonal_pattern[q] for q in quarters])
+
+# Generate X variable (e.g., income growth)
+# Base growth rate + seasonal pattern + random noise
+x_growth = 0.02 + 0.7 * seasonal + 0.03 * np.random.normal(0, 1, n)
+
+# Generate Y variable (e.g., consumption growth)
+# Depends on x_growth with a coefficient of 0.8 + seasonal pattern + random noise
+slope = 0.8
+y_growth = 0.01 + slope * x_growth + 0.5 * seasonal + 0.02 * np.random.normal(0, 1, n)
+
+# Create a DataFrame for easier analysis
+df = pd.DataFrame({
+    'time': time,
+    'quarter': quarters,
+    'x_growth': x_growth,
+    'y_growth': y_growth
+})
+
+# Create quarter dummy variables
+for q in range(1, 4):  # Q1 is the reference category
+    df[f'Q{q+1}'] = (df['quarter'] == q).astype(int)
+
+# Run regression with seasonal fixed effects
+X = sm.add_constant(df[['x_growth', 'Q2', 'Q3', 'Q4']])
+model = sm.OLS(df['y_growth'], X).fit()
+
+# Extract coefficients
+intercept = model.params[0]
+slope_coef = model.params[1]
+q2_effect = model.params[2]
+q3_effect = model.params[3]
+q4_effect = model.params[4]
+
+# Calculate intercepts for each quarter
+q1_intercept = intercept
+q2_intercept = intercept + q2_effect
+q3_intercept = intercept + q3_effect
+q4_intercept = intercept + q4_effect
+
+# Create figure
+fig, axs = plt.subplots(1, 2, figsize=(11.5, 5), gridspec_kw={'width_ratios': [3, 1]})
+
+# Main plot (scatter and regression lines)
+ax = axs[0]
+
+# Create a color palette for quarters
+colors = ['#1f77b4', '#2ca02c', '#d62728', '#ff7f0e']  # blue, green, red, orange
+
+# Plot scatter by quarter
+for q in range(4):
+    quarter_data = df[df['quarter'] == q]
+    ax.scatter(quarter_data['x_growth'], quarter_data['y_growth'], 
+               color=colors[q], alpha=0.7, s=80, 
+               label=f'Q{q+1}')
+
+# Plot regression lines for each quarter
+x_range = np.linspace(df['x_growth'].min() - 0.01, df['x_growth'].max() + 0.01, 100)
+
+# Plot line for x=0 to show intercepts
+ax.axvline(x=0, color='black', linestyle='--', alpha=0.3)
+
+# Q1 line (base intercept)
+ax.plot(x_range, intercept + slope_coef * x_range, 
+        color=colors[0], linewidth=2, linestyle='-')
+
+# Q2 line
+ax.plot(x_range, (intercept + q2_effect) + slope_coef * x_range, 
+        color=colors[1], linewidth=2, linestyle='-')
+
+# Q3 line
+ax.plot(x_range, (intercept + q3_effect) + slope_coef * x_range, 
+        color=colors[2], linewidth=2, linestyle='-')
+
+# Q4 line
+ax.plot(x_range, (intercept + q4_effect) + slope_coef * x_range, 
+        color=colors[3], linewidth=2, linestyle='-')
+
+# Mark intercepts at x=0
+ax.scatter([0], [q1_intercept], color='white', s=100, zorder=10, edgecolor='black')
+ax.scatter([0], [q2_intercept], color='white', s=100, zorder=10, edgecolor='black')
+ax.scatter([0], [q3_intercept], color='white', s=100, zorder=10, edgecolor='black')
+ax.scatter([0], [q4_intercept], color='white', s=100, zorder=10, edgecolor='black')
+
+# Connect intercepts with dotted line
+ax.plot([0, 0], [q1_intercept, q4_intercept], 'k:', alpha=0.5)
+
+# Annotate intercepts
+ax.annotate(f'{q1_intercept:.3f}', xy=(0, q1_intercept), xytext=(-0.08, q1_intercept),
+            fontsize=11, color=colors[0], va='center', ha='right',
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+ax.annotate(f'{q2_intercept:.3f}', xy=(0, q2_intercept), xytext=(-0.08, q2_intercept),
+            fontsize=11, color=colors[1], va='center', ha='right',
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+ax.annotate(f'{q3_intercept:.3f}', xy=(0, q3_intercept), xytext=(-0.08, q3_intercept),
+            fontsize=11, color=colors[2], va='center', ha='right',
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+ax.annotate(f'{q4_intercept:.3f}', xy=(0, q4_intercept), xytext=(-0.08, q4_intercept),
+            fontsize=11, color=colors[3], va='center', ha='right',
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+# Add legend, labels and title
+ax.legend(title='Quarter', fontsize=12, loc='upper left')
+ax.set_xlabel('X Growth Rate', fontsize=14)
+ax.set_ylabel('Y Growth Rate', fontsize=14)
+ax.set_xlim(-0.2, 0.3)
+ax.set_ylim(-0.3, 0.4)
+
+# Add text annotation for slope
+ax.text(0.05, -0.25, f"Common slope: {slope_coef:.2f}", fontsize=12,
+        bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.7))
+
+# Add styling
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+sns.despine(ax=ax, trim=True)
+
+# Right panel: Bar chart of seasonal effects
+ax2 = axs[1]
+
+# Create bar chart of intercepts
+quarters = ['Q1', 'Q2', 'Q3', 'Q4']
+intercepts = [q1_intercept, q2_intercept, q3_intercept, q4_intercept]
+
+# Plot bars
+bars = ax2.bar(quarters, intercepts, color=colors, alpha=0.7, edgecolor='black')
+
+# Add value labels on top of each bar
+for c, bar in zip(colors, bars):
+    height = bar.get_height()
+    if height < 0:
+        va_ = 'top'
+        pad = -0.01
+    else:
+        va_ = 'bottom'
+        pad = 0.01
+    ax2.text(bar.get_x() + bar.get_width()/2., height + pad,
+            f'{height:.3f}', ha='center', va=va_, fontsize=11)
+
+    ax.plot([-0.2, 0.3], [height, height], c, alpha=0.1)
+
+# Add title and labels
+ax2.set_title('Quarterly Intercepts', fontsize=14)
+ax2.spines['top'].set_visible(False)
+ax2.spines['right'].set_visible(False)
+ax2.set_ylim(-0.3, 0.4)
+
+sns.despine(ax=ax2, trim=True)
+
+# Adjust layout
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> using these fixed effects deseasonalizes the data*
+
+. . .
+
+*> the slope captures the trend consistent across quarters*
+
+---
+
+## Model 5: Implementing Seasonal Fixed Effects
+<p class="subheader">Deseasonalizing data through regression.</p>
+
+```python
+# Run regression with seasonal dummies using C() notation
+model5 = smf.ols('gdp_growth ~ unemployment_growth + C(quarter)', data=data).fit()
+```
+
+<br>
+
+. . .
+
+*> deseasonalized data removes the average effect of each season*
+
+. . .
+
+*> relationship between variables is now clearer without seasonal distortions*
+
+---
+
+## Key Takeaways
+<p class="subheader">Best practices for time series analysis in economics.</p>
+
+<br>
+
+1. **Use differences or growth rates**
+   - Reduces serial correlation and removes trends
+   - First differences focus on period-to-period changes
+
+. . .
+
+2. **Address seasonality explicitly**
+   - Seasonal dummies, year-over-year comparisons
+
+. . .
+
+3. **Combine methods when appropriate**
+   - Growth rates of seasonally adjusted data
+
+. . .
+
+*> time series analysis requires special care but yields valuable economic insights*

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Part_5_1_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Part_5_1_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Part_5_1_files/libs/quarto-html/popper.min.js"></script>
-<script src="Part_5_1_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Part_5_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Part_5_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Part_5_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="concept_5_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_5_1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_5_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_5_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_5_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_5_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_5_1_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>part_5_1</title>
+  <title>concept_5_1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Part_5_1_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Part_5_1_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_5_1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_5_1_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Part_5_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_5_1_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="Part_5_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Part_5_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Part_5_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Part_5_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_5_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_5_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_5_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_5_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -194,26 +194,24 @@
 
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
-<p class="subheader">
-The economist’s data analysis pipeline.
+<p class="subheader-center">
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-5.1-fixed-effects-and-interaction-models"><em>Part 5.1 | Fixed Effects and Interaction Models</em></h3>
+<h3 id="part-5.1-categorical-controls"><em>Part 5.1 | Categorical Controls</em></h3>
 </section>
-<section id="example-the-gender-wage-gap" class="slide level2">
-<h2>Example: The Gender Wage Gap</h2>
+<section id="glm-the-gender-wage-gap" class="slide level2">
+<h2>GLM: The Gender Wage Gap</h2>
 <p class="subheader">
-Using the general linear model to understand wage differences.
+Lets use the general linear model to test for differences in wages by gender.
 </p>
 <p><br></p>
-<p><strong>Key Questions:</strong></p>
+<p><strong>Questions:</strong></p>
+<div>
 <ul>
-<li>Is there a wage gap between male / female?</li>
-<li>Are returns to education different between male / female?</li>
-<li>How can we model these questions with a regression framework?</li>
+<li class="fragment">Is there a wage gap between male / female?</li>
+<li class="fragment">Are returns to education different between male / female?</li>
 </ul>
-<div class="fragment">
-<p><em>&gt; lets build this analysis step by step</em></p>
 </div>
 </section>
 <section id="model-1-basic-gender-wage-gap" class="slide level2">
@@ -222,11 +220,11 @@ Using the general linear model to understand wage differences.
 The simplest model with just a gender indicator.
 </p>
 <div class="fragment">
-<div id="2de1559b" class="cell" data-execution_count="1">
+<div id="b835db9b" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-2-output-1.png" width="1046" height="469"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-2-output-1.png" width="1046" height="469"></p>
 </figure>
 </div>
 </div>
@@ -238,11 +236,11 @@ The simplest model with just a gender indicator.
 <p class="subheader">
 The simplest model with just a gender indicator.
 </p>
-<div id="471f3a60" class="cell" data-execution_count="2">
+<div id="fd344ed0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-3-output-1.png" width="1046" height="469"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-3-output-1.png" width="1046" height="469"></p>
 </figure>
 </div>
 </div>
@@ -257,19 +255,12 @@ The simplest model with just a gender indicator.
 The simplest model with just a gender indicator.
 </p>
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Male} + \varepsilon\]</span></p>
-<div class="fragment">
+<div>
 <ul>
-<li>β₀ is the average wage for females</li>
+<li class="fragment">β₀ is the average wage for females</li>
+<li class="fragment">β₁ represents the gender wage gap - the additional wage for males</li>
+<li class="fragment">We often call a Categorical Control variable like this a “Fixed Effect”</li>
 </ul>
-</div>
-<div class="fragment">
-<ul>
-<li>β₁ represents the gender wage gap - the additional wage for males</li>
-</ul>
-<p><br></p>
-</div>
-<div class="fragment">
-<p><em>&gt; model ignores education entirely - just comparing average wages by gender</em></p>
 </div>
 </section>
 <section id="model-1-the-code" class="slide level2">
@@ -280,15 +271,15 @@ Implementing the basic gender gap model
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a><span class="co"># Fit the model with just the male indicator</span></span>
-<span id="cb1-4"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ MALE'</span>, data<span class="op">=</span>df).fit()</span>
-<span id="cb1-5"><a href=""></a><span class="bu">print</span>(model1.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ MALE'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb1-5"><a href=""></a><span class="bu">print</span>(model1.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<div class="fragment">
-<p><em>&gt; if β₁ &gt; 0 and statistically significant, evidence of a raw gender wage gap</em></p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; this model doesn’t control for any other factors that might explain wage differences</em></p>
+<div>
+<ul>
+<li class="fragment">If β₁ &gt; 0, this is evidence of a difference in income by gender</li>
+<li class="fragment">There are many possible explainations for this gap</li>
+<li class="fragment">What if the gap is related to some other factor (eg. education)?</li>
+</ul>
 </div>
 </section>
 <section id="model-2-education-gender-wage-gap" class="slide level2">
@@ -297,11 +288,11 @@ Implementing the basic gender gap model
 Adding education as a control variable.
 </p>
 <div class="fragment">
-<div id="8a5fbcf7" class="cell" data-execution_count="3">
+<div id="afd129dc" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
 </div>
@@ -313,11 +304,26 @@ Adding education as a control variable.
 <p class="subheader">
 Adding education as a control variable.
 </p>
-<div id="d6632c62" class="cell" data-execution_count="4">
+<div id="af98bf6d" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-2-education-gender-wage-gap-2" class="slide level2">
+<h2>Model 2: Education + Gender Wage Gap</h2>
+<p class="subheader">
+Adding education as a control variable.
+</p>
+<div id="9db0a11b" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
 </div>
@@ -326,7 +332,7 @@ Adding education as a control variable.
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \varepsilon\]</span></p>
 </div>
 </section>
-<section id="model-2-education-gender-wage-gap-2" class="slide level2">
+<section id="model-2-education-gender-wage-gap-3" class="slide level2">
 <h2>Model 2: Education + Gender Wage Gap</h2>
 <p class="subheader">
 Adding education as a control variable.
@@ -348,12 +354,22 @@ Implementing the gender fixed effect model
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a><span class="co"># Fit the model with male indicator</span></span>
-<span id="cb2-4"><a href=""></a>model1 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE'</span>, data<span class="op">=</span>df).fit()</span>
-<span id="cb2-5"><a href=""></a><span class="bu">print</span>(model1.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb2-5"><a href=""></a><span class="bu">print</span>(model2.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="fragment">
-<p><em>&gt; if β₂ &gt; 0 and statistically significant, evidence of a gender wage gap</em></p>
+<ul>
+<li>If β₂ &gt; 0, there is evidence of a gender wage gap.</li>
+</ul>
 </div>
+</section>
+<section id="econ-0150-economic-data-analysis-1" class="slide level2 center">
+<h2>ECON 0150 | Economic Data Analysis</h2>
+<p class="subheader-center">
+The economist’s data analysis skillset.
+</p>
+<p><br></p>
+<h3 id="part-5.2-interaction-models"><em>Part 5.2 | Interaction Models</em></h3>
 </section>
 <section id="model-3-different-returns-to-education" class="slide level2">
 <h2>Model 3: Different Returns to Education</h2>
@@ -361,11 +377,11 @@ Implementing the gender fixed effect model
 What if education benefits genders differently?
 </p>
 <div class="fragment">
-<div id="eddb24c8" class="cell" data-execution_count="5">
+<div id="7586c6bd" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
 </div>
@@ -377,11 +393,11 @@ What if education benefits genders differently?
 <p class="subheader">
 What if education benefits genders differently?
 </p>
-<div id="b72a8c7b" class="cell" data-execution_count="6">
+<div id="214e6053" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="470"></p>
 </figure>
 </div>
 </div>
@@ -396,12 +412,12 @@ What if education benefits genders differently?
 What if education benefits genders differently?
 </p>
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon\]</span></p>
-<p><em>&gt; β₁ represents the female return to education</em></p>
-<div class="fragment">
-<p><em>&gt; β₂ represents the additional male return to education - this changes the slope</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; male education effect is β₁ + β₂, creating diverging wage paths</em></p>
+<div>
+<ul>
+<li class="fragment">β₁ represents the female return to education.</li>
+<li class="fragment">β₂ represents the additional male return to education - this changes the slope</li>
+<li class="fragment">Male education effect is β₁ + β₂, creating diverging wage paths</li>
+</ul>
 </div>
 </section>
 <section id="model-3-the-code" class="slide level2">
@@ -410,14 +426,14 @@ What if education benefits genders differently?
 Implementing the education-gender interaction model
 </p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Fit model with interaction between education and sex</span></span>
-<span id="cb3-2"><a href=""></a>model2 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + EDU:MALE'</span>, data<span class="op">=</span>df).fit()</span>
-<span id="cb3-3"><a href=""></a><span class="bu">print</span>(model2.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + EDU:MALE'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb3-3"><a href=""></a><span class="bu">print</span>(model3.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
-<div class="fragment">
-<p><em>&gt; if β₂ &gt; 0 and significant, male return to education is higher</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; this model assumes same baseline (intercept) for both sexes</em></p>
+<div>
+<ul>
+<li class="fragment">If β₂ &gt; 0 and significant, male return to education is higher</li>
+<li class="fragment">This model assumes same baseline (intercept) for both genders</li>
+</ul>
 </div>
 </section>
 <section id="model-4-full-gender-difference-model" class="slide level2">
@@ -425,11 +441,11 @@ Implementing the education-gender interaction model
 <p class="subheader">
 Combining fixed effects and interactions
 </p>
-<div id="b2552695" class="cell" data-execution_count="7">
+<div id="88eeba08" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="Part_5_1_files/figure-revealjs/cell-8-output-1.png" width="1055" height="470"></p>
+<p><img data-src="concept_5_1_files/figure-revealjs/cell-9-output-1.png" width="1055" height="470"></p>
 </figure>
 </div>
 </div>
@@ -444,15 +460,13 @@ Combining fixed effects and interactions
 Combining fixed effects and interactions
 </p>
 <p><span class="math display">\[\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon\]</span></p>
-<p><em>&gt; β₀ = base wage</em></p>
-<div class="fragment">
-<p><em>&gt; β₂ = initial wage gap (at zero education)</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; β₁ = female returns to education</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; β₃ = male education return premium</em></p>
+<div>
+<ul>
+<li class="fragment">β₀ = base wage</li>
+<li class="fragment">β₂ = initial wage gap (at zero education)</li>
+<li class="fragment">β₁ = female returns to education</li>
+<li class="fragment">β₃ = male education return premium</li>
+</ul>
 </div>
 </section>
 <section id="model-4-the-code" class="slide level2">
@@ -461,8 +475,8 @@ Combining fixed effects and interactions
 Implementing the full gender difference model
 </p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Fit full model with both sex indicator and interaction</span></span>
-<span id="cb4-2"><a href=""></a>model3 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE + EDU:MALE'</span>, data<span class="op">=</span>df).fit()</span>
-<span id="cb4-3"><a href=""></a><span class="bu">print</span>(model3.summary())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href=""></a>model4 <span class="op">=</span> smf.ols(<span class="st">'INCLOG10 ~ EDU + MALE + EDU:MALE'</span>, data<span class="op">=</span>data).fit()</span>
+<span id="cb4-3"><a href=""></a><span class="bu">print</span>(model4.summary().tables[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><br></p>
 <div class="fragment">
 <p><em>&gt; allows for differences in both baseline wages and educational returns</em></p>
@@ -474,38 +488,27 @@ Implementing the full gender difference model
 Different models answer different questions
 </p>
 <p><br></p>
-<ol type="1">
-<li><strong>Model 1: Fixed Effect</strong>
+<p><strong>Model 1: Fixed Effect</strong></p>
 <ul>
 <li>Question: “Is there a gender wage gap?”</li>
-</ul></li>
-</ol>
+</ul>
 <div class="fragment">
-<ol start="2" type="1">
-<li><strong>Model 2: Fixed Effect with Control</strong>
+<p><strong>Model 2: Fixed Effect with Control</strong></p>
 <ul>
 <li>Question: “Is there a gender wage gap controling for education?”</li>
-</ul></li>
-</ol>
+</ul>
 </div>
 <div class="fragment">
-<ol start="3" type="1">
-<li><strong>Model 3: Interaction Only</strong>
+<p><strong>Model 3: Interaction Only</strong></p>
 <ul>
 <li>Question: “Are there differences in returns to education?”</li>
-</ul></li>
-</ol>
+</ul>
 </div>
 <div class="fragment">
-<ol start="4" type="1">
-<li><strong>Model 4: Full Model</strong>
+<p><strong>Model 4: Fixed Effect and Interaction</strong></p>
 <ul>
 <li>Question: “Does the gender wage gap vary with education level?”</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<p><em>&gt; choose the model that best addresses your research question</em></p>
+</ul>
 </div>
 </section>
 <section id="key-takeaways" class="slide level2">
@@ -514,30 +517,19 @@ Different models answer different questions
 General linear model for analyzing group differences
 </p>
 <p><br></p>
-<p><em>&gt; the general linear model is a versatile tool for inequality research</em></p>
-<div class="fragment">
 <p><br></p>
-<ol type="1">
-<li><strong>Fixed effects</strong> capture level differences between groups</li>
-</ol>
+<p><strong>Part 5.1 | Categorical Controls</strong> <em>(‘Fixed Effects’)</em></p>
+<ul>
+<li>Captures level differences between groups</li>
+</ul>
+<div class="fragment">
+<p><strong>Part 5.2 | Interactions</strong></p>
+<ul>
+<li>Capture differences in slopes</li>
+</ul>
 </div>
 <div class="fragment">
-<ol start="2" type="1">
-<li><strong>Interactions</strong> capture slope differences (differential returns)</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li><strong>Combining both</strong> gives a complete picture of how relationships vary by group</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li><strong>Model choice</strong> should be guided by your research question</li>
-</ol>
-</div>
-<div class="fragment">
-<p><em>&gt; these tools are essential for analyzing disparities in economics</em></p>
+<p><strong>Model Choice</strong> should be guided by your research question</p>
 
 </div>
 </section>
@@ -549,19 +541,19 @@ General linear model for analyzing group differences
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Part_5_1_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Part_5_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Part_5_1_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Part_5_1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_5_1_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
