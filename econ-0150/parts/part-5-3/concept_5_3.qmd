@@ -1,0 +1,587 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br>
+
+### *Part 5.3 | Numerical Control Variables*
+
+---
+
+## Numerical Control Variables
+<p class="subheader">House prices depend on more than just size</p>
+
+*House prices also depend on:*
+
+:::{.incremental}
+- Age of the house
+- Number of bedrooms
+- Neighborhood
+- And many other factors
+:::
+
+. . .
+
+*> what is the value of an additional square foot?*
+
+---
+
+## Pittsburgh Housing
+<p class="subheader">Pittsburgh housing data with 10,000 homes</p>
+
+<br>
+
+**Our question:**
+
+*What is the value of an additional square foot of living area?*
+
+. . .
+
+<br>
+
+**Variables:**
+
+- `SALEPRICE`: Sale price of the home
+- `LOGPRICE`: Log of sale price
+- `FINISHEDLIVINGAREA`: Square footage of finished living space
+- `YEARBLT`: Year the home was built
+
+---
+
+## Pittsburgh Housing: Separate Models
+<p class="subheader">What if we build a regression model for both relationships separately?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+import statsmodels.formula.api as smf
+
+# Load actual data
+data = pd.read_csv('https://tayweid.github.io/econ-0150/parts/pgh_housing_small.csv', index_col=0)
+data['LOGPRICE'] = np.log(data['SALEPRICE'])
+
+# Fit models
+model_area = smf.ols('LOGPRICE ~ FINISHEDLIVINGAREA', data=data).fit()
+model_year = smf.ols('LOGPRICE ~ YEARBLT', data=data).fit()
+
+# Create figure with side-by-side plots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5))
+
+# Plot living area vs log price
+ax1.scatter(data['FINISHEDLIVINGAREA'], data['LOGPRICE'], alpha=0.4, color='#4C72B0', s=20)
+x_line = np.array([data['FINISHEDLIVINGAREA'].min(), data['FINISHEDLIVINGAREA'].max()])
+y_line = model_area.params['Intercept'] + model_area.params['FINISHEDLIVINGAREA'] * x_line
+ax1.plot(x_line, y_line, color='red', linewidth=2.5,
+        label=f'Slope = {model_area.params["FINISHEDLIVINGAREA"]:.5f}')
+ax1.set_title('Living Area vs. Log Price', fontsize=14, weight='bold')
+ax1.set_xlabel('Finished Living Area (sq ft)', fontsize=12)
+ax1.set_ylabel('Log Price', fontsize=12)
+ax1.legend(fontsize=11)
+
+# Plot year built vs log price
+ax2.scatter(data['YEARBLT'], data['LOGPRICE'], alpha=0.4, color='#4C72B0', s=20)
+x_line = np.array([data['YEARBLT'].min(), data['YEARBLT'].max()])
+y_line = model_year.params['Intercept'] + model_year.params['YEARBLT'] * x_line
+ax2.plot(x_line, y_line, color='red', linewidth=2.5,
+        label=f'Slope = {model_year.params["YEARBLT"]:.4f}')
+ax2.set_title('Year Built vs. Log Price', fontsize=14, weight='bold')
+ax2.set_xlabel('Year Built', fontsize=12)
+ax2.set_ylabel('Log Price', fontsize=12)
+ax2.legend(fontsize=11)
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> both living area and year built have positive relationships with price*
+
+---
+
+## Pittsburgh Housing: Related Predictor Variables
+<p class="subheader">Predictor variables 'Living Area' and 'Year Built' are correlated!</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+# Plot the relationship between living area and year built
+plt.figure(figsize=(5, 5))
+
+# Calculate correlation
+correlation = data['FINISHEDLIVINGAREA'].corr(data['YEARBLT'])
+
+# Fit regression line
+slope_rel, intercept_rel, r_rel, p_rel, se_rel = stats.linregress(
+    data['FINISHEDLIVINGAREA'], data['YEARBLT'])
+
+plt.scatter(data['FINISHEDLIVINGAREA'], data['YEARBLT'],
+           alpha=0.4, color='#4C72B0', s=20)
+
+x_line = np.array([data['FINISHEDLIVINGAREA'].min(),
+                   data['FINISHEDLIVINGAREA'].max()])
+y_line = intercept_rel + slope_rel * x_line
+plt.plot(x_line, y_line, color='red', linewidth=2.5,
+         label=f'Correlation: {r_rel:.3f}')
+
+plt.xlabel('Finished Living Area (sq ft)', fontsize=13)
+plt.ylabel('Year Built', fontsize=13)
+plt.legend(fontsize=12)
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> larger homes tend to be built more recently*
+
+. . .
+
+*> if we look at one without accounting for the other, we get misleading results*
+
+---
+
+## Pittsburgh Housing: Multiple Regression
+<p class="subheader">We can model multiple predictor variables simultaneously.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import plotly.graph_objects as go
+
+# Create meshgrid for the regression plane
+area_range = np.linspace(data['FINISHEDLIVINGAREA'].min(),
+                        data['FINISHEDLIVINGAREA'].max(), 30)
+year_range = np.linspace(data['YEARBLT'].min(),
+                        data['YEARBLT'].max(), 30)
+area_grid, year_grid = np.meshgrid(area_range, year_range)
+model_both = smf.ols('LOGPRICE ~ FINISHEDLIVINGAREA + YEARBLT', data=data).fit()
+
+# Calculate Z values for the plane
+Z = (model_both.params['Intercept'] +
+     model_both.params['FINISHEDLIVINGAREA'] * area_grid +
+     model_both.params['YEARBLT'] * year_grid)
+
+# Create the interactive 3D plot
+fig = go.Figure()
+
+# Add the data points
+fig.add_trace(go.Scatter3d(
+    x=data['FINISHEDLIVINGAREA'],
+    y=data['YEARBLT'],
+    z=data['LOGPRICE'],
+    mode='markers',
+    marker=dict(size=3, color='#4C72B0', opacity=0.4),
+    name='Data Points',
+    hovertemplate='<b>Living Area</b>: %{x:.0f} sq ft<br>' +
+                  '<b>Year Built</b>: %{y:.0f}<br>' +
+                  '<b>Log Price</b>: %{z:.2f}<extra></extra>'
+))
+
+# Add the regression plane
+fig.add_trace(go.Surface(
+    x=area_range,
+    y=year_range,
+    z=Z,
+    colorscale=[[0, 'rgba(255,0,0,0.3)'], [1, 'rgba(255,0,0,0.3)']],
+    showscale=False,
+    name='Regression Plane',
+    hovertemplate='<b>Predicted Log Price</b>: %{z:.2f}<extra></extra>'
+))
+
+# Update layout
+fig.update_layout(
+    scene=dict(
+        xaxis=dict(title='Living Area (sq ft)', backgroundcolor='white',
+                  gridcolor='lightgray'),
+        yaxis=dict(title='Year Built', backgroundcolor='white',
+                  gridcolor='lightgray'),
+        zaxis=dict(title='Log Price', backgroundcolor='white',
+                  gridcolor='lightgray'),
+        camera=dict(eye=dict(x=1.5, y=-1.5, z=1.2))
+    ),
+    width=900,
+    height=600,
+    margin=dict(l=0, r=0, t=40, b=0),
+    showlegend=False
+)
+
+fig.show()
+```
+
+---
+
+## The Multiple Regression Equation
+<p class="subheader">Extending the best-fitting line to multiple dimensions</p>
+
+<br>
+
+. . .
+
+**Single Variable:**
+
+$$\text{LogPrice} = \beta_0 + \beta_1 \times \text{LivingArea} + \epsilon$$
+
+. . .
+
+**Multiple Variables:**
+
+$$\text{LogPrice} = \beta_0 + \beta_1 \times \text{LivingArea} + \beta_2 \times \text{YearBuilt} + \epsilon$$
+
+. . .
+
+**Interpretation:**
+
+- $\beta_0$ = Base log price (intercept)
+- $\beta_1$ = Effect of one more square foot, *holding year built constant*
+- $\beta_2$ = Effect of being built one year later, *holding living area constant*
+
+---
+
+## Pittsburgh Housing: The Question
+<p class="subheader">What is the value of an additional square foot?</p>
+
+. . .
+
+**Without controlling for year built:**
+
+- We compare small (old) houses to large (new) houses
+- The size effect includes the age effect
+- Overestimates the true value of square footage
+
+. . .
+
+**With controlling for year built:**
+
+- We compare houses of similar age but different sizes
+- Isolates the pure size effect
+- Gives us the true value of square footage
+
+. . .
+
+*> this is what a **control variable** does*
+
+---
+
+## Multiple Regression with Control
+<p class="subheader">We can adjust for multiple variables simultaneously.</p>
+
+```{python}
+#| echo: false
+print("Model 1: Living Area Only")
+print(model_area.summary().tables[1])
+print("\n")
+print("Model 3: Living Area + Year Built Control")
+model_both = smf.ols('LOGPRICE ~ FINISHEDLIVINGAREA + YEARBLT', data=data).fit()
+print(model_both.summary().tables[1])
+```
+
+---
+
+## What Changed?
+<p class="subheader">Comparing coefficients with and without the control</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+# Create side-by-side scatterplots with regression lines
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5))
+
+# Model 1: Without control
+ax1.scatter(data['FINISHEDLIVINGAREA'], data['LOGPRICE'],
+           alpha=0.4, color='#4C72B0', s=20)
+x_line = np.array([data['FINISHEDLIVINGAREA'].min(),
+                   data['FINISHEDLIVINGAREA'].max()])
+y_line = model_area.params['Intercept'] + model_area.params['FINISHEDLIVINGAREA'] * x_line
+ax1.plot(x_line, y_line, color='#C44E52', linewidth=3,
+        label=f'β₁ = {model_area.params["FINISHEDLIVINGAREA"]:.6f}')
+ax1.set_title('Model 1: Without Year Built Control', fontsize=14, weight='bold')
+ax1.set_xlabel('Finished Living Area (sq ft)', fontsize=12)
+ax1.set_ylabel('Log Price', fontsize=12)
+ax1.legend(fontsize=12, loc='upper left')
+
+# Model 3: With control - show partial regression
+# Calculate partial residuals for living area
+partial_resid_y = data['LOGPRICE'] - model_both.params['YEARBLT'] * data['YEARBLT'] - model_both.params['Intercept']
+partial_resid_y = partial_resid_y + model_both.params['FINISHEDLIVINGAREA'] * data['FINISHEDLIVINGAREA'].mean()
+
+ax2.scatter(data['FINISHEDLIVINGAREA'], partial_resid_y,
+           alpha=0.4, color='#4C72B0', s=20)
+x_line = np.array([data['FINISHEDLIVINGAREA'].min(),
+                   data['FINISHEDLIVINGAREA'].max()])
+y_line = model_both.params['FINISHEDLIVINGAREA'] * (x_line - data['FINISHEDLIVINGAREA'].mean()) + partial_resid_y.mean()
+ax2.plot(x_line, y_line, color='#55A868', linewidth=3,
+        label=f'β₁ = {model_both.params["FINISHEDLIVINGAREA"]:.6f}')
+ax2.set_title('Model 3: With Year Built Control', fontsize=14, weight='bold')
+ax2.set_xlabel('Finished Living Area (sq ft)', fontsize=12)
+ax2.set_ylabel('Log Price (adjusted)', fontsize=12)
+ax2.legend(fontsize=12, loc='upper left')
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> without control: size effect was inflated by age effect*
+
+. . .
+
+*> with control: we get the pure size effect*
+
+---
+
+## Residual Diagnostics
+<p class="subheader">Checking if our model improved</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+# Create residual plots for both models
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Without control
+residuals_area = model_area.resid
+predictions_area = model_area.fittedvalues
+ax1.scatter(predictions_area, residuals_area, alpha=0.4, color='#4C72B0', s=20)
+ax1.axhline(y=0, color='red', linestyle='--', linewidth=2)
+ax1.set_xlabel('Fitted Values', fontsize=12)
+ax1.set_ylabel('Residuals', fontsize=12)
+ax1.set_title('Model 1: Without Year Built Control', fontsize=13, weight='bold')
+
+# With control
+residuals_both = model_both.resid
+predictions_both = model_both.fittedvalues
+ax2.scatter(predictions_both, residuals_both, alpha=0.4, color='#4C72B0', s=20)
+ax2.axhline(y=0, color='red', linestyle='--', linewidth=2)
+ax2.set_xlabel('Fitted Values', fontsize=12)
+ax2.set_ylabel('Residuals', fontsize=12)
+ax2.set_title('Model 3: With Year Built Control', fontsize=13, weight='bold')
+
+sns.despine()
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> residuals look more randomly scattered with the control*
+
+---
+
+## Log Interpretation
+<p class="subheader">Converting log coefficients to percentages</p>
+
+<br>
+
+. . .
+
+**For small coefficients (< 0.1):**
+
+$$\beta \times 100 \approx \text{percentage change}$$
+
+. . .
+
+Interpretation (holding year built constant):
+
+```{python}
+#| echo: false
+
+area_coef = model_both.params['FINISHEDLIVINGAREA']
+year_coef = model_both.params['YEARBLT']
+
+print(f"  - Each additional sq ft increases price by {area_coef * 100:.3f}%")
+print(f"  - 100 additional sq ft increases price by {area_coef * 100 * 100:.2f}%")
+```
+
+Interpretation (holding living area constant):
+
+```{python}
+#| echo: false
+print(f"  - Each year newer increases price by {year_coef * 100:.3f}%")
+print(f"  - A house 10 years newer increases price by {year_coef * 10 * 100:.2f}%")
+```
+
+. . .
+
+*> for log outcomes, coefficients represent proportional changes*
+
+---
+
+## The "Holding Constant" Intuition
+<p class="subheader">What regression is actually doing</p>
+
+. . .
+
+**Without control (simple regression):**
+
+$$\text{LogPrice} = \beta_0 + \beta_1 \times \text{LivingArea} + \epsilon$$
+
+- Compares *all* small houses to *all* large houses
+- Large houses are newer, so $\beta_1$ captures both size AND age effects
+
+. . .
+
+**With control (multiple regression):**
+
+$$\text{LogPrice} = \beta_0 + \beta_1 \times \text{LivingArea} + \beta_2 \times \text{YearBuilt} + \epsilon$$
+
+- Compares small and large houses *built in the same year*
+- $\beta_1$ now captures only the pure size effect
+- $\beta_2$ captures only the pure age effect
+
+---
+
+## Multiple Controls
+<p class="subheader">We can control for many variables simultaneously</p>
+
+<br>
+
+**Interpretation remains the same:**
+
+- Each $\beta$ represents the effect *holding all other variables constant*
+
+. . .
+
+<br>
+
+*> this is the foundation of empirical economics*
+
+---
+
+## Summary
+<p class="subheader">Key takeaways about numerical control variables</p>
+
+<br>
+
+. . .
+
+1. **Control variables** help isolate the effect of your main predictor
+
+. . .
+
+2. **"Holding constant"** means comparing observations with similar control values
+
+. . .
+
+3. **Coefficients change** when you add controls because you remove confounding
+
+. . .
+
+4. **Choose controls carefully**: confounders yes, mediators no
+
+. . .
+
+5. **Check residuals** to see if controls improved the model
+
+---
+
+## Exercise 5.3 | Pittsburgh Housing Prices
+
+<br>
+
+Lets find the value of an extra square feet in the Pittsburgh housing market.
+
+---
+
+## Step 1: Load and Explore the Data
+
+```python
+# Load the data
+data = pd.read_csv(file_path + 'pgh_housing_small.csv', index_col=0)
+
+# Create log price variable
+data['LOGPRICE'] = np.log(data['SALEPRICE'])
+
+# Display the data
+data.head()
+```
+
+---
+
+## Step 2: Modeling Relationships Separately
+
+```python
+# Model 1: Living area only
+model_area = smf.ols('LOGPRICE ~ FINISHEDLIVINGAREA', data=data).fit()
+print(model_area.summary().tables[1])
+```
+
+. . .
+
+```python
+# Model 2: Year built only
+model_year = smf.ols('LOGPRICE ~ YEARBLT', data=data).fit()
+print(model_year.summary().tables[1])
+```
+
+---
+
+## Step 3: Are Living Area and Year Built Correlated?
+
+```python
+# Plot the relationship between living area and year built
+plt.figure(figsize=(8, 5))
+sns.scatterplot(data=data, x='FINISHEDLIVINGAREA', y='YEARBLT', alpha=0.5)
+plt.title('Relationship Between Living Area and Year Built')
+plt.xlabel('Finished Living Area (sq ft)')
+plt.ylabel('Year Built')
+plt.tight_layout()
+plt.show()
+
+# Calculate correlation
+correlation = data['FINISHEDLIVINGAREA'].corr(data['YEARBLT'])
+print(f"Correlation: {correlation:.3f}")
+```
+
+---
+
+## Step 4: Multiple Regression with Control Variable
+
+```python
+# Model 3: Both variables (with control)
+model_both = smf.ols('LOGPRICE ~ FINISHEDLIVINGAREA + YEARBLT',
+                     data=data).fit()
+print(model_both.summary().tables[1])
+```
+
+---
+
+## Step 5: Checking Residuals
+
+```python
+# Create residual plots for both models
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+# Model 1: Without control
+residuals_area = model_area.resid
+predictions_area = model_area.fittedvalues
+ax1.scatter(predictions_area, residuals_area, alpha=0.5, color='#4C72B0')
+ax1.axhline(y=0, color='red', linestyle='--', linewidth=2)
+ax1.set_title('Model 1: Without Year Built Control')
+
+# Model 3: With control
+residuals_both = model_both.resid
+predictions_both = model_both.fittedvalues
+ax2.scatter(predictions_both, residuals_both, alpha=0.5, color='#4C72B0')
+ax2.axhline(y=0, color='red', linestyle='--', linewidth=2)
+ax2.set_title('Model 3: With Year Built Control')
+```

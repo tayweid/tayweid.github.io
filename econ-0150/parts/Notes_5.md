@@ -27,9 +27,13 @@ a positive relationship can be hidden by multiple negative relationships
 
 #### Part 5.2 | Interactions
 
+this didn't flow well. going from model 1 to model 2 could be much easier by actually showing the model 1 figure right before model 2. also i don't know if the intuition for the non-interacted coefficient being the zero group ONLY WHEN there's an interacted term, i don't know if that came through very clearly.
+
+we spent a lot of time getting set up with Colab today. I wish we had done more of that early on. students are all excited about the projects. i wish we had started after doing scatterplots in part 1. I think they can get started setting up visualizations of their questions before needing the statistical models to test. 
 
 
-#### Part 5.2 | Numerical Controls
+
+#### Part 5.3 | Numerical Controls
 
 so we've established the gender wage gap is real and present. one hypothesis for where the gender wage gap comes from is mothers leaving the workforce temporarily to have children. you knew I would bring this back to Maxine!
 
