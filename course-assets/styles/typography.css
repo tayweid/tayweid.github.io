@@ -48,6 +48,10 @@ h3, h4 {
     font-weight: 300;
 }
 
+.subtitle + p {
+    margin-top: 5px;
+}
+
 p {
     font-size: 20px;
     font-size: clamp(16px, 2vw, 20px);  /* Responsive sizing with min/max */
