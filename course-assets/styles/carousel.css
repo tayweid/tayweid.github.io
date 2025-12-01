@@ -24,6 +24,7 @@
     color: var(--main-fg-color);
     text-decoration: none;
     font-size: 14px;
+    font-weight: 300;
     transition: all 0.2s ease;
     vertical-align: middle;
 }
@@ -48,6 +49,7 @@
     color: var(--main-fg-color);
     text-decoration: none;
     font-size: 14px;
+    font-weight: 300;
     transition: all 0.2s ease;
     vertical-align: middle;
     margin-right: 8px;
@@ -292,6 +294,10 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .carousel-card.active {
@@ -439,6 +445,7 @@ img.placeholder-bg {
     font-size: clamp(16px, 2vw, 20px);  /* Responsive sizing with min/max */
     color: white;
     line-height: 1.2;
+    font-weight: 300;
 }
 
 .chapter-topic {
