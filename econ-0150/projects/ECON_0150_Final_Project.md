@@ -18,11 +18,11 @@ Make this your own and have fun with it! There are general guidelines, but don't
 
 - *Project proposal: Select a topic/question, a descriptive figure, and a statistical model.*
 
-**Friday, November 21 (in Homework)** 
+**Friday, December 5 (on Gradescope)** 
 
-- *Draft analysis: Send me a draft of your writeup, including at least one figure.*
+- *Draft analysis: Send me a draft of your writeup and slides, including at least one figure,.*
 
-**Finals Period** (December 8 for the 2:30 PM section; December 8 for the 1:00 PM section)
+**Finals Period** (1PM Section: *Friday, December 12, at 12PM* | 2:30 PM Section: *Monday, December 8 at 12PM*)
 
 - *Final presentation: Present 1-2 slides, described below.*
 
