@@ -192,3 +192,37 @@ Thursday we'll extend this Multivariate GLM framework with Interactions to test 
 Yours,
 
 Taylor
+
+
+
+#### Economic Data Analysis: Final Week
+
+Hi folks,
+
+Last week! Here's all we have left.
+
+Tuesday:
+
+- First, we'll cover Part 5.4 Model Selection. It's a new concept, and I know you're ready to be done, but I need to cover it (~10 minutes).
+- Second, Part 6.1, I will demo an example final project writeup. I will start with a question, work through data collection, prepare a notebook with visualizations, run a model, and write up a draft. 
+
+Wednesday, I have office hours in the morning, and I'm working on scheduling a review session in the evening, TBA.
+
+Thursday:
+
+- First, we'll take MiniExam 5.
+- Second, Part 6.2, we'll talk about best practices for preparing presentations. 
+
+Finals Week:
+
+- Final Exam Period (1PM Section: Friday, December 12 at 12PM): you and your group will send me your slides the night before and present during the final exam period. 
+- Final Exam Period (2:30PM Section: Monday, December 8 at 12PM): you and your group will send me your slides the night before and present during the final exam period. 
+- Friday, December 12 at 5PM: you and your group turn in your final writeup and replication files (a folder with your data and code).
+
+Then you're off to a long, long winter break. 
+
+
+
+See ya tomorrow,
+
+Taylor
