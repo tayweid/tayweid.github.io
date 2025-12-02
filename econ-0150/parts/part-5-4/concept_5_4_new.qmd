@@ -1,0 +1,290 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 5.4 | Model Selection*
+
+---
+
+## Model Selection
+<p class="subheader">How do we know if adding a variable improves our model?</p>
+
+<br><br>
+
+:::{.incremental}
+- Adding variables reduces SSE (better fit to the data)
+- But is the improvement *real* or just fitting noise?
+- We need a way to test whether the improvement is statistically significant
+:::
+
+---
+
+## R²: Proportion of Variation Explained
+<p class="subheader">How much of the variation does our model capture?</p>
+
+$$R^2 = 1 - \frac{SSE}{SST}$$
+
+. . .
+
+- $SST$: total variation (SSE of the null model—just the mean)
+- $SSE$: leftover variation after fitting the model
+
+. . .
+
+- $R^2 = 0$: model does no better than the mean
+- $R^2 = 1$: model predicts perfectly
+
+---
+
+## The Problem with R²
+<p class="subheader">R² always goes up when you add variables.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Simulated R² values for nested models
+models = ['y ~ 1\n(null)', 'y ~ age', 'y ~ age + educ', 'y ~ age + educ + noise']
+r2_values = [0.0, 0.12, 0.38, 0.39]
+colors = ['#4C72B0', '#4C72B0', '#4C72B0', '#DD8452']
+
+fig, ax = plt.subplots(figsize=(10, 4))
+bars = ax.bar(models, r2_values, color=colors, edgecolor='white', width=0.6)
+
+ax.set_ylabel('R²', fontsize=14)
+ax.set_ylim(0, 0.5)
+ax.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5])
+
+# Add value labels on bars
+for bar, val in zip(bars, r2_values):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.015, 
+            f'{val:.2f}', ha='center', fontsize=12)
+
+# Add annotation for the noise variable
+ax.annotate('random noise\nstill increases R²!', 
+            xy=(3, 0.39), xytext=(3.4, 0.30),
+            fontsize=11, color='#DD8452',
+            arrowprops=dict(arrowstyle='->', color='#DD8452'))
+
+sns.despine(left=False, bottom=True, right=True, top=True)
+ax.tick_params(bottom=False)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> even adding random noise will reduce SSE a little*
+
+. . .
+
+*> so how do we know if the improvement is real?*
+
+---
+
+## The F-Test
+<p class="subheader">Is the reduction in SSE larger than we'd expect by chance?</p>
+
+Compare two models:
+
+- **Restricted**: fewer variables → higher $SSE_R$
+- **Full**: more variables → lower $SSE_F$
+
+. . .
+
+$$F = \frac{(SSE_R - SSE_F) / (df_R - df_F)}{SSE_F / df_F}$$
+
+. . .
+
+*> numerator: average SSE reduction per variable added*
+
+*> denominator: average remaining error*
+
+---
+
+## The F-Test
+<p class="subheader">If the new variables are just noise, F ≈ 1. If meaningful, F is large.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# F-distribution
+df1, df2 = 2, 96  # 2 variables added, n=100, 4 parameters in full model
+x = np.linspace(0, 6, 1000)
+y = stats.f.pdf(x, df1, df2)
+
+# Critical value for alpha = 0.05
+f_crit = stats.f.ppf(0.95, df1, df2)
+
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(x, y, 'b-', linewidth=2)
+
+# Shade rejection region
+x_reject = np.linspace(f_crit, 6, 500)
+y_reject = stats.f.pdf(x_reject, df1, df2)
+ax.fill_between(x_reject, 0, y_reject, color='red', alpha=0.3)
+
+# Shade non-rejection region
+x_accept = np.linspace(0, f_crit, 500)
+y_accept = stats.f.pdf(x_accept, df1, df2)
+ax.fill_between(x_accept, 0, y_accept, color='blue', alpha=0.1)
+
+# Mark critical value
+ax.axvline(x=f_crit, color='red', linestyle='--', linewidth=1.5)
+ax.text(f_crit + 0.1, 0.35, f'F critical\n= {f_crit:.2f}', fontsize=11, color='red')
+
+# Mark F = 1 (expected under null)
+ax.axvline(x=1, color='gray', linestyle=':', linewidth=1.5)
+ax.text(1.1, 0.55, 'F ≈ 1\n(if no improvement)', fontsize=10, color='gray')
+
+# Labels
+ax.annotate('Reject H₀:\nvariables improve model', 
+            xy=(4.5, 0.05), fontsize=11, color='darkred', ha='center')
+ax.annotate('Fail to reject H₀', 
+            xy=(1.5, 0.15), fontsize=11, color='darkblue', ha='center')
+
+ax.set_xlabel('F statistic', fontsize=14)
+ax.set_ylabel('Density', fontsize=14)
+ax.set_yticks([])
+ax.set_xlim(0, 6)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> large F means the SSE reduction is unlikely due to chance*
+
+---
+
+## Example: Wage Model
+<p class="subheader">Does adding education and experience improve predictions?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4))
+
+# Left panel: R² comparison
+models = ['Restricted\n(age only)', 'Full\n(age + educ + exper)']
+r2_values = [0.12, 0.38]
+colors = ['#4C72B0', '#55A868']
+
+axes[0].bar(models, r2_values, color=colors, edgecolor='white', width=0.5)
+axes[0].set_ylabel('R²', fontsize=14)
+axes[0].set_ylim(0, 0.5)
+for i, val in enumerate(r2_values):
+    axes[0].text(i, val + 0.02, f'{val:.2f}', ha='center', fontsize=12)
+axes[0].set_title('Model Fit', fontsize=14)
+
+# Right panel: SSE comparison
+sse_values = [4850, 3410]
+axes[1].bar(models, sse_values, color=colors, edgecolor='white', width=0.5)
+axes[1].set_ylabel('SSE', fontsize=14)
+for i, val in enumerate(sse_values):
+    axes[1].text(i, val + 100, f'{val:,}', ha='center', fontsize=12)
+axes[1].set_title('Sum of Squared Errors', fontsize=14)
+
+# Add arrow showing SSE reduction
+axes[1].annotate('', xy=(1, 3410), xytext=(1, 4850),
+                 arrowprops=dict(arrowstyle='<->', color='red', lw=2))
+axes[1].text(1.25, 4100, 'Reduction:\n1,440', fontsize=10, color='red')
+
+for ax in axes:
+    sns.despine(ax=ax, left=False, bottom=True, right=True, top=True)
+    ax.tick_params(bottom=False)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> R² increased by 0.26—but is that significant?*
+
+---
+
+## Example: Wage Model
+<p class="subheader">The F-test tells us if the improvement is statistically significant.</p>
+
+```{python}
+#| echo: true
+from scipy import stats
+
+# Model comparison
+sse_r = 4850      # restricted model (age only)
+sse_f = 3410      # full model (age + educ + exper)
+k = 2             # variables added
+n = 100           # sample size
+
+# F-statistic
+f_stat = ((sse_r - sse_f) / k) / (sse_f / (n - 4))
+p_value = 1 - stats.f.cdf(f_stat, k, n - 4)
+```
+
+. . .
+
+```{python}
+#| echo: false
+print(f"F-statistic: {f_stat:.2f}")
+print(f"p-value: {p_value:.4f}")
+```
+
+. . .
+
+*> p < 0.05: education and experience significantly improve the model*
+
+---
+
+## Summary
+<p class="subheader">Model selection uses the same logic as hypothesis testing.</p>
+
+<br><br>
+
+:::{.incremental}
+- **R²** tells us how much variation the model explains
+- **R² always increases** when adding variables—even useless ones
+- **F-test** asks: is the SSE reduction statistically significant?
+- Same idea as t-tests, but for *groups of variables*
+:::
