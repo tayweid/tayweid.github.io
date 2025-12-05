@@ -135,14 +135,12 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.4em 0.8em;
+    gap: 0.5em;
 }
 
 .course-links .separator {
     border: none;
-    font-size: 26px;
     color: var(--main-fg-color);
-    margin: 0 0.5em;
 }
 
 .section-divider {
