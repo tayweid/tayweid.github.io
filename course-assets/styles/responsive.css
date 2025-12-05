@@ -43,53 +43,89 @@
     .left_div,
     .course-econ-0100 .left_div,
     .course-econ-0150 .left_div {
-        display: none; /* Hide left sidebar on mobile by default */
+        display: none !important; /* Always hide on mobile - using FAB menu instead */
+    }
+
+    /* Mobile FAB menu container */
+    .mobile-fab-container {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 280px !important;
-        height: 100vh;
-        background: var(--main-bg-color);
+        bottom: 24px;
+        right: 24px;
         z-index: 1000;
-        padding: 30px;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-        overflow-y: auto;
-        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .left_div.mobile-open {
-        display: block;
-    }
-
-
-    /* Mobile menu toggle button */
+    /* Main FAB button */
     .mobile-menu-toggle {
-        display: inline-block;
-        background: none;
-        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        background: rgba(0, 0, 0, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
         color: white;
         font-size: 24px;
         cursor: pointer;
-        padding: 0;
-        margin-right: 10px;
-        vertical-align: middle;
-        line-height: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s ease, background 0.3s ease;
     }
 
-    /* Close button inside sidebar */
-    .mobile-menu-close {
-        display: block;
-        background: none;
-        border: none;
+    .mobile-menu-toggle.active {
+        background: rgba(66, 132, 242, 0.85);
+    }
+
+    /* FAB menu items */
+    .mobile-fab-menu {
+        position: absolute;
+        bottom: 68px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-fab-menu.active {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .mobile-fab-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 20px;
+        background: rgba(0, 0, 0, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
         color: white;
-        font-size: 28px;
-        cursor: pointer;
-        padding: 0;
-        margin-bottom: 20px;
-        line-height: 1;
+        font-size: 14px;
+        font-weight: 300;
+        text-decoration: none;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    /* Overlay behind sidebar */
+    .mobile-fab-item:hover {
+        background: rgba(66, 132, 242, 0.85);
+        transform: scale(1.1);
+    }
+
+    .mobile-fab-item.active {
+        background: rgba(66, 132, 242, 0.7);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Overlay */
     .mobile-overlay {
         display: none;
         position: fixed;
@@ -97,12 +133,17 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.3);
         z-index: 999;
     }
 
     .mobile-overlay.active {
         display: block;
+    }
+
+    /* Hide unused elements */
+    .mobile-menu-close {
+        display: none;
     }
 
     .content {

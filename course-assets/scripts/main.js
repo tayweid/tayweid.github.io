@@ -441,46 +441,78 @@ const EconApp = {
             const leftDiv = document.querySelector('.left_div');
             if (!leftDiv) return;
 
+            // Get nav links from sidebar
+            const navLinks = leftDiv.querySelectorAll('nav ul li a');
+            if (navLinks.length === 0) return;
+
             // Create overlay
             const overlay = document.createElement('div');
             overlay.className = 'mobile-overlay';
             document.body.appendChild(overlay);
 
-            // Create close button and add to sidebar
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'mobile-menu-close';
-            closeBtn.innerHTML = '×';
-            closeBtn.setAttribute('aria-label', 'Close menu');
-            leftDiv.insertBefore(closeBtn, leftDiv.firstChild);
+            // Create FAB container
+            const fabContainer = document.createElement('div');
+            fabContainer.className = 'mobile-fab-container';
 
-            // Create menu toggle button and add before title
-            const title = document.querySelector('.content .title');
-            if (title) {
-                const menuBtn = document.createElement('button');
-                menuBtn.className = 'mobile-menu-toggle';
-                menuBtn.innerHTML = '☰';
-                menuBtn.setAttribute('aria-label', 'Open menu');
-                title.insertBefore(menuBtn, title.firstChild);
+            // Create main FAB button
+            const menuBtn = document.createElement('button');
+            menuBtn.className = 'mobile-menu-toggle';
+            menuBtn.innerHTML = '☰';
+            menuBtn.setAttribute('aria-label', 'Open menu');
 
-                // Toggle menu on button click
-                menuBtn.addEventListener('click', () => {
-                    leftDiv.classList.add('mobile-open');
-                    overlay.classList.add('active');
-                });
+            // Create FAB menu
+            const fabMenu = document.createElement('div');
+            fabMenu.className = 'mobile-fab-menu';
+
+            // Add nav items to FAB menu (in reverse so they stack correctly)
+            const linksArray = Array.from(navLinks).reverse();
+            linksArray.forEach(link => {
+                const fabItem = document.createElement('a');
+                fabItem.className = 'mobile-fab-item';
+                fabItem.href = link.href;
+
+                // Use full label
+                fabItem.textContent = link.textContent.trim();
+
+                // Mark current page
+                if (link.classList.contains('active')) {
+                    fabItem.classList.add('active');
+                }
+
+                fabMenu.appendChild(fabItem);
+            });
+
+            // Add Home link at the top (which appears at bottom of the stack visually)
+            const homeLink = leftDiv.querySelector('nav ul a[href*="econ-0"]');
+            if (homeLink) {
+                const homeItem = document.createElement('a');
+                homeItem.className = 'mobile-fab-item';
+                homeItem.href = homeLink.href;
+                homeItem.textContent = 'Home';
+                fabMenu.appendChild(homeItem);
             }
 
-            // Close menu handlers
-            const closeMenu = () => {
-                leftDiv.classList.remove('mobile-open');
-                overlay.classList.remove('active');
+            fabContainer.appendChild(fabMenu);
+            fabContainer.appendChild(menuBtn);
+            document.body.appendChild(fabContainer);
+
+            // Toggle menu
+            let isOpen = false;
+            const toggleMenu = () => {
+                isOpen = !isOpen;
+                menuBtn.classList.toggle('active', isOpen);
+                fabMenu.classList.toggle('active', isOpen);
+                overlay.classList.toggle('active', isOpen);
             };
 
-            closeBtn.addEventListener('click', closeMenu);
-            overlay.addEventListener('click', closeMenu);
+            menuBtn.addEventListener('click', toggleMenu);
+            overlay.addEventListener('click', toggleMenu);
 
-            // Close menu when clicking a nav link
-            leftDiv.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMenu);
+            // Close menu when clicking a fab item
+            fabMenu.querySelectorAll('.mobile-fab-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    if (isOpen) toggleMenu();
+                });
             });
         }
     },
