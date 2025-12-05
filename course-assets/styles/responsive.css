@@ -39,13 +39,83 @@
         padding: 0 10px;
         justify-content: center; /* Center when no sidebars */
     }
-    
-    .left_div {
-        display: none; /* Hide left sidebar on mobile */
+
+    .left_div,
+    .course-econ-0100 .left_div,
+    .course-econ-0150 .left_div {
+        display: none; /* Hide left sidebar on mobile by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 280px !important;
+        height: 100vh;
+        background: var(--main-bg-color);
+        z-index: 1000;
+        padding: 30px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
+        margin: 0;
     }
-    
+
+    .left_div.mobile-open {
+        display: block;
+    }
+
+
+    /* Mobile menu toggle button */
+    .mobile-menu-toggle {
+        display: inline-block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        margin-right: 10px;
+        vertical-align: middle;
+        line-height: 1;
+    }
+
+    /* Close button inside sidebar */
+    .mobile-menu-close {
+        display: block;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 28px;
+        cursor: pointer;
+        padding: 0;
+        margin-bottom: 20px;
+        line-height: 1;
+    }
+
+    /* Overlay behind sidebar */
+    .mobile-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .mobile-overlay.active {
+        display: block;
+    }
+
     .content {
         max-width: 100%; /* Allow full width on mobile */
         padding: 20px 10px; /* Reduced padding for mobile */
+    }
+}
+
+/* Hide mobile elements on larger screens */
+@media screen and (min-width: 651px) {
+    .mobile-menu-toggle,
+    .mobile-menu-close,
+    .mobile-overlay {
+        display: none !important;
     }
 }

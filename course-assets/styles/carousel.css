@@ -101,7 +101,7 @@
     pointer-events: auto;  /* Re-enable pointer events for the track */
     background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
     border-radius: 20px; /* Oval shape */
-    padding: 8px 16px;
+    padding: 4px 14px;
     transition: background 0.3s ease;
     overflow: visible; /* Allow connector lines to be visible */
 }
@@ -136,8 +136,8 @@
 
 /* Concept cards: large solid dots */
 .indicator-tab.concept-indicator::before {
-    width: 18px;
-    height: 18px;
+    width: 12px;
+    height: 12px;
     background: transparent;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -149,11 +149,11 @@
 }
 
 .indicator-tab.concept-indicator.active::before {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 12px;
     background: rgba(66, 132, 242, 0.7);
     border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
@@ -176,8 +176,8 @@
 }
 
 .indicator-tab.exercise-indicator::before {
-    width: 18px;
-    height: 18px;
+    width: 12px;
+    height: 12px;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 50%;
@@ -189,11 +189,11 @@
 }
 
 .indicator-tab.exercise-indicator.active::before {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 12px;
     background: rgba(66, 132, 242, 0.7);
     border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
@@ -217,8 +217,8 @@
 }
 
 .indicator-tab.homework-indicator::before {
-    width: 18px;
-    height: 18px;
+    width: 12px;
+    height: 12px;
     background: transparent;
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.5);
@@ -230,11 +230,11 @@
 }
 
 .indicator-tab.homework-indicator.active::before {
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 12px;
     background: rgba(66, 132, 242, 0.7);
     border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
@@ -549,11 +549,11 @@ img.placeholder-bg {
 }
 
 .carousel-arrow-left {
-    left: 20px;
+    left: calc(50% - 380px);
 }
 
 .carousel-arrow-right {
-    right: 20px;
+    right: calc(50% - 380px);
 }
 
 .carousel-arrow span {

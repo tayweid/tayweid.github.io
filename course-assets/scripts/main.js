@@ -434,6 +434,58 @@ const EconApp = {
     },
 
     /* -------------------------------------------------------------------------
+       MOBILE MENU MODULE
+       ------------------------------------------------------------------------- */
+    mobileMenu: {
+        init() {
+            const leftDiv = document.querySelector('.left_div');
+            if (!leftDiv) return;
+
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'mobile-overlay';
+            document.body.appendChild(overlay);
+
+            // Create close button and add to sidebar
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'mobile-menu-close';
+            closeBtn.innerHTML = '×';
+            closeBtn.setAttribute('aria-label', 'Close menu');
+            leftDiv.insertBefore(closeBtn, leftDiv.firstChild);
+
+            // Create menu toggle button and add before title
+            const title = document.querySelector('.content .title');
+            if (title) {
+                const menuBtn = document.createElement('button');
+                menuBtn.className = 'mobile-menu-toggle';
+                menuBtn.innerHTML = '☰';
+                menuBtn.setAttribute('aria-label', 'Open menu');
+                title.insertBefore(menuBtn, title.firstChild);
+
+                // Toggle menu on button click
+                menuBtn.addEventListener('click', () => {
+                    leftDiv.classList.add('mobile-open');
+                    overlay.classList.add('active');
+                });
+            }
+
+            // Close menu handlers
+            const closeMenu = () => {
+                leftDiv.classList.remove('mobile-open');
+                overlay.classList.remove('active');
+            };
+
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+
+            // Close menu when clicking a nav link
+            leftDiv.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        }
+    },
+
+    /* -------------------------------------------------------------------------
        DOWNLOADS MODULE (simplified from downloads.js)
        ------------------------------------------------------------------------- */
     downloads: {
@@ -473,6 +525,7 @@ const EconApp = {
             this.navigation.init();
             this.highlights.init();
             this.downloads.init();
+            this.mobileMenu.init();
         });
     }
 };
