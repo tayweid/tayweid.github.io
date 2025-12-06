@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    
-<title>Economic Data Analysis | Part 3</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- OPTIMIZED: Single combined font request -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Economic Data Analysis | Part 3</title>
+
+    <!-- OPTIMIZED: Single combined font request -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <!-- MODULAR CSS -->
     <link rel="stylesheet" href="../course-assets/styles/main.css">
 
@@ -19,437 +24,467 @@
 
 <body>
 
-<div class="wrapper course-econ-0150">
-<div class="left_div">
-    <nav>
-        <ul>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
-            <hr class="nav-hr">
-            <li><a href="part-1.html">Part 1</a></li>
-            <li><a href="part-2.html">Part 2</a></li>
-            <li><a class="active" href="">Part 3</a></li>
-            <li><a href="part-4.html">Part 4</a></li>
-            <li><a href="part-5.html">Part 5</a></li>
-            <li><a href="part-6.html">Part 6</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
-</div>
+    <div class="wrapper course-econ-0150">
+        <div class="left_div">
+            <nav>
+                <ul>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
+                    <hr class="nav-hr">
+                    <li><a href="part-1.html">Part 1</a></li>
+                    <li><a href="part-2.html">Part 2</a></li>
+                    <li><a class="active" href="">Part 3</a></li>
+                    <li><a href="part-4.html">Part 4</a></li>
+                    <li><a href="part-5.html">Part 5</a></li>
+                    <li><a href="part-6.html">Part 6</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                </ul>
+            </nav>
+        </div>
 
-<div class="content">
-    
-    <div class="description">
-        <h1 class="title title-tight">Part 3 | Univariate GLM</h1>
-        <i class="subtitle-text">> understanding the population from a sample</i>
-        <p>
-            Data is a sample drawn from an unobservable population. 
-            While we can summarize our data, our main questions are typically about the unobservable population our sample was drawn from. 
-            Part 3 develops the most basic tools of the General Linear Model (GLM), which allow us to make inferences about unknown populations from known samples.
-            The core idea: the Central Limit Theorem tells us the distribution of the sample mean without needing to know the population distribution. 
-            This idea forms the backbone of modern empirical science.
-            It's difficult to overstate how important this idea has been in our modern world. 
-        </p>
-    </div>
+        <div class="content">
 
-    <!-- Part 3.1 -->
-    <div class="carousel-container" id="part-31">
-        <h1 class="subtitle">Part 3.1 | Random Variables</h1>
-        <p>Data is a sample drawn from an unobservable population. We can summarize the sample, but our questions are about the population.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
+            <div class="description">
+                <h1 class="title title-tight">Part 3 | Univariate GLM</h1>
+                <i class="subtitle-text">> understanding the population from a sample</i>
+                <p>
+                    Data is a sample drawn from an unobservable population.
+                    While we can summarize our data, our main questions are typically about the unobservable population
+                    our sample was drawn from.
+                    Part 3 develops the most basic tools of the General Linear Model (GLM), which allow us to make
+                    inferences about unknown populations from known samples.
+                    The core idea: the Central Limit Theorem tells us the distribution of the sample mean without
+                    needing to know the population distribution.
+                    This idea forms the backbone of modern empirical science.
+                    It's difficult to overstate how important this idea has been in our modern world.
+                </p>
+            </div>
 
-                <div class="carousel-card concept-card" data-video-id="H6TvIT3JMIM">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 3.1 // Random Variables</h3>
-                        <p class="card-description">Data is the realization of repeated draws from the population random variable.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-1/concept_3_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-3-1/concept_3_1.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 3.1 -->
+            <div class="carousel-container" id="part-31">
+                <h1 class="subtitle">Part 3.1 | Random Variables</h1>
+                <p>Data is a sample drawn from an unobservable population. We can summarize the sample, but our
+                    questions are about the population.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <div class="carousel-card concept-card" data-video-id="H6TvIT3JMIM">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 3.1 // Random Variables</h3>
+                                <p class="card-description">Data is the realization of repeated draws from the
+                                    population random variable.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-1/concept_3_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-3-1/concept_3_1.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 3.1 // Random Variables</h3>
+                                <p class="card-description">Finding values using known random variables.</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/14FiHoRRxsfc_yj9OY_noZ38_9_w6sYaI?usp=drive_link"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 3.1</h3>
+                                <p class="card-description">Due on Friday, October 24th at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-1//HW_3_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1BK30NVK5NN-iyhNpDX38a2izdxKs4zcW?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 3.1 // Random Variables</h3>
-                        <p class="card-description">Finding values using known random variables.</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/14FiHoRRxsfc_yj9OY_noZ38_9_w6sYaI?usp=drive_link" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 3.1</h3>
-                        <p class="card-description">Due on Friday, October 24th at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-1//HW_3_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1BK30NVK5NN-iyhNpDX38a2izdxKs4zcW?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 3.2 -->
-    <div class="carousel-container" id="part-32">
-        <h1 class="subtitle">Part 3.2 | Sampling and Central Limit Theorem</h1>
-        <p>The Central Limit Theorem tells us the distribution of the sample mean despite not knowing the population distribution.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 3.2 // Central Limit Theorem</h3>
-                        <p class="card-description">One of the most powerful ideas in science</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-2/concept_3_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-3-2/concept_3_2.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 3.2 -->
+            <div class="carousel-container" id="part-32">
+                <h1 class="subtitle">Part 3.2 | Sampling and Central Limit Theorem</h1>
+                <p>The Central Limit Theorem tells us the distribution of the sample mean despite not knowing the
+                    population distribution.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 3.2 // Central Limit Theorem</h3>
+                                <p class="card-description">One of the most powerful ideas in science</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-2/concept_3_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-3-2/concept_3_2.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 3.2 // CLT Demonstration</h3>
+                                <p class="card-description">Interactive example showing Central Limit Theorem</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1_NoAajIevehPJKR1Bjzw3Zq6NOGSwLbH?usp=drive_link"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 3.2</h3>
+                                <p class="card-description">Due on Friday at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-2/HW_3_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1zf5eedU_Tz3baKnhKKkvcQzd6AYceaxn?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-3-2/data/sample2.csv" class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Sample 2
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 3.2 // CLT Demonstration</h3>
-                        <p class="card-description">Interactive example showing Central Limit Theorem</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1_NoAajIevehPJKR1Bjzw3Zq6NOGSwLbH?usp=drive_link" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 3.2</h3>
-                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-2/HW_3_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1zf5eedU_Tz3baKnhKKkvcQzd6AYceaxn?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-3-2/data/sample2.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Sample 2
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 3.3 -->
-    <div class="carousel-container" id="part-33">
-        <h1 class="subtitle">Part 3.3 | Confidence Intervals</h1>
-        <p>Calculate confidence intervals using the t-distribution. Interpret p-values and confidence intervals. Understand what "95% confident" actually means in practice.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="o1nWU9_8zHc">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 3.3 // Confidence Intervals</h3>
-                        <p class="card-description">How often the model is wrong</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-3/concept_3_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-3-3/concept_3_3.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 3.3 -->
+            <div class="carousel-container" id="part-33">
+                <h1 class="subtitle">Part 3.3 | Confidence Intervals</h1>
+                <p>Calculate confidence intervals using the t-distribution. Interpret p-values and confidence intervals.
+                    Understand what "95% confident" actually means in practice.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="o1nWU9_8zHc">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 3.3 // Confidence Intervals</h3>
+                                <p class="card-description">How often the model is wrong</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-3/concept_3_3.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-3-3/concept_3_3.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 3.3 // Interactive Confidence Intervals</h3>
-                        <p class="card-description">Interactive examples with confidence interval calculations</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1OAt9y4HkEdHBBd7ivgLKGV7OC8x3OpS9?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 3.3 // Interactive Confidence Intervals</h3>
+                                <p class="card-description">Interactive examples with confidence interval calculations
+                                </p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1OAt9y4HkEdHBBd7ivgLKGV7OC8x3OpS9?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 3.3</h3>
-                        <p class="card-description">Nothing due :)</p>
-                        <div class="card-downloads">
-                            <!--<a href="hw/hw-3-3//HW_3_3.pdf" class="download-link" target="_blank">
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 3.3</h3>
+                                <p class="card-description">Nothing due :)</p>
+                                <div class="card-downloads">
+                                    <!--<a href="hw/hw-3-3//HW_3_3.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
                             </a>
                             <a href="https://colab.research.google.com/drive/1NuR3K6d7C1QU8p1rP2Z5G-w_p8GDxM7n?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
                             </a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 3.4 -->
+            <div class="carousel-container" id="part-34">
+                <h1 class="subtitle">Part 3.4 | Hypothesis Testing</h1>
+                <p>Conduct one-sample t-tests. Calculate p-values and interpret statistical results.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="aSotYU1b45M">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 3.4 // Hypothesis Testing</h3>
+                                <p class="card-description">Inferring the truth from a sample</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-4/concept_3_4_revised.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-3-4/concept_3_4_revised.html" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 3.4 // Interactive Hypothesis Tests</h3>
+                                <p class="card-description">Interactive examples with hypothesis testing procedures</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1wJPuAxwy-a_AvIUgOOigmwtnL2GQ5th6?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 3.4</h3>
+                                <p class="card-description">Due on Friday at 5PM on Gradescope (moved to Monday at
+                                    11:59PM!)</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-4/HW_3_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1Hptfw7AoqWjsrYuUkHuo_CwDLWmQlJyA?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 3.5 -->
+            <div class="carousel-container" id="part-35">
+                <h1 class="subtitle">Part 3.5 | Simplest GLM</h1>
+                <p>Test the model coefficients.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="Ywhzca71M1Y">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 3.5 // Simplest GLM</h3>
+                                <p class="card-description">Building our fist GLM</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-5/concept_3_5.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-3-5/concept_3_5.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 3.5 // Simplest GLM</h3>
+                                <p class="card-description">Interactive examples with hypothesis testing procedures</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1yMC-BbJIiNNjBxRjMJOD1S5OXQOCGlbt?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 3.5</h3>
+                                <p class="card-description">Due on Tuesday at 11:59PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-3-5/HW_3_5.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1K5Eyyix6N6tx_GClfPLreNJE83-1eeWP?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- MINIEXAMS -->
+            <div id="miniexams">
+                <h1 class="subtitle">MiniExams</h1>
+                <p>
+                    MiniExam 3 covers everything in Part 3, focussing on testing your understanding of statistical
+                    concepts including random variables, sampling theory, confidence intervals, and hypothesis testing.
+                </p>
+                <p>
+                    MiniExams focuses on the application of the concepts we've developed. Practice with Homework and
+                    Exercises to prepare effectively.
+                </p>
+
+                <div class="carousel-card standalone-card homework-card" data-video-id="8awMXVDFm-g">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 3 Demo</h3>
+                        <p class="card-description">MiniExam 03 Demo covers all material from Parts 3.1 through 3.4.</p>
+                        <div class="card-downloads">
+                            <a href="ME/ME_3/ME_3_Demo.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Demo
+                            </a>
+                            <a href="ME/ME_3/ME_3_Demo_sols.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Solutions
+                            </a>
                         </div>
                     </div>
                 </div>
+
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+
+            <div class="bottom-spacer"></div>
+
         </div>
-    </div>
 
-    <!-- Part 3.4 -->
-    <div class="carousel-container" id="part-34">
-        <h1 class="subtitle">Part 3.4 | Hypothesis Testing</h1>
-        <p>Conduct one-sample t-tests. Calculate p-values and interpret statistical results.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="aSotYU1b45M">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 3.4 // Hypothesis Testing</h3>
-                        <p class="card-description">Inferring the truth from a sample</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-4/concept_3_4_revised.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-3-4/concept_3_4_revised.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 3.4 // Interactive Hypothesis Tests</h3>
-                        <p class="card-description">Interactive examples with hypothesis testing procedures</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1wJPuAxwy-a_AvIUgOOigmwtnL2GQ5th6?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 3.4</h3>
-                        <p class="card-description">Due on Friday at 5PM on Gradescope (moved to Monday at 11:59PM!)</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-4/HW_3_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1Hptfw7AoqWjsrYuUkHuo_CwDLWmQlJyA?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+        <!-- RIGHT NAVIGATION -->
+        <div class="right_div">
+            <nav>
+                <ul>
+                    <span>Contents</span>
+                    <hr class="nav-hr-right">
+                    <li class="nav-item-no-margin"><a href="#part-31" class="active nav-link-right">3.1 | Random
+                            Variables</a></li>
+                    <li><a href="#part-32" class="nav-link-right">3.2 | Sampling & CLT</a></li>
+                    <li><a href="#part-33" class="nav-link-right">3.3 | Confidence</a></li>
+                    <li><a href="#part-34" class="nav-link-right">3.4 | Hypothesis</a></li>
+                    <li><a href="#part-35" class="nav-link-right">3.5 | Simplest GLM</a></li>
+                    <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </div> <!-- Close wrapper -->
 
-    <!-- Part 3.5 -->
-    <div class="carousel-container" id="part-35">
-        <h1 class="subtitle">Part 3.5 | Simplest GLM</h1>
-        <p>Test the model coefficients.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="Ywhzca71M1Y">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 3.5 // Simplest GLM</h3>
-                        <p class="card-description">Building our fist GLM</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-5/concept_3_5.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-3-5/concept_3_5.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 3.5 // Simplest GLM</h3>
-                        <p class="card-description">Interactive examples with hypothesis testing procedures</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1yMC-BbJIiNNjBxRjMJOD1S5OXQOCGlbt?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 3.5</h3>
-                        <p class="card-description">Due on Tuesday at 11:59PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-3-5/HW_3_5.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1K5Eyyix6N6tx_GClfPLreNJE83-1eeWP?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-    <!-- MINIEXAMS -->
-    <div id="miniexams">
-        <h1 class="subtitle">MiniExams</h1>
-        <p>
-            MiniExam 3 covers everything in Part 3, focussing on testing your understanding of statistical concepts including random variables, sampling theory, confidence intervals, and hypothesis testing.
-        </p>
-        <p>
-            MiniExams focuses on the application of the concepts we've developed. Practice with Homework and Exercises to prepare effectively.
-        </p>
-
-        <div class="carousel-card standalone-card homework-card" data-video-id="8awMXVDFm-g">
-            <div class="card-video">
-                <img src="" alt="Video thumbnail" class="placeholder-bg">
-            </div>
-            
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 3 Demo</h3>
-                <p class="card-description">MiniExam 03 Demo covers all material from Parts 3.1 through 3.4.</p>
-                <div class="card-downloads">
-                    <a href="ME/ME_3/ME_3_Demo.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Demo
-                    </a>
-                    <a href="ME/ME_3/ME_3_Demo_sols.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Solutions
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="bottom-spacer"></div>
-
-    </div>
-
-    <!-- RIGHT NAVIGATION -->
-    <div class="right_div">
-        <nav>
-            <ul>
-                <span>Contents</span>
-                <hr class="nav-hr-right">
-                <li class="nav-item-no-margin"><a href="#part-31" class="active nav-link-right">3.1 | Random Variables</a></li>
-                <li><a href="#part-32" class="nav-link-right">3.2 | Sampling & CLT</a></li>
-                <li><a href="#part-33" class="nav-link-right">3.3 | Confidence</a></li>
-                <li><a href="#part-34" class="nav-link-right">3.4 | Hypothesis</a></li>
-                <li><a href="#part-35" class="nav-link-right">3.5 | Simplest GLM</a></li>
-                <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- Close wrapper -->
-
-<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
-<script src="../course-assets/scripts/main.js"></script>
+    <!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+    <script src="../course-assets/scripts/main.js"></script>
 
 </body>
+
 </html>

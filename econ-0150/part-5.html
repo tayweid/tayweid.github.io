@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    
-<title>Economic Data Analysis | Part 5</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- OPTIMIZED: Single combined font request -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Economic Data Analysis | Part 5</title>
+
+    <!-- OPTIMIZED: Single combined font request -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <!-- MODULAR CSS -->
     <link rel="stylesheet" href="../course-assets/styles/main.css">
 
@@ -20,210 +25,228 @@
 
 <body>
 
-<div class="wrapper course-econ-0150">
-<div class="left_div">
-    <nav>
-        <ul>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
-            <hr class="nav-hr">
-            <li><a href="part-1.html">Part 1</a></li>
-            <li><a href="part-2.html">Part 2</a></li>
-            <li><a href="part-3.html">Part 3</a></li>
-            <li><a href="part-4.html">Part 4</a></li>
-            <li><a class="active" href="">Part 5</a></li>
-            <li><a href="part-6.html">Part 6</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
-</div>
+    <div class="wrapper course-econ-0150">
+        <div class="left_div">
+            <nav>
+                <ul>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
+                    <hr class="nav-hr">
+                    <li><a href="part-1.html">Part 1</a></li>
+                    <li><a href="part-2.html">Part 2</a></li>
+                    <li><a href="part-3.html">Part 3</a></li>
+                    <li><a href="part-4.html">Part 4</a></li>
+                    <li><a class="active" href="">Part 5</a></li>
+                    <li><a href="part-6.html">Part 6</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                </ul>
+            </nav>
+        </div>
 
-<div class="content">
-    
-    <div class="description">
-        <h1 class="title title-tight">Part 5 | Multivariate GLM</h1>
-        <i class="subtitle-text">> modeling relationships with multiple predictors</i>        
-        <p>
-            In Part 4 we developed the basics of linear models, extending the hypothesis testing framework to slopes.
-            In Part 5 we extend this same framework one step further.
-            We'll develop models of relationships that vary across groups, effects that depend on context, and unobserved factors that confound your analysis. 
-            You'll learn advanced techniques like numerical controls, categorical controls, interactions, and model selection that let you handle these complexities systematically. 
-        </p>
-    </div>
+        <div class="content">
 
-    <!-- Part 5.1 -->
-    <div class="carousel-container" id="part-51">
-        <h1 class="subtitle">Part 5.1 | Categorical/Numerical</h1>
-        <p>Use fixed effects to control for unobserved group differences. Interpret coefficients in models with multiple categorical predictors.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="U6u0cIP2dRM">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 5.1 // Categorical/Numerical</h3>
-                        <p class="card-description">Models of multiple intercepts</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-5-1/concept_5_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-5-1/concept_5_1.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <div class="description">
+                <h1 class="title title-tight">Part 5 | Multivariate GLM</h1>
+                <i class="subtitle-text">> models with multiple predictors</i>
+                <p>
+                    In Part 4 we developed the basics of linear models, extending the hypothesis testing framework to
+                    slopes.
+                    In Part 5 we extend this same framework one step further.
+                    We'll develop models of relationships that vary across groups, effects that depend on context, and
+                    unobserved factors that confound your analysis.
+                    You'll learn advanced techniques like numerical controls, categorical controls, interactions, and
+                    model selection that let you handle these complexities systematically.
+                </p>
+            </div>
+
+            <!-- Part 5.1 -->
+            <div class="carousel-container" id="part-51">
+                <h1 class="subtitle">Part 5.1 | Categorical/Numerical</h1>
+                <p>Use fixed effects to control for unobserved group differences. Interpret coefficients in models with
+                    multiple categorical predictors.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="U6u0cIP2dRM">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 5.1 // Categorical/Numerical</h3>
+                                <p class="card-description">Models of multiple intercepts</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-5-1/concept_5_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-5-1/concept_5_1.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 5.1 - Exercise 5.1 // Gender Wage Gap</h3>
+                                <p class="card-description">Testing whether wages are different by gender</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Census Records
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 5.1 // Categorical Controls</h3>
+                                <p class="card-description">Due on Friday November 21 at 5PM on Gradescope.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-5-1/HW_5_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1kFCOJW6AmBy97vGn1O1yG_ejO2H8Go9G?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 5.1 - Exercise 5.1 // Gender Wage Gap</h3>
-                        <p class="card-description">Testing whether wages are different by gender</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Census Records
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 5.1 // Categorical Controls</h3>
-                        <p class="card-description">Due on Friday November 21 at 5PM on Gradescope.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-5-1/HW_5_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1kFCOJW6AmBy97vGn1O1yG_ejO2H8Go9G?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
 
-    <!-- Part 5.2 -->
-    <div class="carousel-container" id="part-52">
-        <h1 class="subtitle">Part 5.2 | Interactions</h1>
-        <p>Test whether the relationship between variables varies by group.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Part 5.2 // Interactions</h3>
-                        <p class="card-description"></p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Census Records
-                            </a>
+            <!-- Part 5.2 -->
+            <div class="carousel-container" id="part-52">
+                <h1 class="subtitle">Part 5.2 | Interactions</h1>
+                <p>Test whether the relationship between variables varies by group.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Part 5.2 // Interactions</h3>
+                                <p class="card-description"></p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Census Records
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 5.2 // Gender Wage Gap</h3>
-                        <p class="card-description">Is the returns to education different by gender?</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Census Records
-                            </a>
+
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 5.2 // Gender Wage Gap</h3>
+                                <p class="card-description">Is the returns to education different by gender?</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1jY3Ww86akUeJ3C2nbhgtXAmAPpiCHXAu?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-5-1/data/usa_00041_sample.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Census Records
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
-                
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 5.3 -->
-    <div class="carousel-container" id="part-53">
-        <h1 class="subtitle">Part 5.3 | Numerical Controls</h1>
-        <p>Control for related variables.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="w49fKn_3yLU">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 5.3 // Numerical Controls</h3>
-                        <p class="card-description"></p>
-                        <div class="card-downloads">
-                            <a href="Slides/Part_5_3.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 5.3 -->
+            <div class="carousel-container" id="part-53">
+                <h1 class="subtitle">Part 5.3 | Numerical Controls</h1>
+                <p>Control for related variables.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="w49fKn_3yLU">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 5.3 // Numerical Controls</h3>
+                                <p class="card-description"></p>
+                                <div class="card-downloads">
+                                    <a href="Slides/Part_5_3.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 5.3 // Pittsburgh Housing Prices</h3>
-                        <p class="card-description"></p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1e4i8w7M_j-dp5eLg4kNM_anOb8A_BsWr?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
+
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 5.3 // Pittsburgh Housing Prices</h3>
+                                <p class="card-description"></p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1e4i8w7M_j-dp5eLg4kNM_anOb8A_BsWr?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
-                
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 5.4 - HIDDEN
+            <!-- Part 5.4 - HIDDEN
     <div class="carousel-container" id="part-54">
         <h1 class="subtitle">Part 5.4 | Model Selection</h1>
         <p>Use model selection techniques to choose the best model for your question.</p>
@@ -271,54 +294,58 @@
     </div>
     -->
 
-    <!-- MINIEXAMS -->
-    <div id="miniexams">
-        <h1 class="subtitle">MiniExam</h1>
-        <p>
-            MiniExam 5 will be held on Thursday December 4 and will cover everything in Part 5: numerical controls, categorical controls, interactions. 
-        </p>
+            <!-- MINIEXAMS -->
+            <div id="miniexams">
+                <h1 class="subtitle">MiniExam</h1>
+                <p>
+                    MiniExam 5 will be held on Thursday December 4 and will cover everything in Part 5: numerical
+                    controls, categorical controls, interactions.
+                </p>
 
-        <div class="carousel-card standalone-card" data-video-id="T2okITdU5-c">
-            <div class="card-video">
-                <img src="" alt="Video thumbnail" class="placeholder-bg">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 5 Demo</h3>
-                <p class="card-description">This Demo is more challenging than what you can expect on the actual MiniExam. Try solving the demo then check your answers against the video.</p>
-                    <div class="card-downloads">
-                        <a href="ME/ME_5/ME_5_Demo.pdf" class="download-link" target="_blank">
-                            <i class="fa fa-file-pdf-o"></i> Demo
-                        </a>
-                        <a href="ME/ME_5/ME_5_Demo_sols.pdf" class="download-link" target="_blank">
-                            <i class="fa fa-file-pdf-o"></i> Solutions
-                        </a>
+                <div class="carousel-card standalone-card" data-video-id="T2okITdU5-c">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 5 Demo</h3>
+                        <p class="card-description">This Demo is more challenging than what you can expect on the actual
+                            MiniExam. Try solving the demo then check your answers against the video.</p>
+                        <div class="card-downloads">
+                            <a href="ME/ME_5/ME_5_Demo.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Demo
+                            </a>
+                            <a href="ME/ME_5/ME_5_Demo_sols.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Solutions
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="bottom-spacer"></div>
+
         </div>
-    </div>
 
-    <div class="bottom-spacer"></div>
+        <!-- RIGHT NAVIGATION -->
+        <div class="right_div">
+            <nav>
+                <ul>
+                    <span>Contents</span>
+                    <hr class="nav-hr-right">
+                    <li class="nav-item-no-margin"><a href="#part-51" class="active nav-link-right">5.1 |
+                            Categorical</a></li>
+                    <li><a href="#part-52" class="nav-link-right">5.2 | Interactions</a></li>
+                    <li><a href="#part-53" class="nav-link-right">5.3 | Numerical</a></li>
+                    <!-- <li><a href="#part-54" class="nav-link-right">5.4 | Model Selection</a></li> -->
+                    <li><a href="#miniexams" class="nav-link-right">MiniExam</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div> <!-- Close wrapper -->
 
-    </div>
-
-    <!-- RIGHT NAVIGATION -->
-    <div class="right_div">
-        <nav>
-            <ul>
-                <span>Contents</span>
-                <hr class="nav-hr-right">
-                <li class="nav-item-no-margin"><a href="#part-51" class="active nav-link-right">5.1 | Categorical</a></li>
-                <li><a href="#part-52" class="nav-link-right">5.2 | Interactions</a></li>
-                <li><a href="#part-53" class="nav-link-right">5.3 | Numerical</a></li>
-                <!-- <li><a href="#part-54" class="nav-link-right">5.4 | Model Selection</a></li> -->
-                <li><a href="#miniexams" class="nav-link-right">MiniExam</a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- Close wrapper -->
-
-<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
-<script src="../course-assets/scripts/main.js"></script>
+    <!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+    <script src="../course-assets/scripts/main.js"></script>
 
 </body>
+
 </html>

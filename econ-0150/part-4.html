@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    
-<title>Economic Data Analysis | Part 4</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- OPTIMIZED: Single combined font request -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Economic Data Analysis | Part 4</title>
+
+    <!-- OPTIMIZED: Single combined font request -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <!-- MODULAR CSS -->
     <link rel="stylesheet" href="../course-assets/styles/main.css">
 
@@ -20,364 +25,388 @@
 
 <body>
 
-<div class="wrapper course-econ-0150">
-<div class="left_div">
-    <nav>
-        <ul>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
-            <hr class="nav-hr">
-            <li><a href="part-1.html">Part 1</a></li>
-            <li><a href="part-2.html">Part 2</a></li>
-            <li><a href="part-3.html">Part 3</a></li>
-            <li><a class="active" href="">Part 4</a></li>
-            <li><a href="part-5.html">Part 5</a></li>
-            <li><a href="part-6.html">Part 6</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
-</div>
+    <div class="wrapper course-econ-0150">
+        <div class="left_div">
+            <nav>
+                <ul>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
+                    <hr class="nav-hr">
+                    <li><a href="part-1.html">Part 1</a></li>
+                    <li><a href="part-2.html">Part 2</a></li>
+                    <li><a href="part-3.html">Part 3</a></li>
+                    <li><a class="active" href="">Part 4</a></li>
+                    <li><a href="part-5.html">Part 5</a></li>
+                    <li><a href="part-6.html">Part 6</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                </ul>
+            </nav>
+        </div>
 
-<div class="content">
-    
-    <div class="description">
-        <h1 class="title title-tight">Part 4 | Bivariate GLM</h1>
-        <i class="subtitle-text">> build models of relationships with one predictor</i> 
+        <div class="content">
 
-        <p>
-            Part 4 introduces the workhorse of empirical economics: regression analysis. 
-            In Part 3, we developed the simplest statistical model of samples with unknown population parameters.
-            This model allowed us to test simple hypotheses about the population parameters.
-            But economic relationships are rarely so simple. 
-            The General Linear Model not only lets us test simple hypotheses, but also lets us handle relationships between variables of different types - continuous, categorical, and their interactions - while maintaining our core tools of visualization and residual analysis. 
-            These tools are the foundation of modern science. 
-        </p>
-    </div>
+            <div class="description">
+                <h1 class="title title-tight">Part 4 | Bivariate GLM</h1>
+                <i class="subtitle-text">> models with one predictor</i>
 
-    <!-- Part 4.1 -->
-    <div class="carousel-container" id="part-41">
-        <h1 class="subtitle">Part 4.1 | Numerical Predictors</h1>
-        <p>Finding relationships between numerical variables.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="yZPUiFxOSko">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 4.1 // Numerical Predictors</h3>
-                        <p class="card-description">The slope parameters follow a normal distribution.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-1/concept_4_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-4-1/concept_4_1.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+                <p>
+                    Part 4 introduces the workhorse of empirical economics: regression analysis.
+                    In Part 3, we developed the simplest statistical model of samples with unknown population
+                    parameters.
+                    This model allowed us to test simple hypotheses about the population parameters.
+                    But economic relationships are rarely so simple.
+                    The General Linear Model not only lets us test simple hypotheses, but also lets us handle
+                    relationships between variables of different types - continuous, categorical, and their interactions
+                    - while maintaining our core tools of visualization and residual analysis.
+                    These tools are the foundation of modern science.
+                </p>
+            </div>
+
+            <!-- Part 4.1 -->
+            <div class="carousel-container" id="part-41">
+                <h1 class="subtitle">Part 4.1 | Numerical Predictors</h1>
+                <p>Finding relationships between numerical variables.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="yZPUiFxOSko">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 4.1 // Numerical Predictors</h3>
+                                <p class="card-description">The slope parameters follow a normal distribution.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-1/concept_4_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-4-1/concept_4_1.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 4.1 // Numerical Predictors</h3>
+                                <p class="card-description">Relationship between happiness and GDP per capita.</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1o-yq-lZY2gaB2M0WCb3KT4wBC3tdFJ9X?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-4-1/data/Life_Evaluation_GDP_PerCap.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Happiness/GDP
+                                    </a>
+                                    <a href="https://www.worldhappiness.report/data-sharing/" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Happiness Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 4.1</h3>
+                                <p class="card-description">Due on Friday November 7 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-1/HW_4_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1fZbVKnxyWyh2poepN45ek82TcPOfCRFD?usp=drive_link"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 4.1 // Numerical Predictors</h3>
-                        <p class="card-description">Relationship between happiness and GDP per capita.</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1o-yq-lZY2gaB2M0WCb3KT4wBC3tdFJ9X?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-4-1/data/Life_Evaluation_GDP_PerCap.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Happiness/GDP
-                            </a>
-                            <a href="https://www.worldhappiness.report/data-sharing/" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Happiness Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 4.1</h3>
-                        <p class="card-description">Due on Friday November 7 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-1/HW_4_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1fZbVKnxyWyh2poepN45ek82TcPOfCRFD?usp=drive_link" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 4.2 -->
-    <div class="carousel-container" id="part-42">
-        <h1 class="subtitle">Part 4.2 | Model Residuals</h1>
-        <p>Checking the assumptions of the linear regression model using residuals.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="C919CCAXark">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 4.2 // Model Residuals</h3>
-                        <p class="card-description">Checking the assumptions of the linear regression model using residuals.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-2/concept_4_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-4-2/concept_4_2.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 4.2 -->
+            <div class="carousel-container" id="part-42">
+                <h1 class="subtitle">Part 4.2 | Model Residuals</h1>
+                <p>Checking the assumptions of the linear regression model using residuals.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="C919CCAXark">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 4.2 // Model Residuals</h3>
+                                <p class="card-description">Checking the assumptions of the linear regression model
+                                    using residuals.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-2/concept_4_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-4-2/concept_4_2.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 4.2 // Model Residuals</h3>
+                                <p class="card-description">Checking the assumptions of the linear regression model
+                                    using residuals.</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1a4h15ZXTa5WMvsxiGOtBhOnEr5520hvL?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 4.2</h3>
+                                <p class="card-description">Due on Friday November 7 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-2/HW_4_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1IMP0M1O54kt7dQlj8R4DJgn2COvCyGcU?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 4.2 // Model Residuals</h3>
-                        <p class="card-description">Checking the assumptions of the linear regression model using residuals.</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1a4h15ZXTa5WMvsxiGOtBhOnEr5520hvL?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 4.2</h3>
-                        <p class="card-description">Due on Friday November 7 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-2/HW_4_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1IMP0M1O54kt7dQlj8R4DJgn2COvCyGcU?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 4.3 -->
-    <div class="carousel-container" id="part-43">
-        <h1 class="subtitle">Part 4.3 | Categorical Predictors</h1>
-        <p>Finding relationships between a categorical predictor and a continuous outcome.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="fEZKVnEPqf8">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 4.3 // Categorical Predictors</h3>
-                        <p class="card-description">Two-sample t-test in disguise.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-3/concept_4_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-4-3/concept_4_3.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 4.3 -->
+            <div class="carousel-container" id="part-43">
+                <h1 class="subtitle">Part 4.3 | Categorical Predictors</h1>
+                <p>Finding relationships between a categorical predictor and a continuous outcome.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="fEZKVnEPqf8">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 4.3 // Categorical Predictors</h3>
+                                <p class="card-description">Two-sample t-test in disguise.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-3/concept_4_3.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-4-3/concept_4_3.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 4.3 // Categorical Predictors</h3>
+                                <p class="card-description">Finding relationships between categorical variables.</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1p7c-pUIJHWMzzbMEsiwpvvUyJKGtfZG_?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 4.3</h3>
+                                <p class="card-description">Due on Friday at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-3/HW_4_3.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/14hBvTtiTxZnSss_Qr62o3dcOYQwhBxXZ?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 4.3 // Categorical Predictors</h3>
-                        <p class="card-description">Finding relationships between categorical variables.</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1p7c-pUIJHWMzzbMEsiwpvvUyJKGtfZG_?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 4.3</h3>
-                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-3/HW_4_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/14hBvTtiTxZnSss_Qr62o3dcOYQwhBxXZ?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                        </div>
-                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
 
-    <!-- Part 4.4 -->
-    <div class="carousel-container" id="part-44">
-        <h1 class="subtitle">Part 4.4 | Timeseries Models</h1>
-        <p>Building models of relationships between variables through time.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="kwokvV090Lo">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 4.4 // Timeseries Models</h3>
-                        <p class="card-description">Be very careful. Check for autocorrelation.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-4-4/concept_4_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-4-4/concept_4_4.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
+            <!-- Part 4.4 -->
+            <div class="carousel-container" id="part-44">
+                <h1 class="subtitle">Part 4.4 | Timeseries Models</h1>
+                <p>Building models of relationships between variables through time.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="kwokvV090Lo">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 4.4 // Timeseries Models</h3>
+                                <p class="card-description">Be very careful. Check for autocorrelation.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-4-4/concept_4_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-4-4/concept_4_4.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 4.4 // Timeseries Models</h3>
-                        <p class="card-description">Four models of relationships between GDP and Unemployment through time.</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1KOLW_fKQS1EpF1gh-bMw7GVw9pwj_OI9?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 4.4 // Timeseries Models</h3>
+                                <p class="card-description">Four models of relationships between GDP and Unemployment
+                                    through time.</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1KOLW_fKQS1EpF1gh-bMw7GVw9pwj_OI9?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 4.4</h3>
-                        <p class="card-description">Nothing due :)</p>
-                        <div class="card-downloads">
-                            <!--<a href="parts/part-4-4/HW_4_4.pdf" class="download-link" target="_blank">
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 4.4</h3>
+                                <p class="card-description">Nothing due :)</p>
+                                <div class="card-downloads">
+                                    <!--<a href="parts/part-4-4/HW_4_4.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Assignment
                             </a>
                             <a href="https://colab.research.google.com/drive/1iAbTGs5Xm7xz8ka-e6UCKxhqjMM1wzq8?usp=sharing" class="download-link" target="_blank">
                                 <i class="fa fa-external-link"></i> Notebook
                             </a>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- MINIEXAMS -->
+            <div id="miniexams">
+                <h1 class="subtitle">MiniExams</h1>
+                <p>
+                    MiniExam 4 will be held on Thursday November 13 and will test your understanding of everything in
+                    Part 4: numerical predictors, model assumptions, categorical predictors, and timeseries models.
+                </p>
+
+                <div class="carousel-card standalone-card" data-video-id="NgEffN3TOtw">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 4</h3>
+                        <p class="card-description">Try solving the demo then check your answers against the video.</p>
+                        <div class="card-downloads">
+                            <a href="ME/ME_4/ME_4_Demo.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> ME 4 Demo
+                            </a>
+                            <a href="ME/ME_4/ME_4_Demo_sols.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Solutions
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+
+            <div class="bottom-spacer"></div>
+
         </div>
-    </div>
 
-    <!-- MINIEXAMS -->
-    <div id="miniexams">
-        <h1 class="subtitle">MiniExams</h1>
-        <p>
-            MiniExam 4 will be held on Thursday November 13 and will test your understanding of everything in Part 4: numerical predictors, model assumptions, categorical predictors, and timeseries models.
-        </p>
-
-        <div class="carousel-card standalone-card" data-video-id="NgEffN3TOtw">
-            <div class="card-video">
-                <img src="" alt="Video thumbnail" class="placeholder-bg">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 4</h3>
-                <p class="card-description">Try solving the demo then check your answers against the video.</p>
-                    <div class="card-downloads">
-                        <a href="ME/ME_4/ME_4_Demo.pdf" class="download-link" target="_blank">
-                            <i class="fa fa-file-pdf-o"></i> ME 4 Demo
-                        </a>
-                        <a href="ME/ME_4/ME_4_Demo_sols.pdf" class="download-link" target="_blank">
-                            <i class="fa fa-file-pdf-o"></i> Solutions
-                        </a>
-                    </div>
-            </div>
+        <!-- RIGHT NAVIGATION -->
+        <div class="right_div">
+            <nav>
+                <ul>
+                    <span>Contents</span>
+                    <hr class="nav-hr-right">
+                    <li class="nav-item-no-margin"><a href="#part-41" class="active nav-link-right">4.1 | Numerical</a>
+                    </li>
+                    <li><a href="#part-42" class="nav-link-right">4.2 | Residuals</a></li>
+                    <li><a href="#part-43" class="nav-link-right">4.3 | Categorical</a></li>
+                    <li><a href="#part-44" class="nav-link-right">4.4 | Timeseries</a></li>
+                    <li><a href="#part-45" class="nav-link-right">4.5 | Causality</a></li>
+                    <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </div> <!-- Close wrapper -->
 
-    <div class="bottom-spacer"></div>
-
-    </div>
-
-    <!-- RIGHT NAVIGATION -->
-    <div class="right_div">
-        <nav>
-            <ul>
-                <span>Contents</span>
-                <hr class="nav-hr-right">
-                <li class="nav-item-no-margin"><a href="#part-41" class="active nav-link-right">4.1 | Numerical</a></li>
-                <li><a href="#part-42" class="nav-link-right">4.2 | Residuals</a></li>
-                <li><a href="#part-43" class="nav-link-right">4.3 | Categorical</a></li>
-                <li><a href="#part-44" class="nav-link-right">4.4 | Timeseries</a></li>
-                <li><a href="#part-45" class="nav-link-right">4.5 | Causality</a></li>
-                <li><a href="#miniexams" class="nav-link-right">MiniExams</a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- Close wrapper -->
-
-<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
-<script src="../course-assets/scripts/main.js"></script>
+    <!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+    <script src="../course-assets/scripts/main.js"></script>
 
 </body>
+
 </html>

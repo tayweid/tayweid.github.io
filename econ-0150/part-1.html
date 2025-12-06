@@ -1,778 +1,849 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    
-<title>Economic Data Analysis | Part 1</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- MODULAR CSS -->
-<link rel="stylesheet" href="../course-assets/styles/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Economic Data Analysis | Part 1</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- MODULAR CSS -->
+    <link rel="stylesheet" href="../course-assets/styles/main.css">
 
 </head>
 
 
 <body>
 
-<div class="wrapper course-econ-0150">
-<div class="left_div">
-    <nav>
-        <ul>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
-            <hr class="nav-hr">
-            <li><a class="active" href="">Part 1</a></li>
-            <li><a href="part-2.html">Part 2</a></li>
-            <li><a href="part-3.html">Part 3</a></li>
-            <li><a href="part-4.html">Part 4</a></li>
-            <li><a href="part-5.html">Part 5</a></li>
-            <li><a href="part-6.html">Part 6</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
-</div>
-
-<div class="content">
-    
-    <div class="description">
-        <h1 class="title title-tight">Part 1 | Exploratory Data Analysis</h1>
-        <i class="subtitle-text">> start by understanding your data</i>
-        <p>
-            Making decisions with data involves understanding what your variables actually contain. Before exploring relationships you need to know whether you're working with categories, counts, or measurements, and what patterns, outliers, and limitations exist in your data. Data is easiest to understand when visualized appropriately and the appropriate data visualization depends on the data type. Part 1 indroduces approaches for summarizing data with figures and tables using python and spreadsheets, stills that will save you countless hours.
-        </p>
-    </div>
-
-    <!-- Part 1.0 -->
-        <div class="carousel-container" id="part-10">
-            <h1 class="subtitle">Part 1.0 | Data Types</h1>
-            <p>Classify variables as categorical (binary, nominal, ordinal) or numerical (discrete, continuous). Choose appropriate summary methods and visualizations based on variable type.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="-VG20ebeF-g">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.0 // Variable Types and Data Structures</h3>
-                        <p class="card-description">Variables are either categorical or numerical</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-0/concept_1_0.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-0/concept_1_0.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <a href="parts/part-1-0/Notes_1_0_Variable_Types.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="IkEXzG68FU0">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.0 // Categorical & Numerical Variables</h3>
-                        <p class="card-description">Synthetic data and code to summarize categorical and numerical variables</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1fVWegC-JsggWzKGz3uAOpdnr0aWdUN-G?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-0/data/economic_optimism.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Economic Optimism
-                            </a>
-                            <a href="parts/part-1-0/data/employment_sector.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Employment Sector
-                            </a>
-                            <a href="parts/part-1-0/data/employment_status.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Employment Status
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.0</h3>
-                        <p class="card-description">Due on Friday August 29 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-0/HW_1_0.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/14Nua6lQyZGJb-aNgY0VPaqkTdMLR9Fxx?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Class Survey Data
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+    <div class="wrapper course-econ-0150">
+        <div class="left_div">
+            <nav>
+                <ul>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
+                    <hr class="nav-hr">
+                    <li><a class="active" href="">Part 1</a></li>
+                    <li><a href="part-2.html">Part 2</a></li>
+                    <li><a href="part-3.html">Part 3</a></li>
+                    <li><a href="part-4.html">Part 4</a></li>
+                    <li><a href="part-5.html">Part 5</a></li>
+                    <li><a href="part-6.html">Part 6</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
 
-    <!-- Part 1.1 -->
-    <div class="carousel-container" id="part-11">
-        <h1 class="subtitle">Part 1.1 | Categorical Variables</h1>
-        <p>Use Bar charts to show all three types of categorical variables. Use Pie charts rarely and generally only for binary categorical variables.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
+        <div class="content">
 
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="K6nty-e-i-U">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.1 // Categorical Variables</h3>
-                        <p class="card-description">Summarizing categorical variables</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-1/concept_1_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-1/concept_1_1.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <a href="parts/part-1-1/Notes_1_1_Categorical.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="fWk7LBDcfY8">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.1 // Coffee Shop Locations</h3>
-                        <p class="card-description">The locations of a small (fictional) coffee shop chain</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/15OirnVuIx7G0Ph5vaarJrpOeiJo2LwCk?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-1/data/Coffee_Shops.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Shops
-                            </a>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.1</h3>
-                        <p class="card-description">Due on Friday September 5 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-1/HW_1_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1nGUEPo1wS07yUdYovA7w-TE-m7TVS0FE?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Class Survey Data
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="description">
+                <h1 class="title title-tight">Part 1 | Exploring Data</h1>
+                <i class="subtitle-text">> start by understanding your data</i>
+                <p>
+                    Making decisions with data involves understanding what your variables actually contain. Before
+                    exploring relationships you need to know whether you're working with categories, counts, or
+                    measurements, and what patterns, outliers, and limitations exist in your data. Data is easiest to
+                    understand when visualized appropriately and the appropriate data visualization depends on the data
+                    type. Part 1 indroduces approaches for summarizing data with figures and tables using python and
+                    spreadsheets, stills that will save you countless hours.
+                </p>
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+
+            <!-- Part 1.0 -->
+            <div class="carousel-container" id="part-10">
+                <h1 class="subtitle">Part 1.0 | Data Types</h1>
+                <p>Classify variables as categorical (binary, nominal, ordinal) or numerical (discrete, continuous).
+                    Choose appropriate summary methods and visualizations based on variable type.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="-VG20ebeF-g">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.0 // Variable Types and Data Structures</h3>
+                                <p class="card-description">Variables are either categorical or numerical</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-0/concept_1_0.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-0/concept_1_0.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <a href="parts/part-1-0/Notes_1_0_Variable_Types.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Notes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="IkEXzG68FU0">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.0 // Categorical & Numerical Variables</h3>
+                                <p class="card-description">Synthetic data and code to summarize categorical and
+                                    numerical variables</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1fVWegC-JsggWzKGz3uAOpdnr0aWdUN-G?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-0/data/economic_optimism.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Economic Optimism
+                                    </a>
+                                    <a href="parts/part-1-0/data/employment_sector.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Employment Sector
+                                    </a>
+                                    <a href="parts/part-1-0/data/employment_status.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Employment Status
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.0</h3>
+                                <p class="card-description">Due on Friday August 29 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-0/HW_1_0.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/14Nua6lQyZGJb-aNgY0VPaqkTdMLR9Fxx?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Class Survey Data
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 1.1 -->
+            <div class="carousel-container" id="part-11">
+                <h1 class="subtitle">Part 1.1 | Categorical Variables</h1>
+                <p>Use Bar charts to show all three types of categorical variables. Use Pie charts rarely and generally
+                    only for binary categorical variables.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="K6nty-e-i-U">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.1 // Categorical Variables</h3>
+                                <p class="card-description">Summarizing categorical variables</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-1/concept_1_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-1/concept_1_1.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <a href="parts/part-1-1/Notes_1_1_Categorical.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Notes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="fWk7LBDcfY8">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.1 // Coffee Shop Locations</h3>
+                                <p class="card-description">The locations of a small (fictional) coffee shop chain</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/15OirnVuIx7G0Ph5vaarJrpOeiJo2LwCk?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-1/data/Coffee_Shops.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Shops
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.1</h3>
+                                <p class="card-description">Due on Friday September 5 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-1/HW_1_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1nGUEPo1wS07yUdYovA7w-TE-m7TVS0FE?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Class Survey Data
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 1.2 -->
+            <div class="carousel-container" id="part-12">
+                <h1 class="subtitle">Part 1.2 | Numerical Variables</h1>
+                <p>Use Histograms to show distributions. Use Boxplots+Stripplots to show quartiles and precise values.
+                </p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="3R4jO7U0V2U">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.2 (pt. 1) // Numerical Variables with Histograms</h3>
+                                <p class="card-description">Summarizing numerical variables with Histograms</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-2/concept_1_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-2/concept_1_2.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <a href="parts/part-1-2/Notes_1_2_Numerical.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Notes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="9lcLcB6k4dk">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.2 (pt. 1) // Starbucks Customers</h3>
+                                <p class="card-description">Create Histograms of Starbucks customers (from Kaggle)</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1ZWh6pSFZ-5UezF6T81MBvzlSZIWsjDFA?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-2/data/Starbucks_Customer_Profiles_40k.csv"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Starbuck Profile Data
+                                    </a>
+                                    <a href="https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="ftA_T5woGMU">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.2 (pt. 2) // Numerical Variables with
+                                    Boxplots+Stripplots</h3>
+                                <p class="card-description">Summarizing numerical variables</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="7u9HhAZaQy8">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.2 (pt. 2) // Create a Boxplot+Stripplot of coffee
+                                    consumption per capita</h3>
+                                <p class="card-description">Data on coffee consumption per capita in 2019</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-2/data/Coffee_Per_Cap_2019.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Consumption 2019
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.2</h3>
+                                <p class="card-description">Due on Friday September 5 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-2/HW_1_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1BhrC3WIKGl-rOZUCBzuizrKHpd0MH_6G?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Class Survey Data
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 1.3 -->
+            <div class="carousel-container" id="part-13">
+                <h1 class="subtitle">Part 1.3 | Timeseries</h1>
+                <p>Match the visualization choice to the data structure.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="iDWtRhNFyIQ">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.3 pt.1 // Timeseries and Linegraphs</h3>
+                                <p class="card-description">Visualizing relationships between data points</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-3/concept_1_3.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-3/concept_1_3.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <a href="parts/part-1-3/Notes_1_3_Timeseries.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Notes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="_Pjkj6lrFLk">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.3 pt.1 // Timeseries and Linegraphs</h3>
+                                <p class="card-description">Three univariate data structures: cross-sectional,
+                                    timeseries, and panel</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1ZETcoNhK_nyxFLWNgcJcEtAc1SIQFib4?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-3/data/household_incomes.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Household Income
+                                    </a>
+                                    <a href="parts/part-1-3/data/household_savings.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Household Savings
+                                    </a>
+                                    <a href="parts/part-1-3/data/Monthly_Coffee_Prices.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Prices
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="zCD7AwDfqfQ">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept + Exercise 1.3 pt.2 // Seasonality and Boxplots</h3>
+                                <p class="card-description">Visualizing subtrends by season</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.3</h3>
+                                <p class="card-description">Due on Friday September 12 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-3/HW_1_3.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1LOvAPZSe3ht43iGWpTANe_AS8-MJMGFO?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-3/data/Coffee_Sales_Receipts.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Sales Receipts
+                                    </a>
+                                    <a href="parts/part-1-3/data/Starbucks_Location_Hours.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Starbucks Location Hours
+                                    </a>
+                                    <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Starbucks Source
+                                    </a>
+                                    <a href="parts/part-1-3/data/coffee_prod_kenya.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Production Kenya
+                                    </a>
+                                    <a href="https://ourworldindata.org/grapher/coffee-bean-production?tab=table"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Kenya Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+
+            <!-- Part 1.4 -->
+            <div class="carousel-container" id="part-14">
+                <h1 class="subtitle">Part 1.4 | Panel Data</h1>
+                <p>Long vs wide format; grouped box plots compare across categories; scatterplots for changes over time.
+                </p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="FxfySbHqJck">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.4 pt.1 // Panel Data in Long Format </h3>
+                                <p class="card-description">Visualizing continuous variables by category</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-4/concept_1_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-4/concept_1_4.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="y4Y7xym8ks0">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.4 // Transactions by Shop Location</h3>
+                                <p class="card-description">Coffee shop transaction data by location from Kaggle</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/10S3FvA6sj9TUKJtBrOEC-yTotk4AqObm?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-4/data/Coffee_Sales_Reciepts.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Sales Data
+                                    </a>
+                                    <a href="https://www.kaggle.com/datasets/ylchang/coffee-shop-sample-data-1113"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="GCR5gd5zdro">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.4 pt.2 // Panel Data in Wide Format </h3>
+                                <p class="card-description">Visualizing continuous variables by category</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="7aZi3qI-9fo">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.4 pt.2 cont. // Panel Data in Wide Format </h3>
+                                <p class="card-description">Visualizing continuous variables by category</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="t9Q35o__9I0">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.4 // Coffee Consumption by Country Through Time</h3>
+                                <p class="card-description">How has coffee consumption changed since 1999?</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/10S3FvA6sj9TUKJtBrOEC-yTotk4AqObm?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-4/data/Coffee_Per_Cap.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Per Capita
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.4 </h3>
+                                <p class="card-description">Due on Friday September 12 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-4/HW_1_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/153Gf93nye22_o8dmpPzJjig1qCHvRiiN?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-4/data/working_north_america.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Working Hours North America
+                                    </a>
+                                    <a href="https://ourworldindata.org/working-hours" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 1.5 -->
+            <div class="carousel-container" id="part-15">
+                <h1 class="subtitle">Part 1.5 | Bivariate Relationships</h1>
+                <p>Use scatter plots to visualize relationships between two numerical variables. </p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="PFA_ELRodh8">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.5 // Bivariate Relationships</h3>
+                                <p class="card-description">Use a scatterplot in most cases</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-5/concept_1_5.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-5/concept_1_5.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.5 // Coffee Production and GDP</h3>
+                                <p class="card-description">Data on countries' coffee production and GDP</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1yjO9fFuodUENFal3J5PWtiSDIiRVmQqe?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-5/data/Beans_GDP_2019.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Beans GDP
+                                    </a>
+                                    <a href="parts/part-1-5/data/Coffee_Oil.csv" class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Oil
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.5</h3>
+                                <p class="card-description">Due on Friday on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-5/HW_1_5.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1gSNCM7UlvHaWUgxkxh6Xdv2CiYXBGMZo?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-5/data/coffee_prod_agr.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Prod and Ag
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+
+            <!-- Part 1.6 -->
+            <div class="carousel-container" id="part-16">
+                <h1 class="subtitle">Part 1.6 | Geographic Data and Wrap Up</h1>
+                <p>Use maps to show geographic differences.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+                        <div class="carousel-card concept-card" data-video-id="8nIDBimQlbU">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 1.6 // Geographic Data and Wrap Up</h3>
+                                <p class="card-description">Visualizing Dimensions of Data</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-6/concept_1_6.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-1-6/concept_1_6.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card exercise-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 1.6 // US Cities and Temperature</h3>
+                                <p class="card-description">US cities on the map and their average temperatures</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="carousel-card homework-card">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 1.6</h3>
+                                <p class="card-description">Not due but is good extra practice.</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-1-6/HW_1_6.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1Twnep4KJCF6rqHjp2NUkDRubcwyJ61S4?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-1-6/data/US_Cities.csv" class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> US Cities
+                                    </a>
+                                    <a href="parts/part-1-6/data/Eastern_Cities.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Eastern US Cities
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+
+            <!-- MINIEXAM -->
+            <div id="miniexam">
+                <h1 class="subtitle" id="miniexam">MiniExam</h1>
+                <p>
+                    MiniExam 1 will be held on September 22 and covers everything in Part 1 (except Part 1.6 Geographic
+                    Data). You will begin to learn that if you understand the concepts and do the work in the examples
+                    and homework, you're going to be in good shape on the MiniExam.
+                </p>
+                <p>
+                    MiniExams focuses on practical application of the concepts we've developed. Practice with Homework
+                    and Exercises to prepare effectively.
+                </p>
+
+                <div class="carousel-card standalone-card homework-card" data-video-id="b4d8l4QMu8E">
+                    <div class="card-video">
+                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                    </div>
+
+                    <div class="card-content">
+                        <h3 class="card-title">MiniExam 1 Demo</h3>
+                        <p class="card-description">MiniExam 01 Demo covers all material from Part 1.0 through Part 1.5
+                            and tests your understanding of exploratory data analysis.</p>
+                        <div class="card-downloads">
+                            <a href="ME/ME_1_Demo.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Demo
+                            </a>
+                            <a href="ME/ME_1_Demo_sols.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Solutions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-spacer"></div>
+
         </div>
-    </div>
 
-    <!-- Part 1.2 -->
-    <div class="carousel-container" id="part-12">
-        <h1 class="subtitle">Part 1.2 | Numerical Variables</h1>
-        <p>Use Histograms to show distributions. Use Boxplots+Stripplots to show quartiles and precise values.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="3R4jO7U0V2U">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.2 (pt. 1) // Numerical Variables with Histograms</h3>
-                        <p class="card-description">Summarizing numerical variables with Histograms</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-2/concept_1_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-2/concept_1_2.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <a href="parts/part-1-2/Notes_1_2_Numerical.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="9lcLcB6k4dk">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.2 (pt. 1) // Starbucks Customers</h3>
-                        <p class="card-description">Create Histograms of Starbucks customers (from Kaggle)</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1ZWh6pSFZ-5UezF6T81MBvzlSZIWsjDFA?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-2/data/Starbucks_Customer_Profiles_40k.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Starbuck Profile Data
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/ihormuliar/starbucks-customer-data" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="ftA_T5woGMU">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.2 (pt. 2) // Numerical Variables with Boxplots+Stripplots</h3>
-                        <p class="card-description">Summarizing numerical variables</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="7u9HhAZaQy8">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.2 (pt. 2) // Create a Boxplot+Stripplot of coffee consumption per capita</h3>
-                        <p class="card-description">Data on coffee consumption per capita in 2019</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-2/data/Coffee_Per_Cap_2019.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Consumption 2019
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.2</h3>
-                        <p class="card-description">Due on Friday September 5 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-2/HW_1_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1BhrC3WIKGl-rOZUCBzuizrKHpd0MH_6G?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-0/data/Fall_2025_Survey.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Class Survey Data
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+        <!-- RIGHT NAVIGATION -->
+        <div class="right_div">
+            <nav>
+                <ul>
+                    <span>Contents</span>
+                    <hr class="nav-hr-right">
+                    <li class="nav-item-no-margin"><a href="#part-10" class="active nav-link-right">1.0 | Data Types</a>
+                    </li>
+                    <li><a href="#part-11" class="nav-link-right">1.1 | Categorical</a></li>
+                    <li><a href="#part-12" class="nav-link-right">1.2 | Numerical</a></li>
+                    <li><a href="#part-13" class="nav-link-right">1.3 | Timeseries</a></li>
+                    <li><a href="#part-14" class="nav-link-right">1.4 | Panel</a></li>
+                    <li><a href="#part-15" class="nav-link-right">1.5 | Bivariate</a></li>
+                    <li><a href="#part-16" class="nav-link-right">1.6 | Geographic</a></li>
+                    <li><a href="#miniexam" class="nav-link-right">MiniExam</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </div> <!-- Close wrapper -->
 
-    <!-- Part 1.3 -->
-    <div class="carousel-container" id="part-13">
-        <h1 class="subtitle">Part 1.3 | Timeseries</h1>
-        <p>Match the visualization choice to the data structure.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="iDWtRhNFyIQ">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.3 pt.1 // Timeseries and Linegraphs</h3>
-                        <p class="card-description">Visualizing relationships between data points</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-3/concept_1_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-3/concept_1_3.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <a href="parts/part-1-3/Notes_1_3_Timeseries.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="_Pjkj6lrFLk">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.3 pt.1 // Timeseries and Linegraphs</h3>
-                        <p class="card-description">Three univariate data structures: cross-sectional, timeseries, and panel</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1ZETcoNhK_nyxFLWNgcJcEtAc1SIQFib4?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-3/data/household_incomes.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Household Income
-                            </a>
-                            <a href="parts/part-1-3/data/household_savings.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Household Savings
-                            </a>
-                            <a href="parts/part-1-3/data/Monthly_Coffee_Prices.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Prices
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="zCD7AwDfqfQ">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept + Exercise 1.3 pt.2 // Seasonality and Boxplots</h3>
-                        <p class="card-description">Visualizing subtrends by season</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.3</h3>
-                        <p class="card-description">Due on Friday September 12 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-3/HW_1_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1LOvAPZSe3ht43iGWpTANe_AS8-MJMGFO?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-3/data/Coffee_Sales_Receipts.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Sales Receipts
-                            </a>
-                            <a href="parts/part-1-3/data/Starbucks_Location_Hours.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Starbucks Location Hours
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Starbucks Source
-                            </a>
-                            <a href="parts/part-1-3/data/coffee_prod_kenya.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Production Kenya
-                            </a>
-                            <a href="https://ourworldindata.org/grapher/coffee-bean-production?tab=table" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Kenya Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-
-    <!-- Part 1.4 -->
-    <div class="carousel-container" id="part-14">
-        <h1 class="subtitle">Part 1.4 | Panel Data</h1>
-        <p>Long vs wide format; grouped box plots compare across categories; scatterplots for changes over time.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="FxfySbHqJck">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.4 pt.1 // Panel Data in Long Format </h3>
-                        <p class="card-description">Visualizing continuous variables by category</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-4/concept_1_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-4/concept_1_4.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="y4Y7xym8ks0">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.4 // Transactions by Shop Location</h3>
-                        <p class="card-description">Coffee shop transaction data by location from Kaggle</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/10S3FvA6sj9TUKJtBrOEC-yTotk4AqObm?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-4/data/Coffee_Sales_Reciepts.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Sales Data
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/ylchang/coffee-shop-sample-data-1113" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="GCR5gd5zdro">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.4 pt.2 // Panel Data in Wide Format </h3>
-                        <p class="card-description">Visualizing continuous variables by category</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="7aZi3qI-9fo">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.4 pt.2 cont. // Panel Data in Wide Format </h3>
-                        <p class="card-description">Visualizing continuous variables by category</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="t9Q35o__9I0">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.4 // Coffee Consumption by Country Through Time</h3>
-                        <p class="card-description">How has coffee consumption changed since 1999?</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/10S3FvA6sj9TUKJtBrOEC-yTotk4AqObm?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-4/data/Coffee_Per_Cap.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Per Capita
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.4 </h3>
-                        <p class="card-description">Due on Friday September 12 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-4/HW_1_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/153Gf93nye22_o8dmpPzJjig1qCHvRiiN?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-4/data/working_north_america.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Working Hours North America
-                            </a>
-                            <a href="https://ourworldindata.org/working-hours" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-    <!-- Part 1.5 -->
-    <div class="carousel-container" id="part-15">
-        <h1 class="subtitle">Part 1.5 | Bivariate Relationships</h1>
-        <p>Use scatter plots to visualize relationships between two numerical variables. </p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="PFA_ELRodh8">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.5 // Bivariate Relationships</h3>
-                        <p class="card-description">Use a scatterplot in most cases</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-5/concept_1_5.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-5/concept_1_5.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.5 // Coffee Production and GDP</h3>
-                        <p class="card-description">Data on countries' coffee production and GDP</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1yjO9fFuodUENFal3J5PWtiSDIiRVmQqe?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-5/data/Beans_GDP_2019.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Beans GDP
-                            </a>
-                            <a href="parts/part-1-5/data/Coffee_Oil.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Oil
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.5</h3>
-                        <p class="card-description">Due on Friday on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-5/HW_1_5.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1gSNCM7UlvHaWUgxkxh6Xdv2CiYXBGMZo?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-5/data/coffee_prod_agr.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Prod and Ag
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-
-    <!-- Part 1.6 -->
-    <div class="carousel-container" id="part-16">
-        <h1 class="subtitle">Part 1.6 | Geographic Data and Wrap Up</h1>
-        <p>Use maps to show geographic differences.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-                <div class="carousel-card concept-card" data-video-id="8nIDBimQlbU">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 1.6 // Geographic Data and Wrap Up</h3>
-                        <p class="card-description">Visualizing Dimensions of Data</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-6/concept_1_6.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-1-6/concept_1_6.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card exercise-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 1.6 // US Cities and Temperature</h3>
-                        <p class="card-description">US cities on the map and their average temperatures</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="carousel-card homework-card">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 1.6</h3>
-                        <p class="card-description">Not due but is good extra practice.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-1-6/HW_1_6.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1Twnep4KJCF6rqHjp2NUkDRubcwyJ61S4?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-1-6/data/US_Cities.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> US Cities
-                            </a>
-                            <a href="parts/part-1-6/data/Eastern_Cities.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Eastern US Cities
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-
-    <!-- MINIEXAM -->
-    <div id="miniexam">
-        <h1 class="subtitle" id="miniexam">MiniExam</h1>
-        <p>
-            MiniExam 1 will be held on September 22 and covers everything in Part 1 (except Part 1.6 Geographic Data). You will begin to learn that if you understand the concepts and do the work in the examples and homework, you're going to be in good shape on the MiniExam.
-        </p>
-        <p>
-            MiniExams focuses on practical application of the concepts we've developed. Practice with Homework and Exercises to prepare effectively.
-        </p>
-
-        <div class="carousel-card standalone-card homework-card" data-video-id="b4d8l4QMu8E">
-            <div class="card-video">
-                <img src="" alt="Video thumbnail" class="placeholder-bg">
-            </div>
-            
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 1 Demo</h3>
-                <p class="card-description">MiniExam 01 Demo covers all material from Part 1.0 through Part 1.5 and tests your understanding of exploratory data analysis.</p>
-                <div class="card-downloads">
-                    <a href="ME/ME_1_Demo.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Demo
-                    </a>
-                    <a href="ME/ME_1_Demo_sols.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Solutions
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-spacer"></div>
-
-    </div>
-
-    <!-- RIGHT NAVIGATION -->
-    <div class="right_div">
-        <nav>
-            <ul>
-                <span>Contents</span>
-                <hr class="nav-hr-right">
-                <li class="nav-item-no-margin"><a href="#part-10" class="active nav-link-right">1.0 | Data Types</a></li>
-                <li><a href="#part-11" class="nav-link-right">1.1 | Categorical</a></li>
-                <li><a href="#part-12" class="nav-link-right">1.2 | Numerical</a></li>
-                <li><a href="#part-13" class="nav-link-right">1.3 | Timeseries</a></li>
-                <li><a href="#part-14" class="nav-link-right">1.4 | Panel</a></li>
-                <li><a href="#part-15" class="nav-link-right">1.5 | Bivariate</a></li>
-                <li><a href="#part-16" class="nav-link-right">1.6 | Geographic</a></li>
-                <li><a href="#miniexam" class="nav-link-right">MiniExam</a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- Close wrapper -->
-
-<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
-<script src="../course-assets/scripts/main.js"></script>
+    <!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+    <script src="../course-assets/scripts/main.js"></script>
 
 </body>
-</html>
 
+</html>

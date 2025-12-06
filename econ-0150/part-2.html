@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
-    
-<title>Economic Data Analysis | Part 2</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<!-- OPTIMIZED: Single combined font request -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Economic Data Analysis | Part 2</title>
+
+    <!-- OPTIMIZED: Single combined font request -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100&family=Roboto:wght@100;300&family=Source+Serif+Pro:wght@100&display=swap"
+        rel="stylesheet">
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <!-- MODULAR CSS -->
     <link rel="stylesheet" href="../course-assets/styles/main.css">
 
@@ -20,532 +25,587 @@
 
 <body>
 
-<div class="wrapper course-econ-0150">
-<div class="left_div">
-    <nav>
-        <ul>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
-            <a href="econ-0150.html" style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
-            <hr class="nav-hr">
-            <li><a href="part-1.html">Part 1</a></li>
-            <li><a class="active" href="">Part 2</a></li>
-            <li><a href="part-3.html">Part 3</a></li>
-            <li><a href="part-4.html">Part 4</a></li>
-            <li><a href="part-5.html">Part 5</a></li>
-            <li><a href="part-6.html">Part 6</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
-</div>
-
-<div class="content">
-    
-    <div class="description">
-        <h1 class="title title-tight">Part 2 | Data Operations</h1>
-        <i class="subtitle-text">> use your data to tell stories</i>
-        <p>
-            Data operations are the tools you use to transform your data into a form that can be used to tell stories. We'll start with approaches for transforming your data using python and spreadsheets. You'll learn the tools to make your data more informative. This is where data can start to tell stories.
-        </p>
-    </div>
-    
-    <!-- Part 2.1 -->
-    <div class="carousel-container" id="part-21">
-        <h1 class="subtitle">Part 2.1 | Cleaning Data</h1>
-        <p>Turn messy data into something useful.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="GDprh9I0iZ4">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 2.1 // Cleaning Data</h3>
-                        <p class="card-description">Convert variable types; manipulte text; handle empty values.</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-1/concept_2_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-2-1/concept_2_1.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 2.1 // Class Survey </h3>
-                        <p class="card-description">Clean messy survey responses </p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1MRexPkcpeD2lbS246TFBSVBcopUJtVDf?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-0/data/Fall_2025_Survey_raw.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Class Survey (raw)
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 2.1</h3>
-                        <p class="card-description">Due on Friday Sept. 26 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-1/HW_2_1.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1A79ZlUgikUKKolid-OjNbfAzk8NMFqPh?usp=drive_link" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-1/data/world_in_data.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> World In Data
-                            </a>
-                            <a href="parts/part-2-1/data/Monthly_Coffee_Prices.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Monthly Coffee Prices
-                            </a>
-                            <a href="parts/part-2-1/data/Starbucks_Location_Hours_GMT.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Starbucks GMT
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+    <div class="wrapper course-econ-0150">
+        <div class="left_div">
+            <nav>
+                <ul>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-top: 5%; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ECONOMIC</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">DATA</span></a>
+                    <a href="econ-0150.html"
+                        style="text-decoration: none; color: inherit; font-weight: 300; margin-bottom: 2%; font-size: 36px; display: block; line-height: 0.8; color: white;"><span
+                            style="font-weight: 300; font-size: 36px; display: block; line-height: 0.8; color: white;">ANALYSIS</span></a>
+                    <hr class="nav-hr">
+                    <li><a href="part-1.html">Part 1</a></li>
+                    <li><a class="active" href="">Part 2</a></li>
+                    <li><a href="part-3.html">Part 3</a></li>
+                    <li><a href="part-4.html">Part 4</a></li>
+                    <li><a href="part-5.html">Part 5</a></li>
+                    <li><a href="part-6.html">Part 6</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
 
-    <!-- Part 2.2 -->
-    <div class="carousel-container" id="part-22">
-        <h1 class="subtitle">Part 2.2 | Transforming Data</h1>
-        <p>Apply mathematical transformations to make variabls more informative.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
+        <div class="content">
 
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="yaidXuZXB9M">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+            <div class="description">
+                <h1 class="title title-tight">Part 2 | Data Operations</h1>
+                <i class="subtitle-text">> make your data more informative</i>
+                <p>
+                    Data operations are the tools you use to transform your data into a form that can be used to tell
+                    stories. We'll start with approaches for transforming your data using python and spreadsheets.
+                    You'll learn the tools to make your data more informative. This is where data can start to tell
+                    stories.
+                </p>
+            </div>
+
+            <!-- Part 2.1 -->
+            <div class="carousel-container" id="part-21">
+                <h1 class="subtitle">Part 2.1 | Cleaning Data</h1>
+                <p>Turn messy data into something useful.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="GDprh9I0iZ4">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 2.1 // Cleaning Data</h3>
+                                <p class="card-description">Convert variable types; manipulte text; handle empty values.
+                                </p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-1/concept_2_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-2-1/concept_2_1.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 2.1 // Class Survey </h3>
+                                <p class="card-description">Clean messy survey responses </p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1MRexPkcpeD2lbS246TFBSVBcopUJtVDf?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-0/data/Fall_2025_Survey_raw.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Class Survey (raw)
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 2.1</h3>
+                                <p class="card-description">Due on Friday Sept. 26 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-1/HW_2_1.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1A79ZlUgikUKKolid-OjNbfAzk8NMFqPh?usp=drive_link"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-1/data/world_in_data.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> World In Data
+                                    </a>
+                                    <a href="parts/part-2-1/data/Monthly_Coffee_Prices.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Monthly Coffee Prices
+                                    </a>
+                                    <a href="parts/part-2-1/data/Starbucks_Location_Hours_GMT.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Starbucks GMT
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 2.2 // Transforming Data</h3>
-                        <p class="card-description">Making a variable more informative</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-2/concept_2_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-2-2/concept_2_2.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <!--
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 2.2 -->
+            <div class="carousel-container" id="part-22">
+                <h1 class="subtitle">Part 2.2 | Transforming Data</h1>
+                <p>Apply mathematical transformations to make variabls more informative.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="yaidXuZXB9M">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 2.2 // Transforming Data</h3>
+                                <p class="card-description">Making a variable more informative</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-2/concept_2_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-2-2/concept_2_2.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <!--
                             <a href="parts/part-2-2/Notes_2_2_Transforming.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Notes
                             </a>
                             -->
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 2.2 // Starbucks Hours Globally </h3>
+                                <p class="card-description">Transforming global Starbucks hours data</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1FnbBMHIihyu_IRscRkKESGRsMPt5aGYd?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-2/data/Starbucks_Location_Hours.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Starbucks Location Hours
+                                    </a>
+                                    <a href="parts/part-2-2/data/Coffee_Prices_CPI.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Prices
+                                    </a>
+                                    <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version?resource=download"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Source
+                                    </a>
+                                    <a href="parts/part-2-2/data/Beans_GDP_2019.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Prod and GDP
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 2.2</h3>
+                                <p class="card-description">Due on Friday, October 2 at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-2/HW_2_2.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1Ny1xn0oVJjVQeLKqlzMpGaDkHb80evgE?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-2/data/marriage_rates.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Marriage Rates
+                                    </a>
+                                    <a href="https://ec.europa.eu/eurostat/databrowser/view/DEMO_NIND__custom_6759888/default/table?lang=en"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Marriage Source
+                                    </a>
+                                    <a href="parts/part-2-2/data/Monthly_Coffee_Prices_Lag.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Coffee Prices
+                                    </a>
+                                    <a href="https://www.macrotrends.net/2535/coffee-prices-historical-chart-data"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Prices Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
                 </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="">
+            </div>
+
+            <!-- Part 2.3 -->
+            <div class="carousel-container" id="part-23">
+                <h1 class="subtitle">Part 2.3 | Filtering Data</h1>
+                <p>Use logical operators (AND, OR, NOT) and comparison operators (>, <,==) to create subsets. Filter
+                        rows based on conditions to focus analysis on specific groups.</p>
+                        <div class="carousel">
+                            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                                <span>‹</span>
+                            </button>
+                            <div class="carousel-track">
+
+                                <!-- Concept -->
+                                <div class="carousel-card concept-card" data-video-id="juLwWTDMuhg">
+                                    <div class="card-video">
+                                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">Concept 2.3 // Filtering Data </h3>
+                                        <p class="card-description">Understand subsets of the data with logical
+                                            conditions</p>
+                                        <div class="card-downloads">
+                                            <a href="parts/part-2-3/concept_2_3.pdf" class="download-link"
+                                                target="_blank">
+                                                <i class="fa fa-file-pdf-o"></i> Slides
+                                            </a>
+                                            <a href="parts/part-2-3/concept_2_3.html" class="download-link"
+                                                target="_blank">
+                                                <i class="fa fa-file-pdf-o"></i> Interactive
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Exercise -->
+                                <div class="carousel-card exercise-card" data-video-id="A1EsdgZCzUg">
+                                    <div class="card-video">
+                                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">Exercise 2.3 // Starbucks Hours </h3>
+                                        <p class="card-description">Filtering Starbucks location hours data</p>
+                                        <div class="card-downloads">
+                                            <a href="https://colab.research.google.com/drive/139Q8ZjAlp_WGMe4HQPb3ib4XETvPyYgp?usp=sharing"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Notebook
+                                            </a>
+                                            <a href="parts/part-2-3/data/Starbucks_Location_Hours.csv"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Starbucks Location Hours
+                                            </a>
+                                            <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version?resource=download"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Source
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Homework -->
+                                <div class="carousel-card homework-card" data-video-id="">
+                                    <div class="card-video">
+                                        <img src="" alt="Video thumbnail" class="placeholder-bg">
+                                    </div>
+                                    <div class="card-content">
+                                        <h3 class="card-title">Homework 2.3</h3>
+                                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
+                                        <div class="card-downloads">
+                                            <a href="parts/part-2-3/HW_2_3.pdf" class="download-link" target="_blank">
+                                                <i class="fa fa-file-pdf-o"></i> Assignment
+                                            </a>
+                                            <a href="https://colab.research.google.com/drive/1lYz1676J0AQGAeI8lYmjzdZXGG1Gjty5?usp=sharing"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Notebook
+                                            </a>
+                                            <a href="parts/part-2-3/data/amazon_book_sales.csv" class="download-link"
+                                                target="_blank">
+                                                <i class="fa fa-file-text-o"></i> Amazon Book Data
+                                            </a>
+                                            <a href="https://www.kaggle.com/code/davidjackson0513/amazon-book-sales"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Source
+                                            </a>
+                                            <a href="parts/part-2-3/data/marriage_rates.csv" class="download-link"
+                                                target="_blank">
+                                                <i class="fa fa-file-text-o"></i> Marriage Rates
+                                            </a>
+                                            <a href="https://ec.europa.eu/eurostat/databrowser/view/DEMO_NIND__custom_6759888/default/table?lang=en"
+                                                class="download-link" target="_blank">
+                                                <i class="fa fa-external-link"></i> Marriage Source
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                                <span>›</span>
+                            </button>
+                            <div class="carousel-indicator"></div>
+                        </div>
+            </div>
+
+            <!-- Part 2.4 -->
+            <div class="carousel-container" id="part-24">
+
+                <h1 class="subtitle">Part 2.4 | Grouping Data</h1>
+                <p>Use group-by operations with aggregation functions (mean, sum, count) to calculate statistics by
+                    category. Create summary tables that show patterns across groups.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="SvC5xqiTBYQ">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 2.4 // Grouping Data</h3>
+                                <p class="card-description">Summarizing data by group</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-4/concept_2_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-2-4/concept_2_4.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                    <a href="parts/part-2-4/Notes_2_4_Grouping.pdf" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Notes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 2.4 // Starbucks Promotions </h3>
+                                <p class="card-description">Analyzing promotional data by grouping</p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1e2C2UBF94hBajhcIGXOdlJfHIABS4m5f?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-4/data/Starbucks_Promos.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-external-link"></i> Starbucks Promos
+                                    </a>
+                                    <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Source
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 2.4</h3>
+                                <p class="card-description">Due on Friday at 5PM on Gradescope</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-4/HW_2_4.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Assignment
+                                    </a>
+                                    <a href="https://colab.research.google.com/drive/1lSarcgId1nIIrobtf1PuMcVasDlVYzdP?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-4/data/amazon_book_sales.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Amazon Book Sales
+                                    </a>
+                                    <a href="parts/part-2-4/data/marriage_rates_by_continent.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Marriage Rate Data
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- Part 2.5 -->
+            <div class="carousel-container" id="part-25">
+                <h1 class="subtitle">Part 2.5 | Merging Data</h1>
+                <p>Combine two datasets using a linking variable.</p>
+                <div class="carousel">
+                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
+                        <span>‹</span>
+                    </button>
+                    <div class="carousel-track">
+
+                        <!-- Concept -->
+                        <div class="carousel-card concept-card" data-video-id="1oBixhQLOmE">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Concept 2.5 // Merging Data</h3>
+                                <p class="card-description">Combining datasets</p>
+                                <div class="card-downloads">
+                                    <a href="parts/part-2-5/concept_2_5.pdf" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Slides
+                                    </a>
+                                    <a href="parts/part-2-5/concept_2_5.html" class="download-link" target="_blank">
+                                        <i class="fa fa-file-pdf-o"></i> Interactive
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Exercise -->
+                        <div class="carousel-card exercise-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise 2.5 // Election Returns and Income</h3>
+                                <p class="card-description"></p>
+                                <div class="card-downloads">
+                                    <a href="https://colab.research.google.com/drive/1xkEOUNZ7vdaSBnNdOguId7G4uXG74rhJ?usp=sharing"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Notebook
+                                    </a>
+                                    <a href="parts/part-2-5/data/Democratic_Share_Presidential_Wide.csv"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> County Vote Share (Wide)
+                                    </a>
+                                    <a href="parts/part-2-5/data/Democratic_Share_Presidential.csv"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-file-text-o"></i> County Vote Share (Long)
+                                    </a>
+                                    <a href="https://electionlab.mit.edu/data" class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> MIT Elections Lab
+                                    </a>
+                                    <a href="parts/part-2-5/data/Income_By_County.csv" class="download-link"
+                                        target="_blank">
+                                        <i class="fa fa-file-text-o"></i> Income By County
+                                    </a>
+                                    <a href="https://www.census.gov/data/datasets/2023/demo/saipe/2023-state-and-county.html"
+                                        class="download-link" target="_blank">
+                                        <i class="fa fa-external-link"></i> Census Income
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Homework -->
+                        <div class="carousel-card homework-card" data-video-id="">
+                            <div class="card-video">
+                                <img src="" alt="Video thumbnail" class="placeholder-bg">
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Homework 2.5</h3>
+                                <p class="card-description">No homework this topic :)</p>
+                                <div class="card-downloads">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
+                        <span>›</span>
+                    </button>
+                    <div class="carousel-indicator"></div>
+                </div>
+            </div>
+
+            <!-- MINIEXAMS -->
+            <div id="miniexams">
+                <h1 class="subtitle">MiniExams</h1>
+                <p>
+                    MiniExam 2 covers everything in Part 2. You will begin to learn that if you understand the concepts
+                    and do the work in the examples and homework, you're going to be in good shape on the MiniExam.
+                </p>
+                <p>
+                    MiniExams focuses on practical application of the concepts we've developed. Practice with Homework
+                    and Exercises to prepare effectively.
+                </p>
+
+                <div class="carousel-card standalone-card homework-card" data-video-id="IUErFojmI44">
                     <div class="card-video">
                         <img src="" alt="Video thumbnail" class="placeholder-bg">
                     </div>
                     <div class="card-content">
-                        <h3 class="card-title">Exercise 2.2 // Starbucks Hours Globally </h3>
-                        <p class="card-description">Transforming global Starbucks hours data</p>
+                        <h3 class="card-title">MiniExam 2 Demo</h3>
+                        <p class="card-description">MiniExam 02 Demo covers all material from Parts 2.1 through 2.5 and
+                            tests your understanding of data operations.</p>
                         <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1FnbBMHIihyu_IRscRkKESGRsMPt5aGYd?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
+                            <a href="ME/ME_2_Demo.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Demo
                             </a>
-                            <a href="parts/part-2-2/data/Starbucks_Location_Hours.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Starbucks Location Hours
-                            </a>
-                            <a href="parts/part-2-2/data/Coffee_Prices_CPI.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Prices
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version?resource=download" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                            <a href="parts/part-2-2/data/Beans_GDP_2019.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Prod and GDP
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 2.2</h3>
-                        <p class="card-description">Due on Friday, October 2 at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-2/HW_2_2.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1Ny1xn0oVJjVQeLKqlzMpGaDkHb80evgE?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-2/data/marriage_rates.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Marriage Rates
-                            </a>
-                            <a href="https://ec.europa.eu/eurostat/databrowser/view/DEMO_NIND__custom_6759888/default/table?lang=en" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Marriage Source
-                            </a>
-                            <a href="parts/part-2-2/data/Monthly_Coffee_Prices_Lag.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Coffee Prices
-                            </a>
-                            <a href="https://www.macrotrends.net/2535/coffee-prices-historical-chart-data" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Prices Source
+                            <a href="ME/ME_2_Demo_sols.pdf" class="download-link" target="_blank">
+                                <i class="fa fa-file-pdf-o"></i> Solutions
                             </a>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+
+            <div class="bottom-spacer"></div>
+
         </div>
-    </div>
 
-    <!-- Part 2.3 -->
-    <div class="carousel-container" id="part-23">
-        <h1 class="subtitle">Part 2.3 | Filtering Data</h1>
-        <p>Use logical operators (AND, OR, NOT) and comparison operators (>, <, ==) to create subsets. Filter rows based on conditions to focus analysis on specific groups.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="juLwWTDMuhg">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 2.3 // Filtering Data </h3>
-                        <p class="card-description">Understand subsets of the data with logical conditions</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-3/concept_2_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-2-3/concept_2_3.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="A1EsdgZCzUg">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 2.3 // Starbucks Hours </h3>
-                        <p class="card-description">Filtering Starbucks location hours data</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/139Q8ZjAlp_WGMe4HQPb3ib4XETvPyYgp?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-3/data/Starbucks_Location_Hours.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Starbucks Location Hours
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version?resource=download" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 2.3</h3>
-                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-3/HW_2_3.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1lYz1676J0AQGAeI8lYmjzdZXGG1Gjty5?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-3/data/amazon_book_sales.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Amazon Book Data
-                            </a>
-                            <a href="https://www.kaggle.com/code/davidjackson0513/amazon-book-sales" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                            <a href="parts/part-2-3/data/marriage_rates.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Marriage Rates
-                            </a>
-                            <a href="https://ec.europa.eu/eurostat/databrowser/view/DEMO_NIND__custom_6759888/default/table?lang=en" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Marriage Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
+        <!-- RIGHT NAVIGATION -->
+        <div class="right_div">
+            <nav>
+                <ul>
+                    <span>Contents</span>
+                    <hr class="nav-hr-right">
+                    <li><a href="#part-21" class="nav-link-right">2.1 | Cleaning</a></li>
+                    <li><a href="#part-22" class="nav-link-right">2.2 | Transforming</a></li>
+                    <li><a href="#part-23" class="nav-link-right">2.3 | Filtering</a></li>
+                    <li><a href="#part-24" class="nav-link-right">2.4 | Grouping</a></li>
+                    <li><a href="#part-25" class="nav-link-right">2.5 | Merging</a></li>
+                    <li><a href="#miniexams" class="nav-link-right">MiniExam</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
+    </div> <!-- Close wrapper -->
 
-    <!-- Part 2.4 -->
-    <div class="carousel-container" id="part-24">
-
-        <h1 class="subtitle">Part 2.4 | Grouping Data</h1>
-        <p>Use group-by operations with aggregation functions (mean, sum, count) to calculate statistics by category. Create summary tables that show patterns across groups.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="SvC5xqiTBYQ">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 2.4 // Grouping Data</h3>
-                        <p class="card-description">Summarizing data by group</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-4/concept_2_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-2-4/concept_2_4.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                            <a href="parts/part-2-4/Notes_2_4_Grouping.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Notes
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 2.4 // Starbucks Promotions </h3>
-                        <p class="card-description">Analyzing promotional data by grouping</p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1e2C2UBF94hBajhcIGXOdlJfHIABS4m5f?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-4/data/Starbucks_Promos.csv" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Starbucks Promos
-                            </a>
-                            <a href="https://www.kaggle.com/datasets/kukuroo3/starbucks-locations-worldwide-2021-version" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Source
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 2.4</h3>
-                        <p class="card-description">Due on Friday at 5PM on Gradescope</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-4/HW_2_4.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Assignment
-                            </a>
-                            <a href="https://colab.research.google.com/drive/1lSarcgId1nIIrobtf1PuMcVasDlVYzdP?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-4/data/amazon_book_sales.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Amazon Book Sales
-                            </a>
-                            <a href="parts/part-2-4/data/marriage_rates_by_continent.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Marriage Rate Data
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-    <!-- Part 2.5 -->
-    <div class="carousel-container" id="part-25">
-        <h1 class="subtitle">Part 2.5 | Merging Data</h1>
-        <p>Combine two datasets using a linking variable.</p>
-        <div class="carousel">
-            <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                <span>‹</span>
-            </button>
-            <div class="carousel-track">
-
-                <!-- Concept -->
-                <div class="carousel-card concept-card" data-video-id="1oBixhQLOmE">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Concept 2.5 // Merging Data</h3>
-                        <p class="card-description">Combining datasets</p>
-                        <div class="card-downloads">
-                            <a href="parts/part-2-5/concept_2_5.pdf" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Slides
-                            </a>
-                            <a href="parts/part-2-5/concept_2_5.html" class="download-link" target="_blank">
-                                <i class="fa fa-file-pdf-o"></i> Interactive
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Exercise -->
-                <div class="carousel-card exercise-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Exercise 2.5 // Election Returns and Income</h3>
-                        <p class="card-description"></p>
-                        <div class="card-downloads">
-                            <a href="https://colab.research.google.com/drive/1xkEOUNZ7vdaSBnNdOguId7G4uXG74rhJ?usp=sharing" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Notebook
-                            </a>
-                            <a href="parts/part-2-5/data/Democratic_Share_Presidential_Wide.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> County Vote Share (Wide)
-                            </a>
-                            <a href="parts/part-2-5/data/Democratic_Share_Presidential.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> County Vote Share (Long)
-                            </a>
-                            <a href="https://electionlab.mit.edu/data" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> MIT Elections Lab
-                            </a>
-                            <a href="parts/part-2-5/data/Income_By_County.csv" class="download-link" target="_blank">
-                                <i class="fa fa-file-text-o"></i> Income By County
-                            </a>
-                            <a href="https://www.census.gov/data/datasets/2023/demo/saipe/2023-state-and-county.html" class="download-link" target="_blank">
-                                <i class="fa fa-external-link"></i> Census Income
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Homework -->
-                <div class="carousel-card homework-card" data-video-id="">
-                    <div class="card-video">
-                        <img src="" alt="Video thumbnail" class="placeholder-bg">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Homework 2.5</h3>
-                        <p class="card-description">No homework this topic :)</p>
-                        <div class="card-downloads">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                <span>›</span>
-            </button>
-            <div class="carousel-indicator"></div>
-        </div>
-    </div>
-
-    <!-- MINIEXAMS -->
-    <div id="miniexams">
-        <h1 class="subtitle">MiniExams</h1>
-        <p>
-            MiniExam 2 covers everything in Part 2. You will begin to learn that if you understand the concepts and do the work in the examples and homework, you're going to be in good shape on the MiniExam.
-        </p>
-        <p>
-            MiniExams focuses on practical application of the concepts we've developed. Practice with Homework and Exercises to prepare effectively.
-        </p>
-
-        <div class="carousel-card standalone-card homework-card" data-video-id="IUErFojmI44">
-            <div class="card-video">
-                <img src="" alt="Video thumbnail" class="placeholder-bg">
-            </div>
-            <div class="card-content">
-                <h3 class="card-title">MiniExam 2 Demo</h3>
-                <p class="card-description">MiniExam 02 Demo covers all material from Parts 2.1 through 2.5 and tests your understanding of data operations.</p>
-                <div class="card-downloads">
-                    <a href="ME/ME_2_Demo.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Demo
-                    </a>
-                    <a href="ME/ME_2_Demo_sols.pdf" class="download-link" target="_blank">
-                        <i class="fa fa-file-pdf-o"></i> Solutions
-                    </a>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="bottom-spacer"></div>
-
-    </div>
-
-    <!-- RIGHT NAVIGATION -->
-    <div class="right_div">
-        <nav>
-            <ul>
-                <span>Contents</span>
-                <hr class="nav-hr-right">
-                <li><a href="#part-21" class="nav-link-right">2.1 | Cleaning</a></li>
-                <li><a href="#part-22" class="nav-link-right">2.2 | Transforming</a></li>
-                <li><a href="#part-23" class="nav-link-right">2.3 | Filtering</a></li>
-                <li><a href="#part-24" class="nav-link-right">2.4 | Grouping</a></li>
-                <li><a href="#part-25" class="nav-link-right">2.5 | Merging</a></li>
-                <li><a href="#miniexams" class="nav-link-right">MiniExam</a></li>
-            </ul>
-        </nav>
-    </div>
-</div> <!-- Close wrapper -->
-
-<!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
-<script src="../course-assets/scripts/main.js"></script>
+    <!-- UNIFIED JAVASCRIPT (NO JQUERY) -->
+    <script src="../course-assets/scripts/main.js"></script>
 
 </body>
+
 </html>
