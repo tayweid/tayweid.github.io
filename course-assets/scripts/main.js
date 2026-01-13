@@ -441,79 +441,79 @@ const EconApp = {
             const leftDiv = document.querySelector('.left_div');
             if (!leftDiv) return;
 
-            // Get nav links from sidebar
-            const navLinks = leftDiv.querySelectorAll('nav ul li a');
-            if (navLinks.length === 0) return;
+            // Build ordered list: Home, Parts, Projects
+            const navItems = [];
 
-            // Create overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'mobile-overlay';
-            document.body.appendChild(overlay);
-
-            // Create FAB container
-            const fabContainer = document.createElement('div');
-            fabContainer.className = 'mobile-fab-container';
-
-            // Create main FAB button
-            const menuBtn = document.createElement('button');
-            menuBtn.className = 'mobile-menu-toggle';
-            menuBtn.innerHTML = '☰';
-            menuBtn.setAttribute('aria-label', 'Open menu');
-
-            // Create FAB menu
-            const fabMenu = document.createElement('div');
-            fabMenu.className = 'mobile-fab-menu';
-
-            // Add nav items to FAB menu (in reverse so they stack correctly)
-            const linksArray = Array.from(navLinks).reverse();
-            linksArray.forEach(link => {
-                const fabItem = document.createElement('a');
-                fabItem.className = 'mobile-fab-item';
-                fabItem.href = link.href;
-
-                // Use full label
-                fabItem.textContent = link.textContent.trim();
-
-                // Mark current page
-                if (link.classList.contains('active')) {
-                    fabItem.classList.add('active');
-                }
-
-                fabMenu.appendChild(fabItem);
-            });
-
-            // Add Home link at the top (which appears at bottom of the stack visually)
+            // Add Home
             const homeLink = leftDiv.querySelector('nav ul a[href*="econ-0"]');
             if (homeLink) {
-                const homeItem = document.createElement('a');
-                homeItem.className = 'mobile-fab-item';
-                homeItem.href = homeLink.href;
-                homeItem.textContent = 'Home';
-                fabMenu.appendChild(homeItem);
+                navItems.push({ label: 'Home', href: homeLink.href });
             }
 
-            fabContainer.appendChild(fabMenu);
-            fabContainer.appendChild(menuBtn);
-            document.body.appendChild(fabContainer);
-
-            // Toggle menu
-            let isOpen = false;
-            const toggleMenu = () => {
-                isOpen = !isOpen;
-                menuBtn.classList.toggle('active', isOpen);
-                fabMenu.classList.toggle('active', isOpen);
-                overlay.classList.toggle('active', isOpen);
-            };
-
-            menuBtn.addEventListener('click', toggleMenu);
-            overlay.addEventListener('click', toggleMenu);
-
-            // Close menu when clicking a fab item
-            fabMenu.querySelectorAll('.mobile-fab-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    if (isOpen) toggleMenu();
-                });
+            // Add Parts
+            const partLinks = Array.from(leftDiv.querySelectorAll('nav ul li a')).filter(link =>
+                link.textContent.trim().toLowerCase().startsWith('part')
+            );
+            partLinks.forEach(link => {
+                navItems.push({ label: link.textContent.trim(), href: link.href, isActive: link.classList.contains('active') });
             });
+
+            // Add Projects
+            const projectsLink = Array.from(leftDiv.querySelectorAll('nav ul li a')).find(link =>
+                link.textContent.trim().toLowerCase() === 'projects'
+            );
+            if (projectsLink) {
+                navItems.push({ label: 'Projects', href: projectsLink.href, isActive: projectsLink.classList.contains('active') });
+            }
+
+            if (navItems.length === 0) return;
+
+            // Find current page index
+            let currentIndex = navItems.findIndex(item => item.isActive);
+
+            // Check if we're on the home page
+            const currentPath = window.location.pathname;
+            if (currentIndex === -1 && homeLink && (currentPath.endsWith('econ-0150.html') || currentPath.endsWith('econ-0100.html'))) {
+                currentIndex = 0; // Home
+            }
+
+            if (currentIndex === -1) currentIndex = 0;
+
+            // Create navigation bar
+            const navBar = document.createElement('div');
+            navBar.className = 'mobile-nav-bar';
+
+            // Previous arrow (wraps around)
+            const prevIndex = (currentIndex - 1 + navItems.length) % navItems.length;
+            const prevLink = document.createElement('a');
+            prevLink.innerHTML = '‹';
+            prevLink.setAttribute('aria-label', 'Previous');
+            prevLink.href = navItems[prevIndex].href;
+
+            // Current page label
+            const label = document.createElement('span');
+            label.className = 'mobile-nav-label';
+            label.textContent = navItems[currentIndex].label;
+
+            // Next arrow (wraps around)
+            const nextIndex = (currentIndex + 1) % navItems.length;
+            const nextLink = document.createElement('a');
+            nextLink.innerHTML = '›';
+            nextLink.setAttribute('aria-label', 'Next');
+            nextLink.href = navItems[nextIndex].href;
+
+            // Create dividers
+            const divider1 = document.createElement('span');
+            divider1.className = 'mobile-nav-divider';
+            const divider2 = document.createElement('span');
+            divider2.className = 'mobile-nav-divider';
+
+            navBar.appendChild(prevLink);
+            navBar.appendChild(divider1);
+            navBar.appendChild(label);
+            navBar.appendChild(divider2);
+            navBar.appendChild(nextLink);
+            document.body.appendChild(navBar);
         }
     },
 

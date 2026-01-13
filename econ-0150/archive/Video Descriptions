@@ -1,0 +1,361 @@
+
+
+ECON 0150 - Economic Data Analysis | Part 1.1 | Categorical Variables 
+
+Exercise 1.1 (in-class): 
+[ ] Loading coffee shop locations by state in Excel
+[ ] Staying organized
+[ ] Bar charts in Excel
+[ ] Loading data in python notebooks
+[ ] Bar charts in python using Seaborne
+[ ] Saving figures
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Why Histograms summarize so effectively ( Concept 1.2 pt. 1 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.2 | Numerical Variables 
+
+Concept 1.2, pt. 1 (in-class): 
+[ ] Starbucks customer profile data
+[ ] The Histogram for Numerical Variables
+[ ] Setting bin widths
+[ ] Balancing noise vs resolution
+[ ] Reducing noise with a larger sample size
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+Detailed comparisons with Boxplots + Stripplots ( Concept 1.2 pt. 2 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.2 | Numerical Variables 
+
+Concept 1.2, pt. 2 (in-class): 
+[ ] Data on coffee consumption per capita
+[ ] When histograms do not perform well
+[ ] Using Boxplots to show statistical measures
+[ ] Showing datapoints using Stripplots
+[ ] Using the Boxplot+Stripplot to summarize quartiles
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+
+Create Histograms in Excel and Python ( Exercise 1.2 pt. 1 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.2 | Numerical Variables 
+
+Exercise 1.2, pt. 1 (in-class): 
+[ ] Loading Starbucks customer profile data in Excel
+[ ] Creating histograms in Excel
+[ ] Loading Starbucks customer profile data in python
+[ ] Creating histograms in python using Seaborne
+[ ] Saving figures as images
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Create a Boxplot + Stripplot in Excel and Python ( Exercise 1.2 pt. 2 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.2 | Numerical Variables 
+
+Exercise 1.2, pt. 2 (in-class): 
+[ ] Loading data on coffee consumption per capita in Excel
+[ ] Creating Boxplots in Excel
+[ ] Loading data on coffee consumption per capita in Python
+[ ] Creating Boxplots in python using Seaborne
+[ ] Adding Stripplots to Boxplots in Seaborne
+[ ] Saving figures as images
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Timeseries: data connected through time ( Concept 1.3 pt. 1 // ECON 0150 ) 
+
+ECON 0150 - Economic Data Analysis | Part 1.3 | Timeseries Data
+
+Concept 1.3 pt.1 (in-class): 
+[ ] Setting prices using data on coffee prices through time
+[ ] Histograms are not always effective
+[ ] Organize price on the y axis against time on the horizontal
+[ ] Communicate the relationship through time by connect points
+[ ] Indicate sub-trends using shading
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Timeseries in Excel and Python ( Exercise 1.3 pt.1 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.3 | Timeseries Data
+
+Exercise 1.3 pt.1 (in-class): 
+[ ] Loading timeseries price data in Excel
+[ ] Linegraphs in Excel
+[ ] Setting the horizontal axis as time
+[ ] Loading timeseries price data in python
+[ ] Plotting a linegraph in Seaborne
+[ ] Setting a title
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+Seasonality and Boxplots ( Concept + Exercise 1.3 pt.2 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.3 | Timeseries Data
+
+Concept + Exercise 1.3 pt.2 (in-class): 
+[ ] Subtrends and seasonality in coffee prices
+[ ] Variability within season
+[ ] Boxplots to show seasonal variation
+[ ] Comparing between months using Boxplots
+[ ] Plotting a Multi-Boxplot in Seaborne
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Summarizing panel data with Multi-Linegraphs ( Concept 1.4 pt.1 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.4 | Panel Data
+
+Concept 1.4 pt.1 (in-class): 
+[ ] Transactions by coffee shop through time
+[ ] Panel data in long format
+[ ] Categorical view: transactions by shop in a bar graph
+[ ] Timeseries view: transactions by hour in a histogram
+[ ] Multi-histograms are messy
+[ ] Multi-Linegraphs communicate the panel structure more effectively
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+
+Creating Multi-Linegraphs of long-format panel data ( Exercise 1.4 pt.1 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.4 | Panel Data
+
+Exercise 1.4 pt.1 (in-class): 
+[ ] Loading transactions by coffee shop through time
+[ ] Pivot tables in Excel
+[ ] Multi-linegraphs using pivot tables
+[ ] Summary tables in python
+[ ] Multi-linegraphs from summary tables in python
+[ ] Multi-linegraphs directly using Seaborne
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh
+
+
+
+
+Understanding Panel Data in wide format using Multi-Boxplots ( Concept 1.4 pt.2 // ECON 0150 )
+
+ECON 0150 - Economic Data Analysis | Part 1.4 | Panel Data
+
+Concept 1.4 pt.2 (in-class): 
+[ ] Data on coffee consumption per capita through time
+[ ] Histograms are difficult to compare
+[ ] Boxplots + Stripplots make it easier to see changes through time
+[ ] Understanding sequences of change through time
+[ ] Last question: how have specific countries changed through time?
+
+This clip is taken from a livestream of my Econ 0150 class at the University of Pittsburgh during the Fall 2025 semester. This course introduces the basic ideas and skills in exploratory data analysis and visualization, statistical thinking, building general linear models (regression), and communicating with data. This course is designed as a student's first exposure to working with data and building statistical models with a statistics prerequisite.  
+The course organized in six Parts. 
+- Part 1: Exploratory data analysis 
+- Part 2: Data operations 
+- Part 3: Core statistical ideas 
+- Part 4: Basic general linear model (regression) 
+- Part 5: Intermediate general linear model 
+- Part 6: Communicating with data 
+
+Each Part contains multiple Sub-Parts. In each Sub-Part: 
+- Concepts introduce new ideas 
+- Exercises practice new ideas in class 
+- Homework practices ideas outside of class 
+MiniExams test mastery on paper in class at the end of each Part. 
+
+Course website: tayweid.github.io/econ-0150/econ-0150  
+Instructor: Dr. Taylor Weidman, Department of Economics, University of Pittsburgh

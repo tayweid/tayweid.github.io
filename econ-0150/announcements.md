@@ -226,3 +226,71 @@ Then you're off to a long, long winter break.
 See ya tomorrow,
 
 Taylor
+
+
+
+#### Economic Data Analysis: Course Evaluations and Coffee During The Final Period
+
+Hi folks,
+
+Like I mentioned on Thursday, we take course evaluations very seriously. I put a lot of work into this class, which has been shaped in part by the students who have taken it before you. If you want to contribute to how this course is taught in the future, take a minute or two and help the next cohort out by giving your feedback on the course. Tell us what worked, what you liked, what didn't work for you, and some ways you might fix what didn't work for you. 
+
+OMET course evaluations are open through tomorrow night. To give you a bit of an extra push, I'll bring coffee to the final exam period for our presentations if we hit a 60% response rate on the OMET course evaluations. Right now we're about halfway there. 
+
+So get crackin!
+
+Taylor
+
+ps. I've read through your slides and given some feedback in case you might find it helpful. Take a look on Gradescope. 
+
+
+
+#### Economic Data Analysis: Presentation Slides
+
+Hi folks,
+
+One last announcement about tomorrow: send me your slides as a pdf by email anytime before 9AM tomorrow morning. When you do, include your groupmates on the email. All you need to include in your email is "Hi Taylor, Here are our presentation slides". I only need one email per group. Then I'll compile your slides so we can all present from my computer. Tomorrow morning I'll send out the presentation schedule so you know where in the lineup you'll present.
+
+I'm excited to see what you've found!
+
+Warmly,
+
+Taylor
+
+
+
+#### Economic Data Analysis: Paper and Replication Folder
+
+Hi folks,
+
+Just wanted to say it was a real pleasure seeing your hard work come together yesterday. Many of you really showed up for this class, and I see you. The last thing for you to do is to document your findings. 
+
+First, like I mentioned for the paper, formatting isn't the most important for this one. Just make sure you're keeping it right around 2 pages (I want your main points, not much more). The main things are understanding where your data is coming from, your model (and all that comes with it), and your conclusions.
+
+Second, you'll send me a folder with your data, notebook, and other materials (like figures). You can include your slides and paper here too if you'd like. But the main purpose of the folder is to make sure that your findings can be replicated by someone else. That means being very clear about where your data is coming from and the code that you used to generate your figures and run your model. 
+
+The format for the replication folder isn't strict either. Most of your classmates will be sending me a Google Drive link. If you go this route, just make sure you set the permissions so I have access. You can do this by right clicking on your folder, clicking on the "Share" option, and switching "General access" from "Restricted" to "Anyone with the link". If you do not wish for me to use your name with your project as an example for students next semester, just mention that when you email me.
+
+Get it in by Friday at 5. Unfortunately the registrar doesn't allow me to give extensions on this one.
+
+ 
+
+And that's it. If you've been through my class, my door is always open to you.
+
+Warmly,
+
+Taylor
+
+
+
+#### Economic Data Analysis: Presentation Lineup
+
+Hi folks,
+
+Here's the lineup for today. Make sure you know where you are in order so we can move smoothly. 
+
+Looking forward to hearing what you've found!
+
+ 
+
+Taylor

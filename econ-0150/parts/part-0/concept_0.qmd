@@ -124,18 +124,18 @@ Economists use data to build models and inform decisions.
 <p class="subheader">The course is divided into **six parts**.</p>
 
 ::: {.fragments}
-[**Part 1**: *Summary Exploratory Data Analysis (EDA)*]{.fragment}  
-[**Part 2**: *Pattern Exploratory Data Analysis (EDA)*]{.fragment}  
-[**Part 3**: *Building Linear Models*]{.fragment}  
-[**Part 4**: *The General Linear Model*]{.fragment}  
-[**Part 5**: *Advanced GLM*]{.fragment}  
+[**Part 1**: *Exploring Variables*]{.fragment}  
+[**Part 2**: *Exploring Relationships*]{.fragment}  
+[**Part 3**: *Univariate General Linear Model*]{.fragment}  
+[**Part 4**: *Bivariate General Linear Model*]{.fragment}  
+[**Part 5**: *Multivariate General Linear Model*]{.fragment}  
 [**Part 6**: *Communicating with Data*]{.fragment}
 :::
 
 ---
 
-## Part 1: Summary EDA
-<p class="subheader">**Focus**: Understanding data through summarization (eg. tables and figures).</p>
+## Part 1: Exploring Variables
+<p class="subheader">**Focus**: Understanding single variables through summarization (eg. tables and figures).</p>
 
 . . . 
 
@@ -220,7 +220,7 @@ ax.tick_params(
 
 ---
 
-## Part 2: Pattern EDA
+## Part 2: Exploring Relationships EDA
 <p class="subheader">**Focus**: Understanding relationships between variables (eg. scatterplot).</p>
 
 . . .
@@ -303,7 +303,7 @@ plt.show()
 
 ---
 
-## Part 3: Building Linear Models
+## Part 3: Univariate General Linear Model
 <p class="subheader">**Focus**: Sampling variation, Central Limit Theorem, and basic testing.</p>
 
 . . .
@@ -387,8 +387,8 @@ plt.show()
 
 ---
 
-## Part 4: Basic General Linear Model
-<p class="subheader">**Focus**: Single and multiple regression, residual analysis, and testing.</p>
+## Part 4: Bivariate General Linear Model
+<p class="subheader">**Focus**: Regression and residual analysis.</p>
 
 . . .
 
@@ -463,8 +463,8 @@ plt.show()
 
 ---
 
-## Part 5: More General Linear Model
-<p class="subheader">**Focus**: Fixed effects, repeated measures, time series.</p>
+## Part 5: Multivariate General Linear Model
+<p class="subheader">**Focus**: Fixed effects, control variables, interactions.</p>
 
 . . .
 
@@ -554,24 +554,34 @@ plt.show()
 
 ---
 
-## Grading Breakdown
+## Your Work
 
-**Homework (20%)**
+**Exercises (10%)**
 
-  - Fridays by 5PM; lowest 3 dropped.
+- Together in class; lowest 3 dropped.
 
 . . .
 
-**MiniExams (2 × 15% + 1 × 10% + 2 × 5% + 1 × 0% = 50%)**  
+**Homework (10%)**
+
+  - Fridays by 5PM; lowest 3 dropped.
+  - No-questions-asked extensions through Sunday at Midnight.
+
+. . .
+
+**MiniExams (1 × 20% + 1 × 15% + 1 × 10% + 1 × 5% + 1 × 0% = 50%)**  
 
   - Roughly every two weeks; beginning of class
   - Open-book, open-note (no electronics).
 
-. . .
+---
 
-**Final Capstone (30%)**  
+## Your Work
 
-  - Presentation + paper.
+**Final Project (30%)**  
+
+  - One small project per part.
+  - Presentation + paper at the end of the semester.
   - Demonstrate full analysis from start to finish.
 
 . . .
@@ -608,10 +618,10 @@ plt.show()
 
 #### First Homework:
 
-- Due Friday at 5PM on Gradescope
+- Due (*next*) Friday Jan 23rd at 5PM on Gradescope
 
 #### First MiniExam:
-- First class of Week 3 (September 8) during the first 20 minutes.
+- First class of Week 4 (Feb 3) during the first 20 minutes.
 - Bonus "preview" question on material not yet covered.
 
 ---
@@ -624,5 +634,115 @@ plt.show()
 #### Python:
 - [Google Colab Notebooks](https://colab.research.google.com/) (*recommended*)
 
-# Survey and Demo
+# Survey Fall 2025
+
+---
+
+## Where are students coming from?
+<p class="subheader">Lets measure hometown using distance</p>
+
+---
+
+## Where are students coming from?
+<p class="subheader">Lets measure hometown using distance</p>
+
+![](i/survey_01.png)
+
+. . .
+
+*> quite a few people come internationally :)*
+
+. . .
+
+*> lets zoom in a bit to see more details about closer distances*
+
+---
+
+## Where are students coming from?
+<p class="subheader">Lets measure students hometown using distance</p>
+
+![](i/survey_02.png)
+
+. . .
+
+*> many from Pittsburgh and the Philly area*
+
+---
+
+## When were students born?
+<p class="subheader">Lets use birthyear</p>
+
+---
+
+## When were students born?
+<p class="subheader">Lets use birthyear</p>
+
+![](i/survey_03.png)
+
+. . .
+
+*> the most common birthyear was 2005*
+
+---
+
+## What are students majors?
+<p class="subheader">Sorry if you're not on the list or have multiple :)</p>
+
+---
+
+## What are students majors?
+<p class="subheader">Sorry if you're not on the list or have multiple :)</p>
+
+![](i/survey_04.png)
+
+. . .
+
+*> most are Econ and many not on my limited list*
+
+---
+
+## Did you like your stats class?
+<p class="subheader">It's a prereq for the class</p>
+
+---
+
+## Did you like your stats class?
+<p class="subheader">It's a prereq for the class</p>
+
+![](i/survey_05.png)
+
+. . .
+
+*> most generally liked it; some did not*
+
+---
+
+## Is stats related to your excitement for this class?
+<p class="subheader">I would suspect a positive relationship</p>
+
+---
+
+## Is stats related to your excitement for this class?
+<p class="subheader">I would suspect a positive relationship</p>
+
+![](i/survey_06.png)
+
+---
+
+## Is confidence in Excel related to class excitement?
+<p class="subheader">I would expect it is</p>
+
+---
+
+## Is confidence in Excel related to class excitement?
+<p class="subheader">I would expect it is</p>
+
+![](i/survey_07.png)
+
+---
+
+## Is confidence in python related to excitement?
+<p class="subheader">Again I would expect it is</p>
+
+![](i/survey_08.png)
 

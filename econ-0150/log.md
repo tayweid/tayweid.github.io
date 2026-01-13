@@ -78,28 +78,40 @@ Then I'll call Part 0 the survey demo that we'll do on day one. This demo would 
 
 Then Day Two would start on Part 1.0 with the exercises. 
 
-#### Part 6
+#### August 24, 2024
 
-use this for visualization by category https://youtu.be/ZUeWXNK-9yA?si=LEYkZq8h0wSB9ckt
+https://fred.stlouisfed.org/
 
-economist charts https://www.youtube.com/watch?v=cGGkAGBre3A&t=0s
+Katerine also mentioned introducing students to more economics-focussed ideas, not just the data analysis type skills
 
-more on fixing slides https://youtu.be/zZ4dmIMlHvI?si=zlwtZDPEseH9prup
+#### July 30, 2024
 
-#### June 9 Meeting Notes
+Part 1: Core statistics concepts, correlations, causal relationships. This part starts with a refresh of core statistics concepts and implements them using data in Excel. Then we build models of relationships between variables and talk about the arrow of causality. Then measuring the core concepts of central tendency and variance in data and using english to communicate what each idea means.
 
-\- my outline
+Part 2: Interpreting data with code. This part introduces code, working with data in code, running regression, multivariate regression, seasonality, dummies, fixed effects, etc. Then take code to data to interpret the dataset and use English to communicate what the data means and what it doesn’t.
 
-\- what worked, what didn't: structure, miniexams, slides, examples, coding, homework
+Part 3: Communicating with data. This is the part where we start building tables and figures and embedding them in slides. 
 
-\- what Im changing: idea, example, practice, practice
+Homework will be skill based. So they will get a dataset and have to do something with it. MiniExams will be concept based and done in class on paper. There will be one final project where they will have to apply their skills creatively to a case study and communicate their findings in slides.
 
-\- goals: make a broadly teachable / copyable curriculum, modifiable content for instructors, systematic examples and assessments
+#### July 16, 2024
 
-\- Bukky's plan
+The primary goal of the class is to equip students with the ability to interpret and communicate with data. This starts with applying statistics concepts to data, developing a skillset with code and spreadsheets, and then communicating with figures and tables.
 
-\- coding?
+The first part of the class will focus on statistics, with extra credit for doing a Brilliant or Coursera course on stats. The idea is to get students familiar with basic statistical tools before using them. Once we get the prereq, this will become more straightforward. Right now, the idea is to offload some of the familiarization to a great online program so the class can move forward with the core of the course. The second part will focus on working with data in Excel and python. I want students to be familiar with using Excel, but they need to know how to use python. It’s the main tool the field is moving to. It’s a slightly different way of thinking which is different from Excel and is useful no matter the language. It’s not possible to match every student to the software they will use in the future. Instead, I want students to have skills with the two major formats: spreadsheets and code. The third part of the course will focus on data analytics directly, understanding and communicating with data. This will involve 
 
-\- use SPRING 25 materials?
+Assessments will be in-class MiniExams and homework. Homework will vary in structure. Some will be skills based, so “what is the median height in the sample", or “summarize this data”, some will be project-based, so “write some code” or “use a figure to communicate this data”.
 
-\- build examples?
+Also having not taught this course previously, I want to have regular meetings (every other week) with Buke as I deviate from her script. I want to talk about what’s working in her class, what I’m doing in the pilot class, and some ways to sharpen the redesign.
+
+#### June 26, 2024
+
+I talked with Kojo yesterday who was a Data Analyst for Smucker. He said older people use excel to communicate, but the more savvy people use Python and R. Maybe what I’ll try to do is give students the tools to use excel but then do most work in python or R.
+
+#### June 25, 2024
+
+I’m thinking Buke and I will meet once or twice this summer, then she will run her own course in the fall, then meet regularly throughout the semester. This will let me get a sense of what she’s doing and try to offer some extra support for moving in the direction the department wishes. 
+
+I haven’t yet found a textbook i’m in love with. The closest I’ve found is **An Introduction to Data Analysis** by Tiffany Bergin.
+
+I did find that Brilliant.org has a course on Data Analytics and Statistics, which looks very good, and could be used as extra credit.

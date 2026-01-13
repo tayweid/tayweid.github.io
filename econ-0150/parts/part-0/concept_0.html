@@ -133,7 +133,7 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader-center">
-How economists do data analysis.
+The economist’s data analysis skillset.
 </p>
 <p><img src="i/causality_intro.png" style="height: 200px !important; width: auto !important;"></p>
 <p><br> <br></p>
@@ -238,18 +238,18 @@ Developing the data analysis pipeline used by economists.
 The course is divided into <strong>six parts</strong>.
 </p>
 <div class="fragments">
-<p><span class="fragment"><strong>Part 1</strong>: <em>Summary Exploratory Data Analysis (EDA)</em></span><br>
-<span class="fragment"><strong>Part 2</strong>: <em>Pattern Exploratory Data Analysis (EDA)</em></span><br>
-<span class="fragment"><strong>Part 3</strong>: <em>Building Linear Models</em></span><br>
-<span class="fragment"><strong>Part 4</strong>: <em>The General Linear Model</em></span><br>
-<span class="fragment"><strong>Part 5</strong>: <em>Advanced GLM</em></span><br>
+<p><span class="fragment"><strong>Part 1</strong>: <em>Exploring Variables</em></span><br>
+<span class="fragment"><strong>Part 2</strong>: <em>Exploring Relationships</em></span><br>
+<span class="fragment"><strong>Part 3</strong>: <em>Univariate General Linear Model</em></span><br>
+<span class="fragment"><strong>Part 4</strong>: <em>Bivariate General Linear Model</em></span><br>
+<span class="fragment"><strong>Part 5</strong>: <em>Multivariate General Linear Model</em></span><br>
 <span class="fragment"><strong>Part 6</strong>: <em>Communicating with Data</em></span></p>
 </div>
 </section>
-<section id="part-1-summary-eda" class="slide level2">
-<h2>Part 1: Summary EDA</h2>
+<section id="part-1-exploring-variables" class="slide level2">
+<h2>Part 1: Exploring Variables</h2>
 <p class="subheader">
-<strong>Focus</strong>: Understanding data through summarization (eg. tables and figures).
+<strong>Focus</strong>: Understanding single variables through summarization (eg. tables and figures).
 </p>
 <div class="fragment">
 <p><strong>Example</strong>: Analyzing a dataset of wages.</p>
@@ -258,51 +258,51 @@ The course is divided into <strong>six parts</strong>.
 <p><br></p>
 <div class="columns">
 <div class="column">
-<div id="082be622" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="57">
+<div id="1e959a28" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="50">
 <style type="text/css">
-#T_bc747 th {
+#T_cf16f th {
   font-size: 0.8em;
 }
-#T_bc747_row0_col0, #T_bc747_row0_col1, #T_bc747_row1_col0, #T_bc747_row1_col1, #T_bc747_row2_col0, #T_bc747_row2_col1, #T_bc747_row3_col0, #T_bc747_row3_col1, #T_bc747_row4_col0, #T_bc747_row4_col1 {
+#T_cf16f_row0_col0, #T_cf16f_row0_col1, #T_cf16f_row1_col0, #T_cf16f_row1_col1, #T_cf16f_row2_col0, #T_cf16f_row2_col1, #T_cf16f_row3_col0, #T_cf16f_row3_col1, #T_cf16f_row4_col0, #T_cf16f_row4_col1 {
   font-size: 0.8em;
 }
 </style>
 
-<table id="T_bc747" class="caption-top" data-quarto-postprocess="true">
+<table id="T_cf16f" class="caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_bc747_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Wage</th>
-<th id="T_bc747_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">EduYrs</th>
+<th id="T_cf16f_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Wage</th>
+<th id="T_cf16f_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">EduYrs</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_bc747_row0_col0" class="data row0 col0">12</td>
-<td id="T_bc747_row0_col1" class="data row0 col1">8</td>
+<td id="T_cf16f_row0_col0" class="data row0 col0">12</td>
+<td id="T_cf16f_row0_col1" class="data row0 col1">8</td>
 </tr>
 <tr class="even">
-<td id="T_bc747_row1_col0" class="data row1 col0">13</td>
-<td id="T_bc747_row1_col1" class="data row1 col1">10</td>
+<td id="T_cf16f_row1_col0" class="data row1 col0">13</td>
+<td id="T_cf16f_row1_col1" class="data row1 col1">10</td>
 </tr>
 <tr class="odd">
-<td id="T_bc747_row2_col0" class="data row2 col0">14</td>
-<td id="T_bc747_row2_col1" class="data row2 col1">10</td>
+<td id="T_cf16f_row2_col0" class="data row2 col0">14</td>
+<td id="T_cf16f_row2_col1" class="data row2 col1">10</td>
 </tr>
 <tr class="even">
-<td id="T_bc747_row3_col0" class="data row3 col0">14</td>
-<td id="T_bc747_row3_col1" class="data row3 col1">11</td>
+<td id="T_cf16f_row3_col0" class="data row3 col0">14</td>
+<td id="T_cf16f_row3_col1" class="data row3 col1">11</td>
 </tr>
 <tr class="odd">
-<td id="T_bc747_row4_col0" class="data row4 col0">15</td>
-<td id="T_bc747_row4_col1" class="data row4 col1">12</td>
+<td id="T_cf16f_row4_col0" class="data row4 col0">15</td>
+<td id="T_cf16f_row4_col1" class="data row4 col1">12</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div><div class="column">
-<div id="5230ad0a" class="cell" data-execution_count="2">
+<div id="921a9f87" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -314,8 +314,8 @@ The course is divided into <strong>six parts</strong>.
 </div></div>
 </div>
 </section>
-<section id="part-2-pattern-eda" class="slide level2">
-<h2>Part 2: Pattern EDA</h2>
+<section id="part-2-exploring-relationships-eda" class="slide level2">
+<h2>Part 2: Exploring Relationships EDA</h2>
 <p class="subheader">
 <strong>Focus</strong>: Understanding relationships between variables (eg. scatterplot).
 </p>
@@ -325,73 +325,73 @@ The course is divided into <strong>six parts</strong>.
 <div class="fragment">
 <div class="columns">
 <div class="column" style="width:30%;">
-<div id="b57ada08" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="59">
+<div id="319d7f5d" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="52">
 <style type="text/css">
-#T_4d834 .row_heading {
+#T_c6c32 .row_heading {
   display: none;
 }
-#T_4d834  .blank {
+#T_c6c32  .blank {
   display: none;
 }
-#T_4d834 th {
+#T_c6c32 th {
   font-size: 0.8em;
 }
-#T_4d834_row0_col0, #T_4d834_row0_col1, #T_4d834_row1_col0, #T_4d834_row1_col1, #T_4d834_row2_col0, #T_4d834_row2_col1, #T_4d834_row3_col0, #T_4d834_row3_col1, #T_4d834_row4_col0, #T_4d834_row4_col1, #T_4d834_row5_col0, #T_4d834_row5_col1, #T_4d834_row6_col0, #T_4d834_row6_col1 {
+#T_c6c32_row0_col0, #T_c6c32_row0_col1, #T_c6c32_row1_col0, #T_c6c32_row1_col1, #T_c6c32_row2_col0, #T_c6c32_row2_col1, #T_c6c32_row3_col0, #T_c6c32_row3_col1, #T_c6c32_row4_col0, #T_c6c32_row4_col1, #T_c6c32_row5_col0, #T_c6c32_row5_col1, #T_c6c32_row6_col0, #T_c6c32_row6_col1 {
   font-size: 0.8em;
 }
 </style>
 
-<table id="T_4d834" class="caption-top" data-quarto-postprocess="true">
+<table id="T_c6c32" class="caption-top" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_4d834_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Wage</th>
-<th id="T_4d834_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">EduYrs</th>
+<th id="T_c6c32_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Wage</th>
+<th id="T_c6c32_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">EduYrs</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_4d834_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
-<td id="T_4d834_row0_col0" class="data row0 col0">14</td>
-<td id="T_4d834_row0_col1" class="data row0 col1">10</td>
+<td id="T_c6c32_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">0</td>
+<td id="T_c6c32_row0_col0" class="data row0 col0">14</td>
+<td id="T_c6c32_row0_col1" class="data row0 col1">10</td>
 </tr>
 <tr class="even">
-<td id="T_4d834_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
-<td id="T_4d834_row1_col0" class="data row1 col0">15</td>
-<td id="T_4d834_row1_col1" class="data row1 col1">12</td>
+<td id="T_c6c32_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">1</td>
+<td id="T_c6c32_row1_col0" class="data row1 col0">15</td>
+<td id="T_c6c32_row1_col1" class="data row1 col1">12</td>
 </tr>
 <tr class="odd">
-<td id="T_4d834_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
-<td id="T_4d834_row2_col0" class="data row2 col0">16</td>
-<td id="T_4d834_row2_col1" class="data row2 col1">12</td>
+<td id="T_c6c32_level0_row2" class="row_heading level0 row2" data-quarto-table-cell-role="th">2</td>
+<td id="T_c6c32_row2_col0" class="data row2 col0">16</td>
+<td id="T_c6c32_row2_col1" class="data row2 col1">12</td>
 </tr>
 <tr class="even">
-<td id="T_4d834_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
-<td id="T_4d834_row3_col0" class="data row3 col0">18</td>
-<td id="T_4d834_row3_col1" class="data row3 col1">13</td>
+<td id="T_c6c32_level0_row3" class="row_heading level0 row3" data-quarto-table-cell-role="th">3</td>
+<td id="T_c6c32_row3_col0" class="data row3 col0">18</td>
+<td id="T_c6c32_row3_col1" class="data row3 col1">13</td>
 </tr>
 <tr class="odd">
-<td id="T_4d834_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
-<td id="T_4d834_row4_col0" class="data row4 col0">18</td>
-<td id="T_4d834_row4_col1" class="data row4 col1">14</td>
+<td id="T_c6c32_level0_row4" class="row_heading level0 row4" data-quarto-table-cell-role="th">4</td>
+<td id="T_c6c32_row4_col0" class="data row4 col0">18</td>
+<td id="T_c6c32_row4_col1" class="data row4 col1">14</td>
 </tr>
 <tr class="even">
-<td id="T_4d834_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
-<td id="T_4d834_row5_col0" class="data row5 col0">20</td>
-<td id="T_4d834_row5_col1" class="data row5 col1">14</td>
+<td id="T_c6c32_level0_row5" class="row_heading level0 row5" data-quarto-table-cell-role="th">5</td>
+<td id="T_c6c32_row5_col0" class="data row5 col0">20</td>
+<td id="T_c6c32_row5_col1" class="data row5 col1">14</td>
 </tr>
 <tr class="odd">
-<td id="T_4d834_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
-<td id="T_4d834_row6_col0" class="data row6 col0">22</td>
-<td id="T_4d834_row6_col1" class="data row6 col1">15</td>
+<td id="T_c6c32_level0_row6" class="row_heading level0 row6" data-quarto-table-cell-role="th">6</td>
+<td id="T_c6c32_row6_col0" class="data row6 col0">22</td>
+<td id="T_c6c32_row6_col1" class="data row6 col1">15</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div><div class="column" style="width:70%;">
-<div id="709847f7" class="cell" data-execution_count="4">
+<div id="3bdce5e9" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -403,8 +403,8 @@ The course is divided into <strong>six parts</strong>.
 </div></div>
 </div>
 </section>
-<section id="part-3-building-linear-models" class="slide level2">
-<h2>Part 3: Building Linear Models</h2>
+<section id="part-3-univariate-general-linear-model" class="slide level2">
+<h2>Part 3: Univariate General Linear Model</h2>
 <p class="subheader">
 <strong>Focus</strong>: Sampling variation, Central Limit Theorem, and basic testing.
 </p>
@@ -412,7 +412,7 @@ The course is divided into <strong>six parts</strong>.
 <p><strong>Example</strong>: Is the difference from $25 a real pattern or just noise?</p>
 </div>
 <div class="fragment">
-<div id="dbca70a6" class="cell" data-execution_count="5">
+<div id="94247631" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -423,16 +423,16 @@ The course is divided into <strong>six parts</strong>.
 </div>
 </div>
 </section>
-<section id="part-4-basic-general-linear-model" class="slide level2">
-<h2>Part 4: Basic General Linear Model</h2>
+<section id="part-4-bivariate-general-linear-model" class="slide level2">
+<h2>Part 4: Bivariate General Linear Model</h2>
 <p class="subheader">
-<strong>Focus</strong>: Single and multiple regression, residual analysis, and testing.
+<strong>Focus</strong>: Regression and residual analysis.
 </p>
 <div class="fragment">
 <p><strong>Example</strong>: Is the positive slope a real pattern or just noise?</p>
 </div>
 <div class="fragment">
-<div id="769ade54" class="cell" data-execution_count="6">
+<div id="f2c45958" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -443,16 +443,16 @@ The course is divided into <strong>six parts</strong>.
 </div>
 </div>
 </section>
-<section id="part-5-more-general-linear-model" class="slide level2">
-<h2>Part 5: More General Linear Model</h2>
+<section id="part-5-multivariate-general-linear-model" class="slide level2">
+<h2>Part 5: Multivariate General Linear Model</h2>
 <p class="subheader">
-<strong>Focus</strong>: Fixed effects, repeated measures, time series.
+<strong>Focus</strong>: Fixed effects, control variables, interactions.
 </p>
 <div class="fragment">
 <p><strong>Example</strong>: Do different groups have different relationships?</p>
 </div>
 <div class="fragment">
-<div id="2bcd1b0b" class="cell" data-execution_count="7">
+<div id="e50a3b2b" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
@@ -486,26 +486,35 @@ The course is divided into <strong>six parts</strong>.
 <li><em>Analysis of Economic Data</em> (2nd ed.) by Gary Koop</li>
 </ul>
 </section>
-<section id="grading-breakdown" class="slide level2">
-<h2>Grading Breakdown</h2>
-<p><strong>Homework (20%)</strong></p>
+<section id="your-work" class="slide level2">
+<h2>Your Work</h2>
+<p><strong>Exercises (10%)</strong></p>
 <ul>
-<li>Fridays by 5PM; lowest 3 dropped.</li>
+<li>Together in class; lowest 3 dropped.</li>
 </ul>
 <div class="fragment">
-<p><strong>MiniExams (2 × 15% + 1 × 10% + 2 × 5% + 1 × 0% = 50%)</strong></p>
+<p><strong>Homework (10%)</strong></p>
+<ul>
+<li>Fridays by 5PM; lowest 3 dropped.</li>
+<li>No-questions-asked extensions through Sunday at Midnight.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>MiniExams (1 × 20% + 1 × 15% + 1 × 10% + 1 × 5% + 1 × 0% = 50%)</strong></p>
 <ul>
 <li>Roughly every two weeks; beginning of class</li>
 <li>Open-book, open-note (no electronics).</li>
 </ul>
 </div>
-<div class="fragment">
-<p><strong>Final Capstone (30%)</strong></p>
+</section>
+<section id="your-work-1" class="slide level2">
+<h2>Your Work</h2>
+<p><strong>Final Project (30%)</strong></p>
 <ul>
-<li>Presentation + paper.</li>
+<li>One small project per part.</li>
+<li>Presentation + paper at the end of the semester.</li>
 <li>Demonstrate full analysis from start to finish.</li>
 </ul>
-</div>
 <div class="fragment">
 <p><strong>Attenance (1% extra)</strong></p>
 <ul>
@@ -537,11 +546,11 @@ The course is divided into <strong>six parts</strong>.
 <h2>Looking Ahead</h2>
 <h4 id="first-homework">First Homework:</h4>
 <ul>
-<li>Due Friday at 5PM on Gradescope</li>
+<li>Due (<em>next</em>) Friday Jan 23rd at 5PM on Gradescope</li>
 </ul>
 <h4 id="first-miniexam">First MiniExam:</h4>
 <ul>
-<li>First class of Week 3 (September 8) during the first 20 minutes.</li>
+<li>First class of Week 4 (Feb 3) during the first 20 minutes.</li>
 <li>Bonus “preview” question on material not yet covered.</li>
 </ul>
 </section>
@@ -556,10 +565,122 @@ The course is divided into <strong>six parts</strong>.
 <li><a href="https://colab.research.google.com/">Google Colab Notebooks</a> (<em>recommended</em>)</li>
 </ul>
 </section></section>
-<section id="survey-and-demo" class="title-slide slide level1 center">
-<h1>Survey and Demo</h1>
+<section>
+<section id="survey-fall-2025" class="title-slide slide level1 center">
+<h1>Survey Fall 2025</h1>
 
 </section>
+<section id="where-are-students-coming-from" class="slide level2">
+<h2>Where are students coming from?</h2>
+<p class="subheader">
+Lets measure hometown using distance
+</p>
+</section>
+<section id="where-are-students-coming-from-1" class="slide level2">
+<h2>Where are students coming from?</h2>
+<p class="subheader">
+Lets measure hometown using distance
+</p>
+
+<img data-src="i/survey_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; quite a few people come internationally :)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; lets zoom in a bit to see more details about closer distances</em></p>
+</div>
+</section>
+<section id="where-are-students-coming-from-2" class="slide level2">
+<h2>Where are students coming from?</h2>
+<p class="subheader">
+Lets measure students hometown using distance
+</p>
+
+<img data-src="i/survey_02.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; many from Pittsburgh and the Philly area</em></p>
+</div>
+</section>
+<section id="when-were-students-born" class="slide level2">
+<h2>When were students born?</h2>
+<p class="subheader">
+Lets use birthyear
+</p>
+</section>
+<section id="when-were-students-born-1" class="slide level2">
+<h2>When were students born?</h2>
+<p class="subheader">
+Lets use birthyear
+</p>
+
+<img data-src="i/survey_03.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; the most common birthyear was 2005</em></p>
+</div>
+</section>
+<section id="what-are-students-majors" class="slide level2">
+<h2>What are students majors?</h2>
+<p class="subheader">
+Sorry if you’re not on the list or have multiple :)
+</p>
+</section>
+<section id="what-are-students-majors-1" class="slide level2">
+<h2>What are students majors?</h2>
+<p class="subheader">
+Sorry if you’re not on the list or have multiple :)
+</p>
+
+<img data-src="i/survey_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; most are Econ and many not on my limited list</em></p>
+</div>
+</section>
+<section id="did-you-like-your-stats-class" class="slide level2">
+<h2>Did you like your stats class?</h2>
+<p class="subheader">
+It’s a prereq for the class
+</p>
+</section>
+<section id="did-you-like-your-stats-class-1" class="slide level2">
+<h2>Did you like your stats class?</h2>
+<p class="subheader">
+It’s a prereq for the class
+</p>
+
+<img data-src="i/survey_05.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; most generally liked it; some did not</em></p>
+</div>
+</section>
+<section id="is-stats-related-to-your-excitement-for-this-class" class="slide level2">
+<h2>Is stats related to your excitement for this class?</h2>
+<p class="subheader">
+I would suspect a positive relationship
+</p>
+</section>
+<section id="is-stats-related-to-your-excitement-for-this-class-1" class="slide level2">
+<h2>Is stats related to your excitement for this class?</h2>
+<p class="subheader">
+I would suspect a positive relationship
+</p>
+
+<img data-src="i/survey_06.png" class="r-stretch"></section>
+<section id="is-confidence-in-excel-related-to-class-excitement" class="slide level2">
+<h2>Is confidence in Excel related to class excitement?</h2>
+<p class="subheader">
+I would expect it is
+</p>
+</section>
+<section id="is-confidence-in-excel-related-to-class-excitement-1" class="slide level2">
+<h2>Is confidence in Excel related to class excitement?</h2>
+<p class="subheader">
+I would expect it is
+</p>
+
+<img data-src="i/survey_07.png" class="r-stretch"></section>
+<section id="is-confidence-in-python-related-to-excitement" class="slide level2">
+<h2>Is confidence in python related to excitement?</h2>
+<p class="subheader">
+Again I would expect it is
+</p>
+
+
+<img data-src="i/survey_08.png" class="r-stretch"></section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
