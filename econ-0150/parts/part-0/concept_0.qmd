@@ -746,3 +746,540 @@ plt.show()
 
 ![](i/survey_08.png)
 
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">Why does economic data analysis matter?</p>
+
+<br>
+
+*A case study in minimum wage policy*
+
+<br> <br>
+
+*Dr. Taylor Weidman*
+
+*taylorjweidman@pitt.edu | 4702 Posvar Hall*
+
+---
+
+## New Jersey, 1992
+<p class="subheader">A state raises its minimum wage.</p>
+
+:::: {.columns}
+::: {.column width="50%"}
+![](i/nj_news.png){height="350px"}
+:::
+::: {.column width="50%"}
+<img src="i/nj_pa_map.png" height="350px" style="border-radius: 10px;">
+:::
+::::
+
+---
+
+## New Jersey, 1992
+<p class="subheader">A natural experiment.</p>
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<br><br>
+
+| | NJ | PA |
+|:--|:--:|:--:|
+| **March 1992** | $4.25 | $4.25 |
+| **April 1, 1992** | $5.05 | $4.25 |
+
+:::
+::: {.column width="50%"}
+<img src="i/nj_pa_map.png" height="350px" style="border-radius: 10px;">
+:::
+::::
+
+. . .
+
+<center>*What happens to employment?*</center>
+
+---
+
+## Economic Theory
+<p class="subheader">Supply and demand.</p>
+
+![](i/fig_supply_demand.png)
+
+---
+
+## Economic Theory
+<p class="subheader">Equilibrium.</p>
+
+![](i/fig_equilibrium.png)
+
+---
+
+## Economic Theory
+<p class="subheader">A binding price ceiling creates a shortage.</p>
+
+![](i/fig_price_ceiling.png)
+
+---
+
+## Economic Theory
+<p class="subheader">A binding price floor creates a surplus.</p>
+
+![](i/fig_price_floor.png)
+
+---
+
+## Economic Theory
+<p class="subheader">The labor market.</p>
+
+![](i/fig_labor_market.png)
+
+---
+
+## Economic Theory
+<p class="subheader">A minimum wage is a price floor in the labor market.</p>
+
+![](i/fig_minimum_wage.png)
+
+---
+
+## Card and Krueger
+<p class="subheader">Two economists decided to find out.</p>
+
+:::: {.columns}
+::: {.column width="10%"}
+:::
+::: {.column width="35%"}
+<center>
+<img src="i/card.jpg" height="350px" style="border-radius: 10px;">
+
+David Card
+</center>
+:::
+::: {.column width="10%"}
+:::
+::: {.column width="35%"}
+<center>
+<img src="i/krueger.jpg" height="350px" style="border-radius: 10px;">
+
+Alan Krueger
+</center>
+:::
+::: {.column width="10%"}
+:::
+::::
+
+---
+
+## Data
+<p class="subheader">Surveying fast-food restaurants before and after.</p>
+
+| | Wave 1 | Wave 2 |
+|:--|:--:|:--:|
+| **Timing** | Feb-Mar 1992 | Nov-Dec 1992 |
+| **Policy** | Before increase | After increase |
+| **Stores** | 410 | 399 |
+
+<br>
+
+*Burger King, KFC, Wendy's, Roy Rogers in NJ and eastern PA*
+
+---
+
+## Data
+<p class="subheader">Before the minimum wage increase.</p>
+
+|  | New Jersey | Pennsylvania |
+|:--|:--:|:--:|
+| **Stores surveyed** | 331 | 79 |
+| **FTE employment** | 20.4 | 23.3 |
+| **Starting wage** | $4.61 | $4.63 |
+| **Wage = $4.25** | 30.5% | 32.9% |
+
+---
+
+## Data
+<p class="subheader">Wages shifted to the new minimum.</p>
+
+![](i/fig_wage_distribution.png)
+
+---
+
+## Analysis
+<p class="subheader">Difference-in-differences.</p>
+
+![](i/fig_diff_in_diff.png)
+
+---
+
+## Results
+<p class="subheader">Employment did not fall in New Jersey.</p>
+
+| FTE Employment | Pennsylvania | New Jersey | Difference |
+|:--|:--:|:--:|:--:|
+| **Before** | 23.33 | 20.44 | -2.89 |
+| **After** | 21.17 | 21.03 | -0.14 |
+| **Change** | -2.16 | +0.59 | **+2.76** |
+
+---
+
+## Results
+<p class="subheader">Employment did not fall in New Jersey.</p>
+
+![](i/fig_employment_changes.png)
+
+---
+
+## Theory vs. Evidence
+<p class="subheader">The data told a different story.</p>
+
+. . .
+
+**Theory prediction** 
+
+- higher minimum wage → lower employment
+
+. . .
+
+**Data showed** 
+
+- no decrease in employment
+
+---
+
+## {.center}
+
+<br><br>
+
+*"Contrary to the central prediction of the textbook model... we find no evidence that the rise in New Jersey's minimum wage reduced employment."*
+
+<br>
+
+--- Card and Krueger (1994)
+
+<br><br>
+
+*Let's learn how to do this kind of analysis.*
+
+---
+
+## What is Data?
+<p class="subheader">Data is a sample drawn from a process we want to understand.</p>
+
+$$x \sim F$$
+
+- $x$ = what we observe (our data)
+- $F$ = what generated it (the random variable)
+
+. . .
+
+<center>***We have $x$. We care about $F$.***</center>
+
+. . .
+
+<br>
+
+**Two skills:**
+
+1. **Description** *(Parts 1 - 2)* — Summarize $x$.
+2. **Inference** *(Parts 3 - 5)*— Learn about $F$ from $x$.
+
+---
+
+## How Do We Organize Data?
+<p class="subheader">Notation helps keep things organized.</p>
+
+<br>
+
+We write **$x_{it}$** where:
+
+- **i** (unordered) indexes entities (eg. people, firms, countries)
+- **t** (ordered) indexes time (eg. days, months, years)
+
+<br>
+
+. . .
+
+This distinguishes **substantive variables** (what we measure) from **index variables** (how we organize).
+
+---
+
+## Dimensions of Data
+<p class="subheader">Data structure; variable type; number of variables.</p>
+
+**Data Structure ($i$,$t$)**
+
+- Cross-sectional
+- Timeseries
+- Panel
+
+. . .
+
+**Variable Type ($x$)**
+
+- Categorical
+- Numerical
+
+. . .
+
+**Number of Variables ($n$)**
+
+- Univariate (n=1)
+- Bivariate (n=2)
+- Multivariate (n>2)
+
+---
+
+## Data Structures
+<p class="subheader">Which indices ($i$, $t$) are active?</p>
+
+| | What varies | Example |
+|:--|:--|:--|
+| **Cross-section** | Entity (*i*) | Household incomes in 2024 |
+| **Time series** | Time (*t*) | Average US income from 1950–2024 |
+| **Panel** | Both (*i* and *t*) | Income across households, 1950–2024 |
+
+---
+
+## Variable Types
+<p class="subheader">What are the values ($x$)?</p>
+
+| | | Definition | Example |
+|:--|:--|:--|:--|
+| **Categorical** | Binary | Two categories | Employed (YES/NO) |
+| | Nominal | Unordered | Blood type (A, B, AB, O) |
+| | Ordinal | Ordered | Education (HS, BA, MA, PhD) |
+| **Numerical** | Discrete | Countable | Number of children |
+| | Continuous | Real numbers | Household income |
+
+---
+
+## How We Work with Data
+<p class="subheader">Three steps, every time.</p>
+
+<br>
+
+1. **SELECT** — What does our data contain?
+
+. . .
+
+2. **TRANSFORM** — How do we change the data to make it more useful?
+
+. . .
+
+3. **ENCODE** — How do we turn values into visual elements?
+
+---
+
+## Course Progression
+<p class="subheader">Building complexity along two axes.</p>
+
+| Part | Focus | Key question |
+|:--|:--|:--|
+| 0 | Framework | What tools do we need? |
+| 1 | Variables | What does this variable look like? |
+| 2 | Relationships | How do these variables relate? |
+| 3 | Univariate GLM | What can we infer about the population? |
+| 4 | Bivariate GLM | How does y change with x? |
+| 5 | Multivariate GLM | How does y change with x, controlling for z? |
+
+---
+
+## How Each Class Works
+<p class="subheader">A consistent rhythm.</p>
+
+| When | What | Purpose |
+|:--|:--|:--|
+| **Before class** | Concept video | Learn core ideas at your pace |
+| **Start of class** | Quiz | Confirm your understanding |
+| **During class** | Exercise | Guided practice with support |
+| **After class** | Homework | Independent practice |
+
+<br>
+
+*Exercises are homework prep.*
+
+---
+
+## {.center}
+
+<br><br>
+
+*Let's begin.*
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q1. Identify the data structure, variable type, indices, and number of variables for `dataset1.csv`.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+| Year | Real_GDP |
+|:--|:--|
+| 1970 | 5.316 |
+| 1971 | 5.491 |
+| 1972 | 5.780 |
+| 1973 | 6.106 |
+| ... | ... |
+:::
+::: {.column width="40%"}
+::: {.fragment}
+**Index:** $t$ (Year)
+
+**Structure:** Time series
+
+**Variable:** Continuous
+
+**N Variables:** Univariate
+:::
+:::
+::::
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q1. Visualize `dataset1.csv`.</p>
+
+![](i/i_10.png)
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q2. Identify the data structure, variable type, indices, and number of variables for `dataset2.csv`.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+| Household ID | Employment Status |
+|:--|:--|
+| D001 | Unemployed |
+| D002 | Employed |
+| D003 | Employed |
+| D004 | Employed |
+| ... | ... |
+:::
+::: {.column width="40%"}
+::: {.fragment}
+**Index:** $i$ (Household)
+
+**Structure:** Cross-sectional
+
+**Variable:** Binary
+
+**N Variables:** Univariate
+:::
+:::
+::::
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q2. Visualize `dataset2.csv`.</p>
+
+![](i/i_01.png)
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q3. Identify the data structure, variable type, indices, and number of variables for `dataset3.csv`.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+| Household ID | Year | Income | Savings |
+|:--|:--|:--|:--|
+| H001 | 2010 | 34,610 | 6,157 |
+| H001 | 2011 | 45,560 | 2,506 |
+| H001 | 2012 | 83,698 | 8,789 |
+| H002 | 2010 | 52,341 | 4,123 |
+| ... | ... | ... | ... |
+:::
+::: {.column width="40%"}
+::: {.fragment}
+**Index:** $i$ (Household), $t$ (Year)
+
+**Structure:** Panel
+
+**Variable:** Continuous
+
+**N Variables:** Bivariate
+:::
+:::
+::::
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q3. Visualize `dataset3.csv`.</p>
+
+![](i/i_08.png)
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q4. Identify the data structure, variable type, indices, and number of variables for `dataset4.csv`.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+| ID | Economic Optimism |
+|:--|:--|
+| B001 | Somewhat Pessimistic |
+| B002 | Very Pessimistic |
+| B003 | Somewhat Optimistic |
+| B004 | Very Optimistic |
+| ... | ... |
+:::
+::: {.column width="40%"}
+::: {.fragment}
+**Index:** $i$ (Person)
+
+**Structure:** Cross-sectional
+
+**Variable:** Ordinal
+
+**N Variables:** Univariate
+:::
+:::
+::::
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q4. Visualize `dataset4.csv`.</p>
+
+![](i/i_03.png)
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q5. Identify the data structure, variable type, indices, and number of variables for `dataset5.csv`.</p>
+
+:::: {.columns}
+::: {.column width="60%"}
+| ID | Sector |
+|:--|:--|
+| A001 | Services |
+| A002 | Agriculture |
+| A003 | Unemployed |
+| A004 | Manufacturing |
+| ... | ... |
+:::
+::: {.column width="40%"}
+::: {.fragment}
+**Index:** $i$ (Person)
+
+**Structure:** Cross-sectional
+
+**Variable:** Nominal
+
+**N Variables:** Univariate
+:::
+:::
+::::
+
+---
+
+## Exercise 0 | Diagram Data
+<p class="subheader">Q5. Visualize `dataset5.csv`.</p>
+
+![](i/i_02.png)
+

@@ -1,3 +1,23 @@
+#### Economic Data Analysis | Week 1
+
+Hi folks,
+
+It was very nice meeting you this week! I'm looking forward to walking with you through the core skillset we use in modern science.
+
+First, before class today make sure you've filled out the course survey. You can find it at the top of the main course page, which is linked to on Canvas. We'll use the survey results for the first homework.
+
+Second, today in class we're going to do our first Exercise. So bring your computer to class. We may use Excel today so make sure to have that installed. If you don't already have it installed, we have it available for free through Pitt's software portal. Feel free to reach out if you run into any issues getting that set up.
+
+
+
+See you soon!
+
+Warmly,
+
+Taylor
+
+
+
 #### Economic Data Analysis | Week 3 + MiniExam Schedule
 
 Hi folks,
