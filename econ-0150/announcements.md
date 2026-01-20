@@ -16,7 +16,17 @@ Warmly,
 
 Taylor
 
+#### Economic Data Analysis | Week 2
 
+Hi folks,
+
+Nice meeting everyone last week! I hope your weekend was lovely. There's nothing I need from you before class this week. Come to class with your computer and be ready for some work as a class.
+
+This week we're starting the real work. The kind of analysis we do starts with simple but detailed summarization tools. This week we're going to begin working in Excel and Python to summarize categorical variables. We'll cover visualization types for all three categorical variable types: binary, nominal, and ordinal. And we'll create our first visuals. 
+
+See you soon!
+
+Taylor
 
 #### Economic Data Analysis | Week 3 + MiniExam Schedule
 

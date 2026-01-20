@@ -1,0 +1,5 @@
+Hospital,Severity,Patients,Survived
+A,Mild,800,760
+A,Severe,200,100
+B,Mild,200,196
+B,Severe,800,480

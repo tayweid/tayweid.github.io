@@ -1,0 +1,239 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 1 Bonus | Standardizing Time Zones*
+
+---
+
+## Starbucks' Global Server Capacity
+<p class="subheader">How many shops are opening at any given time?</p>
+
+<br><br>
+
+- Starbucks manages many shops globally and needs to maintain server capacity for all of them around the clock.
+
+. . .
+
+- Starbucks has a massive operation to make sure their shops are able to open every morning.
+
+. . .
+
+- Lets investigate how many coffee shops are opening at any hour of the day.
+
+---
+
+## Opening Times: Starbucks' Global Capacity
+<p class="subheader">How many shops are opening at any given time?</p>
+
+Looking at the data is a good place to start.
+
+<br>
+
+```{python}
+# Import packages
+import pandas as pd
+
+# Load data
+hours = pd.read_csv('data/Starbucks_Location_Hours.csv')
+hours[['country', 'open', 'close', 'GMT']].head()
+```
+
+. . .
+
+<br>
+
+*>as is common, it's difficult to understand the raw data on its own*
+
+---
+
+## Opening Times
+<p class="subheader">What times do shops open in their local times?</p>
+
+Lets start by looking at what times shops open in local time.
+
+![](i/i_01.png)
+
+. . .
+
+*> but does this tell us how many shops are opening at one time?*
+
+---
+
+## Opening Times: Standardize by GMT
+<p class="subheader">What times do shops open in GMT?</p>
+
+Lets standardize all times in *Greenwich Mean Time* (GMT).
+
+. . .
+
+![](i/i_02.png)
+
+. . .
+
+*> what do the negative values mean?*
+
+. . .
+
+*> hour -1 (1 hour before GMT midnight) is the same as opening at hour 23*
+
+---
+
+## Opening Times: Normalize to 24 Hours
+<p class="subheader">Normalize the negative values to 24 hours.</p>
+
+Lets add 24 if the number is negative.
+
+. . .
+
+![](i/i_03.png)
+
+---
+
+## Opening Times: Standardizing Hours
+<p class="subheader">How many shops are opening at any given time?</p>
+
+![](i/i_03.png)
+
+. . .
+
+*> a small bump during morning in Europe*
+
+. . .
+
+*> a huge spike during morning in the Americas*
+
+. . .
+
+*> a smaller spike during morning in Asia*
+
+---
+
+## Exercise: Starbucks' Global Capacity
+<p class="subheader">How many shops are open at any given time?</p>
+
+<br><br>
+
+- Starbucks manages many shops globally and needs to maintain server capacity for all of them around the clock.
+
+. . .
+
+- We want to investigate how many coffee shops are open at any given hour to better understand server loads and Starbucks' global capacity needs.
+
+. . .
+
+- It's also just pretty interesting.
+
+---
+
+## Exercise: Starbucks' Global Capacity
+<p class="subheader">How many shops are opening at any given time?</p>
+
+Looking at the data is a good place to start.
+
+<br>
+
+```{python}
+# Import packages
+import pandas as pd
+
+# Load data
+hours = pd.read_csv('data/Starbucks_Location_Hours.csv')
+hours[['country', 'open', 'close', 'GMT']].head()
+```
+
+. . .
+
+<br>
+
+*>as is common, it's difficult to understand the raw data on its own*
+
+---
+
+## Opening Times
+<p class="subheader">What times do shops open in their local times?</p>
+
+Lets start by looking at what times shops open in local time.
+
+. . .
+
+```{.python}
+# Histogram of opening times
+sns.histplot(hours, x='open')
+```
+
+. . .
+
+![](i/i_01.png)
+
+---
+
+## Opening Times: Standardize by GMT
+<p class="subheader">What times do shops open (GMT)?</p>
+
+Lets standardize all times in *Greenwich Mean Time* (GMT).
+
+. . .
+
+```{.python}
+# Normalize to GMT
+hours['OpenGMT'] = hours['open'] - hours['GMT']
+
+# Histogram of opening times (GMT)
+sns.histplot(hours, x='OpenGMT')
+```
+
+. . .
+
+![](i/i_02.png)
+
+---
+
+## Opening Times: Standardizing Hours
+<p class="subheader">Normalize the negative values to 24 hours.</p>
+
+Lets add 24 if the number is negative.
+
+. . .
+
+```{.python}
+# Normalize to 24 hours
+hours['OpenGMT24'] = hours['OpenGMT'].mod(24)
+
+# Histogram of opening times (GMT, 24)
+sns.histplot(hours, x='OpenGMT24')
+```
+
+. . .
+
+![](i/i_03.png)
+
+---
+
+## Key Takeaway
+<p class="subheader">Standardization enables valid comparisons</p>
+
+<br><br>
+
+- **The problem:** Local times can't be compared directly across time zones
+
+. . .
+
+- **The solution:** Transform to a common reference point (GMT)
+
+. . .
+
+- **The pattern:** This is the same logic as inflation adjustment (transform to common dollar year) or per capita adjustment (transform to common population base)
+
+. . .
+
+*> standardization is a fundamental transformation skill*

@@ -1,0 +1,455 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 5.2 | Interaction Models*
+
+---
+
+## Model 3: Different Returns to Education
+<p class="subheader">What if education benefits genders differently?</p>
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from scipy import stats
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
+# Set seed for reproducibility
+np.random.seed(42)
+# Generate education data as "years after middle school" (starting at 0)
+n = 200
+education_after_ms = np.random.normal(6, 2, n)  # years after middle school
+education_after_ms = np.clip(education_after_ms, 0, 14)
+# Create gender indicator (0 = female, 1 = male)
+gender = np.random.binomial(1, 0.5, n)
+# Generate wages with different returns to education by gender
+base_wage = 25000  # base wage (β₀)
+education_effect_female = 2500  # female return to education (β₁)
+education_effect_male = 4000    # male return to education (β₁ + β₂)
+# Calculate wages based on different returns by gender
+wages = (base_wage +
+         np.where(gender == 0,
+                 education_effect_female * education_after_ms,
+                 education_effect_male * education_after_ms) +
+         np.random.normal(0, 4000, n))
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+# Plot data points with low alpha for clarity
+ax.scatter(education_after_ms[gender==0], wages[gender==0],
+           alpha=0.15, color='blue')
+ax.scatter(education_after_ms[gender==1], wages[gender==1],
+           alpha=0.15, color='green')
+
+# Styling
+ax.set_xlabel('Years of Education', fontsize=12)
+ax.set_ylabel('')
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_xlim(-3, 16)
+ax.set_xticks([0,13])
+ax.set_ylim(0, 80000)
+ax.set_yticks([])
+ax.set_yticklabels([])
+sns.despine(left=True, trim=True)
+plt.tight_layout()
+```
+
+---
+
+## Model 3: Different Returns to Education
+<p class="subheader">What if education benefits genders differently?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from scipy import stats
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
+# Set seed for reproducibility
+np.random.seed(42)
+# Generate education data as "years after middle school" (starting at 0)
+n = 200
+education_after_ms = np.random.normal(6, 2, n)  # years after middle school
+education_after_ms = np.clip(education_after_ms, 0, 14)
+# Create gender indicator (0 = female, 1 = male)
+gender = np.random.binomial(1, 0.5, n)
+# Generate wages with different returns to education by gender
+base_wage = 25000  # base wage (β₀)
+base_wage_female = 25000  # for annotation compatibility
+education_effect_female = 2500  # female return to education (β₁)
+education_effect_male = 4000    # male return to education (β₁ + β₂)
+# Calculate wages based on different returns by gender
+wages = (base_wage +
+         np.where(gender == 0,
+                 education_effect_female * education_after_ms,
+                 education_effect_male * education_after_ms) +
+         np.random.normal(0, 4000, n))
+# Create figure
+fig, ax = plt.subplots(figsize=(11, 5))
+# Plot data points with low alpha for clarity
+ax.scatter(education_after_ms[gender==0], wages[gender==0],
+           alpha=0.15, color='blue')
+ax.scatter(education_after_ms[gender==1], wages[gender==1],
+           alpha=0.15, color='green')
+# Create stylized regression lines
+x_line = np.linspace(0, 13, 100)
+y_female = base_wage + education_effect_female * x_line
+y_male = base_wage + education_effect_male * x_line
+# Plot regression lines
+ax.plot(x_line, y_male, color='green', linewidth=3, label='Male')
+ax.plot(x_line, y_female, color='blue', linewidth=3, label='Female')
+
+# Rise over run visualization at a larger x value
+start_x = 8  # Moved further along the x-axis
+run_distance = 2  # Increased horizontal distance for visibility
+
+# Calculate y-coordinates for the starting points on the regression lines
+start_y_female = base_wage + education_effect_female * start_x
+start_y_male = base_wage + education_effect_male * start_x
+
+# Calculate the end points
+end_x = start_x + run_distance
+end_y_female = base_wage + education_effect_female * end_x
+end_y_male = base_wage + education_effect_male * end_x
+
+# Draw the right-angled triangles correctly
+# Female triangle
+ax.plot([start_x, end_x], [start_y_female, start_y_female], 'b--', lw=1.5)  # horizontal line at the bottom
+ax.plot([end_x, end_x], [start_y_female, end_y_female], 'b--', lw=1.5)     # vertical line at the end
+# The hypotenuse is the regression line itself (already plotted)
+
+# Male triangle
+ax.plot([start_x, end_x], [start_y_male, start_y_male], 'g--', lw=1.5)     # horizontal line at the bottom
+ax.plot([end_x, end_x], [start_y_male, end_y_male], 'g--', lw=1.5)         # vertical line at the end
+# The hypotenuse is the regression line itself (already plotted)
+
+# Label the female rise (β₁ × run_distance)
+female_rise = end_y_female - start_y_female
+ax.annotate('$\\beta_1$',
+            xy=(end_x, start_y_female + female_rise/2),
+            xytext=(end_x + 1, start_y_female + female_rise/2),
+            fontsize=12, ha='left', va='center',
+            arrowprops=dict(arrowstyle='->', color='blue'))
+
+# Label the male rise (β₁ + β₂) × run_distance
+male_rise = end_y_male - start_y_male
+ax.annotate('$\\beta_1 + \\beta_2$',
+            xy=(end_x, start_y_male + male_rise/2),
+            xytext=(end_x + 1, start_y_male + male_rise/2),
+            fontsize=12, ha='left', va='center',
+            arrowprops=dict(arrowstyle='->', color='green'))
+
+# Label the horizontal run
+ax.annotate(1, xy=(start_x + run_distance/2, start_y_female - 2000),
+            fontsize=12, ha='center', va='top')
+
+# β₀ (female intercept) - using a bracket
+ax.annotate('', xy=(-0.4, base_wage_female), xytext=(-0.4, 0),
+            arrowprops=dict(arrowstyle='|-|', color='blue', alpha=0.4, lw=2))
+ax.annotate('$\\beta_0$ (Base wage)', xy=(-0.4, base_wage_female/2),
+            xytext=(-3, base_wage_female*0.5), fontsize=12,
+            arrowprops=dict(arrowstyle='->', color='black'))
+
+# Styling
+ax.set_xlabel('Years of Education', fontsize=12)
+ax.set_ylabel('')
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_xlim(-3, 16)
+ax.set_xticks([0,13])
+ax.set_ylim(0, 80000)
+ax.set_yticks([])
+ax.set_yticklabels([])
+ax.legend(fontsize=11)
+sns.despine(left=True, trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon$$
+
+---
+
+## Model 3: Different Returns to Education
+<p class="subheader">What if education benefits genders differently?</p>
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Education} \times \text{Male} + \varepsilon$$
+
+:::{.incremental}
+- β₁ represents the female return to education.
+- β₂ represents the additional male return to education - this changes the slope
+- Male education effect is β₁ + β₂, creating diverging wage paths
+:::
+
+---
+
+## Model 3: The Code
+<p class="subheader">Implementing the education-gender interaction model</p>
+
+```python
+# Fit model with interaction between education and sex
+model3 = smf.ols('INCLOG10 ~ EDU + EDU:MALE', data=data).fit()
+print(model3.summary().tables[1])
+```
+
+<br>
+
+:::{.incremental}
+- If β₂ > 0 and significant, male return to education is higher
+- This model assumes same baseline (intercept) for both genders
+:::
+
+---
+
+## Model 4: Full Gender Difference Model
+<p class="subheader">Combining fixed effects and interactions</p>
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+from scipy import stats
+import matplotlib.patches as patches
+from matplotlib.lines import Line2D
+
+# Remove seaborn styling to match model 2
+# plt.style.use('seaborn-v0_8-whitegrid')  # Comment out
+# sns.set_style("white")  # Comment out
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Generate education data as "years after middle school" (starting at 0)
+n = 200
+education_after_ms = np.random.normal(6, 2, n)  # years after middle school
+education_after_ms = np.clip(education_after_ms, 0, 14)
+
+# Create gender indicator (0 = female, 1 = male)
+gender = np.random.binomial(1, 0.5, n)
+
+# Generate wages with both gender gap and different returns
+base_wage_female = 25000     # female base wage (β₀)
+male_premium = 5000          # male premium at zero education (β₂)
+education_effect_female = 2500  # female education return (β₁)
+extra_male_return = 1500     # extra male education return (β₃)
+
+# Calculate wages
+wages = np.zeros(n)
+for i in range(n):
+    if gender[i] == 0:  # Female
+        wages[i] = base_wage_female + education_effect_female * education_after_ms[i]
+    else:  # Male
+        wages[i] = (base_wage_female + male_premium +
+                   (education_effect_female + extra_male_return) * education_after_ms[i])
+
+# Add some random noise
+wages += np.random.normal(0, 4000, n)
+
+# Create figure with same size as model 2
+fig, ax = plt.subplots(figsize=(11, 5))  # Changed to match model 2
+
+# Plot data points with low alpha for clarity
+ax.scatter(education_after_ms[gender==0], wages[gender==0],
+           alpha=0.15, color='blue')  # Removed label to match model 2
+ax.scatter(education_after_ms[gender==1], wages[gender==1],
+           alpha=0.15, color='green')  # Removed label to match model 2
+
+# Create stylized regression lines
+x_line = np.linspace(0, 13, 100)  # Match the range in model 2
+y_female = base_wage_female + education_effect_female * x_line
+y_male = (base_wage_female + male_premium +
+         (education_effect_female + extra_male_return) * x_line)
+
+# Plot regression lines
+ax.plot(x_line, y_male, color='green', linewidth=3, label='Male')  # Simplified label
+ax.plot(x_line, y_female, color='blue', linewidth=3, label='Female')  # Simplified label
+
+# Highlight the components visually - modified to be more like model 2
+
+# Rise over run visualization at a point
+start_x = 8  # Match position in model 2
+run_distance = 2  # Match distance in model 2
+
+# Calculate y-coordinates for the starting points on the regression lines
+start_y_female = base_wage_female + education_effect_female * start_x
+start_y_male = base_wage_female + male_premium + (education_effect_female + extra_male_return) * start_x
+
+# Calculate the end points
+end_x = start_x + run_distance
+end_y_female = base_wage_female + education_effect_female * end_x
+end_y_male = base_wage_female + male_premium + (education_effect_female + extra_male_return) * end_x
+
+# Draw the right-angled triangles
+# Female triangle
+ax.plot([start_x, end_x], [start_y_female, start_y_female], 'b--', lw=1.5)  # horizontal
+ax.plot([end_x, end_x], [start_y_female, end_y_female], 'b--', lw=1.5)     # vertical
+
+# Male triangle
+ax.plot([start_x, end_x], [start_y_male, start_y_male], 'g--', lw=1.5)     # horizontal
+ax.plot([end_x, end_x], [start_y_male, end_y_male], 'g--', lw=1.5)         # vertical
+
+# Label the female rise (β₁ × run_distance)
+female_rise = end_y_female - start_y_female
+ax.annotate('$\\beta_1$',
+            xy=(end_x, start_y_female + female_rise/2),
+            xytext=(end_x + 1, start_y_female + female_rise/2),
+            fontsize=12, ha='left', va='center',
+            arrowprops=dict(arrowstyle='->', color='blue'))
+
+# Label the male rise ((β₁+β₃) × run_distance)
+male_rise = end_y_male - start_y_male
+ax.annotate('$\\beta_1 + \\beta_3$',
+            xy=(end_x, start_y_male + male_rise/2),
+            xytext=(end_x + 1, start_y_male + male_rise/2),
+            fontsize=12, ha='left', va='center',
+            arrowprops=dict(arrowstyle='->', color='green'))
+
+# Label the horizontal run
+ax.annotate(1, xy=(start_x + run_distance/2, start_y_female - 2000),
+            fontsize=12, ha='center', va='top')
+
+# β₀ (female intercept) - using a bracket
+ax.annotate('', xy=(-0.4, base_wage_female), xytext=(-0.4, 0),
+            arrowprops=dict(arrowstyle='|-|', color='blue', alpha=0.4, lw=2))
+ax.annotate('$\\beta_0$ (Base wage)', xy=(-0.4, base_wage_female/2),
+            xytext=(-3, base_wage_female*0.5), fontsize=12,
+            arrowprops=dict(arrowstyle='->', color='black'))
+
+# Add β₂ (male premium at zero education)
+ax.annotate('', xy=(-0.4, base_wage_female+male_premium), xytext=(-0.4, base_wage_female),
+            arrowprops=dict(arrowstyle='|-|', color='green', alpha=0.4, lw=2))
+ax.annotate('$\\beta_2$ (Wage premium)', xy=(-0.4, base_wage_female+male_premium/2),
+            xytext=(-3, base_wage_female+male_premium*1.2), fontsize=12,
+            arrowprops=dict(arrowstyle='->', color='black'))
+
+# Styling
+ax.set_xlabel('Years of Education', fontsize=12)  # Match label
+ax.set_ylabel('')  # Remove y-label to match model 2
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.set_xlim(-2, 16)  # Match limits
+ax.set_xticks([0, 13])  # Match ticks
+ax.set_ylim(0, 80000)  # Match limits
+ax.set_yticks([])  # Match ticks
+ax.set_yticklabels([])  # Match empty labels
+
+# Legend matching model 2
+ax.legend(fontsize=11)
+
+# Add despine to match model 2
+sns.despine(left=True, trim=True)
+
+plt.tight_layout()
+
+# Display the plot
+plt.show()
+```
+
+. . .
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon$$
+
+---
+
+## Model 4: Full Gender Difference Model
+<p class="subheader">Combining fixed effects and interactions</p>
+
+$$\text{Wage} = \beta_0 + \beta_1 \times \text{Education} + \beta_2 \times \text{Male} + \beta_3 \times \text{Education} \times \text{Male} + \varepsilon$$
+
+:::{.incremental}
+- β₀ = base wage
+- β₂ = initial wage gap (at zero education)
+- β₁ = female returns to education
+- β₃ = male education return premium
+:::
+
+---
+
+## Model 4: The Code
+<p class="subheader">Implementing the full gender difference model</p>
+
+```python
+# Fit full model with both sex indicator and interaction
+model4 = smf.ols('INCLOG10 ~ EDU + MALE + EDU:MALE', data=data).fit()
+print(model4.summary().tables[1])
+```
+
+<br>
+
+. . .
+
+*> allows for differences in both baseline wages and educational returns*
+
+---
+
+## Comparison of Models
+<p class="subheader">Different models answer different questions</p>
+
+<br>
+
+**Model 1: Fixed Effect**
+
+   - Question: "Is there a gender wage gap?"
+
+. . .
+
+**Model 2: Fixed Effect with Control**
+
+   - Question: "Is there a gender wage gap controling for education?"
+
+. . .
+
+**Model 3: Interaction Only**
+
+   - Question: "Are there differences in returns to education?"
+
+. . .
+
+**Model 4: Fixed Effect and Interaction**
+
+   - Question: "Does the gender wage gap vary with education level?"
+
+---
+
+## Key Takeaways
+<p class="subheader">General linear model for analyzing group differences</p>
+
+<br>
+
+<br>
+
+**Part 5.1 | Categorical Controls** *('Fixed Effects')*
+
+- Captures level differences between groups
+
+. . .
+
+**Part 5.2 | Interactions**
+
+- Capture differences in slopes
+
+. . .
+
+**Model Choice** should be guided by your research question

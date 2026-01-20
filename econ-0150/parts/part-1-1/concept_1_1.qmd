@@ -14,8 +14,23 @@ format:
 
 ---
 
+<p class="center">*We cannot typically understand our data without summarizing it.*</p>
+
+![](i/visualizations.png)
+
+. . .
+
+<p class="center">*The main differentiator between a good and a bad summarization tool is whether it's appropriate for the data.*</p>
+
+---
+
 ## Summarizing Categorical Variables
 <p class="subheader">... use the appropriate summary tool for the variable type</p>
+
+---
+
+## Catagorical Variables: Visualizations
+<p class="subheader">Q. Which state has the most locations?</p>
 
 ---
 
@@ -140,13 +155,60 @@ format:
 - Binary Categorical Variables: use a **pie chart** or **bar graph**
 - Nominal Categorical Variables: use a **bar graph**; maybe order by value
 - Ordinal Categorical Variables: use an **ordered bar graph**
+:::
+
+<br>
+
+::: {.incremental}
 - Remove clutter; keep it simple
 - Place information near the object it describes
-::: 
+:::
 
 ---
 
-## Exercises 1.1 | Categorical Variables
+## The Framework: Select, Transform, Encode
+<p class="subheader">Every visualization follows three steps</p>
+
+::: {.incremental}
+- **SELECT** — Which rows are we looking at?
+- **TRANSFORM** — How do we summarize or reshape the data?
+- **ENCODE** — How do we map values to visual elements?
+:::
+
+---
+
+## S-T-E for Categorical Variables
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | All coffee shops |
+| TRANSFORM | Count by state |
+| ENCODE | Category → position; Count → bar length |
+
+. . .
+
+*> for categorical variables, TRANSFORM almost always means counting*
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | New in 1.1 |
+|-------|------------|
+| Variables | binary, nominal, ordinal |
+| Structures | cross-section |
+| Operations | count |
+| Visualizations | bar chart, pie chart |
+
+. . .
+
+*> each unit adds to these four categories*
+
+---
+
+## Exercise 1.1 | Categorical Variables
 
 Lets visualize coffee shops by state.
 
@@ -162,7 +224,7 @@ Lets visualize the main variable in each dataset.
 
 ---
 
-## Exercise: Dataset 1
+## Exercise 1.1: Dataset 1
 <p class="subheader">Summarize `Coffee_Shops.csv` as a nominal categorical variable.</p>
 
 . . .
@@ -192,7 +254,7 @@ sns.countplot(data=shops, y='STATE', hue='STATE')
 
 ---
 
-## Exercise: Dataset 1
+## Exercise 1.1: Dataset 1
 <p class="subheader">Summarize `Coffee_Shops.csv` as a binary categorical variable.</p>
 
 ```{.python}
@@ -216,31 +278,7 @@ sns.countplot(data=shops, y='CA', hue='CA')
 
 ---
 
-## Exercise: Dataset 1
-<p class="subheader">Summarize `Coffee_Shops.csv` as a binary categorical variable.</p>
-
-```{.python}
-# Load Dataset
-shops = pd.read_csv(file_path + 'Coffee_Shops.csv')
-```
-
-```{.python}
-# Create a binary categorical variable
-shops['CA'] = np.where(shops['STATE'] == 'CA', 'CA', 'Other')
-```
-
-```{.python}
-# Pie Chart
-shops['CA'].value_counts().plot(kind='pie', autopct='%1.1f%%')
-```
-
-. . .
-
-![](i/i_08.png)
-
----
-
-## Exercise: Dataset 2
+## Exercise 1.1: Dataset 2
 <p class="subheader">Summarize `employment_status.csv`.</p>
 
 . . .
@@ -249,7 +287,7 @@ shops['CA'].value_counts().plot(kind='pie', autopct='%1.1f%%')
 
 ---
 
-## Exercise: Dataset 3
+## Exercise 1.1: Dataset 3
 <p class="subheader">Summarize `household_savings.csv`.</p>
 
 . . .
@@ -258,7 +296,7 @@ shops['CA'].value_counts().plot(kind='pie', autopct='%1.1f%%')
 
 ---
 
-## Exercise: Dataset 4
+## Exercise 1.1: Dataset 4
 <p class="subheader">Summarize `household_incomes.csv`.</p>
 
 . . .

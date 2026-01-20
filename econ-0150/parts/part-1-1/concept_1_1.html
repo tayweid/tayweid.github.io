@@ -195,10 +195,22 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader-center">
-The economist’s data analysis pipeline.
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
 <h3 id="part-1.1-summarizing-categorical-variables"><em>Part 1.1 | Summarizing Categorical Variables</em></h3>
+</section>
+<section class="slide level2">
+
+<p class="center">
+<em>We cannot typically understand our data without summarizing it.</em>
+</p>
+
+<img data-src="i/visualizations.png" class="r-stretch"><div class="fragment">
+<p class="center">
+<em>The main differentiator between a good and a bad summarization tool is whether it’s appropriate for the data.</em>
+</p>
+</div>
 </section>
 <section id="summarizing-categorical-variables" class="slide level2">
 <h2>Summarizing Categorical Variables</h2>
@@ -211,13 +223,19 @@ The economist’s data analysis pipeline.
 <p class="subheader">
 Q. Which state has the most locations?
 </p>
+</section>
+<section id="catagorical-variables-visualizations-1" class="slide level2">
+<h2>Catagorical Variables: Visualizations</h2>
+<p class="subheader">
+Q. Which state has the most locations?
+</p>
 
 <img data-src="i/i_01.png" class="r-stretch"><p><em>&gt; pay attention to which of these two figures is easier to answer the question</em></p>
 <div class="fragment">
 <p><em>&gt; it’s pretty easy to see that it’s CA from both of these figures</em></p>
 </div>
 </section>
-<section id="catagorical-variables-visualizations-1" class="slide level2">
+<section id="catagorical-variables-visualizations-2" class="slide level2">
 <h2>Catagorical Variables: Visualizations</h2>
 <p class="subheader">
 Q. Does FL or WA have more shops?
@@ -228,7 +246,7 @@ Q. Does FL or WA have more shops?
 <p><em>&gt; a bar graph is much easier to read</em></p>
 </div>
 </section>
-<section id="catagorical-variables-visualizations-2" class="slide level2">
+<section id="catagorical-variables-visualizations-3" class="slide level2">
 <h2>Catagorical Variables: Visualizations</h2>
 <p class="subheader">
 Q. How many shops are in FL?
@@ -315,13 +333,97 @@ Q. How does CA compare to the whole?
 <li class="fragment">Binary Categorical Variables: use a <strong>pie chart</strong> or <strong>bar graph</strong></li>
 <li class="fragment">Nominal Categorical Variables: use a <strong>bar graph</strong>; maybe order by value</li>
 <li class="fragment">Ordinal Categorical Variables: use an <strong>ordered bar graph</strong></li>
+</ul>
+</div>
+<p><br></p>
+<div>
+<ul>
 <li class="fragment">Remove clutter; keep it simple</li>
 <li class="fragment">Place information near the object it describes</li>
 </ul>
 </div>
 </section>
-<section id="exercises-1.1-categorical-variables" class="slide level2">
-<h2>Exercises 1.1 | Categorical Variables</h2>
+<section id="the-framework-select-transform-encode" class="slide level2">
+<h2>The Framework: Select, Transform, Encode</h2>
+<p class="subheader">
+Every visualization follows three steps
+</p>
+<div>
+<ul>
+<li class="fragment"><strong>SELECT</strong> — Which rows are we looking at?</li>
+<li class="fragment"><strong>TRANSFORM</strong> — How do we summarize or reshape the data?</li>
+<li class="fragment"><strong>ENCODE</strong> — How do we map values to visual elements?</li>
+</ul>
+</div>
+</section>
+<section id="s-t-e-for-categorical-variables" class="slide level2">
+<h2>S-T-E for Categorical Variables</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>All coffee shops</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Count by state</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Category → position; Count → bar length</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; for categorical variables, TRANSFORM almost always means counting</em></p>
+</div>
+</section>
+<section id="building-blocks" class="slide level2">
+<h2>Building Blocks</h2>
+<p class="subheader">
+What this unit adds to your toolkit
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>New in 1.1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variables</td>
+<td>binary, nominal, ordinal</td>
+</tr>
+<tr class="even">
+<td>Structures</td>
+<td>cross-section</td>
+</tr>
+<tr class="odd">
+<td>Operations</td>
+<td>count</td>
+</tr>
+<tr class="even">
+<td>Visualizations</td>
+<td>bar chart, pie chart</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; each unit adds to these four categories</em></p>
+</div>
+</section>
+<section id="exercise-1.1-categorical-variables" class="slide level2">
+<h2>Exercise 1.1 | Categorical Variables</h2>
 <p>Lets visualize coffee shops by state.</p>
 <ul>
 <li><strong>Dataset 1:</strong> <code>Coffee_Shops.csv</code></li>
@@ -334,8 +436,8 @@ Q. How does CA compare to the whole?
 <li><strong>Dataset 4:</strong> <code>household_incomes.csv</code></li>
 </ul>
 </section>
-<section id="exercise-dataset-1" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
+<section id="exercise-1.1-dataset-1" class="slide level2">
+<h2>Exercise 1.1: Dataset 1</h2>
 <p class="subheader">
 Summarize <code>Coffee_Shops.csv</code> as a nominal categorical variable.
 </p>
@@ -355,8 +457,8 @@ Summarize <code>Coffee_Shops.csv</code> as a nominal categorical variable.
 <p><img data-src="i/i_04.png"></p>
 </div>
 </section>
-<section id="exercise-dataset-1-1" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
+<section id="exercise-1.1-dataset-1-1" class="slide level2">
+<h2>Exercise 1.1: Dataset 1</h2>
 <p class="subheader">
 Summarize <code>Coffee_Shops.csv</code> as a binary categorical variable.
 </p>
@@ -370,23 +472,8 @@ Summarize <code>Coffee_Shops.csv</code> as a binary categorical variable.
 <p><img data-src="i/i_07.png"></p>
 </div>
 </section>
-<section id="exercise-dataset-1-2" class="slide level2">
-<h2>Exercise: Dataset 1</h2>
-<p class="subheader">
-Summarize <code>Coffee_Shops.csv</code> as a binary categorical variable.
-</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Load Dataset</span></span>
-<span id="cb7-2"><a href=""></a>shops <span class="op">=</span> pd.read_csv(file_path <span class="op">+</span> <span class="st">'Coffee_Shops.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Create a binary categorical variable</span></span>
-<span id="cb8-2"><a href=""></a>shops[<span class="st">'CA'</span>] <span class="op">=</span> np.where(shops[<span class="st">'STATE'</span>] <span class="op">==</span> <span class="st">'CA'</span>, <span class="st">'CA'</span>, <span class="st">'Other'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Pie Chart</span></span>
-<span id="cb9-2"><a href=""></a>shops[<span class="st">'CA'</span>].value_counts().plot(kind<span class="op">=</span><span class="st">'pie'</span>, autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_08.png"></p>
-</div>
-</section>
-<section id="exercise-dataset-2" class="slide level2">
-<h2>Exercise: Dataset 2</h2>
+<section id="exercise-1.1-dataset-2" class="slide level2">
+<h2>Exercise 1.1: Dataset 2</h2>
 <p class="subheader">
 Summarize <code>employment_status.csv</code>.
 </p>
@@ -394,8 +481,8 @@ Summarize <code>employment_status.csv</code>.
 <p><img data-src="i/i_10.png"></p>
 </div>
 </section>
-<section id="exercise-dataset-3" class="slide level2">
-<h2>Exercise: Dataset 3</h2>
+<section id="exercise-1.1-dataset-3" class="slide level2">
+<h2>Exercise 1.1: Dataset 3</h2>
 <p class="subheader">
 Summarize <code>household_savings.csv</code>.
 </p>
@@ -403,8 +490,8 @@ Summarize <code>household_savings.csv</code>.
 <p><img data-src="i/i_11.png"></p>
 </div>
 </section>
-<section id="exercise-dataset-4" class="slide level2">
-<h2>Exercise: Dataset 4</h2>
+<section id="exercise-1.1-dataset-4" class="slide level2">
+<h2>Exercise 1.1: Dataset 4</h2>
 <p class="subheader">
 Summarize <code>household_incomes.csv</code>.
 </p>

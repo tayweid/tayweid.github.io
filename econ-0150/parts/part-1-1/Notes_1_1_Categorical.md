@@ -36,6 +36,9 @@ When presenting data, the best choice of chart depends on the comparison you wan
 
 - Nominal Categorical Variables: use a **bar graph**; maybe order by value
 - Ordinal Categorical Variables: use an **ordered bar graph**
+
+
+
 - Remove clutter; keep it simple
 - Place information near the object it describes
 

@@ -3,6 +3,7 @@ format:
   revealjs:
     css: custom.css
     transition: none
+    aspect-ratio: "16:9"
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
@@ -10,463 +11,577 @@ format:
 
 <br> 
 
-### *Part 2.5 | Merging Data*
+### *Part 2.5 | Geographic Data*
 
 ---
 
-## Final Project Preview
-<p class="subheader">Exploring real questions with real data</p>
+## Geographic Data
+<p class="subheader"> Some types of relationships in space</p>
 
 <br><br>
 
-Lets start working through a project together:
-
-::: {.incremental}
-- **Question 1**: Were there systematic patterns in vote share changes between 2020 and 2024?
-- **Question 2**: Do income levels relate to these voting shifts?
-- **Data**: MIT Election Lab (county-level returns) + Census (median income)
+:::{.incremental}
+- Geographic data is data organized on three axes (latitude, longitude, altitude)
+- We typically only use latitude and longitude
+- Geo data is often combined with other variables like population
+- Two main types of geo data: points, shapes
+- We sometimes observe points, but most data comes in groups
 :::
 
-. . .
+---
+
+## Example: Restaurants by Zipcode
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+We’re going to use a Census maps and openly available data on restaurant locations to answer this question.
+
+- **Data:** `Census Shapefiles` and `Open Street Maps`
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps are (typically) plots on two axis</p>
+
+*> a basic map of Pittsburgh*
+
+![](i/1.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can show any level of detail available in the data</p>
+
+*> a map of Pittsburgh Zipcodes*
+
+![](i/2.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> We can add information: colors</p>
+
+*> a map of Pittsburgh Zipcode populations*
+
+![](i/3.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> We can add information: colors</p>
+
+*> a map of Pittsburgh Zipcode populations: interactive!*
+
+<iframe src="i/3.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
+
+*> some restaurants in Pittsburgh!*
+
+![](i/4.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
+
+<iframe src="i/4.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data
+<p class="subheader"> Maps can also show points</p>
 
 <br>
 
-*> this is the kind of analysis you'll do for your final project*
-
----
-
-## The Data Challenge
-<p class="subheader">We have two separate datasets that need to be connected</p>
-
-<br>
-
-**Dataset 1**: Presidential election results by county
-
-- County name
-- State
-- Vote counts for 2020
-- Vote counts for 2024
-
-. . .
-
-**Dataset 2**: Median household income by county
-
-- County identifier
-- Median income
-
----
-
-## Step 1: Explore Vote Shares
-<p class="subheader">Q. What do county-level vote shares look like?</p>
-
-First understand what we're working with.
-
-. . .
-
-```{.python}
-# Histogram of 2024 vote shares
-sns.histplot(elections, x='2020')
-```
-
-. . .
-
-```{.python}
-# Histogram of 2024 vote shares
-sns.histplot(elections, x='2024')
-```
-
----
-
-## Step 2: Compare Elections
-<p class="subheader">Q. How did county vote shares change between 2020 and 2024?</p>
-
-Second, lets look at the relationship between Democratic Share in 2020 and 2024.
-
-```{.python}
-# Scatterplot comparing elections
-sns.scatterplot(elections, x='2020', y='2024', alpha=0.5)
-
-# Add 45-degree line
-plt.plot([0,1], [0,1], 'r--', alpha=0.5)
-```
-
-. . .
-
-*> points above the line shifted more Democratic*
-
-*> points below the line shifted more Republican*
-
-. . .
-
-*> but what explains these shifts?*
-
----
-
-## Step 3: Add Income Data
-<p class="subheader">Q. Does county income relate to voting shifts?</p>
-
-To answer this, we need to:
-
-::: {.incremental}
-1. Load the income data
-2. **Merge** it with our election data
-3. Calculate the vote share change
-4. Visualize the relationship
+:::{.incremental}
+- Points are nice but we typically can't use them raw
+- Some point transformations: distances between points; group by area; etc
+- We can also relate points to other variables (eg. zipcode population for each restaurant)
 :::
 
-. . .
-
-<br>
-
-*> but how do we connect two separate datasets?*
-
 ---
 
-## Merging Data: The Concept
-<p class="subheader">Combining datasets based on common identifiers</p>
-
-<br>
-
-**The Key**: Find a common column that uniquely identifies observations
-
-<br>
-
-::: {.incremental}
-- In our case: County FIPS codes (Federal Information Processing Standards)
-- FIPS uniquely identify every US county
-- Format: State code (2 digits) + County code (3 digits) = 5 digits total
-:::
+## Geographic Data Example: Nunn (2008)
+<p class="subheader"> Did the historical trade of enslaved people impact modern economic development in Africa?</p>
 
 . . .
 
-<br>
-
-*> example: Allegheny County, PA = 42003*
-
----
-
-## Types of Merges
-<p class="subheader">Different ways to combine datasets</p>
-
-| Merge Type | Description | Example |
-|------------|-------------|---------|
-| **1:1** | Each row in A matches exactly one row in B | County → County |
-| **1:m** | One row in A matches multiple rows in B | State → Counties |
-| **m:1** | Multiple rows in A match one row in B | Counties → State |
+**Method:** Uses historical data and the distance from major ports
 
 . . .
 
-<br>
+**Findings:** Areas more disrupted by enslavement have lower GDP today, due to:
 
-*> our county merge is 1:1 - each county appears once in each dataset*
+  - **Weakened institutions** (political fragmentation, mistrust).
+  - **Disrupted societies** (population loss, economic stagnation).
+
+. . .
+
+**Implication:** Historical shocks can have persistent economic effects.
 
 ---
 
-## Step 3: Perform the Merge
-<p class="subheader">Combining our datasets</p>
+## Geographic Data Example: Weidman (2024)
+<p class="subheader"> Does the party of your neighbors impact your decision to vote?</p>
 
-```{.python}
-# Merge datasets on county FIPS
-data = pd.merge(elections, 
-                  income, 
-                  left_on='county_fips',
-                  right_on='county_fips',
-                  how='inner')
+. . .
+
+<iframe src="data/data_2_geocode.html" width="100%" height="500px"></iframe>
+
+---
+
+## Geographic Data Example: Weidman (2024)
+<p class="subheader"> My dissertation involved measuring distances between voters</p>
+
+![](i/Figure_D2.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+*> lets get back to our question!*
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+![](i/4.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants further from downtown Pittsburgh?</p>
+
+**Steps:**
+
+. . .
+
+- Measure points by zipcode area
+
+. . .
+
+- Measure distances between groups (take the centroid, etc)
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 1: how many restaurants are in each Pittsburgh zipcode?</p>
+
+. . .
+
+![](i/5.png)
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](i/6_pre.png)
+
+. . .
+
+*> measure from the center (centroid) of the zipcode*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](i/6.png)
+
+*> measure from the center (centroid) of the zipcode*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](i/6a.png)
+
+. . .
+
+*> what's the distribution?*
+
+---
+
+## Geographic Data
+<p class="subheader"> Subquestion 2: how far is each zipcode from downtown?</p>
+
+![](i/6b.png)
+
+. . .
+
+*> we now have enough to answer our main question!*
+
+---
+
+## Geographic Data
+<p class="subheader"> Are there fewer restaurants in areas further from downtown Pittsburgh?</p>
+
+. . .
+
+![](i/7.png)
+
+---
+
+## Homework 1.6 | US City Population and Temp
+<p class="subheader"> </p>
+
+We're going to use data on locations (`lat`, `lng`), `population`, and temperature (`avg_temp`) of US cities to map temerature and examine whether there is a relationship between latitute (north/south) is related to temperature.
+
+- **Data:** `US_Cities.csv` and `Eastern_Cities.csv`
+
+---
+
+# Part 1 Wrap Up
+
+```{python}
+# Imports
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+---
+
+## Exercise 1: Employment Status
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the employment status of individuals.
+
+```{python}
+# Employment status data
+data = pd.read_csv('data/wrapup_01.csv', index_col=0)
+data.head().style.hide(axis="index")
 ```
 
 . . .
 
-**Merge options:**
+Data Dimensions:
 
-- `inner`: Keep only counties in both datasets
-- `left`: Keep all counties from elections data
-- `right`: Keep all counties from income data  
-- `outer`: Keep all counties from either dataset
-
-. . .
-
-*> we use 'inner' to focus on counties with complete data*
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Binary Categorical
 
 ---
 
-## Step 4: Calculate Vote Shifts
-<p class="subheader">Creating our analysis variable</p>
+## Exercise 1: Employment Status
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
 
-```{.python}
-# Calculate the shift in Democratic vote share
-data['dem_shift'] = data['2024'] - data['2016']
+![](i/wrapup_01.png)
+
+A ***Barplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Binary Categorical
+3. Univeriate
+
+---
+
+## Exercise 2: Employment Industry
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the employment sector of individuals.
+
+```{python}
+# Industry sectors
+data = pd.read_csv('data/wrapup_02.csv', index_col=0)
+data.head().style.hide(axis="index")
 ```
 
 . . .
 
-```{.python}
-# Summarize this new variable
-sns.histplot(elections, x='dem_shift')
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Nominal Categorical
+
+---
+
+## Exercise 2: Employment Industry
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_02.png)
+
+A ***Barplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Nominal Categorical
+3. Univeriate
+
+---
+
+## Exercise 3: Educational Attainment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the educational attainment of individuals.
+
+```{python}
+# Education levels
+data = pd.read_csv('data/wrapup_03.csv', index_col=0)
+data.head().style.hide(axis="index")
 ```
 
 . . .
 
-*> now we can explore the relationship with income*
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Ordinal Categorical
 
 ---
 
-## Step 5: Analyze the Relationship
-<p class="subheader">Q. Does county income relate to voting shifts?</p>
+## Exercise 3: Educational Attainment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
 
-```{.python}
-# Scatterplot of income vs vote shift
-sns.scatterplot(data, 
-                x='median_income', 
-                y='dem_shift',
-                alpha=0.3)
+![](i/wrapup_03.png)
 
-# Add horizontal line at zero
-plt.axhline(y=0, color='r', linestyle='--', alpha=0.5)
+A ***Barplot*** *(or histogram)* effectively visualizes
 
-plt.xlabel('Median Household Income ($)')
-plt.ylabel('Change in Democratic Vote Share (2024-2016)')
+1. Cross-Sectional
+2. Ordinal Categorical
+3. Univeriate
+
+---
+
+## Exercise 4: Annual Income
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income.
+
+```{python}
+# Income data
+data = pd.read_csv('data/wrapup_04.csv', index_col=0)
+data.head().style.hide(axis="index")
 ```
 
 . . .
 
-*> what patterns do you see?*
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Numerical
 
 ---
 
-## Common Merge Issues
-<p class="subheader">Watch out for these problems</p>
+## Exercise 4: Annual Income
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
 
-<br>
+![](i/wrapup_04.png)
 
-::: {.incremental}
-- **Missing values**: Some counties might not have income data
-- **Duplicate keys**: Same county appearing multiple times
-- **Type mismatches**: FIPS stored as numbers vs strings
-- **Different naming**: "St. Louis" vs "Saint Louis"
-:::
+A ***Histogram*** *(or boxplot)* effectively visualizes
+
+1. Cross-Sectional
+2. Numerical
+3. Univeriate
+
+---
+
+## Exercise 5: Employment by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on employment by education level.
+
+```{python}
+# Income data
+data = pd.read_csv('data/wrapup_05.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
 
 . . .
 
-<br>
+Data Dimensions:
 
-```{.python}
-# Check for duplicates before merging
-elections['county_fips'].duplicated().sum()
-income['FIPS'].duplicated().sum()
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Categorical by Categorical
+
+---
+
+## Exercise 5: Employment by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+We didn't cover how to visualize categorical by categorical bivariate data.
+
+---
+
+## Exercise 6: Income by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income by education.
+
+```{python}
+# Income by education level
+data = pd.read_csv('data/wrapup_06.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical by Categorical
+
+---
+
+## Exercise 6: Income by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_06.png)
+
+A ***Multi-Boxplot*** *(or multi-linegraph-histogram)* effectively visualizes
+
+1. Cross-Sectional
+2. Numerical by Categorical
+3. Biveriate
+
+---
+
+## Exercise 7: Income by Age
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income by age.
+
+```{python}
+# Income vs Age
+data = pd.read_csv('data/wrapup_07.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical by Numerical
+
+---
+
+## Exercise 7: Income by Age
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_07.png)
+
+A ***Scatterplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Numerical
+3. Biveriate
+
+---
+
+## Exercise 8: GDP After 2015
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on US GDP between 2015 and 2015.
+
+```{python}
+# GDP over time
+data = pd.read_csv('data/wrapup_08.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Timeseries
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Numerical
+
+---
+
+## Exercise 8: GDP After 2015
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_08.png)
+
+A ***Linegraph*** effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Univariate
+
+---
+
+## Exercise 9: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on inflation and unemployment after 2015.
+
+```{python}
+# Unemployment rate and inflation
+data = pd.read_csv('data/wrapup_09.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Timeseries
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical
+
+---
+
+## Exercise 9: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_09_alt.png)
+
+A ***Scatterplot*** *(or sometimes a multilinegraph)* effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Bivariate
+
+---
+
+## Exercise 9: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_09.png)
+
+A ***Scatterplot*** *(or sometimes a multilinegraph)* effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Bivariate
+
+---
+
+## Exercise 10: GDP Growth by Country
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on GDP growth by country after 2020.
+
+```{python}
+# GDP for multiple countries
+data = pd.read_csv('data/wrapup_10.csv', index_col=0)
+data.head().style.hide(axis="index")
 ```
 
 ---
 
-## Summary
-<p class="subheader">Merging allows us to answer richer questions</p>
+## Exercise 10: GDP Growth by Country
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
 
-<br><br>
+![](i/wrapup_10.png)
 
-::: {.incremental}
-- **Identify** common columns to join on (FIPS codes)
-- **Prepare** data for merging (create consistent identifiers)
-- **Merge** using appropriate join type (inner, left, right, outer)
-- **Transform** to create analysis variables (vote shift)
-- **Analyze** the combined dataset
-:::
+A ***Multi-Linegraph*** *(or sometimes a scatterplot)* effectively visualizes
 
-
----
-
-## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader-center">Part 2: Data Operations Practice</p>
-
-<br> 
-
-### *Practice Problems for MiniExam 2*
-
----
-
-## Practice 1: Trace the Filter
-<p class="subheader">Which products remain after filtering?</p>
-
-| Product_ID | Category | Price | In_Stock |
-|------------|----------|-------|----------|
-| P001 | Electronics | 299 | True |
-| P002 | Clothing | 49 | False |
-| P003 | Electronics | 89 | True |
-| P004 | Food | 12 | True |
-| P005 | Clothing | 79 | True |
-
-**Filter:** `(Price < 100) AND (In_Stock == True)`
-
-. . .
-
-*Answer: P003, P004*
-
----
-
-## Practice 2: Multi-Step Operations
-<p class="subheader">Track data through multiple transformations</p>
-
-| Sale_ID | Store | Amount |
-|---------|-------|--------|
-| S001 | North | 120 |
-| S002 | South | 80 |
-| S003 | North | 150 |
-| S004 | South | 90 |
-| S005 | North | 100 |
-
-**Operations:**
-
-1. Filter for Amount >= 100
-2. Group by Store
-3. Calculate mean Amount
-
-. . .
-
-*Answer: North, 125*
-
----
-
-## Practice 3: Data Cleaning Decisions
-<p class="subheader">What cleaning is needed for each entry?</p>
-
-| Response_ID | Duration |
-|------------|----------|
-| R001 | "5 minutes" |
-| R002 | "180" |
-| R003 | "about 3 min" |
-| R004 | "N/A" |
-
-For each entry, select ALL that apply:
-
-. . .
-
-**R001:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
-
-. . .
-
-**R002:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
-
-. . .
-
-**R003:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
-
-. . .
-
-**R004:** [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]
-
----
-
-## Practice 4: Build Complex Filters
-<p class="subheader">Construct the correct boolean logic</p>
-
-**Goal:** Find all employees who:
-
-- Work in either Tech or Sales departments
-- AND have been with company more than 2 years
-- AND earn less than $70,000
-
-. . .
-
-Use these components to construct a filter:
-
-1. (Department == 'Tech')  
-2. (Years > 2)  
-3. (Department == 'Sales')  
-4. (Salary < 70000)
-
-. . .
-
-*Answer: (1 OR 3) AND 2 AND 4*
-
----
-
-## Practice 5: Choose the Right Transformation
-<p class="subheader">Why transform data?</p>
-
-**Scenario:** Comparing test scores across different schools where class sizes vary dramatically (10-50 students)
-
-You have:
-
-- Total_Points_Earned (all students combined)
-- Number_of_Students
-
-. . .
-
-Which transformation makes schools comparable?
-
-a) Total_Points_Earned + Number_of_Students  
-b) Total_Points_Earned - Number_of_Students  
-c) Total_Points_Earned / Number_of_Students  
-d) Total_Points_Earned * Number_of_Students  
-
-. . .
-
-**Answer: c) Creates average score per student**
-
----
-
-## Practice 6: Predict Grouping Output
-<p class="subheader">What will the grouped data look like?</p>
-
-| Order_ID | Customer | Amount | Region |
-|----------|----------|--------|--------|
-| O001 | Alice | 50 | East |
-| O002 | Bob | 30 | West |
-| O003 | Alice | 70 | East |
-| O004 | Charlie | 40 | East |
-| O005 | Bob | 60 | West |
-
-We've `Grouped by Customer` then `Summed by Amount`.
-
-. . .
-
-How many rows in output? _____
-
-. . .
-
-What's the sum for Bob? _____
-
-. . .
-
-Which customer has highest total? _____
-
-. . .
-
-*Answers: 3 rows, 90, Alice (120)*
-
----
-
-## Tips for MiniExam 2
-<p class="subheader">Key concepts to remember</p>
-
-<br>
-
-**Filtering:**
-
-- AND: both conditions must be true
-- OR: at least one condition must be true  
-
-. . .
-
-**Grouping:**
-
-- Output has one row per group
-- Choose the right aggregation (sum, mean, count, etc.)
-
----
-
-## Tips for MiniExam 2
-<p class="subheader">Key concepts to remember</p>
-
-<br>
-
-**Transformations:**
-
-- Division normalizes for fair comparison
-- Log transformation helps with different scales
-
-. . .
-
-**Data Cleaning:**
-
-- Text → Number needs type conversion
-- Missing values: drop or fill (not both!)
-- Consistent format before analysis
+1. Panel
+2. Numerical
+3. Univariate

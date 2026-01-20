@@ -1,0 +1,187 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+# Part 1 Wrap Up
+
+```{python}
+# Imports
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+---
+
+## Exercise 1: Employment Status
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the employment status of individuals.
+
+```{python}
+# Employment status data
+data = pd.read_csv('data/wrapup_01.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Binary Categorical
+
+---
+
+## Exercise 1: Employment Status
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_01.png)
+
+A ***Barplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Binary Categorical
+3. Univeriate
+
+---
+
+## Exercise 2: Employment Industry
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the employment sector of individuals.
+
+```{python}
+# Industry sectors
+data = pd.read_csv('data/wrapup_02.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Nominal Categorical
+
+---
+
+## Exercise 2: Employment Industry
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_02.png)
+
+A ***Barplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Nominal Categorical
+3. Univeriate
+
+---
+
+## Exercise 3: Educational Attainment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on the educational attainment of individuals.
+
+```{python}
+# Education levels
+data = pd.read_csv('data/wrapup_03.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Ordinal Categorical
+
+---
+
+## Exercise 3: Educational Attainment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_03.png)
+
+A ***Barplot*** *(or histogram)* effectively visualizes
+
+1. Cross-Sectional
+2. Ordinal Categorical
+3. Univeriate
+
+---
+
+## Exercise 4: Annual Income
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income.
+
+```{python}
+# Income data
+data = pd.read_csv('data/wrapup_04.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Numerical
+
+---
+
+## Exercise 4: Annual Income
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_04.png)
+
+A ***Histogram*** *(or boxplot)* effectively visualizes
+
+1. Cross-Sectional
+2. Numerical
+3. Univeriate
+
+---
+
+## Exercise 5: GDP After 2015
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on US GDP between 2015 and 2025.
+
+```{python}
+# GDP over time
+data = pd.read_csv('data/wrapup_08.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Timeseries
+2. **Number of Variables**: Univariate
+3. **Variable Type(s)**: Numerical
+
+---
+
+## Exercise 5: GDP After 2015
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_08.png)
+
+A ***Linegraph*** effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Univariate
+

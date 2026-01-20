@@ -1,0 +1,381 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+# Part 2 Wrap Up
+
+```{python}
+# Imports
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+```
+
+---
+
+## Exercise 1: Employment by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on employment by education level.
+
+```{python}
+# Income data
+data = pd.read_csv('data/wrapup_05.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Categorical by Categorical
+
+---
+
+## Exercise 1: Employment by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+We didn't cover how to visualize categorical by categorical bivariate data.
+
+---
+
+## Exercise 2: Income by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income by education.
+
+```{python}
+# Income by education level
+data = pd.read_csv('data/wrapup_06.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical by Categorical
+
+---
+
+## Exercise 2: Income by Education
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_06.png)
+
+A ***Multi-Boxplot*** *(or multi-linegraph-histogram)* effectively visualizes
+
+1. Cross-Sectional
+2. Numerical by Categorical
+3. Biveriate
+
+---
+
+## Exercise 3: Income by Age
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on annual individual income by age.
+
+```{python}
+# Income vs Age
+data = pd.read_csv('data/wrapup_07.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Cross-Sectional
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical by Numerical
+
+---
+
+## Exercise 3: Income by Age
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_07.png)
+
+A ***Scatterplot*** effectively visualizes
+
+1. Cross-Sectional
+2. Numerical
+3. Biveriate
+
+---
+
+## Exercise 4: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on inflation and unemployment after 2015.
+
+```{python}
+# Unemployment rate and inflation
+data = pd.read_csv('data/wrapup_09.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+. . .
+
+Data Dimensions:
+
+1. **Data Structure**: Timeseries
+2. **Number of Variables**: Bivariate
+3. **Variable Type(s)**: Numerical
+
+---
+
+## Exercise 4: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_09_alt.png)
+
+A ***Scatterplot*** *(or sometimes a multilinegraph)* effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Bivariate
+
+---
+
+## Exercise 4: Inflation and Unemployment
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_09.png)
+
+A ***Scatterplot*** *(or sometimes a multilinegraph)* effectively visualizes
+
+1. Timeseries
+2. Numerical
+3. Bivariate
+
+---
+
+## Exercise 5: GDP Growth by Country
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+A dataset on GDP growth by country after 2020.
+
+```{python}
+# GDP for multiple countries
+data = pd.read_csv('data/wrapup_10.csv', index_col=0)
+data.head().style.hide(axis="index")
+```
+
+---
+
+## Exercise 5: GDP Growth by Country
+<p class="subheader"> What 1) are the dimensions of this dataset, and 2) an effecitve visualization? </p>
+
+![](i/wrapup_10.png)
+
+A ***Multi-Linegraph*** *(or sometimes a scatterplot)* effectively visualizes
+
+1. Panel
+2. Numerical
+3. Univariate
+
+---
+
+# Data Operations Practice
+
+---
+
+## Practice 1: Trace the Filter
+<p class="subheader">Which products remain after filtering?</p>
+
+| Product_ID | Category | Price | In_Stock |
+|------------|----------|-------|----------|
+| P001 | Electronics | 299 | True |
+| P002 | Clothing | 49 | False |
+| P003 | Electronics | 89 | True |
+| P004 | Food | 12 | True |
+| P005 | Clothing | 79 | True |
+
+**Filter:** `(Price < 100) AND (In_Stock == True)`
+
+. . .
+
+*Answer: P003, P004, P005*
+
+---
+
+## Practice 2: Multi-Step Operations
+<p class="subheader">Track data through multiple transformations</p>
+
+| Sale_ID | Store | Amount |
+|---------|-------|--------|
+| S001 | North | 120 |
+| S002 | South | 80 |
+| S003 | North | 150 |
+| S004 | South | 90 |
+| S005 | North | 100 |
+
+**Operations:**
+
+1. Filter for Amount >= 100
+2. Group by Store
+3. Calculate mean Amount
+
+. . .
+
+*Answer: North mean = 123.33 (from 120, 150, 100)*
+
+---
+
+## Practice 3: Data Cleaning Decisions
+<p class="subheader">What cleaning is needed for each entry?</p>
+
+| Response_ID | Duration |
+|------------|----------|
+| R001 | "5 minutes" |
+| R002 | "180" |
+| R003 | "about 3 min" |
+| R004 | "N/A" |
+
+For each entry, select ALL that apply:
+
+. . .
+
+**R001:** [Extract number] [Remove text] [Convert type]
+
+. . .
+
+**R002:** [Convert type]
+
+. . .
+
+**R003:** [Extract number] [Remove text] [Convert type]
+
+. . .
+
+**R004:** [Handle missing]
+
+---
+
+## Practice 4: Build Complex Filters
+<p class="subheader">Construct the correct boolean logic</p>
+
+**Goal:** Find all employees who:
+
+- Work in either Tech or Sales departments
+- AND have been with company more than 2 years
+- AND earn less than $70,000
+
+. . .
+
+Use these components to construct a filter:
+
+1. (Department == 'Tech')
+2. (Years > 2)
+3. (Department == 'Sales')
+4. (Salary < 70000)
+
+. . .
+
+*Answer: (1 OR 3) AND 2 AND 4*
+
+---
+
+## Practice 5: Choose the Right Transformation
+<p class="subheader">Why transform data?</p>
+
+**Scenario:** Comparing test scores across different schools where class sizes vary dramatically (10-50 students)
+
+You have:
+
+- Total_Points_Earned (all students combined)
+- Number_of_Students
+
+. . .
+
+Which transformation makes schools comparable?
+
+a) Total_Points_Earned + Number_of_Students
+b) Total_Points_Earned - Number_of_Students
+c) Total_Points_Earned / Number_of_Students
+d) Total_Points_Earned * Number_of_Students
+
+. . .
+
+**Answer: c) Creates average score per student**
+
+---
+
+## Practice 6: Predict Grouping Output
+<p class="subheader">What will the grouped data look like?</p>
+
+| Order_ID | Customer | Amount | Region |
+|----------|----------|--------|--------|
+| O001 | Alice | 50 | East |
+| O002 | Bob | 30 | West |
+| O003 | Alice | 70 | East |
+| O004 | Charlie | 40 | East |
+| O005 | Bob | 60 | West |
+
+We've `Grouped by Customer` then `Summed by Amount`.
+
+. . .
+
+How many rows in output? _____
+
+. . .
+
+What's the sum for Bob? _____
+
+. . .
+
+Which customer has highest total? _____
+
+. . .
+
+*Answers: 3 rows, 90, Alice (120)*
+
+---
+
+## Tips for Part 2
+<p class="subheader">Key concepts to remember</p>
+
+<br>
+
+**Filtering:**
+
+- AND: both conditions must be true
+- OR: at least one condition must be true
+
+. . .
+
+**Grouping:**
+
+- Output has one row per group
+- Choose the right aggregation (sum, mean, count, etc.)
+
+---
+
+## Tips for Part 2
+<p class="subheader">Key concepts to remember</p>
+
+<br>
+
+**Transformations:**
+
+- Division normalizes for fair comparison
+- Log transformation helps with different scales
+
+. . .
+
+**Data Cleaning:**
+
+- Text → Number needs type conversion
+- Missing values: drop or fill (not both!)
+- Consistent format before analysis
+

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_2_5_files/libs/clipboard/clipboard.min.js"></script>
-<script src="concept_2_5_files/libs/quarto-html/tabby.min.js"></script>
-<script src="concept_2_5_files/libs/quarto-html/popper.min.js"></script>
-<script src="concept_2_5_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="concept_2_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="concept_2_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="concept_2_5_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_1_6_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_1_6_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_1_6_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_1_6_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_1_6_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_1_6_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_1_6_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>concept_2_5</title>
+  <title>concept_1_6</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="concept_2_5_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="concept_2_5_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_1_6_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_1_6_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -27,78 +27,13 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="concept_2_5_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_1_6_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="concept_2_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="concept_2_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="concept_2_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="concept_2_5_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_1_6_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_1_6_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_1_6_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_1_6_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -186,6 +121,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -198,570 +136,881 @@
 The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-2.5-merging-data"><em>Part 2.5 | Merging Data</em></h3>
+<h3 id="part-1.6-relationships-in-space"><em>Part 1.6 | Relationships In Space</em></h3>
 </section>
-<section id="final-project-preview" class="slide level2">
-<h2>Final Project Preview</h2>
+<section id="geographic-data" class="slide level2">
+<h2>Geographic Data</h2>
 <p class="subheader">
-Exploring real questions with real data
-</p>
-<p><br><br></p>
-<p>Lets start working through a project together:</p>
-<div>
-<ul>
-<li class="fragment"><strong>Question 1</strong>: Were there systematic patterns in vote share changes between 2020 and 2024?</li>
-<li class="fragment"><strong>Question 2</strong>: Do income levels relate to these voting shifts?</li>
-<li class="fragment"><strong>Data</strong>: MIT Election Lab (county-level returns) + Census (median income)</li>
-</ul>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; this is the kind of analysis you’ll do for your final project</em></p>
-</div>
-</section>
-<section id="the-data-challenge" class="slide level2">
-<h2>The Data Challenge</h2>
-<p class="subheader">
-We have two separate datasets that need to be connected
-</p>
-<p><br></p>
-<p><strong>Dataset 1</strong>: Presidential election results by county</p>
-<ul>
-<li>County name</li>
-<li>State</li>
-<li>Vote counts for 2020</li>
-<li>Vote counts for 2024</li>
-</ul>
-<div class="fragment">
-<p><strong>Dataset 2</strong>: Median household income by county</p>
-<ul>
-<li>County identifier</li>
-<li>Median income</li>
-</ul>
-</div>
-</section>
-<section id="step-1-explore-vote-shares" class="slide level2">
-<h2>Step 1: Explore Vote Shares</h2>
-<p class="subheader">
-Q. What do county-level vote shares look like?
-</p>
-<p>First understand what we’re working with.</p>
-<div class="fragment">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Histogram of 2024 vote shares</span></span>
-<span id="cb1-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'2020'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Histogram of 2024 vote shares</span></span>
-<span id="cb2-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'2024'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="step-2-compare-elections" class="slide level2">
-<h2>Step 2: Compare Elections</h2>
-<p class="subheader">
-Q. How did county vote shares change between 2020 and 2024?
-</p>
-<p>Second, lets look at the relationship between Democratic Share in 2020 and 2024.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Scatterplot comparing elections</span></span>
-<span id="cb3-2"><a href=""></a>sns.scatterplot(elections, x<span class="op">=</span><span class="st">'2020'</span>, y<span class="op">=</span><span class="st">'2024'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a><span class="co"># Add 45-degree line</span></span>
-<span id="cb3-5"><a href=""></a>plt.plot([<span class="dv">0</span>,<span class="dv">1</span>], [<span class="dv">0</span>,<span class="dv">1</span>], <span class="st">'r--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; points above the line shifted more Democratic</em></p>
-<p><em>&gt; points below the line shifted more Republican</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; but what explains these shifts?</em></p>
-</div>
-</section>
-<section id="step-3-add-income-data" class="slide level2">
-<h2>Step 3: Add Income Data</h2>
-<p class="subheader">
-Q. Does county income relate to voting shifts?
-</p>
-<p>To answer this, we need to:</p>
-<div>
-<ol type="1">
-<li class="fragment">Load the income data</li>
-<li class="fragment"><strong>Merge</strong> it with our election data</li>
-<li class="fragment">Calculate the vote share change</li>
-<li class="fragment">Visualize the relationship</li>
-</ol>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; but how do we connect two separate datasets?</em></p>
-</div>
-</section>
-<section id="merging-data-the-concept" class="slide level2">
-<h2>Merging Data: The Concept</h2>
-<p class="subheader">
-Combining datasets based on common identifiers
-</p>
-<p><br></p>
-<p><strong>The Key</strong>: Find a common column that uniquely identifies observations</p>
-<p><br></p>
-<div>
-<ul>
-<li class="fragment">In our case: County FIPS codes (Federal Information Processing Standards)</li>
-<li class="fragment">FIPS uniquely identify every US county</li>
-<li class="fragment">Format: State code (2 digits) + County code (3 digits) = 5 digits total</li>
-</ul>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; example: Allegheny County, PA = 42003</em></p>
-</div>
-</section>
-<section id="types-of-merges" class="slide level2">
-<h2>Types of Merges</h2>
-<p class="subheader">
-Different ways to combine datasets
-</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 38%">
-<col style="width: 26%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Merge Type</th>
-<th>Description</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>1:1</strong></td>
-<td>Each row in A matches exactly one row in B</td>
-<td>County → County</td>
-</tr>
-<tr class="even">
-<td><strong>1:m</strong></td>
-<td>One row in A matches multiple rows in B</td>
-<td>State → Counties</td>
-</tr>
-<tr class="odd">
-<td><strong>m:1</strong></td>
-<td>Multiple rows in A match one row in B</td>
-<td>Counties → State</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; our county merge is 1:1 - each county appears once in each dataset</em></p>
-</div>
-</section>
-<section id="step-3-perform-the-merge" class="slide level2">
-<h2>Step 3: Perform the Merge</h2>
-<p class="subheader">
-Combining our datasets
-</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Merge datasets on county FIPS</span></span>
-<span id="cb4-2"><a href=""></a>data <span class="op">=</span> pd.merge(elections, </span>
-<span id="cb4-3"><a href=""></a>                  income, </span>
-<span id="cb4-4"><a href=""></a>                  left_on<span class="op">=</span><span class="st">'county_fips'</span>,</span>
-<span id="cb4-5"><a href=""></a>                  right_on<span class="op">=</span><span class="st">'county_fips'</span>,</span>
-<span id="cb4-6"><a href=""></a>                  how<span class="op">=</span><span class="st">'inner'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><strong>Merge options:</strong></p>
-<ul>
-<li><code>inner</code>: Keep only counties in both datasets</li>
-<li><code>left</code>: Keep all counties from elections data</li>
-<li><code>right</code>: Keep all counties from income data<br>
-</li>
-<li><code>outer</code>: Keep all counties from either dataset</li>
-</ul>
-</div>
-<div class="fragment">
-<p><em>&gt; we use ‘inner’ to focus on counties with complete data</em></p>
-</div>
-</section>
-<section id="step-4-calculate-vote-shifts" class="slide level2">
-<h2>Step 4: Calculate Vote Shifts</h2>
-<p class="subheader">
-Creating our analysis variable
-</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Calculate the shift in Democratic vote share</span></span>
-<span id="cb5-2"><a href=""></a>data[<span class="st">'dem_shift'</span>] <span class="op">=</span> data[<span class="st">'2024'</span>] <span class="op">-</span> data[<span class="st">'2016'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Summarize this new variable</span></span>
-<span id="cb6-2"><a href=""></a>sns.histplot(elections, x<span class="op">=</span><span class="st">'dem_shift'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<p><em>&gt; now we can explore the relationship with income</em></p>
-</div>
-</section>
-<section id="step-5-analyze-the-relationship" class="slide level2">
-<h2>Step 5: Analyze the Relationship</h2>
-<p class="subheader">
-Q. Does county income relate to voting shifts?
-</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Scatterplot of income vs vote shift</span></span>
-<span id="cb7-2"><a href=""></a>sns.scatterplot(data, </span>
-<span id="cb7-3"><a href=""></a>                x<span class="op">=</span><span class="st">'median_income'</span>, </span>
-<span id="cb7-4"><a href=""></a>                y<span class="op">=</span><span class="st">'dem_shift'</span>,</span>
-<span id="cb7-5"><a href=""></a>                alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb7-6"><a href=""></a></span>
-<span id="cb7-7"><a href=""></a><span class="co"># Add horizontal line at zero</span></span>
-<span id="cb7-8"><a href=""></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb7-9"><a href=""></a></span>
-<span id="cb7-10"><a href=""></a>plt.xlabel(<span class="st">'Median Household Income ($)'</span>)</span>
-<span id="cb7-11"><a href=""></a>plt.ylabel(<span class="st">'Change in Democratic Vote Share (2024-2016)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; what patterns do you see?</em></p>
-</div>
-</section>
-<section id="common-merge-issues" class="slide level2">
-<h2>Common Merge Issues</h2>
-<p class="subheader">
-Watch out for these problems
-</p>
-<p><br></p>
-<div>
-<ul>
-<li class="fragment"><strong>Missing values</strong>: Some counties might not have income data</li>
-<li class="fragment"><strong>Duplicate keys</strong>: Same county appearing multiple times</li>
-<li class="fragment"><strong>Type mismatches</strong>: FIPS stored as numbers vs strings</li>
-<li class="fragment"><strong>Different naming</strong>: “St.&nbsp;Louis” vs “Saint Louis”</li>
-</ul>
-</div>
-<div class="fragment">
-<p><br></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Check for duplicates before merging</span></span>
-<span id="cb8-2"><a href=""></a>elections[<span class="st">'county_fips'</span>].duplicated().<span class="bu">sum</span>()</span>
-<span id="cb8-3"><a href=""></a>income[<span class="st">'FIPS'</span>].duplicated().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
-<p class="subheader">
-Merging allows us to answer richer questions
+Some types of relationships in space
 </p>
 <p><br><br></p>
 <div>
 <ul>
-<li class="fragment"><strong>Identify</strong> common columns to join on (FIPS codes)</li>
-<li class="fragment"><strong>Prepare</strong> data for merging (create consistent identifiers)</li>
-<li class="fragment"><strong>Merge</strong> using appropriate join type (inner, left, right, outer)</li>
-<li class="fragment"><strong>Transform</strong> to create analysis variables (vote shift)</li>
-<li class="fragment"><strong>Analyze</strong> the combined dataset</li>
+<li class="fragment">Geographic data is data organized on three axes (latitude, longitude, altitude)</li>
+<li class="fragment">We typically only use latitude and longitude</li>
+<li class="fragment">Geo data is often combined with other variables like population</li>
+<li class="fragment">Two main types of geo data: points, shapes</li>
+<li class="fragment">We sometimes observe points, but most data comes in groups</li>
 </ul>
 </div>
 </section>
-<section id="econ-0150-economic-data-analysis-1" class="slide level2 center">
-<h2>ECON 0150 | Economic Data Analysis</h2>
-<p class="subheader-center">
-Part 2: Data Operations Practice
-</p>
-<p><br></p>
-<h3 id="practice-problems-for-miniexam-2"><em>Practice Problems for MiniExam 2</em></h3>
-</section>
-<section id="practice-1-trace-the-filter" class="slide level2">
-<h2>Practice 1: Trace the Filter</h2>
+<section id="example-restaurants-by-zipcode" class="slide level2">
+<h2>Example: Restaurants by Zipcode</h2>
 <p class="subheader">
-Which products remain after filtering?
+Are there fewer restaurants further from downtown Pittsburgh?
 </p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Product_ID</th>
-<th>Category</th>
-<th>Price</th>
-<th>In_Stock</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>P001</td>
-<td>Electronics</td>
-<td>299</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<td>P002</td>
-<td>Clothing</td>
-<td>49</td>
-<td>False</td>
-</tr>
-<tr class="odd">
-<td>P003</td>
-<td>Electronics</td>
-<td>89</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<td>P004</td>
-<td>Food</td>
-<td>12</td>
-<td>True</td>
-</tr>
-<tr class="odd">
-<td>P005</td>
-<td>Clothing</td>
-<td>79</td>
-<td>True</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Filter:</strong> <code>(Price &lt; 100) AND (In_Stock == True)</code></p>
-<div class="fragment">
-<p><em>Answer: P003, P004</em></p>
-</div>
-</section>
-<section id="practice-2-multi-step-operations" class="slide level2">
-<h2>Practice 2: Multi-Step Operations</h2>
-<p class="subheader">
-Track data through multiple transformations
-</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Sale_ID</th>
-<th>Store</th>
-<th>Amount</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>S001</td>
-<td>North</td>
-<td>120</td>
-</tr>
-<tr class="even">
-<td>S002</td>
-<td>South</td>
-<td>80</td>
-</tr>
-<tr class="odd">
-<td>S003</td>
-<td>North</td>
-<td>150</td>
-</tr>
-<tr class="even">
-<td>S004</td>
-<td>South</td>
-<td>90</td>
-</tr>
-<tr class="odd">
-<td>S005</td>
-<td>North</td>
-<td>100</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Operations:</strong></p>
-<ol type="1">
-<li>Filter for Amount &gt;= 100</li>
-<li>Group by Store</li>
-<li>Calculate mean Amount</li>
-</ol>
-<div class="fragment">
-<p><em>Answer: North, 125</em></p>
-</div>
-</section>
-<section id="practice-3-data-cleaning-decisions" class="slide level2">
-<h2>Practice 3: Data Cleaning Decisions</h2>
-<p class="subheader">
-What cleaning is needed for each entry?
-</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Response_ID</th>
-<th>Duration</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>R001</td>
-<td>“5 minutes”</td>
-</tr>
-<tr class="even">
-<td>R002</td>
-<td>“180”</td>
-</tr>
-<tr class="odd">
-<td>R003</td>
-<td>“about 3 min”</td>
-</tr>
-<tr class="even">
-<td>R004</td>
-<td>“N/A”</td>
-</tr>
-</tbody>
-</table>
-<p>For each entry, select ALL that apply:</p>
-<div class="fragment">
-<p><strong>R001:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
-</div>
-<div class="fragment">
-<p><strong>R002:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
-</div>
-<div class="fragment">
-<p><strong>R003:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
-</div>
-<div class="fragment">
-<p><strong>R004:</strong> [Extract number] [Remove text] [Convert type] [Handle missing] [Already clean]</p>
-</div>
-</section>
-<section id="practice-4-build-complex-filters" class="slide level2">
-<h2>Practice 4: Build Complex Filters</h2>
-<p class="subheader">
-Construct the correct boolean logic
-</p>
-<p><strong>Goal:</strong> Find all employees who:</p>
+<p>We’re going to use a Census maps and openly available data on restaurant locations to answer this question.</p>
 <ul>
-<li>Work in either Tech or Sales departments</li>
-<li>AND have been with company more than 2 years</li>
-<li>AND earn less than $70,000</li>
+<li><strong>Data:</strong> <code>Census Shapefiles</code> and <code>Open Street Maps</code></li>
 </ul>
-<div class="fragment">
-<p>Use these components to construct a filter:</p>
-<ol type="1">
-<li>(Department == ‘Tech’)<br>
-</li>
-<li>(Years &gt; 2)<br>
-</li>
-<li>(Department == ‘Sales’)<br>
-</li>
-<li>(Salary &lt; 70000)</li>
-</ol>
-</div>
-<div class="fragment">
-<p><em>Answer: (1 OR 3) AND 2 AND 4</em></p>
-</div>
 </section>
-<section id="practice-5-choose-the-right-transformation" class="slide level2">
-<h2>Practice 5: Choose the Right Transformation</h2>
+<section id="geographic-data-1" class="slide level2">
+<h2>Geographic Data</h2>
 <p class="subheader">
-Why transform data?
+Maps are (typically) plots on two axis
 </p>
-<p><strong>Scenario:</strong> Comparing test scores across different schools where class sizes vary dramatically (10-50 students)</p>
-<p>You have:</p>
-<ul>
-<li>Total_Points_Earned (all students combined)</li>
-<li>Number_of_Students</li>
-</ul>
-<div class="fragment">
-<p>Which transformation makes schools comparable?</p>
-<ol type="a">
-<li>Total_Points_Earned + Number_of_Students<br>
-</li>
-<li>Total_Points_Earned - Number_of_Students<br>
-</li>
-<li>Total_Points_Earned / Number_of_Students<br>
-</li>
-<li>Total_Points_Earned * Number_of_Students</li>
-</ol>
-</div>
-<div class="fragment">
-<p><strong>Answer: c) Creates average score per student</strong></p>
-</div>
-</section>
-<section id="practice-6-predict-grouping-output" class="slide level2">
-<h2>Practice 6: Predict Grouping Output</h2>
-<p class="subheader">
-What will the grouped data look like?
-</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Order_ID</th>
-<th>Customer</th>
-<th>Amount</th>
-<th>Region</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>O001</td>
-<td>Alice</td>
-<td>50</td>
-<td>East</td>
-</tr>
-<tr class="even">
-<td>O002</td>
-<td>Bob</td>
-<td>30</td>
-<td>West</td>
-</tr>
-<tr class="odd">
-<td>O003</td>
-<td>Alice</td>
-<td>70</td>
-<td>East</td>
-</tr>
-<tr class="even">
-<td>O004</td>
-<td>Charlie</td>
-<td>40</td>
-<td>East</td>
-</tr>
-<tr class="odd">
-<td>O005</td>
-<td>Bob</td>
-<td>60</td>
-<td>West</td>
-</tr>
-</tbody>
-</table>
-<p>We’ve <code>Grouped by Customer</code> then <code>Summed by Amount</code>.</p>
-<div class="fragment">
-<p>How many rows in output? _____</p>
-</div>
-<div class="fragment">
-<p>What’s the sum for Bob? _____</p>
-</div>
-<div class="fragment">
-<p>Which customer has highest total? _____</p>
-</div>
-<div class="fragment">
-<p><em>Answers: 3 rows, 90, Alice (120)</em></p>
-</div>
-</section>
-<section id="tips-for-miniexam-2" class="slide level2">
-<h2>Tips for MiniExam 2</h2>
-<p class="subheader">
-Key concepts to remember
-</p>
-<p><br></p>
-<p><strong>Filtering:</strong></p>
-<ul>
-<li>AND: both conditions must be true</li>
-<li>OR: at least one condition must be true</li>
-</ul>
-<div class="fragment">
-<p><strong>Grouping:</strong></p>
-<ul>
-<li>Output has one row per group</li>
-<li>Choose the right aggregation (sum, mean, count, etc.)</li>
-</ul>
-</div>
-</section>
-<section id="tips-for-miniexam-2-1" class="slide level2">
-<h2>Tips for MiniExam 2</h2>
-<p class="subheader">
-Key concepts to remember
-</p>
-<p><br></p>
-<p><strong>Transformations:</strong></p>
-<ul>
-<li>Division normalizes for fair comparison</li>
-<li>Log transformation helps with different scales</li>
-</ul>
-<div class="fragment">
-<p><strong>Data Cleaning:</strong></p>
-<ul>
-<li>Text → Number needs type conversion</li>
-<li>Missing values: drop or fill (not both!)</li>
-<li>Consistent format before analysis</li>
-</ul>
+<p><em>&gt; a basic map of Pittsburgh</em></p>
 
+<img data-src="i/1.png" class="r-stretch"></section>
+<section id="geographic-data-2" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Maps can show any level of detail available in the data
+</p>
+<p><em>&gt; a map of Pittsburgh Zipcodes</em></p>
+
+<img data-src="i/2.png" class="r-stretch"></section>
+<section id="geographic-data-3" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+We can add information: colors
+</p>
+<p><em>&gt; a map of Pittsburgh Zipcode populations</em></p>
+
+<img data-src="i/3.png" class="r-stretch"></section>
+<section id="geographic-data-4" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+We can add information: colors
+</p>
+<p><em>&gt; a map of Pittsburgh Zipcode populations: interactive!</em></p>
+<iframe src="i/3.html" width="100%" height="500px">
+</iframe>
+</section>
+<section id="geographic-data-5" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Maps can also show points
+</p>
+<p><em>&gt; some restaurants in Pittsburgh!</em></p>
+
+<img data-src="i/4.png" class="r-stretch"></section>
+<section id="geographic-data-6" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Maps can also show points
+</p>
+<iframe src="i/4.html" width="100%" height="500px">
+</iframe>
+</section>
+<section id="geographic-data-7" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Maps can also show points
+</p>
+<p><br></p>
+<div>
+<ul>
+<li class="fragment">Points are nice but we typically can’t use them raw</li>
+<li class="fragment">Some point transformations: distances between points; group by area; etc</li>
+<li class="fragment">We can also relate points to other variables (eg. zipcode population for each restaurant)</li>
+</ul>
 </div>
 </section>
+<section id="geographic-data-example-nunn-2008" class="slide level2">
+<h2>Geographic Data Example: Nunn (2008)</h2>
+<p class="subheader">
+Did the historical trade of enslaved people impact modern economic development in Africa?
+</p>
+<div class="fragment">
+<p><strong>Method:</strong> Uses historical data and the distance from major ports</p>
+</div>
+<div class="fragment">
+<p><strong>Findings:</strong> Areas more disrupted by enslavement have lower GDP today, due to:</p>
+<ul>
+<li><strong>Weakened institutions</strong> (political fragmentation, mistrust).</li>
+<li><strong>Disrupted societies</strong> (population loss, economic stagnation).</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Implication:</strong> Historical shocks can have persistent economic effects.</p>
+</div>
+</section>
+<section id="geographic-data-example-weidman-2024" class="slide level2">
+<h2>Geographic Data Example: Weidman (2024)</h2>
+<p class="subheader">
+Does the party of your neighbors impact your decision to vote?
+</p>
+<div class="fragment">
+<iframe src="data/data_2_geocode.html" width="100%" height="500px">
+</iframe>
+</div>
+</section>
+<section id="geographic-data-example-weidman-2024-1" class="slide level2">
+<h2>Geographic Data Example: Weidman (2024)</h2>
+<p class="subheader">
+My dissertation involved measuring distances between voters
+</p>
+
+<img data-src="i/Figure_D2.png" class="r-stretch"></section>
+<section id="geographic-data-8" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Are there fewer restaurants further from downtown Pittsburgh?
+</p>
+<p><em>&gt; lets get back to our question!</em></p>
+</section>
+<section id="geographic-data-9" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Are there fewer restaurants further from downtown Pittsburgh?
+</p>
+
+<img data-src="i/4.png" class="r-stretch"></section>
+<section id="geographic-data-10" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Are there fewer restaurants further from downtown Pittsburgh?
+</p>
+<p><strong>Steps:</strong></p>
+<div class="fragment">
+<ul>
+<li>Measure points by zipcode area</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Measure distances between groups (take the centroid, etc)</li>
+</ul>
+</div>
+</section>
+<section id="geographic-data-11" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Subquestion 1: how many restaurants are in each Pittsburgh zipcode?
+</p>
+<div class="fragment">
+<p><img data-src="i/5.png"></p>
+</div>
+</section>
+<section id="geographic-data-12" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Subquestion 2: how far is each zipcode from downtown?
+</p>
+
+<img data-src="i/6_pre.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; measure from the center (centroid) of the zipcode</em></p>
+</div>
+</section>
+<section id="geographic-data-13" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Subquestion 2: how far is each zipcode from downtown?
+</p>
+
+<img data-src="i/6.png" class="r-stretch"><p><em>&gt; measure from the center (centroid) of the zipcode</em></p>
+</section>
+<section id="geographic-data-14" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Subquestion 2: how far is each zipcode from downtown?
+</p>
+
+<img data-src="i/6a.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; what’s the distribution?</em></p>
+</div>
+</section>
+<section id="geographic-data-15" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Subquestion 2: how far is each zipcode from downtown?
+</p>
+
+<img data-src="i/6b.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; we now have enough to answer our main question!</em></p>
+</div>
+</section>
+<section id="geographic-data-16" class="slide level2">
+<h2>Geographic Data</h2>
+<p class="subheader">
+Are there fewer restaurants in areas further from downtown Pittsburgh?
+</p>
+<div class="fragment">
+<p><img data-src="i/7.png"></p>
+</div>
+</section>
+<section id="homework-1.6-us-city-population-and-temp" class="slide level2">
+<h2>Homework 1.6 | US City Population and Temp</h2>
+<p class="subheader">
+</p>
+<p>We’re going to use data on locations (<code>lat</code>, <code>lng</code>), <code>population</code>, and temperature (<code>avg_temp</code>) of US cities to map temerature and examine whether there is a relationship between latitute (north/south) is related to temperature.</p>
+<ul>
+<li><strong>Data:</strong> <code>US_Cities.csv</code> and <code>Eastern_Cities.csv</code></li>
+</ul>
+</section>
+<section class="slide level2">
+
+</section>
+<section>
+<section id="part-1-wrap-up" class="title-slide slide level1 center">
+<h1>Part 1 Wrap Up</h1>
+
+</section>
+<section id="exercise-1-employment-status" class="slide level2">
+<h2>Exercise 1: Employment Status</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on the employment status of individuals.</p>
+<div id="84a0f554" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="2">
+<style type="text/css">
+</style>
+
+<table id="T_af32d" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_af32d_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">id</th>
+<th id="T_af32d_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_af32d_row0_col0" class="data row0 col0">1</td>
+<td id="T_af32d_row0_col1" class="data row0 col1">Employed</td>
+</tr>
+<tr class="even">
+<td id="T_af32d_row1_col0" class="data row1 col0">2</td>
+<td id="T_af32d_row1_col1" class="data row1 col1">Unemployed</td>
+</tr>
+<tr class="odd">
+<td id="T_af32d_row2_col0" class="data row2 col0">3</td>
+<td id="T_af32d_row2_col1" class="data row2 col1">Employed</td>
+</tr>
+<tr class="even">
+<td id="T_af32d_row3_col0" class="data row3 col0">4</td>
+<td id="T_af32d_row3_col1" class="data row3 col1">Employed</td>
+</tr>
+<tr class="odd">
+<td id="T_af32d_row4_col0" class="data row4 col0">5</td>
+<td id="T_af32d_row4_col1" class="data row4 col1">Unemployed</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Univariate</li>
+<li><strong>Variable Type(s)</strong>: Binary Categorical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-1-employment-status-1" class="slide level2">
+<h2>Exercise 1: Employment Status</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_01.png" class="r-stretch"><p>A <strong><em>Barplot</em></strong> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Binary Categorical</li>
+<li>Univeriate</li>
+</ol>
+</section>
+<section id="exercise-2-employment-industry" class="slide level2">
+<h2>Exercise 2: Employment Industry</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on the employment sector of individuals.</p>
+<div id="0d06ef2c" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="3">
+<style type="text/css">
+</style>
+
+<table id="T_cae5b" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_cae5b_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">sector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_cae5b_row0_col0" class="data row0 col0">Tech</td>
+</tr>
+<tr class="even">
+<td id="T_cae5b_row1_col0" class="data row1 col0">Healthcare</td>
+</tr>
+<tr class="odd">
+<td id="T_cae5b_row2_col0" class="data row2 col0">Finance</td>
+</tr>
+<tr class="even">
+<td id="T_cae5b_row3_col0" class="data row3 col0">Tech</td>
+</tr>
+<tr class="odd">
+<td id="T_cae5b_row4_col0" class="data row4 col0">Manufacturing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Univariate</li>
+<li><strong>Variable Type(s)</strong>: Nominal Categorical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-2-employment-industry-1" class="slide level2">
+<h2>Exercise 2: Employment Industry</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_02.png" class="r-stretch"><p>A <strong><em>Barplot</em></strong> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Nominal Categorical</li>
+<li>Univeriate</li>
+</ol>
+</section>
+<section id="exercise-3-educational-attainment" class="slide level2">
+<h2>Exercise 3: Educational Attainment</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on the educational attainment of individuals.</p>
+<div id="2dd65151" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="4">
+<style type="text/css">
+</style>
+
+<table id="T_46c95" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_46c95_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_46c95_row0_col0" class="data row0 col0">High School</td>
+</tr>
+<tr class="even">
+<td id="T_46c95_row1_col0" class="data row1 col0">Bachelor's</td>
+</tr>
+<tr class="odd">
+<td id="T_46c95_row2_col0" class="data row2 col0">Master's</td>
+</tr>
+<tr class="even">
+<td id="T_46c95_row3_col0" class="data row3 col0">High School</td>
+</tr>
+<tr class="odd">
+<td id="T_46c95_row4_col0" class="data row4 col0">Bachelor's</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Univariate</li>
+<li><strong>Variable Type(s)</strong>: Ordinal Categorical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-3-educational-attainment-1" class="slide level2">
+<h2>Exercise 3: Educational Attainment</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_03.png" class="r-stretch"><p>A <strong><em>Barplot</em></strong> <em>(or histogram)</em> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Ordinal Categorical</li>
+<li>Univeriate</li>
+</ol>
+</section>
+<section id="exercise-4-annual-income" class="slide level2">
+<h2>Exercise 4: Annual Income</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on annual individual income.</p>
+<div id="aa94f2dd" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="5">
+<style type="text/css">
+</style>
+
+<table id="T_c8e9e" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_c8e9e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">income</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_c8e9e_row0_col0" class="data row0 col0">45000</td>
+</tr>
+<tr class="even">
+<td id="T_c8e9e_row1_col0" class="data row1 col0">52000</td>
+</tr>
+<tr class="odd">
+<td id="T_c8e9e_row2_col0" class="data row2 col0">38000</td>
+</tr>
+<tr class="even">
+<td id="T_c8e9e_row3_col0" class="data row3 col0">65000</td>
+</tr>
+<tr class="odd">
+<td id="T_c8e9e_row4_col0" class="data row4 col0">41000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Univariate</li>
+<li><strong>Variable Type(s)</strong>: Numerical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-4-annual-income-1" class="slide level2">
+<h2>Exercise 4: Annual Income</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_04.png" class="r-stretch"><p>A <strong><em>Histogram</em></strong> <em>(or boxplot)</em> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Numerical</li>
+<li>Univeriate</li>
+</ol>
+</section>
+<section id="exercise-5-employment-by-education" class="slide level2">
+<h2>Exercise 5: Employment by Education</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on employment by education level.</p>
+<div id="ca32a5c1" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="6">
+<style type="text/css">
+</style>
+
+<table id="T_26dc6" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_26dc6_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">education</th>
+<th id="T_26dc6_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">employed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_26dc6_row0_col0" class="data row0 col0">High School</td>
+<td id="T_26dc6_row0_col1" class="data row0 col1">Yes</td>
+</tr>
+<tr class="even">
+<td id="T_26dc6_row1_col0" class="data row1 col0">Bachelor's</td>
+<td id="T_26dc6_row1_col1" class="data row1 col1">Yes</td>
+</tr>
+<tr class="odd">
+<td id="T_26dc6_row2_col0" class="data row2 col0">Master's</td>
+<td id="T_26dc6_row2_col1" class="data row2 col1">No</td>
+</tr>
+<tr class="even">
+<td id="T_26dc6_row3_col0" class="data row3 col0">High School</td>
+<td id="T_26dc6_row3_col1" class="data row3 col1">No</td>
+</tr>
+<tr class="odd">
+<td id="T_26dc6_row4_col0" class="data row4 col0">Bachelor's</td>
+<td id="T_26dc6_row4_col1" class="data row4 col1">Yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Bivariate</li>
+<li><strong>Variable Type(s)</strong>: Categorical by Categorical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-5-employment-by-education-1" class="slide level2">
+<h2>Exercise 5: Employment by Education</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>We didn’t cover how to visualize categorical by categorical bivariate data.</p>
+</section>
+<section id="exercise-6-income-by-education" class="slide level2">
+<h2>Exercise 6: Income by Education</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on annual individual income by education.</p>
+<div id="d903b653" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="7">
+<style type="text/css">
+</style>
+
+<table id="T_44b99" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_44b99_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">education</th>
+<th id="T_44b99_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">income</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_44b99_row0_col0" class="data row0 col0">High School</td>
+<td id="T_44b99_row0_col1" class="data row0 col1">35000</td>
+</tr>
+<tr class="even">
+<td id="T_44b99_row1_col0" class="data row1 col0">Bachelor's</td>
+<td id="T_44b99_row1_col1" class="data row1 col1">52000</td>
+</tr>
+<tr class="odd">
+<td id="T_44b99_row2_col0" class="data row2 col0">Master's</td>
+<td id="T_44b99_row2_col1" class="data row2 col1">68000</td>
+</tr>
+<tr class="even">
+<td id="T_44b99_row3_col0" class="data row3 col0">High School</td>
+<td id="T_44b99_row3_col1" class="data row3 col1">38000</td>
+</tr>
+<tr class="odd">
+<td id="T_44b99_row4_col0" class="data row4 col0">Bachelor's</td>
+<td id="T_44b99_row4_col1" class="data row4 col1">55000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Bivariate</li>
+<li><strong>Variable Type(s)</strong>: Numerical by Categorical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-6-income-by-education-1" class="slide level2">
+<h2>Exercise 6: Income by Education</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_06.png" class="r-stretch"><p>A <strong><em>Multi-Boxplot</em></strong> <em>(or multi-linegraph-histogram)</em> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Numerical by Categorical</li>
+<li>Biveriate</li>
+</ol>
+</section>
+<section id="exercise-7-income-by-age" class="slide level2">
+<h2>Exercise 7: Income by Age</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on annual individual income by age.</p>
+<div id="dfdfa813" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="8">
+<style type="text/css">
+</style>
+
+<table id="T_cb445" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_cb445_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">age</th>
+<th id="T_cb445_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">income</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_cb445_row0_col0" class="data row0 col0">25</td>
+<td id="T_cb445_row0_col1" class="data row0 col1">35000</td>
+</tr>
+<tr class="even">
+<td id="T_cb445_row1_col0" class="data row1 col0">32</td>
+<td id="T_cb445_row1_col1" class="data row1 col1">52000</td>
+</tr>
+<tr class="odd">
+<td id="T_cb445_row2_col0" class="data row2 col0">28</td>
+<td id="T_cb445_row2_col1" class="data row2 col1">42000</td>
+</tr>
+<tr class="even">
+<td id="T_cb445_row3_col0" class="data row3 col0">45</td>
+<td id="T_cb445_row3_col1" class="data row3 col1">68000</td>
+</tr>
+<tr class="odd">
+<td id="T_cb445_row4_col0" class="data row4 col0">38</td>
+<td id="T_cb445_row4_col1" class="data row4 col1">58000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Cross-Sectional</li>
+<li><strong>Number of Variables</strong>: Bivariate</li>
+<li><strong>Variable Type(s)</strong>: Numerical by Numerical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-7-income-by-age-1" class="slide level2">
+<h2>Exercise 7: Income by Age</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_07.png" class="r-stretch"><p>A <strong><em>Scatterplot</em></strong> effectively visualizes</p>
+<ol type="1">
+<li>Cross-Sectional</li>
+<li>Numerical</li>
+<li>Biveriate</li>
+</ol>
+</section>
+<section id="exercise-8-gdp-after-2015" class="slide level2">
+<h2>Exercise 8: GDP After 2015</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on US GDP between 2015 and 2015.</p>
+<div id="6760e687" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="9">
+<style type="text/css">
+</style>
+
+<table id="T_35a2c" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_35a2c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">year</th>
+<th id="T_35a2c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">gdp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_35a2c_row0_col0" class="data row0 col0">2015</td>
+<td id="T_35a2c_row0_col1" class="data row0 col1">18.000000</td>
+</tr>
+<tr class="even">
+<td id="T_35a2c_row1_col0" class="data row1 col0">2016</td>
+<td id="T_35a2c_row1_col1" class="data row1 col1">18.600000</td>
+</tr>
+<tr class="odd">
+<td id="T_35a2c_row2_col0" class="data row2 col0">2017</td>
+<td id="T_35a2c_row2_col1" class="data row2 col1">19.500000</td>
+</tr>
+<tr class="even">
+<td id="T_35a2c_row3_col0" class="data row3 col0">2018</td>
+<td id="T_35a2c_row3_col1" class="data row3 col1">20.500000</td>
+</tr>
+<tr class="odd">
+<td id="T_35a2c_row4_col0" class="data row4 col0">2019</td>
+<td id="T_35a2c_row4_col1" class="data row4 col1">21.400000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Timeseries</li>
+<li><strong>Number of Variables</strong>: Univariate</li>
+<li><strong>Variable Type(s)</strong>: Numerical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-8-gdp-after-2015-1" class="slide level2">
+<h2>Exercise 8: GDP After 2015</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_08.png" class="r-stretch"><p>A <strong><em>Linegraph</em></strong> effectively visualizes</p>
+<ol type="1">
+<li>Timeseries</li>
+<li>Numerical</li>
+<li>Univariate</li>
+</ol>
+</section>
+<section id="exercise-9-inflation-and-unemployment" class="slide level2">
+<h2>Exercise 9: Inflation and Unemployment</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on inflation and unemployment after 2015.</p>
+<div id="f09fcd79" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="10">
+<style type="text/css">
+</style>
+
+<table id="T_8d4c7" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_8d4c7_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">year</th>
+<th id="T_8d4c7_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">unemployment</th>
+<th id="T_8d4c7_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">inflation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_8d4c7_row0_col0" class="data row0 col0">2015</td>
+<td id="T_8d4c7_row0_col1" class="data row0 col1">5.300000</td>
+<td id="T_8d4c7_row0_col2" class="data row0 col2">0.100000</td>
+</tr>
+<tr class="even">
+<td id="T_8d4c7_row1_col0" class="data row1 col0">2016</td>
+<td id="T_8d4c7_row1_col1" class="data row1 col1">4.900000</td>
+<td id="T_8d4c7_row1_col2" class="data row1 col2">1.300000</td>
+</tr>
+<tr class="odd">
+<td id="T_8d4c7_row2_col0" class="data row2 col0">2017</td>
+<td id="T_8d4c7_row2_col1" class="data row2 col1">4.400000</td>
+<td id="T_8d4c7_row2_col2" class="data row2 col2">2.100000</td>
+</tr>
+<tr class="even">
+<td id="T_8d4c7_row3_col0" class="data row3 col0">2018</td>
+<td id="T_8d4c7_row3_col1" class="data row3 col1">3.900000</td>
+<td id="T_8d4c7_row3_col2" class="data row3 col2">2.400000</td>
+</tr>
+<tr class="odd">
+<td id="T_8d4c7_row4_col0" class="data row4 col0">2019</td>
+<td id="T_8d4c7_row4_col1" class="data row4 col1">3.700000</td>
+<td id="T_8d4c7_row4_col2" class="data row4 col2">1.800000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<p>Data Dimensions:</p>
+<ol type="1">
+<li><strong>Data Structure</strong>: Timeseries</li>
+<li><strong>Number of Variables</strong>: Bivariate</li>
+<li><strong>Variable Type(s)</strong>: Numerical</li>
+</ol>
+</div>
+</section>
+<section id="exercise-9-inflation-and-unemployment-1" class="slide level2">
+<h2>Exercise 9: Inflation and Unemployment</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_09_alt.png" class="r-stretch"><p>A <strong><em>Scatterplot</em></strong> <em>(or sometimes a multilinegraph)</em> effectively visualizes</p>
+<ol type="1">
+<li>Timeseries</li>
+<li>Numerical</li>
+<li>Bivariate</li>
+</ol>
+</section>
+<section id="exercise-9-inflation-and-unemployment-2" class="slide level2">
+<h2>Exercise 9: Inflation and Unemployment</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_09.png" class="r-stretch"><p>A <strong><em>Scatterplot</em></strong> <em>(or sometimes a multilinegraph)</em> effectively visualizes</p>
+<ol type="1">
+<li>Timeseries</li>
+<li>Numerical</li>
+<li>Bivariate</li>
+</ol>
+</section>
+<section id="exercise-10-gdp-growth-by-country" class="slide level2">
+<h2>Exercise 10: GDP Growth by Country</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+<p>A dataset on GDP growth by country after 2020.</p>
+<div id="37056b2e" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="11">
+<style type="text/css">
+</style>
+
+<table id="T_88666" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_88666_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">country</th>
+<th id="T_88666_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">year</th>
+<th id="T_88666_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">gdp_growth</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_88666_row0_col0" class="data row0 col0">USA</td>
+<td id="T_88666_row0_col1" class="data row0 col1">2020</td>
+<td id="T_88666_row0_col2" class="data row0 col2">2.200000</td>
+</tr>
+<tr class="even">
+<td id="T_88666_row1_col0" class="data row1 col0">USA</td>
+<td id="T_88666_row1_col1" class="data row1 col1">2021</td>
+<td id="T_88666_row1_col2" class="data row1 col2">5.700000</td>
+</tr>
+<tr class="odd">
+<td id="T_88666_row2_col0" class="data row2 col0">USA</td>
+<td id="T_88666_row2_col1" class="data row2 col1">2022</td>
+<td id="T_88666_row2_col2" class="data row2 col2">2.100000</td>
+</tr>
+<tr class="even">
+<td id="T_88666_row3_col0" class="data row3 col0">USA</td>
+<td id="T_88666_row3_col1" class="data row3 col1">2023</td>
+<td id="T_88666_row3_col2" class="data row3 col2">2.900000</td>
+</tr>
+<tr class="odd">
+<td id="T_88666_row4_col0" class="data row4 col0">Germany</td>
+<td id="T_88666_row4_col1" class="data row4 col1">2020</td>
+<td id="T_88666_row4_col2" class="data row4 col2">-4.600000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="exercise-10-gdp-growth-by-country-1" class="slide level2">
+<h2>Exercise 10: GDP Growth by Country</h2>
+<p class="subheader">
+What 1) are the dimensions of this dataset, and 2) an effecitve visualization?
+</p>
+
+<img data-src="i/wrapup_10.png" class="r-stretch"><p>A <strong><em>Multi-Linegraph</em></strong> <em>(or sometimes a scatterplot)</em> effectively visualizes</p>
+<ol type="1">
+<li>Panel</li>
+<li>Numerical</li>
+<li>Univariate</li>
+</ol>
+
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -770,19 +1019,19 @@ Key concepts to remember
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="concept_2_5_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="concept_2_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="concept_2_5_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="concept_2_5_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_1_6_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
