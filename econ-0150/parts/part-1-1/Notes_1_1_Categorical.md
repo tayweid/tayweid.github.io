@@ -1,4 +1,4 @@
-## Concept 1.1 | Visualizing Categorical Variables
+## Notes 1.1 | Day 3 | Visualizing Categorical Variables
 
 Choosing the right visualization is key for understanding and communicating data effectively. Let’s say you are a data analyst advising a small coffee chain on where to start selling a new product. You can find the dataset: Coffee_Shops.csv. This dataset contains a **categorical variable** which indicates the state the shop operates in. Here are two visualizations of the number of chain locations across a few states:  **bar chart** and a **pie chart**.
 
