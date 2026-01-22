@@ -141,15 +141,15 @@ format:
 ## Mean and Standard Deviation
 <p class="subheader">Q. What is the average age of Starbucks customers?</p>
 
-![](i/i_04.png)
+![](i/i_04b.png)
 
 . . .
 
-*> Mean ≈ 50 years; SD ≈ 15 years*
+*> Mean ≈ 56 years; SD ≈ 17 years*
 
 . . .
 
-*> "The average customer is about 50; ages typically vary by about 15 years from that average"*
+*> "The average customer is about 56; ages typically vary by about 17 years from that average"*
 
 ---
 
@@ -240,7 +240,7 @@ customers['age'].std()
 
 <br>
 
-*"The average customer is about 50 years old; ages typically vary by about 15 years from that average."*
+*"The average customer is about 48 years old; ages typically vary by about 18 years from that average."*
 
 ---
 

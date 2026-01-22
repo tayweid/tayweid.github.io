@@ -1,4 +1,4 @@
-## Concept 1.2 | Cross-Sectional (Numerical) Data
+## Notes 1.2 | Day 4 | Cross-Sectional (Numerical) Data
 
 This unit focuses on **cross-sectional numerical data** — many entities measured at one point in time. With numerical variables (values you can do math with, like age, income, or consumption), the key question is: *How is this variable distributed?*
 
@@ -62,7 +62,9 @@ Two numbers summarize a histogram: the **mean** (center) and the **standard devi
 - **Mean** — the average value
 - **Standard Deviation (SD)** — typical distance from the mean
 
-Together, mean and SD tell you where the data is centered and how spread out it is. For the Starbucks age data: Mean ≈ 50 years, SD ≈ 15 years. We'd say: "The average customer is about 50 years old; ages typically vary by about 15 years from that average."
+![](i/i_04b.png)
+
+Together, mean and SD tell you where the data is centered and how spread out it is. For the Starbucks age data: Mean ≈ 56 years, SD ≈ 17 years. We'd say: "The average customer is about 56 years old; ages typically vary by about 17 years from that average."
 
 ### Exercise 1.2 | Histograms in Excel
 
@@ -104,7 +106,7 @@ customers['age'].mean()
 customers['age'].std()
 ```
 
-The mean tells us the center of the distribution, and the standard deviation tells us how spread out the data is. For the Starbucks age data, we'd say: "The average customer is about 50 years old; ages typically vary by about 15 years from that average."
+The mean tells us the center of the distribution, and the standard deviation tells us how spread out the data is. For the Starbucks age data, we'd say: "The average customer is about 48 years old; ages typically vary by about 18 years from that average."
 
 ### Boxplots
 
