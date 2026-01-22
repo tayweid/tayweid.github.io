@@ -195,19 +195,68 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader-center">
-The economist’s data analysis pipeline.
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-1.2-summarizing-numerical-variables"><em>Part 1.2 | Summarizing Numerical Variables</em></h3>
+<h3 id="part-1.2-cross-sectional-numerical-data"><em>Part 1.2 | Cross-Sectional (Numerical) Data</em></h3>
 </section>
-<section id="summarizing-numerical-variables" class="slide level2">
-<h2>Summarizing Numerical Variables</h2>
+<section id="cross-sectional-numerical-data" class="slide level2">
+<h2>Cross-Sectional Numerical Data</h2>
 <p class="subheader">
-… use the appropriate summary tool for the variable type
+Comparing numerical values across entities
+</p>
+<div class="fragment">
+<p><em>&gt; Cross-sectional data: many entities, one point in time</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; Numerical variables: values you can do math with (age, income, consumption)</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; Key question: How is this variable distributed?</em></p>
+</div>
+</section>
+<section id="two-tools-for-numerical-distributions" class="slide level2">
+<h2>Two Tools for Numerical Distributions</h2>
+<p class="subheader">
+Choose based on sample size and what you want to see
+</p>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 43%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Best for</th>
+<th>Shows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Histogram</td>
+<td>Many observations</td>
+<td>Shape of distribution</td>
+</tr>
+<tr class="even">
+<td>Boxplot + Stripplot</td>
+<td>Fewer observations</td>
+<td>Quartiles + individual values</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="histograms-shape-of-the-distribution" class="slide level2">
+<h2>Histograms: Shape of the Distribution</h2>
+<p class="subheader">
+Use when you have many observations
 </p>
 </section>
-<section id="numerical-variables-histograms" class="slide level2">
-<h2>Numerical Variables: Histograms</h2>
+<section id="histograms" class="slide level2">
+<h2>Histograms</h2>
 <p class="subheader">
 Q. Which age group has the most Starbucks customers?
 </p>
@@ -216,7 +265,7 @@ Q. Which age group has the most Starbucks customers?
 <p><em>&gt; the bin sizes aren’t even, making it hard to interpret</em></p>
 </div>
 </section>
-<section id="numerical-variables-histograms-1" class="slide level2">
+<section id="numerical-variables-histograms" class="slide level2">
 <h2>Numerical Variables: Histograms</h2>
 <p class="subheader">
 Q. Which age group has the most Starbucks customers?
@@ -274,6 +323,35 @@ Q. Which age group has the most Starbucks customers?
 
 <img data-src="i/i_07.png" class="r-stretch"><p><em>&gt; larger bins also has less noise!</em></p>
 </section>
+<section id="describing-the-distribution-center-and-spread" class="slide level2">
+<h2>Describing the Distribution: Center and Spread</h2>
+<p class="subheader">
+Two numbers that summarize a histogram
+</p>
+<div class="fragment">
+<ul>
+<li><strong>Mean</strong> — the average value (center)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Standard Deviation (SD)</strong> — typical distance from the mean (spread)</li>
+</ul>
+</div>
+</section>
+<section id="mean-and-standard-deviation" class="slide level2">
+<h2>Mean and Standard Deviation</h2>
+<p class="subheader">
+Q. What is the average age of Starbucks customers?
+</p>
+
+<img data-src="i/i_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; Mean ≈ 50 years; SD ≈ 15 years</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; “The average customer is about 50; ages typically vary by about 15 years from that average”</em></p>
+</div>
+</section>
 <section id="histograms-summary" class="slide level2">
 <h2>Histograms: Summary</h2>
 <p class="subheader">
@@ -288,8 +366,39 @@ Q. Which age group has the most Starbucks customers?
 </ul>
 </div>
 </section>
+<section id="s-t-e-for-histograms" class="slide level2">
+<h2>S-T-E for Histograms</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>All Starbucks customers</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Count customers within each age bin</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Bin → x-position; Count → bar height</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; TRANSFORM for histograms = count within bins</em></p>
+</div>
+</section>
 <section id="exercise-1.2-histograms" class="slide level2">
-<h2>Exercise 1.2: Histograms</h2>
+<h2>Exercise 1.2 | Histograms</h2>
 <p class="subheader">
 Q. Which age group among those making $40k or less has the most Starbucks customers?
 </p>
@@ -298,7 +407,7 @@ Q. Which age group among those making $40k or less has the most Starbucks custom
 <p><strong>Data</strong>: <em><code>Starbucks_Customer_Profiles_40k.csv</code></em></p>
 </section>
 <section id="exercise-1.2-histograms-1" class="slide level2">
-<h2>Exercise 1.2: Histograms</h2>
+<h2>Exercise 1.2 | Histograms</h2>
 <p class="subheader">
 Q. Which age group among those making $40k or less has the most Starbucks customers?
 </p>
@@ -311,31 +420,54 @@ Q. Which age group among those making $40k or less has the most Starbucks custom
 </div>
 <div class="fragment">
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Save Figure</span></span>
-<span id="cb2-2"><a href=""></a>plt.savefig(<span class="st">'exercise_1_2_1.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href=""></a>plt.savefig(<span class="st">'exercise_1_2_histogram.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="numerical-variables-histograms-2" class="slide level2">
-<h2>Numerical Variables: Histograms</h2>
+<section id="exercise-1.2-mean-and-standard-deviation" class="slide level2">
+<h2>Exercise 1.2 | Mean and Standard Deviation</h2>
+<p class="subheader">
+Summarize the distribution with two numbers
+</p>
+<div class="fragment">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Calculate the mean</span></span>
+<span id="cb3-2"><a href=""></a>customers[<span class="st">'age'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Calculate the standard deviation</span></span>
+<span id="cb4-2"><a href=""></a>customers[<span class="st">'age'</span>].std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; Mean tells us the center; SD tells us the spread</em></p>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><em>“The average customer is about 50 years old; ages typically vary by about 15 years from that average.”</em></p>
+</div>
+</section>
+<section id="what-if-we-have-fewer-observations" class="slide level2">
+<h2>What if we have fewer observations?</h2>
+<p class="subheader">
+Histograms need many data points to show shape
+</p>
+<div class="fragment">
+<p><em>&gt; With few observations, histogram bins become noisy or empty</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; We need a different tool: boxplots + stripplots</em></p>
+</div>
+</section>
+<section id="histograms-vs-boxplots" class="slide level2">
+<h2>Histograms vs Boxplots</h2>
 <p class="subheader">
 Q. Which countries drank an average amount of coffee?
 </p>
 
 <img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; histogram bins make it impossible to see the exact values</em></p>
+<p><em>&gt; histogram bins make it impossible to see exact values or quartiles</em></p>
 </div>
 </section>
-<section id="numerical-variables-histograms-3" class="slide level2">
-<h2>Numerical Variables: Histograms</h2>
-<p class="subheader">
-Q. Which countries drank the most coffee in 1999?
-</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; again, histograms make it difficult to see statistical measures</em></p>
-</div>
-</section>
-<section id="numerical-variables-boxplots" class="slide level2">
-<h2>Numerical Variables: Boxplots</h2>
+<section id="boxplots" class="slide level2">
+<h2>Boxplots</h2>
 <p class="subheader">
 Q. Which countries drank the most coffee in 1999?
 </p>
@@ -481,8 +613,39 @@ Boxplots show quartiles; stripplots show the data.
 </ul>
 </div>
 </section>
+<section id="s-t-e-for-boxplots-stripplots" class="slide level2">
+<h2>S-T-E for Boxplots + Stripplots</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>All coffee-importing countries in 1999</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Calculate quartiles (min, Q1, median, Q3, max)</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Quartile → box position; Value → point position</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; TRANSFORM for boxplots = calculate quartiles</em></p>
+</div>
+</section>
 <section id="exercise-1.2-boxplots-stripplots" class="slide level2">
-<h2>Exercise 1.2: Boxplots + Stripplots</h2>
+<h2>Exercise 1.2 | Boxplots + Stripplots</h2>
 <p class="subheader">
 Show the distribution of coffee consumption per capita in 2019.
 </p>
@@ -493,24 +656,80 @@ Show the distribution of coffee consumption per capita in 2019.
 </ul>
 </section>
 <section id="exercise-1.2-boxplots-stripplots-1" class="slide level2">
-<h2>Exercise 1.2: Boxplots + Stripplots</h2>
+<h2>Exercise 1.2 | Boxplots + Stripplots</h2>
 <p class="subheader">
 Show the distribution of coffee consumption per capita in 2019.
 </p>
 <div class="fragment">
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Boxplot with no outliers</span></span>
-<span id="cb3-2"><a href=""></a>sns.boxplot(coffee, x<span class="op">=</span><span class="st">'Coffee_2019'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Boxplot with no outliers</span></span>
+<span id="cb5-2"><a href=""></a>sns.boxplot(coffee, x<span class="op">=</span><span class="st">'Coffee_2019'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Stripplot</span></span>
-<span id="cb4-2"><a href=""></a>sns.stripplot(coffee, x<span class="op">=</span><span class="st">'Coffee_2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Stripplot</span></span>
+<span id="cb6-2"><a href=""></a>sns.stripplot(coffee, x<span class="op">=</span><span class="st">'Coffee_2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><img data-src="i/ex_02.png"></p>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Save Figure</span></span>
-<span id="cb5-2"><a href=""></a>plt.savefig(<span class="st">'exercise_1_2_2.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Save Figure</span></span>
+<span id="cb7-2"><a href=""></a>plt.savefig(<span class="st">'exercise_1_2_boxplot.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-1.2-quartiles" class="slide level2">
+<h2>Exercise 1.2 | Quartiles</h2>
+<p class="subheader">
+Calculate the five-number summary
+</p>
+<div class="fragment">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Minimum and Maximum</span></span>
+<span id="cb8-2"><a href=""></a>coffee[<span class="st">'Coffee_2019'</span>].<span class="bu">min</span>()</span>
+<span id="cb8-3"><a href=""></a>coffee[<span class="st">'Coffee_2019'</span>].<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Quartiles (Q1, Median, Q3)</span></span>
+<span id="cb9-2"><a href=""></a>coffee[<span class="st">'Coffee_2019'</span>].quantile(<span class="fl">0.25</span>)</span>
+<span id="cb9-3"><a href=""></a>coffee[<span class="st">'Coffee_2019'</span>].median()</span>
+<span id="cb9-4"><a href=""></a>coffee[<span class="st">'Coffee_2019'</span>].quantile(<span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; These five numbers define the boxplot: min, Q1, median, Q3, max</em></p>
+</div>
+</section>
+<section id="building-blocks" class="slide level2">
+<h2>Building Blocks</h2>
+<p class="subheader">
+What this unit adds to your toolkit
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>New in 1.2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variables</td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Structures</td>
+<td>Cross-section</td>
+</tr>
+<tr class="odd">
+<td>Operations</td>
+<td>Bin, Mean, SD, Quartiles</td>
+</tr>
+<tr class="even">
+<td>Visualizations</td>
+<td>Histogram, Boxplot, Stripplot</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><br></p>
+<p><em>&gt; Next: lets add a time dimension</em></p>
 
 </div>
 </section>

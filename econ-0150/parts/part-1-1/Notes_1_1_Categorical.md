@@ -42,7 +42,7 @@ When presenting data, the best choice of chart depends on the comparison you wan
 - Remove clutter; keep it simple
 - Place information near the object it describes
 
-### Excel Exercise 1.1
+### Exercise 1.1 | Excel
 
 Lets make some similar visualizations of the Coffee_Shops.csv dataset in Excel. The .csv file-type is a universal format which stands for "comma-separated values" and is one of the most used data formats. Open the file in Excel. Excel will likely show you a suggestion to convert the file to an Excel-specific format, xlsx. When working with Excel, it's often helpful to keep the csv file as your starting file and create a second file in the xlsx format. You can do this either by clicking on the notification bar or by going to Home and save as. You'll be propted to select the file format xlsx. Save as Coffee_Shops.xlsx. 
 
@@ -80,7 +80,7 @@ The "*" in the COUNTIF command simply tells Excel to count all the text entries 
 
 Then we can plot this data in a pie chart. Highlight the new frequency table and the column headers, go to the Insert tab, and click on 2-d pie chart. This produces a reasonable pie chart, but you can click on any element to modify it as you'd like.
 
-### Python Exercise 1.1
+### Exercise 1.1 | Python
 
 As will be the case over and over again, doing these kinds of things is much simpler in python. Once we import the main packages and load the data, we can create a summary table and a nice figure very easily.
 

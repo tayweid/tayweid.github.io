@@ -427,6 +427,36 @@ sns.scatterplot(gdp, x='GDP', y='coffee_prod')
 
 ---
 
+## Exercise: Log Transformation
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{.python}
+# Log both x and y variables
+gdp['log_GDP'] = np.log(gdp['GDP'])
+gdp['log_prod'] = np.log(gdp['coffee_prod'])
+```
+
+. . .
+
+```{.python}
+# Plot the log variables
+sns.scatterplot(gdp, x='log_GDP', y='log_prod')
+```
+
+---
+
+## Exercise: Log Transformation
+<p class="subheader">Alternative: use log scale without transforming</p>
+
+```{.python}
+# Use a log scale without transforming the variable
+sns.scatterplot(gdp, x='GDP', y='coffee_prod')
+plt.xscale('log')
+plt.yscale('log')
+```
+
+---
+
 ## Timeseries Relationships
 <p class="subheader">How do the two commodity prices relate to each other?</p>
 

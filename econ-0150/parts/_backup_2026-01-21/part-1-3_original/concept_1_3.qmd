@@ -1,0 +1,308 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br> 
+
+### *Part 1.3 | Relationships Through Time*
+
+---
+
+## Data Structures
+<p class="subheader">...three main relationships between data points.</p>
+
+The most effective summarization tool depends on the relationship between the data points.
+
+| | Cross-Sectional | Time-Series | Panel Data |
+|-|----|---|----|
+| **Focus** | Multiple units, one time point | One unit, many times | Multiple units, many time points |
+| **Shape** | Wide format | Long format | Long format |
+| **Ex.** | Household income, 2025 | US GDP,   10 years | Household income, 10 years |
+
+<br>
+
+. . .
+
+*> we've spent the first part of the class on cross-sectional data*
+
+. . .
+
+*> we'll spend a bit of time on panel and geographic data later*
+
+---
+
+## Exercise 1.3 | Data Structures
+
+<br><br>
+
+Lets identify the variable type for each dataset.
+
+- **Dataset 1:** `household_incomes.csv`
+- **Dataset 2:** `household_savings.csv`
+- **Dataset 3:** `Monthly_Coffee_Prices.csv`
+
+---
+
+## Timeseries: Coffee Prices
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+---
+
+## Timeseries: Coffee Prices
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_01.png)
+
+. . .
+
+*> it's difficult to know... do we choose the mode?*
+
+. . .
+
+*> lets just plot the price against time*
+
+---
+
+## Timeseries: Coffee Prices
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_02.png)
+
+. . .
+
+*> lets indicate with a line that these points are in squence*
+
+---
+
+## Timeseries: Line Graph
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_03.png)
+
+---
+
+## Timeseries: Trends
+<p class="subheader">Do you notice a **trend** in price?</p>
+
+![](i/i_03.png)
+
+. . .
+
+*> there was a **positive trend** in 2021*
+
+. . .
+
+*> we can zoom out to get a bigger picture*
+
+---
+
+## Timeseries: Trends + Subtrends
+<p class="subheader">Do you notice a **trend** in price?</p>
+
+![](i/i_04.png)
+
+. . .
+
+*> how have prices changed since 2000?*
+
+. . .
+
+*> prices have increased somewhat, with many periods of decrease*
+
+---
+
+## Timeseries: Background Shading
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_05.png)
+
+*> with background shading its easier to see periods with a negative trend in price*
+
+---
+
+## Exercise 1.3: Timeseries
+
+<br><br>
+
+Lets use a linegraph to examine the trends in coffee prices.
+
+- **Data:** `Coffee_Prices.csv`
+
+---
+
+## Exercise 1.3: Timeseries
+
+```{.python}
+# Lineplot
+sns.lineplot(prices, y='price', x='date')
+```
+
+. . .
+
+![](i/i_07.png)
+
+---
+
+## Timeseries
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> could there be seasonal trends within the larger trend?*
+
+---
+
+## Seasonality: January
+<p class="subheader">What information should we use to set prices in January 2026?</p>
+
+![](i/i_08.png)
+
+*> a boxplot gives us a picture of the prices just in January*
+
+. . .
+
+*> lets compare this to other months*
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In addition to the overall trend, are there monthly patterns?</p>
+
+![](i/i_09.png)
+
+. . .
+
+*> lets be more specific...*
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which month was the record highest price set?</p>
+
+![](i/i_09.png)
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which month was the record highest price set?</p>
+
+![](i/i_10_max.png)
+
+*> look at the maximums*
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which month was the record highest price set?</p>
+
+![](i/i_11.png)
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which season are prices most spread out?</p>
+
+![](i/i_09.png)
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which season are prices most spread out?</p>
+
+![](i/i_10_range.png)
+
+*> look at the ranges*
+
+---
+
+## Seasonality: Monthly Boxplots
+<p class="subheader">In which season are prices most spread out?</p>
+
+![](i/i_12.png)
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/i_10_median.png)
+
+*> look at the medians...*
+
+---
+
+## Seasonality: Multi-Boxplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/i_10_median.png)
+
+*> look at the medians... pretty difficult to see*
+
+---
+
+## Seasonality: Quartile Lineplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/i_13.png)
+
+---
+
+## Seasonality: Quartile Lineplot
+<p class="subheader">What is the trend in median price?</p>
+
+![](i/i_14.png)
+
+---
+
+## Seasonality: Quartile Lineplot
+<p class="subheader">What is the difference between the largest and the smallest median price per pound?</p>
+
+![](i/i_14.png)
+
+. . .
+
+*> something like $1.30 - $1.21 = $0.09*
+
+---
+
+## Timeseries: Summary
+<p class="subheader">Linegraphs show trends; multi-boxplots show between-period patterns.</p>
+
+<br><br>
+
+:::{.incremental}
+- Use a ***linegraph*** to show a numerical variable through time.
+- Highlight changes in a linegraph using ***shading***.
+- Use a ***multi-boxplot*** to show the distribution between multiple periods.
+:::
+
+---
+
+## Exercise 1.3: Seasonality
+
+<br><br>
+
+Lets use a multi-boxplot to examine the seasonal patterns of coffee prices.
+
+- **Data:** `Coffee_Prices.csv`
+
+---
+
+## Exercise 1.3: Seasonality
+
+```{.python}
+# Multi-Boxplot
+sns.boxplot(prices, y='month', x='price', whis=(0,100))
+```
+
+. . .
+
+![](i/i_09.png)

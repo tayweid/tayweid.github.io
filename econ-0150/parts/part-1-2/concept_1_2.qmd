@@ -10,16 +10,45 @@ format:
 
 <br> 
 
-### *Part 1.2 | Summarizing Numerical Variables*
+### *Part 1.2 | Cross-Sectional (Numerical) Data*
 
 ---
 
-## Summarizing Numerical Variables
-<p class="subheader">... use the appropriate summary tool for the variable type</p>
+## Cross-Sectional Numerical Data
+<p class="subheader">Comparing numerical values across entities</p>
+
+. . .
+
+*> Cross-sectional data: many entities, one point in time*
+
+. . .
+
+*> Numerical variables: values you can do math with (age, income, consumption)*
+
+. . .
+
+*> Key question: How is this variable distributed?*
 
 ---
 
-## Numerical Variables: Histograms
+## Two Tools for Numerical Distributions
+<p class="subheader">Choose based on sample size and what you want to see</p>
+
+. . .
+
+| Tool | Best for | Shows |
+|------|----------|-------|
+| Histogram | Many observations | Shape of distribution |
+| Boxplot + Stripplot | Fewer observations | Quartiles + individual values |
+
+---
+
+## Histograms: Shape of the Distribution
+<p class="subheader">Use when you have many observations</p>
+
+---
+
+## Histograms
 <p class="subheader">Q. Which age group has the most Starbucks customers?</p>
 
 ![](i/i_01.png)
@@ -96,6 +125,34 @@ format:
 
 ---
 
+## Describing the Distribution: Center and Spread
+<p class="subheader">Two numbers that summarize a histogram</p>
+
+. . .
+
+- **Mean** — the average value (center)
+
+. . .
+
+- **Standard Deviation (SD)** — typical distance from the mean (spread)
+
+---
+
+## Mean and Standard Deviation
+<p class="subheader">Q. What is the average age of Starbucks customers?</p>
+
+![](i/i_04.png)
+
+. . .
+
+*> Mean ≈ 50 years; SD ≈ 15 years*
+
+. . .
+
+*> "The average customer is about 50; ages typically vary by about 15 years from that average"*
+
+---
+
 ## Histograms: Summary
 <p class="subheader">... use the right summary tool for the variable type</p>
 
@@ -109,7 +166,22 @@ format:
 
 ---
 
-## Exercise 1.2: Histograms
+## S-T-E for Histograms
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | All Starbucks customers |
+| TRANSFORM | Count customers within each age bin |
+| ENCODE | Bin → x-position; Count → bar height |
+
+. . .
+
+*> TRANSFORM for histograms = count within bins*
+
+---
+
+## Exercise 1.2 | Histograms
 <p class="subheader">Q. Which age group among those making $40k or less has the most Starbucks customers?</p>
 
 <br><br>
@@ -120,7 +192,7 @@ Lets use the data to examine whether customers between 45 - 55 years old spend t
 
 ---
 
-## Exercise 1.2: Histograms
+## Exercise 1.2 | Histograms
 <p class="subheader">Q. Which age group among those making $40k or less has the most Starbucks customers?</p>
 
 . . .
@@ -138,34 +210,65 @@ sns.histplot(customers, x='age', bins=range(20,100,5))
 
 ```{.python}
 # Save Figure
-plt.savefig('exercise_1_2_1.png')
+plt.savefig('exercise_1_2_histogram.png')
 ```
 
 ---
 
-## Numerical Variables: Histograms
-<p class="subheader"> Q. Which countries drank an average amount of coffee?</p>
+## Exercise 1.2 | Mean and Standard Deviation
+<p class="subheader">Summarize the distribution with two numbers</p>
+
+. . .
+
+```{.python}
+# Calculate the mean
+customers['age'].mean()
+```
+
+. . .
+
+```{.python}
+# Calculate the standard deviation
+customers['age'].std()
+```
+
+. . .
+
+*> Mean tells us the center; SD tells us the spread*
+
+. . .
+
+<br>
+
+*"The average customer is about 50 years old; ages typically vary by about 15 years from that average."*
+
+---
+
+## What if we have fewer observations?
+<p class="subheader">Histograms need many data points to show shape</p>
+
+. . .
+
+*> With few observations, histogram bins become noisy or empty*
+
+. . .
+
+*> We need a different tool: boxplots + stripplots*
+
+---
+
+## Histograms vs Boxplots
+<p class="subheader">Q. Which countries drank an average amount of coffee?</p>
 
 ![](i/i_08.png)
 
 . . .
 
-*> histogram bins make it impossible to see the exact values*
+*> histogram bins make it impossible to see exact values or quartiles*
 
 ---
 
-## Numerical Variables: Histograms
-<p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
-
-![](i/i_08.png)
-
-. . .
-
-*> again, histograms make it difficult to see statistical measures*
-
----
-
-## Numerical Variables: Boxplots
+## Boxplots
 <p class="subheader"> Q. Which countries drank the most coffee in 1999?</p>
 
 ![](i/i_09.png)
@@ -324,7 +427,22 @@ plt.savefig('exercise_1_2_1.png')
 
 ---
 
-## Exercise 1.2: Boxplots + Stripplots
+## S-T-E for Boxplots + Stripplots
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | All coffee-importing countries in 1999 |
+| TRANSFORM | Calculate quartiles (min, Q1, median, Q3, max) |
+| ENCODE | Quartile → box position; Value → point position |
+
+. . .
+
+*> TRANSFORM for boxplots = calculate quartiles*
+
+---
+
+## Exercise 1.2 | Boxplots + Stripplots
 <p class="subheader">Show the distribution of coffee consumption per capita in 2019.</p>
 
 <br><br>
@@ -335,7 +453,7 @@ Lets use a boxplot and stripplot to examine the distribution of coffee consumpti
 
 ---
 
-## Exercise 1.2: Boxplots + Stripplots
+## Exercise 1.2 | Boxplots + Stripplots
 <p class="subheader">Show the distribution of coffee consumption per capita in 2019.</p>
 
 . . .
@@ -360,5 +478,49 @@ sns.stripplot(coffee, x='Coffee_2019')
 
 ```{.python}
 # Save Figure
-plt.savefig('exercise_1_2_2.png')
+plt.savefig('exercise_1_2_boxplot.png')
 ```
+
+---
+
+## Exercise 1.2 | Quartiles
+<p class="subheader">Calculate the five-number summary</p>
+
+. . .
+
+```{.python}
+# Minimum and Maximum
+coffee['Coffee_2019'].min()
+coffee['Coffee_2019'].max()
+```
+
+. . .
+
+```{.python}
+# Quartiles (Q1, Median, Q3)
+coffee['Coffee_2019'].quantile(0.25)
+coffee['Coffee_2019'].median()
+coffee['Coffee_2019'].quantile(0.75)
+```
+
+. . .
+
+*> These five numbers define the boxplot: min, Q1, median, Q3, max*
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | New in 1.2 |
+|-------|------------|
+| Variables | Numerical |
+| Structures | Cross-section |
+| Operations | Bin, Mean, SD, Quartiles |
+| Visualizations | Histogram, Boxplot, Stripplot |
+
+. . .
+
+<br>
+
+*> Next: lets add a time dimension*

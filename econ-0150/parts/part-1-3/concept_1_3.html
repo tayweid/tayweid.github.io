@@ -195,70 +195,25 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader-center">
-The economist’s data analysis pipeline.
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-1.3-relationships-through-time"><em>Part 1.3 | Relationships Through Time</em></h3>
+<h3 id="part-1.3-time-series-numerical-data"><em>Part 1.3 | Time Series (Numerical) Data</em></h3>
 </section>
-<section id="data-structures" class="slide level2">
-<h2>Data Structures</h2>
+<section id="time-series-numerical-data" class="slide level2">
+<h2>Time Series Numerical Data</h2>
 <p class="subheader">
-…three main relationships between data points.
+Tracking a numerical variable over time
 </p>
-<p>The most effective summarization tool depends on the relationship between the data points.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 8%">
-<col style="width: 33%">
-<col style="width: 25%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Cross-Sectional</th>
-<th>Time-Series</th>
-<th>Panel Data</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Focus</strong></td>
-<td>Multiple units, one time point</td>
-<td>One unit, many times</td>
-<td>Multiple units, many time points</td>
-</tr>
-<tr class="even">
-<td><strong>Shape</strong></td>
-<td>Wide format</td>
-<td>Long format</td>
-<td>Long format</td>
-</tr>
-<tr class="odd">
-<td><strong>Ex.</strong></td>
-<td>Household income, 2025</td>
-<td>US GDP, 10 years</td>
-<td>Household income, 10 years</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
 <div class="fragment">
-<p><em>&gt; we’ve spent the first part of the class on cross-sectional data</em></p>
+<p><em>&gt; Time series data: one entity, many points in time</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; we’ll spend a bit of time on panel and geographic data later</em></p>
+<p><em>&gt; Numerical variable: values that change over time (price, GDP, temperature)</em></p>
 </div>
-</section>
-<section id="exercise-1.3-data-structures" class="slide level2">
-<h2>Exercise 1.3 | Data Structures</h2>
-<p><br><br></p>
-<p>Lets identify the variable type for each dataset.</p>
-<ul>
-<li><strong>Dataset 1:</strong> <code>household_incomes.csv</code></li>
-<li><strong>Dataset 2:</strong> <code>household_savings.csv</code></li>
-<li><strong>Dataset 3:</strong> <code>Monthly_Coffee_Prices.csv</code></li>
-</ul>
+<div class="fragment">
+<p><em>&gt; Key question: What are the trends and patterns over time?</em></p>
+</div>
 </section>
 <section id="timeseries-coffee-prices" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
@@ -346,14 +301,110 @@ What information should we use to set prices in January 2026?
 <p><img data-src="i/i_07.png"></p>
 </div>
 </section>
-<section id="timeseries" class="slide level2">
-<h2>Timeseries</h2>
+<section id="s-t-e-for-line-graphs" class="slide level2">
+<h2>S-T-E for Line Graphs</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>Coffee prices 2015-2025</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Order by date</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Date → x-position; Price → y-position; Sequence → connected line</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; ENCODE uses position for both time and value — the line shows sequence</em></p>
+</div>
+</section>
+<section id="but-wait-are-these-prices-comparable" class="slide level2">
+<h2>But Wait: Are These Prices Comparable?</h2>
+<p class="subheader">
+Let’s zoom out even further…
+</p>
+
+<img data-src="i/i_cpi_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; was coffee about as expensive in 1980 as it is today?</em></p>
+</div>
+</section>
+<section id="nominal-vs-real-prices" class="slide level2">
+<h2>Nominal vs Real Prices</h2>
+<p class="subheader">
+A dollar in 1980 ≠ a dollar in 2025
+</p>
+
+<img data-src="i/i_cpi_02.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; no! a dollar today is worth much less than in 1980</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; we need to adjust for inflation to compare across time</em></p>
+</div>
+</section>
+<section id="real-coffee-prices" class="slide level2">
+<h2>Real Coffee Prices</h2>
+<p class="subheader">
+Adjusting for inflation changes the picture
+</p>
+
+<img data-src="i/i_cpi_03.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; prices have actually dropped since 1980 and stabilized since 2000</em></p>
+</div>
+</section>
+<section id="exercise-1.3-real-price-adjustment" class="slide level2">
+<h2>Exercise 1.3 | Real Price Adjustment</h2>
+<p class="subheader">
+Is there a trend in the real price of coffee?
+</p>
+<p><br><br></p>
+<p>Lets transform coffee prices from nominal dollars to real dollars.</p>
+<ul>
+<li><strong>Data:</strong> <code>Coffee_Prices_CPI.csv</code></li>
+</ul>
+</section>
+<section id="exercise-1.3-real-price-adjustment-1" class="slide level2">
+<h2>Exercise 1.3 | Real Price Adjustment</h2>
+<p class="subheader">
+Is there a trend in the real price of coffee?
+</p>
+<div class="fragment">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Create real price column</span></span>
+<span id="cb2-2"><a href=""></a>data[<span class="st">'real'</span>] <span class="op">=</span> data[<span class="st">'price'</span>] <span class="op">/</span> data[<span class="st">'today'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Lineplot of real prices</span></span>
+<span id="cb3-2"><a href=""></a>sns.lineplot(data, x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'real'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><img data-src="i/i_cpi_03.png"></p>
+</div>
+</section>
+<section id="back-to-our-question" class="slide level2">
+<h2>Back to Our Question</h2>
 <p class="subheader">
 What information should we use to set prices in January 2026?
 </p>
 
 <img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; could there be seasonal trends within the larger trend?</em></p>
+<p><em>&gt; for now, let’s focus on seasonal patterns within the trend</em></p>
 </div>
 </section>
 <section id="seasonality-january" class="slide level2">
@@ -485,10 +536,76 @@ Linegraphs show trends; multi-boxplots show between-period patterns.
 </section>
 <section id="exercise-1.3-seasonality-1" class="slide level2">
 <h2>Exercise 1.3: Seasonality</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Multi-Boxplot</span></span>
-<span id="cb2-2"><a href=""></a>sns.boxplot(prices, y<span class="op">=</span><span class="st">'month'</span>, x<span class="op">=</span><span class="st">'price'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Multi-Boxplot</span></span>
+<span id="cb4-2"><a href=""></a>sns.boxplot(prices, y<span class="op">=</span><span class="st">'month'</span>, x<span class="op">=</span><span class="st">'price'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_09.png"></p>
+</div>
+</section>
+<section id="s-t-e-for-multi-boxplots" class="slide level2">
+<h2>S-T-E for Multi-Boxplots</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>Coffee prices 2000-2025</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Group by month; calculate quartiles within each group</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Month → y-position; Price quartiles → box elements</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; TRANSFORM groups by time period, then summarizes within each group</em></p>
+</div>
+</section>
+<section id="building-blocks" class="slide level2">
+<h2>Building Blocks</h2>
+<p class="subheader">
+What this unit adds to your toolkit
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>New in 1.3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variables</td>
+<td>(numerical reinforced)</td>
+</tr>
+<tr class="even">
+<td>Structures</td>
+<td>time series</td>
+</tr>
+<tr class="odd">
+<td>Operations</td>
+<td>group by period</td>
+</tr>
+<tr class="even">
+<td>Visualizations</td>
+<td>line plot, multi-boxplot</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; Next: What if we want to transform the values themselves?</em></p>
 
 </div>
 </section>

@@ -10,204 +10,178 @@ format:
 
 <br> 
 
-### *Part 2.3 | Panel Data*
+### *Part 2.3 | Filtering Data*
 
 ---
 
-## Panel Data: Long Format vs Wide Format
-<p class="subheader">Panel data comes in one of two formats.</p>
-
-Panel Data in ***Long Format*** uses lists each entry as a row, using a column (eg. *Shop*) to record the group.
-
-```{python}
-import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv', index_col='transaction_id')
-sales[['Hours', 'Shop']].head()
-```
-
----
-
-## Panel Data: Long Format vs Wide Format
-<p class="subheader">Panel data comes in one of two formats.</p>
-
-Panel Data in ***Wide Format*** uses lists each group as a row, using a column to record each entry.
-
-```{python}
-import pandas as pd
-coffee = pd.read_csv('data/Coffee_Per_Cap.csv', index_col='Code')
-coffee[['1999', '2019']].head()
-```
-
----
-
-## Hiring a Barista
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
-
-<br>
-
-- You manage three coffee shops and are considering where to hire a new barista.
-- You have a dataset containing information about the transactions taking place at all three coffee shops throughout the day.
-- Lets consider how to use this data to inform our decision.
-
----
-
-## Hiring a Barista
-<p class="subheader">Q. Which coffee shop is the busiest?</p>
-
----
-
-## Hiring a Barista: Bar Graphs Compare Shops
-<p class="subheader">Q. Which coffee shop is the busiest?</p>
-
-![](i/i_01.png)
-
-. . .
-
-*> a bar chart makes it easy to compare shops' busyness*
-
----
-
-## Hiring a Barista
-<p class="subheader">Q. What time of day is the busiest?</p>
-
----
-
-## Hiring a Barista: Histograms Can Compare Times
-<p class="subheader">Q. What time of day is the busiest?</p>
-
-![](i/i_02.png)
-
-. . .
-
-*> a histogram makes it easy to compare transactions by time of day*
-
-. . .
-
-*> does this mean the morning shift at Shop A is the busiest?*
-
----
-
-## Hiring a Barista
-<p class="subheader">Q. Which shift is the busiest?</p>
-
----
-
-## Hiring a Barista: Transactions by Shop
-<p class="subheader">Q. Which shift is the busiest?</p>
-
-![](i/i_03.png)
-
-*> an overlaid histogram can show all three groups*
-
-. . .
-
-*> does this show the data clearly?*
-
----
-
-## Hiring a Barista: Faceting
-<p class="subheader">What if we separated each shop into its own plot?</p>
-
-<br>
-
-::: {.incremental}
-- Overlapping histograms are hard to read
-- **Solution 1:** Give each group its own plot
-- This is called **faceting** or **small multiples**
-:::
-
----
-
-## Hiring a Barista: Faceting
-<p class="subheader">Each shop gets its own panel</p>
-
-![](i/f_01.png)
-
-. . .
-
-*> same data, but now each shop has its own histogram*
-
----
-
-## Hiring a Barista: Faceting
-<p class="subheader">Q. Which shop is busiest during the morning rush?</p>
-
-![](i/f_01.png)
-
-. . .
-
-*> Shop C — compare the 8-10am peaks across panels*
-
----
-
-## Hiring a Barista: Faceting
-<p class="subheader">Q. Which shop has the most consistent traffic throughout the day?</p>
-
-![](i/f_01.png)
-
-. . .
-
-*> Shop A — the distribution is relatively flat*
-
----
-
-## Hiring a Barista: Line Graphs
-<p class="subheader">**Solution 2:** Use lines instead of bars</p>
-
-![](i/i_05.png)
-
-*> line graphs can also show multiple groups clearly*
-
----
-
-## Part 2.3 | Panel Data Visualization
+## A New US Coffee Shop
+<p class="subheader">Lets use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 <br><br>
 
-#### Summary
-
-::: {.incremental}
-- Overlapping histograms are hard to read when comparing groups
-- **Faceting** separates each group into its own panel for easy comparison
-- **Line graphs** simplify multiple categories on a single plot
-- Both techniques work well with **panel data** (repeated observations across groups)
-:::
+- The coffee shop is opening in upstate New York, near the border to Canada.
+- You're asked to help make some decisions about how to run the shop when it opens.
+- The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
 
 ---
 
-## Exercise 1.4 | Coffee Shop Transactions
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
-
-. . .
-
-```{.python}
-# Load Dataset
-sales = pd.read_csv(file_path + 'Coffee_Sales_Reciepts.csv')
-sales.head()
-```
+## A New Coffee Shop
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 . . .
 
 ```{python}
 import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv')
-sales[['Hours', 'Shop']].head()
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
 ```
-
-*> you'll see a few more columns in your dataset*
 
 . . .
 
-*> this is **Long-Format Panel Data**: transactions are all in the same column*
+<br>
+
+*> we should use a figure*
 
 ---
 
-## Exercise 1.4 | Bar Chart
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+## A New Coffee Shop
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_01.png)
+
+. . .
+
+*> so it seems best to open sometime in the morning...  makes sense*
+
+. . .
+
+*> but what if there's something specific about US coffee drinkers though?*
+
+---
+
+## Opening Time: filter by category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+*> here we've filtered for US locations*
+
+. . .
+
+*> so it seems US Starbucks open earlier*
+
+---
+
+## Opening Time: filter by category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+*> but maybe we should look at Canadian shops too...*
+
+. . .
+
+*> let filter for **BOTH** countries*
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Lets us some Boolian logic :)</p>
+
+![](i/i_Bool.png)
+
+. . .
+
+*> is there something different between the US and Canada?*
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_02.png)
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03.png)
+
+. . .
+
+*> so not much difference between when shops in the US and Canada open*
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03_question.png)
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03_answer.png)
+
+*> no data! no coffee shop can be in the US AND Canada!*
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_03.png)
+
+---
+
+## Opening Time: combining filters
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+![](i/i_04.png)
+
+. . .
+
+*> so coffee shops in US and Canada open much earlier than the rest of the world*
+
+---
+
+## Opening Time: conclusions
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+<br>
+
+- So lets open earlier than 7 AM.
+
+
+---
+
+## Exercise 2.3 | Filter by Category
+<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
+
+<br><br>
+
+- The coffee shop is opening in upstate New York, near the border to Canada.
+- You're asked to help make some decisions about how to run the shop when it opens.
+- The dataset `Starbucks_Location_Hours.csv` contains information about Starbucks coffee shops globally.
+
+---
+
+## Coffee Shop Hours: filter by category
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+---
+
+## Coffee Shop Hours: plot all opening times
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ```{.python}
-# Bar graph
-sns.countplot(sales, x='Shop', hue='Shop')
+# Histogram
+sns.histplot(hours, x='open', bins=range(0,25,1))
 ```
 
 . . .
@@ -216,463 +190,336 @@ sns.countplot(sales, x='Shop', hue='Shop')
 
 ---
 
-## Exercise 1.4 | Histogram
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+## Filtering Data by Category
+<p class="subheader">Filtering categorical data requires logical operations.</p>
+
+| Logic | Python | | Example |
+|-----------|--------|--|---------|
+| Equals | == | | `df[df['shop'] == 'A']` |
+| Unequal | != | | `df[df['shop'] != 'A']` |
+| NOT | ~ | | `df[~(df['shop'] == 'A')]` |
+| In list | .isin() | | `df[df['shop'].isin(['A', 'B'])]` |
+| AND | & | | `(df['shop'] == 'A') & (df['open'] < 7)` |
+| OR | \| | | `(df['shop'] == 'A') | (df['open'] < 7)` |
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
 
 ```{.python}
-# Create a histogram
-sns.histplot(sales, x='Hours', bins=range(0,24,1))
+# Decide whether each row's country code is 'US'
+us_codes = (hours['COUNTRY_CODE'] == 'US')
 ```
 
-. . .
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Decide whether each row's country code is 'US'
+us_codes = (hours['COUNTRY_CODE'] == 'US')
+
+# Select the rows with True
+us_hours = hours[us_codes]
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Select the rows with country code equal to 'US'
+us_hours = hours[hours['COUNTRY_CODE'] == 'US']
+```
+
+---
+
+## Coffee Shop Hours: filter for US locations
+<p class="subheader">Q. When might be a good time for the coffee shop to open?</p>
+
+```{.python}
+# Histogram of US locations
+sns.histplot(us_hours, x='open', bins=range(0,25,1))
+```
 
 ![](i/i_02.png)
 
 ---
 
-## Exercise 1.4 | Multi-Histogram
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
 
 ```{.python}
-# Create a multi-histogram
-sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1))
+# Find the data in either the US or in Canada (CA)
+# Method 1: Using OR operator |
+us_ca = hours[(hours['COUNTRY_CODE'] == 'US') | (hours['COUNTRY_CODE'] == 'CA')]
 ```
 
-. . .
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Find the data in either the US or in Canada (CA)
+# Method 2: Using isin()
+us_ca = hours[hours['COUNTRY_CODE'].isin(['US', 'CA'])]
+```
+
+---
+
+## Coffee Shop Hours: shops in either US or CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
+
+```{.python}
+# Create histogram
+sns.histplot(us_ca, x='open', bins=range(0,25,1))
+
+```
 
 ![](i/i_03.png)
 
 ---
 
-## Exercise 2.3 | Faceted Histogram
-<p class="subheader">Use faceting to give each shop its own panel.</p>
+## Coffee Shop Hours: shops in both US and CA
+<p class="subheader">Q. When might be a good time for a US coffee shop to open?</p>
 
-```{.python}
-# Create a faceted histogram
-sns.displot(sales, x='Hours', col='Shop', bins=range(0,24,1))
+What would this dataset look like?
+
+```{.python code-line-numbers="4,7"}
+hours[(hours['COUNTRY_CODE'] == 'US') & (hours['COUNTRY_CODE'] == 'CN')]
 ```
 
 . . .
 
-![](i/f_01.png)
+*> it would contain no data!*
+
+![](i/i_03_answer.png)
 
 ---
 
-## Exercise 2.3 | Count Hourly by Shop
-<p class="subheader">Q. Which shift is the busiest?</p>
+## Opening Time
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
-```{.python}
-# Create hourly counts by shop
-hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
-```
+<br>
+
+- So lets open earlier than 7 AM.
+- How long should we stay open?
 
 . . .
 
 ```{python}
 import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv')
-sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count').head()
-```
-
-. . .
-
-```{.python}
-# Multi-Lineplot
-sns.lineplot(hourly_counts, x='Hours', y='Hours', hue='Shop')
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
 ```
 
 ---
 
-## Exercise 1.4 | Multiple Line Graph
-<p class="subheader">Q. Which shift is the busiest?</p>
+## Duration
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
-```{.python}
-# Multiple-Line Graph
-sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly')
-```
+![](i/i_05.png)
 
 . . .
 
-![](i/i_04.png)
+*> so most shops stay open for around 15 hours*
+
+. . .
+
+*> does that mean we should stay open for 15 hours?*
 
 ---
 
-## Exercise 1.4 | Multiple Line Graph
-<p class="subheader">Q. Which shift is the busiest?</p>
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
-```{.python}
-# Multiple-Line Graph
-sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', fill=False)
+| Symbol | Meaning |
+|--------|--------------|
+| = | Equal to |
+| ≠ | Not equal to |
+| < | Less than |
+| > | Greater than |
+| ≤ | Less than or equal to |
+| ≥ | Greater than or equal to |
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_05.png)
+
+*> lets filter for coffee shops that open before 7 AM*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+How would we filter for coffee shops that open before 7 AM?
+
+<br>
+
+```{python}
+import pandas as pd
+# Load the data
+data = pd.read_csv('data/Starbucks_Location_Hours.csv')
+#data.head()
+data[['storeNumber', 'COUNTRY_CODE', 'open', 'close', 'duration_hr']].head()
 ```
 
 . . .
+
+*> use "`open` < 7"*
+
+---
+
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ![](i/i_05.png)
 
 ---
 
-## Panel Data: Coffee Consumption Per Capita
-<p class="subheader">Is the world drinking more coffee?</p>
-
-Lets examine whether the world is drinking more coffee today than in the 1990s. 
-
-- **Data:** `Coffee_Per_Cap.csv`
-
----
-
-## Panel Data: Coffee Consumption Per Capita
-<p class="subheader">Is the world drinking more coffee?</p>
-
-![](i/i_06.png)
-
-. . .
-
-*> compared to what...?*
-
----
-
-## Panel Data: Coffee Consumption Per Capita
-<p class="subheader">Is the world drinking more coffee?</p>
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ![](i/i_07.png)
 
 . . .
 
-*> this is still pretty unclear: histograms aren't great for comparison*
-
-. . .
-
-*> lets use a multi-boxplot*
+*> so shops that open early stay open longer*
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">Is the world drinking more coffee?</p>
+## Duration: filter by inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+![](i/i_06.png)
+
+. . .
+
+*> but here we're looking at all shops globally!*
+
+*> our shop is opening in the US near Canada, so lets filter by country too*
+
+---
+
+## Duration: filter on category and inequality
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ![](i/i_08.png)
 
 . . .
 
-*> this is better: it looks like the distribution is shifted higher!*
+*> shops that open early will stay open longer in the US or Canada*
 
 . . .
 
-*> lets examine the years in between to see how the distribution evolved*
+*> this is hard to see: maybe there's a more systematic way of showing differences*
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">Is the world drinking more coffee?</p>
-
-![](i/i_09_c.png)
-
-. . .
-
-*> lets ask some smaller more focussed questions*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+## Duration: conclusions
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ![](i/i_09.png)
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
+## Coffee Shop Hours: recommendation
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
-![](i/i_10.png)
-
-*> focus on the medians*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years show at least half consuming less than 5 kg per cap?</p>
-
-![](i/i_14.png)
-
-*> ... when the median is above 5 kg per cap*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years saw the largest jump in the median?</p>
-
-![](i/i_10.png)
-
-*> ... a little difficult to see*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years saw the largest jump in the median?</p>
-
-![](i/i_11.png)
-
-*> ... a little difficult to see*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
-
-![](i/i_09.png)
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Is the country with the lowest consumption consuming more today?</p>
-
-![](i/i_12.png)
-
-*> focus on the minimums*
+- **Opening time**: Before 7 AM (around 5-6 AM)
+- **Duration**: About 16-17 hours (based on early-opening US/CA shops)
+- **Closing time**: Around 9-11 PM
 
 . . .
 
-*> yes!*
+*> this matches what successful coffee shops do in similar markets*
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">What patterns do we observe about the maximums?</p>
-
-![](i/i_13.png)
-
-*> same with the maximums*
+## Exercise 2.3 | Filter by Inequality
+<p class="subheader">Use Starbucks_Location_Hours.csv to inform a new shop's hours.</p>
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
+## Filtering Data by Inequality
+<p class="subheader">Filtering numerical data requires inequalities.</p>
 
-![](i/i_09.png)
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
-
-![](i/i_15.png)
-
-. . .
-
-*> look at the 25%*
+| Symbol | Python | | Example |
+|--------|--------------|--------------|---------|
+| = | == | | `df[df['open'] == 7]` |
+| ≠ | != | | `df[df['open'] != 7]` |
+| < | < | | `df[df['open'] < 7]` |
+| > | > | | `df[df['open'] > 7]` |
+| ≤ | <= | | `df[df['open'] <= 7]` |
+| ≥ | >= | | `df[df['open'] >= 7]` |
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
-
-![](i/i_15.png)
-
-*> look at the 25% and compare it to 5 kg per cap*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which years did more than 25% consume less than 5 kg?</p>
-
-![](i/i_16.png)
-
-*> all of them*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which year saw the greatest difference between any two countries?</p>
-
-![](i/i_09.png)
-
-. . .
-
-*> look at the range*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which year saw the greatest difference between any two countries?</p>
-
-![](i/i_17.png)
-
-*> look at the range*
-
----
-
-## Panel Data: Multi-Boxplots
-<p class="subheader">Which year saw the greatest difference between any two countries?</p>
-
-![](i/i_18.png)
-
-*> look at the range and select the largest*
-
----
-
-## Exercise 1.4 | Multi-Boxplots
-<p class="subheader">Is the world drinking more coffee?</p>
-
-We're going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries. 
-
-- **Data:** `Coffee_Per_Cap.csv`
-
-. . . 
-
-```{python}
-import pandas as pd
-percap = pd.read_csv('data/Coffee_Per_Cap.csv', index_col=0)
-percap[['Code', '1999', '2009','2019']].head()
-```
-
-. . .
-
-*> this is **Wide-Format Panel Data**: each year is in a separate column*
-
-
----
-
-## Exercise 1.4 | Multi-Boxplots
-<p class="subheader">Is the world drinking more coffee?</p>
-
-With wide-format panel data seaborn looks a little different.
+## Coffee Shop Hours: filter for early opening shops
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ```{.python}
-# Wide Format Multi-Boxplot
-sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 100))
+# Filter for shops that open before 7 AM
+early_hours = hours[hours['open'] < 7]
 ```
 
-. . .
+---
 
-![](i/i_09.png)
+## Coffee Shop Hours: filter for early opening shops
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Create histogram of duration for early-opening shops
+sns.histplot(early_hours, x='duration_hr', bins=range(0,25,1))
+
+```
+
+![](i/i_07.png)
 
 ---
 
-## Panel Data: Multi-Boxplots
-<p class="subheader">In which year did most countries increase their coffee consumption?</p>
+## Coffee Shop Hours: combine filters
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
-![](i/i_09_c.png)
-
-. . .
-
-*> not visible in the figure!*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
-![](i/i_09_c.png)
-
-. . .
-
-*> also not visible with this figure!*
+```{.python}
+# Filter for shops that open early AND are in US or Canada
+early_us_ca = hours[(hours['open'] < 7) & (hours['COUNTRY_CODE'].isin(['US', 'CA']))]
+```
 
 ---
 
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
+## Coffee Shop Hours: combine filters
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
+
+```{.python}
+# Create histogram of duration for early-opening US/CA shops
+sns.histplot(early_us_ca, x='duration_hr', bins=range(0,25,1))
+
+```
 
 ![](i/i_08.png)
 
-. . .
-
-*> better, but this figure still doesn't let us keep track of countries between years...*
-
 ---
 
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
-![](i/i_19.png)
-
-. . .
-
-*> a scatter plot can visualize changes between two points in time*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
-![](i/i_20.png)
-
-*> a 45 degree line shows all the possible points with no change*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries increased their coffee consumption between 1999 and 2019?</p>
-
-![](i/i_21.png)
-
-*> points above the line increased*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">How many countries decreased their coffee consumption between 1999 and 2019?</p>
-
-![](i/i_22.png)
-
-*> points below the line decreased*
-
----
-
-## Panel Data: Relationships Between Years
-<p class="subheader">Does the data confirm that the world is drinking more coffee?</p>
-
-![](i/i_23.png)
-
-*> we can use colors to visualize both increases and decreases*
-
----
-
-## Exercise 1.4 | Scatterplots
-<p class="subheader">Is the world drinking more coffee?</p>
-
-We're going to use a scatterplot to visually examine how countries' coffee consumption changed between 1999 and 2019. 
-
-- **Data:** `Coffee_Per_Cap.csv`
-
----
-
-## Exercise 1.4 | Scatterplots
-<p class="subheader">Is the world drinking more coffee?</p>
+## Coffee Shop Hours: compare opening times
+<p class="subheader">Q. How long might be good for the coffee shop to stay open?</p>
 
 ```{.python}
-# Wide Format Scatterplot
-sns.scatterplot(percap, x='1999', y='2019')
+# Compare early vs all shops in US/CA
+sns.histplot(us_ca, x='duration_hr', bins=range(0,25,1), label='All US/CA')
+sns.histplot(early_us_ca, x='duration_hr', bins=range(0,25,1), label='Early US/CA')
+plt.legend()
 ```
 
----
-
-## Exercise 1.4 | Scatterplots
-<p class="subheader">Is the world drinking more coffee?</p>
-
-```{.python}
-# Wide Format Scatterplot
-sns.scatterplot(percap, x='1999', y='2019')
-```
-
-![](i/i_19.png)
-
-
----
-
-## Part 1.4 | Panel Data Using Scatterplots
-
-<br><br>
-
-#### Summary
-
-::: {.incremental}
-- Multi-Boxplots can help visualize changes in the distribution, but cannot track individual changes.
-- Scatterplots can show how repeated observations change through time within a single unit.
-- A 45 degree line and colors can help visually communicate changes.
-:::
+![](i/i_09.png)
 

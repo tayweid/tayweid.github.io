@@ -110,21 +110,20 @@ You should leave each class thinking: "I just practiced exactly what I need to d
 
 ## Part 1: Exploring Variables
 
-One substantive variable at a time. Cross-section first, then time series. Variable types are introduced in Part 0; Part 1 applies the framework to visualize data.
+One substantive variable at a time. Cross-section first, then time series, then panel. Variable types are introduced in Part 0; Part 1 applies the framework to visualize data across different data structures.
 
 | Unit | Structure | Focus | Visualizations | Description |
 |------|-----------|-------|----------------|-------------|
 | 1.1 | Cross-section | Categorical | Bar chart, pie | Describe frequencies and proportions of a categorical variable. |
 | 1.2 | Cross-section | Numerical | Histogram, boxplot | Describe distribution, center, and spread of a numerical variable. |
-| 1.3 | Time series | Numerical | Line plot | Describe a variable over time; introduce trend and seasonality. |
-| 1.4 | Time series | Transformations | Line plot | Apply log, inflation adjustment, per capita, and differencing; interpret transformed series. |
-| 1.5 | Any | Filtering | — | Filter data by conditions; work with subsets. |
+| 1.3 | Time series | Numerical + Transformations | Line plot | Describe a variable over time; introduce trend and seasonality. Apply log, inflation adjustment, per capita, and differencing. |
+| 1.4 | Panel | Multi-entity time series | Multi-line, facets | Panel data makes both i and t active. Multi-line plots, faceting/small multiples, and reshaping between long and wide format. |
 
 **After Part 1, you have:**
 - Variables: binary, nominal, ordinal, discrete, continuous
-- Structures: cross-section, time series
-- Operations: count, bin, quartiles, filter, sort, log, inflation adjust, per capita, difference
-- Visualizations: bar, pie, histogram, boxplot, stripplot, line
+- Structures: cross-section, time series, panel
+- Operations: count, bin, quartiles, sort, log, inflation adjust, per capita, difference, reshape (melt, pivot)
+- Visualizations: bar, pie, histogram, boxplot, stripplot, line, multi-line, facets/small multiples
 
 *Exam 1*
 
@@ -132,30 +131,20 @@ One substantive variable at a time. Cross-section first, then time series. Varia
 
 ## Part 2: Exploring Relationships
 
-Adding complexity: a second substantive variable, or activating the second index dimension (panel).
-
-**Why panel belongs here:** Panel data makes both i and t analytically active. Like adding a second substantive variable, this involves asking "how does this vary with that?"—sometimes across variables, sometimes across the i × t structure.
-
-**Long vs wide format:** This distinction matters when both i and t are active. Format determines which visualizations are natural.
-
-| Format | What's a row? | Natural for... |
-|--------|---------------|----------------|
-| Long | One (i, t) observation | Multi-line plots, facets by entity, groupby operations |
-| Wide | One entity i | Comparing specific time points, scatterplots of Year1 vs Year2 |
+Adding complexity: a second substantive variable. We explore how variables relate to each other and introduce operations for working with subsets.
 
 | Unit | Structure | Focus | Visualizations | Description |
 |------|-----------|-------|----------------|-------------|
 | 2.1 | Cross-section | Num × Num | Scatter, bubble | Anscombe's Quartet opener; scatterplots; size encoding (bubble charts); shape encoding. |
 | 2.2 | Cross-section | Num × Cat | Grouped boxplot | Compare a numerical variable across categories. |
-| 2.3 | Panel | Long format | Multi-line, facets | Panel data in long format; multi-line plots; faceting/small multiples. |
-| 2.4 | Panel | Reshaping | — | Convert between long and wide format using melt() and pivot(). |
+| 2.3 | Any | Filtering | — | Filter data by conditions; work with subsets using logical operators (AND, OR, NOT). |
 | 2.5 | Geographic | Location as index | Maps | Visualize data with a spatial dimension. |
 
 **After Part 2, you have:**
 - Variables: (no new types)
-- Structures: + panel, geographic
-- Operations: + correlation, group, aggregate, reshape (melt, pivot)
-- Visualizations: + scatter, bubble chart, grouped boxplot, multi-line, facets/small multiples, map
+- Structures: + geographic
+- Operations: + correlation, group, aggregate, filter
+- Visualizations: + scatter, bubble chart, grouped boxplot, map
 
 *Exam 2*
 

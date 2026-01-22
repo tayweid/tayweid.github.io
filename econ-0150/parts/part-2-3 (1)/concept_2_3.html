@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_1_4_files/libs/clipboard/clipboard.min.js"></script>
-<script src="concept_1_4_files/libs/quarto-html/tabby.min.js"></script>
-<script src="concept_1_4_files/libs/quarto-html/popper.min.js"></script>
-<script src="concept_1_4_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="concept_1_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="concept_1_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="concept_1_4_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_2_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/tabby.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="concept_2_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="concept_2_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="concept_2_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="concept_2_3_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.6.40">
 
-  <title>concept_1_4</title>
+  <title>concept_2_3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="concept_1_4_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="concept_1_4_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,12 +93,12 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="concept_1_4_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
+  <link rel="stylesheet" href="concept_2_3_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
-  <link href="concept_1_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="concept_1_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="concept_1_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="concept_1_4_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="concept_2_3_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
       margin: 0;
@@ -201,243 +201,28 @@
 The economist’s data analysis pipeline.
 </p>
 <p><br></p>
-<h3 id="part-1.4-panel-data"><em>Part 1.4 | Panel Data</em></h3>
+<h3 id="part-2.3-filtering-data"><em>Part 2.3 | Filtering Data</em></h3>
 </section>
-<section id="panel-data-long-format-vs-wide-format" class="slide level2">
-<h2>Panel Data: Long Format vs Wide Format</h2>
+<section id="a-new-us-coffee-shop" class="slide level2">
+<h2>A New US Coffee Shop</h2>
 <p class="subheader">
-Panel data comes in one of two formats.
+Lets use Starbucks_Location_Hours.csv to inform a new shop’s hours.
 </p>
-<p>Panel Data in <strong><em>Long Format</em></strong> uses lists each entry as a row, using a column (eg. <em>Shop</em>) to record the group.</p>
-<div id="3a59f537" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="1">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Shop</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">transaction_id</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">7</td>
-<td>12</td>
-<td>Shop A</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>15</td>
-<td>Shop A</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">19</td>
-<td>14</td>
-<td>Shop A</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">32</td>
-<td>16</td>
-<td>Shop A</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">33</td>
-<td>19</td>
-<td>Shop A</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="panel-data-long-format-vs-wide-format-1" class="slide level2">
-<h2>Panel Data: Long Format vs Wide Format</h2>
-<p class="subheader">
-Panel data comes in one of two formats.
-</p>
-<p>Panel Data in <strong><em>Wide Format</em></strong> uses lists each group as a row, using a column to record each entry.</p>
-<div id="69b8f0c7" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">1999</th>
-<th data-quarto-table-cell-role="th">2019</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Code</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">AUT</td>
-<td>8.430589</td>
-<td>7.925747</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">BGR</td>
-<td>2.652661</td>
-<td>3.638313</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">HRV</td>
-<td>4.480790</td>
-<td>5.623266</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">CYP</td>
-<td>3.477888</td>
-<td>5.615070</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">CZE</td>
-<td>3.255587</td>
-<td>4.739563</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="hiring-a-barista" class="slide level2">
-<h2>Hiring a Barista</h2>
-<p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
-</p>
-<p><br></p>
-<ul>
-<li>You manage three coffee shops and are considering where to hire a new barista.</li>
-<li>You have a dataset containing information about the transactions taking place at all three coffee shops throughout the day.</li>
-<li>Lets consider how to use this data to inform our decision.</li>
-</ul>
-</section>
-<section id="hiring-a-barista-1" class="slide level2">
-<h2>Hiring a Barista</h2>
-<p class="subheader">
-Q. Which coffee shop is the busiest?
-</p>
-</section>
-<section id="hiring-a-barista-bar-graphs-compare-shops" class="slide level2">
-<h2>Hiring a Barista: Bar Graphs Compare Shops</h2>
-<p class="subheader">
-Q. Which coffee shop is the busiest?
-</p>
-
-<img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; a bar chart makes it easy to compare shops’ busyness</em></p>
-</div>
-</section>
-<section id="hiring-a-barista-2" class="slide level2">
-<h2>Hiring a Barista</h2>
-<p class="subheader">
-Q. What time of day is the busiest?
-</p>
-</section>
-<section id="hiring-a-barista-histograms-can-compare-times" class="slide level2">
-<h2>Hiring a Barista: Histograms Can Compare Times</h2>
-<p class="subheader">
-Q. What time of day is the busiest?
-</p>
-
-<img data-src="i/i_02.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; a histogram makes it easy to compare transactions by time of day</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; does this mean the morning shift at Shop A is the busiest?</em></p>
-</div>
-</section>
-<section id="hiring-a-barista-3" class="slide level2">
-<h2>Hiring a Barista</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-</section>
-<section id="hiring-a-barista-transactions-by-shop" class="slide level2">
-<h2>Hiring a Barista: Transactions by Shop</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-
-<img data-src="i/i_03.png" class="r-stretch"><p><em>&gt; an overlaid histogram can show all three groups</em></p>
-<div class="fragment">
-<p><em>&gt; does this show the data clearly?</em></p>
-</div>
-</section>
-<section id="hiring-a-barista-transactions-by-shop-1" class="slide level2">
-<h2>Hiring a Barista: Transactions by Shop</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-
-<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; instead, lets use a line graph</em></p>
-</section>
-<section id="part-1.4-panel-data-using-line-graphs" class="slide level2">
-<h2>Part 1.4 | Panel Data Using Line Graphs</h2>
 <p><br><br></p>
-<h4 id="summary">Summary</h4>
-<div>
 <ul>
-<li class="fragment">Categorical variables and continuous variables can give us different views of the same data.</li>
-<li class="fragment">We can visualize both views one the same graph.</li>
-<li class="fragment">Line graphs help simplify the visualization of multiple categories.</li>
+<li>The coffee shop is opening in upstate New York, near the border to Canada.</li>
+<li>You’re asked to help make some decisions about how to run the shop when it opens.</li>
+<li>The dataset <code>Starbucks_Location_Hours.csv</code> contains information about Starbucks coffee shops globally.</li>
 </ul>
-</div>
 </section>
-<section id="exercise-1.4-coffee-shop-transactions" class="slide level2">
-<h2>Exercise 1.4 | Coffee Shop Transactions</h2>
+<section id="a-new-coffee-shop" class="slide level2">
+<h2>A New Coffee Shop</h2>
 <p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
+Q. When might be a good time for the coffee shop to open?
 </p>
 <div class="fragment">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Load Dataset</span></span>
-<span id="cb1-2"><a href=""></a>sales <span class="op">=</span> pd.read_csv(file_path <span class="op">+</span> <span class="st">'Coffee_Sales_Reciepts.csv'</span>)</span>
-<span id="cb1-3"><a href=""></a>sales.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="fragment">
-<div id="14364260" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="d3d0873f" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="71">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -457,35 +242,53 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <thead>
 <tr class="header" style="text-align: right;">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Shop</th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>12</td>
-<td>Shop A</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>15</td>
-<td>Shop A</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
 <td>14</td>
-<td>Shop A</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>16</td>
-<td>Shop A</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>19</td>
-<td>Shop A</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
 </tr>
 </tbody>
 </table>
@@ -493,55 +296,287 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 </div>
 </div>
 </div>
-<p><em>&gt; you’ll see a few more columns in your dataset</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; this is <strong>Long-Format Panel Data</strong>: transactions are all in the same column</em></p>
+<p><br></p>
+<p><em>&gt; we should use a figure</em></p>
 </div>
 </section>
-<section id="exercise-1.4-bar-chart" class="slide level2">
-<h2>Exercise 1.4 | Bar Chart</h2>
+<section id="a-new-coffee-shop-1" class="slide level2">
+<h2>A New Coffee Shop</h2>
 <p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
+Q. When might be a good time for the coffee shop to open?
 </p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Bar graph</span></span>
-<span id="cb2-2"><a href=""></a>sns.countplot(sales, x<span class="op">=</span><span class="st">'Shop'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so it seems best to open sometime in the morning… makes sense</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; but what if there’s something specific about US coffee drinkers though?</em></p>
+</div>
+</section>
+<section id="opening-time-filter-by-category" class="slide level2">
+<h2>Opening Time: filter by category</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_02.png" class="r-stretch"><p><em>&gt; here we’ve filtered for US locations</em></p>
+<div class="fragment">
+<p><em>&gt; so it seems US Starbucks open earlier</em></p>
+</div>
+</section>
+<section id="opening-time-filter-by-category-1" class="slide level2">
+<h2>Opening Time: filter by category</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_02.png" class="r-stretch"><p><em>&gt; but maybe we should look at Canadian shops too…</em></p>
+<div class="fragment">
+<p><em>&gt; let filter for <strong>BOTH</strong> countries</em></p>
+</div>
+</section>
+<section id="opening-time-combining-filters" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Lets us some Boolian logic :)
+</p>
+
+<img data-src="i/i_Bool.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; is there something different between the US and Canada?</em></p>
+</div>
+</section>
+<section id="opening-time-combining-filters-1" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_02.png" class="r-stretch"></section>
+<section id="opening-time-combining-filters-2" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_03.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so not much difference between when shops in the US and Canada open</em></p>
+</div>
+</section>
+<section id="opening-time-combining-filters-3" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_03_question.png" class="r-stretch"></section>
+<section id="opening-time-combining-filters-4" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_03_answer.png" class="r-stretch"><p><em>&gt; no data! no coffee shop can be in the US AND Canada!</em></p>
+</section>
+<section id="opening-time-combining-filters-5" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_03.png" class="r-stretch"></section>
+<section id="opening-time-combining-filters-6" class="slide level2">
+<h2>Opening Time: combining filters</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+
+<img data-src="i/i_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so coffee shops in US and Canada open much earlier than the rest of the world</em></p>
+</div>
+</section>
+<section id="opening-time-conclusions" class="slide level2">
+<h2>Opening Time: conclusions</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<p><br></p>
+<ul>
+<li>So lets open earlier than 7 AM.</li>
+</ul>
+</section>
+<section id="exercise-2.3-filter-by-category" class="slide level2">
+<h2>Exercise 2.3 | Filter by Category</h2>
+<p class="subheader">
+Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
+</p>
+<p><br><br></p>
+<ul>
+<li>The coffee shop is opening in upstate New York, near the border to Canada.</li>
+<li>You’re asked to help make some decisions about how to run the shop when it opens.</li>
+<li>The dataset <code>Starbucks_Location_Hours.csv</code> contains information about Starbucks coffee shops globally.</li>
+</ul>
+</section>
+<section id="coffee-shop-hours-filter-by-category" class="slide level2">
+<h2>Coffee Shop Hours: filter by category</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+</section>
+<section id="coffee-shop-hours-plot-all-opening-times" class="slide level2">
+<h2>Coffee Shop Hours: plot all opening times</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Histogram</span></span>
+<span id="cb1-2"><a href=""></a>sns.histplot(hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_01.png"></p>
 </div>
 </section>
-<section id="exercise-1.4-histogram" class="slide level2">
-<h2>Exercise 1.4 | Histogram</h2>
+<section id="filtering-data-by-category" class="slide level2">
+<h2>Filtering Data by Category</h2>
 <p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
+Filtering categorical data requires logical operations.
 </p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Create a histogram</span></span>
-<span id="cb3-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Logic</th>
+<th>Python</th>
+<th></th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Equals</td>
+<td>==</td>
+<td></td>
+<td><code>df[df['shop'] == 'A']</code></td>
+</tr>
+<tr class="even">
+<td>Unequal</td>
+<td>!=</td>
+<td></td>
+<td><code>df[df['shop'] != 'A']</code></td>
+</tr>
+<tr class="odd">
+<td>NOT</td>
+<td>~</td>
+<td></td>
+<td><code>df[~(df['shop'] == 'A')]</code></td>
+</tr>
+<tr class="even">
+<td>In list</td>
+<td>.isin()</td>
+<td></td>
+<td><code>df[df['shop'].isin(['A', 'B'])]</code></td>
+</tr>
+<tr class="odd">
+<td>AND</td>
+<td>&amp;</td>
+<td></td>
+<td><code>(df['shop'] == 'A') &amp; (df['open'] &lt; 7)</code></td>
+</tr>
+<tr class="even">
+<td>OR</td>
+<td>|</td>
+<td></td>
+<td><code>(df['shop'] == 'A') | (df['open'] &lt; 7)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="coffee-shop-hours-filter-for-us-locations" class="slide level2">
+<h2>Coffee Shop Hours: filter for US locations</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
+<span id="cb2-2"><a href=""></a>us_codes <span class="op">=</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-filter-for-us-locations-1" class="slide level2">
+<h2>Coffee Shop Hours: filter for US locations</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Decide whether each row's country code is 'US'</span></span>
+<span id="cb3-2"><a href=""></a>us_codes <span class="op">=</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>)</span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a><span class="co"># Select the rows with True</span></span>
+<span id="cb3-5"><a href=""></a>us_hours <span class="op">=</span> hours[us_codes]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-filter-for-us-locations-2" class="slide level2">
+<h2>Coffee Shop Hours: filter for US locations</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Select the rows with country code equal to 'US'</span></span>
+<span id="cb4-2"><a href=""></a>us_hours <span class="op">=</span> hours[hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-filter-for-us-locations-3" class="slide level2">
+<h2>Coffee Shop Hours: filter for US locations</h2>
+<p class="subheader">
+Q. When might be a good time for the coffee shop to open?
+</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Histogram of US locations</span></span>
+<span id="cb5-2"><a href=""></a>sns.histplot(us_hours, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_02.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-shops-in-either-us-or-ca" class="slide level2">
+<h2>Coffee Shop Hours: shops in either US or CA</h2>
+<p class="subheader">
+Q. When might be a good time for a US coffee shop to open?
+</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
+<span id="cb6-2"><a href=""></a><span class="co"># Method 1: Using OR operator |</span></span>
+<span id="cb6-3"><a href=""></a>us_ca <span class="op">=</span> hours[(hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">|</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CA'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-shops-in-either-us-or-ca-1" class="slide level2">
+<h2>Coffee Shop Hours: shops in either US or CA</h2>
+<p class="subheader">
+Q. When might be a good time for a US coffee shop to open?
+</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Find the data in either the US or in Canada (CA)</span></span>
+<span id="cb7-2"><a href=""></a><span class="co"># Method 2: Using isin()</span></span>
+<span id="cb7-3"><a href=""></a>us_ca <span class="op">=</span> hours[hours[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-shops-in-either-us-or-ca-2" class="slide level2">
+<h2>Coffee Shop Hours: shops in either US or CA</h2>
+<p class="subheader">
+Q. When might be a good time for a US coffee shop to open?
+</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Create histogram</span></span>
+<span id="cb8-2"><a href=""></a>sns.histplot(us_ca, x<span class="op">=</span><span class="st">'open'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_03.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-shops-in-both-us-and-ca" class="slide level2">
+<h2>Coffee Shop Hours: shops in both US and CA</h2>
+<p class="subheader">
+Q. When might be a good time for a US coffee shop to open?
+</p>
+<p>What would this dataset look like?</p>
+<div class="sourceCode" id="cb9" data-code-line-numbers="4,7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>hours[(hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'US'</span>) <span class="op">&amp;</span> (hours[<span class="st">'COUNTRY_CODE'</span>] <span class="op">==</span> <span class="st">'CN'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<p><img data-src="i/i_02.png"></p>
+<p><em>&gt; it would contain no data!</em></p>
+<p><img data-src="i/i_03_answer.png"></p>
 </div>
 </section>
-<section id="exercise-1.4-multi-histogram" class="slide level2">
-<h2>Exercise 1.4 | Multi-Histogram</h2>
+<section id="opening-time" class="slide level2">
+<h2>Opening Time</h2>
 <p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
+Q. How long might be good for the coffee shop to stay open?
 </p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Create a multi-histogram</span></span>
-<span id="cb4-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><br></p>
+<ul>
+<li>So lets open earlier than 7 AM.</li>
+<li>How long should we stay open?</li>
+</ul>
 <div class="fragment">
-<p><img data-src="i/i_03.png"></p>
-</div>
-</section>
-<section id="exercise-1.4-count-hourly-by-shop" class="slide level2">
-<h2>Exercise 1.4 | Count Hourly by Shop</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Create hourly counts by shop</span></span>
-<span id="cb5-2"><a href=""></a>hourly_counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<div id="c9942d20" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div id="d084038a" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="72">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -561,41 +596,53 @@ Q. Which shift is the busiest?
 <thead>
 <tr class="header" style="text-align: right;">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Shop</th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Count</th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>Shop A</td>
-<td>7</td>
-<td>1383</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>Shop A</td>
-<td>8</td>
-<td>1632</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>Shop A</td>
-<td>9</td>
-<td>1693</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>Shop A</td>
-<td>10</td>
-<td>1711</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>Shop A</td>
-<td>11</td>
-<td>1136</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
 </tr>
 </tbody>
 </table>
@@ -604,225 +651,77 @@ Q. Which shift is the busiest?
 </div>
 </div>
 </div>
-<div class="fragment">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Multi-Lineplot</span></span>
-<span id="cb6-2"><a href=""></a>sns.lineplot(hourly_counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="exercise-1.4-multiple-line-graph" class="slide level2">
-<h2>Exercise 1.4 | Multiple Line Graph</h2>
+<section id="duration" class="slide level2">
+<h2>Duration</h2>
 <p class="subheader">
-Q. Which shift is the busiest?
-</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb7-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_04.png"></p>
-</div>
-</section>
-<section id="exercise-1.4-multiple-line-graph-1" class="slide level2">
-<h2>Exercise 1.4 | Multiple Line Graph</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_05.png"></p>
-</div>
-</section>
-<section id="panel-data-coffee-consumption-per-capita" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>Lets examine whether the world is drinking more coffee today than in the 1990s.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-</section>
-<section id="panel-data-coffee-consumption-per-capita-1" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
-<p class="subheader">
-Is the world drinking more coffee?
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
-<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; compared to what…?</em></p>
-</div>
-</section>
-<section id="panel-data-coffee-consumption-per-capita-2" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this is still pretty unclear: histograms aren’t great for comparison</em></p>
+<img data-src="i/i_05.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so most shops stay open for around 15 hours</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; lets use a multi-boxplot</em></p>
+<p><em>&gt; does that mean we should stay open for 15 hours?</em></p>
 </div>
 </section>
-<section id="panel-data-multi-boxplots" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
+<section id="duration-filter-by-inequality" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-Is the world drinking more coffee?
+Q. How long might be good for the coffee shop to stay open?
 </p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this is better: it looks like the distribution is shifted higher!</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets examine the years in between to see how the distribution evolved</em></p>
-</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>=</td>
+<td>Equal to</td>
+</tr>
+<tr class="even">
+<td>≠</td>
+<td>Not equal to</td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="even">
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="odd">
+<td>≤</td>
+<td>Less than or equal to</td>
+</tr>
+<tr class="even">
+<td>≥</td>
+<td>Greater than or equal to</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="panel-data-multi-boxplots-1" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
+<section id="duration-filter-by-inequality-1" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-Is the world drinking more coffee?
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; lets ask some smaller more focussed questions</em></p>
-</div>
+<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; lets filter for coffee shops that open before 7 AM</em></p>
 </section>
-<section id="panel-data-multi-boxplots-2" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
+<section id="duration-filter-by-inequality-2" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
+Q. How long might be good for the coffee shop to stay open?
 </p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-3" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="i/i_10.png" class="r-stretch"><p><em>&gt; focus on the medians</em></p>
-</section>
-<section id="panel-data-multi-boxplots-4" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="i/i_14.png" class="r-stretch"><p><em>&gt; … when the median is above 5 kg per cap</em></p>
-</section>
-<section id="panel-data-multi-boxplots-5" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years saw the largest jump in the median?
-</p>
-
-<img data-src="i/i_10.png" class="r-stretch"><p><em>&gt; … a little difficult to see</em></p>
-</section>
-<section id="panel-data-multi-boxplots-6" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years saw the largest jump in the median?
-</p>
-
-<img data-src="i/i_11.png" class="r-stretch"><p><em>&gt; … a little difficult to see</em></p>
-</section>
-<section id="panel-data-multi-boxplots-7" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-8" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="i/i_12.png" class="r-stretch"><p><em>&gt; focus on the minimums</em></p>
-<div class="fragment">
-<p><em>&gt; yes!</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-9" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-What patterns do we observe about the maximums?
-</p>
-
-<img data-src="i/i_13.png" class="r-stretch"><p><em>&gt; same with the maximums</em></p>
-</section>
-<section id="panel-data-multi-boxplots-10" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-11" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_15.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; look at the 25%</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-12" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_15.png" class="r-stretch"><p><em>&gt; look at the 25% and compare it to 5 kg per cap</em></p>
-</section>
-<section id="panel-data-multi-boxplots-13" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_16.png" class="r-stretch"><p><em>&gt; all of them</em></p>
-</section>
-<section id="panel-data-multi-boxplots-14" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; look at the range</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-15" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_17.png" class="r-stretch"><p><em>&gt; look at the range</em></p>
-</section>
-<section id="panel-data-multi-boxplots-16" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_18.png" class="r-stretch"><p><em>&gt; look at the range and select the largest</em></p>
-</section>
-<section id="exercise-1.4-multi-boxplots" class="slide level2">
-<h2>Exercise 1.4 | Multi-Boxplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>We’re going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-<div class="fragment">
-<div id="7fa360a8" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="5">
+<p>How would we filter for coffee shops that open before 7 AM?</p>
+<p><br></p>
+<div id="51041644" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="73">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -842,47 +741,53 @@ Is the world drinking more coffee?
 <thead>
 <tr class="header" style="text-align: right;">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Code</th>
-<th data-quarto-table-cell-role="th">1999</th>
-<th data-quarto-table-cell-role="th">2009</th>
-<th data-quarto-table-cell-role="th">2019</th>
+<th data-quarto-table-cell-role="th">storeNumber</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">open</th>
+<th data-quarto-table-cell-role="th">close</th>
+<th data-quarto-table-cell-role="th">duration_hr</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>AUT</td>
-<td>8.430589</td>
-<td>6.371562</td>
-<td>7.925747</td>
+<td>34638-85784</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>32141-267986</td>
+<td>HK</td>
+<td>7</td>
+<td>22</td>
+<td>14</td>
+</tr>
+<tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>BGR</td>
-<td>2.652661</td>
-<td>3.296419</td>
-<td>3.638313</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td>HRV</td>
-<td>4.480790</td>
-<td>5.100831</td>
-<td>5.623266</td>
+<td>15035-155445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
-<td>CYP</td>
-<td>3.477888</td>
-<td>4.050500</td>
-<td>5.615070</td>
+<td data-quarto-table-cell-role="th">3</td>
+<td>49646-268445</td>
+<td>HK</td>
+<td>8</td>
+<td>22</td>
+<td>14</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">5</td>
-<td>CZE</td>
-<td>3.255587</td>
-<td>3.016104</td>
-<td>4.739563</td>
+<td data-quarto-table-cell-role="th">4</td>
+<td>31944-224544</td>
+<td>HK</td>
+<td>8</td>
+<td>20</td>
+<td>12</td>
 </tr>
 </tbody>
 </table>
@@ -890,141 +795,178 @@ Is the world drinking more coffee?
 </div>
 </div>
 </div>
-</div>
 <div class="fragment">
-<p><em>&gt; this is <strong>Wide-Format Panel Data</strong>: each year is in a separate column</em></p>
+<p><em>&gt; use “<code>open</code> &lt; 7”</em></p>
 </div>
 </section>
-<section id="exercise-1.4-multi-boxplots-1" class="slide level2">
-<h2>Exercise 1.4 | Multi-Boxplots</h2>
+<section id="duration-filter-by-inequality-3" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>With wide-format panel data seaborn looks a little different.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Wide Format Multi-Boxplot</span></span>
-<span id="cb9-2"><a href=""></a>sns.boxplot(percap[[<span class="st">'1999'</span>,<span class="st">'2004'</span>,<span class="st">'2009'</span>,<span class="st">'2014'</span>,<span class="st">'2019'</span>]], orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_09.png"></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-17" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-In which year did most countries increase their coffee consumption?
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; not visible in the figure!</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
+<img data-src="i/i_05.png" class="r-stretch"></section>
+<section id="duration-filter-by-inequality-4" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; also not visible with this figure!</em></p>
+<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; so shops that open early stay open longer</em></p>
 </div>
 </section>
-<section id="panel-data-relationships-between-years-1" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
+<section id="duration-filter-by-inequality-5" class="slide level2">
+<h2>Duration: filter by inequality</h2>
 <p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
+Q. How long might be good for the coffee shop to stay open?
+</p>
+
+<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; but here we’re looking at all shops globally!</em></p>
+<p><em>&gt; our shop is opening in the US near Canada, so lets filter by country too</em></p>
+</div>
+</section>
+<section id="duration-filter-on-category-and-inequality" class="slide level2">
+<h2>Duration: filter on category and inequality</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
 <img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; better, but this figure still doesn’t let us keep track of countries between years…</em></p>
+<p><em>&gt; shops that open early will stay open longer in the US or Canada</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; this is hard to see: maybe there’s a more systematic way of showing differences</em></p>
 </div>
 </section>
-<section id="panel-data-relationships-between-years-2" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
+<section id="duration-conclusions" class="slide level2">
+<h2>Duration: conclusions</h2>
 <p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-</section>
-<section id="panel-data-relationships-between-years-3" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
+Q. How long might be good for the coffee shop to stay open?
 </p>
 
-<img data-src="i/i_19.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; a scatter plot can visualize changes between two points in time</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years-4" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
+<img data-src="i/i_09.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-recommendation" class="slide level2">
+<h2>Coffee Shop Hours: recommendation</h2>
 <p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
+Q. How long might be good for the coffee shop to stay open?
 </p>
-
-<img data-src="i/i_20.png" class="r-stretch"><p><em>&gt; a 45 degree line shows all the possible points with no change</em></p>
-</section>
-<section id="panel-data-relationships-between-years-5" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_21.png" class="r-stretch"><p><em>&gt; points above the line increased</em></p>
-</section>
-<section id="panel-data-relationships-between-years-6" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries decreased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_22.png" class="r-stretch"><p><em>&gt; points below the line decreased</em></p>
-</section>
-<section id="panel-data-relationships-between-years-7" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="i/i_23.png" class="r-stretch"><p><em>&gt; we can use colors to visualize both increases and decreases</em></p>
-</section>
-<section id="exercise-1.4-scatterplots" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>We’re going to use a scatterplot to visually examine how countries’ coffee consumption changed between 1999 and 2019.</p>
 <ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
+<li><strong>Opening time</strong>: Before 7 AM (around 5-6 AM)</li>
+<li><strong>Duration</strong>: About 16-17 hours (based on early-opening US/CA shops)</li>
+<li><strong>Closing time</strong>: Around 9-11 PM</li>
 </ul>
-</section>
-<section id="exercise-1.4-scatterplots-1" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb10-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="exercise-1.4-scatterplots-2" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb11-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="i/i_19.png" class="r-stretch"></section>
-<section id="part-1.4-panel-data-using-scatterplots" class="slide level2">
-<h2>Part 1.4 | Panel Data Using Scatterplots</h2>
-<p><br><br></p>
-<h4 id="summary-1">Summary</h4>
-<div>
-<ul>
-<li class="fragment">Multi-Boxplots can help visualize changes in the distribution, but cannot track individual changes.</li>
-<li class="fragment">Scatterplots can show how repeated observations change through time within a single unit.</li>
-<li class="fragment">A 45 degree line and colors can help visually communicate changes.</li>
-</ul>
+<div class="fragment">
+<p><em>&gt; this matches what successful coffee shops do in similar markets</em></p>
 </div>
-
 </section>
+<section id="exercise-2.3-filter-by-inequality" class="slide level2">
+<h2>Exercise 2.3 | Filter by Inequality</h2>
+<p class="subheader">
+Use Starbucks_Location_Hours.csv to inform a new shop’s hours.
+</p>
+</section>
+<section id="filtering-data-by-inequality" class="slide level2">
+<h2>Filtering Data by Inequality</h2>
+<p class="subheader">
+Filtering numerical data requires inequalities.
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Python</th>
+<th></th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>=</td>
+<td>==</td>
+<td></td>
+<td><code>df[df['open'] == 7]</code></td>
+</tr>
+<tr class="even">
+<td>≠</td>
+<td>!=</td>
+<td></td>
+<td><code>df[df['open'] != 7]</code></td>
+</tr>
+<tr class="odd">
+<td>&lt;</td>
+<td>&lt;</td>
+<td></td>
+<td><code>df[df['open'] &lt; 7]</code></td>
+</tr>
+<tr class="even">
+<td>&gt;</td>
+<td>&gt;</td>
+<td></td>
+<td><code>df[df['open'] &gt; 7]</code></td>
+</tr>
+<tr class="odd">
+<td>≤</td>
+<td>&lt;=</td>
+<td></td>
+<td><code>df[df['open'] &lt;= 7]</code></td>
+</tr>
+<tr class="even">
+<td>≥</td>
+<td>&gt;=</td>
+<td></td>
+<td><code>df[df['open'] &gt;= 7]</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="coffee-shop-hours-filter-for-early-opening-shops" class="slide level2">
+<h2>Coffee Shop Hours: filter for early opening shops</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Filter for shops that open before 7 AM</span></span>
+<span id="cb10-2"><a href=""></a>early_hours <span class="op">=</span> hours[hours[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-filter-for-early-opening-shops-1" class="slide level2">
+<h2>Coffee Shop Hours: filter for early opening shops</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening shops</span></span>
+<span id="cb11-2"><a href=""></a>sns.histplot(early_hours, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_07.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-combine-filters" class="slide level2">
+<h2>Coffee Shop Hours: combine filters</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a><span class="co"># Filter for shops that open early AND are in US or Canada</span></span>
+<span id="cb12-2"><a href=""></a>early_us_ca <span class="op">=</span> hours[(hours[<span class="st">'open'</span>] <span class="op">&lt;</span> <span class="dv">7</span>) <span class="op">&amp;</span> (hours[<span class="st">'COUNTRY_CODE'</span>].isin([<span class="st">'US'</span>, <span class="st">'CA'</span>]))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="coffee-shop-hours-combine-filters-1" class="slide level2">
+<h2>Coffee Shop Hours: combine filters</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a><span class="co"># Create histogram of duration for early-opening US/CA shops</span></span>
+<span id="cb13-2"><a href=""></a>sns.histplot(early_us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<img data-src="i/i_08.png" class="r-stretch"></section>
+<section id="coffee-shop-hours-compare-opening-times" class="slide level2">
+<h2>Coffee Shop Hours: compare opening times</h2>
+<p class="subheader">
+Q. How long might be good for the coffee shop to stay open?
+</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a><span class="co"># Compare early vs all shops in US/CA</span></span>
+<span id="cb14-2"><a href=""></a>sns.histplot(us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>), label<span class="op">=</span><span class="st">'All US/CA'</span>)</span>
+<span id="cb14-3"><a href=""></a>sns.histplot(early_us_ca, x<span class="op">=</span><span class="st">'duration_hr'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">25</span>,<span class="dv">1</span>), label<span class="op">=</span><span class="st">'Early US/CA'</span>)</span>
+<span id="cb14-4"><a href=""></a>plt.legend()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
+<img data-src="i/i_09.png" class="r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -1033,19 +975,19 @@ Is the world drinking more coffee?
 </div></div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="concept_1_4_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="concept_1_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="concept_1_4_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="concept_1_4_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="concept_2_3_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

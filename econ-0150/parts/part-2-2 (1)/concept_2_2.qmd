@@ -404,7 +404,7 @@ Lets divide the number of transactions by the number of offers sent by offer-typ
 
 ---
 
-## Part 2.4 | Grouping
+## Part 2.2 | Grouping Data
 <p class="subheader">Summary</p>
 
 <br><br>

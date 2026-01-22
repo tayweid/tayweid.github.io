@@ -10,42 +10,24 @@ format:
 
 <br> 
 
-### *Part 1.3 | Relationships Through Time*
+### *Part 1.3 | Time Series (Numerical) Data*
 
 ---
 
-## Data Structures
-<p class="subheader">...three main relationships between data points.</p>
-
-The most effective summarization tool depends on the relationship between the data points.
-
-| | Cross-Sectional | Time-Series | Panel Data |
-|-|----|---|----|
-| **Focus** | Multiple units, one time point | One unit, many times | Multiple units, many time points |
-| **Shape** | Wide format | Long format | Long format |
-| **Ex.** | Household income, 2025 | US GDP,   10 years | Household income, 10 years |
-
-<br>
+## Time Series Numerical Data
+<p class="subheader">Tracking a numerical variable over time</p>
 
 . . .
 
-*> we've spent the first part of the class on cross-sectional data*
+*> Time series data: one entity, many points in time*
 
 . . .
 
-*> we'll spend a bit of time on panel and geographic data later*
+*> Numerical variable: values that change over time (price, GDP, temperature)*
 
----
+. . .
 
-## Exercise 1.3 | Data Structures
-
-<br><br>
-
-Lets identify the variable type for each dataset.
-
-- **Dataset 1:** `household_incomes.csv`
-- **Dataset 2:** `household_savings.csv`
-- **Dataset 3:** `Monthly_Coffee_Prices.csv`
+*> Key question: What are the trends and patterns over time?*
 
 ---
 
@@ -149,14 +131,100 @@ sns.lineplot(prices, y='price', x='date')
 
 ---
 
-## Timeseries
+## S-T-E for Line Graphs
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | Coffee prices 2015-2025 |
+| TRANSFORM | Order by date |
+| ENCODE | Date → x-position; Price → y-position; Sequence → connected line |
+
+. . .
+
+*> ENCODE uses position for both time and value — the line shows sequence*
+
+---
+
+## But Wait: Are These Prices Comparable?
+<p class="subheader">Let's zoom out even further...</p>
+
+![](i/i_cpi_01.png)
+
+. . .
+
+*> was coffee about as expensive in 1980 as it is today?*
+
+---
+
+## Nominal vs Real Prices
+<p class="subheader">A dollar in 1980 ≠ a dollar in 2025</p>
+
+![](i/i_cpi_02.png)
+
+. . .
+
+*> no! a dollar today is worth much less than in 1980*
+
+. . .
+
+*> we need to adjust for inflation to compare across time*
+
+---
+
+## Real Coffee Prices
+<p class="subheader">Adjusting for inflation changes the picture</p>
+
+![](i/i_cpi_03.png)
+
+. . .
+
+*> prices have actually dropped since 1980 and stabilized since 2000*
+
+---
+
+## Exercise 1.3 | Real Price Adjustment
+<p class="subheader">Is there a trend in the real price of coffee?</p>
+
+<br><br>
+
+Lets transform coffee prices from nominal dollars to real dollars.
+
+- **Data:** `Coffee_Prices_CPI.csv`
+
+---
+
+## Exercise 1.3 | Real Price Adjustment
+<p class="subheader">Is there a trend in the real price of coffee?</p>
+
+. . .
+
+```{.python}
+# Create real price column
+data['real'] = data['price'] / data['today']
+```
+
+. . .
+
+```{.python}
+# Lineplot of real prices
+sns.lineplot(data, x='date', y='real')
+```
+
+. . .
+
+![](i/i_cpi_03.png)
+
+---
+
+## Back to Our Question
 <p class="subheader">What information should we use to set prices in January 2026?</p>
 
 ![](i/i_06.png)
 
 . . .
 
-*> could there be seasonal trends within the larger trend?*
+*> for now, let's focus on seasonal patterns within the trend*
 
 ---
 
@@ -306,3 +374,34 @@ sns.boxplot(prices, y='month', x='price', whis=(0,100))
 . . .
 
 ![](i/i_09.png)
+
+---
+
+## S-T-E for Multi-Boxplots
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | Coffee prices 2000-2025 |
+| TRANSFORM | Group by month; calculate quartiles within each group |
+| ENCODE | Month → y-position; Price quartiles → box elements |
+
+. . .
+
+*> TRANSFORM groups by time period, then summarizes within each group*
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | New in 1.3 |
+|-------|------------|
+| Variables | (numerical reinforced) |
+| Structures | time series |
+| Operations | group by period |
+| Visualizations | line plot, multi-boxplot |
+
+. . .
+
+*> Next: What if we want to transform the values themselves?*

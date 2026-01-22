@@ -10,7 +10,24 @@ format:
 
 <br> 
 
-### *Part 1.1 | Summarizing Categorical Variables*
+### *Part 1.1 | Cross-Sectional (Categorical) Data*
+
+---
+
+## Cross-Sectional Categorical Data
+<p class="subheader">Comparing categorical values across entities</p>
+
+. . .
+
+*> Cross-sectional data: many entities, one point in time*
+
+. . .
+
+*> Categorical variables: values that represent groups or categories (state, status, sector)*
+
+. . .
+
+*> Key question: How are entities distributed across categories?*
 
 ---
 
@@ -31,6 +48,29 @@ format:
 
 ## Catagorical Variables: Visualizations
 <p class="subheader">Q. Which state has the most locations?</p>
+
+. . .
+
+```{python}
+import pandas as pd
+
+# Create a small sample wage dataset
+df = pd.read_csv('data/Coffee_Shops.csv')
+
+display_df = df.sample(5).copy()                                                
+ellipsis_row = pd.DataFrame({col: ['...'] for col in df.columns}, index=['']) 
+display_df = pd.concat([display_df, ellipsis_row])                            
+                                                                                
+display_df.style.hide(axis="index").set_properties(**{'font-size': '0.8em'}).set_table_styles([                                                         
+        {'selector': 'th', 'props': [('font-size', '0.8em')]}                   
+    ])      
+
+
+```
+
+. . .
+
+*> it's difficult to see from the data alone*
 
 ---
 
@@ -189,22 +229,6 @@ format:
 . . .
 
 *> for categorical variables, TRANSFORM almost always means counting*
-
----
-
-## Building Blocks
-<p class="subheader">What this unit adds to your toolkit</p>
-
-| Block | New in 1.1 |
-|-------|------------|
-| Variables | binary, nominal, ordinal |
-| Structures | cross-section |
-| Operations | count |
-| Visualizations | bar chart, pie chart |
-
-. . .
-
-*> each unit adds to these four categories*
 
 ---
 

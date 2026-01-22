@@ -1,10 +1,19 @@
-## Concept 1.2 | Visualizaing Numerical Variables
+## Concept 1.2 | Cross-Sectional (Numerical) Data
+
+This unit focuses on **cross-sectional numerical data** — many entities measured at one point in time. With numerical variables (values you can do math with, like age, income, or consumption), the key question is: *How is this variable distributed?*
+
+We have two main tools for visualizing numerical distributions:
+
+| Tool | Best for | Shows |
+|------|----------|-------|
+| Histogram | Many observations | Shape of distribution |
+| Boxplot + Stripplot | Fewer observations | Quartiles + individual values |
 
 ### Histograms
 
-If Starbucks decides to roll out a new product, they would want to understand their customer base before starting the campaign. The dataset Starbucks_Customer_Profiles.csv contains information about Starbucks' customers. How might we determine which age-groups tend to be Starbucks customers? 
+If Starbucks decides to roll out a new product, they would want to understand their customer base before starting the campaign. The dataset `Starbucks_Customer_Profiles.csv` contains information about Starbucks' customers. How might we determine which age-groups tend to be Starbucks customers? 
 
-A bar chart can give us a good idea of the age distribution of the sample. But since age is a **numerical variable** if we measure it precisely enough, each customer has their own individual age. Even grouping individuals by their age in years would be more categories than would be useful. With data like this, it is useful to group customers into age ranges, or age groups. 
+A bar chart can give us a good idea of the age distribution of the sample. But since age is a **numerical variable** if we measure it precisely enough, each customer has their own individual age. Even grouping individuals by their age in years would be more categories than would be useful. With data like this, it is useful to group customers into age ranges, or age groups. We call this ***binning***. We count customers based on which bin their age lands in.
 
 Can you spot anything misleading about this bar chart?
 
@@ -46,7 +55,16 @@ We could also increase the width of the bins so that more customers fall into ea
 - Make histograms with bins that are equally sized.
 - Histograms with bins that are too narrow increase statistical noise, which can obscure underlying relationships.
 
-### Excel Exercise
+### Describing Center and Spread
+
+Two numbers summarize a histogram: the **mean** (center) and the **standard deviation** (spread).
+
+- **Mean** — the average value
+- **Standard Deviation (SD)** — typical distance from the mean
+
+Together, mean and SD tell you where the data is centered and how spread out it is. For the Starbucks age data: Mean ≈ 50 years, SD ≈ 15 years. We'd say: "The average customer is about 50 years old; ages typically vary by about 15 years from that average."
+
+### Exercise 1.2 | Histograms in Excel
 
 Lets make some similar histograms of the `Starbucks_Customer_Profiles_40k.csv` dataset in Excel. Start by selecting the "age" column (click on the column title "C"), go to the Insert tab, hover over the table options until you see the "Statistical" option, or just click around until you find the "Histogram" options. Click on the first option (nothing fancy yet). It should produce a simple histogram. We can change the title by clicking on it and editing it to "Starbucks Customer Ages". We can delete the horizontal grid lines. 
 
@@ -54,7 +72,7 @@ Lastly, we can change the bin sizes. This seems to be slighly different across o
 
 Lastly, we can save the histogram figure as an image file by right clicking on it. 
 
-### Python Exercise
+### Exercise 1.2 | Histograms in Python
 
 Histograms are a little simpler in python. I've already added code to load the dataset in the notebook. So all we need to do is tell seaborn to make use a histplot, tell is the dataset to use, tell it which column we're interested in histogramming, and then tell it the bin width if we'd like. The simplest command is to write:
 
@@ -68,11 +86,25 @@ This creates a list of numbers starting at 20 and ending when hitting 100 with a
 
 `sns.histplot(customers, x='age', bins=range(20,100,5))`
 
-Now this gives us a nice histogram! We can make it prettier but this is a good place to start. Lastly, lets save it as an image file. To do this we use matplotlib's `.savefig()` function. I like to save my figure with a descriptive name. So in this case, we're in Exercise 1.1, and this is the first figure. Python doesn't like dots because they mean something different, so I'm going to call this:
+Now this gives us a nice histogram! We can make it prettier but this is a good place to start. Lastly, lets save it as an image file. To do this we use matplotlib's `.savefig()` function. I like to save my figure with a descriptive name. So in this case, we're in Exercise 1.2, and this is the first figure. Python doesn't like dots because they mean something different, so I'm going to call this:
 
-`plt.savefig(exercise_1_2_1.png)`
+`plt.savefig('exercise_1_2_histogram.png')`
 
 Then it should show up for us in our colab folder!
+
+### Exercise 1.2 | Mean and Standard Deviation in Python
+
+Now that we have a histogram, we can summarize the distribution with two numbers. In Python, calculating the mean and standard deviation is simple:
+
+```python
+# Calculate the mean
+customers['age'].mean()
+
+# Calculate the standard deviation
+customers['age'].std()
+```
+
+The mean tells us the center of the distribution, and the standard deviation tells us how spread out the data is. For the Starbucks age data, we'd say: "The average customer is about 50 years old; ages typically vary by about 15 years from that average."
 
 ### Boxplots
 
@@ -128,19 +160,30 @@ There are also roughly as many countries between these two values as outside thi
 
 The minimum, Q1, median, Q3 and maximum values in the dataset are represented by the Russian Federation, the Slovak Republic, The United States, the Netherlands, and Finland respectively.
 
+### Two Ways to Describe Center and Spread
+
+We now have two approaches for describing center and spread:
+
+| Approach | Center | Spread |
+|----------|--------|--------|
+| Mean/SD | Mean | Standard Deviation |
+| Quartiles | Median | IQR (Q3 − Q1) |
+
+Mean/SD are sensitive to outliers — extreme values pull them up or down. Median/IQR are robust — they only care about positions, not magnitudes. Both are valid; they answer slightly different questions.
+
 Which part of the table represents the **largest range** of coffee consumption levels?
 
 The answer options represented the difference between the minimum and Q1, Q1 and the median, the median and Q3, and Q3 and the maximum. We can see from the boxplot that Q3 to the maximum — the Netherlands to Finland — covers the largest range.
 
 Boxplots visually summarize the data — but their real power lies in the ease of comparisons between distributions. Next class, we’ll use boxplots to analyze the changes through time.
 
-### Excel Exercise
+### Exercise 1.2 | Boxplots in Excel
 
 We can make boxplots in Excel. Just select the data, go Insert, click on the 'Statistical' option to the right of 'Recommended Charts' that looks like a histogram, and then click on the Box and Whisker. 
 
 This will give you a nice figure. But it includes outliers by default for some reason. So lets double click on the box to bring up the format options. Then we'll unselect outliers and select show inner points. And that's it!
 
-### Python Exercise
+### Exercise 1.2 | Boxplots + Stripplots in Python
 
 We can also do this in python, which actually makes a nicer figure. I've already added the code to load the dataset in the notebook. So once you do the imports and load the data, all we have to do is have seaborn make a boxplot:
 
@@ -156,6 +199,23 @@ Then for the strip plot, this is easy too. Just use the stripplot function in se
 
 Then we'll save this as a figure.
 
-`plt.savefig('exercise_1_2_2.png')`
+`plt.savefig('exercise_1_2_boxplot.png')`
 
 That's it!
+
+### Exercise 1.2 | Quartiles in Python
+
+Now that we have a boxplot, we can calculate the five-number summary that defines it. In Python:
+
+```python
+# Minimum and Maximum
+coffee['Coffee_2019'].min()
+coffee['Coffee_2019'].max()
+
+# Quartiles (Q1, Median, Q3)
+coffee['Coffee_2019'].quantile(0.25)
+coffee['Coffee_2019'].median()
+coffee['Coffee_2019'].quantile(0.75)
+```
+
+These five numbers — min, Q1, median, Q3, max — define the boxplot and tell us about the spread of the distribution.

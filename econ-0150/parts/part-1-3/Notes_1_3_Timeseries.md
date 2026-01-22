@@ -36,7 +36,51 @@ Which intervals was the trend **negative**? We can look at the timeseries direct
 
 ![](i/i_05.png)
 
-Here I've shaded the quarters which had a negative trend, starting above where they ended. This makes it exceptionally easy to see the time intervals with a negative trend. We could have alternatively shaded the regions with a positive trend, which would have made it easier to answer a question about quarters with a positive trend. 
+Here I've shaded the quarters which had a negative trend, starting above where they ended. This makes it exceptionally easy to see the time intervals with a negative trend. We could have alternatively shaded the regions with a positive trend, which would have made it easier to answer a question about quarters with a positive trend.
+
+### Real Coffee Prices
+
+The trend is negative when the prices generally fall over a given period. We can see that parts of the time series have negative trends even while the overall trend of the time series is positive. Lets zoom out even futher, going back to the 70s.
+
+![](i/i_cpi_01.png)
+
+What do you notice about this figure? First, we might recognize that the upward trend in prices looks somewhat specific to the period after 2000. Prices seem to vary, as shown by the positive and negative subtrends, but the decadeslong trend in prices looks relatively flat. Second, we can see that we're comparing prices in 1970's dollars to prices in 2020's dollars, which doesn't give us a consistent price level. So while this long term figure gives us a long term view, this isn't particularly useful in helping us understand how prices have evolved since the 1970s.
+
+Lets plot the value of a 1970 dollar over this period.
+
+![](i/i_cpi_02.png)
+
+This makes it very clear how a dollar today is worth much less than a dollar in 1970. A dollar in 1970 is worth almost 8 dollars today. This means the nominal price of coffee in the 1970s is not comparable to the nominal price of coffee in the 2020s. We can resolve this issue using what we call a **data transformation**. To adjust for inflation, we divide the value of today's dollar yesterday by the price yesterday. This is what we call the real price.
+
+![](i/i_cpi_03.png)
+
+The real price tells a very different picture than the nomainal price. Prices of coffee were falling between the 1970s and the 1990s but have remained relatively stable since 2000.
+
+### Excel Exercise 1.3 | Real Coffee Prices
+
+Lets visualize the real price of coffee between the 1970s and today using the dataset `Coffee_Prices_CPI.csv`.
+
+This dataset has a column `date`, which gives us a formatted date for the recorded price in the column `price`. There's a column `cpi` showing the consumer price index for that year. If you're a macroeconomist you may be familiar with CPI conversions. But I've made your life easy by giving you a column `today` which gives us the value of a dollar today in the given year. So the first row shows us that today's dollar would have been worth about 14 cents in 1973.
+
+To get the real price at any given year, all we need to do is divide the nominal price `price` by the value of a dollar in that year `today` giving us a column of real prices we can call `real`.
+
+Then to visualize these real prices all we have to do is select the column, go up to Insert, click on the Line option, and select the simple option. This will give us a figure we can then style, label, and save.
+
+### Python Exercise 1.3 | Real Coffee Prices
+
+We can perform the same operations in python. Except that instead of needing to write down the step, perform it ourselves by clicking around in Excel, we can just write down the steps in code for a computer to perform on our behalf.
+
+To do this we'll simply open the notebook, import our packages, and load the data. Then we can simply construct a new column from two existing columns like we did in Excel:
+
+```python
+data['real'] = data['price'] / data['today']
+```
+
+Then we'll plot this using Seaborn. The syntax may be familiar at this point. We tell Seaborn to use the lineplot using data with `real` on the y axis and `date` on the x axis.
+
+```python
+sns.lineplot(data, x='date', y='real')
+```
 
 ### Excel Exercise 1.3 | Timeseries
 

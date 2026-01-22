@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="concept_1_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_1_1_files/libs/clipboard/clipboard.min.js"></script>
 <script src="concept_1_1_files/libs/quarto-html/tabby.min.js"></script>
 <script src="concept_1_1_files/libs/quarto-html/popper.min.js"></script>
 <script src="concept_1_1_files/libs/quarto-html/tippy.umd.min.js"></script>
@@ -186,6 +186,9 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -223,6 +226,51 @@ The economist’s data analysis skillset.
 <p class="subheader">
 Q. Which state has the most locations?
 </p>
+<div class="fragment">
+<div id="90840c93" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="9">
+<style type="text/css">
+#T_a6849 th {
+  font-size: 0.8em;
+}
+#T_a6849_row0_col0, #T_a6849_row1_col0, #T_a6849_row2_col0, #T_a6849_row3_col0, #T_a6849_row4_col0, #T_a6849_row5_col0 {
+  font-size: 0.8em;
+}
+</style>
+
+<table id="T_a6849" class="caption-top" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th id="T_a6849_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">STATE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td id="T_a6849_row0_col0" class="data row0 col0">CA</td>
+</tr>
+<tr class="even">
+<td id="T_a6849_row1_col0" class="data row1 col0">NY</td>
+</tr>
+<tr class="odd">
+<td id="T_a6849_row2_col0" class="data row2 col0">TX</td>
+</tr>
+<tr class="even">
+<td id="T_a6849_row3_col0" class="data row3 col0">WA</td>
+</tr>
+<tr class="odd">
+<td id="T_a6849_row4_col0" class="data row4 col0">FL</td>
+</tr>
+<tr class="even">
+<td id="T_a6849_row5_col0" class="data row5 col0">...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>&gt; it’s difficult to see from the data alone</em></p>
+</div>
 </section>
 <section id="catagorical-variables-visualizations-1" class="slide level2">
 <h2>Catagorical Variables: Visualizations</h2>
@@ -385,41 +433,6 @@ What we just did
 </table>
 <div class="fragment">
 <p><em>&gt; for categorical variables, TRANSFORM almost always means counting</em></p>
-</div>
-</section>
-<section id="building-blocks" class="slide level2">
-<h2>Building Blocks</h2>
-<p class="subheader">
-What this unit adds to your toolkit
-</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Block</th>
-<th>New in 1.1</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Variables</td>
-<td>binary, nominal, ordinal</td>
-</tr>
-<tr class="even">
-<td>Structures</td>
-<td>cross-section</td>
-</tr>
-<tr class="odd">
-<td>Operations</td>
-<td>count</td>
-</tr>
-<tr class="even">
-<td>Visualizations</td>
-<td>bar chart, pie chart</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p><em>&gt; each unit adds to these four categories</em></p>
 </div>
 </section>
 <section id="exercise-1.1-categorical-variables" class="slide level2">

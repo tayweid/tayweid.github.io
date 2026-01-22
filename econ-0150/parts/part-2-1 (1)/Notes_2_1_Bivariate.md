@@ -1,4 +1,22 @@
-## Part 1.5 |Bivariate Relationships
+## Part 2.1 | Bivariate Relationships
+
+### Why Visualize Relationships?
+
+Before diving into scatter plots, let's see why visualizing relationships matters. Consider four datasets. If we calculate summary statistics for each — the mean of X, the mean of Y, the standard deviation of X, the standard deviation of Y, and even the correlation between X and Y — we get nearly identical numbers.
+
+![](i/a_01.png)
+
+Based on these statistics alone, you might conclude the four datasets are essentially the same. But are they?
+
+Let's plot each dataset as a scatter plot.
+
+![](i/a_02.png)
+
+The four datasets look completely different! The first shows a linear relationship. The second shows a curved relationship. The third has one outlier pulling the statistics. The fourth has all points stacked vertically except for one outlier.
+
+This is called **Anscombe's Quartet**, and it teaches us an important lesson: summary statistics can hide important patterns. To truly understand data, we need to visualize the *relationships* between variables, not just summarize each variable separately.
+
+That's what Part 2 is all about — exploring relationships between variables.
 
 ### Scatterplots in Cross-Section
 
@@ -87,7 +105,50 @@ If we draw a vertical line through Brazil, Mexio will come closest to it, which 
 
 ![](i/c_16.png)
 
-What can we conclude from the plot? Although countries with higher GDPs tend to produce more coffee, this relationship isn’t a rule. For example, two countries with similar GDPs — Brazil and Mexico — have a production ratio of 10. We could see it clearly thanks to logarithmic axes.
+What can we conclude from the plot? Although countries with higher GDPs tend to produce more coffee, this relationship isn't a rule. For example, two countries with similar GDPs — Brazil and Mexico — have a production ratio of 10. We could see it clearly thanks to logarithmic axes.
+
+### Adding More Variables: Size Encoding
+
+So far we've used position to encode two variables — GDP on the x-axis and coffee production on the y-axis. But what if we want to show a third variable? We can use the **size** of each point.
+
+Here's our standard scatter plot:
+
+![](i/e_01.png)
+
+Now let's make each point's size represent that country's population. Larger bubbles mean larger populations.
+
+![](i/e_02.png)
+
+This type of visualization is called a **bubble chart**. We can now see three variables at once: GDP (horizontal position), coffee production (vertical position), and population (bubble size).
+
+![](i/e_03.png)
+
+Indonesia and Brazil stand out — they're large countries with high coffee production. Vietnam produces a lot of coffee but has a smaller bubble (smaller population than Indonesia). This gives us richer insight than a simple two-variable scatter plot.
+
+### Adding More Variables: Shape Encoding
+
+What if we want to distinguish groups, like which continent each country belongs to? We could use color, but what if we have many groups or need to print in black and white? **Shape** provides another way to encode categorical information.
+
+![](i/e_04.png)
+
+Here, circles represent countries in the Americas, squares represent Africa, and triangles represent Asia. Even without color, we can see geographic patterns in coffee production.
+
+### Combining Encodings
+
+We can combine size and shape to show four variables simultaneously:
+
+- **x-position** → GDP
+- **y-position** → Coffee Production
+- **size** → Population
+- **shape** → Continent
+
+![](i/e_05.png)
+
+Now we can see that Brazil and Indonesia dominate coffee production, that they're both large-population countries, and that they're on different continents (Americas and Asia). This rich visualization lets us explore multiple dimensions of the data at once.
+
+![](i/e_06.png)
+
+Be careful not to overload a single plot — too many encodings can make it hard to read. But thoughtfully combining position, size, shape, and color can reveal patterns that simpler plots would miss.
 
 ### Scatterplots and Timeseries Relationships
 
