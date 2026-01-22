@@ -1,23 +1,3 @@
-
-
-<div style="margin-top: -70px;"></div>
-
-## ECON 0150 | Fall 2025 | Homework 1.3
-
-### Due: Friday, September 12 at 5 PM
-
-Homework is designed to both test your knowlege and challenge you to apply familiar concepts in new applications. Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Submit your figures and answers to Gradescope.
-
-##### Q1. Coffee Sales Reciepts
-
-a) What is the data structure of *`Coffee_Sales_Reciepts.csv`*?
-
-##### Q2. Starbucks Location Hours
-
-a) How was *`Starbucks_Location_Hours.csv`* collected? *(Hint: use the link provided on the course website.)*
-
-b) What is the data structure of *`Starbucks_Location_Hours.csv`*?
-
 ##### Q3. Coffee Production Through Time
 
 Using the dataset *`coffee_prod_kenya.csv`*, which provides information on Kenyan coffee production between 1961 and 2023:
