@@ -78,52 +78,84 @@ Each class follows a consistent rhythm. Before class, you will often watch a con
 
 Lets begin.
 
-#### Exercise 0
+### Exercise 0 | Data Diagramming
 
-Exercise 0 is about recognizing data. For each dataset, we want to identify four things: the index variables, the data structure, the variable type, and the number of variables. Then we visualize it.
+Exercise 0 is about recognizing data. For each dataset, we want to identify four things: the index variables, the data structure, the variable type, and the number of variables.
 
-#### Python Intro
+Lets start by downloading the data. It's good to stay organized. We're going to work with many datasets this semester. So lets create a folder to hold our files. If you're not familiar with folders, you can simply right click and create one. Lets name it ECON 0150. Then inside we'll create another one called Exercise 0. Download `dataset1.csv` and put it in this folder.
 
-If you've never written code before, this might feel intimidating. It's not. Code is just a way of giving instructions to a computer. Instead of clicking buttons, you type out what you want to happen. That's it.
+This is what we call a 'comma separated value' file, which is just a format for storing data. When we see a file that ends in `.csv` we know it's a data file. If you have Excel installed, we can double click on the file and it should open in Excel.
 
-We use something called a notebook. A notebook is a document with cells. Each cell is a little box. Some cells contain code. Some cells contain text. You run cells one at a time by clicking the play button or pressing Shift+Enter. When you run a code cell, the computer reads your instructions and does what you asked. The output appears right below the cell.
+Once we have the file open, we can see what the dataset contains. It's organized by rows and columns. Each row represents one observation. Each column represents a variable — a piece of information about each observation.
 
-Here's the first thing that confuses people: cells run in the order you run them, not the order they appear on the page. If you skip a cell, the computer doesn't know about it. If you run cell 5 before cell 2, and cell 5 depends on something defined in cell 2, you'll get an error. The fix is simple: run cells from top to bottom, in order.
+#### Question 1: dataset1.csv
 
-Now lets talk about variables. A variable is just a name that stores a value. When you write `x = 5`, you're telling the computer: remember the value 5 and call it x. The equals sign doesn't mean "equals" like in math. It means "assign." You're assigning the value 5 to the name x. Later, when you write `x`, the computer knows you mean 5.
+Open `dataset1.csv` in Excel. You'll see two columns: `Year` and `Real_GDP`.
 
-You can store different types of things in variables. Numbers are just numbers: `x = 5` or `y = 3.14`. Text needs quotes around it: `name = 'Taylor'` or `greeting = "Hello"`. The quotes tell the computer this is text, not a variable name. Without quotes, the computer would think Taylor is the name of some other variable and get confused when it can't find it.
+What's the index here? We have Year, which is ordered — 1970 comes before 1971. That's our $t$ index. There's no $i$ index; we're not tracking multiple entities, just one thing (the US economy) over time. That makes this **time series** data.
 
-You can do things with variables. With numbers, you can do math: `x + y` gives you 8 if x is 5 and y is 3. With text, you can combine them: `greeting + ' ' + name` gives you 'Hello Taylor'. The `+` sign does different things depending on what you're working with. With numbers, it adds. With text, it concatenates (sticks them together).
+What about the variable? Real_GDP is measured in trillions of dollars. It can take any value — 5.316, 5.491, and so on. These are real numbers, not categories. So it's **continuous**.
 
-Here's another thing that confuses people: if you change a variable, you need to re-run the cells that use it. Lets say you defined `x = 5` and then later wrote `x + 10` which gave you 15. If you go back and change the first cell to `x = 100` but don't re-run it, the computer still thinks x is 5. You changed the text on the page, but you didn't tell the computer about it. Always re-run cells after making changes.
+How many substantive variables? Just one: Real_GDP. Year is our index, not something we're measuring. So it's **univariate**.
 
-Now lets talk about functions. A function is something that does work for you. It has a name followed by parentheses. You put inputs inside the parentheses, and it gives you back an output. For example, `len('hello')` tells you how long the text is. The function is called `len`, the input is `'hello'`, and the output is 5. You don't need to know how it works inside. You just need to know what to put in and what comes out.
+To summarize: time series, continuous, univariate. A line chart works well here because it shows how values change over time.
 
-Some functions belong to objects. You'll see this written with a dot. When you write `df.head()`, you're saying: take the thing called df and run the head function on it. The dot connects the object to its function. Think of it like "df's head" or "the head of df." This is how we work with data in Python.
+#### Question 2: dataset2.csv
 
-Speaking of data, we use a package called pandas. Python on its own doesn't know how to work with spreadsheets. Pandas gives it that ability. At the top of the notebook, you'll see `import pandas as pd`. This loads the pandas package and gives it the nickname pd, just like my friends in college called me TayTay. From then on, we can use pd to access pandas functions. And just like when I heard someone call TayTay! from across the quad, python will know what what to do.
+Open `dataset2.csv`. You'll see two columns: `Household ID` and `Employment Status`.
 
-The main thing pandas gives us is called a DataFrame. A DataFrame is just like a spreadsheet. It has rows and columns. Each column has a name. To load data from a file, we write `pd.read_csv('filename.csv')`. This reads the file and creates a DataFrame. We usually store it in a variable: `df = pd.read_csv('filename.csv')`. Now df contains our data.
+What's the index? Household ID gives us different entities — D001, D002, D003. These are unordered; D001 isn't before D002 in any meaningful way. That's our $i$ index. There's no time dimension. That makes this **cross-sectional** data.
 
-Once you have a DataFrame, you can explore it. `df.head()` shows you the first few rows. `df.shape` tells you how many rows and columns. `df.columns` lists the column names. To look at just one column, you write `df['column_name']` with the column name in quotes inside square brackets. To see what unique values are in a column, you write `df['column_name'].unique()`. To count how many of each value, you write `df['column_name'].value_counts()`.
+What about the variable? Employment Status has two possible values: Employed or Unemployed. You can scroll through the column to check, or use Excel's UNIQUE function: click on an empty cell, type `=UNIQUE(B2:B100)`, and hit enter. Two categories makes it **binary**.
 
-Errors will happen. That's normal. When you see red text, read it. The last line usually tells you what went wrong. Common errors: NameError means you're using a variable that doesn't exist yet, probably because you forgot to run an earlier cell. KeyError means you're trying to access a column that doesn't exist, probably a typo in the column name. SyntaxError means you wrote something the computer can't understand, probably a missing quote or parenthesis.
+How many substantive variables? Just one: Employment Status. So it's **univariate**.
 
-The best way to learn is to experiment. Change things and see what happens. Break things on purpose. The notebook won't bite. If something stops working, you can always re-run all cells from the top and start fresh.
+To summarize: cross-sectional, binary, univariate. A bar chart works well here because it shows how many observations fall into each category.
 
+#### Question 3: dataset3.csv
 
-**Question 1** looks at dataset1.csv. This contains US Real GDP by year. We see a Year column and a Real_GDP column. Year is our index — it's ordered, so this is the t index. That makes this time series data. Real GDP is measured in trillions of dollars. It can take any value, so it's continuous. And we're looking at one substantive variable, so it's univariate. A line chart works well for time series data because it shows how values change over time.
+Open `dataset3.csv`. You'll see four columns: `Household ID`, `Year`, `Income (USD)`, and `Savings (USD)`.
 
-**Question 2** looks at dataset2.csv. This contains employment status for different households. Household ID is our index — it's unordered entities, so this is the i index. That makes this cross-sectional data. Employment Status has two possible values: Employed or Unemployed. Two categories makes it binary. And again, we're looking at one substantive variable, so it's univariate. A bar chart or countplot works well for binary data because it shows how many observations fall into each category.
+This one's more interesting. We have Household ID (our $i$ index — different households) and Year (our $t$ index — different time periods). Both indices are active. We're tracking multiple households across multiple years. That makes this **panel** data.
 
-**Question 3** looks at dataset3.csv. This is a bit more complex. We have Household ID and Year as columns, plus Income and Savings. Both i and t are active here — we're tracking multiple households across multiple years. That makes this panel data. Income and Savings are both measured in dollars and can take any value, so they're continuous. And we have two substantive variables, so it's bivariate. A boxplot by year can show how the distribution of income changes over time.
+What about the variables? Income and Savings are both measured in dollars. They can take any value, so they're **continuous**.
 
-**Question 4** looks at dataset4.csv. This contains economic optimism ratings from different people. ID is our index — unordered entities, so cross-sectional. Economic Optimism has categories like Very Optimistic, Somewhat Optimistic, Neutral, Somewhat Pessimistic, Very Pessimistic. These are categories with a meaningful order, so it's ordinal. One substantive variable, so univariate. A bar chart with ordered categories works well here because the order matters for interpretation.
+How many substantive variables? Two: Income and Savings. Household ID and Year are indices. So it's **bivariate**.
 
-**Question 5** looks at dataset5.csv. This contains employment sector for different people. ID is our index — again cross-sectional. Sector has categories like Services, Agriculture, Manufacturing, Unemployed. These are categories but there's no inherent order to them. Services isn't more or less than Agriculture in any meaningful way. So it's nominal. One substantive variable, so univariate. A bar chart works well, and we might sort by count to make comparisons easier.
+To summarize: panel, continuous, bivariate. A scatterplot could show the relationship between income and savings. Or we could use boxplots by year to show how income distributions change over time.
 
-The point of this exercise is to build the habit of asking these questions whenever you encounter a new dataset. What's the structure? What type of variable am I looking at? How many variables? The answers determine which tools are appropriate for summarizing and visualizing the data. 
+#### Question 4: dataset4.csv
 
-That's where we're going next time!
+Open `dataset4.csv`. You'll see two columns: `ID` and `Economic Optimism`.
+
+What's the index? ID gives us different people — B001, B002, and so on. Unordered entities, so that's our $i$ index. No time dimension. **Cross-sectional** data.
+
+What about the variable? Economic Optimism has categories: Very Optimistic, Somewhat Optimistic, Neutral, Somewhat Pessimistic, Very Pessimistic. These aren't numbers, so it's categorical. But unlike Employment Status, these categories have a meaningful order. Very Optimistic is more optimistic than Somewhat Optimistic. That makes it **ordinal**.
+
+How many substantive variables? One. So it's **univariate**.
+
+To summarize: cross-sectional, ordinal, univariate. A bar chart works well, but we should keep the categories in order so the pattern is visible.
+
+#### Question 5: dataset5.csv
+
+Open `dataset5.csv`. You'll see two columns: `ID` and `Sector`.
+
+What's the index? ID again — different people, unordered. **Cross-sectional** data.
+
+What about the variable? Sector has categories: Services, Agriculture, Manufacturing, Unemployed. These are categories, but there's no inherent order. Services isn't more or less than Agriculture in any meaningful way. That makes it **nominal**.
+
+How many substantive variables? One. So it's **univariate**.
+
+To summarize: cross-sectional, nominal, univariate. A bar chart works well. We might sort by count to make comparisons easier, since the categories themselves have no natural order.
+
+#### Summary
+
+The point of this exercise is to build the habit of asking these questions whenever you encounter a new dataset:
+
+1. **What's the index?** Is it entities ($i$), time ($t$), or both?
+2. **What's the structure?** Cross-sectional, time series, or panel?
+3. **What type of variable?** Categorical (binary, nominal, ordinal) or numerical (discrete, continuous)?
+4. **How many variables?** Univariate, bivariate, or multivariate?
+
+The answers determine which tools are appropriate for summarizing and visualizing the data. That's where we're going next.
 
