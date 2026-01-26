@@ -173,22 +173,29 @@ const EconApp = {
                     });
                     
                     // Initialize: scroll to first visible card (skip livestream) and set indicator
-                    if (firstVisibleIndex > 0 && cards[firstVisibleIndex]) {
-                        // Temporarily disable smooth scrolling for instant initial position
-                        track.style.scrollBehavior = 'auto';
+                    // Use setTimeout to ensure mobile layout is complete
+                    const initializeScroll = () => {
+                        if (firstVisibleIndex > 0 && cards[firstVisibleIndex]) {
+                            // Temporarily disable smooth scrolling for instant initial position
+                            track.style.scrollBehavior = 'auto';
 
-                        // Scroll to the first non-livestream card (concept card)
-                        const targetScrollLeft = Math.max(0,
-                            cards[firstVisibleIndex].offsetLeft - (track.clientWidth / 2) + (cards[firstVisibleIndex].offsetWidth / 2)
-                        );
-                        track.scrollLeft = targetScrollLeft;
+                            // Scroll to the first non-livestream card (concept card)
+                            const targetScrollLeft = Math.max(0,
+                                cards[firstVisibleIndex].offsetLeft - (track.clientWidth / 2) + (cards[firstVisibleIndex].offsetWidth / 2)
+                            );
+                            track.scrollLeft = targetScrollLeft;
 
-                        // Re-enable smooth scrolling after a brief delay
-                        requestAnimationFrame(() => {
-                            track.style.scrollBehavior = 'smooth';
-                        });
-                    }
-                    updateActiveIndicator(firstVisibleIndex >= 0 ? firstVisibleIndex : 0);
+                            // Re-enable smooth scrolling after layout settles
+                            setTimeout(() => {
+                                track.style.scrollBehavior = 'smooth';
+                            }, 50);
+                        }
+                        updateActiveIndicator(firstVisibleIndex >= 0 ? firstVisibleIndex : 0);
+                    };
+
+                    // Run immediately and again after a short delay for mobile
+                    initializeScroll();
+                    setTimeout(initializeScroll, 100);
                 }
                 
                 // Auto-setup video thumbnails and click handlers
