@@ -48,21 +48,29 @@ const EconApp = {
                 // Indicator functionality
                 let indicator = container.querySelector('.carousel-indicator');
                 if (indicator) {
+                    // Find the index of the first non-livestream card (to start there)
+                    const firstVisibleIndex = Array.from(cards).findIndex(card => !card.classList.contains('livestream-card'));
+
                     // Generate indicator HTML if it's empty (new approach)
+                    // Include livestream cards but with special hidden class
                     if (!indicator.querySelector('.indicator-track')) {
                         const indicatorHTML = `
                             <div class="indicator-track">
                                 ${Array.from(cards).map((card, index) => {
                                     let indicatorClass = '';
-                                    if (card.classList.contains('concept-card')) {
+                                    if (card.classList.contains('livestream-card')) {
+                                        indicatorClass = 'livestream-indicator';
+                                    } else if (card.classList.contains('concept-card')) {
                                         indicatorClass = 'concept-indicator';
                                     } else if (card.classList.contains('exercise-card')) {
                                         indicatorClass = 'exercise-indicator';
                                     } else if (card.classList.contains('homework-card')) {
                                         indicatorClass = 'homework-indicator';
                                     }
+                                    // First visible (non-livestream) card starts active
+                                    const isFirstVisible = index === firstVisibleIndex;
                                     return `
-                                        <button class="indicator-tab ${indicatorClass} ${index === 0 ? 'active' : ''}" data-index="${index}">
+                                        <button class="indicator-tab ${indicatorClass} ${isFirstVisible ? 'active' : ''}" data-index="${index}">
                                         </button>
                                     `;
                                 }).join('')}
@@ -74,14 +82,27 @@ const EconApp = {
                     const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
                     const indicatorTrack = indicator.querySelector('.indicator-track');
                     let isProgrammaticScroll = false; // Flag to prevent flickering
-                    
-                    // Simple active state update
-                    const updateActiveIndicator = (index) => {
-                        if (indicatorTabs[index]) {
-                            // Update active states
-                            indicatorTabs.forEach(t => t.classList.remove('active'));
-                            indicatorTabs[index].classList.add('active');
-                        }
+
+                    // Simple active state update - maps card index to visible indicator index
+                    // Also reveals/hides livestream indicator based on proximity
+                    const updateActiveIndicator = (cardIndex) => {
+                        // Update active states
+                        indicatorTabs.forEach(tab => {
+                            const tabIndex = parseInt(tab.getAttribute('data-index'));
+                            tab.classList.remove('active');
+                            if (tabIndex === cardIndex) {
+                                tab.classList.add('active');
+                            }
+
+                            // Reveal livestream indicator when livestream card is active
+                            if (tab.classList.contains('livestream-indicator')) {
+                                if (tabIndex === cardIndex) {
+                                    tab.classList.add('revealed');
+                                } else {
+                                    tab.classList.remove('revealed');
+                                }
+                            }
+                        });
                     };
                     
                     // Arrow click handlers
@@ -151,8 +172,23 @@ const EconApp = {
                         updateActiveIndicator(closestIndex);
                     });
                     
-                    // Initialize active indicator
-                    updateActiveIndicator(0);
+                    // Initialize: scroll to first visible card (skip livestream) and set indicator
+                    if (firstVisibleIndex > 0 && cards[firstVisibleIndex]) {
+                        // Temporarily disable smooth scrolling for instant initial position
+                        track.style.scrollBehavior = 'auto';
+
+                        // Scroll to the first non-livestream card (concept card)
+                        const targetScrollLeft = Math.max(0,
+                            cards[firstVisibleIndex].offsetLeft - (track.clientWidth / 2) + (cards[firstVisibleIndex].offsetWidth / 2)
+                        );
+                        track.scrollLeft = targetScrollLeft;
+
+                        // Re-enable smooth scrolling after a brief delay
+                        requestAnimationFrame(() => {
+                            track.style.scrollBehavior = 'smooth';
+                        });
+                    }
+                    updateActiveIndicator(firstVisibleIndex >= 0 ? firstVisibleIndex : 0);
                 }
                 
                 // Auto-setup video thumbnails and click handlers
@@ -233,6 +269,44 @@ const EconApp = {
                         }
                         
                         // Add click handler to open YouTube video
+                        cardVideo.style.cursor = 'pointer';
+                        cardVideo.addEventListener('click', () => {
+                            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                        });
+                    }
+                }
+            });
+
+            // Also process part0 cards with video IDs
+            const part0Cards = document.querySelectorAll('.part0-card[data-video-id]');
+            part0Cards.forEach(card => {
+                const videoId = card.getAttribute('data-video-id');
+                const cardVideo = card.querySelector('.card-video');
+                const img = cardVideo?.querySelector('img');
+
+                if (img) {
+                    img.onerror = function() {
+                        this.classList.add('placeholder-bg');
+                    };
+                }
+
+                if (videoId && cardVideo) {
+                    const isYouTubeId = /^[a-zA-Z0-9_-]{11}$/.test(videoId);
+
+                    if (isYouTubeId) {
+                        if (img) {
+                            img.src = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                            img.classList.remove('placeholder-bg');
+                            img.alt = 'Video thumbnail';
+                        }
+
+                        if (!cardVideo.querySelector('.play-button')) {
+                            const playButton = document.createElement('div');
+                            playButton.className = 'play-button';
+                            playButton.textContent = '▶';
+                            cardVideo.appendChild(playButton);
+                        }
+
                         cardVideo.style.cursor = 'pointer';
                         cardVideo.addEventListener('click', () => {
                             window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');

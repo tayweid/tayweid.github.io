@@ -134,6 +134,43 @@
     transition: all 0.3s ease;
 }
 
+/* Livestream cards: hidden by default, appears when active */
+.indicator-tab.livestream-indicator {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-right: -20px; /* Compensate for gap when hidden */
+    transition: all 0.3s ease;
+}
+
+.indicator-tab.livestream-indicator.revealed {
+    width: auto;
+    opacity: 1;
+    margin-right: 0;
+}
+
+/* Livestream icon for livestream indicator */
+.indicator-tab.livestream-indicator::before {
+    content: '\f03d';
+    font-family: 'FontAwesome';
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.indicator-tab.livestream-indicator:hover::before {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.livestream-indicator.active::before {
+    color: rgba(66, 132, 242, 1);
+}
+
 /* Concept cards: large solid dots */
 .indicator-tab.concept-indicator::before {
     width: 12px;
@@ -306,6 +343,15 @@
 
 .carousel-card:hover {
     background-color: #181818;
+}
+
+/* Livestream card - hidden to the left, no indicator */
+.carousel-card.livestream-card {
+    opacity: 0.7;
+}
+
+.carousel-card.livestream-card:hover {
+    opacity: 1;
 }
 
 /* Placeholder card for missing content */
@@ -598,5 +644,57 @@ img.placeholder-bg {
 /* True mobile styles */
 @media screen and (max-width: 650px) {
     /* Indicator continues to scale automatically with font-size */
+}
+
+/* Part 0 mini card - positioned right side */
+.course-part-box:has(.part0-card-container) {
+    position: relative;
+    padding-right: 270px;
+    min-height: 140px;
+}
+
+.part0-card-container {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    width: 250px;
+}
+
+.part0-card {
+    height: 100%;
+}
+
+.part0-card .card-video {
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 0 13px 13px 0;
+}
+
+.part0-card .card-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 650px) {
+    .course-part-box:has(.part0-card-container) {
+        padding-right: 0.7em;
+        padding-top: 120px;
+    }
+
+    .part0-card-container {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: 0;
+        width: auto;
+        height: 120px;
+    }
+
+    .part0-card .card-video {
+        border-radius: 13px 13px 0 0;
+    }
 }
 
