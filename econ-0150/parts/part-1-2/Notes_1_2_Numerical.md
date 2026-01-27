@@ -55,6 +55,16 @@ We could also increase the width of the bins so that more customers fall into ea
 - Make histograms with bins that are equally sized.
 - Histograms with bins that are too narrow increase statistical noise, which can obscure underlying relationships.
 
+### S-T-E for Histograms
+
+| Step | Action |
+|------|--------|
+| SELECT | All Starbucks customers |
+| TRANSFORM | Count customers within each age bin |
+| ENCODE | Bin → x-position; Count → bar height |
+
+The TRANSFORM step for histograms counts observations within bins.
+
 ### Describing Center and Spread
 
 Two numbers summarize a histogram: the **mean** (center) and the **standard deviation** (spread).
@@ -177,7 +187,17 @@ Which part of the table represents the **largest range** of coffee consumption l
 
 The answer options represented the difference between the minimum and Q1, Q1 and the median, the median and Q3, and Q3 and the maximum. We can see from the boxplot that Q3 to the maximum — the Netherlands to Finland — covers the largest range.
 
-Boxplots visually summarize the data — but their real power lies in the ease of comparisons between distributions. Next class, we’ll use boxplots to analyze the changes through time.
+Boxplots visually summarize the data — but their real power lies in the ease of comparisons between distributions. Next class, we'll use boxplots to analyze the changes through time.
+
+### S-T-E for Boxplots + Stripplots
+
+| Step | Action |
+|------|--------|
+| SELECT | All coffee-importing countries in 1999 |
+| TRANSFORM | Calculate quartiles (min, Q1, median, Q3, max) |
+| ENCODE | Quartile → box position; Value → point position |
+
+The TRANSFORM step for boxplots calculates quartiles.
 
 ### Exercise 1.2 | Boxplots in Excel
 
@@ -221,3 +241,14 @@ coffee['Coffee_2019'].quantile(0.75)
 ```
 
 These five numbers — min, Q1, median, Q3, max — define the boxplot and tell us about the spread of the distribution.
+
+### Building Blocks
+
+| Block | Part 1.2 |
+|-------|----------|
+| Variables | Numerical |
+| Structures | Cross-section |
+| Operations | Bin, Mean, SD, Quartiles |
+| Visualizations | Histogram, Boxplot, Stripplot |
+
+*Next: lets add a time dimension!*

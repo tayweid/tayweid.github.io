@@ -32,12 +32,27 @@ format:
 ---
 
 ## Timeseries: Coffee Prices
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
+
+. . .
+
+| date | price |
+|------|-------|
+| 2000-01-03 | 1.0545 |
+| 2000-01-04 | 1.0300 |
+| 2000-01-05 | 1.0550 |
+| 2000-01-06 | 1.0225 |
+| 2000-01-07 | 1.0250 |
+| ... | ... |
+
+. . .
+
+*> how might we use this data to predict the price in January 2026?*
 
 ---
 
 ## Timeseries: Coffee Prices
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_01.png)
 
@@ -47,12 +62,12 @@ format:
 
 . . .
 
-*> lets just plot the price against time*
+*> lets just organize prices by their ordered index, time*
 
 ---
 
 ## Timeseries: Coffee Prices
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_02.png)
 
@@ -63,7 +78,7 @@ format:
 ---
 
 ## Timeseries: Line Graph
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_03.png)
 
@@ -100,7 +115,7 @@ format:
 ---
 
 ## Timeseries: Background Shading
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_05.png)
 
@@ -108,7 +123,7 @@ format:
 
 ---
 
-## Exercise 1.3: Timeseries
+## Exercise 1.3 | Timeseries
 
 <br><br>
 
@@ -118,7 +133,7 @@ Lets use a linegraph to examine the trends in coffee prices.
 
 ---
 
-## Exercise 1.3: Timeseries
+## Exercise 1.3 | Timeseries
 
 ```{.python}
 # Lineplot
@@ -146,8 +161,8 @@ sns.lineplot(prices, y='price', x='date')
 
 ---
 
-## But Wait: Are These Prices Comparable?
-<p class="subheader">Let's zoom out even further...</p>
+## Timeseries: Longer Periods
+<p class="subheader">Are prices over long periods comparable?</p>
 
 ![](i/i_cpi_01.png)
 
@@ -157,12 +172,10 @@ sns.lineplot(prices, y='price', x='date')
 
 ---
 
-## Nominal vs Real Prices
+## Timeseries: Longer Periods
 <p class="subheader">A dollar in 1980 ≠ a dollar in 2025</p>
 
 ![](i/i_cpi_02.png)
-
-. . .
 
 *> no! a dollar today is worth much less than in 1980*
 
@@ -217,19 +230,34 @@ sns.lineplot(data, x='date', y='real')
 
 ---
 
-## Back to Our Question
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+## S-T-E for Real Price Adjustment
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | Coffee prices 1980-2025 with CPI data |
+| TRANSFORM | Divide nominal price by CPI adjustment factor |
+| ENCODE | Date → x-position; Real price → y-position; Sequence → connected line |
+
+. . .
+
+*> TRANSFORM converts nominal dollars to real (inflation-adjusted) dollars*
+
+---
+
+## Timeseries: Original Question
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_06.png)
 
 . . .
 
-*> for now, let's focus on seasonal patterns within the trend*
+*> timeseries lineplots show us about the trends but is there something specific in January?*
 
 ---
 
 ## Seasonality: January
-<p class="subheader">What information should we use to set prices in January 2026?</p>
+<p class="subheader">What price should we expect in January 2026?</p>
 
 ![](i/i_08.png)
 
@@ -307,22 +335,6 @@ sns.lineplot(data, x='date', y='real')
 
 ---
 
-## Seasonality: Multi-Boxplot
-<p class="subheader">What is the trend in median price?</p>
-
-![](i/i_10_median.png)
-
-*> look at the medians... pretty difficult to see*
-
----
-
-## Seasonality: Quartile Lineplot
-<p class="subheader">What is the trend in median price?</p>
-
-![](i/i_13.png)
-
----
-
 ## Seasonality: Quartile Lineplot
 <p class="subheader">What is the trend in median price?</p>
 
@@ -354,7 +366,7 @@ sns.lineplot(data, x='date', y='real')
 
 ---
 
-## Exercise 1.3: Seasonality
+## Exercise 1.3 | Seasonality
 
 <br><br>
 
@@ -364,7 +376,7 @@ Lets use a multi-boxplot to examine the seasonal patterns of coffee prices.
 
 ---
 
-## Exercise 1.3: Seasonality
+## Exercise 1.3 | Seasonality
 
 ```{.python}
 # Multi-Boxplot
@@ -395,13 +407,15 @@ sns.boxplot(prices, y='month', x='price', whis=(0,100))
 ## Building Blocks
 <p class="subheader">What this unit adds to your toolkit</p>
 
-| Block | New in 1.3 |
+| Block | Part 1.3 |
 |-------|------------|
-| Variables | (numerical reinforced) |
-| Structures | time series |
-| Operations | group by period |
-| Visualizations | line plot, multi-boxplot |
+| Variables | Numerical |
+| Structures | Timeseries |
+| Operations | Real price transformation; group by period |
+| Visualizations | Line plot; Multi-boxplot |
 
 . . .
 
-*> Next: What if we want to transform the values themselves?*
+<br><br>
+
+*> Next: **Panel Data** with both entity and time indexes!*

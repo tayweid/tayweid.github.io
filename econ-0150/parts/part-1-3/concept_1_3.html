@@ -218,26 +218,65 @@ Tracking a numerical variable over time
 <section id="timeseries-coffee-prices" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>date</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2000-01-03</td>
+<td>1.0545</td>
+</tr>
+<tr class="even">
+<td>2000-01-04</td>
+<td>1.0300</td>
+</tr>
+<tr class="odd">
+<td>2000-01-05</td>
+<td>1.0550</td>
+</tr>
+<tr class="even">
+<td>2000-01-06</td>
+<td>1.0225</td>
+</tr>
+<tr class="odd">
+<td>2000-01-07</td>
+<td>1.0250</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><em>&gt; how might we use this data to predict the price in January 2026?</em></p>
+</div>
 </section>
 <section id="timeseries-coffee-prices-1" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_01.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; it’s difficult to know… do we choose the mode?</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; lets just plot the price against time</em></p>
+<p><em>&gt; lets just organize prices by their ordered index, time</em></p>
 </div>
 </section>
 <section id="timeseries-coffee-prices-2" class="slide level2">
 <h2>Timeseries: Coffee Prices</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_02.png" class="r-stretch"><div class="fragment">
@@ -247,7 +286,7 @@ What information should we use to set prices in January 2026?
 <section id="timeseries-line-graph" class="slide level2">
 <h2>Timeseries: Line Graph</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_03.png" class="r-stretch"></section>
@@ -280,13 +319,13 @@ Do you notice a <strong>trend</strong> in price?
 <section id="timeseries-background-shading" class="slide level2">
 <h2>Timeseries: Background Shading</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; with background shading its easier to see periods with a negative trend in price</em></p>
 </section>
 <section id="exercise-1.3-timeseries" class="slide level2">
-<h2>Exercise 1.3: Timeseries</h2>
+<h2>Exercise 1.3 | Timeseries</h2>
 <p><br><br></p>
 <p>Lets use a linegraph to examine the trends in coffee prices.</p>
 <ul>
@@ -294,7 +333,7 @@ What information should we use to set prices in January 2026?
 </ul>
 </section>
 <section id="exercise-1.3-timeseries-1" class="slide level2">
-<h2>Exercise 1.3: Timeseries</h2>
+<h2>Exercise 1.3 | Timeseries</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Lineplot</span></span>
 <span id="cb1-2"><a href=""></a>sns.lineplot(prices, y<span class="op">=</span><span class="st">'price'</span>, x<span class="op">=</span><span class="st">'date'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
@@ -336,25 +375,23 @@ What we just did
 <p><em>&gt; ENCODE uses position for both time and value — the line shows sequence</em></p>
 </div>
 </section>
-<section id="but-wait-are-these-prices-comparable" class="slide level2">
-<h2>But Wait: Are These Prices Comparable?</h2>
+<section id="timeseries-longer-periods" class="slide level2">
+<h2>Timeseries: Longer Periods</h2>
 <p class="subheader">
-Let’s zoom out even further…
+Are prices over long periods comparable?
 </p>
 
 <img data-src="i/i_cpi_01.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; was coffee about as expensive in 1980 as it is today?</em></p>
 </div>
 </section>
-<section id="nominal-vs-real-prices" class="slide level2">
-<h2>Nominal vs Real Prices</h2>
+<section id="timeseries-longer-periods-1" class="slide level2">
+<h2>Timeseries: Longer Periods</h2>
 <p class="subheader">
 A dollar in 1980 ≠ a dollar in 2025
 </p>
 
-<img data-src="i/i_cpi_02.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; no! a dollar today is worth much less than in 1980</em></p>
-</div>
+<img data-src="i/i_cpi_02.png" class="r-stretch"><p><em>&gt; no! a dollar today is worth much less than in 1980</em></p>
 <div class="fragment">
 <p><em>&gt; we need to adjust for inflation to compare across time</em></p>
 </div>
@@ -397,20 +434,55 @@ Is there a trend in the real price of coffee?
 <p><img data-src="i/i_cpi_03.png"></p>
 </div>
 </section>
-<section id="back-to-our-question" class="slide level2">
-<h2>Back to Our Question</h2>
+<section id="s-t-e-for-real-price-adjustment" class="slide level2">
+<h2>S-T-E for Real Price Adjustment</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What we just did
+</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 42%">
+<col style="width: 57%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>Coffee prices 1980-2025 with CPI data</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Divide nominal price by CPI adjustment factor</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Date → x-position; Real price → y-position; Sequence → connected line</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; TRANSFORM converts nominal dollars to real (inflation-adjusted) dollars</em></p>
+</div>
+</section>
+<section id="timeseries-original-question" class="slide level2">
+<h2>Timeseries: Original Question</h2>
+<p class="subheader">
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; for now, let’s focus on seasonal patterns within the trend</em></p>
+<p><em>&gt; timeseries lineplots show us about the trends but is there something specific in January?</em></p>
 </div>
 </section>
 <section id="seasonality-january" class="slide level2">
 <h2>Seasonality: January</h2>
 <p class="subheader">
-What information should we use to set prices in January 2026?
+What price should we expect in January 2026?
 </p>
 
 <img data-src="i/i_08.png" class="r-stretch"><p><em>&gt; a boxplot gives us a picture of the prices just in January</em></p>
@@ -480,29 +552,14 @@ What is the trend in median price?
 
 <img data-src="i/i_10_median.png" class="r-stretch"><p><em>&gt; look at the medians…</em></p>
 </section>
-<section id="seasonality-multi-boxplot-1" class="slide level2">
-<h2>Seasonality: Multi-Boxplot</h2>
-<p class="subheader">
-What is the trend in median price?
-</p>
-
-<img data-src="i/i_10_median.png" class="r-stretch"><p><em>&gt; look at the medians… pretty difficult to see</em></p>
-</section>
 <section id="seasonality-quartile-lineplot" class="slide level2">
 <h2>Seasonality: Quartile Lineplot</h2>
 <p class="subheader">
 What is the trend in median price?
 </p>
 
-<img data-src="i/i_13.png" class="r-stretch"></section>
-<section id="seasonality-quartile-lineplot-1" class="slide level2">
-<h2>Seasonality: Quartile Lineplot</h2>
-<p class="subheader">
-What is the trend in median price?
-</p>
-
 <img data-src="i/i_14.png" class="r-stretch"></section>
-<section id="seasonality-quartile-lineplot-2" class="slide level2">
+<section id="seasonality-quartile-lineplot-1" class="slide level2">
 <h2>Seasonality: Quartile Lineplot</h2>
 <p class="subheader">
 What is the difference between the largest and the smallest median price per pound?
@@ -527,7 +584,7 @@ Linegraphs show trends; multi-boxplots show between-period patterns.
 </div>
 </section>
 <section id="exercise-1.3-seasonality" class="slide level2">
-<h2>Exercise 1.3: Seasonality</h2>
+<h2>Exercise 1.3 | Seasonality</h2>
 <p><br><br></p>
 <p>Lets use a multi-boxplot to examine the seasonal patterns of coffee prices.</p>
 <ul>
@@ -535,7 +592,7 @@ Linegraphs show trends; multi-boxplots show between-period patterns.
 </ul>
 </section>
 <section id="exercise-1.3-seasonality-1" class="slide level2">
-<h2>Exercise 1.3: Seasonality</h2>
+<h2>Exercise 1.3 | Seasonality</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Multi-Boxplot</span></span>
 <span id="cb4-2"><a href=""></a>sns.boxplot(prices, y<span class="op">=</span><span class="st">'month'</span>, x<span class="op">=</span><span class="st">'price'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
@@ -582,30 +639,31 @@ What this unit adds to your toolkit
 <thead>
 <tr class="header">
 <th>Block</th>
-<th>New in 1.3</th>
+<th>Part 1.3</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Variables</td>
-<td>(numerical reinforced)</td>
+<td>Numerical</td>
 </tr>
 <tr class="even">
 <td>Structures</td>
-<td>time series</td>
+<td>Timeseries</td>
 </tr>
 <tr class="odd">
 <td>Operations</td>
-<td>group by period</td>
+<td>Real price transformation; group by period</td>
 </tr>
 <tr class="even">
 <td>Visualizations</td>
-<td>line plot, multi-boxplot</td>
+<td>Line plot; Multi-boxplot</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><em>&gt; Next: What if we want to transform the values themselves?</em></p>
+<p><br><br></p>
+<p><em>&gt; Next: <strong>Panel Data</strong> with both entity and time indexes!</em></p>
 
 </div>
 </section>

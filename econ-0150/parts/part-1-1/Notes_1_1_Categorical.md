@@ -42,6 +42,24 @@ When presenting data, the best choice of chart depends on the comparison you wan
 - Remove clutter; keep it simple
 - Place information near the object it describes
 
+### The Framework: Select, Transform, Encode
+
+Every visualization follows three steps:
+
+- **SELECT** — Which rows are we looking at?
+- **TRANSFORM** — How do we summarize or reshape the data?
+- **ENCODE** — How do we map values to visual elements?
+
+### S-T-E for Categorical Variables
+
+| Step | Action |
+|------|--------|
+| SELECT | All coffee shops |
+| TRANSFORM | Count by state |
+| ENCODE | Category → position; Count → bar length |
+
+For categorical variables, TRANSFORM almost always means counting.
+
 ### Exercise 1.1 | Using Excel
 
 Lets make some similar visualizations of the Coffee_Shops.csv dataset in Excel. The .csv file-type is a universal format which stands for "comma-separated values" and is one of the most used data formats. Open the file in Excel. Excel will likely show you a suggestion to convert the file to an Excel-specific format, xlsx. When working with Excel, it's often helpful to keep the csv file as your starting file and create a second file in the xlsx format. You can do this either by clicking on the notification bar or by going to Home and save as. You'll be propted to select the file format xlsx. Save as Coffee_Shops.xlsx. 

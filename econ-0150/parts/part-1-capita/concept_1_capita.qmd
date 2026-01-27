@@ -1,0 +1,94 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 1.X | Per Capita Transformations*
+
+---
+
+## Per Capita Transformations
+<p class="subheader">Which country has the **largest economy**?</p>
+
+![](i/i_01.png)
+
+. . .
+
+*> the US and China dominate — their economies are massive*
+
+---
+
+## Per Capita Transformations
+<p class="subheader">Which country is **richest**?</p>
+
+![](i/i_01.png)
+
+*> wait — is "largest economy" the same as "richest"?*
+
+---
+
+## Per Capita Transformations
+<p class="subheader">Which country is **richest**?</p>
+
+![](i/i_02.png)
+
+. . .
+
+*> dividing by population completely changes the picture!*
+
+---
+
+## Per Capita Transformations
+<p class="subheader">Which country is **richest**?</p>
+
+![](i/i_02.png)
+
+*> Luxembourg, Switzerland, Norway — small populations, high living standards*
+
+---
+
+## Exercise | Per Capita Transformation
+<p class="subheader">How does dividing by population change the ranking?</p>
+
+<br><br>
+
+Lets transform total GDP to GDP per capita.
+
+- **Data:** `GDP_Population_2019.csv`
+
+---
+
+## S-T-E for Per Capita Transformations
+<p class="subheader">What we just did</p>
+
+| Step | Action |
+|------|--------|
+| SELECT | All countries with GDP and population data |
+| TRANSFORM | Divide GDP by population |
+| ENCODE | Country → y-position; GDP per capita → bar length |
+
+. . .
+
+*> TRANSFORM divides by population to normalize across different-sized countries*
+
+---
+
+## Summary
+<p class="subheader">Per capita transformations reveal different patterns</p>
+
+<br><br>
+
+::: {.incremental}
+- **Per capita** means "per person" — divide by population
+- Total values favor large countries
+- Per capita values show intensity or living standards
+- The same data tells different stories depending on the transformation
+:::
+

@@ -14,77 +14,74 @@ format:
 
 ---
 
-## Recap: Long Format
-<p class="subheader">From Part 1.4</p>
+## Recap Part 1.4 | Long Format Panel Data
+<p class="subheader">Each row represents an observation of an entity at one point in time</p>
 
 <br>
 
 ::: {.incremental}
 - **Long format:** Each observation is a row
-- A column identifies which group each row belongs to
-- Great for: bar charts, histograms, faceting, line graphs
-- Use `hue='Group'` and `col='Group'` in seaborn
+- A column identifies the entity
 :::
+
+
+---
+
+## Recap Part 1.4 | Long Format Panel Data
+<p class="subheader">Each row represents an observation of an entity at one point in time</p>
+
+<br>
+
+Data on coffee consumption per capita for 34 countries from 1990 to 2019.
+
+<br>
+
+| Code | Year | Consumption |
+|------|------|-------------|
+| AUT | 1990 | 10.47 |
+| AUT | 1991 | 10.07 |
+| AUT | 1992 | 9.27 |
+| AUT | 1993 | 10.13 |
+| AUT | 1994 | 8.21 |
+| ... | ... | ... |
 
 ---
 
 ## New Question
 <p class="subheader">Is the world drinking more coffee?</p>
 
-<br><br>
+<br>
 
-We have data on coffee consumption per capita for 34 countries from 1990 to 2019.
-
-. . .
+Data on coffee consumption per capita for 34 countries from 1990 to 2019.
 
 <br>
+
+| Code | Year | Consumption |
+|------|------|-------------|
+| AUT | 1990 | 10.47 |
+| AUT | 1991 | 10.07 |
+| AUT | 1992 | 9.27 |
+| AUT | 1993 | 10.13 |
+| AUT | 1994 | 8.21 |
+| ... | ... | ... |
+
+. . .
 
 *> how can we tell if consumption increased between 1999 and 2019?*
 
 ---
 
-## The Challenge
-<p class="subheader">Comparing specific years in long format</p>
-
-```{python}
-import pandas as pd
-# Simulate long format data
-percap_wide = pd.read_csv('data/Coffee_Per_Cap.csv', index_col=0)
-percap_long = percap_wide.melt(id_vars=['Code'], var_name='Year', value_name='Consumption')
-percap_long.head(8)
-```
-
-. . .
-
-*> to compare 1999 and 2019, we'd need to filter twice and merge...*
-
-. . .
-
-*> there must be a better way!*
-
----
-
-## What We Want
-<p class="subheader">Each year as its own column</p>
-
-<br><br>
-
-::: {.incremental}
-- Instead of years being *values* in a column...
-- We want years to be *column names*
-- Then comparing 1999 vs 2019 is just comparing two columns!
-:::
-
----
-
 ## Wide Format Panel Data
-<p class="subheader">Each time period is a column</p>
+<p class="subheader">A row for each entity across many column time periods</p>
 
-```{python}
-import pandas as pd
-percap = pd.read_csv('data/Coffee_Per_Cap.csv', index_col=0)
-percap[['Code', '1999', '2004', '2009', '2014', '2019']].head()
-```
+| Code | 1999 | 2004 | 2009 | 2014 | 2019 |
+|------|------|------|------|------|------|
+| AUT | 8.43 | 7.31 | 6.37 | 7.97 | 7.93 |
+| BGR | 2.65 | 2.83 | 3.30 | 3.12 | 3.64 |
+| HRV | 4.48 | 5.16 | 5.10 | 5.21 | 5.62 |
+| CYP | 3.48 | 3.53 | 4.05 | 4.13 | 5.62 |
+| CZE | 3.26 | 3.56 | 3.02 | 5.69 | 4.74 |
+| ... | ... | ... | ... | ... | ... |
 
 . . .
 
@@ -92,8 +89,20 @@ percap[['Code', '1999', '2004', '2009', '2014', '2019']].head()
 
 ---
 
+## Wide Format
+<p class="subheader">Each year is a column</p>
+
+![](i/w_01.png)
+
+## Long Format
+<p class="subheader">Each observation is a row</p>
+
+![](i/w_02.png)
+
+---
+
 ## Two Formats, Same Data
-<p class="subheader">Recall: panel data can be stored in two ways</p>
+<p class="subheader">Panel data can be stored in two ways</p>
 
 <br>
 
@@ -103,222 +112,6 @@ percap[['Code', '1999', '2004', '2009', '2014', '2019']].head()
 - Same information, different shapes
 - Different shapes make different tasks easier
 :::
-
----
-
-## Wide Format
-<p class="subheader">Each year is a column</p>
-
-![](i/w_01.png)
-
-*> familiar from Part 1.4 — countries as rows, years as columns*
-
----
-
-## Long Format
-<p class="subheader">Each observation is a row</p>
-
-![](i/w_02.png)
-
-*> same data, but now each country-year combination is a row*
-
----
-
-## Reshaping: Two Directions
-<p class="subheader">We can convert between formats</p>
-
-<br>
-
-::: {.incremental}
-- **Wide → Long:** called "melting" or "unpivoting"
-- **Long → Wide:** called "pivoting" or "spreading"
-- Python pandas: `melt()` and `pivot()`
-:::
-
----
-
-## Melting: Wide → Long
-<p class="subheader">Turn columns into rows</p>
-
-![](i/w_03.png)
-
-*> each year column becomes rows in a new "Year" column*
-
----
-
-## Melting: The Code
-<p class="subheader">Use `melt()` to reshape wide → long</p>
-
-```{.python}
-# Wide to Long
-long_df = wide_df.melt(
-    id_vars=['Code'],       # Keep as identifier columns
-    var_name='Year',        # Name for the former column headers
-    value_name='Consumption' # Name for the values
-)
-```
-
-. . .
-
-*> `id_vars` = columns to keep, everything else gets melted*
-
----
-
-## Melting: The Result
-<p class="subheader">Now we can plot all years easily</p>
-
-![](i/w_04.png)
-
-. . .
-
-*> long format makes line plots natural — use `hue='Code'`*
-
----
-
-## Pivoting: Long → Wide
-<p class="subheader">Turn rows into columns</p>
-
-![](i/w_05.png)
-
-*> each unique Year value becomes its own column*
-
----
-
-## Pivoting: The Code
-<p class="subheader">Use `pivot()` to reshape long → wide</p>
-
-```{.python}
-# Long to Wide
-wide_df = long_df.pivot(
-    index='Code',           # What becomes rows
-    columns='Year',         # What becomes columns
-    values='Consumption'    # What fills the cells
-)
-```
-
-. . .
-
-*> we're back to our original wide format*
-
----
-
-## Pivoting: The Result
-<p class="subheader">Now we can compare specific years easily</p>
-
-![](i/w_06.png)
-
-. . .
-
-*> wide format makes scatterplots of Year1 vs Year2 natural*
-
----
-
-## When to Use Which Format
-<p class="subheader">Choose based on what you're trying to do</p>
-
-<br>
-
-| Task | Better Format |
-|------|---------------|
-| Line plot over time | Long |
-| Faceted plots by group | Long |
-| Compare two specific years | Wide |
-| Scatterplot (Year1 vs Year2) | Wide |
-
----
-
-## When to Use Which Format
-<p class="subheader">The key insight</p>
-
-<br>
-
-::: {.incremental}
-- **Long format:** Good when you want to *group by* or *color by* a variable
-- **Wide format:** Good when you want to *compare* or *correlate* specific columns
-- Neither is "better" — it depends on your task
-:::
-
----
-
-## Exercise 1.5 | Reshaping
-<p class="subheader">Practice converting between formats</p>
-
-```{.python}
-# Load wide format data
-percap = pd.read_csv('data/Coffee_Per_Cap.csv')
-
-# Melt to long format
-percap_long = percap.melt(
-    id_vars=['Code'],
-    var_name='Year',
-    value_name='Consumption'
-)
-```
-
----
-
-## Exercise 1.5 | Reshaping
-<p class="subheader">Practice converting between formats</p>
-
-```{.python}
-# Pivot back to wide format
-percap_wide = percap_long.pivot(
-    index='Code',
-    columns='Year',
-    values='Consumption'
-)
-```
-
----
-
-## Per Capita Transformations
-<p class="subheader">Which country has the **largest economy**?</p>
-
-![](i/i_01.png)
-
-. . .
-
-*> the US and China dominate — their economies are massive*
-
----
-
-## Per Capita Transformations
-<p class="subheader">Which country is **richest**?</p>
-
-![](i/i_01.png)
-
-*> wait — is "largest economy" the same as "richest"?*
-
----
-
-## Per Capita Transformations
-<p class="subheader">Which country is **richest**?</p>
-
-![](i/i_02.png)
-
-. . .
-
-*> dividing by population completely changes the picture!*
-
----
-
-## Per Capita Transformations
-<p class="subheader">Which country is **richest**?</p>
-
-![](i/i_02.png)
-
-*> Luxembourg, Switzerland, Norway — small populations, high living standards*
-
----
-
-## Exercise 1.5 | Per Capita Transformation
-<p class="subheader">How does dividing by population change the ranking?</p>
-
-<br><br>
-
-Lets transform total GDP to GDP per capita.
-
-- **Data:** `GDP_Population_2019.csv`
 
 ---
 
@@ -529,11 +322,14 @@ We're going to use a set of boxplots to visually compare across years the distri
 
 . . .
 
-```{python}
-import pandas as pd
-percap = pd.read_csv('data/Coffee_Per_Cap.csv', index_col=0)
-percap[['Code', '1999', '2009','2019']].head()
-```
+| Code | 1999 | 2009 | 2019 |
+|------|------|------|------|
+| AUT | 8.43 | 6.37 | 7.93 |
+| BGR | 2.65 | 3.30 | 3.64 |
+| HRV | 4.48 | 5.10 | 5.62 |
+| CYP | 3.48 | 4.05 | 5.62 |
+| CZE | 3.26 | 3.02 | 4.74 |
+| ... | ... | ... | ... |
 
 . . .
 
@@ -674,6 +470,100 @@ sns.scatterplot(percap, x='1999', y='2019')
 
 ---
 
+## A New Question
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+<br><br>
+
+We've compared distributions across years and tracked changes between 1999 and 2019.
+
+. . .
+
+But what if we want to see each country's full trend over all 30 years?
+
+. . .
+
+*> we need a line plot with Year on x-axis and Consumption on y-axis, colored by Country*
+
+---
+
+## The Problem
+<p class="subheader">Wide format doesn't work for line plots</p>
+
+<br>
+
+In wide format, years are **column names**, not values in a column.
+
+. . .
+
+```{.python}
+# This won't work — there's no 'Year' column!
+sns.lineplot(percap, x='Year', y='Consumption', hue='Code')
+```
+
+. . .
+
+*> we need to reshape from wide to long format*
+
+---
+
+## Reshaping: Wide → Long
+<p class="subheader">Use `melt()` to turn columns into rows</p>
+
+![](i/w_03.png)
+
+*> each year column becomes rows in a new "Year" column*
+
+---
+
+## Reshaping: The Code
+<p class="subheader">Use `melt()` to reshape wide → long</p>
+
+```{.python}
+# Wide to Long
+percap_long = percap.melt(
+    id_vars=['Code'],        # Keep as identifier columns
+    var_name='Year',         # Name for the former column headers
+    value_name='Consumption' # Name for the values
+)
+```
+
+. . .
+
+*> `id_vars` = columns to keep, everything else gets melted*
+
+---
+
+## Exercise 1.5 | Reshaping
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+```{.python}
+# Reshape wide to long
+percap_long = percap.melt(
+    id_vars=['Code'],
+    var_name='Year',
+    value_name='Consumption'
+)
+```
+
+. . .
+
+```{.python}
+# Now we can plot trends for each country
+sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
+```
+
+---
+
+## Exercise 1.5 | Reshaping
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+![](i/w_04.png)
+
+*> long format makes line plots natural — use `hue='Code'`*
+
+---
+
 ## Part 1.5 | Panel Data (Wide Format)
 
 <br><br>
@@ -682,11 +572,9 @@ sns.scatterplot(percap, x='1999', y='2019')
 
 ::: {.incremental}
 - **Wide format:** Each time period is a column
-- **melt()** converts wide → long (columns become rows)
-- **pivot()** converts long → wide (rows become columns)
-- **Per capita** transformations divide by population
 - **Multi-boxplots** compare distributions across time
 - **Scatterplots with 45° lines** track individual changes
+- **melt()** converts wide → long when you need line plots
 :::
 
 ---

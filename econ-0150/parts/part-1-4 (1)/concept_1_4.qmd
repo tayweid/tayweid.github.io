@@ -14,28 +14,30 @@ format:
 
 ---
 
-## What is Panel Data?
-<p class="subheader">Data with repeated observations across groups or time</p>
+## Panel Data
+<p class="subheader">Data with repeated observations across entities AND time</p>
 
 <br>
 
 ::: {.incremental}
 - **Panel data** tracks the same units (people, countries, stores) over time
-- Also called **longitudinal data** or **time series cross-sectional data**
 - Examples: GDP by country by year, sales by store by hour
 - Can be stored in two formats: **Long** or **Wide**
 :::
 
 ---
 
-## Long Format
+## Long Format Panel Data
 <p class="subheader">Each observation is a separate row</p>
 
-```{python}
-import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv', index_col='transaction_id')
-sales[['Hours', 'Shop']].head()
-```
+| Hours | Shop |
+|-------|------|
+| 12 | Shop A |
+| 15 | Shop A |
+| 14 | Shop A |
+| 16 | Shop A |
+| 19 | Shop A |
+| ... | ... |
 
 . . .
 
@@ -43,22 +45,8 @@ sales[['Hours', 'Shop']].head()
 
 ---
 
-## Long Format
-<p class="subheader">Great for grouping and faceting</p>
-
-<br>
-
-::: {.incremental}
-- Each row is one observation
-- A column identifies which group each row belongs to
-- Natural for: histograms, faceting, line graphs
-- Use `hue='Group'` and `col='Group'` in seaborn
-:::
-
----
-
-## Hiring a Barista
-<p class="subheader">Use Coffee_Sales_Receips.csv to help inform where to hire a barista.</p>
+## Labor Demand: Hiring a Barista
+<p class="subheader">Use Coffee_Sales_Receips.csv to help understand where to hire a new barista.</p>
 
 <br>
 
@@ -123,19 +111,6 @@ sales[['Hours', 'Shop']].head()
 ---
 
 ## Hiring a Barista: Faceting
-<p class="subheader">What if we separated each shop into its own plot?</p>
-
-<br>
-
-::: {.incremental}
-- Overlapping histograms are hard to read
-- **Solution 1:** Give each group its own plot
-- This is called **faceting** or **small multiples**
-:::
-
----
-
-## Hiring a Barista: Faceting
 <p class="subheader">Each shop gets its own panel</p>
 
 ![](i/f_01.png)
@@ -143,17 +118,6 @@ sales[['Hours', 'Shop']].head()
 . . .
 
 *> same data, but now each shop has its own histogram*
-
----
-
-## Hiring a Barista: Faceting
-<p class="subheader">Q. Which shop is busiest during the morning rush?</p>
-
-![](i/f_01.png)
-
-. . .
-
-*> Shop C — compare the 8-10am peaks across panels*
 
 ---
 
@@ -168,12 +132,29 @@ sales[['Hours', 'Shop']].head()
 
 ---
 
+## Hiring a Barista: Faceting
+<p class="subheader">Q. Which shop is busiest during the morning rush?</p>
+
+![](i/f_01.png)
+
+. . .
+
+*> Shop C — compare the 8-10am peaks across panels*
+
+---
+
 ## Hiring a Barista: Line Graphs
-<p class="subheader">**Solution 2:** Use lines instead of bars</p>
+<p class="subheader">Q. Which shop is busiest during the morning rush?</p>
 
 ![](i/i_05.png)
 
-*> line graphs can also show multiple groups clearly*
+. . .
+
+*> line graphs can also show comparisons between groups clearly*
+
+. . .
+
+*> Shop C — easier to see the 8-10am peak across shops*
 
 ---
 
@@ -193,17 +174,18 @@ sales[['Hours', 'Shop']].head()
 
 ---
 
-## Looking Ahead: Part 1.5
-<p class="subheader">Sometimes we need data in a different shape</p>
+## S-T-E for Panel Data (Long Format)
+<p class="subheader">What we just did</p>
 
-<br>
+| Step | Action |
+|------|--------|
+| SELECT | All transactions from three coffee shops |
+| TRANSFORM | Group by shop and hour; count transactions |
+| ENCODE | Hour → x-position; Count → y-position; Shop → color/facet |
 
-::: {.incremental}
-- What if we want to compare 1999 vs 2019 directly?
-- Long format makes this awkward — we'd need to filter and merge
-- **Wide format** puts each time period in its own column
-- In Part 1.5, we'll learn to reshape between formats
-:::
+. . .
+
+*> TRANSFORM groups by multiple variables; ENCODE uses color or faceting to show groups*
 
 ---
 
@@ -220,11 +202,14 @@ sales.head()
 
 . . .
 
-```{python}
-import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv')
-sales[['Hours', 'Shop']].head()
-```
+| Hours | Shop |
+|-------|------|
+| 12 | Shop A |
+| 15 | Shop A |
+| 14 | Shop A |
+| 16 | Shop A |
+| 19 | Shop A |
+| ... | ... |
 
 *> you'll see a few more columns in your dataset*
 
@@ -300,11 +285,14 @@ hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count'
 
 . . .
 
-```{python}
-import pandas as pd
-sales = pd.read_csv('data/Coffee_Sales_Reciepts.csv')
-sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count').head()
-```
+| Shop | Hours | Count |
+|------|-------|-------|
+| Shop A | 6 | 12 |
+| Shop A | 7 | 28 |
+| Shop A | 8 | 45 |
+| Shop A | 9 | 52 |
+| Shop A | 10 | 48 |
+| ... | ... | ... |
 
 . . .
 
@@ -340,4 +328,19 @@ sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', f
 . . .
 
 ![](i/i_05.png)
+
+---
+
+## Looking Ahead: Part 1.5
+<p class="subheader">Sometimes we need data in a different shape</p>
+
+<br>
+
+::: {.incremental}
+- What if we want to compare 1999 vs 2019 directly?
+- Long format makes this awkward — we'd need to filter and merge
+- **Wide format** puts each time period in its own column
+- In Part 1.5, we'll learn to reshape between formats
+:::
+
 

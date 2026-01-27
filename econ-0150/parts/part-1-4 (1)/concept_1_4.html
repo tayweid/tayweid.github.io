@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="concept_1_4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="concept_1_4_files/libs/clipboard/clipboard.min.js"></script>
 <script src="concept_1_4_files/libs/quarto-html/tabby.min.js"></script>
 <script src="concept_1_4_files/libs/quarto-html/popper.min.js"></script>
 <script src="concept_1_4_files/libs/quarto-html/tippy.umd.min.js"></script>
@@ -186,9 +186,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-  
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -198,153 +195,72 @@
 <section id="econ-0150-economic-data-analysis" class="slide level2 center">
 <h2>ECON 0150 | Economic Data Analysis</h2>
 <p class="subheader-center">
-The economist’s data analysis pipeline.
+The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-1.4-panel-data"><em>Part 1.4 | Panel Data</em></h3>
+<h3 id="part-1.4-panel-data-long-format"><em>Part 1.4 | Panel Data (Long Format)</em></h3>
 </section>
-<section id="panel-data-long-format-vs-wide-format" class="slide level2">
-<h2>Panel Data: Long Format vs Wide Format</h2>
+<section id="panel-data" class="slide level2">
+<h2>Panel Data</h2>
 <p class="subheader">
-Panel data comes in one of two formats.
+Data with repeated observations across entities AND time
 </p>
-<p>Panel Data in <strong><em>Long Format</em></strong> uses lists each entry as a row, using a column (eg. <em>Shop</em>) to record the group.</p>
-<div id="3a59f537" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="1">
+<p><br></p>
 <div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<ul>
+<li class="fragment"><strong>Panel data</strong> tracks the same units (people, countries, stores) over time</li>
+<li class="fragment">Examples: GDP by country by year, sales by store by hour</li>
+<li class="fragment">Can be stored in two formats: <strong>Long</strong> or <strong>Wide</strong></li>
+</ul>
+</div>
+</section>
+<section id="long-format-panel-data" class="slide level2">
+<h2>Long Format Panel Data</h2>
+<p class="subheader">
+Each observation is a separate row
+</p>
+<table class="caption-top">
 <thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Shop</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">transaction_id</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
+<tr class="header">
+<th>Hours</th>
+<th>Shop</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">7</td>
 <td>12</td>
 <td>Shop A</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
 <td>15</td>
 <td>Shop A</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">19</td>
 <td>14</td>
 <td>Shop A</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">32</td>
 <td>16</td>
 <td>Shop A</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">33</td>
 <td>19</td>
 <td>Shop A</td>
 </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="panel-data-long-format-vs-wide-format-1" class="slide level2">
-<h2>Panel Data: Long Format vs Wide Format</h2>
-<p class="subheader">
-Panel data comes in one of two formats.
-</p>
-<p>Panel Data in <strong><em>Wide Format</em></strong> uses lists each group as a row, using a column to record each entry.</p>
-<div id="69b8f0c7" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="2">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">1999</th>
-<th data-quarto-table-cell-role="th">2019</th>
-</tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">Code</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">AUT</td>
-<td>8.430589</td>
-<td>7.925747</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">BGR</td>
-<td>2.652661</td>
-<td>3.638313</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">HRV</td>
-<td>4.480790</td>
-<td>5.623266</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">CYP</td>
-<td>3.477888</td>
-<td>5.615070</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">CZE</td>
-<td>3.255587</td>
-<td>4.739563</td>
+<td>…</td>
+<td>…</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
+<div class="fragment">
+<p><em>&gt; each transaction is a row; a column identifies the group</em></p>
 </div>
 </section>
-<section id="hiring-a-barista" class="slide level2">
-<h2>Hiring a Barista</h2>
+<section id="labor-demand-hiring-a-barista" class="slide level2">
+<h2>Labor Demand: Hiring a Barista</h2>
 <p class="subheader">
-Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
+Use Coffee_Sales_Receips.csv to help understand where to hire a new barista.
 </p>
 <p><br></p>
 <ul>
@@ -353,7 +269,7 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <li>Lets consider how to use this data to inform our decision.</li>
 </ul>
 </section>
-<section id="hiring-a-barista-1" class="slide level2">
+<section id="hiring-a-barista" class="slide level2">
 <h2>Hiring a Barista</h2>
 <p class="subheader">
 Q. Which coffee shop is the busiest?
@@ -369,7 +285,7 @@ Q. Which coffee shop is the busiest?
 <p><em>&gt; a bar chart makes it easy to compare shops’ busyness</em></p>
 </div>
 </section>
-<section id="hiring-a-barista-2" class="slide level2">
+<section id="hiring-a-barista-1" class="slide level2">
 <h2>Hiring a Barista</h2>
 <p class="subheader">
 Q. What time of day is the busiest?
@@ -388,7 +304,7 @@ Q. What time of day is the busiest?
 <p><em>&gt; does this mean the morning shift at Shop A is the busiest?</em></p>
 </div>
 </section>
-<section id="hiring-a-barista-3" class="slide level2">
+<section id="hiring-a-barista-2" class="slide level2">
 <h2>Hiring a Barista</h2>
 <p class="subheader">
 Q. Which shift is the busiest?
@@ -405,24 +321,92 @@ Q. Which shift is the busiest?
 <p><em>&gt; does this show the data clearly?</em></p>
 </div>
 </section>
-<section id="hiring-a-barista-transactions-by-shop-1" class="slide level2">
-<h2>Hiring a Barista: Transactions by Shop</h2>
+<section id="hiring-a-barista-faceting" class="slide level2">
+<h2>Hiring a Barista: Faceting</h2>
 <p class="subheader">
-Q. Which shift is the busiest?
+Each shop gets its own panel
 </p>
 
-<img data-src="i/i_05.png" class="r-stretch"><p><em>&gt; instead, lets use a line graph</em></p>
+<img data-src="i/f_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; same data, but now each shop has its own histogram</em></p>
+</div>
 </section>
-<section id="part-1.4-panel-data-using-line-graphs" class="slide level2">
-<h2>Part 1.4 | Panel Data Using Line Graphs</h2>
+<section id="hiring-a-barista-faceting-1" class="slide level2">
+<h2>Hiring a Barista: Faceting</h2>
+<p class="subheader">
+Q. Which shop has the most consistent traffic throughout the day?
+</p>
+
+<img data-src="i/f_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; Shop A — the distribution is relatively flat</em></p>
+</div>
+</section>
+<section id="hiring-a-barista-faceting-2" class="slide level2">
+<h2>Hiring a Barista: Faceting</h2>
+<p class="subheader">
+Q. Which shop is busiest during the morning rush?
+</p>
+
+<img data-src="i/f_01.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; Shop C — compare the 8-10am peaks across panels</em></p>
+</div>
+</section>
+<section id="hiring-a-barista-line-graphs" class="slide level2">
+<h2>Hiring a Barista: Line Graphs</h2>
+<p class="subheader">
+Q. Which shop is busiest during the morning rush?
+</p>
+
+<img data-src="i/i_05.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; line graphs can also show comparisons between groups clearly</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; Shop C — easier to see the 8-10am peak across shops</em></p>
+</div>
+</section>
+<section id="part-1.4-panel-data-long-format-1" class="slide level2">
+<h2>Part 1.4 | Panel Data (Long Format)</h2>
 <p><br><br></p>
 <h4 id="summary">Summary</h4>
 <div>
 <ul>
-<li class="fragment">Categorical variables and continuous variables can give us different views of the same data.</li>
-<li class="fragment">We can visualize both views one the same graph.</li>
-<li class="fragment">Line graphs help simplify the visualization of multiple categories.</li>
+<li class="fragment"><strong>Panel data</strong> tracks repeated observations across groups or time</li>
+<li class="fragment"><strong>Long format:</strong> Each observation is a row; a column identifies the group</li>
+<li class="fragment"><strong>Faceting</strong> separates each group into its own panel for comparison</li>
+<li class="fragment"><strong>Line graphs</strong> simplify multiple categories on a single plot</li>
+<li class="fragment">Use <code>hue='Group'</code> and <code>col='Group'</code> for multi-group visualizations</li>
 </ul>
+</div>
+</section>
+<section id="s-t-e-for-panel-data-long-format" class="slide level2">
+<h2>S-T-E for Panel Data (Long Format)</h2>
+<p class="subheader">
+What we just did
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SELECT</td>
+<td>All transactions from three coffee shops</td>
+</tr>
+<tr class="even">
+<td>TRANSFORM</td>
+<td>Group by shop and hour; count transactions</td>
+</tr>
+<tr class="odd">
+<td>ENCODE</td>
+<td>Hour → x-position; Count → y-position; Shop → color/facet</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; TRANSFORM groups by multiple variables; ENCODE uses color or faceting to show groups</em></p>
 </div>
 </section>
 <section id="exercise-1.4-coffee-shop-transactions" class="slide level2">
@@ -436,63 +420,40 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <span id="cb1-3"><a href=""></a>sales.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="14364260" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<table class="caption-top">
 <thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Shop</th>
+<tr class="header">
+<th>Hours</th>
+<th>Shop</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
 <td>12</td>
 <td>Shop A</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
 <td>15</td>
 <td>Shop A</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
 <td>14</td>
 <td>Shop A</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>16</td>
 <td>Shop A</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
 <td>19</td>
 <td>Shop A</td>
 </tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+</tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
 <p><em>&gt; you’ll see a few more columns in your dataset</em></p>
 </div>
 <div class="fragment">
@@ -532,81 +493,70 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <p><img data-src="i/i_03.png"></p>
 </div>
 </section>
+<section id="exercise-1.4-faceted-histogram" class="slide level2">
+<h2>Exercise 1.4 | Faceted Histogram</h2>
+<p class="subheader">
+Use faceting to give each shop its own panel.
+</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Create a faceted histogram</span></span>
+<span id="cb5-2"><a href=""></a>sns.displot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, col<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><img data-src="i/f_01.png"></p>
+</div>
+</section>
 <section id="exercise-1.4-count-hourly-by-shop" class="slide level2">
 <h2>Exercise 1.4 | Count Hourly by Shop</h2>
 <p class="subheader">
 Q. Which shift is the busiest?
 </p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Create hourly counts by shop</span></span>
-<span id="cb5-2"><a href=""></a>hourly_counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Create hourly counts by shop</span></span>
+<span id="cb6-2"><a href=""></a>hourly_counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div id="c9942d20" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="4">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
+<table class="caption-top">
 <thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Shop</th>
-<th data-quarto-table-cell-role="th">Hours</th>
-<th data-quarto-table-cell-role="th">Count</th>
+<tr class="header">
+<th>Shop</th>
+<th>Hours</th>
+<th>Count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
+<td>Shop A</td>
+<td>6</td>
+<td>12</td>
+</tr>
+<tr class="even">
 <td>Shop A</td>
 <td>7</td>
-<td>1383</td>
+<td>28</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
+<tr class="odd">
 <td>Shop A</td>
 <td>8</td>
-<td>1632</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Shop A</td>
-<td>9</td>
-<td>1693</td>
+<td>45</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
 <td>Shop A</td>
-<td>10</td>
-<td>1711</td>
+<td>9</td>
+<td>52</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
 <td>Shop A</td>
-<td>11</td>
-<td>1136</td>
+<td>10</td>
+<td>48</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
 </tr>
 </tbody>
 </table>
-
-</div>
-</div>
-</div>
 </div>
 <div class="fragment">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Multi-Lineplot</span></span>
-<span id="cb6-2"><a href=""></a>sns.lineplot(hourly_counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multi-Lineplot</span></span>
+<span id="cb7-2"><a href=""></a>sns.lineplot(hourly_counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Count'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-1.4-multiple-line-graph" class="slide level2">
@@ -614,8 +564,8 @@ Q. Which shift is the busiest?
 <p class="subheader">
 Q. Which shift is the busiest?
 </p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb7-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
+<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_04.png"></p>
 </div>
@@ -625,402 +575,24 @@ Q. Which shift is the busiest?
 <p class="subheader">
 Q. Which shift is the busiest?
 </p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
+<span id="cb9-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_05.png"></p>
 </div>
 </section>
-<section id="panel-data-coffee-consumption-per-capita" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
+<section id="looking-ahead-part-1.5" class="slide level2">
+<h2>Looking Ahead: Part 1.5</h2>
 <p class="subheader">
-Is the world drinking more coffee?
+Sometimes we need data in a different shape
 </p>
-<p>Lets examine whether the world is drinking more coffee today than in the 1990s.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-</section>
-<section id="panel-data-coffee-consumption-per-capita-1" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-
-<img data-src="i/i_06.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; compared to what…?</em></p>
-</div>
-</section>
-<section id="panel-data-coffee-consumption-per-capita-2" class="slide level2">
-<h2>Panel Data: Coffee Consumption Per Capita</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-
-<img data-src="i/i_07.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this is still pretty unclear: histograms aren’t great for comparison</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets use a multi-boxplot</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this is better: it looks like the distribution is shifted higher!</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; lets examine the years in between to see how the distribution evolved</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-1" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; lets ask some smaller more focussed questions</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-2" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-3" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="i/i_10.png" class="r-stretch"><p><em>&gt; focus on the medians</em></p>
-</section>
-<section id="panel-data-multi-boxplots-4" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years show at least half consuming less than 5 kg per cap?
-</p>
-
-<img data-src="i/i_14.png" class="r-stretch"><p><em>&gt; … when the median is above 5 kg per cap</em></p>
-</section>
-<section id="panel-data-multi-boxplots-5" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years saw the largest jump in the median?
-</p>
-
-<img data-src="i/i_10.png" class="r-stretch"><p><em>&gt; … a little difficult to see</em></p>
-</section>
-<section id="panel-data-multi-boxplots-6" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years saw the largest jump in the median?
-</p>
-
-<img data-src="i/i_11.png" class="r-stretch"><p><em>&gt; … a little difficult to see</em></p>
-</section>
-<section id="panel-data-multi-boxplots-7" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-8" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Is the country with the lowest consumption consuming more today?
-</p>
-
-<img data-src="i/i_12.png" class="r-stretch"><p><em>&gt; focus on the minimums</em></p>
-<div class="fragment">
-<p><em>&gt; yes!</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-9" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-What patterns do we observe about the maximums?
-</p>
-
-<img data-src="i/i_13.png" class="r-stretch"><p><em>&gt; same with the maximums</em></p>
-</section>
-<section id="panel-data-multi-boxplots-10" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"></section>
-<section id="panel-data-multi-boxplots-11" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_15.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; look at the 25%</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-12" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_15.png" class="r-stretch"><p><em>&gt; look at the 25% and compare it to 5 kg per cap</em></p>
-</section>
-<section id="panel-data-multi-boxplots-13" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which years did more than 25% consume less than 5 kg?
-</p>
-
-<img data-src="i/i_16.png" class="r-stretch"><p><em>&gt; all of them</em></p>
-</section>
-<section id="panel-data-multi-boxplots-14" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_09.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; look at the range</em></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-15" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_17.png" class="r-stretch"><p><em>&gt; look at the range</em></p>
-</section>
-<section id="panel-data-multi-boxplots-16" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-Which year saw the greatest difference between any two countries?
-</p>
-
-<img data-src="i/i_18.png" class="r-stretch"><p><em>&gt; look at the range and select the largest</em></p>
-</section>
-<section id="exercise-1.4-multi-boxplots" class="slide level2">
-<h2>Exercise 1.4 | Multi-Boxplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>We’re going to use a set of boxplots to visually compare across years the distributions of coffee consumption per capital among coffee importing countries.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-<div class="fragment">
-<div id="7fa360a8" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="5">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe caption-top" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Code</th>
-<th data-quarto-table-cell-role="th">1999</th>
-<th data-quarto-table-cell-role="th">2009</th>
-<th data-quarto-table-cell-role="th">2019</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>AUT</td>
-<td>8.430589</td>
-<td>6.371562</td>
-<td>7.925747</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2</td>
-<td>BGR</td>
-<td>2.652661</td>
-<td>3.296419</td>
-<td>3.638313</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td>HRV</td>
-<td>4.480790</td>
-<td>5.100831</td>
-<td>5.623266</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
-<td>CYP</td>
-<td>3.477888</td>
-<td>4.050500</td>
-<td>5.615070</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5</td>
-<td>CZE</td>
-<td>3.255587</td>
-<td>3.016104</td>
-<td>4.739563</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><em>&gt; this is <strong>Wide-Format Panel Data</strong>: each year is in a separate column</em></p>
-</div>
-</section>
-<section id="exercise-1.4-multi-boxplots-1" class="slide level2">
-<h2>Exercise 1.4 | Multi-Boxplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>With wide-format panel data seaborn looks a little different.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Wide Format Multi-Boxplot</span></span>
-<span id="cb9-2"><a href=""></a>sns.boxplot(percap[[<span class="st">'1999'</span>,<span class="st">'2004'</span>,<span class="st">'2009'</span>,<span class="st">'2014'</span>,<span class="st">'2019'</span>]], orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_09.png"></p>
-</div>
-</section>
-<section id="panel-data-multi-boxplots-17" class="slide level2">
-<h2>Panel Data: Multi-Boxplots</h2>
-<p class="subheader">
-In which year did most countries increase their coffee consumption?
-</p>
-
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; not visible in the figure!</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_09_c.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; also not visible with this figure!</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years-1" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; better, but this figure still doesn’t let us keep track of countries between years…</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years-2" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-</section>
-<section id="panel-data-relationships-between-years-3" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_19.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; a scatter plot can visualize changes between two points in time</em></p>
-</div>
-</section>
-<section id="panel-data-relationships-between-years-4" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_20.png" class="r-stretch"><p><em>&gt; a 45 degree line shows all the possible points with no change</em></p>
-</section>
-<section id="panel-data-relationships-between-years-5" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries increased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_21.png" class="r-stretch"><p><em>&gt; points above the line increased</em></p>
-</section>
-<section id="panel-data-relationships-between-years-6" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-How many countries decreased their coffee consumption between 1999 and 2019?
-</p>
-
-<img data-src="i/i_22.png" class="r-stretch"><p><em>&gt; points below the line decreased</em></p>
-</section>
-<section id="panel-data-relationships-between-years-7" class="slide level2">
-<h2>Panel Data: Relationships Between Years</h2>
-<p class="subheader">
-Does the data confirm that the world is drinking more coffee?
-</p>
-
-<img data-src="i/i_23.png" class="r-stretch"><p><em>&gt; we can use colors to visualize both increases and decreases</em></p>
-</section>
-<section id="exercise-1.4-scatterplots" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<p>We’re going to use a scatterplot to visually examine how countries’ coffee consumption changed between 1999 and 2019.</p>
-<ul>
-<li><strong>Data:</strong> <code>Coffee_Per_Cap.csv</code></li>
-</ul>
-</section>
-<section id="exercise-1.4-scatterplots-1" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb10-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="exercise-1.4-scatterplots-2" class="slide level2">
-<h2>Exercise 1.4 | Scatterplots</h2>
-<p class="subheader">
-Is the world drinking more coffee?
-</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Wide Format Scatterplot</span></span>
-<span id="cb11-2"><a href=""></a>sns.scatterplot(percap, x<span class="op">=</span><span class="st">'1999'</span>, y<span class="op">=</span><span class="st">'2019'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="i/i_19.png" class="r-stretch"></section>
-<section id="part-1.4-panel-data-using-scatterplots" class="slide level2">
-<h2>Part 1.4 | Panel Data Using Scatterplots</h2>
-<p><br><br></p>
-<h4 id="summary-1">Summary</h4>
+<p><br></p>
 <div>
 <ul>
-<li class="fragment">Multi-Boxplots can help visualize changes in the distribution, but cannot track individual changes.</li>
-<li class="fragment">Scatterplots can show how repeated observations change through time within a single unit.</li>
-<li class="fragment">A 45 degree line and colors can help visually communicate changes.</li>
+<li class="fragment">What if we want to compare 1999 vs 2019 directly?</li>
+<li class="fragment">Long format makes this awkward — we’d need to filter and merge</li>
+<li class="fragment"><strong>Wide format</strong> puts each time period in its own column</li>
+<li class="fragment">In Part 1.5, we’ll learn to reshape between formats</li>
 </ul>
 </div>
 

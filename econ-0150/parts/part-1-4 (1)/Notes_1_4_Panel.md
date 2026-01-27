@@ -1,5 +1,9 @@
 ## Part 1.4 | Panel Data (Long Format)
 
+So far we've looked at cross-sectional data (many entities at one point in time) and time series data (one entity across many points in time). **Panel data** combines both — it tracks the same units (people, countries, stores) over time. This is also called longitudinal data or time series cross-sectional data. Examples include GDP by country by year, or sales by store by hour.
+
+Panel data can be stored in two formats: **Long** or **Wide**. In this unit we focus on long format, where each observation is a separate row and a column identifies which group each row belongs to. Wide format, where each time period gets its own column, is covered in Part 1.5.
+
 ### The Busiest Shop
 
 The owners of a chain of coffee shops is trying to respond to their staff feeling stressed and overworked by hiring one more barista, and are trying to use transaction data to decide where to assign the new staffmember. Lets start by visualizing the total number of transactions at each shop. What kind of visualization would be most useful?
@@ -28,9 +32,31 @@ It could be, but we don't yet know enough. To learn a little more, we could sepa
 
 ![Transactions by Shop - Stacked Histogram](i/i_03.png)
 
-What do you think of this view? To me it looks a bit hard to read. It's hard to tell where one bar starts and another one ends. Staking bars like this works sometimes but is typically too busy. Fortunately, there's another visualization tool, the **line graph**, which connects the top of each bar.
+What do you think of this view? To me it looks a bit hard to read. It's hard to tell where one bar starts and another one ends. Stacking bars like this works sometimes but is typically too busy.
+
+---
+
+### Faceting: Separate Panels for Each Group
+
+One solution is **faceting** — giving each shop its own panel. Instead of overlaying all three histograms on top of each other, we separate them into side-by-side plots.
+
+![Transactions by Shop - Faceted](i/f_01.png)
+
+This is the same data, but now each shop has its own histogram. Faceting makes it much easier to compare the shape of each distribution. Which shop has the most consistent traffic throughout the day? Shop A — the distribution is relatively flat. Which shop is busiest during the morning rush? Shop C — compare the 8-10am peaks across panels.
+
+Faceting is a powerful tool when you want to compare distributions across groups without the visual clutter of overlaying them.
+
+---
+
+### Line Graphs: Another Approach
+
+Fortunately, there's another visualization tool, the **line graph**, which connects the top of each bar.
 
 ![Transactions by Shop - Line Graph](i/i_04.png)
+
+We can make this even cleaner by removing the fill under the lines.
+
+![Transactions by Shop - Line Graph (no fill)](i/i_05.png)
 
 A line graph is much easier to compare across shops through time. The morning shift at Shop C has the highest peak sales. Many things could explain this, such as higher demand at Shop C, faster baristas at Shop C, simpler orders at Shop C, or many other reasons. The data available can tell us a lot about where hiring a new barista might be most helpful, but data on its own often cannot paint a complete picture.
 
@@ -38,9 +64,23 @@ A line graph is much easier to compare across shops through time. The morning sh
 
 ### Summary
 
-- Categorical variables and continuous variables can give us different views of the same data.
-- Often we can visualize both views on the same graph using visualization techniques for continuous variables within the category.
-- **Line graphs** help simplify the visualization of multiple categories.
+- **Panel data** tracks repeated observations across groups or time.
+- **Long format:** Each observation is a row; a column identifies the group.
+- **Faceting** separates each group into its own panel for easier comparison.
+- **Line graphs** help simplify the visualization of multiple categories on a single plot.
+- Use `hue='Group'` and `col='Group'` in seaborn for multi-group visualizations.
+
+Categorical variables and continuous variables can give us different views of the same data. Often we can visualize both views on the same graph using visualization techniques for continuous variables within the category.
+
+### S-T-E for Panel Data (Long Format)
+
+| Step | Action |
+|------|--------|
+| SELECT | All transactions from three coffee shops |
+| TRANSFORM | Group by shop and hour; count transactions |
+| ENCODE | Hour → x-position; Count → y-position; Shop → color/facet |
+
+The TRANSFORM step groups by multiple variables. The ENCODE step uses color or faceting to show groups.
 
 ---
 
