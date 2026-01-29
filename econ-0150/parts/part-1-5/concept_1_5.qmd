@@ -17,22 +17,7 @@ format:
 ## Recap Part 1.4 | Long Format Panel Data
 <p class="subheader">Each row represents an observation of an entity at one point in time</p>
 
-<br>
-
-::: {.incremental}
-- **Long format:** Each observation is a row
-- A column identifies the entity
-:::
-
-
----
-
-## Recap Part 1.4 | Long Format Panel Data
-<p class="subheader">Each row represents an observation of an entity at one point in time</p>
-
-<br>
-
-Data on coffee consumption per capita for 34 countries from 1990 to 2019.
+. . .
 
 <br>
 
@@ -45,14 +30,12 @@ Data on coffee consumption per capita for 34 countries from 1990 to 2019.
 | AUT | 1994 | 8.21 |
 | ... | ... | ... |
 
+*> this is data on coffee consumption per capita, 34 countries, 1990 to 2019*
+
 ---
 
-## New Question
-<p class="subheader">Is the world drinking more coffee?</p>
-
-<br>
-
-Data on coffee consumption per capita for 34 countries from 1990 to 2019.
+## Question
+<p class="subheader">Is the world drinking more coffee in 2019 than in 1999?</p>
 
 <br>
 
@@ -67,12 +50,20 @@ Data on coffee consumption per capita for 34 countries from 1990 to 2019.
 
 . . .
 
-*> how can we tell if consumption increased between 1999 and 2019?*
+*> how can we use this data to answer our question?*
+
+. . .
+
+*> it's challenging... lets instead use one row per **Entitiy***
 
 ---
 
 ## Wide Format Panel Data
 <p class="subheader">A row for each entity across many column time periods</p>
+
+. . .
+
+<br>
 
 | Code | 1999 | 2004 | 2009 | 2014 | 2019 |
 |------|------|------|------|------|------|
@@ -470,6 +461,66 @@ sns.scatterplot(percap, x='1999', y='2019')
 
 ---
 
+## Counting Changes
+<p class="subheader">How many countries increased vs decreased?</p>
+
+<br>
+
+We can see visually that most points are above the 45° line.
+
+. . .
+
+But how do we count exactly how many increased or decreased?
+
+. . .
+
+*> we can create a change column and then filter*
+
+---
+
+## Counting Changes: Create a Column
+<p class="subheader">First, compute the change for each country</p>
+
+```{.python}
+# Create a change column
+percap['change'] = percap['2019'] - percap['1999']
+percap.head()
+```
+
+. . .
+
+| Code | 1999 | 2019 | change |
+|------|------|------|--------|
+| AUT | 8.43 | 7.93 | -0.50 |
+| BGR | 2.65 | 3.64 | 0.99 |
+| HRV | 4.48 | 5.62 | 1.14 |
+| ... | ... | ... | ... |
+
+---
+
+## Counting Changes: Filter
+<p class="subheader">Then, filter to count increases and decreases</p>
+
+```{.python}
+# Count countries that increased (change > 0)
+increased = percap[percap['change'] > 0]
+len(increased)
+```
+
+. . .
+
+```{.python}
+# Count countries that decreased (change < 0)
+decreased = percap[percap['change'] < 0]
+len(decreased)
+```
+
+. . .
+
+*> filtering uses square brackets with a condition inside*
+
+---
+
 ## A New Question
 <p class="subheader">How has each country's consumption changed over time?</p>
 
@@ -564,6 +615,56 @@ sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
 
 ---
 
+## Reshaping: Long → Wide
+<p class="subheader">Use `pivot()` to turn rows into columns</p>
+
+<br>
+
+Sometimes data comes in long format but we need wide format for boxplots or scatterplots.
+
+. . .
+
+`pivot()` is the opposite of `melt()`:
+
+- `melt()` turns columns into rows (wide → long)
+- `pivot()` turns rows into columns (long → wide)
+
+---
+
+## Reshaping: The Code
+<p class="subheader">Use `pivot()` to reshape long → wide</p>
+
+```{.python}
+# Long to Wide
+percap_wide = percap_long.pivot(
+    index='Code',       # What identifies each row
+    columns='Year',     # What becomes column headers
+    values='Consumption' # What fills the cells
+)
+```
+
+. . .
+
+*> `index` = row identifier, `columns` = new column names, `values` = cell values*
+
+---
+
+## Two Directions of Reshaping
+<p class="subheader">Choose based on your starting point and goal</p>
+
+<br>
+
+| Direction | Function | When to use |
+|-----------|----------|-------------|
+| Wide → Long | `melt()` | Need line plots, faceting |
+| Long → Wide | `pivot()` | Need boxplots, scatterplots |
+
+. . .
+
+*> the data format should match your visualization goal*
+
+---
+
 ## Part 1.5 | Panel Data (Wide Format)
 
 <br><br>
@@ -574,7 +675,9 @@ sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
 - **Wide format:** Each time period is a column
 - **Multi-boxplots** compare distributions across time
 - **Scatterplots with 45° lines** track individual changes
+- **Filtering** with `df[df['col'] > 0]` counts subsets
 - **melt()** converts wide → long when you need line plots
+- **pivot()** converts long → wide when you need boxplots or scatterplots
 :::
 
 ---

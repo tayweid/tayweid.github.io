@@ -4,33 +4,29 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 
 ---
 
-## Part 1: Exploring Variables
+## Part 1: Univariate EDA
 
 ### 1.1 Cross-section Categorical
-- [ ] Add Building Blocks summary slide (what's added: categorical variables, bar/pie)
-- [ ] Add visualization guidelines (pie for binary, bar for nominal, ordered bar for ordinal)
-- [ ] Add tables vs figures discussion
-- [ ] Encoding: color (categorical) is introduced here — make explicit
+- I think this should be much more interesting. Maybe make this and each of the Part 1 questions built off the minimum wage dataset.
 
 ### 1.2 Cross-section Numerical
-- [ ] Add Building Blocks summary slide (what's added: numerical variables, histogram/boxplot)
-- [ ] Add S-T-E walkthrough for the example
-- [ ] Decide where descriptive statistics (centrality/dispersion) goes
-- [ ] Consider adding inequality example (income distribution, Gini)
+- Consider adding inequality example (income distribution, Gini)
 
 ### 1.3 Time Series
-- [ ] Encoding: make line type/pattern explicit (solid vs dashed for different series)
-- [ ] Consider narrowing seasonality to 2015-2025 to reduce inflation distortion in boxplots
+- Encoding: make line type/pattern explicit (solid vs dashed for different series)
+- Consider narrowing seasonality to 2015-2025 to reduce inflation distortion in boxplots
+- Maybe do inequality here too
 
-### 1.4 Panel Data
+### 1.4 Long Format Panel Data
 - [ ] Add Building Blocks summary slide (what's added: panel structure, facets, multi-line, reshape)
-- [ ] Add S-T-E walkthrough for the example
-- [ ] Integrate _sup reshaping slides into concept_1_4.qmd
-- [ ] Clean up _sup files after integration
+
+### 1.5 Wide Format Panel Data
+
+
 
 ---
 
-## Part 2: Exploring Relationships
+## Part 2: Multivariate EDA
 
 ### 2.1 Bivariate (Num × Num)
 - [ ] Add Building Blocks summary slide (what's added: scatter, bubble, correlation, log scale)
@@ -43,13 +39,7 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 - [ ] Add S-T-E walkthrough for the example
 - [ ] Consider adding: wages by education example (labor market thread)
 
-### 2.3 Filtering Data
-- [x] Content exists (moved from Part 1.5)
-- [ ] Add Building Blocks summary slide (what's added: filter operation)
-- [ ] Add S-T-E walkthrough for the example
-
-### 2.5 Geographic
-- [x] Content exists
+### 2.3 Geographic
 - [ ] Add Building Blocks summary slide (what's added: geographic structure, maps)
 - [ ] Add S-T-E walkthrough for the example
 - [ ] Encoding: sequential/diverging color scales — make explicit
@@ -60,93 +50,73 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 
 ## Part 3: Univariate GLM
 
+- Maybe talk more about ethics in hypothesis testing. Motivate by having them do bad hypothesis testing.
+- I think this can all be snappier. 
+
 ### 3.1 Random Variables
-- [x] Content exists
-- [ ] Z-scores/standardization taught here — verify it's explicit
+
 
 ### 3.2 Sampling & CLT
-- [x] Content exists
-- [ ] Add population vs sampling distribution visual
+- Add population vs sampling distribution visual
 
 ### 3.3 Confidence Intervals
-- [x] Content exists
-- [ ] Encoding: error bars introduced here — verify it's explicit
-- [ ] Z-scores/standardization reinforced here
-
 ### 3.4 Hypothesis Testing
-- [x] Content exists
-- [ ] Add ethics in hypothesis testing section
+- Add ethics in hypothesis testing section
 
 ### 3.5 Simplest GLM
-- [x] Content exists
-
 ---
 
 ## Part 4: Bivariate GLM
 
 ### 4.1 Numerical Predictors
-- [x] Content exists
-
 ### 4.2 Model Residuals
-- [x] Content exists
-- [ ] Fix slide title (says "Part 4.3" should be "Part 4.2")
-- [ ] Log scales used here — verify it's explicit
+- Fix slide title (says "Part 4.3" should be "Part 4.2")
+
+- Log scales used here — be better with describing the estimate with log predictor and/or log outcome
 
 ### 4.3 Categorical Predictors
-- [x] Content exists
-
 ### 4.4 Time Series Models
-- [x] Content exists
-- [ ] Differencing transformation used here — verify it's explicit
+- Differencing transformation used here — be better with this
 
 ---
 
 ## Part 5: Multivariate GLM
 
+I keep trying to have students think about control variables more. I think the way to pitch this is that we look at a simple bivarite relationship but we might wonder whether something else is going on impacting both variables. Think of Part 5 as starting from the Part 4 bivariate environment as the basic model, then we try to exclude other things. 
+
 ### 5.1 Categorical Controls
-- [ ] Differencing may appear here — verify
+- Simpsons paradox
+- Fixed effects
+- Seaonalization
 
 ### 5.2 Interactions
-- [x] Models 3-4 — complete
+- Build out the gender wage gap as a general model after doing it
 
 ### 5.3 Numerical Controls
-- [x] Pittsburgh housing example exists
-- [ ] Add explicit "holding constant" interpretation
-- [ ] Add correlation ≠ causation discussion
-- [ ] Log scales used here — verify it's explicit
-- [ ] Color (categorical) used here — verify it's explicit
+- Use the gender wage gap and control for number of children. The idea is that if it's about being removed from the workforce, the more children one has, the larger the gender wage gap should be. 
+
+### 5.4 Model Selection
+
+- Use the Pittsburgh housing example
+- Add explicit "holding constant" interpretation
+- Add correlation ≠ causation discussion
+- Build up the ideas in choosing the right model in the Brillian notes I have
 
 ---
 
 ## Part 6: Projects
 
-- [ ] Review project templates
-- [ ] Consider adding Tufte's visualization principles
-- [ ] Differencing may appear in 6.1 — verify
-
----
-
-## Cleanup Tasks
-
-**Files to Delete**
-
-- [ ] Delete `part-2-2-transforms-OLD` (content is in part-1-4)
-- [ ] Archive `part-5-1-seasons` (seasonal analysis cut)
-- [ ] Clean up `.ipynb_checkpoints` scattered throughout
-- [ ] Remove orphaned datasets (e.g., GlobalLandTemperaturesByCity.csv)
-
-**Fixes**
-- [ ] Fix Part 4-5 slide title numbering mismatches
-- [ ] Consolidate duplicate datasets across directories
+- Review project templates
+- Consider adding Tufte's visualization principles
+- Data Operations Workshop: Cleaning, Merging
 
 ---
 
 ## Ideas (Low Priority)
 
 **Examples to Consider Adding**
-- [ ] Minimum wage example (connects to Part 0 hook) — could go in Part 4 or 5
+
 - [ ] FRED data example (unemployment, GDP, interest rates)
-- [ ] Trade data for panel examples (imports/exports by country)
 
 **Running Threads**
 
@@ -158,4 +128,5 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
   - 5.1/5.3: Gender wage gap with controls
 
 **Enhancements**
+
 - [ ] "When to use which visualization" reference guide

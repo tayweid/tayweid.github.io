@@ -117,13 +117,14 @@ One substantive variable at a time. Cross-section first, then time series, then 
 | 1.1 | Cross-section | Categorical | Bar chart, pie | Describe frequencies and proportions of a categorical variable. |
 | 1.2 | Cross-section | Numerical | Histogram, boxplot | Describe distribution, center, and spread of a numerical variable. |
 | 1.3 | Time series | Numerical + Transformations | Line plot | Describe a variable over time; introduce trend and seasonality. Apply log, inflation adjustment, per capita, and differencing. |
-| 1.4 | Panel | Multi-entity time series | Multi-line, facets | Panel data makes both i and t active. Multi-line plots, faceting/small multiples, and reshaping between long and wide format. |
+| 1.4 | Panel (Long) | Multi-entity time series | Multi-line, facets | Long format panel data with both i and t active. Groupby to create summary tables; multi-line plots and faceting to compare groups over time. |
+| 1.5 | Panel (Wide) | Comparing time periods | Multi-boxplot, scatter | Wide format panel data. Multi-boxplots to compare distributions across years; scatterplots with 45° line to track changes; filtering preview to count subsets; reshaping with melt() and pivot(). |
 
 **After Part 1, you have:**
 - Variables: binary, nominal, ordinal, discrete, continuous
-- Structures: cross-section, time series, panel
-- Operations: count, bin, quartiles, sort, log, inflation adjust, per capita, difference, reshape (melt, pivot)
-- Visualizations: bar, pie, histogram, boxplot, stripplot, line, multi-line, facets/small multiples
+- Structures: cross-section, time series, panel (long and wide)
+- Operations: count, bin, quartiles, sort, log, inflation adjust, per capita, difference, groupby, filter (basic), reshape (melt, pivot)
+- Visualizations: bar, pie, histogram, boxplot, stripplot, line, multi-line, multi-boxplot, facets/small multiples
 
 *Exam 1*
 
@@ -137,7 +138,7 @@ Adding complexity: a second substantive variable. We explore how variables relat
 |------|-----------|-------|----------------|-------------|
 | 2.1 | Cross-section | Num × Num | Scatter, bubble | Anscombe's Quartet opener; scatterplots; size encoding (bubble charts); shape encoding. |
 | 2.2 | Cross-section | Num × Cat | Grouped boxplot | Compare a numerical variable across categories. |
-| 2.3 | Any | Filtering | — | Filter data by conditions; work with subsets using logical operators (AND, OR, NOT). |
+| 2.3 | Any | Filtering | — | Filter data by conditions; work with subsets using logical operators (AND, OR, NOT). Builds on the basic filtering introduced in 1.5. |
 | 2.5 | Geographic | Location as index | Maps | Visualize data with a spatial dimension. |
 
 **After Part 2, you have:**

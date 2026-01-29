@@ -200,6 +200,64 @@ The economist’s data analysis skillset.
 <p><br></p>
 <h3 id="part-1.4-panel-data-long-format"><em>Part 1.4 | Panel Data (Long Format)</em></h3>
 </section>
+<section id="part-0-minimum-wage-study" class="slide level2">
+<h2>Part 0 | Minimum Wage Study</h2>
+<p class="subheader">
+NJ raised its minimum wage. Employment did not fall.
+</p>
+
+<img data-src="i/fig_employment_changes.png" class="r-stretch"></section>
+<section id="they-measured-changes" class="slide level2">
+<h2>They Measured Changes</h2>
+<p class="subheader">
+The same 410 stores, surveyed twice
+</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Store</th>
+<th>Wave</th>
+<th>State</th>
+<th>FTE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>NJ</td>
+<td>20.5</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2</td>
+<td>NJ</td>
+<td>24.0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+<td>PA</td>
+<td>18.0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>PA</td>
+<td>17.5</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; same stores, two time periods, tracking each store’s change</em></p>
+</div>
+</section>
 <section id="panel-data" class="slide level2">
 <h2>Panel Data</h2>
 <p class="subheader">
@@ -209,7 +267,7 @@ Data with repeated observations across entities AND time
 <div>
 <ul>
 <li class="fragment"><strong>Panel data</strong> tracks the same units (people, countries, stores) over time</li>
-<li class="fragment">Examples: GDP by country by year, sales by store by hour</li>
+<li class="fragment">Examples: Card &amp; Krueger’s minimum wage study, GDP by country by year, sales by store by hour</li>
 <li class="fragment">Can be stored in two formats: <strong>Long</strong> or <strong>Wide</strong></li>
 </ul>
 </div>
@@ -222,39 +280,46 @@ Each observation is a separate row
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Hours</th>
 <th>Shop</th>
+<th>Hours</th>
+<th>Quantity</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td>Shop A</td>
 <td>12</td>
-<td>Shop A</td>
+<td>1</td>
 </tr>
 <tr class="even">
+<td>Shop A</td>
 <td>15</td>
-<td>Shop A</td>
+<td>2</td>
 </tr>
 <tr class="odd">
+<td>Shop A</td>
 <td>14</td>
-<td>Shop A</td>
+<td>2</td>
 </tr>
 <tr class="even">
-<td>16</td>
 <td>Shop A</td>
+<td>16</td>
+<td>2</td>
 </tr>
 <tr class="odd">
-<td>19</td>
 <td>Shop A</td>
+<td>19</td>
+<td>1</td>
 </tr>
 <tr class="even">
+<td>…</td>
 <td>…</td>
 <td>…</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><em>&gt; each transaction is a row; a column identifies the group</em></p>
+<p><em>&gt; Shop (<span class="math inline">\(i\)</span>) and Hours (<span class="math inline">\(t\)</span>) are indexes; Quantity (<span class="math inline">\(x\)</span>) is the variable</em></p>
 </div>
 </section>
 <section id="labor-demand-hiring-a-barista" class="slide level2">
@@ -274,6 +339,50 @@ Use Coffee_Sales_Receips.csv to help understand where to hire a new barista.
 <p class="subheader">
 Q. Which coffee shop is the busiest?
 </p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Shop</th>
+<th>Hours</th>
+<th>Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shop A</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Shop A</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Shop A</td>
+<td>14</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Shop A</td>
+<td>16</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Shop A</td>
+<td>19</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><em>&gt; as is usually the case, it’s difficult to know without summarization</em></p>
+</div>
 </section>
 <section id="hiring-a-barista-bar-graphs-compare-shops" class="slide level2">
 <h2>Hiring a Barista: Bar Graphs Compare Shops</h2>
@@ -349,6 +458,7 @@ Q. Which shop is busiest during the morning rush?
 
 <img data-src="i/f_01.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; Shop C — compare the 8-10am peaks across panels</em></p>
+<p><em>&gt; but since the histograms are separated it’s not as easy to make the comparison</em></p>
 </div>
 </section>
 <section id="hiring-a-barista-line-graphs" class="slide level2">
@@ -374,7 +484,6 @@ Q. Which shop is busiest during the morning rush?
 <li class="fragment"><strong>Long format:</strong> Each observation is a row; a column identifies the group</li>
 <li class="fragment"><strong>Faceting</strong> separates each group into its own panel for comparison</li>
 <li class="fragment"><strong>Line graphs</strong> simplify multiple categories on a single plot</li>
-<li class="fragment">Use <code>hue='Group'</code> and <code>col='Group'</code> for multi-group visualizations</li>
 </ul>
 </div>
 </section>
@@ -383,6 +492,7 @@ Q. Which shop is busiest during the morning rush?
 <p class="subheader">
 What we just did
 </p>
+<p><br><br></p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -405,9 +515,6 @@ What we just did
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p><em>&gt; TRANSFORM groups by multiple variables; ENCODE uses color or faceting to show groups</em></p>
-</div>
 </section>
 <section id="exercise-1.4-coffee-shop-transactions" class="slide level2">
 <h2>Exercise 1.4 | Coffee Shop Transactions</h2>
@@ -423,38 +530,45 @@ Use Coffee_Sales_Receips.csv to help inform where to hire a barista.
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th>Hours</th>
 <th>Shop</th>
+<th>Hours</th>
+<th>Quantity</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
+<td>Shop A</td>
 <td>12</td>
-<td>Shop A</td>
+<td>1</td>
 </tr>
 <tr class="even">
+<td>Shop A</td>
 <td>15</td>
-<td>Shop A</td>
+<td>2</td>
 </tr>
 <tr class="odd">
+<td>Shop A</td>
 <td>14</td>
-<td>Shop A</td>
+<td>2</td>
 </tr>
 <tr class="even">
-<td>16</td>
 <td>Shop A</td>
+<td>16</td>
+<td>2</td>
 </tr>
 <tr class="odd">
-<td>19</td>
 <td>Shop A</td>
+<td>19</td>
+<td>1</td>
 </tr>
 <tr class="even">
+<td>…</td>
 <td>…</td>
 <td>…</td>
 </tr>
 </tbody>
 </table>
-<p><em>&gt; you’ll see a few more columns in your dataset</em></p>
+<p><em>&gt; Shop (<span class="math inline">\(i\)</span>) and Hours (<span class="math inline">\(t\)</span>) are indexes; Quantity (<span class="math inline">\(x\)</span>) is the variable</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; this is <strong>Long-Format Panel Data</strong>: transactions are all in the same column</em></p>
@@ -504,13 +618,14 @@ Use faceting to give each shop its own panel.
 <p><img data-src="i/f_01.png"></p>
 </div>
 </section>
-<section id="exercise-1.4-count-hourly-by-shop" class="slide level2">
-<h2>Exercise 1.4 | Count Hourly by Shop</h2>
+<section id="exercise-1.4-multiple-line-graph" class="slide level2">
+<h2>Exercise 1.4 | Multiple Line Graph</h2>
 <p class="subheader">
-Q. Which shift is the busiest?
+The Groupby Approach: Create a summary table, then plot
 </p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Create hourly counts by shop</span></span>
-<span id="cb6-2"><a href=""></a>hourly_counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Create a summary table</span></span>
+<span id="cb6-2"><a href=""></a>counts <span class="op">=</span> sales.groupby([<span class="st">'Shop'</span>, <span class="st">'Hours'</span>]).size().reset_index(name<span class="op">=</span><span class="st">'Count'</span>)</span>
+<span id="cb6-3"><a href=""></a>counts.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <table class="caption-top">
 <thead>
@@ -529,22 +644,22 @@ Q. Which shift is the busiest?
 <tr class="even">
 <td>Shop A</td>
 <td>7</td>
-<td>28</td>
+<td>45</td>
 </tr>
 <tr class="odd">
 <td>Shop A</td>
 <td>8</td>
-<td>45</td>
+<td>67</td>
 </tr>
 <tr class="even">
 <td>Shop A</td>
 <td>9</td>
-<td>52</td>
+<td>58</td>
 </tr>
 <tr class="odd">
 <td>Shop A</td>
 <td>10</td>
-<td>48</td>
+<td>42</td>
 </tr>
 <tr class="even">
 <td>…</td>
@@ -554,29 +669,25 @@ Q. Which shift is the busiest?
 </tbody>
 </table>
 </div>
-<div class="fragment">
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multi-Lineplot</span></span>
-<span id="cb7-2"><a href=""></a>sns.lineplot(hourly_counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Count'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="exercise-1.4-multiple-line-graph" class="slide level2">
-<h2>Exercise 1.4 | Multiple Line Graph</h2>
-<p class="subheader">
-Q. Which shift is the busiest?
-</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><img data-src="i/i_04.png"></p>
-</div>
 </section>
 <section id="exercise-1.4-multiple-line-graph-1" class="slide level2">
 <h2>Exercise 1.4 | Multiple Line Graph</h2>
 <p class="subheader">
-Q. Which shift is the busiest?
+The Groupby Approach: Create a summary table, then plot
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Multiple-Line Graph</span></span>
-<span id="cb9-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Multiple-Line Graph using lineplot</span></span>
+<span id="cb7-2"><a href=""></a>sns.lineplot(counts, x<span class="op">=</span><span class="st">'Hours'</span>, y<span class="op">=</span><span class="st">'Count'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><img data-src="i/i_05.png"></p>
+</div>
+</section>
+<section id="exercise-1.4-multiple-line-graph-shortcut" class="slide level2">
+<h2>Exercise 1.4 | Multiple Line Graph (Shortcut)</h2>
+<p class="subheader">
+The Shortcut: Let histplot do the counting for you
+</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Multiple-Line Graph using histplot shortcut</span></span>
+<span id="cb8-2"><a href=""></a>sns.histplot(sales, x<span class="op">=</span><span class="st">'Hours'</span>, hue<span class="op">=</span><span class="st">'Shop'</span>, bins<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>,<span class="dv">24</span>,<span class="dv">1</span>), element<span class="op">=</span><span class="st">'poly'</span>, fill<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_05.png"></p>
 </div>
@@ -587,12 +698,52 @@ Q. Which shift is the busiest?
 Sometimes we need data in a different shape
 </p>
 <p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Shop</th>
+<th>Hours</th>
+<th>Quantity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Shop A</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Shop A</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Shop A</td>
+<td>14</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Shop A</td>
+<td>16</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>Shop A</td>
+<td>19</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
 <div>
 <ul>
-<li class="fragment">What if we want to compare 1999 vs 2019 directly?</li>
-<li class="fragment">Long format makes this awkward — we’d need to filter and merge</li>
-<li class="fragment"><strong>Wide format</strong> puts each time period in its own column</li>
-<li class="fragment">In Part 1.5, we’ll learn to reshape between formats</li>
+<li class="fragment">What if we want to compare Hour 10 to Hour 26?</li>
+<li class="fragment">Long format makes this awkward - we’d need to filter and merge</li>
+<li class="fragment"><strong>Wide format</strong> makes this easy by using a column for each time period</li>
 </ul>
 </div>
 

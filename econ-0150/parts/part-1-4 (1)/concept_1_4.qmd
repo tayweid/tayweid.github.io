@@ -14,6 +14,30 @@ format:
 
 ---
 
+## Part 0 | Minimum Wage Study 
+<p class="subheader">NJ raised its minimum wage. Employment did not fall.</p>
+
+![](i/fig_employment_changes.png)
+
+---
+
+## They Measured Changes
+<p class="subheader">The same 410 stores, surveyed twice</p>
+
+| Store | Wave | State | FTE |
+|-------|------|-------|-----|
+| 1 | 1 | NJ | 20.5 |
+| 1 | 2 | NJ | 24.0 |
+| 2 | 1 | PA | 18.0 |
+| 2 | 2 | PA | 17.5 |
+| ... | ... | ... | ... |
+
+. . .
+
+*> same stores, two time periods, tracking each store's change*
+
+---
+
 ## Panel Data
 <p class="subheader">Data with repeated observations across entities AND time</p>
 
@@ -21,7 +45,7 @@ format:
 
 ::: {.incremental}
 - **Panel data** tracks the same units (people, countries, stores) over time
-- Examples: GDP by country by year, sales by store by hour
+- Examples: Card & Krueger's minimum wage study, GDP by country by year, sales by store by hour
 - Can be stored in two formats: **Long** or **Wide**
 :::
 
@@ -30,18 +54,18 @@ format:
 ## Long Format Panel Data
 <p class="subheader">Each observation is a separate row</p>
 
-| Hours | Shop |
-|-------|------|
-| 12 | Shop A |
-| 15 | Shop A |
-| 14 | Shop A |
-| 16 | Shop A |
-| 19 | Shop A |
-| ... | ... |
+| Shop | Hours | Quantity |
+|------|-------|----------|
+| Shop A | 12 | 1 |
+| Shop A | 15 | 2 |
+| Shop A | 14 | 2 |
+| Shop A | 16 | 2 |
+| Shop A | 19 | 1 |
+| ... | ... | ... |
 
 . . .
 
-*> each transaction is a row; a column identifies the group*
+*> Shop ($i$) and Hours ($t$) are indexes; Quantity ($x$) is the variable*
 
 ---
 
@@ -58,6 +82,19 @@ format:
 
 ## Hiring a Barista
 <p class="subheader">Q. Which coffee shop is the busiest?</p>
+
+| Shop | Hours | Quantity |
+|------|-------|----------|
+| Shop A | 12 | 1 |
+| Shop A | 15 | 2 |
+| Shop A | 14 | 2 |
+| Shop A | 16 | 2 |
+| Shop A | 19 | 1 |
+| ... | ... | ... |
+
+. . . 
+
+*> as is usually the case, it's difficult to know without summarization*
 
 ---
 
@@ -141,6 +178,8 @@ format:
 
 *> Shop C — compare the 8-10am peaks across panels*
 
+*> but since the histograms are separated it's not as easy to make the comparison*
+
 ---
 
 ## Hiring a Barista: Line Graphs
@@ -169,7 +208,6 @@ format:
 - **Long format:** Each observation is a row; a column identifies the group
 - **Faceting** separates each group into its own panel for comparison
 - **Line graphs** simplify multiple categories on a single plot
-- Use `hue='Group'` and `col='Group'` for multi-group visualizations
 :::
 
 ---
@@ -177,15 +215,13 @@ format:
 ## S-T-E for Panel Data (Long Format)
 <p class="subheader">What we just did</p>
 
+<br><br>
+
 | Step | Action |
 |------|--------|
 | SELECT | All transactions from three coffee shops |
 | TRANSFORM | Group by shop and hour; count transactions |
 | ENCODE | Hour → x-position; Count → y-position; Shop → color/facet |
-
-. . .
-
-*> TRANSFORM groups by multiple variables; ENCODE uses color or faceting to show groups*
 
 ---
 
@@ -202,16 +238,16 @@ sales.head()
 
 . . .
 
-| Hours | Shop |
-|-------|------|
-| 12 | Shop A |
-| 15 | Shop A |
-| 14 | Shop A |
-| 16 | Shop A |
-| 19 | Shop A |
-| ... | ... |
+| Shop | Hours | Quantity |
+|------|-------|----------|
+| Shop A | 12 | 1 |
+| Shop A | 15 | 2 |
+| Shop A | 14 | 2 |
+| Shop A | 16 | 2 |
+| Shop A | 19 | 1 |
+| ... | ... | ... |
 
-*> you'll see a few more columns in your dataset*
+*> Shop ($i$) and Hours ($t$) are indexes; Quantity ($x$) is the variable*
 
 . . .
 
@@ -275,12 +311,13 @@ sns.displot(sales, x='Hours', col='Shop', bins=range(0,24,1))
 
 ---
 
-## Exercise 1.4 | Count Hourly by Shop
-<p class="subheader">Q. Which shift is the busiest?</p>
+## Exercise 1.4 | Multiple Line Graph
+<p class="subheader">The Groupby Approach: Create a summary table, then plot</p>
 
 ```{.python}
-# Create hourly counts by shop
-hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
+# Create a summary table
+counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
+counts.head()
 ```
 
 . . .
@@ -288,40 +325,33 @@ hourly_counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count'
 | Shop | Hours | Count |
 |------|-------|-------|
 | Shop A | 6 | 12 |
-| Shop A | 7 | 28 |
-| Shop A | 8 | 45 |
-| Shop A | 9 | 52 |
-| Shop A | 10 | 48 |
+| Shop A | 7 | 45 |
+| Shop A | 8 | 67 |
+| Shop A | 9 | 58 |
+| Shop A | 10 | 42 |
 | ... | ... | ... |
 
-. . .
-
-```{.python}
-# Multi-Lineplot
-sns.lineplot(hourly_counts, x='Hours', y='Count', hue='Shop')
-```
-
 ---
 
 ## Exercise 1.4 | Multiple Line Graph
-<p class="subheader">Q. Which shift is the busiest?</p>
+<p class="subheader">The Groupby Approach: Create a summary table, then plot</p>
 
 ```{.python}
-# Multiple-Line Graph
-sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly')
+# Multiple-Line Graph using lineplot
+sns.lineplot(counts, x='Hours', y='Count', hue='Shop')
 ```
 
 . . .
 
-![](i/i_04.png)
+![](i/i_05.png)
 
 ---
 
-## Exercise 1.4 | Multiple Line Graph
-<p class="subheader">Q. Which shift is the busiest?</p>
+## Exercise 1.4 | Multiple Line Graph (Shortcut)
+<p class="subheader">The Shortcut: Let histplot do the counting for you</p>
 
 ```{.python}
-# Multiple-Line Graph
+# Multiple-Line Graph using histplot shortcut
 sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', fill=False)
 ```
 
@@ -336,11 +366,18 @@ sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', f
 
 <br>
 
-::: {.incremental}
-- What if we want to compare 1999 vs 2019 directly?
-- Long format makes this awkward — we'd need to filter and merge
-- **Wide format** puts each time period in its own column
-- In Part 1.5, we'll learn to reshape between formats
-:::
+| Shop | Hours | Quantity |
+|------|-------|----------|
+| Shop A | 12 | 1 |
+| Shop A | 15 | 2 |
+| Shop A | 14 | 2 |
+| Shop A | 16 | 2 |
+| Shop A | 19 | 1 |
+| ... | ... | ... |
 
+::: {.incremental}
+- What if we want to compare Hour 10 to Hour 26?
+- Long format makes this awkward - we'd need to filter and merge
+- **Wide format** makes this easy by using a column for each time period
+:::
 

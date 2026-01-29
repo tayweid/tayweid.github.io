@@ -17,91 +17,9 @@ In long format, years are *values* in a column. In wide format, years become *co
 
 ---
 
-### Reshaping: Wide to Long
+### Comparing Distributions: Histograms
 
-We can convert between formats. Going from wide to long is called "melting" or "unpivoting."
-
-![Wide to Long](i/w_03.png)
-
-In Python pandas, use `melt()`:
-
-```python
-# Wide to Long
-long_df = wide_df.melt(
-    id_vars=['Code'],        # Keep as identifier columns
-    var_name='Year',         # Name for the former column headers
-    value_name='Consumption' # Name for the values
-)
-```
-
-`id_vars` specifies columns to keep as identifiers. Everything else gets "melted" into rows. Each year column becomes rows in a new "Year" column.
-
-![Melt Result](i/w_04.png)
-
----
-
-### Reshaping: Long to Wide
-
-Going from long to wide is called "pivoting" or "spreading."
-
-![Long to Wide](i/w_05.png)
-
-In Python pandas, use `pivot()`:
-
-```python
-# Long to Wide
-wide_df = long_df.pivot(
-    index='Code',            # What becomes rows
-    columns='Year',          # What becomes columns
-    values='Consumption'     # What fills the cells
-)
-```
-
-Each unique Year value becomes its own column.
-
-![Pivot Result](i/w_06.png)
-
----
-
-### When to Use Which Format
-
-Choose based on what you're trying to do:
-
-| Task | Better Format |
-|------|---------------|
-| Line plot over time | Long |
-| Faceted plots by group | Long |
-| Compare two specific years | Wide |
-| Scatterplot (Year1 vs Year2) | Wide |
-
-**Key insight:**
-- **Long format:** Good when you want to *group by* or *color by* a variable
-- **Wide format:** Good when you want to *compare* or *correlate* specific columns
-- Neither is "better" — it depends on your task
-
----
-
-### Per Capita Transformations
-
-When comparing countries, raw totals can be misleading. Which country has the largest economy? Looking at total GDP, the US and China dominate — their economies are massive.
-
-![Total GDP](i/i_01.png)
-
-But is "largest economy" the same as "richest"? Not necessarily. A country can have a large total GDP simply because it has a lot of people. To understand how well off the typical person is, we need to adjust for population size.
-
-**Per capita** means "per person" — we divide the total by population. When we transform GDP to GDP per capita, the picture changes completely.
-
-![GDP Per Capita](i/i_02.png)
-
-Now Luxembourg, Switzerland, and Norway top the list. These are small countries with high living standards. The US and China, despite their massive economies, fall in the rankings because their populations are so large.
-
-This transformation is essential when comparing across countries of different sizes.
-
----
-
-### Scatterplots in Panel
-
-The world seems to be drinking more coffee than ever. But does the data on coffee consumption confirm this? This data contains coffee consumption in kilograms per capita of 34 coffee importers over the span of two decades. **Per capita** refers to a value averaged over the number of people. It's equivalent to 'per person'.
+The world seems to be drinking more coffee than ever. But does the data on coffee consumption confirm this? This data contains coffee consumption in kilograms per capita of 34 coffee importers over the span of two decades.
 
 Let's plot the histogram of country's coffee consumption for 1999.
 
@@ -117,33 +35,17 @@ What can we conclude from the histograms?
 - No country exceeded 20 kg per capita in 1999, and one country exceeded 20 kg per capita in 2019.
 - We don't know which country is represented by which bar, some countries might have decreased their coffee consumption, although we can't say for sure.
 
-What was the most common range of coffee consumption per capita in 2019?
-
-- Between 5 kg and 6 kg. The tallest bar covers values between 5 kg and 6 kg, which makes it the most common range.
-- The **mode** is the most common value (or values) in a dataset.
-- In a continuous distribution, it's likely that no values repeat. In this case, we approximate the mode with the histogram's tallest bar.
-
-Which year was the mode a higher coffee consumption?
-
-- In 1999, the mode was between 4 kg and 5 kg. In 2019, the mode was between 5 kg and 6 kg. So, the mode was larger in 2019.
-- The mode consumption per capita increased.
-
-Would you say that between 1999 and 2019, people started drinking more coffee?
-
-- It depends on what we mean by 'people started drinking more coffee'.
-- Are we talking about the mean? The median? The mode?
-- The histograms suggest a general increase in coffee consumption.
-- In 2019, two large values appeared and the two smallest disappeared, while the two tallest bars didn't change much.
+The histograms suggest a general increase in coffee consumption — but they're not great for comparison. Let's use a multi-boxplot instead.
 
 ---
 
 ### Boxplots
 
-The histograms showed that the per capita coffee consumption increased from 1999 to 2019 — but what happened in between? A visualization type useful for comparing multiple distributions is a **box and whisker plot**, or **boxplot**. The dataset shows the coffee consumption in every year, 1999 for example. The boxplot can represent the same data by summarizing it.
+A visualization type useful for comparing multiple distributions is a **box and whisker plot**, or **boxplot**. The boxplot can represent the same data by summarizing it.
 
 ![Boxplot with Jitter](i/i_06_c.png)
 
-Lets examine what each part of the boxplot corresponds to and what it tells us about the data. To aid our discussion, I'm adding in the countries scattered across the horizontal. Each point corresponds to a country and their coffee consumption on the horizontal. The vertical axis is 'jittered' to make it easy to see countries which are clumped together. This type of approach can be helpful when visualizing a distribution of one variable.
+To aid our discussion, I'm adding in the countries scattered across the horizontal. Each point corresponds to a country and their coffee consumption on the horizontal. The vertical axis is 'jittered' to make it easy to see countries which are clumped together.
 
 Boxplots visually summarize the data — but their real power lies in the ease of comparisons between distributions. Next, we'll use boxplots to analyze the changes in coffee consumption between 1999 and 2019.
 
@@ -201,7 +103,7 @@ Thanks to boxplots, we saw that while coffee consumption increased between 1999 
 
 When aggregating data like this we can see what's going on overall. But we also might want to get a better view of individual changes. We've seen that coffee consumption has gone up overall, but does that mean all countries have increased their coffee consumption during these years? We don't have the right view to answer that question yet.
 
-Before exploring time series data, we're going to go back to our trusty scatter plot. We have multiple years to examine, which gives us the ability to explore the relationship between coffee consumption in each country between any two years. Let's focus on 1999 and 2019.
+We're going to go back to our trusty scatter plot. We have multiple years to examine, which gives us the ability to explore the relationship between coffee consumption in each country between any two years. Let's focus on 1999 and 2019.
 
 ![Scatterplot 1999 vs 2019](i/i_16.png)
 
@@ -226,17 +128,97 @@ This view gives us something the boxplots couldn't: we can track individual coun
 
 ---
 
-### Python Exercise 1.5 | Wide Format Visualizations
+### Filtering: Counting Changes
 
-**Per Capita Transformation:**
+We can see visually that most points are above the 45-degree line. But how do we count exactly how many countries increased or decreased?
+
+First, we create a column that calculates the change for each country:
 
 ```python
-# Calculate GDP per capita
-gdp_pop['GDP_per_capita'] = gdp_pop['GDP'] * 1e6 / gdp_pop['Population']
-
-# Sort to see top countries
-gdp_pop.sort_values('GDP_per_capita', ascending=False).head(10)
+# Create a change column
+percap['change'] = percap['2019'] - percap['1999']
 ```
+
+Now we can filter to count how many increased (change > 0) and how many decreased (change < 0):
+
+```python
+# Count countries that increased
+increased = percap[percap['change'] > 0]
+len(increased)
+
+# Count countries that decreased
+decreased = percap[percap['change'] < 0]
+len(decreased)
+```
+
+Filtering uses square brackets with a condition inside. The expression `percap['change'] > 0` returns True or False for each row, and putting it inside brackets keeps only the rows where it's True.
+
+We'll explore filtering more systematically in Part 2.3, but this basic pattern — create a column, then filter by a condition — is useful for answering "how many" questions.
+
+---
+
+### Reshaping: Wide to Long
+
+We can convert between formats. Going from wide to long is called "melting" or "unpivoting."
+
+![Wide to Long](i/w_03.png)
+
+In Python pandas, use `melt()`:
+
+```python
+# Wide to Long
+long_df = wide_df.melt(
+    id_vars=['Code'],        # Keep as identifier columns
+    var_name='Year',         # Name for the former column headers
+    value_name='Consumption' # Name for the values
+)
+```
+
+`id_vars` specifies columns to keep as identifiers. Everything else gets "melted" into rows. Each year column becomes rows in a new "Year" column.
+
+![Melt Result](i/w_04.png)
+
+---
+
+### Reshaping: Long to Wide
+
+Going from long to wide is called "pivoting" or "spreading."
+
+In Python pandas, use `pivot()`:
+
+```python
+# Long to Wide
+wide_df = long_df.pivot(
+    index='Code',            # What becomes rows
+    columns='Year',          # What becomes columns
+    values='Consumption'     # What fills the cells
+)
+```
+
+Each unique Year value becomes its own column.
+
+---
+
+### When to Use Which Format
+
+Choose based on what you're trying to do:
+
+| Task | Better Format |
+|------|---------------|
+| Line plot over time | Long |
+| Faceted plots by group | Long |
+| Compare two specific years | Wide |
+| Scatterplot (Year1 vs Year2) | Wide |
+| Multi-boxplot across years | Wide |
+
+**Key insight:**
+- **Long format:** Good when you want to *group by* or *color by* a variable
+- **Wide format:** Good when you want to *compare* or *correlate* specific columns
+- Neither is "better" — it depends on your task
+
+---
+
+### Python Exercise 1.5 | Wide Format Visualizations
 
 **Multi-Boxplots with Wide Format:**
 
@@ -245,8 +227,6 @@ With wide-format panel data, we can pass multiple columns directly to seaborn:
 ```python
 # Wide Format Multi-Boxplot
 sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 100))
-plt.xlabel('Coffee Consumption (kg per capita)')
-plt.title('Coffee Importing Countries')
 ```
 
 **Scatterplot Comparing Years:**
@@ -256,8 +236,6 @@ In Python with wide-format data, we can directly plot two columns against each o
 ```python
 # Wide Format Scatterplot
 sns.scatterplot(percap, x='1999', y='2019')
-plt.xlabel('1999 Coffee Consumption (kg per capita)')
-plt.ylabel('2019 Coffee Consumption (kg per capita)')
 ```
 
 To add a 45-degree line:
@@ -265,11 +243,30 @@ To add a 45-degree line:
 ```python
 # Scatterplot with 45-degree line
 sns.scatterplot(percap, x='1999', y='2019')
-plt.plot([0, 25], [0, 25], color='red', linestyle='--', label='No change')
-plt.xlim(0, 25)
-plt.ylim(0, 25)
-plt.grid(True)
+plt.plot([0, 15], [0, 15], color='red', linestyle='--', label='No change')
 plt.legend()
+```
+
+**Filtering to Count Changes:**
+
+```python
+# Create a change column
+percap['change'] = percap['2019'] - percap['1999']
+
+# Count increases and decreases
+increased = percap[percap['change'] > 0]
+decreased = percap[percap['change'] < 0]
+print(f"Increased: {len(increased)}, Decreased: {len(decreased)}")
+```
+
+**Reshaping:**
+
+```python
+# Wide to Long
+percap_long = percap.melt(id_vars=['Code'], var_name='Year', value_name='Consumption')
+
+# Long to Wide
+percap_wide = percap_long.pivot(index='Code', columns='Year', values='Consumption')
 ```
 
 ---
@@ -279,8 +276,8 @@ plt.legend()
 Part 1.5 covered wide format panel data and its applications:
 
 - **Wide format:** Each time period is a column
-- **melt()** converts wide → long (columns become rows)
-- **pivot()** converts long → wide (rows become columns)
-- **Per capita** transformations divide by population for fair comparisons
 - **Multi-boxplots** compare distributions across time periods
 - **Scatterplots with 45° lines** track individual changes between two time points
+- **Filtering** with `df[df['col'] > 0]` counts subsets
+- **melt()** converts wide → long (columns become rows)
+- **pivot()** converts long → wide (rows become columns)

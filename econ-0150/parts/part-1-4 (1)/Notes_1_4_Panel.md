@@ -50,13 +50,9 @@ Faceting is a powerful tool when you want to compare distributions across groups
 
 ### Line Graphs: Another Approach
 
-Fortunately, there's another visualization tool, the **line graph**, which connects the top of each bar.
+Fortunately, there's another visualization tool, the **line graph**, which connects the top of each bar. By removing the fill under the lines, we get a clean view of traffic patterns across all three shops.
 
-![Transactions by Shop - Line Graph](i/i_04.png)
-
-We can make this even cleaner by removing the fill under the lines.
-
-![Transactions by Shop - Line Graph (no fill)](i/i_05.png)
+![Transactions by Shop - Line Graph](i/i_05.png)
 
 A line graph is much easier to compare across shops through time. The morning shift at Shop C has the highest peak sales. Many things could explain this, such as higher demand at Shop C, faster baristas at Shop C, simpler orders at Shop C, or many other reasons. The data available can tell us a lot about where hiring a new barista might be most helpful, but data on its own often cannot paint a complete picture.
 
@@ -84,40 +80,42 @@ The TRANSFORM step groups by multiple variables. The ENCODE step uses color or f
 
 ---
 
-### Python Exercise 1.4 | Multi-Linegraphs
+### Python Exercise 1.4 | Multi-Line Graphs
 
-The approach in python is similar. We can create a frequency table and then use that with a line graph. Or we can simply have seaborn do that for us behind the scenes.
+There are two ways to create multi-line graphs in Python. The first approach builds the count table explicitly using `groupby`. The second is a shortcut that lets seaborn handle the counting behind the scenes.
 
-The approach with the frequency table is simply to have python do a grouping for us. We'll do more of this later, but for now we can just think of python as group each value in `Shop`, and within that group we're also grouping each value on `Hour`. So we've grouped based on two values `Shop` and `Hour`, meaning every element of a group is a transaction that happens at the same shop in the same hour:
+#### The Groupby Approach
+
+We can have Python group each value in `Shop`, and within that group also group by `Hours`. This means every element of a group is a transaction that happens at the same shop in the same hour:
 
 ```python
 sales.groupby(['Shop', 'Hours'])
 ```
 
-Then we want to find how many transactions are in each group. We can do this by finding the size of each group, simply adding the dot function at the end:
+Then we find how many transactions are in each group by getting the size:
 
 ```python
 sales.groupby(['Shop', 'Hours']).size()
 ```
 
-This gives us a nice count by hour of the day at each coffee shop. But it's not in the right shape. To turn it into a more normal looking dataframe we need to set the index to use `Count`.
+This gives us a count by hour at each coffee shop, but it's not in the right shape. To turn it into a dataframe that seaborn can work with, we reset the index:
 
 ```python
 counts = sales.groupby(['Shop', 'Hours']).size().reset_index(name='Count')
 ```
 
-This gives us the kind of dataframe that seaborn can work with. Then we just use seaborn as normal. Give it the dataset `counts`, tell it to use `Hours` on the horizontal, `Count` on the vertical, and break it out by `Shop`.
+Now we can use seaborn as normal. Give it the dataset `counts`, use `Hours` on the horizontal, `Count` on the vertical, and break it out by `Shop`:
 
 ```python
 sns.lineplot(counts, x='Hours', y='Count', hue='Shop')
 ```
 
-And we're done.
+#### The Shortcut
 
-If all we care about is the figure, we can actually have seaborn do all the grouping work for us. We just use a histplot to have it count things up, but then tell it to treat the top of each histogram as a point on the line using the `element` parameter and setting it equal to `poly`. We can also remove the shading in the area under the line using `fill=False`.
+If all we care about is the figure, we can have seaborn do all the grouping work for us. We use `histplot` to count things up, but tell it to treat the top of each histogram as a point on a line using `element='poly'`. We also remove the shading under the line using `fill=False`.
 
 ```python
-sns.histplot(data=sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', fill=False)
+sns.histplot(sales, x='Hours', hue='Shop', bins=range(0,24,1), element='poly', fill=False)
 ```
 
 This saves us work if we aren't interested in the count table. Python is very good at saving us work.
