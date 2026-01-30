@@ -3,7 +3,7 @@ id,title,authors,section,group,research_question,data_source,methods,main_findin
 0002,Teen Birth Rates,"Tessier",1PM,02,"How does state economy and political leaning affect teen birth rates?",,,,"0002",,no,pending
 0003,GDP and Life Expectancy,"Carragher; Widdop; Stuccio",1PM,03,"Is there a relationship between GDP per Capita and Life Expectancy?",,,,"0003",,no,pending
 0004,GDP and Happiness,"Arrlington",1PM,04,"Is there a relationship between GDP per capita and happiness?",,,,"0004",,no,pending
-0005,MLB Attendance and Manager Change,"Chirinos; Papa; Mostofa",1PM,05,"Does manager change affect MLB attendance?",,,,"0005",,yes,pending
+0005,MLB Attendance and Manager Change,"Chirinos; Papa; Mostofa",1PM,05,"Does winning affect MLB attendance?","MLB team data (150 team-season observations)","OLS regression","Each additional win is associated with a 0.67 percentage point increase in attendance (p < 0.001)","0005",,yes,complete
 0006,Mortgage Rates and Home Prices,"Zheng; Li",1PM,06,"Do U.S. mortgage interest rates affect home prices?",,,,"0006",,no,pending
 0007,Housing Prices and Rent Affordability,"Li",1PM,07,"How Do Housing Price Changes Affect Rent Affordability Across U.S. Cities?",,,,"0007",,no,pending
 0008,Voter Turnout and Presidential Margins,"Brennfleck; Jones; Kachalova",1PM,08,"What is the relationship between Voter Turnout and the Margin of U.S. Presidential Victories by County?",,,,"0008",,no,pending
