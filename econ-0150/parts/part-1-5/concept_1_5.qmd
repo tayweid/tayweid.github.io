@@ -336,7 +336,8 @@ With wide-format panel data seaborn looks a little different.
 
 ```{.python}
 # Wide Format Multi-Boxplot
-sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 100))
+percap_selected = percap[['1999','2009','2019']]
+sns.boxplot(percap_selected, orient='h', whis=(0, 100))
 ```
 
 . . .
@@ -464,22 +465,43 @@ sns.scatterplot(percap, x='1999', y='2019')
 ## Counting Changes
 <p class="subheader">How many countries increased vs decreased?</p>
 
-<br>
-
-We can see visually that most points are above the 45° line.
+![](i/i_20.png)
 
 . . .
 
-But how do we count exactly how many increased or decreased?
+*> we can see visually that most points are above the 45° line*
 
 . . .
 
-*> we can create a change column and then filter*
+*> but how do we count exactly how many?*
 
 ---
 
-## Counting Changes: Create a Column
-<p class="subheader">First, compute the change for each country</p>
+## Counting Changes
+<p class="subheader">How many countries increased vs decreased?</p>
+
+1. **Create a change column:** Subtract old from new
+
+| Code | 1999 | 2019 | change |
+|------|------|------|--------|
+| AUT | 8.43 | 7.93 | -0.50 |
+| BGR | 2.65 | 3.64 | 0.99 |
+| HRV | 4.48 | 5.62 | 1.14 |
+| ... | ... | ... | ... |
+
+::: {.incremental}
+2. **Filter:** Select rows where change > 0 (or < 0)
+3. **Count:** Use `len()` to count the filtered rows
+:::
+
+. . .
+
+*> positive change = increased; negative change = decreased*
+
+---
+
+## Exercise 1.5 | Counting Changes
+<p class="subheader">How many countries increased their coffee consumption?</p>
 
 ```{.python}
 # Create a change column
@@ -489,17 +511,7 @@ percap.head()
 
 . . .
 
-| Code | 1999 | 2019 | change |
-|------|------|------|--------|
-| AUT | 8.43 | 7.93 | -0.50 |
-| BGR | 2.65 | 3.64 | 0.99 |
-| HRV | 4.48 | 5.62 | 1.14 |
-| ... | ... | ... | ... |
-
----
-
-## Counting Changes: Filter
-<p class="subheader">Then, filter to count increases and decreases</p>
+<br>
 
 ```{.python}
 # Count countries that increased (change > 0)
@@ -509,105 +521,102 @@ len(increased)
 
 . . .
 
+<br>
+
 ```{.python}
 # Count countries that decreased (change < 0)
 decreased = percap[percap['change'] < 0]
 len(decreased)
 ```
 
-. . .
-
-*> filtering uses square brackets with a condition inside*
-
 ---
 
-## A New Question
+## Question
 <p class="subheader">How has each country's consumption changed over time?</p>
 
 <br><br>
 
-We've compared distributions across years and tracked changes between 1999 and 2019.
+Instead of measuring changes between two years (1999 and 2019), how might we visualize countrys' full trends over all 30 years?
 
 . . .
 
-But what if we want to see each country's full trend over all 30 years?
+<br><br>
 
-. . .
-
-*> we need a line plot with Year on x-axis and Consumption on y-axis, colored by Country*
+*> lets use a line plot with Year on x-axis and Consumption on y-axis, colored by Country*
 
 ---
 
-## The Problem
-<p class="subheader">Wide format doesn't work for line plots</p>
+## Question
+<p class="subheader">How has each country's consumption changed over time?</p>
 
-<br>
-
-In wide format, years are **column names**, not values in a column.
+The problem is that wide format has no `Year` column!
 
 . . .
 
+<br>
+
 ```{.python}
-# This won't work — there's no 'Year' column!
+# This won't work!
 sns.lineplot(percap, x='Year', y='Consumption', hue='Code')
 ```
 
 . . .
 
-*> we need to reshape from wide to long format*
+<br><br>
+
+*> we need to construct a year column*
 
 ---
 
 ## Reshaping: Wide → Long
-<p class="subheader">Use `melt()` to turn columns into rows</p>
+<p class="subheader">Turn columns into rows using `melt()`.</p>
 
 ![](i/w_03.png)
 
-*> each year column becomes rows in a new "Year" column*
+*> each year column becomes rows in a new `Year` column*
 
 ---
 
-## Reshaping: The Code
-<p class="subheader">Use `melt()` to reshape wide → long</p>
+## Question
+<p class="subheader">How has each country's consumption changed over time?</p>
 
-```{.python}
-# Wide to Long
-percap_long = percap.melt(
-    id_vars=['Code'],        # Keep as identifier columns
-    var_name='Year',         # Name for the former column headers
-    value_name='Consumption' # Name for the values
-)
-```
+![](i/w_04.png)
 
 . . .
 
-*> `id_vars` = columns to keep, everything else gets melted*
+*> this is possible now using the long format panel data*
 
 ---
 
 ## Exercise 1.5 | Reshaping
 <p class="subheader">How has each country's consumption changed over time?</p>
 
+. . .
+
+Use `melt()` to reshape wide → long.
+
+![](i/w_03_notitle.png)
+
+. . .
+
 ```{.python}
-# Reshape wide to long
+# Wide to Long
 percap_long = percap.melt(
-    id_vars=['Code'],
-    var_name='Year',
-    value_name='Consumption'
+    id_vars='Code',          # The identifier column
+    var_name='Year',         # The new 'melted' column
+    value_name='Consumption' # The new 'melted' values
 )
 ```
 
-. . .
+---
+
+## Exercise 1.5 | Reshaping
+<p class="subheader">How has each country's consumption changed over time?</p>
 
 ```{.python}
 # Now we can plot trends for each country
 sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
 ```
-
----
-
-## Exercise 1.5 | Reshaping
-<p class="subheader">How has each country's consumption changed over time?</p>
 
 ![](i/w_04.png)
 
@@ -616,52 +625,60 @@ sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
 ---
 
 ## Reshaping: Long → Wide
-<p class="subheader">Use `pivot()` to turn rows into columns</p>
+<p class="subheader">Turn rows into columns using `pivot()`.</p>
 
 <br>
 
-Sometimes data comes in long format but we need wide format for boxplots or scatterplots.
+Sometimes data comes in long format but we need wide format *(eg. scatterplots)*.
+
+![](i/w_04_pivot.png)
 
 . . .
 
-`pivot()` is the opposite of `melt()`:
-
-- `melt()` turns columns into rows (wide → long)
-- `pivot()` turns rows into columns (long → wide)
+Think of `pivot()` as the opposite of `melt()`.
 
 ---
 
 ## Reshaping: The Code
-<p class="subheader">Use `pivot()` to reshape long → wide</p>
+<p class="subheader">Turn rows into columns using `pivot()`.</p>
+
+Use `pivot()` to reshape long → wide.
+
+![](i/w_04_pivot.png)
+
+. . .
 
 ```{.python}
 # Long to Wide
 percap_wide = percap_long.pivot(
-    index='Code',       # What identifies each row
-    columns='Year',     # What becomes column headers
-    values='Consumption' # What fills the cells
+    index='Code',         # The identifier column
+    columns='Year',       # The column used to create the new column headers
+    values='Consumption'  # The column used to create the new column values
 )
 ```
 
 . . .
 
-*> `index` = row identifier, `columns` = new column names, `values` = cell values*
+*> you'll use this in your homework :)*
 
 ---
 
-## Two Directions of Reshaping
+## Reshaping
 <p class="subheader">Choose based on your starting point and goal</p>
+
+The data format should match your visualization goal.
 
 <br>
 
 | Direction | Function | When to use |
 |-----------|----------|-------------|
 | Wide → Long | `melt()` | Need line plots, faceting |
-| Long → Wide | `pivot()` | Need boxplots, scatterplots |
+| Long → Wide | `pivot()` | Need scatterplots |
 
 . . .
 
-*> the data format should match your visualization goal*
+- `melt()` turns columns into rows (wide → long)
+- `pivot()` turns rows into columns (long → wide)
 
 ---
 
@@ -682,20 +699,12 @@ percap_wide = percap_long.pivot(
 
 ---
 
-## Long vs Wide: The Complete Picture
-<p class="subheader">Choose format based on your task</p>
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
 
-<br>
-
-**Long Format (Part 1.4)**
-
-- Comparing groups at a point in time
-- Faceting, line graphs, groupby
-- `hue='Group'`, `col='Group'`
-
-**Wide Format (Part 1.5)**
-
-- Comparing time periods for the same units
-- Boxplots, scatterplots, correlations
-- Each column is a time period
-
+| Block | Part 1.5 |
+|-------|----------|
+| Variables | Numerical |
+| Structures | Panel (wide format) |
+| Operations | Filter, Reshape (melt, pivot) |
+| Visualizations | Multi-boxplot, Scatterplot with 45° line |

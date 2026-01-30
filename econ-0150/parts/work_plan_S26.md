@@ -1,4 +1,4 @@
-## ECON 0150 | Spring 2026 | Work Plan
+## ECON 0150 | Work Plan | Next Steps
 
 Sequential to-do list for course prep. Course structure is in `course_outline.md`.
 
@@ -14,11 +14,10 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 
 ### 1.3 Time Series
 - Encoding: make line type/pattern explicit (solid vs dashed for different series)
-- Consider narrowing seasonality to 2015-2025 to reduce inflation distortion in boxplots
 - Maybe do inequality here too
 
 ### 1.4 Long Format Panel Data
-- [ ] Add Building Blocks summary slide (what's added: panel structure, facets, multi-line, reshape)
+- Add Building Blocks summary slide (what's added: panel structure, facets, multi-line, reshape)
 
 ### 1.5 Wide Format Panel Data
 
@@ -29,22 +28,21 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 ## Part 2: Multivariate EDA
 
 ### 2.1 Bivariate (Num × Num)
-- [ ] Add Building Blocks summary slide (what's added: scatter, bubble, correlation, log scale)
-- [ ] Add S-T-E walkthrough for the example
-- [ ] Consider adding inequality example (GDP vs life expectancy with Gini as size)
+- Add Building Blocks summary slide (what's added: scatter, bubble, correlation, log scale)
+- Add S-T-E walkthrough for the example
+- Consider adding inequality example (GDP vs life expectancy with Gini as size)
 
 ### 2.2 Grouping (Num × Cat)
-- [x] Content exists
-- [ ] Add Building Blocks summary slide (what's added: grouped boxplot, group operation)
-- [ ] Add S-T-E walkthrough for the example
-- [ ] Consider adding: wages by education example (labor market thread)
+- Add Building Blocks summary slide (what's added: grouped boxplot, group operation)
+- Add S-T-E walkthrough for the example
+- Consider adding: wages by education example (labor market thread)
 
 ### 2.3 Geographic
-- [ ] Add Building Blocks summary slide (what's added: geographic structure, maps)
-- [ ] Add S-T-E walkthrough for the example
-- [ ] Encoding: sequential/diverging color scales — make explicit
-- [ ] Simplify example (current one too difficult)
-- [ ] Use PA income by county for exercise
+- Add Building Blocks summary slide (what's added: geographic structure, maps)
+- Add S-T-E walkthrough for the example
+- Encoding: sequential/diverging color scales — make explicit
+- Simplify example (current one too difficult)
+- Use PA income by county for exercise
 
 ---
 
@@ -116,17 +114,9 @@ I keep trying to have students think about control variables more. I think the w
 
 **Examples to Consider Adding**
 
-- [ ] FRED data example (unemployment, GDP, interest rates)
-
-**Running Threads**
-
-- [ ] Consider adding labor market thread as second running example:
-  - 1.1: Employment by state (categorical)
-  - 1.2: Wage distributions (numerical)
-  - 2.2: Wages by education (grouped)
-  - 4.1: Wage regression on education
-  - 5.1/5.3: Gender wage gap with controls
+- FRED data example (unemployment, GDP, interest rates)
 
 **Enhancements**
 
-- [ ] "When to use which visualization" reference guide
+- "When to use which visualization" reference guide
+- Visualization of the CLT with many different random variables

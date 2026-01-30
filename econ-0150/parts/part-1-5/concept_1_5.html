@@ -658,7 +658,8 @@ Is the world drinking more coffee?
 </p>
 <p>With wide-format panel data seaborn looks a little different.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Wide Format Multi-Boxplot</span></span>
-<span id="cb1-2"><a href=""></a>sns.boxplot(percap[[<span class="st">'1999'</span>,<span class="st">'2004'</span>,<span class="st">'2009'</span>,<span class="st">'2014'</span>,<span class="st">'2019'</span>]], orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href=""></a>percap_selected <span class="op">=</span> percap[[<span class="st">'1999'</span>,<span class="st">'2009'</span>,<span class="st">'2019'</span>]]</span>
+<span id="cb1-3"><a href=""></a>sns.boxplot(percap_selected, orient<span class="op">=</span><span class="st">'h'</span>, whis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p><img data-src="i/i_06.png"></p>
 </div>
@@ -773,24 +774,22 @@ Is the world drinking more coffee?
 <p class="subheader">
 How many countries increased vs decreased?
 </p>
-<p><br></p>
-<p>We can see visually that most points are above the 45° line.</p>
-<div class="fragment">
-<p>But how do we count exactly how many increased or decreased?</p>
+
+<img data-src="i/i_20.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; we can see visually that most points are above the 45° line</em></p>
 </div>
 <div class="fragment">
-<p><em>&gt; we can create a change column and then filter</em></p>
+<p><em>&gt; but how do we count exactly how many?</em></p>
 </div>
 </section>
-<section id="counting-changes-create-a-column" class="slide level2">
-<h2>Counting Changes: Create a Column</h2>
+<section id="counting-changes-1" class="slide level2">
+<h2>Counting Changes</h2>
 <p class="subheader">
-First, compute the change for each country
+How many countries increased vs decreased?
 </p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Create a change column</span></span>
-<span id="cb4-2"><a href=""></a>percap[<span class="st">'change'</span>] <span class="op">=</span> percap[<span class="st">'2019'</span>] <span class="op">-</span> percap[<span class="st">'1999'</span>]</span>
-<span id="cb4-3"><a href=""></a>percap.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
+<ol type="1">
+<li><strong>Create a change column:</strong> Subtract old from new</li>
+</ol>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -827,75 +826,81 @@ First, compute the change for each country
 </tr>
 </tbody>
 </table>
+<div>
+<ol start="2" type="1">
+<li class="fragment"><strong>Filter:</strong> Select rows where change &gt; 0 (or &lt; 0)</li>
+<li class="fragment"><strong>Count:</strong> Use <code>len()</code> to count the filtered rows</li>
+</ol>
+</div>
+<div class="fragment">
+<p><em>&gt; positive change = increased; negative change = decreased</em></p>
 </div>
 </section>
-<section id="counting-changes-filter" class="slide level2">
-<h2>Counting Changes: Filter</h2>
+<section id="exercise-1.5-counting-changes" class="slide level2">
+<h2>Exercise 1.5 | Counting Changes</h2>
 <p class="subheader">
-Then, filter to count increases and decreases
+How many countries increased their coffee consumption?
 </p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Create a change column</span></span>
+<span id="cb4-2"><a href=""></a>percap[<span class="st">'change'</span>] <span class="op">=</span> percap[<span class="st">'2019'</span>] <span class="op">-</span> percap[<span class="st">'1999'</span>]</span>
+<span id="cb4-3"><a href=""></a>percap.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p><br></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Count countries that increased (change &gt; 0)</span></span>
 <span id="cb5-2"><a href=""></a>increased <span class="op">=</span> percap[percap[<span class="st">'change'</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
 <span id="cb5-3"><a href=""></a><span class="bu">len</span>(increased)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="fragment">
+<p><br></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Count countries that decreased (change &lt; 0)</span></span>
 <span id="cb6-2"><a href=""></a>decreased <span class="op">=</span> percap[percap[<span class="st">'change'</span>] <span class="op">&lt;</span> <span class="dv">0</span>]</span>
 <span id="cb6-3"><a href=""></a><span class="bu">len</span>(decreased)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="fragment">
-<p><em>&gt; filtering uses square brackets with a condition inside</em></p>
-</div>
 </section>
-<section id="a-new-question" class="slide level2">
-<h2>A New Question</h2>
+<section id="question-1" class="slide level2">
+<h2>Question</h2>
 <p class="subheader">
 How has each country’s consumption changed over time?
 </p>
 <p><br><br></p>
-<p>We’ve compared distributions across years and tracked changes between 1999 and 2019.</p>
+<p>Instead of measuring changes between two years (1999 and 2019), how might we visualize countrys’ full trends over all 30 years?</p>
 <div class="fragment">
-<p>But what if we want to see each country’s full trend over all 30 years?</p>
-</div>
-<div class="fragment">
-<p><em>&gt; we need a line plot with Year on x-axis and Consumption on y-axis, colored by Country</em></p>
+<p><br><br></p>
+<p><em>&gt; lets use a line plot with Year on x-axis and Consumption on y-axis, colored by Country</em></p>
 </div>
 </section>
-<section id="the-problem" class="slide level2">
-<h2>The Problem</h2>
+<section id="question-2" class="slide level2">
+<h2>Question</h2>
 <p class="subheader">
-Wide format doesn’t work for line plots
+How has each country’s consumption changed over time?
 </p>
-<p><br></p>
-<p>In wide format, years are <strong>column names</strong>, not values in a column.</p>
+<p>The problem is that wide format has no <code>Year</code> column!</p>
 <div class="fragment">
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># This won't work — there's no 'Year' column!</span></span>
+<p><br></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># This won't work!</span></span>
 <span id="cb7-2"><a href=""></a>sns.lineplot(percap, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Consumption'</span>, hue<span class="op">=</span><span class="st">'Code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<p><em>&gt; we need to reshape from wide to long format</em></p>
+<p><br><br></p>
+<p><em>&gt; we need to construct a year column</em></p>
 </div>
 </section>
 <section id="reshaping-wide-long" class="slide level2">
 <h2>Reshaping: Wide → Long</h2>
 <p class="subheader">
-Use <code>melt()</code> to turn columns into rows
+Turn columns into rows using <code>melt()</code>.
 </p>
 
-<img data-src="i/w_03.png" class="r-stretch"><p><em>&gt; each year column becomes rows in a new “Year” column</em></p>
+<img data-src="i/w_03.png" class="r-stretch"><p><em>&gt; each year column becomes rows in a new <code>Year</code> column</em></p>
 </section>
-<section id="reshaping-the-code" class="slide level2">
-<h2>Reshaping: The Code</h2>
+<section id="question-3" class="slide level2">
+<h2>Question</h2>
 <p class="subheader">
-Use <code>melt()</code> to reshape wide → long
+How has each country’s consumption changed over time?
 </p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Wide to Long</span></span>
-<span id="cb8-2"><a href=""></a>percap_long <span class="op">=</span> percap.melt(</span>
-<span id="cb8-3"><a href=""></a>    id_vars<span class="op">=</span>[<span class="st">'Code'</span>],        <span class="co"># Keep as identifier columns</span></span>
-<span id="cb8-4"><a href=""></a>    var_name<span class="op">=</span><span class="st">'Year'</span>,         <span class="co"># Name for the former column headers</span></span>
-<span id="cb8-5"><a href=""></a>    value_name<span class="op">=</span><span class="st">'Consumption'</span> <span class="co"># Name for the values</span></span>
-<span id="cb8-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="fragment">
-<p><em>&gt; <code>id_vars</code> = columns to keep, everything else gets melted</em></p>
+
+<img data-src="i/w_04.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; this is possible now using the long format panel data</em></p>
 </div>
 </section>
 <section id="exercise-1.5-reshaping" class="slide level2">
@@ -903,15 +908,17 @@ Use <code>melt()</code> to reshape wide → long
 <p class="subheader">
 How has each country’s consumption changed over time?
 </p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Reshape wide to long</span></span>
-<span id="cb9-2"><a href=""></a>percap_long <span class="op">=</span> percap.melt(</span>
-<span id="cb9-3"><a href=""></a>    id_vars<span class="op">=</span>[<span class="st">'Code'</span>],</span>
-<span id="cb9-4"><a href=""></a>    var_name<span class="op">=</span><span class="st">'Year'</span>,</span>
-<span id="cb9-5"><a href=""></a>    value_name<span class="op">=</span><span class="st">'Consumption'</span></span>
-<span id="cb9-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Now we can plot trends for each country</span></span>
-<span id="cb10-2"><a href=""></a>sns.lineplot(percap_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Consumption'</span>, hue<span class="op">=</span><span class="st">'Code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use <code>melt()</code> to reshape wide → long.</p>
+<p><img data-src="i/w_03_notitle.png"></p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a><span class="co"># Wide to Long</span></span>
+<span id="cb8-2"><a href=""></a>percap_long <span class="op">=</span> percap.melt(</span>
+<span id="cb8-3"><a href=""></a>    id_vars<span class="op">=</span><span class="st">'Code'</span>,          <span class="co"># The identifier column</span></span>
+<span id="cb8-4"><a href=""></a>    var_name<span class="op">=</span><span class="st">'Year'</span>,         <span class="co"># The new 'melted' column</span></span>
+<span id="cb8-5"><a href=""></a>    value_name<span class="op">=</span><span class="st">'Consumption'</span> <span class="co"># The new 'melted' values</span></span>
+<span id="cb8-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="exercise-1.5-reshaping-1" class="slide level2">
@@ -919,44 +926,48 @@ How has each country’s consumption changed over time?
 <p class="subheader">
 How has each country’s consumption changed over time?
 </p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a><span class="co"># Now we can plot trends for each country</span></span>
+<span id="cb9-2"><a href=""></a>sns.lineplot(percap_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'Consumption'</span>, hue<span class="op">=</span><span class="st">'Code'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <img data-src="i/w_04.png" class="r-stretch"><p><em>&gt; long format makes line plots natural — use <code>hue='Code'</code></em></p>
 </section>
 <section id="reshaping-long-wide" class="slide level2">
 <h2>Reshaping: Long → Wide</h2>
 <p class="subheader">
-Use <code>pivot()</code> to turn rows into columns
+Turn rows into columns using <code>pivot()</code>.
 </p>
 <p><br></p>
-<p>Sometimes data comes in long format but we need wide format for boxplots or scatterplots.</p>
-<div class="fragment">
-<p><code>pivot()</code> is the opposite of <code>melt()</code>:</p>
-<ul>
-<li><code>melt()</code> turns columns into rows (wide → long)</li>
-<li><code>pivot()</code> turns rows into columns (long → wide)</li>
-</ul>
+<p>Sometimes data comes in long format but we need wide format <em>(eg. scatterplots)</em>.</p>
+
+<img data-src="i/w_04_pivot.png" class="r-stretch"><div class="fragment">
+<p>Think of <code>pivot()</code> as the opposite of <code>melt()</code>.</p>
 </div>
 </section>
-<section id="reshaping-the-code-1" class="slide level2">
+<section id="reshaping-the-code" class="slide level2">
 <h2>Reshaping: The Code</h2>
 <p class="subheader">
-Use <code>pivot()</code> to reshape long → wide
+Turn rows into columns using <code>pivot()</code>.
 </p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Long to Wide</span></span>
-<span id="cb11-2"><a href=""></a>percap_wide <span class="op">=</span> percap_long.pivot(</span>
-<span id="cb11-3"><a href=""></a>    index<span class="op">=</span><span class="st">'Code'</span>,       <span class="co"># What identifies each row</span></span>
-<span id="cb11-4"><a href=""></a>    columns<span class="op">=</span><span class="st">'Year'</span>,     <span class="co"># What becomes column headers</span></span>
-<span id="cb11-5"><a href=""></a>    values<span class="op">=</span><span class="st">'Consumption'</span> <span class="co"># What fills the cells</span></span>
-<span id="cb11-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Use <code>pivot()</code> to reshape long → wide.</p>
+
+<img data-src="i/w_04_pivot.png" class="r-stretch"><div class="fragment">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Long to Wide</span></span>
+<span id="cb10-2"><a href=""></a>percap_wide <span class="op">=</span> percap_long.pivot(</span>
+<span id="cb10-3"><a href=""></a>    index<span class="op">=</span><span class="st">'Code'</span>,         <span class="co"># The identifier column</span></span>
+<span id="cb10-4"><a href=""></a>    columns<span class="op">=</span><span class="st">'Year'</span>,       <span class="co"># The column used to create the new column headers</span></span>
+<span id="cb10-5"><a href=""></a>    values<span class="op">=</span><span class="st">'Consumption'</span>  <span class="co"># The column used to create the new column values</span></span>
+<span id="cb10-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="fragment">
-<p><em>&gt; <code>index</code> = row identifier, <code>columns</code> = new column names, <code>values</code> = cell values</em></p>
+<p><em>&gt; you’ll use this in your homework :)</em></p>
 </div>
 </section>
-<section id="two-directions-of-reshaping" class="slide level2">
-<h2>Two Directions of Reshaping</h2>
+<section id="reshaping" class="slide level2">
+<h2>Reshaping</h2>
 <p class="subheader">
 Choose based on your starting point and goal
 </p>
+<p>The data format should match your visualization goal.</p>
 <p><br></p>
 <table class="caption-top">
 <thead>
@@ -975,12 +986,15 @@ Choose based on your starting point and goal
 <tr class="even">
 <td>Long → Wide</td>
 <td><code>pivot()</code></td>
-<td>Need boxplots, scatterplots</td>
+<td>Need scatterplots</td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
-<p><em>&gt; the data format should match your visualization goal</em></p>
+<ul>
+<li><code>melt()</code> turns columns into rows (wide → long)</li>
+<li><code>pivot()</code> turns rows into columns (long → wide)</li>
+</ul>
 </div>
 </section>
 <section id="part-1.5-panel-data-wide-format-1" class="slide level2">
@@ -998,24 +1012,37 @@ Choose based on your starting point and goal
 </ul>
 </div>
 </section>
-<section id="long-vs-wide-the-complete-picture" class="slide level2">
-<h2>Long vs Wide: The Complete Picture</h2>
+<section id="building-blocks" class="slide level2">
+<h2>Building Blocks</h2>
 <p class="subheader">
-Choose format based on your task
+What this unit adds to your toolkit
 </p>
-<p><br></p>
-<p><strong>Long Format (Part 1.4)</strong></p>
-<ul>
-<li>Comparing groups at a point in time</li>
-<li>Faceting, line graphs, groupby</li>
-<li><code>hue='Group'</code>, <code>col='Group'</code></li>
-</ul>
-<p><strong>Wide Format (Part 1.5)</strong></p>
-<ul>
-<li>Comparing time periods for the same units</li>
-<li>Boxplots, scatterplots, correlations</li>
-<li>Each column is a time period</li>
-</ul>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>Part 1.5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Variables</td>
+<td>Numerical</td>
+</tr>
+<tr class="even">
+<td>Structures</td>
+<td>Panel (wide format)</td>
+</tr>
+<tr class="odd">
+<td>Operations</td>
+<td>Filter, Reshape (melt, pivot)</td>
+</tr>
+<tr class="even">
+<td>Visualizations</td>
+<td>Multi-boxplot, Scatterplot with 45° line</td>
+</tr>
+</tbody>
+</table>
 
 </section>
     </div>

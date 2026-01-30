@@ -1,0 +1,285 @@
+,country,Code,year,gini,World regions according to OWID
+0,Afghanistan,AFG,2023,,Asia
+1,Aland Islands,ALA,2023,,Europe
+2,Albania,ALB,2023,,Europe
+3,Algeria,DZA,2023,,Africa
+4,American Samoa,ASM,2023,,Oceania
+5,Andorra,AND,2023,,Europe
+6,Angola,AGO,2023,,Africa
+7,Anguilla,AIA,2023,,North America
+8,Antigua and Barbuda,ATG,2023,,North America
+9,Argentina,ARG,2023,,South America
+10,Argentina (urban),,2024,0.42353317,
+11,Armenia,ARM,2023,0.2715465,Asia
+12,Aruba,ABW,2023,,North America
+13,Australia,AUS,2023,,Oceania
+14,Austria,AUT,2023,0.3120468,Europe
+15,Austria-Hungary,OWID_AUH,2023,,Europe
+16,Azerbaijan,AZE,2023,,Asia
+17,Bahamas,BHS,2023,,North America
+18,Bahrain,BHR,2023,,Asia
+19,Bangladesh,BGD,2023,,Asia
+20,Barbados,BRB,2023,,North America
+21,Belarus,BLR,2023,,Europe
+22,Belgium,BEL,2023,0.26823103,Europe
+23,Belize,BLZ,2023,,North America
+24,Benin,BEN,2023,,Africa
+25,Bermuda,BMU,2023,,North America
+26,Bhutan,BTN,2023,,Asia
+27,Bolivia,BOL,2023,0.42050114,South America
+28,Bolivia (urban),,1992,0.49072397,
+29,Bonaire Sint Eustatius and Saba,BES,2023,,North America
+30,Bosnia and Herzegovina,BIH,2023,,Europe
+31,Botswana,BWA,2023,,Africa
+32,Brazil,BRA,2023,0.5163944,South America
+33,British Indian Ocean Territory,IOT,2023,,Asia
+34,British Virgin Islands,VGB,2023,,North America
+35,Brunei,BRN,2023,,Asia
+36,Bulgaria,BGR,2023,0.39470536,Europe
+37,Burkina Faso,BFA,2023,,Africa
+38,Burundi,BDI,2023,,Africa
+39,Cambodia,KHM,2023,,Asia
+40,Cameroon,CMR,2023,,Africa
+41,Canada,CAN,2023,,North America
+42,Cape Verde,CPV,2023,,Africa
+43,Cayman Islands,CYM,2023,,North America
+44,Central African Republic,CAF,2023,,Africa
+45,Chad,TCD,2023,,Africa
+46,Chile,CHL,2023,,South America
+47,China,CHN,2023,,Asia
+48,China (rural),,2022,0.3169194,
+49,China (urban),,2022,0.35928813,
+50,Christmas Island,CXR,2023,,Asia
+51,Cocos Islands,CCK,2023,,Asia
+52,Colombia,COL,2023,0.53881925,South America
+53,Colombia (urban),,1991,0.51318896,
+54,Comoros,COM,2023,,Africa
+55,Congo,COG,2023,,Africa
+56,Cook Islands,COK,2023,,Oceania
+57,Costa Rica,CRI,2024,0.4582914,
+58,Cote d'Ivoire,CIV,2023,,Africa
+59,Croatia,HRV,2023,0.30105957,Europe
+60,Cuba,CUB,2023,,North America
+61,Curacao,CUW,2023,,North America
+62,Cyprus,CYP,2023,0.318384,Europe
+63,Czechia,CZE,2023,0.25713998,Europe
+64,Czechoslovakia,OWID_CZS,2023,,Europe
+65,Democratic Republic of Congo,COD,2023,,Africa
+66,Democratic Republic of Vietnam,,2023,,Asia
+67,Denmark,DNK,2023,0.2992485,Europe
+68,Djibouti,DJI,2023,,Africa
+69,Dominica,DMA,2023,,North America
+70,Dominican Republic,DOM,2024,0.38971257,
+71,Duchy of Modena and Reggio,,2023,,Europe
+72,Duchy of Parma and Piacenza,,2023,,Europe
+73,East Germany,OWID_GDR,2023,,Europe
+74,East Timor,TLS,2023,,Asia
+75,Ecuador,ECU,2024,0.45195475,
+76,Ecuador (urban),,1998,0.49607277,
+77,Egypt,EGY,2023,,Africa
+78,El Salvador,SLV,2023,0.39802378,North America
+79,Equatorial Guinea,GNQ,2023,,Africa
+80,Eritrea,ERI,2023,,Africa
+81,Estonia,EST,2023,0.30707377,Europe
+82,Eswatini,SWZ,2023,,Africa
+83,Ethiopia,ETH,2023,,Africa
+84,Ethiopia (former),OWID_ERE,2023,,Africa
+85,Ethiopia (rural),,1981,0.30980363,
+86,Falkland Islands,FLK,2023,,South America
+87,Faroe Islands,FRO,2023,,Europe
+88,Federal Republic of Central America,,2023,,North America
+89,Fiji,FJI,2023,,Oceania
+90,Finland,FIN,2023,0.27399832,Europe
+91,France,FRA,2023,0.3180931,Europe
+92,French Guiana,GUF,2023,,South America
+93,French Polynesia,PYF,2023,,Oceania
+94,Gabon,GAB,2023,,Africa
+95,Gambia,GMB,2023,,Africa
+96,Georgia,GEO,2024,0.33853805,
+97,Germany,DEU,2023,,Europe
+98,Ghana,GHA,2023,,Africa
+99,Gibraltar,GIB,2023,,Europe
+100,Grand Duchy of Baden,,2023,,Europe
+101,Grand Duchy of Tuscany,,2023,,Europe
+102,Great Colombia,,2023,,South America
+103,Greece,GRC,2023,0.3343871,Europe
+104,Greenland,GRL,2023,,North America
+105,Grenada,GRD,2023,,North America
+106,Guadeloupe,GLP,2023,,North America
+107,Guam,GUM,2023,,Oceania
+108,Guatemala,GTM,2023,0.45212683,North America
+109,Guernsey,GGY,2023,,Europe
+110,Guinea,GIN,2023,,Africa
+111,Guinea-Bissau,GNB,2023,,Africa
+112,Guyana,GUY,2023,,South America
+113,Haiti,HTI,2023,,North America
+114,Honduras,HND,2024,0.45676118,
+115,Honduras (urban),,1986,0.5509298,
+116,Hong Kong,HKG,2023,,Asia
+117,Hungary,HUN,2023,,Europe
+118,Iceland,ISL,2023,,Europe
+119,India,IND,2023,,Asia
+120,Indonesia,IDN,2024,0.34894395,
+121,Iran,IRN,2023,0.35884795,Asia
+122,Iraq,IRQ,2023,0.2977404,Asia
+123,Ireland,IRL,2023,0.2897247,Europe
+124,Isle of Man,IMN,2023,,Europe
+125,Israel,ISR,2023,,Asia
+126,Italy,ITA,2023,0.34344622,Europe
+127,Jamaica,JAM,2023,,North America
+128,Japan,JPN,2023,,Asia
+129,Jersey,JEY,2023,,Europe
+130,Jordan,JOR,2023,,Asia
+131,Kazakhstan,KAZ,2023,,Asia
+132,Kenya,KEN,2023,,Africa
+133,Kingdom of Bavaria,,2023,,Europe
+134,Kingdom of Sardinia,,2023,,Europe
+135,Kingdom of Saxony,,2023,,Europe
+136,Kingdom of Wurttemberg,,2023,,Europe
+137,Kingdom of the Two Sicilies,,2023,,Europe
+138,Kiribati,KIR,2023,,Oceania
+139,Korea (former),OWID_KRU,2023,,Asia
+140,Kosovo,OWID_KOS,2023,,Europe
+141,Kuwait,KWT,2023,,Asia
+142,Kyrgyzstan,KGZ,2023,0.2718802,Asia
+143,Laos,LAO,2023,,Asia
+144,Latvia,LVA,2023,0.3397468,Europe
+145,Lebanon,LBN,2023,,Asia
+146,Lesotho,LSO,2023,,Africa
+147,Liberia,LBR,2023,,Africa
+148,Libya,LBY,2023,,Africa
+149,Liechtenstein,LIE,2023,,Europe
+150,Lithuania,LTU,2023,0.35961652,Europe
+151,Luxembourg,LUX,2023,0.33591464,Europe
+152,Macao,MAC,2023,,Asia
+153,Madagascar,MDG,2023,,Africa
+154,Malawi,MWI,2023,,Africa
+155,Malaysia,MYS,2023,,Asia
+156,Maldives,MDV,2023,,Asia
+157,Mali,MLI,2023,,Africa
+158,Malta,MLT,2023,,Europe
+159,Marshall Islands,MHL,2023,,Oceania
+160,Martinique,MTQ,2023,,North America
+161,Mauritania,MRT,2023,,Africa
+162,Mauritius,MUS,2023,,Africa
+163,Mayotte,MYT,2023,,Africa
+164,Mexico,MEX,2023,,North America
+165,Micronesia (country),FSM,2023,,Oceania
+166,Micronesia (country) (urban),,2000,0.6307854,
+167,Moldova,MDA,2023,0.26764753,Europe
+168,Monaco,MCO,2023,,Europe
+169,Mongolia,MNG,2023,,Asia
+170,Montenegro,MNE,2023,,Europe
+171,Montserrat,MSR,2023,,North America
+172,Morocco,MAR,2023,,Africa
+173,Mozambique,MOZ,2023,,Africa
+174,Myanmar,MMR,2023,,Asia
+175,Namibia,NAM,2023,,Africa
+176,Nauru,NRU,2023,,Oceania
+177,Nepal,NPL,2023,,Asia
+178,Netherlands,NLD,2023,,Europe
+179,Netherlands Antilles,ANT,2023,,North America
+180,New Caledonia,NCL,2023,,Oceania
+181,New Zealand,NZL,2023,,Oceania
+182,Nicaragua,NIC,2023,,North America
+183,Niger,NER,2023,,Africa
+184,Nigeria,NGA,2023,,Africa
+185,Niue,NIU,2023,,Oceania
+186,Norfolk Island,NFK,2023,,Oceania
+187,North Korea,PRK,2023,,Asia
+188,North Macedonia,MKD,2023,,Europe
+189,Northern Mariana Islands,MNP,2023,,Oceania
+190,Norway,NOR,2023,0.2653081,Europe
+191,Oman,OMN,2023,,Asia
+192,Orange Free State,,2023,,Africa
+193,Pakistan,PAK,2023,,Asia
+194,Pakistan (former),,2023,,Asia
+195,Palau,PLW,2023,,Oceania
+196,Palestine,PSE,2023,0.36381876,Asia
+197,Panama,PAN,2024,0.49733543,
+198,Papua New Guinea,PNG,2023,,Oceania
+199,Paraguay,PRY,2024,0.44245335,
+200,Peru,PER,2024,0.40125862,
+201,Philippines,PHL,2023,0.35203487,Asia
+202,Pitcairn,PCN,2023,,Oceania
+203,Poland,POL,2023,0.28466788,Europe
+204,Portugal,PRT,2023,0.33851567,Europe
+205,Puerto Rico,PRI,2023,,North America
+206,Qatar,QAT,2023,,Asia
+207,Republic of Vietnam,OWID_RVN,2023,,Asia
+208,Reunion,REU,2023,,Africa
+209,Romania,ROU,2023,0.29828945,Europe
+210,Russia,RUS,2023,,Europe
+211,Rwanda,RWA,2023,0.39364448,Africa
+212,Rwanda (rural),,1984,0.28898594,
+213,Saint Barthelemy,BLM,2023,,North America
+214,Saint Helena,SHN,2023,,Africa
+215,Saint Kitts and Nevis,KNA,2023,,North America
+216,Saint Lucia,LCA,2023,,North America
+217,Saint Martin (French part),MAF,2023,,North America
+218,Saint Pierre and Miquelon,SPM,2023,,North America
+219,Saint Vincent and the Grenadines,VCT,2023,,North America
+220,Samoa,WSM,2023,,Oceania
+221,San Marino,SMR,2023,,Europe
+222,Sao Tome and Principe,STP,2023,,Africa
+223,Saudi Arabia,SAU,2023,,Asia
+224,Senegal,SEN,2023,,Africa
+225,Serbia,SRB,2023,,Europe
+226,Serbia and Montenegro,OWID_SRM,2023,,Europe
+227,Seychelles,SYC,2023,,Africa
+228,Sierra Leone,SLE,2023,,Africa
+229,Singapore,SGP,2023,,Asia
+230,Sint Maarten (Dutch part),SXM,2023,,North America
+231,Slovakia,SVK,2023,0.23817715,Europe
+232,Slovenia,SVN,2023,0.24681959,Europe
+233,Solomon Islands,SLB,2023,,Oceania
+234,Somalia,SOM,2023,,Africa
+235,South Africa,ZAF,2023,,Africa
+236,South Georgia and the South Sandwich Islands,SGS,2023,,South America
+237,South Korea,KOR,2023,,Asia
+238,South Sudan,SSD,2023,,Africa
+239,Spain,ESP,2023,0.33407936,Europe
+240,Sri Lanka,LKA,2023,,Asia
+241,Sudan,SDN,2023,,Africa
+242,Sudan (former),,2023,,Africa
+243,Suriname,SUR,2023,,South America
+244,Suriname (urban),,1999,0.5753989,
+245,Sweden,SWE,2023,0.2927833,Europe
+246,Switzerland,CHE,2023,,Europe
+247,Syria,SYR,2023,,Asia
+248,Taiwan,TWN,2023,,Asia
+249,Tajikistan,TJK,2024,0.36108002,
+250,Tanzania,TZA,2023,,Africa
+251,Thailand,THA,2023,0.3349489,Asia
+252,Togo,TGO,2023,,Africa
+253,Tokelau,TKL,2023,,Oceania
+254,Tonga,TON,2023,,Oceania
+255,Trinidad and Tobago,TTO,2023,,North America
+256,Tunisia,TUN,2023,,Africa
+257,Turkey,TUR,2023,,Asia
+258,Turkmenistan,TKM,2023,,Asia
+259,Turks and Caicos Islands,TCA,2023,,North America
+260,Tuvalu,TUV,2023,,Oceania
+261,USSR,OWID_USS,2023,,Europe
+262,Uganda,UGA,2023,,Africa
+263,Ukraine,UKR,2023,,Europe
+264,United Arab Emirates,ARE,2023,,Asia
+265,United Kingdom,GBR,2023,,Europe
+266,United States,USA,2023,0.41818878,North America
+267,United States Virgin Islands,VIR,2023,,North America
+268,Uruguay,URY,2024,0.39984146,
+269,Uruguay (urban),,2005,0.44727567,
+270,Uzbekistan,UZB,2024,0.34563366,
+271,Vanuatu,VUT,2023,,Oceania
+272,Vatican,VAT,2023,,Europe
+273,Venezuela,VEN,2023,,South America
+274,Vietnam,VNM,2023,,Asia
+275,Wallis and Futuna,WLF,2023,,Oceania
+276,West Germany,OWID_GFR,2023,,Europe
+277,Western Sahara,ESH,2023,,Africa
+278,Yemen,YEM,2023,,Asia
+279,Yemen Arab Republic,OWID_YAR,2023,,Asia
+280,Yemen People's Republic,OWID_YPR,2023,,Asia
+281,Yugoslavia,OWID_YGS,2023,,Europe
+282,Zambia,ZMB,2023,,Africa
+283,Zimbabwe,ZWE,2023,,Africa

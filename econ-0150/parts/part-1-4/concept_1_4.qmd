@@ -14,7 +14,7 @@ format:
 
 ---
 
-## Part 0 | Minimum Wage Study 
+## Part 0 | Minimum Wage Study
 <p class="subheader">NJ raised its minimum wage. Employment did not fall.</p>
 
 ![](i/fig_employment_changes.png)
@@ -222,6 +222,24 @@ format:
 | SELECT | All transactions from three coffee shops |
 | TRANSFORM | Group by shop and hour; count transactions |
 | ENCODE | Hour → x-position; Count → y-position; Shop → color/facet |
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | Part 1.4 |
+|-------|----------|
+| Variables | Numerical |
+| Structures | Panel (long format) |
+| Operations | Groupby |
+| Visualizations | Multi-line, Facets |
+
+. . .
+
+<br>
+
+*> Next: **Wide format** panel data for comparing time periods*
 
 ---
 

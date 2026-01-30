@@ -1,0 +1,68 @@
+id,title,authors,section,group,research_question,data_source,methods,main_finding,folder,notebook_url,exceptional,status
+0001,Air Pollution and GDP,"Cen; Habazin; Zheng",1PM,01,"Is there a significant relationship between Air Pollution and GDP per Capita?",,,,"0001",,no,pending
+0002,Teen Birth Rates,"Tessier",1PM,02,"How does state economy and political leaning affect teen birth rates?",,,,"0002",,no,pending
+0003,GDP and Life Expectancy,"Carragher; Widdop; Stuccio",1PM,03,"Is there a relationship between GDP per Capita and Life Expectancy?",,,,"0003",,no,pending
+0004,GDP and Happiness,"Arrlington",1PM,04,"Is there a relationship between GDP per capita and happiness?",,,,"0004",,no,pending
+0005,MLB Attendance and Manager Change,"Chirinos; Papa; Mostofa",1PM,05,"Does manager change affect MLB attendance?",,,,"0005",,yes,pending
+0006,Mortgage Rates and Home Prices,"Zheng; Li",1PM,06,"Do U.S. mortgage interest rates affect home prices?",,,,"0006",,no,pending
+0007,Housing Prices and Rent Affordability,"Li",1PM,07,"How Do Housing Price Changes Affect Rent Affordability Across U.S. Cities?",,,,"0007",,no,pending
+0008,Voter Turnout and Presidential Margins,"Brennfleck; Jones; Kachalova",1PM,08,"What is the relationship between Voter Turnout and the Margin of U.S. Presidential Victories by County?",,,,"0008",,no,pending
+0009,BMI and GDP on Life Expectancy,"Rod",1PM,09,"What are the effects of BMI and GDP on Life Expectancy?",,,,"0009",,yes,pending
+0010,Income and Ticket Prices,"Gallup",1PM,10,"Does Median household income have an impact on ticket prices?",,,,"0010",,no,pending
+0011,NYC Housing Price Growth,"Chen",1PM,11,"Which New York boroughs have the highest housing price growth?",,,,"0011",,no,pending
+0012,NHL Teams and Tax Rates,"Serakowski; Paluso; Ambroffi",1PM,12,"Do NHL teams in low-tax states score more?",,,,"0012",,no,pending
+0013,GDP and Voter Turnout,"Perkins",1PM,13,"Does GDP have an effect on Voter turnout?",,,,"0013",,no,pending
+0014,Political Benefits and Unemployment,"Ercoli; Perillo",1PM,14,"Is there a direct correlation between benefits given by a political party and unemployment rate?",,,,"0014",,no,pending
+0015,GDP Dentist Density and Healthcare,"Ghobrial; Ghobrial; Merlos",1PM,15,"Does the relationship between log GDP per capita and density of dentists differ between countries with universal healthcare and countries without universal healthcare?",,,,"0015",,yes,pending
+0016,Minimum Wage and Presidential Results,"Hooks; Engstrom",1PM,16,"Is state minimum wage linked to presidential results?",,,,"0016",,no,pending
+0017,Health Spending and Life Expectancy,"Karpas; Heimel",1PM,17,"Is the amount of health spending in a country associated with life expectancy?",,,,"0017",,no,pending
+0018,The Olympics Effect,"Sainiak; Corella",1PM,18,"What is the Olympics Effect on host countries?",,,,"0018",,no,pending
+0019,Sleep and Social Media,"Molz; Thompson",1PM,19,"How are students' daily sleep affected by social media usage?",,,,"0019",,no,pending
+0020,Major and Income,"Iskandarani; Chau",1PM,20,"Does Undergraduate Major Impact Income?",,,,"0020",,no,pending
+0021,AI Computational Power,"Nakamura",1PM,21,"Does computational power required by AI models vary by domain?",,,,"0021",,no,pending
+0022,S&P 500 and Inflation,"Jones",1PM,22,"Which S&P 500 sectors perform best when CPI inflation increases?",,,,"0022",,no,pending
+0023,Regional Salary Differences,"Cohen; Stiles; Naso",1PM,23,"What are the regional differences in U.S. salaries: analyzing the impact of North vs South?",,,,"0023",,no,pending
+0024,F1 Pit Stops and Race Position,"Sakhuja",1PM,24,"Does the Pit Stop time affect the Final Race position in F1?",,,,"0024",,no,pending
+0025,Income Inequality and Incarceration,"Tully",1PM,25,"Is there a correlation between income inequality and incarceration rates across economically advanced countries?",,,,"0025",,no,pending
+0026,Restaurant Costs and Ratings,"Zhang",1PM,26,"Do restaurants with higher average costs receive higher customer ratings?",,,,"0026",,no,pending
+0027,Physical Activity and Academics,"Matacavage; Steele",1PM,27,"Is there a relationship between physical activity and academic performance in college-aged students?",,,,"0027",,no,pending
+0028,MLB Salaries and Wins,"Harrer; Reardon; Hu",1PM,28,"Do Higher Team Salaries Lead to Higher Win Percentages in the MLB?",,,,"0028",,no,pending
+0029,Bus Stops and Home Values,"Weir",1PM,29,"Is there a relationship between the number of bus stops and median home value in Pittsburgh neighborhoods?",,,,"0029",,no,pending
+0030,Gender and Mental Health,"Alarcon; Hoven",1PM,30,"Does gender affect depression and anxiety rates?",,,,"0030",,no,pending
+0031,Housing Prices and Birth Rates,"Canavan",1PM,31,"How are changes in housing prices related to birth rates across U.S. states?",,,,"0031",,no,pending
+0032,Height and Life Expectancy,"Sampugnaro",1PM,32,"Does your Height Have an Effect on Your Life Expectancy?",,,,"0032",,no,pending
+0033,Wages and Immigration,"Asanbe",1PM,33,"Is there a relationship between wages earned and immigration status?",,,,"0033",,no,pending
+0034,Minimum Wage and Unemployment,"Ortega",1PM,34,"What is the relationship between minimum wage and the unemployment rate?",,,,"0034",,no,pending
+0035,NIL and College Football,"Wiecezinski; Irish",230PM,01,"Does NIL Investment Correlate to College Football Success?",,,,"0035",,no,pending
+0036,Education and Income,"Evans; Bandi",230PM,02,"Is there a relationship between education level and expected income?",,,,"0036",,no,pending
+0037,Gender Wage Gap,"Wan; Nurboev",230PM,03,"Does the gender wage gap change when controlling for job title?","Glassdoor Gender Pay Gap dataset","OLS regression with categorical controls","Raw 9.5% gap disappears when controlling for job title","0037",,yes,complete
+0038,School Spending and Test Scores,"Liebsch; Nguyen",230PM,04,"Do higher spending schools see higher test scores?",,,,"0038",,no,pending
+0039,Maple Trees,"Sensibar; Sharma",230PM,05,"Which Maple Is Best?",,,,"0039",,yes,pending
+0040,Urban-Rural Polarization,"Sobolewski; Teets",230PM,06,"How has Democratic vote share in US Presidential Elections changed across counties from 2000 to 2016, and do these trends point to widening urban-rural polarization?",,,,"0040",,yes,pending
+0041,CPI and S&P 500,"Stokes",230PM,07,"Does CPI Correlate With S&P 500 Returns?",,,,"0041",,no,pending
+0042,Corruption and Income Inequality,"Getgen; Onyango; Koychev",230PM,08,"Is there a relationship between corruption perception and income inequality across countries?",,,,"0042",,no,pending
+0043,NBA Draft Position,"Burkardt; Gerardi; Shanken",230PM,09,"Does Draft Position Predict NBA Player Success?",,,,"0043",,no,pending
+0044,Gas Prices and Consumer Sentiment,"Nathan; Schiller",230PM,10,"Is an increase in gas prices associated with a subsequent decrease in consumer sentiment?",,,,"0044",,no,pending
+0045,MLB Payroll and Attendance,"Lis; Fernandez",230PM,11,"To what extent do payroll and fan attendance predict the number of wins for MLB teams?",,,,"0045",,no,pending
+0046,GINI and Life Expectancy,"Mooney; Bochkoris; Ketels",230PM,12,"Does income inequality (GINI) predict life expectancy across countries?",,,,"0046",,no,pending
+0047,Urbanization and Voter Turnout,"Yededji; Sarris",230PM,13,"How did levels of urbanization across Virginia counties shape voter turnout in the 2025 gubernatorial election?",,,,"0047",,no,pending
+0048,Political Affiliation and Minimum Wage,"Henderson",230PM,14,"Is there a relationship between a state's political affiliation and its minimum wage?",,,,"0048",,no,pending
+0049,Bus Boardings Weekday vs Weekend,"Shroff; Torri",230PM,15,"Do average bus boardings per stop differ significantly between weekdays and weekends?",,,,"0049",,no,pending
+0050,Tuition and Enrollment,"Banawan; Cooper; Voss",230PM,16,"How Do Changes in In-State Tuition Affect Changes in Undergraduate Enrollment, and Does This Relationship Differ Between Public and Private Institutions?",,,,"0050",,yes,pending
+0051,Hotel Ratings by Room Type,"Brodecki",230PM,17,"Is there a difference in hotel ratings between two different room classifications (Economy and Luxury)?",,,,"0051",,no,pending
+0052,NFL Scoring and Weather,"Olijar",230PM,18,"How does NFL scoring relate to bad weather days?",,,,"0052",,no,pending
+0053,Minimum Wage and Voter Turnout,"Yee",230PM,19,"Is there a relationship between minimum wage and voter turnout?",,,,"0053",,no,pending
+0054,Minimum Wage and PA Inflation,"Pendota; Aung",230PM,20,"Does a minimum wage increase in Pennsylvania contribute to higher inflation rate?",,,,"0054",,no,pending
+0055,Income and Life Expectancy,"Taivan; Suess",230PM,21,"Is higher household income associated with a longer life expectancy?",,,,"0055",,yes,pending
+0056,Gas Prices and Consumer Spending,"Brubaker",230PM,22,"What is the effect of Gas Prices on Consumer Spending in the US?",,,,"0056",,no,pending
+0057,MLB Payroll Success Rate,"McCollick; Holcombe",230PM,23,"What is the MLB Payroll Success Rate?",,,,"0057",,no,pending
+0058,Beach Replenishment and Home Values,"Berry",230PM,24,"Is there a relationship between amount spent on beach replenishment and increase in home value at the Jersey Shore?",,,,"0058",,no,pending
+0059,MLB Payroll and Wins,"Michalak",230PM,25,"Is there a relationship between an MLB team's payroll and the amount of games they win?",,,,"0059",,no,pending
+0060,QB College Years and NFL Contract,"Charles",230PM,26,"Does the number of years a quarterback plays in college predict their largest NFL contract (Success)?",,,,"0060",,no,pending
+0061,Minimum Wage and Fast Food,"Hargraves; Bisram",230PM,27,"How does Minimum Wage affect the Fast Food Industry?",,,,"0061",,no,pending
+0062,Room Sizes and Housing Prices,"Arthur",230PM,28,"What is the Impact of Room Sizes on Housing Prices?",,,,"0062",,no,pending
+0063,Olympics and GDP,"Randiga; Richards; Reed",230PM,29,"Is there a relationship between a country's Olympic medal count and GDP per capita?",,,,"0063",,no,pending
+0064,ACC Football Attendance and Winning,"Borger",230PM,30,"Does average attendance for a football team in the ACC correlate to a higher winning percentage?",,,,"0064",,no,pending
+0065,Unemployment and Opiate Overdose,"Burdge",230PM,31,"What is the relationship between Unemployment Rates and Opiate Overdose Rates in the US?",,,,"0065",,no,pending
+0066,Income and PA Voter Turnout 2024,"Sophia C",230PM,32,"Did Income Influence Voter Turnout in Pennsylvania During the 2024 Presidential Election?",,,,"0066",,no,pending
+0067,Inflation and Holiday Sales,"Wakim",230PM,33,"How does November inflation affect the U.S. Holiday Sales?",,,,"0067",,yes,pending
