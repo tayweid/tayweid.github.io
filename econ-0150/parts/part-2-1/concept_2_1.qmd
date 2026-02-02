@@ -15,7 +15,12 @@ format:
 
 ---
 
-## Four Datasets
+## Bivariate Relationships
+<p class="subheader">Let's summarize what we know about each...</p>
+
+---
+
+## Bivariate Relationships
 <p class="subheader">Let's summarize what we know about each...</p>
 
 ![](i/a_01.png)
@@ -26,17 +31,19 @@ format:
 
 ---
 
-## Four Datasets
+## Bivariate Relationships
 <p class="subheader">Are these datasets the same?</p>
 
 ![](i/a_01.png)
+
+. . .
 
 *> the summary statistics say yes*
 
 ---
 
-## Four Datasets
-<p class="subheader">But what do the **relationships** look like?</p>
+## Bivariate Relationships
+<p class="subheader">But what do the relationships look like?</p>
 
 ![](i/a_01.png)
 
@@ -44,26 +51,31 @@ format:
 
 ---
 
-## Four Datasets
-<p class="subheader">But what do the **relationships** look like?</p>
+## Bivariate Relationships
+<p class="subheader">But what do the relationships look like?</p>
+
+---
+
+## Bivariate Relationships
+<p class="subheader">But what do the relationships look like?</p>
 
 ![](i/a_02.png)
 
 . . .
 
-*> completely different! summarizing variables isn't enough*
+*> very different! summarizing variables isn't enough*
 
 ---
 
-## The Lesson
+## Bivariate Relationships
 <p class="subheader">Summary statistics can hide important patterns</p>
 
 <br><br>
 
 ::: {.incremental}
 - The same mean, variance, and correlation can describe **very different** data
-- To understand data, we need to **visualize relationships** between variables
-- That's what Part 2 is about
+- **Visualizing relationships** between variables allows us a clearer understanding
+- Part 2 is about exploring relationships in this way
 :::
 
 ---
@@ -408,7 +420,7 @@ format:
 
 ---
 
-## Exercise: Cross-Sectional Scatterplots
+## Exercise 2.1 | Cross-Sectional Scatterplots
 <p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
 
 We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.
@@ -417,7 +429,7 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ---
 
-## Exercise: Cross-Sectional Scatterplots
+## Exercise 2.1 | Cross-Sectional Scatterplots
 <p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
 
 ```{.python}
@@ -427,7 +439,7 @@ sns.scatterplot(gdp, x='GDP', y='coffee_prod')
 
 ---
 
-## Exercise: Log Transformation
+## Exercise 2.1 | Log Transformation
 <p class="subheader">How does GDP relate to coffee production?</p>
 
 ```{.python}
@@ -445,7 +457,7 @@ sns.scatterplot(gdp, x='log_GDP', y='log_prod')
 
 ---
 
-## Exercise: Log Transformation
+## Exercise 2.1 | Log Transformation
 <p class="subheader">Alternative: use log scale without transforming</p>
 
 ```{.python}
@@ -522,7 +534,7 @@ plt.yscale('log')
 
 ---
 
-## Exercise: Timeseries Scatterplots
+## Exercise 2.1 | Timeseries Scatterplots
 <p class="subheader">Visualizing Coffee Prices and Oil Prices</p>
 
 We’re going to use a scatterplot to visually examine the relationship between coffee prices and oil prices.
@@ -531,7 +543,7 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ---
 
-## Exercise: Timeseries Scatterplots
+## Exercise 2.1 | Timeseries Scatterplots
 <p class="subheader">Visualizing Coffee Prices and Oil Prices</p>
 
 ```{.python}
