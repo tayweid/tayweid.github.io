@@ -1,42 +1,383 @@
-# R to Python Notebook Conversion Plan
+# R to Python Notebook Conversions
 
 ## Overview
 
-Convert 15 R-based Jupyter notebooks in the econ-2823 course to Python equivalents. The course covers numerical methods, simulation, maximum likelihood, GLMs, binary/ordered/multinomial choice models, selection models, and survival analysis.
+15 R-based Jupyter notebooks in the econ-2823 course have been converted to Python equivalents. All Python notebooks live alongside the R originals in `classes/notebooks/`. A shared utility module `utils.py` provides common functions used across notebooks.
 
 **Location:** `classes/notebooks/`
-**Output Strategy:** Create `*_Python.ipynb` files alongside R versions
-**Shared Module:** Create `utils.py` for common operations
+**Naming Convention:** `*_Python.ipynb` files alongside R versions
+**Shared Module:** `utils.py`
 
 ---
 
-## Notebook Inventory
+## File Map
 
-| # | Notebook | Language | Conversion Difficulty | Primary Topics |
-|---|----------|----------|----------------------|----------------|
-| 01 | Jupyter.ipynb | R | **Easy** | Jupyter intro, basic R/tidyverse, ggplot2 |
-| 02 | NumericalMethods-1.ipynb | R | Medium | Numerical derivatives, Taylor expansion, Newton-Raphson |
-| 03 | NumericalMethods-2.ipynb | R | Medium | Numerical optimization, optim(), gradient methods |
-| 05 | Simulation.ipynb | R | Medium | Monte Carlo, electoral simulation, finite-sample properties |
-| 06 | NLSandQR.ipynb | R | Medium | Nonlinear least squares, quantile regression |
-| 08 | MaxLikelihood1.ipynb | R | Medium | MLE basics, Poisson models, soccer scoring |
-| 09 | MaxLikelihood2.ipynb | R | Medium | Standard errors via Fisher information, delta method |
-| 10 | SQL_R.ipynb | R | **Easy** | Database queries (trivial conversion) |
-| 11 | StdErrors.ipynb | R | Medium | Bootstrap, resampling, likelihood ratio tests |
-| 12 | GLMs.ipynb | R | **Easy** | Generalized linear models |
-| 13 | BinaryOutcomes.ipynb | R | Medium | Logit/probit, marginal effects |
-| 14 | Ordered.ipynb | R | **Hard** | Ordered logit/probit (polr) |
-| 15 | MultinomialChoice.ipynb | R | **Hard** | Multinomial logit/probit (mlogit) |
-| 16 | CensoringAndSelection.ipynb | R | **Hard** | Tobit, Heckman selection models |
-| 17 | Hazards.ipynb | R | Medium | Survival analysis, Cox PH, AFT models |
+### Shared Module
 
-**Already Python:** 00_welcome.ipynb, 04_API_python.ipynb, 07_FindingData.ipynb, 10_SQL_Python.ipynb
+| File | Description |
+|------|-------------|
+| `utils.py` | Shared utility functions: numerical derivatives, Newton-Raphson, MLE helpers, bootstrap, marginal effects, delta method, inverse Mills ratio, Pitt-themed plotting |
+
+### Already-Python Notebooks (no conversion needed)
+
+| File | Topics |
+|------|--------|
+| `00_welcome.ipynb` | Course welcome |
+| `04_API_python.ipynb` | API data access |
+| `07_FindingData.ipynb` | Data sources |
+| `10_SQL_Python.ipynb` | SQL from Python (pre-existing) |
+
+### Converted Notebooks
+
+| R Original | Python Version | Cells | Topics |
+|------------|----------------|-------|--------|
+| `01_Jupyter.ipynb` | `01_Jupyter_Python.ipynb` | ~27 | Jupyter intro, pandas, matplotlib, OLS basics |
+| `02_NumericalMethods-1.ipynb` | `02_NumericalMethods-1_Python.ipynb` | ~40 | Numerical derivatives, Taylor expansion, Newton-Raphson |
+| `03_NumericalMethods-2.ipynb` | `03_NumericalMethods-2_Python.ipynb` | ~38 | Optimization (scipy.optimize), BFGS, Nelder-Mead, global optimization |
+| `05_Simulation.ipynb` | `05_Simulation_Python.ipynb` | ~45 | Monte Carlo pi, electoral college simulation, OLS finite-sample properties, soccer Poisson |
+| `06_NLSandQR.ipynb` | `06_NLSandQR_Python.ipynb` | 119 | Nonlinear least squares (curve_fit), logistic growth, social media data, quantile regression |
+| `08_MaxLikilihood1.ipynb` | `08_MaxLikelihood1_Python.ipynb` | 114 | Likelihood theory, normal/Poisson/multinomial MLE, soccer scoreline model, GLM comparison |
+| `09_MaxLikelihood2.ipynb` | `09_MaxLikelihood2_Python.ipynb` | ~60 | Score vectors, Fisher information, Hessian-based SEs, soccer model SEs, GLM Poisson, delta method |
+| `10_SQL_R.ipynb` | `10_SQL_R_Python.ipynb` | ~20 | SQLite queries via sqlite3/pandas |
+| `11_StdErrors.ipynb` | `11_StdErrors_Python.ipynb` | 146 | Geometric MLE, parameter transformations, delta method, bootstrap (percentile + BCa), LR tests, AIC/BIC |
+| `12_GLMs.ipynb` | `12_GLMs_Python.ipynb` | 51 | GLM theory, Poisson regression, deviance, model comparison, binomial/logistic regression |
+| `13_BinaryOutcomes.ipynb` | `13_BinaryOutcomes_Python.ipynb` | 73 | Logit/probit, latent variable interpretation, NFL field goals, marginal effects (AME + at-means) |
+| `14_Ordered.ipynb` | `14_Ordered_Python.ipynb` | 55 | Ordered logit/probit (OrderedModel + custom MLE), e-cigarette data, marginal effects, predicted probabilities |
+| `15_MultinomialChoice.ipynb` | `15_MultinomialChoice_Python.ipynb` | 51 | Conditional logit (custom MLE), IIA, multinomial probit, mixed logit, counterfactuals |
+| `16_CensoringAndSelection.ipynb` | `16_CensoringAndSelection_Python.ipynb` | 83 | Tobit (custom MLE), interval regression, Heckman two-step selection, switching regression |
+| `17_Hazards.ipynb` | `17_Hazards_Python.ipynb` | 50 | Survival analysis (lifelines), Weibull/LogNormal AFT, Cox PH, mortality data, recidivism |
+
+---
+
+## Notebook-by-Notebook Details
+
+### 01: Jupyter Introduction
+
+| | |
+|---|---|
+| **R file** | `01_Jupyter.ipynb` |
+| **Python file** | `01_Jupyter_Python.ipynb` |
+| **Data** | `MLB.csv` |
+
+**What it covers:** Introduction to Jupyter, loading data, summary statistics, linear regression, basic plotting. Includes an R vs Python quick reference table.
+
+| R | Python |
+|---|--------|
+| `library(tidyverse)` | `import pandas as pd` |
+| `read_csv("file.csv")` | `pd.read_csv("file.csv")` |
+| `head(df)` | `df.head()` |
+| `summary(df)` | `df.describe()` |
+| `lm(y ~ x, data=df)` | `sm.OLS(y, sm.add_constant(X)).fit()` |
+| `ggplot() + geom_line()` | `plt.plot()` or `sns.regplot()` |
+
+---
+
+### 02: Numerical Methods 1
+
+| | |
+|---|---|
+| **R file** | `02_NumericalMethods-1.ipynb` |
+| **Python file** | `02_NumericalMethods-1_Python.ipynb` |
+| **Data** | None |
+| **utils.py functions used** | `numerical_derivative`, `numerical_derivative_high_order`, `numerical_second_derivative`, `newton_raphson` |
+
+**What it covers:** Linear systems, numerical derivatives (forward, centered, five-point stencil), Taylor expansion derivation, Newton-Raphson root finding, scipy alternatives.
+
+| R | Python |
+|---|--------|
+| `solve(A, b)` | `np.linalg.solve(A, b)` |
+| `rbind(c(2,3), c(1,1))` | `np.array([[2,3], [1,1]])` |
+| Custom derivative function | `utils.numerical_derivative()` |
+| Custom Newton-Raphson | `utils.newton_raphson()` + `scipy.optimize.fsolve/brentq/newton` |
+
+---
+
+### 03: Numerical Methods 2
+
+| | |
+|---|---|
+| **R file** | `03_NumericalMethods-2.ipynb` |
+| **Python file** | `03_NumericalMethods-2_Python.ipynb` |
+| **Data** | None |
+| **utils.py functions used** | `numerical_gradient`, `numerical_hessian` |
+
+**What it covers:** Multivariate optimization, second-order conditions via Hessian eigenvalues, BFGS, Nelder-Mead, global optimization (simulated annealing, basin-hopping), 1D optimization.
+
+| R | Python |
+|---|--------|
+| `optim(x0, f, method="BFGS")` | `optimize.minimize(f, x0, method='BFGS')` |
+| `optim(..., hessian=TRUE)` | `numerical_hessian()` or `res.hess_inv` |
+| `is.positive.definite(H)` | `np.all(np.linalg.eigvals(H) > 0)` |
+| `optimize(f, interval=c(a,b))` | `optimize.minimize_scalar(f, bounds=(a,b), method='bounded')` |
+| `GenSA(fn=f, lower, upper)` | `optimize.dual_annealing(f, bounds)` |
+
+---
+
+### 05: Simulation
+
+| | |
+|---|---|
+| **R file** | `05_Simulation.ipynb` |
+| **Python file** | `05_Simulation_Python.ipynb` |
+| **Data** | `538/` folder (FiveThirtyEight soccer data) |
+
+**What it covers:** Monte Carlo pi estimation, electoral college simulation with common shocks, OLS finite-sample properties, soccer scorelines with Poisson process.
+
+| R | Python |
+|---|--------|
+| `runif(n, min, max)` | `np.random.uniform(min, max, n)` |
+| `rnorm(n, mean, sd)` | `np.random.normal(mean, sd, n)` |
+| `rpois(n, lambda)` | `np.random.poisson(lambda, n)` |
+| `ifelse(cond, yes, no)` | `np.where(cond, yes, no)` |
+| `sapply(vec, fun)` | List comprehension or `np.vectorize` |
+
+---
+
+### 06: NLS and Quantile Regression
+
+| | |
+|---|---|
+| **R file** | `06_NLSandQR.ipynb` |
+| **Python file** | `06_NLSandQR_Python.ipynb` |
+| **Data** | `social/SnapchatUsers.csv`, `social/TwitterUsers.csv`, `real_estate/sales_all.csv` |
+
+**What it covers:** Nonlinear least squares via manual optimization and `curve_fit`, logistic growth models for social media, standard errors via Jacobian/delta method, quantile regression across multiple quantiles, real estate application.
+
+| R | Python |
+|---|--------|
+| `nls(formula, data, start)` | `scipy.optimize.curve_fit(func, x, y, p0)` |
+| `optim(par, fn)` | `scipy.optimize.minimize(fn, par, method='Nelder-Mead')` |
+| `rq(y ~ x, tau=0.5)` | `sm.QuantReg(y, X).fit(q=0.5)` |
+| `confint(model)` | `model.conf_int()` or manual delta method |
+| `vcov(model)` | `pcov` from curve_fit or `model.cov_params()` |
+| `predictNLS()` | Custom uncertainty propagation via delta method |
+
+---
+
+### 08: Maximum Likelihood 1
+
+| | |
+|---|---|
+| **R file** | `08_MaxLikilihood1.ipynb` |
+| **Python file** | `08_MaxLikelihood1_Python.ipynb` |
+| **Data** | FiveThirtyEight soccer data (loaded via URL) |
+| **utils.py functions used** | `maximize_likelihood`, `set_pitt_style` |
+
+**What it covers:** Likelihood function concepts, log-likelihoods, analytical FOC for normal MLE, numerical normal MLE, Poisson/multinomial/uniform examples, soccer scoreline model (40-parameter MLE), GLM comparison.
+
+| R | Python |
+|---|--------|
+| `dnorm(x, mean, sd, log=TRUE)` | `stats.norm.logpdf(x, loc=mean, scale=sd)` |
+| `dpois(k, lambda, log=TRUE)` | `stats.poisson.logpmf(k, mu=lambda)` |
+| `optim(par, fn, control=list(fnscale=-1))` | `optimize.minimize(lambda p: -fn(p), x0=par)` |
+| `optimize(fn, interval, maximum=TRUE)` | `optimize.minimize_scalar(lambda x: -fn(x), bounds=interval)` |
+| `glm(y~x, family=poisson)` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
+
+---
+
+### 09: Maximum Likelihood 2
+
+| | |
+|---|---|
+| **R file** | `09_MaxLikelihood2.ipynb` |
+| **Python file** | `09_MaxLikelihood2_Python.ipynb` |
+| **Data** | `.rda` files (loaded via `pyreadr`) |
+| **utils.py functions used** | `numerical_gradient`, `numerical_hessian`, `fisher_information`, `mle_standard_errors`, `mle_variance_covariance`, `score_vector`, `delta_method`, `load_rda` |
+
+**What it covers:** MLE properties (consistency, asymptotic normality, efficiency), score vectors, Fisher information matrix, Cramer-Rao inequality, Hessian-based SEs, two-group Poisson, soccer model SEs, GLM comparison with factor references, delta method for transformed parameters.
+
+| R | Python |
+|---|--------|
+| `sapply(data, score_fn)` | Vectorized numpy or list comprehension |
+| `t(S) %*% S / n` | `S.T @ S / n` |
+| `solve(A)` | `np.linalg.inv(A)` |
+| `gather()` (wide to long) | `pd.melt()` |
+| `glm(..., family=poisson)` | `smf.glm(..., family=sm.families.Poisson())` |
+| `vcov(model)` | `model.cov_params()` |
+| `load("file.rda")` | `pyreadr.read_r("file.rda")` or `utils.load_rda()` |
+
+---
+
+### 10: SQL
+
+| | |
+|---|---|
+| **R file** | `10_SQL_R.ipynb` |
+| **Python file** | `10_SQL_R_Python.ipynb` |
+| **Data** | `survey.db` (SQLite) |
+
+**What it covers:** SQLite database connections, SELECT queries, filtering, joins, aggregation. Near-trivial conversion since SQL queries are identical.
+
+| R | Python |
+|---|--------|
+| `dbConnect(RSQLite::SQLite(), "survey.db")` | `sqlite3.connect("survey.db")` |
+| `dbGetQuery(conn, "SELECT...")` | `pd.read_sql_query("SELECT...", conn)` |
+| `dbDisconnect(conn)` | `conn.close()` |
+| `dbCommit(conn)` | `conn.commit()` |
+
+---
+
+### 11: Standard Errors
+
+| | |
+|---|---|
+| **R file** | `11_StdErrors.ipynb` |
+| **Python file** | `11_StdErrors_Python.ipynb` |
+| **Data** | Simulated |
+| **utils.py functions used** | `bootstrap`, `bootstrap_ci`, `bootstrap_se`, `numerical_gradient`, `delta_method`, `likelihood_ratio_test` |
+
+**What it covers:** Geometric distribution MLE, parameter transformations, delta method (manual + via utils), bootstrap resampling (percentile + BCa CIs), bootstrap variance-covariance, likelihood ratio tests, AIC/BIC model selection.
+
+| R | Python |
+|---|--------|
+| `rgeom(n, p)` | `np.random.geometric(p, n) - 1` |
+| `boot(data, stat, R=10000)` | `utils.bootstrap(data, stat, n_boot=10000)` |
+| `boot.ci(bs, type="bca")` | Custom BCa implementation |
+| `mvrnorm(n, mu, Sigma)` | `np.random.multivariate_normal(mu, Sigma, n)` |
+| `lrtest(m1, m2)` | `utils.likelihood_ratio_test(ll_r, ll_u, df)` |
+| `vcov(model)` | `model.cov_params()` |
+| `glm(..., offset=...)` | `sm.GLM(..., offset=...)` |
+
+---
+
+### 12: GLMs
+
+| | |
+|---|---|
+| **R file** | `12_GLMs.ipynb` |
+| **Python file** | `12_GLMs_Python.ipynb` |
+| **Data** | Simulated |
+
+**What it covers:** GLM theory (families, link functions), Poisson regression, fitted values and linear predictors, deviance and model comparison, binomial/logistic regression, odds ratios.
+
+| R | Python |
+|---|--------|
+| `glm(y ~ x, family="poisson")` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
+| `glm(y ~ x, family="binomial")` | `sm.GLM(y, X, family=sm.families.Binomial()).fit()` |
+| `coef(model)` | `model.params` |
+| `model$deviance` | `model.deviance` |
+| `AIC(model)` | `model.aic` |
+| `predict(model, type="response")` | `model.predict()` |
+
+---
+
+### 13: Binary Outcomes
+
+| | |
+|---|---|
+| **R file** | `13_BinaryOutcomes.ipynb` |
+| **Python file** | `13_BinaryOutcomes_Python.ipynb` |
+| **Data** | `nfl/fg.rdata` (loaded via `pyreadr`) |
+| **utils.py functions used** | `marginal_effects_binary`, `marginal_effects_at_means`, `load_rda` |
+
+**What it covers:** Logit and probit models, latent variable/utility interpretation, NFL field goal application (LPM vs logit vs probit), marginal effects at means, average marginal effects, model comparison (log-likelihood, AIC, BIC, pseudo R-squared).
+
+| R | Python |
+|---|--------|
+| `glm(..., family="binomial")` | `sm.Logit(y, X).fit()` |
+| `glm(..., family=binomial(link="probit"))` | `sm.Probit(y, X).fit()` |
+| `plogis(x)` | `scipy.special.expit(x)` |
+| `margins(model)` | `utils.marginal_effects_binary(model, X, link)` |
+| `margins(model, at=list(x=val))` | `utils.marginal_effects_at_means(model, X, link)` |
+| `load("file.rda")` | `pyreadr.read_r("file.rda")` |
+
+---
+
+### 14: Ordered Choice
+
+| | |
+|---|---|
+| **R file** | `14_Ordered.ipynb` |
+| **Python file** | `14_Ordered_Python.ipynb` |
+| **Data** | `eCig/eCig.rdata` (loaded via `utils.load_rda`) |
+| **utils.py functions used** | `load_rda`, `set_pitt_style` |
+
+**What it covers:** Ordered multinomial theory (latent variables, thresholds), intercept-only verification via custom MLE, ordered logit/probit via `OrderedModel`, manual probability calculations, predicted probabilities by age, custom MLE with reparameterized thresholds, marginal effects (AME + at-means), logit vs probit comparison.
+
+| R | Python |
+|---|--------|
+| `polr(y ~ x, method="logit")` | `OrderedModel(y, X, distr='logit').fit(method='bfgs')` |
+| `polr(y ~ x, method="probit")` | `OrderedModel(y, X, distr='probit').fit(method='bfgs')` |
+| `model$coefficients` | `result.params[:n_betas]` |
+| `model$zeta` (thresholds) | `result.params[n_betas:]` |
+| `model$fitted.values` | `result.predict()` |
+| `plogis(x)` / `pnorm(x)` | `stats.logistic.cdf(x)` / `stats.norm.cdf(x)` |
+
+---
+
+### 15: Multinomial Choice
+
+| | |
+|---|---|
+| **R file** | `15_MultinomialChoice.ipynb` |
+| **Python file** | `15_MultinomialChoice_Python.ipynb` |
+| **Data** | ModeCanada dataset (from `mlogit` package or CSV) |
+| **utils.py functions used** | `mle_standard_errors`, `set_pitt_style` |
+
+**What it covers:** Unordered multinomial choice theory, conditional logit via custom MLE (no direct Python equivalent to R's `mlogit`), IIA discussion, multinomial probit (structure only), mixed logit with simulated MLE, counterfactual predictions (train IVT/cost changes).
+
+| R | Python |
+|---|--------|
+| `dfidx()` data formatting | Manual pandas reshaping to long format |
+| `mlogit(choice ~ cost \| income \| ivt)` | Custom log-likelihood + `scipy.optimize.minimize` |
+| `mlogit(..., rpar=c(cost="u"))` | Custom simulated MLE with random coefficients |
+| `predict(model, newdata)` | Custom prediction from estimated parameters |
+| `summary(mlogit.est)` | Manual formatted output |
+
+**Note:** Python lacks a direct equivalent to R's `mlogit` package. The notebook implements conditional logit, mixed logit, and multinomial probit from scratch using `scipy.optimize`.
+
+---
+
+### 16: Censoring and Selection
+
+| | |
+|---|---|
+| **R file** | `16_CensoringAndSelection.ipynb` |
+| **Python file** | `16_CensoringAndSelection_Python.ipynb` |
+| **Data** | Simulated + Mroz87 dataset (loaded from web CSV) |
+| **utils.py functions used** | `mle_standard_errors`, `inverse_mills_ratio`, `set_pitt_style` |
+
+**What it covers:** Censoring vs truncation, OLS bias from top-coding, Tobit model (custom MLE handling left/right/double censoring), interval regression (custom MLE), Heckman two-step selection model (probit + inverse Mills ratio + OLS), switching regression (Tobit Type 5).
+
+| R | Python |
+|---|--------|
+| `tobit(y ~ x, left=L, right=R)` | Custom `tobit_loglik()` + `scipy.optimize.minimize` |
+| `selection(selection=..., outcome=...)` | Custom `heckman_two_step()` function |
+| `pnorm(x)` | `stats.norm.cdf(x)` |
+| `dnorm(x)` | `stats.norm.pdf(x)` |
+| Inverse Mills ratio | `utils.inverse_mills_ratio(z_hat)` |
+| `Probit` selection equation | `sm.Probit(y, X).fit()` |
+
+**Note:** Both the Tobit and Heckman models are implemented from scratch since Python packages have limited support compared to R's `AER::tobit` and `sampleSelection::selection`.
+
+---
+
+### 17: Hazards / Survival Analysis
+
+| | |
+|---|---|
+| **R file** | `17_Hazards.ipynb` |
+| **Python file** | `17_Hazards_Python.ipynb` |
+| **Data** | Mortality CSVs, `hazards/recidivism.rdata` (loaded via `pyreadr`) |
+
+**What it covers:** Survival analysis concepts, mortality data visualization, Weibull and LogNormal AFT models, Cox proportional hazards, AIC model comparison, prediction types (linear predictor, risk, expected).
+
+| R | Python |
+|---|--------|
+| `library(survival)` | `from lifelines import CoxPHFitter, WeibullAFTFitter, ...` |
+| `Surv(time, event)` | Separate `duration_col` and `event_col` arguments |
+| `survreg(..., dist="weibull")` | `WeibullAFTFitter().fit(df, duration_col, event_col)` |
+| `survreg(..., dist="lognormal")` | `LogNormalAFTFitter().fit(df, duration_col, event_col)` |
+| `coxph(Surv(...) ~ x)` | `CoxPHFitter().fit(df, duration_col, event_col)` |
+| `survfit()` | `KaplanMeierFitter().fit()` |
+| `predict(model, type="risk")` | `model.predict_partial_hazard(df)` |
+| `AIC(model)` | `model.AIC_` |
 
 ---
 
 ## Python Library Requirements
 
-### Core Libraries (install via pip)
+### Core (used by most notebooks)
 ```
 numpy
 pandas
@@ -44,493 +385,121 @@ scipy
 statsmodels
 matplotlib
 seaborn
-scikit-learn
 ```
 
-### Specialized Libraries
+### Specialized
 ```
-lifelines          # Survival analysis (Notebook 17)
-pyreadr            # Reading .rda files from R
-arch               # Bootstrap methods (optional)
-```
-
-### Not Available in Python (require custom implementation)
-- **Marginal effects** with standard errors (partial statsmodels support)
-- **Ordered logit/probit** (statsmodels has `OrderedModel` but less polished than R's `polr`)
-- **Multinomial probit** (no direct equivalent to `mlogit`)
-- **Heckman selection models** (statsmodels has partial support)
-
----
-
-## Conversion Strategy by Notebook
-
-### Phase 1: Foundational Notebooks (01-03)
-
-#### Notebook 01: Jupyter.ipynb
-**Effort:** 1-2 hours
-**Strategy:** Convert R/tidyverse examples to pandas/matplotlib
-
-| R Code | Python Equivalent |
-|--------|-------------------|
-| `library(tidyverse)` | `import pandas as pd` |
-| `read_csv("file.csv")` | `pd.read_csv("file.csv")` |
-| `head(df)` | `df.head()` |
-| `lm(y ~ x)` | `sm.OLS(y, sm.add_constant(x)).fit()` |
-| `ggplot() + geom_line()` | `plt.plot()` or `sns.lineplot()` |
-
-#### Notebook 02: NumericalMethods-1.ipynb
-**Effort:** 3-4 hours
-**Strategy:** Core numerical methods - these go into `utils.py`
-
-| R Code | Python Equivalent |
-|--------|-------------------|
-| `solve(A)` | `np.linalg.solve(A, b)` or `np.linalg.inv(A)` |
-| `rbind(c(2,3), c(1,1))` | `np.array([[2,3], [1,1]])` |
-| `function(f, x, eps) {...}` | `def func(f, x, eps): ...` |
-| Newton-Raphson loop | Same logic with `while` loop |
-
-#### Notebook 03: NumericalMethods-2.ipynb
-**Effort:** 3-4 hrs
-**Strategy:** Map R's `optim()` to `scipy.optimize`
-
-| R Code | Python Equivalent |
-|--------|-------------------|
-| `optim(x0, f, method="BFGS")` | `optimize.minimize(f, x0, method='BFGS')` |
-| `optim(..., hessian=TRUE)` | `optimize.minimize(..., options={'return_hess': True})` or custom |
-| `is.positive.definite(H)` | `np.all(np.linalg.eigvals(H) > 0)` |
-| `optimize(f, interval=c(a,b))` | `optimize.minimize_scalar(f, bounds=(a,b), method='bounded')` |
-
----
-
-### Phase 2: Simulation & MLE (05-09)
-
-#### Notebook 05: Simulation.ipynb
-**Effort:** 4-6 hours
-**Key conversions:**
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `runif(n, min, max)` | `np.random.uniform(min, max, n)` |
-| `rnorm(n, mean, sd)` | `np.random.normal(mean, sd, n)` |
-| `rpois(n, lambda)` | `np.random.poisson(lambda, n)` |
-| `ifelse(cond, yes, no)` | `np.where(cond, yes, no)` |
-| `sapply(vec, fun)` | `[fun(x) for x in vec]` or `np.vectorize(fun)(vec)` |
-| `lm(y ~ x)` | `sm.OLS(y, sm.add_constant(x)).fit()` |
-
-**Note:** Electoral simulation uses 500K iterations - ensure vectorization for performance.
-
-#### Notebook 06: NLSandQR.ipynb
-**Effort:** 4-6 hours
-**Key conversions:**
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `nls(formula, data, start)` | `scipy.optimize.curve_fit(func, x, y, p0)` |
-| `rq(y ~ x, tau=0.5)` | `sm.QuantReg(y, X).fit(q=0.5)` |
-| `confint(model)` | Manual via delta method or bootstrap |
-| `predictNLS()` | Custom uncertainty propagation |
-
-**Challenge:** R's `nls()` formula interface is more elegant; Python requires explicit function definition.
-
-#### Notebook 08: MaxLikelihood1.ipynb
-**Effort:** 4-6 hours
-**Key conversions:**
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `dnorm(x, mean, sd, log=TRUE)` | `scipy.stats.norm.logpdf(x, mean, sd)` |
-| `dpois(k, lambda, log=TRUE)` | `scipy.stats.poisson.logpmf(k, lambda)` |
-| `optim(par, fn, control=list(fnscale=-1))` | `scipy.optimize.minimize(lambda p: -fn(p), par)` |
-
-**Pattern:** Define log-likelihood function, use `scipy.optimize.minimize` with negated function.
-
-#### Notebook 09: MaxLikelihood2.ipynb
-**Effort:** 5-7 hours
-**Key conversions:**
-
-| R Concept | Python Approach |
-|-----------|-----------------|
-| Numerical gradient (score vector) | `scipy.optimize.approx_fprime()` |
-| Fisher Information | `scores.T @ scores / n` |
-| Variance-covariance matrix | `np.linalg.inv(fisher_info) / n` |
-| `gather()` (wide→long) | `pd.melt()` |
-| `glm(..., family=poisson)` | `sm.GLM(..., family=sm.families.Poisson())` |
-| Loading .rda files | `pyreadr.read_r('file.rda')` |
-
----
-
-### Phase 3: Inference & GLMs (10-13)
-
-#### Notebook 10: SQL_R.ipynb
-**Effort:** 1-2 hours
-**Strategy:** Near-trivial - replace RSQLite with sqlite3/pandas
-
-| R Code | Python Equivalent |
-|--------|-------------------|
-| `dbConnect(RSQLite::SQLite(), "survey.db")` | `sqlite3.connect("survey.db")` |
-| `dbGetQuery(conn, "SELECT...")` | `pd.read_sql_query("SELECT...", conn)` |
-| `dbDisconnect(conn)` | `conn.close()` |
-
-#### Notebook 11: StdErrors.ipynb
-**Effort:** 5-7 hours
-**Key conversions:**
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `boot(data, statistic, R=10000)` | Custom: `[statistic(data[np.random.choice(...)]) for _ in range(10000)]` |
-| `boot.ci(boot_obj, type="bca")` | Custom BCa implementation or `arch.bootstrap` |
-| `mvrnorm(n, mu, Sigma)` | `np.random.multivariate_normal(mu, Sigma, n)` |
-| `lrtest(model1, model2)` | `2 * (model1.llf - model2.llf)` vs chi-square |
-| `vcov(model)` | `model.cov_params()` |
-
-#### Notebook 12: GLMs.ipynb
-**Effort:** 2-3 hours
-**Strategy:** Direct statsmodels translation
-
-| R Code | Python Equivalent |
-|--------|-------------------|
-| `glm(y ~ x1 + x2, family="poisson")` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
-| `glm(..., family="binomial")` | `sm.GLM(y, X, family=sm.families.Binomial()).fit()` |
-| `coef(model)` | `model.params` |
-| `summary(model)` | `model.summary()` |
-
-#### Notebook 13: BinaryOutcomes.ipynb
-**Effort:** 5-7 hours
-**Key conversions:**
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `glm(..., family="binomial")` | `sm.GLM(..., family=sm.families.Binomial())` |
-| `glm(..., family=binomial(link="probit"))` | `sm.Probit(y, X).fit()` |
-| `plogis(x)` | `scipy.special.expit(x)` |
-| `margins(model)` | Custom: compute derivatives, average across observations |
-
-**Challenge:** R's `margins` package computes average marginal effects with SEs automatically. Python requires manual delta method implementation.
-
----
-
-### Phase 4: Advanced Models (14-17)
-
-#### Notebook 14: Ordered.ipynb
-**Effort:** 8-12 hours
-**Challenge:** R's `MASS::polr()` is elegant; Python's `statsmodels.OrderedModel` exists but is less user-friendly.
-
-| R Function | Python Approach |
-|-----------|-----------------|
-| `polr(y ~ x, method="logit")` | `OrderedModel(y, X, distr='logit').fit()` |
-| `polr(y ~ x, method="probit")` | `OrderedModel(y, X, distr='probit').fit()` |
-| `model$zeta` (thresholds) | Included in `model.params` |
-| `fitted.values` (probability matrix) | `model.predict()` with appropriate method |
-
-**Fallback:** If statsmodels inadequate, implement custom MLE with `scipy.optimize`.
-
-#### Notebook 15: MultinomialChoice.ipynb
-**Effort:** 10-15 hours
-**Challenge:** R's `mlogit` package is highly specialized. No direct Python equivalent.
-
-**Options:**
-1. **statsmodels.discrete.discrete_model.MNLogit** - Basic multinomial logit only
-2. **Custom implementation** - Write MLE for conditional logit
-3. **PyLogit** - Third-party package (less maintained)
-
-| R Concept | Python Approach |
-|-----------|-----------------|
-| `dfidx()` data formatting | Manual pandas reshaping to long format |
-| `mlogit(choice ~ cost | income | ivt)` | Custom likelihood with `scipy.optimize` |
-| Multinomial probit | Custom simulated MLE (no package support) |
-| Mixed logit | Custom random coefficient model |
-
-**Recommendation:** Start with basic multinomial logit via statsmodels, note limitations for advanced models.
-
-#### Notebook 16: CensoringAndSelection.ipynb
-**Effort:** 10-15 hours
-**Challenge:** Selection models (Heckman) have limited Python support.
-
-| R Function | Python Approach |
-|------------|-----------------|
-| `tobit(y ~ x, left=L, right=R)` | Custom MLE or limited statsmodels support |
-| `selection(selection=..., outcome=...)` | `statsmodels.regression.Heckit` (limited) |
-| Interval regression | Custom MLE with `scipy.optimize` |
-
-**Heckman two-step approach:**
-```python
-# Step 1: Probit for selection
-probit = sm.Probit(selected, Z).fit()
-# Step 2: Compute inverse Mills ratio
-imr = scipy.stats.norm.pdf(probit.fittedvalues) / scipy.stats.norm.cdf(probit.fittedvalues)
-# Step 3: OLS with IMR as additional regressor
-ols = sm.OLS(y[selected], np.c_[X[selected], imr[selected]]).fit()
+lifelines          # Notebook 17 (survival analysis)
+pyreadr            # Notebooks 09, 13, 14, 17 (loading .rda files)
 ```
 
-#### Notebook 17: Hazards.ipynb
-**Effort:** 5-7 hours
-**Strategy:** Use `lifelines` package (mature and well-documented)
-
-| R Function | Python Equivalent |
-|------------|-------------------|
-| `Surv(time, event)` | `lifelines` uses separate duration/event columns |
-| `survreg(..., dist="weibull")` | `lifelines.WeibullAFTFitter().fit()` |
-| `survreg(..., dist="lognormal")` | `lifelines.LogNormalAFTFitter().fit()` |
-| `coxph(Surv(...) ~ x)` | `lifelines.CoxPHFitter().fit()` |
-| `predict(model, type="risk")` | `model.predict_partial_hazard()` |
+### Custom implementations (in notebooks, not packages)
+- **Tobit model** (Notebook 16) -- custom MLE
+- **Heckman selection** (Notebook 16) -- custom two-step
+- **Conditional logit** (Notebook 15) -- custom MLE
+- **Mixed logit** (Notebook 15) -- custom simulated MLE
+- **Multinomial probit** (Notebook 15) -- structure only
+- **Marginal effects for ordered models** (Notebook 14) -- custom function
+- **BCa bootstrap CI** (Notebook 11) -- custom implementation
 
 ---
 
-## Common Code Patterns Reference
+## Shared Module: `utils.py`
 
-### R Formula → Python Design Matrix
+Located at `classes/notebooks/utils.py`. Functions organized by source notebook:
 
-```python
-# R: lm(y ~ x1 + x2 + x1:x2)
-# Python:
-import patsy
-y, X = patsy.dmatrices('y ~ x1 + x2 + x1:x2', data=df)
-model = sm.OLS(y, X).fit()
-```
-
-### R Apply Functions → Python
-
-```python
-# R: sapply(vec, fun)
-# Python options:
-result = [fun(x) for x in vec]           # List comprehension
-result = np.array([fun(x) for x in vec]) # As numpy array
-result = np.vectorize(fun)(vec)          # Vectorized (not always faster)
-result = df['col'].apply(fun)            # Pandas apply
-```
-
-### R Optimization → Python
-
-```python
-# R: optim(par, fn, control=list(fnscale=-1))  # Maximize
-# Python:
-from scipy.optimize import minimize
-result = minimize(lambda p: -fn(p), x0=par, method='BFGS')
-# result.x contains optimal parameters
-# result.fun contains (negated) optimal value
-```
+| Function | From Notebook | Description |
+|----------|---------------|-------------|
+| `numerical_derivative()` | 02 | Centered finite difference, O(eps^2) |
+| `numerical_derivative_high_order()` | 02 | Five-point stencil, O(eps^4) |
+| `numerical_second_derivative()` | 02 | Five-point stencil second derivative |
+| `numerical_gradient()` | 03 | Gradient vector for multivariate functions |
+| `numerical_hessian()` | 03 | Hessian matrix via finite differences |
+| `newton_raphson()` | 02 | Scalar Newton-Raphson root finding |
+| `newton_raphson_multivariate()` | 02 | Multivariate Newton-Raphson |
+| `maximize_likelihood()` | 08 | Wrapper for `scipy.optimize.minimize` with negation |
+| `fisher_information()` | 09 | Fisher info via numerical Hessian |
+| `mle_standard_errors()` | 09 | SEs from inverse Fisher information |
+| `mle_variance_covariance()` | 09 | Full variance-covariance matrix |
+| `score_vector()` | 09 | Numerical score vector |
+| `bootstrap()` | 11 | Nonparametric bootstrap resampling |
+| `bootstrap_ci()` | 11 | Percentile and basic CIs |
+| `bootstrap_se()` | 11 | Bootstrap standard error |
+| `marginal_effects_binary()` | 13 | Average marginal effects for logit/probit |
+| `marginal_effects_at_means()` | 13 | Marginal effects evaluated at means |
+| `delta_method()` | 09, 11 | Delta method for transformed parameters |
+| `likelihood_ratio_test()` | 11 | LR test statistic + p-value |
+| `inverse_mills_ratio()` | 16 | IMR for Heckman selection models |
+| `load_rda()` | 09, 13, 14 | Load R .rda files via pyreadr |
+| `summary_stats()` | 01 | Quick summary statistics table |
+| `set_pitt_style()` | all | Matplotlib style with Pitt colors |
+| `PITT_BLUE`, `PITT_GOLD`, etc. | all | University of Pittsburgh brand color constants |
 
 ---
 
-## Conversion Order (Sequential from 01)
-
-| Order | Notebook | Effort | Key New Concepts |
-|-------|----------|--------|------------------|
-| 1 | 01_Jupyter | 1-2 hrs | Basic setup, pandas, matplotlib |
-| 2 | 02_NumericalMethods-1 | 3-4 hrs | Numerical derivatives, Newton-Raphson |
-| 3 | 03_NumericalMethods-2 | 3-4 hrs | scipy.optimize, optim equivalents |
-| 4 | 05_Simulation | 4-6 hrs | Monte Carlo, random distributions |
-| 5 | 06_NLSandQR | 4-6 hrs | curve_fit, QuantReg |
-| 6 | 08_MaxLikelihood1 | 4-6 hrs | MLE with scipy.optimize |
-| 7 | 09_MaxLikelihood2 | 5-7 hrs | Fisher information, delta method |
-| 8 | 10_SQL_R | 1-2 hrs | sqlite3/pandas (trivial) |
-| 9 | 11_StdErrors | 5-7 hrs | Bootstrap implementation |
-| 10 | 12_GLMs | 2-3 hrs | statsmodels GLM |
-| 11 | 13_BinaryOutcomes | 5-7 hrs | Logit/probit, marginal effects |
-| 12 | 14_Ordered | 8-12 hrs | OrderedModel or custom MLE |
-| 13 | 15_MultinomialChoice | 10-15 hrs | Custom multinomial logit |
-| 14 | 16_CensoringAndSelection | 10-15 hrs | Tobit, Heckman models |
-| 15 | 17_Hazards | 5-7 hrs | lifelines package |
-
-**Estimated Total: 70-105 hours**
-
----
-
-## Shared Utility Module: `utils.py`
-
-Create `classes/notebooks/utils.py` with reusable functions:
-
-```python
-"""
-Econometrics utilities for Python notebook conversions.
-"""
-import numpy as np
-import pandas as pd
-from scipy import optimize, stats
-import statsmodels.api as sm
-
-# =============================================================================
-# NUMERICAL DERIVATIVES (from Notebooks 02-03)
-# =============================================================================
-
-def numerical_derivative(f, x, eps=1e-6):
-    """Centered numerical derivative (O(eps^2) accuracy)."""
-    return (f(x + eps) - f(x - eps)) / (2 * eps)
-
-def numerical_derivative_high_order(f, x, eps=1e-6):
-    """Five-point stencil derivative (O(eps^4) accuracy)."""
-    return (-f(x + 2*eps) + 8*f(x + eps) - 8*f(x - eps) + f(x - 2*eps)) / (12 * eps)
-
-def numerical_second_derivative(f, x, eps=1e-4):
-    """Five-point stencil second derivative."""
-    return (-f(x + 2*eps) + 16*f(x + eps) - 30*f(x) + 16*f(x - eps) - f(x - 2*eps)) / (12 * eps**2)
-
-def numerical_gradient(f, x, eps=1e-6):
-    """Gradient vector for multivariate function."""
-    x = np.asarray(x, dtype=float)
-    grad = np.zeros_like(x)
-    for i in range(len(x)):
-        x_plus = x.copy(); x_plus[i] += eps
-        x_minus = x.copy(); x_minus[i] -= eps
-        grad[i] = (f(x_plus) - f(x_minus)) / (2 * eps)
-    return grad
-
-def numerical_hessian(f, x, eps=1e-5):
-    """Hessian matrix via finite differences."""
-    x = np.asarray(x, dtype=float)
-    n = len(x)
-    H = np.zeros((n, n))
-    for i in range(n):
-        for j in range(n):
-            x_pp = x.copy(); x_pp[i] += eps; x_pp[j] += eps
-            x_pm = x.copy(); x_pm[i] += eps; x_pm[j] -= eps
-            x_mp = x.copy(); x_mp[i] -= eps; x_mp[j] += eps
-            x_mm = x.copy(); x_mm[i] -= eps; x_mm[j] -= eps
-            H[i, j] = (f(x_pp) - f(x_pm) - f(x_mp) + f(x_mm)) / (4 * eps**2)
-    return H
-
-# =============================================================================
-# ROOT FINDING (from Notebook 02)
-# =============================================================================
-
-def newton_raphson(f, x0, tol=1e-8, max_iter=50, eps=1e-6):
-    """Newton-Raphson root finding."""
-    x = x0
-    for i in range(max_iter):
-        fx = f(x)
-        if abs(fx) < tol:
-            return x, i, True
-        dfx = numerical_derivative(f, x, eps)
-        if abs(dfx) < 1e-12:
-            return x, i, False  # derivative too small
-        x = x - fx / dfx
-    return x, max_iter, False
-
-# =============================================================================
-# MAXIMUM LIKELIHOOD (from Notebooks 08-09)
-# =============================================================================
-
-def maximize_likelihood(log_likelihood, x0, method='BFGS', **kwargs):
-    """Maximize log-likelihood function."""
-    result = optimize.minimize(
-        lambda x: -log_likelihood(x),
-        x0,
-        method=method,
-        **kwargs
-    )
-    result.fun = -result.fun  # Convert back to log-likelihood
-    return result
-
-def fisher_information(log_likelihood, theta, eps=1e-5):
-    """Estimate Fisher information via numerical Hessian."""
-    H = numerical_hessian(lambda x: -log_likelihood(x), theta, eps)
-    return H
-
-def mle_standard_errors(log_likelihood, theta, eps=1e-5):
-    """Standard errors from inverse Fisher information."""
-    I = fisher_information(log_likelihood, theta, eps)
-    try:
-        cov = np.linalg.inv(I)
-        return np.sqrt(np.diag(cov))
-    except np.linalg.LinAlgError:
-        return np.full(len(theta), np.nan)
-
-# =============================================================================
-# BOOTSTRAP (from Notebook 11)
-# =============================================================================
-
-def bootstrap(data, statistic, n_boot=1000, seed=None):
-    """Bootstrap resampling."""
-    rng = np.random.default_rng(seed)
-    data = np.asarray(data)
-    n = len(data)
-    estimates = []
-    for _ in range(n_boot):
-        idx = rng.choice(n, size=n, replace=True)
-        sample = data[idx] if data.ndim == 1 else data[idx, :]
-        estimates.append(statistic(sample))
-    return np.array(estimates)
-
-def bootstrap_ci(estimates, alpha=0.05, method='percentile'):
-    """Bootstrap confidence interval."""
-    if method == 'percentile':
-        return np.percentile(estimates, [100*alpha/2, 100*(1-alpha/2)])
-    elif method == 'basic':
-        theta = np.mean(estimates)
-        return 2*theta - np.percentile(estimates, [100*(1-alpha/2), 100*alpha/2])
-    else:
-        raise ValueError(f"Unknown method: {method}")
-
-# =============================================================================
-# MARGINAL EFFECTS (from Notebook 13)
-# =============================================================================
-
-def marginal_effects_binary(model, X, link='logit'):
-    """Compute average marginal effects for binary outcome model."""
-    beta = model.params
-    linear_pred = X @ beta
-    if link == 'logit':
-        pdf = stats.logistic.pdf(linear_pred)
-    elif link == 'probit':
-        pdf = stats.norm.pdf(linear_pred)
-    else:
-        raise ValueError(f"Unknown link: {link}")
-    ame = (pdf[:, np.newaxis] * beta).mean(axis=0)
-    return ame
-
-# =============================================================================
-# PLOTTING UTILITIES
-# =============================================================================
-
-PITT_BLUE = "#003594"
-PITT_GOLD = "#FFB81C"
-PITT_DGRAY = "#75787B"
-PITT_GRAY = "#97999B"
-PITT_LGRAY = "#C8C9C7"
-
-def set_pitt_style():
-    """Set matplotlib style to match R notebooks."""
-    import matplotlib.pyplot as plt
-    plt.rcParams.update({
-        'figure.figsize': (10, 10/1.68),
-        'axes.facecolor': 'white',
-        'axes.grid': True,
-        'grid.color': PITT_GRAY,
-        'grid.linewidth': 0.5,
-    })
-```
-
----
-
-## Verification Strategy
-
-For each converted notebook:
-1. Run both R and Python versions on same data
-2. Compare coefficient estimates (should match to 3-4 decimal places)
-3. Compare standard errors
-4. Compare predictions/fitted values
-5. Visual comparison of any plots
-
----
-
-## File Structure After Conversion
+## File Structure
 
 ```
 classes/notebooks/
-├── utils.py                          # NEW: Shared utilities
-├── 01_Jupyter.ipynb                  # R version (keep)
-├── 01_Jupyter_Python.ipynb           # NEW: Python version
-├── 02_NumericalMethods-1.ipynb       # R version (keep)
-├── 02_NumericalMethods-1_Python.ipynb # NEW
-├── ...
-└── 17_Hazards_Python.ipynb           # NEW
+├── utils.py                              # Shared utility module
+│
+├── 00_welcome.ipynb                      # Python (original)
+│
+├── 01_Jupyter.ipynb                      # R original
+├── 01_Jupyter_Python.ipynb               # Python conversion
+│
+├── 02_NumericalMethods-1.ipynb           # R original
+├── 02_NumericalMethods-1_Python.ipynb    # Python conversion
+│
+├── 03_NumericalMethods-2.ipynb           # R original
+├── 03_NumericalMethods-2_Python.ipynb    # Python conversion
+│
+├── 04_API_python.ipynb                   # Python (original)
+│
+├── 05_Simulation.ipynb                   # R original
+├── 05_Simulation_Python.ipynb            # Python conversion
+│
+├── 06_NLSandQR.ipynb                     # R original
+├── 06_NLSandQR_Python.ipynb              # Python conversion
+│
+├── 07_FindingData.ipynb                  # Python (original)
+│
+├── 08_MaxLikilihood1.ipynb               # R original (note: typo in original name)
+├── 08_MaxLikelihood1_Python.ipynb        # Python conversion (corrected spelling)
+│
+├── 09_MaxLikelihood2.ipynb               # R original
+├── 09_MaxLikelihood2_Python.ipynb        # Python conversion
+│
+├── 10_SQL_Python.ipynb                   # Python (original, pre-existing)
+├── 10_SQL_R.ipynb                        # R original
+├── 10_SQL_R_Python.ipynb                 # Python conversion of the R version
+│
+├── 11_StdErrors.ipynb                    # R original
+├── 11_StdErrors_Python.ipynb             # Python conversion
+│
+├── 12_GLMs.ipynb                         # R original
+├── 12_GLMs_Python.ipynb                  # Python conversion
+│
+├── 13_BinaryOutcomes.ipynb               # R original
+├── 13_BinaryOutcomes_Python.ipynb        # Python conversion
+│
+├── 14_Ordered.ipynb                      # R original
+├── 14_Ordered_Python.ipynb               # Python conversion
+│
+├── 15_MultinomialChoice.ipynb            # R original
+├── 15_MultinomialChoice_Python.ipynb     # Python conversion
+│
+├── 16_CensoringAndSelection.ipynb        # R original
+├── 16_CensoringAndSelection_Python.ipynb # Python conversion
+│
+├── 17_Hazards.ipynb                      # R original
+├── 17_Hazards_Python.ipynb               # Python conversion
+│
+├── 538/                                  # FiveThirtyEight soccer data
+├── eCig/                                 # E-cigarette survey data
+├── hazards/                              # Recidivism data
+├── nfl/                                  # NFL field goal data
+├── real_estate/                          # Real estate sales data
+├── social/                               # Social media user data
+└── MLB.csv                               # MLB batting data
 ```
-
----
-
-## Key Decisions Made
-
-1. **File strategy:** Create `*_Python.ipynb` alongside R versions
-2. **Conversion order:** Sequential from 01
-3. **Shared code:** Create `utils.py` for reusable functions
-4. **Pedagogical content:** Preserve explanations, adapt for Python idioms

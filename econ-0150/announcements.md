@@ -56,13 +56,11 @@ Hi folks!
 
 I hope your weekend was lovely! We're back at it this week, finishing up Part 1 before MiniExam 1 next week. 
 
-Last class we introduced Panel Data, data with both a cross-sectional and timeseries dimension. We looked at transactions by coffee shop, using a Multi-Linegraph to find which shift was the busiest. Then we ended by using Multi-Boxplots to examine how coffee consumption patterns have changed through time for many coffee importing countries. On the way out the door I asked you to find how many countries increased their coffee consumption during the 20 years we had data for. You told me that Boxplots could not answer this question and I told you that we have a tool that can.
+Last class we introduced Long Format Panel Data, data with both a cross-sectional and timeseries dimension. We looked at transactions by coffee shop, using a Multi-Linegraph to find which shift was the busiest. Today we'll start by working with Long Format Panel Data in Exercise 1.4, then we'll continue examining coffee in Wide Format Panel Data (Part 1.5) by using Multi-Boxplots to measure how coffee consumption patterns have changed through time for many coffee importing countries. We'll see that Boxplots cannot visualize the answers to big questions we often ask of panel data. And we'll introduce the Scatterplot to fix this problem. 
 
-This week we're introducing the Scatterplot! We'll start by using the Scatterplot for panel data, wrapping up Part 1.4. Then we'll explore the scatterplot in more detail with Bivariate Data in Part 1.5. If we have time we'll close out Part 1 with Geographic Data.
+On Thursday we'll wrap up Part 1 and do some MiniExam prep. 
 
-This is a big week: Scatterplot is an S-Tier tool.
-
-See you tomorrow!
+Yours,
 
 Taylor
 
