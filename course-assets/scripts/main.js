@@ -630,6 +630,26 @@ const EconApp = {
     },
 
     /* -------------------------------------------------------------------------
+       TOPIC TOGGLE MODULE
+       ------------------------------------------------------------------------- */
+    topicToggle: {
+        init() {
+            document.querySelectorAll('.topic-toggle').forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const cards = toggle.nextElementSibling;
+                    if (!cards) return;
+                    const btn = toggle.querySelector('.btn');
+                    cards.classList.toggle('collapsed');
+                    if (btn) {
+                        btn.textContent = btn.textContent.replace(/^[▶▼]\s*/, '');
+                        btn.textContent = (cards.classList.contains('collapsed') ? '▶ ' : '▼ ') + btn.textContent;
+                    }
+                });
+            });
+        }
+    },
+
+    /* -------------------------------------------------------------------------
        MAIN INITIALIZATION
        ------------------------------------------------------------------------- */
     init() {
@@ -639,6 +659,7 @@ const EconApp = {
             this.highlights.init();
             this.downloads.init();
             this.mobileMenu.init();
+            this.topicToggle.init();
         });
     }
 };

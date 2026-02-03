@@ -1,4 +1,4 @@
-## Part 1.5 | Panel Data (Wide Format)
+## Part 1.5 | Day 7 | Panel Data (Wide Format)
 
 ### Two Formats, Same Data
 

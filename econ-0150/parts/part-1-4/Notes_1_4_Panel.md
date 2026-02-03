@@ -1,4 +1,4 @@
-## Part 1.4 | Panel Data (Long Format)
+## Part 1.4 | Day 6 | Panel Data (Long Format)
 
 So far we've looked at cross-sectional data (many entities at one point in time) and time series data (one entity across many points in time). **Panel data** combines both — it tracks the same units (people, countries, stores) over time. This is also called longitudinal data or time series cross-sectional data. Examples include GDP by country by year, or sales by store by hour.
 
