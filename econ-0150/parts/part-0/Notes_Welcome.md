@@ -1,6 +1,6 @@
 ## ECON 0150 | Part 0 | Day 1 | Welcome
 
-Welcome! 
+#### Welcome! 
 
 I'm very excited to have you here. 
 

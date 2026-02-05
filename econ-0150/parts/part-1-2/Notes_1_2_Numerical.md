@@ -1,4 +1,4 @@
-## Notes 1.2 | Day 4 | Cross-Sectional (Numerical) Data
+## ECON 0150 | Part 1.2 | Day 4 | Cross-Sectional (Numerical) Data
 
 This unit focuses on **cross-sectional numerical data** — many entities measured at one point in time. With numerical variables (values you can do math with, like age, income, or consumption), the key question is: *How is this variable distributed?*
 
