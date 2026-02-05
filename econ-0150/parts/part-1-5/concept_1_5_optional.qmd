@@ -1,0 +1,164 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 1.5 (Optional) | Reshaping Panel Data*
+
+---
+
+## Question
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+<br><br>
+
+Instead of measuring changes between two years (1999 and 2019), how might we visualize countrys' full trends over all 30 years?
+
+. . .
+
+<br><br>
+
+*> lets use a line plot with Year on x-axis and Consumption on y-axis, colored by Country*
+
+---
+
+## Question
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+The problem is that wide format has no `Year` column!
+
+. . .
+
+<br>
+
+```{.python}
+# This won't work!
+sns.lineplot(percap, x='Year', y='Consumption', hue='Code')
+```
+
+. . .
+
+<br><br>
+
+*> we need to construct a year column*
+
+---
+
+## Reshaping: Wide → Long
+<p class="subheader">Turn columns into rows using `melt()`.</p>
+
+![](i/w_03.png)
+
+*> each year column becomes rows in a new `Year` column*
+
+---
+
+## Question
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+![](i/w_04.png)
+
+. . .
+
+*> this is possible now using the long format panel data*
+
+---
+
+## Exercise 1.5 | Reshaping
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+. . .
+
+Use `melt()` to reshape wide → long.
+
+![](i/w_03_notitle.png)
+
+. . .
+
+```{.python}
+# Wide to Long
+percap_long = percap.melt(
+    id_vars='Code',          # The identifier column
+    var_name='Year',         # The new 'melted' column
+    value_name='Consumption' # The new 'melted' values
+)
+```
+
+---
+
+## Exercise 1.5 | Reshaping
+<p class="subheader">How has each country's consumption changed over time?</p>
+
+```{.python}
+# Now we can plot trends for each country
+sns.lineplot(percap_long, x='Year', y='Consumption', hue='Code')
+```
+
+![](i/w_04.png)
+
+*> long format makes line plots natural — use `hue='Code'`*
+
+---
+
+## Reshaping: Long → Wide
+<p class="subheader">Turn rows into columns using `pivot()`.</p>
+
+<br>
+
+Sometimes data comes in long format but we need wide format *(eg. scatterplots)*.
+
+![](i/w_04_pivot.png)
+
+. . .
+
+Think of `pivot()` as the opposite of `melt()`.
+
+---
+
+## Reshaping: The Code
+<p class="subheader">Turn rows into columns using `pivot()`.</p>
+
+Use `pivot()` to reshape long → wide.
+
+![](i/w_04_pivot.png)
+
+. . .
+
+```{.python}
+# Long to Wide
+percap_wide = percap_long.pivot(
+    index='Code',         # The identifier column
+    columns='Year',       # The column used to create the new column headers
+    values='Consumption'  # The column used to create the new column values
+)
+```
+
+. . .
+
+*> you'll use this in your homework :)*
+
+---
+
+## Reshaping
+<p class="subheader">Choose based on your starting point and goal</p>
+
+The data format should match your visualization goal.
+
+<br>
+
+| Direction | Function | When to use |
+|-----------|----------|-------------|
+| Wide → Long | `melt()` | Need line plots, faceting |
+| Long → Wide | `pivot()` | Need scatterplots |
+
+. . .
+
+- `melt()` turns columns into rows (wide → long)
+- `pivot()` turns rows into columns (long → wide)

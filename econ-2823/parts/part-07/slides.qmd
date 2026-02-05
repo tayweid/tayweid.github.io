@@ -1,0 +1,455 @@
+---
+title: "Finding Data on the Web"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+## Collecting Data from the Web
+
+When dealing with text in data/code we often want to represent special characters, which might have a weird effect in our code
+
+* For example the double quote `"` or single quote might be something we want to incorporate into our string
+* Similarly with carriage returns/newlines
+
+A lot of this is built into many programming/coding languages, including Python
+
+---
+
+For example think about writing the following HTML string in Python:
+
+```
+<h2>Hello</h2>\n\n\t<div id="main">Main text inside a content divider</div>\n\n<footer style="color:#003594;background-color:#FFB81C"><center>Bottom footer text in Blue</center></footer>
+```
+
+---
+
+When this is printed or written to a data file though, this same string would look like this:
+
+```{python}
+s = '<h2>Hello</h2>\n\n\t<div id=\"main\">Main text inside a content divider</div>\n\n<footer style=\"color:#003594;background-color:#FFB81C\"><center>Bottom footer text in Blue</center></footer>'
+print(s)
+```
+
+---
+
+Here I'm using the code:
+* `\n` in place of a newline
+* `\t` in place of a Tab
+* `\"` in place of a double quote
+
+Because `\` is used here as an escape character if we want to use the **actual** `\` character in a string we need to type `\\`
+
+---
+
+As an aside, whenever you use strings in Python you do need to be careful with certain characters.
+
+Some useful escape characters are:
+- `\'` is '
+- `\"` is "
+- `\n` is a newline
+- `\t` is a tab
+- `\\` is a literal backslash
+
+---
+
+The same raw strings can be interpreted in HTML. Here I'm using a *magic* that tells IPython to render this cell as HTML.
+
+HTML has its own special characters -- anything inside a tag: `< >`
+
+```{python}
+from IPython.display import HTML
+HTML(s)
+```
+
+---
+
+While we can write pure HTML and style it, websites will often use something called a cascading style sheet (CSS). This is a list of rules about how to format HTML objects with certain properties. Having a systematic styling scheme often means that websites will give elements of the HTML special identifiers like the `id` in the `<div>` tag above. This structure can be useful when we want to extract data.
+
+## Search Patterns
+
+In addition to knowing how to enter these special characters, escape characters are also used in flexible search patterns called **regular expressions**. These highly structured patterns can then be used to look for and extract data.
+
+I mostly go to [this website](https://regexr.com/) and paste in a sample of the data I'm using, to check/build the regular expression!
+
+---
+
+We'll use the following string as a search pattern:
+
+```{python}
+text = """
+Contact: john.doe@example.com or jane@company.org
+Phone: (412) 555-1234 or 412-555-5678 or 1 412 555 9012
+Twitter: @PittEcon #economics @DataScience #python
+"""
+print(text)
+```
+
+---
+
+And we'll check what they return by using the `re` library in Python:
+
+```{python}
+import re
+```
+
+## Some examples:
+
+* `(?:\s)?([\w\.-]+@[\w\.-]+\.\w{2,4})(?:\s\.)?`
+    - `(?: )` :  represents a group we don't want, but is necessary
+    - `( )` : without the question mark means a group to return in the output
+    - `\s` means a space
+    - After any character or group:
+        - `?` means 0 or 1 occurrences
+        - `+` means 1 or more occurrences
+        - `*` means 0 or more
+
+---
+
+```{python}
+# Email pattern
+email_pattern = r'(?:\s)?([\w\.-]+@[\w\.-]+\.\w{2,4})(?:\s\.)?'
+emails = re.findall(email_pattern, text)
+print("Emails found:", emails)
+```
+
+---
+
+Twitter:
+
+* `(@[A-z]+)|(#[A-z]+)`
+    - `@` : The @ character
+    - `[A-z]+` any number of characters A-Z or a-z
+    - `|` : Boolean OR
+    - `#` : the hash symbol
+
+So this will match twitter user names (the first part) **or** hashtags (the second part)
+
+```{python}
+twitter_pattern = r'(@[A-z]+)|(#[A-z]+)'
+results = re.findall(twitter_pattern, text)
+print("Twitter matches:", results)
+```
+
+---
+
+You can also extract separated groups:
+
+* `(?:\d{1}\s)?\(?(\d{3})\)?-?\s?.?(\d{3})-?\s?.?(\d{4})`
+
+```{python}
+phone_pattern = r'(?:\d{1}\s)?\(?(\d{3})\)?-?\s?.?(\d{3})-?\s?.?(\d{4})'
+phones = re.findall(phone_pattern, text)
+print("Phone numbers found:", phones)
+```
+
+## Looking at HTML
+
+Consider the HTML code:
+
+```
+<table>
+     <tr><td type="normal"><b>Column 1</b></td><td><b>Column 2</b></td> </tr>
+    <tr><td type="normal">Entry 1</td><td>Entry 2</td> </tr>
+    <tr><td type="other">Entry 3</td><td>Entry 4 </td></tr>
+</table>
+```
+
+---
+
+It creates a simple structured table:
+
+```{python}
+from IPython.display import HTML
+table_html = """<table border="1">
+     <tr><td type="normal"><b>Column 1</b></td><td><b>Column 2</b></td> </tr>
+    <tr><td type="normal">Entry 1</td><td>Entry 2</td> </tr>
+    <tr><td type="other">Entry 3</td><td>Entry 4 </td></tr>
+</table>"""
+HTML(table_html)
+```
+
+---
+
+So if we wanted to try and get at some of the table data here:
+
+* `(?:<td.*?>)(.*?)(?:<\/td>)`
+    - `(?:<td.*?>)` matches the opening td tag (non-capturing)
+    - `(.*?)` captures the content between tags (as few chars as possible)
+    - `(?:<\/td>)` matches the closing tag (non-capturing)
+
+```{python}
+td_pattern = r'(?:<td.*?>)(.*?)(?:<\/td>)'
+results = re.findall(td_pattern, table_html)
+print("Table contents:", results)
+```
+
+---
+
+Often times in web data, we can use the styling information to pick out specific types of data entries.
+
+For example, suppose that we only wanted to extract the `normal` type `td` entries?
+
+```{python}
+normal_pattern = r'(?:<td type="normal".*?>)(.*?)(?:<\/td>)'
+results = re.findall(normal_pattern, table_html)
+print("Normal type entries:", results)
+```
+
+---
+
+Regular expressions used to be the backbone of how you'd conduct a search in a website to extract information you wanted.
+
+They're still very useful for looking for patterns in text, so let's go through how to extract web data with some regular expressions.
+
+```{python}
+import requests
+import re
+import pandas as pd
+```
+
+---
+
+Let's look at the course [home page](https://www.mqe.pitt.edu/courses) for the MQE:
+
+```{python}
+resp = requests.get('https://www.mqe.pitt.edu/courses')
+resp.status_code
+```
+
+---
+
+Now we load the response as raw text to look through:
+
+```{python}
+html = resp.text
+print(f"Length of HTML: {len(html)} characters")
+print(html[:500])
+```
+
+---
+
+When we load objects as regular expressions in python, we need to tell it to treat the string as a raw string by prefacing it with `r`:
+
+```{python}
+# Compile a regex pattern to find course listings
+pattern = re.compile(r'<h4.*?>(.*?)</h4>', re.M | re.I | re.S)
+results = pattern.findall(html)
+print(f"Found {len(results)} h4 headings")
+for r in results[:10]:
+    print(r.strip())
+```
+
+---
+
+We'll use the `re` function to look through the data, where we'll add three additional flags:
+* `re.M` : multi-line, so the pattern will reset when looking across multiple lines
+* `re.I` : ignore case for characters
+* `re.S` : The special character `.` also includes newlines
+
+---
+
+Define a function that strips out anything matching a pattern search:
+
+```{python}
+def strip_tags(text):
+    """Remove HTML tags from text"""
+    return re.sub(r'<.*?>', '', text).strip()
+
+# Apply to our results
+cleaned = [strip_tags(r) for r in results[:10]]
+for c in cleaned:
+    print(c)
+```
+
+---
+
+Or being slightly fancier:
+
+```{python}
+# Convert to dataframe
+if cleaned:
+    df = pd.DataFrame({'heading': cleaned})
+    df
+```
+
+---
+
+Export to a csv:
+
+```{python}
+# df.to_csv('mqe_courses.csv', index=False)
+```
+
+## Other things to look for:
+
+We can look for table rows...
+
+```{python}
+tr_pattern = re.compile(r'<tr.*?>(.*?)</tr>', re.M | re.I | re.S)
+rows = tr_pattern.findall(html)
+print(f"Found {len(rows)} table rows")
+```
+
+---
+
+And strip out some of the white space either side...
+
+```{python}
+for row in rows[:5]:
+    print(row.strip()[:200])
+    print("---")
+```
+
+---
+
+We can find the table headers:
+
+```{python}
+th_pattern = re.compile(r'<th.*?>(.*?)</th>', re.M | re.I | re.S)
+headers = th_pattern.findall(html)
+cleaned_headers = [strip_tags(h) for h in headers[:20]]
+print("Headers:", cleaned_headers)
+```
+
+---
+
+We can also index where we found things...
+
+```{python}
+for match in list(re.finditer(r'<h4.*?>(.*?)</h4>', html, re.M | re.I | re.S))[:5]:
+    print(f"Position {match.start()}-{match.end()}: {strip_tags(match.group(1))}")
+```
+
+## More modern methods
+
+Even though knowing regular expressions can be really useful, if we're dealing with HTML, there are other ways to get structured information out of it.
+
+We'll briefly look at two libraries that can do this:
+
+*  Beautiful Soup
+* lxml.html
+
+---
+
+```{python}
+from bs4 import BeautifulSoup
+
+resp = requests.get('https://www.mqe.pitt.edu/courses')
+
+# Convert our Website HTML into a Beautiful Soup object
+soup = BeautifulSoup(resp.text, 'html.parser')
+```
+
+---
+
+So though we can continue to break the HTML code into parseable sections, we can also quickly filter out particular types of tags:
+
+```{python}
+# Find all link tags
+links = soup.find_all('a')
+print(f"Found {len(links)} links on the page")
+for link in links[:10]:
+    print(link.get('href', 'No href'), '-', link.text.strip()[:60])
+```
+
+---
+
+Here we select all of the `<a>` tags within an `<h4>` tag:
+
+```{python}
+for h4 in soup.find_all('h4'):
+    for link in h4.find_all('a'):
+        print(link.text.strip(), '->', link.get('href'))
+```
+
+---
+
+Another package is `lxml`:
+
+```{python}
+import lxml.html
+
+page = lxml.html.fromstring(resp.text)
+
+# Use a regular expression in the find for any href which has an internal link
+internal_links = page.cssselect('a[href^="/"]')
+print(f"Found {len(internal_links)} internal links")
+for link in internal_links[:10]:
+    print(link.get('href'), '-', link.text_content().strip()[:60])
+```
+
+---
+
+Let's take a look at grabbing some data from tables on a website. Pandas has a convenient function for this:
+
+```{python}
+# pd.read_html() extracts all tables from a web page
+try:
+    tables = pd.read_html('https://www.mqe.pitt.edu/courses')
+    print(f"Found {len(tables)} tables")
+    if tables:
+        tables[0].head()
+except:
+    print("No tables found or site not accessible")
+```
+
+## BBC Sports Tables
+
+```{python}
+try:
+    resp = requests.get('https://www.bbc.com/sport/football/premier-league/table')
+    tables = pd.read_html(resp.text)
+    print(f"Found {len(tables)} tables")
+    if tables:
+        display(tables[0].head(10))
+except Exception as e:
+    print(f"Could not fetch BBC tables: {e}")
+```
+
+---
+
+And formalizing to get other tables with the stub:
+
+```{python}
+def get_league_table(league):
+    """Fetch a BBC sport league table"""
+    url = f'https://www.bbc.com/sport/football/{league}/table'
+    try:
+        tables = pd.read_html(url)
+        if tables:
+            return tables[0]
+    except:
+        return None
+
+# Try to get Premier League table
+df = get_league_table('premier-league')
+if df is not None:
+    print(df.head())
+else:
+    print("Table not available")
+```
+
+---
+
+Note that we can do for loops inside of list or dict definitions in python so that:
+
+```{python}
+# List comprehension
+squares = [x**2 for x in range(10)]
+print(squares)
+```
+
+---
+
+Is equivalent to doing it one by one:
+
+```{python}
+squares_manual = []
+for x in range(10):
+    squares_manual.append(x**2)
+print(squares_manual)
+```

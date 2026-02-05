@@ -8,8 +8,6 @@ format:
 jupyter: python3
 ---
 
----
-
 Here I've taken a number of things from the *Data Basics* course for Python, which I'm going to go over at an accelerated pace.
 
 We'll look at a contrived relational database through the package SQLite, and show how we can engage with this using Python. (Database example taken from [here](https://swcarpentry.github.io/sql-novice-survey/) which has some additional content on using [Python to write to the database too](https://swcarpentry.github.io/sql-novice-survey/10-prog/index.html))
@@ -464,8 +462,6 @@ db_table('SELECT * FROM Visited WHERE dated < "1930-01-01";')
 
 ---
 
-SELECT * FROM Visited WHERE dated < "1930-01-01";
-
 we get two results, and if we select the ones that come during or after 1930:
 
 ```{python}
@@ -638,13 +634,11 @@ db_table('SELECT person, count(reading), round(avg(reading), 2) FROM  Survey WHE
 
 ---
 
-Aggregating all records at once doesn’t always make sense. For example, suppose we suspect that there is a systematic bias in our data, and that some scientists’ radiation readings are higher than others. We know that this doesn’t work:
+Because the database manager selects a single arbitrary scientist's name rather than aggregating separately for each scientist. Since there are only five scientists, we could write five queries of the form:
 
-SELECT person, count(reading), round(avg(reading), 2) FROM  Survey WHERE quant = "rad";
-
-because the database manager selects a single arbitrary scientist’s name rather than aggregating separately for each scientist. Since there are only five scientists, we could write five queries of the form:
-
-SELECT person, count(reading), round(avg(reading), 2) FROM  Survey WHERE quant = "rad" AND person = "dyer";
+```
+SELECT person, count(reading), round(avg(reading), 2) FROM Survey WHERE quant = "rad" AND person = "dyer";
+```
 
 but this would be tedious, and if we ever had a data set with fifty or five hundred scientists, the chances of us getting all of those queries right is small.
 
@@ -700,7 +694,9 @@ Looking more closely, this query:
 ---
 After carefully re-reading the expedition logs, we realize that the radiation measurements they report may need to be corrected upward by 5%. Rather than modifying the stored data, we can do this calculation on the fly as part of our query:
 
+```
 SELECT 1.05 * reading AS mod_Reading FROM Survey WHERE quant = "rad";
+```
 
 ```{python}
 #| tags: []
@@ -910,6 +906,7 @@ A subquery is simply a SELECT statement nested in another statement. You must us
 
 Typically, a subquery returns a single row as an atomic value, though it may return multiple rows for comparing values with the IN operator. You can use a subquery in the SELECT, FROM, WHERE, and JOIN clauses. There aren't any good reasons to use a nested query with this database, so we'll show you an example using a hypothetical one. The following statement returns all the tracks in the album with the title "Abbey Road"
 
+```
 SELECT trackid, name, albumid
 FROM tracks
 WHERE albumid = (
@@ -917,11 +914,13 @@ WHERE albumid = (
                      FROM albums
                      WHERE title = 'Abbey Road'
                 );
+```
 
-The subquery returns the id of the album with the title “Abbey Road”. The query uses the equal operator (=) to compare  albumid returned by the subquery with the  albumid in the tracks table.
+The subquery returns the id of the album with the title "Abbey Road". The query uses the equal operator (=) to compare  albumid returned by the subquery with the  albumid in the tracks table.
 
 The following query returns the customers whose sales representatives are in Canada.
 
+```
 SELECT customerid, firstname, lastname
 FROM customers
 WHERE supportrepid IN (
@@ -929,6 +928,7 @@ WHERE supportrepid IN (
                        FROM employees
                        WHERE country = 'Canada'
                       );
+```
 
 The subquery returns a list of ids of the employees who locate in Canada. The outer query uses the IN operator to find the customers who have the sales representative id in the list.
 

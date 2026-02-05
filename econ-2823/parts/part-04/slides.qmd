@@ -1,0 +1,486 @@
+---
+title: "APIs for Acquiring Data"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+APIs (Application Programming Interfaces) allow you to send structured requests to a server and receive data in a machine-readable format, typically JSON.
+
+Rather than manually downloading datasets, APIs let you programmatically collect data from government databases, financial platforms, and more.
+
+## Preliminaries
+
+```{python}
+# Import two libraries
+import requests # this handles the getting web data
+import pandas as pd # this is pandas, where I've given a short name 'pd'
+```
+
+## Open Notify (who's in Space!)
+
+Let's use requests to get data from [the astronaut API](http://api.open-notify.org/astros.json):
+
+```{python}
+# Set the variable to the output of the requests.get() function
+# Pointed at a very specific domain
+resp = requests.get('http://api.open-notify.org/astros.json')
+```
+
+---
+
+```{python}
+# This is an if command to check the code for the request response
+if resp.status_code == 200:
+    print("Good GET")
+
+# Anything run on the last line will be output to the notebook
+resp.status_code
+```
+
+---
+
+The response variable has a lot more details on the response, such as the Server information:
+
+```{python}
+resp.headers
+```
+
+---
+
+```{python}
+resp.elapsed
+```
+
+---
+
+```{python}
+resp.status_code
+```
+
+---
+
+```{python}
+type(resp.json())
+```
+
+---
+
+* The braces `{ }` tell us this is a dict (dictionary) data type.
+* Each entry is a `key:value` pair
+* The `'people'` key has a value which is a list `[ ]`
+* Each entry in the `people` list is another dictionary with `craft` and `name` keys
+
+```{python}
+resp.json().keys()
+```
+
+---
+
+```{python}
+# For each key in the dictionary, print the key name
+for key in resp.json():
+    print(key)
+    print(resp.json()[key])
+```
+
+---
+
+To extract the `people` entry, we just enter the key as an argument:
+
+```{python}
+resp.json()['people']
+```
+
+---
+
+A list is an ordered group of objects where we can call any entry using its numerical index (starting at 0):
+
+```{python}
+resp.json()['people'][0]
+```
+
+---
+
+```{python}
+resp.json()['people'][-1]
+```
+
+---
+
+```{python}
+len(resp.json()['people'])
+```
+
+---
+
+```{python}
+type(resp.json()['people'])
+```
+
+---
+
+This same syntax allows us to create a list of people quickly:
+
+```{python}
+[person['name'] for person in resp.json()['people']]
+```
+
+---
+
+Thankfully, it's easy to bring Lists of dictionaries into Pandas as a dataframe:
+
+```{python}
+df = pd.DataFrame(resp.json()['people'])
+df
+```
+
+---
+
+Pandas has built-in helper functions:
+
+```{python}
+df.value_counts('craft')
+```
+
+---
+
+Because you may want to get data via Python but analyze it in R, it is often convenient to export the dataframe to a csv file:
+
+```{python}
+df.to_csv('people_in_space.csv', index=False)
+```
+
+## FBI Most Wanted
+
+Anyone who is making an API available will normally have some documentation about how to make requests. For the FBI most wanted, there is documentation [here](https://www.fbi.gov/wanted/api)
+
+```{python}
+# Make an empty list
+fbi = []
+# Add the first page of result to the list
+resp = requests.get('https://api.fbi.gov/wanted/v1/list')
+# get the status code for the page (remember 200 codes are good!)
+resp.status_code
+```
+
+---
+
+The response data is stored in the `.json()` part of the requests response:
+
+```{python}
+resp.json().keys()
+```
+
+---
+
+Probably easier to just iterate through the data here:
+
+```{python}
+for key in resp.json():
+    print(key, type(resp.json()[key]))
+```
+
+---
+
+The page key is just which page of entries the request got from the website:
+
+```{python}
+resp.json()['page']
+```
+
+---
+
+```{python}
+resp.json()['total']
+```
+
+---
+
+Our get request only populated the first page. From reading the documentation, we can pass a parameter to the API to ask for a different page:
+
+```{python}
+resp = requests.get('https://api.fbi.gov/wanted/v1/list', params={'page': 2})
+resp.json()['page']
+```
+
+---
+
+Let's get multiple pages using a for loop:
+
+```{python}
+for i in range(5):
+    print(i)
+```
+
+---
+
+So the range command runs over 5 total entries, but starts at zero so the last entry is 4.
+
+How many pages do we need?
+
+```{python}
+resp.json()['total']
+```
+
+---
+
+```{python}
+all_items = []
+for page in range(1, 9):
+    resp = requests.get('https://api.fbi.gov/wanted/v1/list', params={'page': page})
+    items = resp.json()['items']
+    all_items.extend(items)
+    print(f"Page {page}: {len(items)} items")
+
+print(f"\nTotal items: {len(all_items)}")
+```
+
+---
+
+I'm going to append all the entries in the list together as a dataframe:
+
+```{python}
+df_fbi = pd.DataFrame(all_items)
+df_fbi.head()
+```
+
+---
+
+We can be more precise here, where we could have asked the API about the pittsburgh field office specifically as a parameter:
+
+```{python}
+resp = requests.get('https://api.fbi.gov/wanted/v1/list', params={'field_office': 'pittsburgh'})
+pgh_wanted = resp.json()
+len(pgh_wanted['items'])
+```
+
+---
+
+```{python}
+from IPython.display import display, HTML
+# Here I'll use a library called IPython to display the output in a web format:
+for item in pgh_wanted['items'][:3]:
+    if item.get('images'):
+        display(HTML(f'<img src="{item["images"][0]["original"]}" width="100"> <b>{item["title"]}</b>'))
+```
+
+## Open Alex
+
+This is a website to examine [academic papers](https://openalex.org/):
+
+Let's make some requests to the `authors` endpoint:
+
+```{python}
+resp = requests.get('https://api.openalex.org/authors?search=taylor weidman')
+data = resp.json()
+data['results'][0] if data['results'] else "No results"
+```
+
+---
+
+Now define a function that grabs data from the API with a structured query:
+
+```{python}
+def get_openalex_author(name):
+    resp = requests.get(f'https://api.openalex.org/authors?search={name}')
+    data = resp.json()
+    if data['results']:
+        return data['results'][0]
+    return None
+
+author = get_openalex_author("taylor weidman")
+if author:
+    print(f"Name: {author['display_name']}")
+    print(f"Works count: {author['works_count']}")
+    print(f"Cited by: {author['cited_by_count']}")
+```
+
+## Canvas API example
+
+This is another API where you need an access key. I've stored mine locally.
+
+As a student in Canvas you can create your own API key in the settings menu.
+
+```{python}
+# Open the file, read the authorization key, strip the whitespace
+try:
+    key = open('/home/alistair/.keys/canvas').read().strip()
+    headers = {'Authorization': 'Bearer ' + key}
+    print("Key loaded successfully")
+except:
+    print("Canvas key not available - demo only")
+    key = None
+```
+
+---
+
+See [Canvas API reference](https://canvas.instructure.com/doc/api) for details on the setup
+
+Let's define a function to inspect dictionary structures:
+
+```{python}
+# The function is ended whenever we're outside the first level of indentation
+def dict_summary(d):
+    if isinstance(d, dict):
+        for key in d:
+            print(f"{key}: {type(d[key]).__name__}")
+    else:
+        print("Not a dictionary! Type:", type(d))
+```
+
+---
+
+```{python}
+# Example usage
+sample = {"name": "Alice", "age": 30, "scores": [95, 87, 91]}
+dict_summary(sample)
+```
+
+---
+
+```{python}
+# Let's convert the entire output into a data frame with pandas
+# And now I'm asking it to display a subset of the columns
+df_sample = pd.DataFrame([sample])
+df_sample[["name", "age"]]
+```
+
+## Prebuilt Libraries for using APIs
+---
+
+Often, if an API is popular, others have made libraries to engage with it and get data. Here I just searched for "Canvas API Python"
+
+```{python}
+# I already installed it, but Jupyter has several `magics` for doing other things
+## Here i'm installing the canvas API library to this Python Kernel
+# %pip install canvasapi
+```
+
+---
+
+```{python}
+# Import the Canvas class
+from canvasapi import Canvas
+
+# Initialize a new Canvas object (demo - will fail without valid key)
+try:
+    API_URL = "https://canvas.pitt.edu"
+    canvas = Canvas(API_URL, key)
+    print("Connected to Canvas")
+except:
+    print("Canvas connection not available - demo only")
+```
+
+## US Census
+
+This one also requires an access token, but they'll email you one if you just ask for it!
+
+You can do that at the [US Census website](https://www.census.gov/data/developers/data-sets.html), as well as see the more extensive documentation of their API.
+
+```{python}
+# Open the file, read the authorization key, strip the whitespace
+try:
+    census_key = open('/home/alistair/.keys/census').read().strip()
+    print("Census key loaded")
+except:
+    print("Census key not available - demo only")
+    census_key = None
+```
+
+---
+
+### 2010 Census data
+
+```{python}
+# Get the variables JSON file for the Decennial census from 2010
+resp = requests.get('https://api.census.gov/data/2010/dec/sf1/variables.json')
+variables = resp.json()
+print(f"Number of variables: {len(variables.get('variables', {}))}")
+```
+
+---
+
+```{python}
+# State FIPS code to name mapping (subset)
+state_names = {
+    '01': 'Alabama', '02': 'Alaska', '04': 'Arizona', '05': 'Arkansas',
+    '06': 'California', '08': 'Colorado', '09': 'Connecticut',
+    '42': 'Pennsylvania', '36': 'New York', '48': 'Texas'
+}
+```
+
+---
+
+```{python}
+if census_key:
+    resp = requests.get('https://api.census.gov/data/2010/dec/sf1',
+                         params={'get': 'PCT012A017,PCT012A124',
+                                 'for': 'state:*',
+                                 'key': census_key})
+    data = resp.json()
+    df_census = pd.DataFrame(data[1:], columns=data[0])
+    # Add the state names using the dictionary
+    df_census['state_name'] = df_census['state'].map(state_names)
+    df_census.head()
+else:
+    print("Census API key not available - demo only")
+```
+
+---
+
+```{python}
+if census_key:
+    # Here I change the data from strings to integers for the numeric fields
+    df_census['PCT012A017'] = df_census['PCT012A017'].astype(int)
+    df_census['PCT012A124'] = df_census['PCT012A124'].astype(int)
+    df_census.describe()
+else:
+    print("Census data not available - demo only")
+```
+
+### As a Package
+---
+Again, searching online, I quickly found a [python package](https://pypi.org/project/CensusData/) for engaging with this API
+
+```{python}
+# Download ACS 2011-2015 5-year estimates for Pittsburgh city, Pennsylvania
+# on population size, median age, and median household income.
+# import censusdata
+# censusdata.download("acs5", 2015, censusdata.censusgeo([("state", "42"), ("place", "61000")]),
+#                     ["B01003_001E", "B01002_001E", "B19013_001E"])
+```
+
+## Packages that interact with APIs
+
+Many large companies will offer some type of API (though it may not be open to everyone). Searching around for these types of resources can be very useful!
+
+```{python}
+# Example: sportsreference for baseball stats
+try:
+    from sportsreference.mlb.roster import Player
+    player = Player('troutmi01')
+    career = player.dataframe
+    print(career[['batting_average', 'home_runs', 'runs_batted_in']].mean())
+except:
+    print("sportsreference not installed - demo only")
+```
+
+## Open AI API
+
+```{python}
+try:
+    from openai import OpenAI
+    oai_key = open('/home/alistair/.keys/openai').read().strip()
+    client = OpenAI(api_key=oai_key)
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": "Explain GDP in one sentence."}]
+    )
+    print(response.choices[0].message.content)
+except:
+    print("OpenAI API not available - demo only")
+```

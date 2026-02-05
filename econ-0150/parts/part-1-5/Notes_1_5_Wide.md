@@ -1,27 +1,31 @@
 ## Part 1.5 | Day 7 | Panel Data (Wide Format)
 
-### Two Formats, Same Data
+### A Question Long Format Can't Easily Answer
 
-Panel data can be stored in two ways:
+In Part 1.4 we worked with panel data in long format. Each row was an observation of one country at one point in time. We had many counties and many points in time for each country, so each country showed up in many rows. Long format was great for line plots and histograms. Here's a dataset on coffee consumption per capita for 34 countries, every year from 1990 to 2019. In long format it looks like this:
 
-- **Long format:** Each observation is a separate row, with a column identifying the group
-- **Wide format:** Each time period is a separate column
+| Code | Year | Consumption |
+| ---- | ---- | ----------- |
+| AUT  | 1990 | 10.47       |
+| AUT  | 1991 | 10.07       |
+| AUT  | 1992 | 9.27        |
+| AUT  | 1993 | 10.13       |
+| AUT  | 1994 | 8.21        |
+| ...  | ...  | ...         |
 
-Same information, different shapes. Different shapes make different tasks easier.
+What if I asked you to visualize an answer to the question: **Are counties drinking more coffee in 2019 than in 1999?** How would you visualize this? 
 
-![Long Format Example](i/w_01.png)
+Try to answer the question. Did Austria increase its coffee consumption between 1999 and 2019? You'd need to find Austria's 1999 row, find Austria's 2019 row, and subtract. Now do that for all 34 countries. It's doable but awkward. The information we need is spread across different rows.
 
-In long format, years are *values* in a column. In wide format, years become *column names*.
+Another tool we already have is to use a timeseries linegraph, using one color by country and see how each one's coffee consumption evolved over 30 years. This gives us a nice picture of the evolution of each country's coffee consumption per capita. Do you think this figure effectively visualizes an answer our question? Are countries drinking more coffee in 2019 than in 1999? 
 
-![Wide Format Example](i/w_02.png)
+![All-Country Line Plot](i/i_00.png)
 
----
+This is readable. But it's not great. To answer the question we have to somehow determine the overall trend using all the lines all at once. 
 
 ### Comparing Distributions: Histograms
 
-The world seems to be drinking more coffee than ever. But does the data on coffee consumption confirm this? This data contains coffee consumption in kilograms per capita of 34 coffee importers over the span of two decades.
-
-Let's plot the histogram of country's coffee consumption for 1999.
+The world seems to be drinking more coffee than ever. Maybe one way to check this is to look at the distributions in the two years we're considering. Let's plot the histogram of country's coffee consumption for 1999.
 
 ![Coffee Consumption 1999](i/i_03.png)
 
@@ -29,51 +33,33 @@ This figure shows coffee consumption with a bin of 1kg. How did the consumption 
 
 ![Coffee Consumption 1999 vs 2019](i/i_04.png)
 
-What can we conclude from the histograms?
+Do you like this figure? It's better than when we used an overlayed histogram comparing the transations by coffee shop. There we had three shops, here we have to years, so there's only one color for overlap. What can we conclude from the histograms?
 
 - Some countries increased their per capita coffee consumption.
 - No country exceeded 20 kg per capita in 1999, and one country exceeded 20 kg per capita in 2019.
 - We don't know which country is represented by which bar, some countries might have decreased their coffee consumption, although we can't say for sure.
 
-The histograms suggest a general increase in coffee consumption — but they're not great for comparison. Let's use a multi-boxplot instead.
+The histograms suggest a general increase in coffee consumption. But it's hard to make clear comparisons. 
 
----
+What other tool in our toolkit might we use? Let's use a multi-boxplot!
 
 ### Boxplots
 
-A visualization type useful for comparing multiple distributions is a **box and whisker plot**, or **boxplot**. The boxplot can represent the same data by summarizing it.
+The other visualization type we've used to compare multiple distributions is a **box and whisker plot**, or **boxplot**. To aid our discussion, I'm adding in the countries scattered across the horizontal. Each point corresponds to a country and their coffee consumption on the horizontal. The vertical axis is 'jittered' to make it easy to see countries which are clumped together. Let's start by comparing just two years.
+
+![Two-Year Boxplot](i/i_05.png)
+
+It looks like the distribution shifted higher! Let's examine the years in between to see how the distribution evolved.
 
 ![Boxplot with Jitter](i/i_06_c.png)
 
-To aid our discussion, I'm adding in the countries scattered across the horizontal. Each point corresponds to a country and their coffee consumption on the horizontal. The vertical axis is 'jittered' to make it easy to see countries which are clumped together.
-
-Boxplots visually summarize the data — but their real power lies in the ease of comparisons between distributions. Next, we'll use boxplots to analyze the changes in coffee consumption between 1999 and 2019.
-
----
+Boxplots visually summarize the data. But their real power lies in the ease of comparisons between distributions. Let's ask some smaller, more focused questions.
 
 ### Comparing Boxplots
 
-Now that we understand what boxplots represent, we'll analyze coffee consumption data in smaller time increments. Each boxplot represents data from a single year. For convenience, we'll use horizontal boxplots.
+Lets analyze coffee consumption data in smaller time increments. Each boxplot represents data from a single year. For convenience, we'll use horizontal boxplots.
 
 ![Multi-Boxplot](i/i_07.png)
-
-Based on the boxplots, when did the typical coffee consumption (median) increase the most?
-
-![Boxplot with Median Highlighted](i/i_08.png)
-
-Between 2009 and 2014. The median consumption per capita — represented by the middle line in the box — stayed just below 5 kg until 2009, and then increased to above 5 kg.
-
-The boxplots show that median consumption was more or less stable between 1999 and 2009, and then suddenly shifted by over 1 kg per capita. This would be much harder to notice by comparing five histograms.
-
-What happened between all the visualized years in the box plot? The minimum consumption increased.
-
-![Boxplot with Min Highlighted](i/i_09.png)
-
-In each boxplot, the minimum consumption is slightly larger than in the previous boxplot. The pattern of maximum consumption isn't as clear.
-
-![Boxplot with Max Highlighted](i/i_10.png)
-
-For example, it increased between 1999 and 2004 but decreased between 2004 and 2009. The typical consumption hovered around 5 kg per person, so let's explore this value in more detail.
 
 Which years show at least half of the countries consuming less than 5 kg of coffee per capita?
 
@@ -81,48 +67,88 @@ Which years show at least half of the countries consuming less than 5 kg of coff
 
 In each boxplot, half of the countries consume more than the median, and half less than the median. In 1999, 2004, and 2009, the median was smaller than 5 kg, so at least half of the countries consumed less than 5 kg per capita.
 
+Based on the boxplots, when did the typical coffee consumption (median) increase the most?
+
+![Boxplot with Median Highlighted](i/i_08.png)
+
+Between 2009 and 2014. The median consumption per capita — represented by the middle line in the box — stayed just below 5 kg until 2009, and then increased to above 5 kg. This would be much harder to notice by comparing five histograms.
+
+Is the country with the lowest consumption consuming more today? The minimum consumption increased.
+
+![Boxplot with Min Highlighted](i/i_09.png)
+
+In each boxplot, the minimum consumption is slightly larger than in the previous boxplot. The pattern of maximum consumption isn't as clear.
+
+![Boxplot with Max Highlighted](i/i_10.png)
+
+For example, it increased between 1999 and 2004 but decreased between 2004 and 2009.
+
 In which years are more than 25% of the countries consuming less than 5 kg of coffee per capita?
 
 ![Boxplot Q1 Analysis](i/i_12.png)
+
+![Boxplot Q1 Answer](i/i_13.png)
 
 In all five years, Q1 was smaller than 5 kg, so more than 25% of the countries consumed less than 5 kg.
 
 Which year has the greatest range of consumption values?
 
-![Boxplot Range Analysis](i/i_13.png)
+![Boxplot Range Analysis](i/i_14.png)
 
 The minimum consumption didn't differ much between years. The maximum consumption, however, was the largest in 2004, which makes the range of values the largest that year.
 
-![Boxplot IQR Analysis](i/i_14.png)
+![Boxplot Range Selection](i/i_15.png)
 
-Thanks to boxplots, we saw that while coffee consumption increased between 1999 and 2019, the increase wasn't uniform over the years.
+Thanks to boxplots, we saw that while coffee consumption increased between 1999 and 2019, the increase wasn't uniform over the years. 
 
----
+When visualizing the data like this we can see what's going on with the distributions. But we also might want to get a better view of individual changes. We've seen that coffee consumption has gone up overall, but does that mean most countries have increased their coffee consumption during these years? 
+
+Think about whether we know the answer to that question. Even if the median were to go up, we could still see *most* countries decreasing their consumption. To while this kind of distributional summary is very useful, we don't have the right view to answer that question yet.
+
+Part of the problem is that we don't have a nice way to show changes between our two years in a systematic way. I want to compare for every country the *change* between their consumption in the two years. But like we mentioned at the beginning, this is hard to do in long format panel data. I have to look at two different rows and compare them. 
+
+### Two Formats, Same Data
+
+What if we rearranged the data so that each year was its own column? Then comparing 1999 to 2019 is just comparing two columns side by side.
+
+| Code | 1999 | 2004 | 2009 | 2014 | 2019 |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| AUT  | 8.43 | 7.31 | 6.37 | 7.97 | 7.93 |
+| BGR  | 2.65 | 2.83 | 3.30 | 3.12 | 3.64 |
+| HRV  | 4.48 | 5.16 | 5.10 | 5.21 | 5.62 |
+| CYP  | 3.48 | 3.53 | 4.05 | 4.13 | 5.62 |
+| CZE  | 3.26 | 3.56 | 3.02 | 5.69 | 4.74 |
+| ...  | ...  | ...  | ...  | ...  | ...  |
+
+Now comparing 1999 vs 2019 is just comparing two columns. This is **wide format panel data**: each time period gets its own column, and each row is one entity. We still have every country's coffee consumption for every year. The data is the same it's just shaped differently. Panel data is unique in this way. We don't need to do reshaping with other data structures (*like cross-section and timeseries*) because they only have one meaningful index. 
 
 ### Scatterplot Changes
 
-When aggregating data like this we can see what's going on overall. But we also might want to get a better view of individual changes. We've seen that coffee consumption has gone up overall, but does that mean all countries have increased their coffee consumption during these years? We don't have the right view to answer that question yet.
 
-We're going to go back to our trusty scatter plot. We have multiple years to examine, which gives us the ability to explore the relationship between coffee consumption in each country between any two years. Let's focus on 1999 and 2019.
+
+In long format, years are *values* in a column. In wide format, years become *column names*. Now all we have to do is compare the column `1999` to the column `2019`. How might we do this? 
+
+Lets use what we call a **scatter plot**. Each datapoint represents one row. We place the datapoint on a two dimensional plane, with the position on the horizontal axis representing the value in one column and the position on the vertical axis representing the value of another. While we have multiple years to examine, lets focus on the relationship between coffee consumption in each country between 1999 and 2019.
 
 ![Scatterplot 1999 vs 2019](i/i_16.png)
 
-Each point represents a country. The horizontal axis shows that country's coffee consumption in 1999, and the vertical axis shows consumption in 2019.
-
-### The 45-Degree Line
+Each point represents a country. The horizontal axis shows that country's coffee consumption in 1999, and the vertical axis shows consumption in 2019. This is *much* better. We can systematically see changes in coffee consumption per capita between these two points in time for *all* countries in our dataset. 
 
 If a country drank the same amount in both years, where would it appear? We can add a 45-degree line. Any point on this line represents a country with identical consumption in both years.
 
 ![Scatterplot with 45-degree line](i/i_17.png)
 
-- Countries **above** the line increased their consumption
-- Countries **below** the line decreased their consumption
+Countries **above** the line increased their consumption. Countries **below** the line decreased their consumption.
 
 ![Scatterplot with regions labeled](i/i_18.png)
 
-We can count points above and below the line to see how many countries increased vs decreased. We can use color to make this even clearer.
+We can count points above and below the line to see how many countries increased vs decreased.
 
-![Scatterplot colored by change](i/i_19.png)
+![Scatterplot below line](i/i_19.png)
+
+We can use color to make this even clearer.
+
+![Scatterplot colored by change](i/i_20.png)
 
 This view gives us something the boxplots couldn't: we can track individual countries across time. The boxplots showed that the overall distribution shifted upward, but they couldn't tell us whether *every* country increased or just some. The scatter plot reveals that while most countries increased consumption, a few actually decreased.
 
@@ -157,48 +183,6 @@ We'll explore filtering more systematically in Part 2.3, but this basic pattern 
 
 ---
 
-### Reshaping: Wide to Long
-
-We can convert between formats. Going from wide to long is called "melting" or "unpivoting."
-
-![Wide to Long](i/w_03.png)
-
-In Python pandas, use `melt()`:
-
-```python
-# Wide to Long
-long_df = wide_df.melt(
-    id_vars=['Code'],        # Keep as identifier columns
-    var_name='Year',         # Name for the former column headers
-    value_name='Consumption' # Name for the values
-)
-```
-
-`id_vars` specifies columns to keep as identifiers. Everything else gets "melted" into rows. Each year column becomes rows in a new "Year" column.
-
-![Melt Result](i/w_04.png)
-
----
-
-### Reshaping: Long to Wide
-
-Going from long to wide is called "pivoting" or "spreading."
-
-In Python pandas, use `pivot()`:
-
-```python
-# Long to Wide
-wide_df = long_df.pivot(
-    index='Code',            # What becomes rows
-    columns='Year',          # What becomes columns
-    values='Consumption'     # What fills the cells
-)
-```
-
-Each unique Year value becomes its own column.
-
----
-
 ### When to Use Which Format
 
 Choose based on what you're trying to do:
@@ -226,7 +210,7 @@ With wide-format panel data, we can pass multiple columns directly to seaborn:
 
 ```python
 # Wide Format Multi-Boxplot
-sns.boxplot(percap[['1999','2004','2009','2014','2019']], orient='h', whis=(0, 100))
+sns.boxplot(percap[['1999','2009','2019']], orient='h', whis=(0, 100))
 ```
 
 **Scatterplot Comparing Years:**
@@ -259,16 +243,6 @@ decreased = percap[percap['change'] < 0]
 print(f"Increased: {len(increased)}, Decreased: {len(decreased)}")
 ```
 
-**Reshaping:**
-
-```python
-# Wide to Long
-percap_long = percap.melt(id_vars=['Code'], var_name='Year', value_name='Consumption')
-
-# Long to Wide
-percap_wide = percap_long.pivot(index='Code', columns='Year', values='Consumption')
-```
-
 ---
 
 ### Summary
@@ -279,5 +253,14 @@ Part 1.5 covered wide format panel data and its applications:
 - **Multi-boxplots** compare distributions across time periods
 - **Scatterplots with 45° lines** track individual changes between two time points
 - **Filtering** with `df[df['col'] > 0]` counts subsets
-- **melt()** converts wide → long (columns become rows)
-- **pivot()** converts long → wide (rows become columns)
+
+---
+
+### Building Blocks
+
+| Block | Part 1.5 |
+|-------|----------|
+| Variables | Numerical |
+| Structures | Panel (wide format) |
+| Operations | Filter |
+| Visualizations | Multi-boxplot, Scatterplot with 45° line |
