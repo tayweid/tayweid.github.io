@@ -1,0 +1,520 @@
+---
+title: "Generalized Linear Models (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+The basic "how" for GLM estimates is what we've covered, where we attempt to maximize a likelihood. Generalized Linear Models are set up so that this is a relatively well-behaved optimization. The basic ingredients for a GLM model are:
+* A family of distribution, where each family has a well-defined link between the mean and variance
+* A specified linear in parameters model for the population mean, in the same way you would for a linear model
+* A link function between the parameters and the central tendency
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+---
+
+### GLM: Families of distribution
+
+In order to have a well-defined link between the mean and variance that allows GLM models to be estimated quickly, we have to restrict ourselves to distributions that we can fit into a family of exponential-like probability distributions.
+
+This family includes:
+* Gaussian/Normal distributions (standard real-valued data)
+* Exponential distribution (positive real values)
+* Poisson distributions (count data)
+* Binomial distributions (counts from a fixed and known $n$)
+    * Special case is a Bernoulli random variable with $n=1$
+* Multinomial distributions (factor outcomes)
+* Gamma distributions (positive real values, includes $\chi^2$/exponential as special cases)
+* Inverse Gaussian (positive real values, some use in finance)
+
+### GLM: Parameter Model
+The model we put into the GLM is identical to how you would formulate a standard linear model.
+
+Given an observable vector of $k$ conditioning variables $\mathbf{x}_i$ for each row $i$, the model specifies an effect of $\mathbf{x}_i^T\boldsymbol{\beta}$, with $\beta$ being a set of $k$ parameters we're going to estimate
+* Note that we can include a constant within this formulation as per normal.
+
+However, the $\mathbf{x}_i^T\boldsymbol{\beta}$ term won't necessarily be estimating the mean directly, this is where the link functions come in.
+
+### GLM: Link Function
+The **Link function** specifies how the mean of the outcome is related to the model. That is we specify is a transformation of the mean via an invertible link function $g(\cdot)$.
+
+So if the mean of the data is $\mu$ our model is trying to inform us about the world through $$\mathbf{x}_i^T\boldsymbol{\beta}=g(\mu)$$
+and because the link function $g(\cdot)$ has to be invertible we can re-word this as saying that:
+$$g^{-1}(\mathbf{x}_i^T\boldsymbol{\beta})=\mu$$
+
+One thing to note here is that the distribution of the response variable $y_i$ is not being transformed with the link function: The chosen distribution of $y_i$ is given by the specified probability distribution (Poisson, Normal, Binomial, etc.)
+* So if the link is the log function you are **not** modeling the effects on $\log(y)$
+* You are instead modeling the effects on a transformation of the Expected outcome for the $y$ variable.
+
+As an example, think back to our soccer model where we were estimating the parameter $\lambda_{ij}$ in a Poisson random variable, modeling of the goals scored by team $i$ playing against team $j$
+*  If $K$ is a $\text{Poisson}(\lambda_{ij})$ random variable the mean is given by $\mathbb{E}(K)=\lambda_{ij}$.
+*  But our model of the mean was: $\lambda_{ij} = \exp\left(\mu+ \eta+\alpha_i-\delta_j \right)$
+
+So we were using the the natural logarithm as our link function. That is $g(\lambda)=\log(\lambda)=\mu_0+ \mu_{H}+\alpha_i-\delta_j$ which gave us our additive model.
+
+Essentially, by writing the model in this way, we are essentially saying that each of the separate terms has a multiplicative effect, and each term has to be positive (because of the exponential):
+$$\lambda = \exp\left(\mu_0+\mu_{H}+\alpha_i-\delta_j \right)=e^{\mu_0}e^{\mu_{H}}e^{\alpha_i}e^{-\delta_j}$$
+
+While a lot of the relationships here are non-linear, the modeling choices allows us to write out how the input variables affect the mean in a standard linear form as $\mathbf{x}_i^T\boldsymbol{\beta}=\sum_k \beta_k x_{ik}$ where:
+* $x_{1i}$ is a constant
+* $x_{2i}$ is a dummy taking value 1 if the team is at home
+* $x_{3i}$ is a dummy for team 2 being the team trying to score goals
+* $x_{4i}$ is a dummy for team 2 being the team trying to defend goals, etc
+* ...
+
+So it would have been equivalent to estimate the multiplier effect from being the home team $e^{\mu_H}=$ as a parameter $1.1571$ which has the more intuitive interpretation that being the home team increases the goals scored by a team by 15.7 percentage points!
+
+However, writing things as additive with a simple linear model for the teams' offense and defensive abilities was easier to write down/estimate/combine, where we could quickly go between the estimated parameters of the model, and their effects on the mean via the exponential (the inverse of the natural-log link function).
+
+### Common Link Functions:
+Three commonly used link functions:
+* The identity function (directly modeling the mean!) $g(\mu)=\mu$
+* The log function (so modeling multiplicative effects on the mean) with $\log{\mu}$
+* The logit function $\log(\frac{x}{1-x})$ (modeling the multiplicative effect on an odds ratio)
+
+While less common in some settings, for probabilities we will also use the probit link function: $$\Phi^{-1}(p)$$
+the inverse of a standard Normal CDF.
+
+## Less-common Link Functions
+We won't talk about this much these link functions but they are the typical ones for these applications:
+* Inverse function $1/\mu$(typical for exponential distributions)
+* Inverse function squared (used for inverse Gaussian)
+
+## Standard Link functions
+| Prob. family | Standard Link | Other Links |
+| --- | --- | --- |
+| Normal/Gaussian |  Identity: $\mu$  |    |
+| Poisson   |  log: $\log(\mu$) |  Identity, square-root   |
+| Binomial  |  logit:  $\log(\tfrac{\mu}{1-\mu})$  |   probit, cloglog  |
+| Gamma     |  inverse: $\frac{1}{\mu}$ |   identity, log  |
+
+## Notation for GLM
+Standard notation for GLM (including within the statsmodels documentation) is:
+* $\eta_i$ (eta) is the **linear predictor** for observation $i$,  $\eta_i=\mathbf{x}_i^T\boldsymbol{\beta}$
+* So the fitted values will be the guess for the mean for row $i$ through the inverse of the link function, so $g^{-1}(\eta_i).$
+
+### Example
+Let's set up a Poisson model for the number of children in a household, where we will use $\lambda_i = \exp\left(\beta_0 +\beta_1 \delta_\text{married}+\beta_2 \log(\text{income})\right)=\exp(\eta_i)$
+
+```{python}
+# R: Ndata <- 1000
+# R: x1 <- ifelse(runif(Ndata)<0.5,0,1)
+# R: x2 <- ifelse(x1==1, rnorm(Ndata,mean=2.5,sd=0.9), rnorm(Ndata,mean=2.1,sd=0.8))
+# Python equivalent:
+
+np.random.seed(42)
+Ndata = 1000
+
+x1 = np.where(np.random.uniform(size=Ndata) < 0.5, 0, 1)
+x2_0 = np.random.normal(loc=2.1, scale=0.8, size=Ndata)
+x2_1 = np.random.normal(loc=2.5, scale=0.9, size=Ndata)
+x2 = np.where(x1 == 1, x2_1, x2_0)
+
+# True beta vector: beta = (-1.5 - 8/2, 1, 1/2) = (-5.5, 1, 0.5)
+beta_true = np.array([-1.5 - 8/2, 1.0, 0.5])
+
+# Make the mean: lambda = exp(beta0 + beta1*x1 + beta2*x2)
+lam = np.exp(beta_true[0] + beta_true[1] * x1 + beta_true[2] * x2)
+
+# R: y <- sapply(lambda, function(li) rpois(1, lambda=li))
+# Python: vectorized Poisson draw
+y = np.random.poisson(lam)
+
+# Build the data frame with transformed income
+# hh.income = round(exp(8)*exp(x2), -1)
+hh_income = np.round(np.exp(8) * np.exp(x2), -1)
+
+data_pois = pd.DataFrame({
+    'children': y,
+    'married': x1.astype(bool),
+    'hh_income': hh_income
+})
+
+data_pois.head()
+```
+
+---
+
+So the data we've set-up here has has the linear predictor:
+$$ \eta_i= \left( -\tfrac{3}{2}-\tfrac{1}{2}\cdot \log(e^8)\right) +1\cdot \delta^i_\text{married}+\tfrac{1}{2} \log ( x^i_\text{income}),$$
+
+where $\lambda_i=\exp(\eta_i)$ is the expected number of children for person $i$. So the true parameters are:
+
+```{python}
+true_beta = np.array([-1.5 - 8/2, 1.0, 0.5])
+print(f"True beta: {true_beta}")
+```
+
+---
+
+So, we can estimate the model using:
+
+**R:** `glm(y ~ married + log(hh.income), data=data.Pois, family="poisson")`
+
+**Python:** `sm.GLM(y, X, family=sm.families.Poisson()).fit()`
+
+Note: In R, `glm()` automatically adds a constant (intercept) via the formula interface. In Python with statsmodels, we need to explicitly add a constant column using `sm.add_constant()`.
+
+```{python}
+# R: glm(y ~ married + log(hh.income), data=data.Pois, family="poisson")
+# Python: build the design matrix manually and use sm.GLM
+
+# Create design matrix with constant, married indicator, and log(income)
+X = pd.DataFrame({
+    'married': data_pois['married'].astype(float),
+    'log_hh_income': np.log(data_pois['hh_income'])
+})
+X = sm.add_constant(X)
+
+# Fit Poisson GLM
+# R: glm(..., family="poisson")
+# Python: sm.GLM(..., family=sm.families.Poisson())
+glm_output = sm.GLM(data_pois['children'], X, family=sm.families.Poisson()).fit()
+
+# R: summary(glm.output)
+# Python: model.summary()
+print(glm_output.summary())
+```
+
+---
+
+We can look at the returned fitted values (the $\lambda_i$ means) and the linear predictors (the $\eta_i$ terms):
+
+**R to Python mapping:**
+- `glm.output$fitted.values` -> `glm_output.fittedvalues`
+- `glm.output$linear.predictors` -> `glm_output.predict(linear=True)` (the linear predictor $\eta$)
+- `glm.output$coefficients` -> `glm_output.params`
+
+```{python}
+# R: glm.output$coefficients
+# Python: glm_output.params
+beta_hat = glm_output.params
+
+# Compute linear predictors (eta) and fitted values (lambda) manually
+# The linear predictor is X @ beta_hat
+linear_predictors = X @ beta_hat
+
+# The fitted values are exp(eta) for Poisson with log link
+fitted_values = glm_output.fittedvalues
+
+results_df = pd.DataFrame({
+    'children': data_pois['children'],
+    'married': data_pois['married'],
+    'hh_income': data_pois['hh_income'],
+    'fitted_values': fitted_values,
+    'linear_predictors': linear_predictors
+})
+
+results_df.head(6)
+```
+
+---
+
+So just checking we're getting what we think we are:
+
+```{python}
+# Verify linear predictors match manual calculation
+# R: beta.hat["(Intercept)"] + beta.hat["marriedTRUE"]*married + beta.hat["log(hh.income)"]*log(hh.income)
+# Python: beta_hat['const'] + beta_hat['married']*married + beta_hat['log_hh_income']*log(income)
+
+calculated_eta = (beta_hat['const'] 
+                  + beta_hat['married'] * data_pois['married'].astype(float) 
+                  + beta_hat['log_hh_income'] * np.log(data_pois['hh_income']))
+
+check_df = pd.DataFrame({
+    'linear_predictors': linear_predictors,
+    'calculated': calculated_eta
+})
+check_df.head(6)
+```
+
+---
+
+```{python}
+# Verify fitted values = exp(eta)
+check_fitted = pd.DataFrame({
+    'fitted_values': fitted_values,
+    'calculated': np.exp(calculated_eta)
+})
+check_fitted.head(6)
+```
+
+## Note 
+Unlike a linear model, the effect of the estimated parameters on the expected outcome is not a constant, and can not be directly read from the GLM output!
+
+**What then are the significance stars and $p$-values telling us!?**
+
+```{python}
+# Re-estimate and display summary
+# R: summary(glm.output)
+# Python: glm_output.summary()
+print(glm_output.summary())
+```
+
+---
+
+Significance here is telling us that the variable does have an effect on the model, that we can reject the parameter value being zero. However, to understand the effects we often need to make a transformation. We'll talk more about this later, but let's just graph out the effect of being married across different income levels:
+
+$$\Delta\lambda=\lambda(\text{marr},\text{income})-\lambda(\text{sing},\text{income})$$
+
+```{python}
+# R: coef(glm.output)
+# Python: glm_output.params
+beta_hat = glm_output.params
+
+# R: delta.lambda <- function(income) exp(b[1]+b[2]+b[3]*log(income)) - exp(b[1]+b[3]*log(income))
+# Python:
+def delta_lambda(income):
+    """Effect of marriage on expected children at a given income level."""
+    return (np.exp(beta_hat['const'] + beta_hat['married'] + beta_hat['log_hh_income'] * np.log(income))
+          - np.exp(beta_hat['const'] + beta_hat['log_hh_income'] * np.log(income)))
+
+# Graph it
+income_range = np.linspace(5000, 100000, 500)
+
+fig, ax = plt.subplots()
+ax.plot(income_range, delta_lambda(income_range), color=PITT_GOLD, linewidth=2)
+ax.set_xlabel('Income')
+ax.set_ylabel('Marriage effect')
+ax.set_title('Effect of Marriage on Expected Children')
+plt.show()
+```
+
+---
+
+Much of the non linearity is coming from the log, but switching to a log scale there is still some curvature remaining:
+
+```{python}
+# Same plot with log-scaled x-axis
+income_range = np.linspace(10000, 200000, 500)
+
+fig, ax = plt.subplots()
+ax.plot(income_range, delta_lambda(income_range), color=PITT_GOLD, linewidth=2)
+ax.set_xscale('log', base=2)
+ax.set_xlabel('Income')
+ax.set_ylabel('Marriage effect')
+ax.set_title('Marriage Effect (log-scaled income axis)')
+plt.show()
+```
+
+---
+
+Obviously, this is entirely made up data, but the intuition is that the modeled marriage effect is a **multiplier** given by:
+$$\exp(\beta_{\text{married}})$$
+
+The level effect of marriage in this model will therefore depend on the other covariates (here income).
+
+So now let's move on to examining some other probability families, and alternative link functions
+
+---
+## Deviance and Model Comparison
+
+The **deviance** in a GLM plays a role analogous to the residual sum of squares in OLS. It measures the discrepancy between the fitted model and a saturated model (one with a parameter for every observation).
+
+$$D = 2 \left[ \log L(\text{saturated}) - \log L(\hat{\beta}) \right]$$
+
+We can use deviance to compare nested models, much like an F-test in linear regression. The difference in deviance between a restricted and unrestricted model follows a $\chi^2$ distribution under the null hypothesis.
+
+```{python}
+# Fit a restricted model (no marriage effect)
+X_restricted = pd.DataFrame({
+    'log_hh_income': np.log(data_pois['hh_income'])
+})
+X_restricted = sm.add_constant(X_restricted)
+
+glm_restricted = sm.GLM(data_pois['children'], X_restricted, 
+                        family=sm.families.Poisson()).fit()
+
+# Full model deviance
+# R: glm.output$deviance (Residual deviance)
+# Python: glm_output.deviance
+print(f"Full model deviance:       {glm_output.deviance:.2f}")
+print(f"Restricted model deviance: {glm_restricted.deviance:.2f}")
+
+# Deviance difference test
+# Under H0 (marriage has no effect), the deviance difference is chi-squared(1)
+dev_diff = glm_restricted.deviance - glm_output.deviance
+p_value = 1 - stats.chi2.cdf(dev_diff, df=1)
+print(f"\nDeviance difference:       {dev_diff:.2f}")
+print(f"p-value (chi-squared, df=1): {p_value:.6f}")
+```
+
+---
+
+```{python}
+# Key model attributes
+# R: coef(model) -> Python: model.params
+# R: summary(model) -> Python: model.summary()
+# R: model$deviance -> Python: model.deviance
+# R: AIC(model) -> Python: model.aic
+# R: BIC(model) -> Python: model.bic
+# R: predict(model, type="response") -> Python: model.predict() or model.fittedvalues
+
+print("=== Model Coefficients ===")
+print(f"Coefficients (params):  {glm_output.params.values}")
+print(f"Std Errors (bse):       {glm_output.bse.values}")
+print(f"z-values:               {glm_output.tvalues.values}")
+print(f"p-values:               {glm_output.pvalues.values}")
+print()
+print("=== Model Fit ===")
+print(f"Deviance:   {glm_output.deviance:.2f}")
+print(f"AIC:        {glm_output.aic:.2f}")
+print(f"BIC:        {glm_output.bic_deviance:.2f}")
+print(f"Log-Lik:    {glm_output.llf:.2f}")
+```
+
+---
+## Binomial / Logistic Regression
+
+Another extremely common GLM is the **binomial model** with a logit link, often called **logistic regression**. This is used when the outcome is binary (0 or 1).
+
+The logit link function is:
+$$g(p) = \log\left(\frac{p}{1-p}\right)$$
+
+So the model is:
+$$\log\left(\frac{p_i}{1-p_i}\right) = \mathbf{x}_i^T\boldsymbol{\beta}$$
+
+Or equivalently:
+$$p_i = \frac{\exp(\mathbf{x}_i^T\boldsymbol{\beta})}{1 + \exp(\mathbf{x}_i^T\boldsymbol{\beta})}$$
+
+**R:** `glm(y ~ x1 + x2, family="binomial")`  
+**Python:** `sm.GLM(y, X, family=sm.families.Binomial()).fit()`
+
+```{python}
+# Generate binary outcome data
+np.random.seed(123)
+N = 1000
+
+# Covariates
+age = np.random.normal(40, 12, N)
+income_log = np.random.normal(10.5, 0.8, N)
+
+# True parameters
+beta_binom = np.array([-8.0, 0.05, 0.5])
+
+# Linear predictor
+eta = beta_binom[0] + beta_binom[1] * age + beta_binom[2] * income_log
+
+# Probability via logistic function (inverse logit)
+prob = 1 / (1 + np.exp(-eta))
+
+# Draw binary outcome
+# R: rbinom(N, 1, prob)
+# Python: np.random.binomial(1, prob)
+y_bin = np.random.binomial(1, prob)
+
+data_binom = pd.DataFrame({
+    'outcome': y_bin,
+    'age': age,
+    'log_income': income_log
+})
+
+print(f"Proportion of y=1: {y_bin.mean():.3f}")
+data_binom.head()
+```
+
+---
+
+```{python}
+# Fit logistic regression
+# R: glm(outcome ~ age + log_income, data=data_binom, family="binomial")
+# Python:
+X_binom = sm.add_constant(data_binom[['age', 'log_income']])
+glm_binom = sm.GLM(data_binom['outcome'], X_binom, 
+                    family=sm.families.Binomial()).fit()
+
+print(glm_binom.summary())
+```
+
+---
+
+```{python}
+# Compare true vs estimated parameters
+comparison = pd.DataFrame({
+    'true': beta_binom,
+    'estimated': glm_binom.params.values,
+    'std_error': glm_binom.bse.values
+}, index=['const', 'age', 'log_income'])
+
+comparison['within_2se'] = (np.abs(comparison['true'] - comparison['estimated']) 
+                            < 2 * comparison['std_error'])
+print(comparison)
+```
+
+---
+
+```{python}
+# Predicted probabilities
+# R: predict(model, type="response")
+# Python: model.predict() -- returns probabilities for Binomial family
+predicted_probs = glm_binom.predict()
+
+fig, ax = plt.subplots()
+ax.scatter(data_binom['age'], predicted_probs, c=data_binom['outcome'],
+           cmap='coolwarm', alpha=0.3, s=20)
+ax.set_xlabel('Age')
+ax.set_ylabel('Predicted Probability')
+ax.set_title('Logistic Regression: Predicted Probabilities vs Age')
+plt.colorbar(ax.collections[0], label='Actual Outcome')
+plt.show()
+```
+
+---
+
+### Interpreting Logistic Regression Coefficients
+
+Just as with the Poisson model, the coefficients of a logistic regression do not directly give us the marginal effect on the probability. Instead, they give us the effect on the **log-odds**.
+
+The exponentiated coefficient $\exp(\beta_k)$ gives us the **odds ratio** -- the multiplicative change in the odds for a one-unit increase in $x_k$.
+
+```{python}
+# Odds ratios
+# R: exp(coef(model))
+# Python: np.exp(model.params)
+print("Odds Ratios:")
+print(np.exp(glm_binom.params))
+print()
+print(f"A one-year increase in age multiplies the odds by {np.exp(glm_binom.params['age']):.4f}")
+print(f"A one-unit increase in log(income) multiplies the odds by {np.exp(glm_binom.params['log_income']):.4f}")
+```
+
+---
+## Summary: R to Python GLM Mapping
+
+| R | Python (statsmodels) |
+|---|---|
+| `glm(y ~ x1 + x2, family="poisson")` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
+| `glm(y ~ x1 + x2, family="binomial")` | `sm.GLM(y, X, family=sm.families.Binomial()).fit()` |
+| `glm(y ~ x1 + x2, family="gaussian")` | `sm.GLM(y, X, family=sm.families.Gaussian()).fit()` |
+| `glm(y ~ x1 + x2, family=Gamma())` | `sm.GLM(y, X, family=sm.families.Gamma()).fit()` |
+| `coef(model)` | `model.params` |
+| `summary(model)` | `model.summary()` |
+| `predict(model, type="response")` | `model.predict()` |
+| `model$fitted.values` | `model.fittedvalues` |
+| `model$linear.predictors` | `X @ model.params` |
+| `model$deviance` | `model.deviance` |
+| `AIC(model)` | `model.aic` |
+| `vcov(model)` | `model.cov_params()` |
+| `confint(model)` | `model.conf_int()` |
+
+**Key difference:** In R, the formula interface (`y ~ x1 + x2`) automatically adds an intercept. In Python, you must manually add a constant column using `sm.add_constant(X)` before fitting.
+

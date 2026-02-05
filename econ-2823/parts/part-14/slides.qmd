@@ -1,0 +1,845 @@
+---
+title: "Ordered Multinomial Choice (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+---
+Here we will look at extensions of the binary-choice model from the last class to incorporate multiple possible outcomes. However, we will do this under the assumption that we know that the choices are fully ordered.
+
+This ordering is known by the researcher/analyst, so that the ordinal choice across the outcomes can be written as an integer.
+
+
+For example, you've sent out a survey to your customers on their satisfaction, and you included a five-point *likert* scale on their likelihood of recommending your product to a friend:
+1.  Strongly Disagree
+2. Disagree
+3. Neutral
+4. Agree
+5. Strongly Agree
+
+You're trying to figure out which characteristics/experiences create strong valence to your product. One way of doing this is to take the category you care most about and make it binary!
+
+So for example, you can code *Agree* and *Strongly Agree* as 1, and *Strongly Disagree* through *Neutral* as a zero. Then you can use a probit or a logit as before.
+
+However, if you want to understand the differences across the categories, then you would use the fact that you know the outcomes are ordered to generate an estimation using a latent variable as before.
+
+Here we will again model a linear predictor $\eta_i=x^T_i\beta$, where
+$$y^\star_i=x^T_i\beta+\epsilon_i,$$
+and $\epsilon_i$ will have a fixed distribution (typically logistic or Normal).
+
+However, on top of this if we have $m$ different ordered outcomes we also model a threshold quantity between each of the ordered outcomes:
+* $\zeta_{0,1}$ for the threshold between choices 0 and 1
+* $\zeta_{1,2}$ for the threshold between choices 1 and 2
+* $\ldots$
+
+Suppose that our firm has three levels of service and we examine the ordered outcome for each potential customer
+* No purchase (Option 0)
+* Basic package (Option 1)
+* Upgrade package (Option 2)
+* Deluxe package (Option 3)
+
+The limited-dependent variable representation of this choice would be:
+$$y=\begin{cases}
+3 \text{ (Deluxe)} & \text{ if }x_i^T\beta +\epsilon_i \geq \zeta_{2,3} \\
+2 \text{ (Upgrade)} & \text{ if }\zeta_{23}\geq x_i^T\beta +\epsilon_i \geq \zeta_{1,2} \\
+1 \text{ (Basic)} & \text{ if }\zeta_{12}\geq x_i^T\beta +\epsilon_i \geq \zeta_{0,1} \\
+0 \text{ (No purchase)} & \text{ otherwise (so }\zeta_{01}\geq x_i^T\beta +\epsilon_i \text{.)}
+\end{cases}$$
+Based on the constants $\zeta_{0,1}<\zeta_{1,2}<\zeta_{2,3}$
+
+So, someone with observable characteristics given by $x_i$ would have a variable level effect of $x_i^T\beta$ (note, no intercept in here) has a probability of selecting each option governed by the likelihood the error is in the shaded regions:
+![Model](https://alistairjwilson.github.io/MQE_AW/i/OrderedLogit.svg)
+
+As  we then shift the characteristics given by $x_i$ (and so moving the modified $x_i^T\beta$ up and down), the effect is to modify the size of each region:
+![Animation](https://alistairjwilson.github.io/MQE_AW/i/OrderedLogit.gif)
+
+The model is estimated via maximum likelihood using the assumed distribution for the error $\epsilon$.
+
+For example, if there were no other covariates and we were just estimating the crossing points and we had:
+* 50 who don't purchase ($y=0$)
+* 100 who purchase a basic product ($y=1$)
+* 15 who purchase an upgraded package ($y=2$)
+
+Under the assumption that the error is logistic, with CDF $\frac{e^x}{1+e^x}$, the log-likelihood of the data is then:
+$$ 50 \log\left( \frac{e^{\zeta_{01}}}{1+e^{\zeta_{01}}} \right) +100\log\left(
+\frac{e^{\zeta_{12}}}{1+e^{\zeta_{12}}}-\frac{e^{\zeta_{01}}}{1+e^{\zeta_{01}}}
+\right)+15\log\left(1-\frac{e^{\zeta_{12}}}{1+e^{\zeta_{12}}}\right).$$
+
+Which is maximized at $\hat{\zeta}_{01}=-0.833$ and $\hat{\zeta}_{12}=2.303$
+
+Under the assumption that the error is Normal, with CDF $\Phi(\cdot)$, the log-likelihood of the data is then:
+$$ 50 \log\left(\Phi(\zeta_{0,1})\right) +100\log\left(\Phi(\zeta_{1,2})-\Phi(\zeta_{0,1})\right)+15\log\left(1-\Phi(\zeta_{1,2})\right).$$
+
+Which is maximized at $\hat{\zeta}_{01}=-0.516$ and $\hat{\zeta}_{12}=1.335$
+
+Despite the seemingly large differences in the numbers though, when you plug these estimates back into the relevant distributions, the inferences are identical. For example, consider the probability of purchasing a basic product:
+![Probit vs Logit](http://alistairjwilson.github.io/MQE_AW/i/OLogitVOProbit.svg)
+
+Because there are no other covariates here, the model in each case is setting the intercept parameters to ensure that the probability of lying  in the relevant region is exactly the empirical incidence (so 100/165 for the *basic* purchases).
+
+### Verifying threshold estimates with custom MLE
+
+Let's verify those threshold numbers ourselves by writing the log-likelihood and optimizing it with `scipy.optimize`. This is a simple case with no covariates -- just intercept-only thresholds.
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats, optimize
+import statsmodels.api as sm
+import warnings
+warnings.filterwarnings('ignore')
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+PITT_DGRAY = utils.PITT_DGRAY
+```
+
+---
+
+```{python}
+# Intercept-only ordered logit: 50 no-purchase, 100 basic, 15 upgrade
+# Log-likelihood as a function of two thresholds (zeta_01, zeta_12)
+
+def loglik_ordered_logit_simple(zeta):
+    """Log-likelihood for intercept-only ordered logit."""
+    z01, z12 = zeta
+    # CDF is the logistic function
+    F01 = stats.logistic.cdf(z01)
+    F12 = stats.logistic.cdf(z12)
+    # Probabilities for each category
+    p0 = F01                   # P(y=0)
+    p1 = F12 - F01             # P(y=1)
+    p2 = 1 - F12               # P(y=2)
+    # Clip to avoid log(0)
+    p0, p1, p2 = np.clip([p0, p1, p2], 1e-15, None)
+    return 50 * np.log(p0) + 100 * np.log(p1) + 15 * np.log(p2)
+
+def loglik_ordered_probit_simple(zeta):
+    """Log-likelihood for intercept-only ordered probit."""
+    z01, z12 = zeta
+    F01 = stats.norm.cdf(z01)
+    F12 = stats.norm.cdf(z12)
+    p0 = F01
+    p1 = F12 - F01
+    p2 = 1 - F12
+    p0, p1, p2 = np.clip([p0, p1, p2], 1e-15, None)
+    return 50 * np.log(p0) + 100 * np.log(p1) + 15 * np.log(p2)
+
+# Maximize (minimize the negative)
+res_logit = optimize.minimize(lambda z: -loglik_ordered_logit_simple(z),
+                              x0=[0.0, 1.0], method='BFGS')
+res_probit = optimize.minimize(lambda z: -loglik_ordered_probit_simple(z),
+                               x0=[0.0, 1.0], method='BFGS')
+
+print("Ordered Logit thresholds (intercept-only):")
+print(f"  zeta_01 = {res_logit.x[0]:.3f}  (expected: -0.833)")
+print(f"  zeta_12 = {res_logit.x[1]:.3f}  (expected:  2.303)")
+print()
+print("Ordered Probit thresholds (intercept-only):")
+print(f"  zeta_01 = {res_probit.x[0]:.3f}  (expected: -0.516)")
+print(f"  zeta_12 = {res_probit.x[1]:.3f}  (expected:  1.335)")
+```
+
+---
+
+```{python}
+# Verify: implied probabilities are the same despite different thresholds
+p_logit = [
+    stats.logistic.cdf(res_logit.x[0]),
+    stats.logistic.cdf(res_logit.x[1]) - stats.logistic.cdf(res_logit.x[0]),
+    1 - stats.logistic.cdf(res_logit.x[1])
+]
+p_probit = [
+    stats.norm.cdf(res_probit.x[0]),
+    stats.norm.cdf(res_probit.x[1]) - stats.norm.cdf(res_probit.x[0]),
+    1 - stats.norm.cdf(res_probit.x[1])
+]
+
+print("Implied probabilities:")
+print(f"  Empirical:  {50/165:.4f}  {100/165:.4f}  {15/165:.4f}")
+print(f"  Logit:      {p_logit[0]:.4f}  {p_logit[1]:.4f}  {p_logit[2]:.4f}")
+print(f"  Probit:     {p_probit[0]:.4f}  {p_probit[1]:.4f}  {p_probit[2]:.4f}")
+```
+
+## Data example
+Here I'm using data from the 2020 [National Youth Tobacco Survey](https://www.cdc.gov/tobacco/data_statistics/surveys/nyts/data/index.html) on "eCig" (vapes, etc) usage.
+
+Technically I'm joining together two variables, one on being a current user, and another for non-users on the curiosity, where I ranked/labeled the data outcomes via:
+
+```r
+factor(eCig$eCigUse, ordered=TRUE, labels=
+c("User","Definitely.Try","Probably.Try","Probably.Not.Try",'Definitely.Not.Try'))
+```
+
+```{python}
+# Load the eCig data from R's .rdata format
+# R: load(file='eCig/eCig.rdata')
+# Python: use pyreadr to load .rdata files
+
+ecig_data = utils.load_rda('eCig/eCig.rdata')
+eCigUse = ecig_data['eCigUse'].copy()
+print(eCigUse.head())
+print(f"\nShape: {eCigUse.shape}")
+print(f"\nColumn types:\n{eCigUse.dtypes}")
+```
+
+---
+
+The rankings of the outcomes here are:
+
+0. Have used an e-Cigarette/Vape
+1. Have not used, but stated would *Definitely Try*
+2. *Probably Try*
+3. *Probably Not Try*
+4. *Definitely Not Try*
+
+```{python}
+# Inspect the outcome variable
+# R: head(eCigUse$eCigUse)
+# The R factor has levels: User < Definitely.Try < Probably.Try < Probably.Not.Try < Definitely.Not.Try
+
+print("Unique values:")
+print(eCigUse['eCigUse'].value_counts().sort_index())
+print(f"\nAge summary:")
+print(eCigUse['Age'].describe())
+```
+
+---
+
+```{python}
+# Prepare the data for ordered models
+# Drop rows with missing values (matching R behavior)
+df = eCigUse.dropna().copy()
+
+# The outcome needs to be an ordered categorical
+# R's factor ordering: User < Definitely.Try < Probably.Try < Probably.Not.Try < Definitely.Not.Try
+category_order = ['User', 'Definitely.Try', 'Probably.Try', 
+                  'Probably.Not.Try', 'Definitely.Not.Try']
+
+# Convert eCigUse to ordered categorical
+# The R data may store this as numeric codes -- let's check and convert appropriately
+if df['eCigUse'].dtype in ['float64', 'int64']:
+    # Map numeric codes to labels
+    code_to_label = {i: cat for i, cat in enumerate(category_order)}
+    df['eCigUse_cat'] = df['eCigUse'].map(code_to_label)
+else:
+    df['eCigUse_cat'] = df['eCigUse']
+
+df['eCigUse_ordered'] = pd.Categorical(df['eCigUse_cat'], 
+                                        categories=category_order, 
+                                        ordered=True)
+
+# Convert boolean columns to int for modeling
+for col in ['female', 'black', 'hispanic']:
+    df[col] = df[col].astype(int)
+
+# Create age dummies (R uses as.factor(Age) which creates dummies with Age=9 as reference)
+df['Age'] = df['Age'].astype(int)
+age_dummies = pd.get_dummies(df['Age'], prefix='Age', drop_first=True, dtype=int)
+
+print(f"Sample size after dropping NAs: {len(df)}")
+print(f"\nOutcome distribution:")
+print(df['eCigUse_ordered'].value_counts().sort_index())
+```
+
+---
+
+### Ordered Logit
+First, we'll estimate an Ordered Logit (the standard) where the errors are distributed according to a logistic distribution.
+
+**R equivalent:**
+```r
+library(MASS)
+vape.ologit <- polr(eCigUse ~ female + black + hispanic + as.factor(Age), data=eCigUse)
+```
+
+**Python:** We use `statsmodels.miscmodels.ordinal_model.OrderedModel`.
+
+```{python}
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+
+# Build the design matrix: female, black, hispanic, age dummies
+X = pd.concat([df[['female', 'black', 'hispanic']].reset_index(drop=True), 
+               age_dummies.reset_index(drop=True)], axis=1)
+y = df['eCigUse_ordered'].reset_index(drop=True)
+
+# R: polr(eCigUse ~ female+black+hispanic+as.factor(Age), data=eCigUse)
+# Python: OrderedModel with distr='logit'
+# Note: polr() uses the logit link by default
+
+vape_ologit = OrderedModel(y, X, distr='logit')
+res_ologit = vape_ologit.fit(method='bfgs', disp=False)
+print(res_ologit.summary())
+```
+
+---
+
+**Reading the output:** The coefficients above match the R output from `polr()`. The parameters include:
+- **Coefficients** (`female`, `black`, `hispanic`, `Age_*`): the $\beta$ vector
+- **Thresholds** (the cutpoints): the $\zeta$ parameters that partition the latent variable into observed categories
+
+Note: `statsmodels` reports thresholds directly in the parameter table, while R's `polr()` separates them into `$coefficients` and `$zeta` (called "Intercepts" in the R summary).
+
+So if we had a black female 14-year-old, the model would specify an outcome of:
+$$\eta_i= 0.1153 +0.6066 +1.2458 =1.9677$$
+While a hispanic male 18-year-old:
+$$\eta_i=-0.2034+0.2763=0.0729$$
+
+Given these observables, using the model we can illustrate the probabilities of the modal category as:
+
+![Animation](https://alistairjwilson.github.io/MQE_AW/i/eCigUse.svg)
+
+Using the logistic distribution we can read in the probabilities of the shaded regions in the above graph as:
+
+```{python}
+# Manual probability calculations
+# R: c( 1-plogis(1.1347 - 1.9677), plogis(0.145-0.0729), 1-plogis(1.13475-0.0729) )
+
+# P(Definitely Not Try | black female 14yr) = 1 - F(zeta_34 - eta)
+p_defnot_bf14 = 1 - stats.logistic.cdf(1.1347 - 1.9677)
+
+# P(User | hispanic male 18yr) = F(zeta_01 - eta)
+p_user_hm18 = stats.logistic.cdf(0.145 - 0.0729)
+
+# P(Definitely Not Try | hispanic male 18yr) = 1 - F(zeta_34 - eta)
+p_defnot_hm18 = 1 - stats.logistic.cdf(1.13475 - 0.0729)
+
+print("Probabilities from logistic distribution:")
+print(f"  P(Def Not Try | black female 14):     {p_defnot_bf14:.4f}")
+print(f"  P(User | hispanic male 18):           {p_user_hm18:.4f}")
+print(f"  P(Def Not Try | hispanic male 18):    {p_defnot_hm18:.4f}")
+```
+
+---
+
+### Ordered Probit
+
+We can also estimate the model using the assumption that the error terms are Normally distributed, in which case we specify that we are using a probit formulation.
+
+**R equivalent:**
+```r
+vape.oprobit <- polr(eCigUse ~ female+black+hispanic+as.factor(Age), data=eCigUse, method = "probit")
+```
+
+```{python}
+# R: polr(..., method = "probit")
+# Python: OrderedModel with distr='probit'
+
+vape_oprobit = OrderedModel(y, X, distr='probit')
+res_oprobit = vape_oprobit.fit(method='bfgs', disp=False)
+print(res_oprobit.summary())
+```
+
+---
+
+The model here actually does slightly better at organizing the data (using the AIC output), though the fundamental probabilities are not too distinct. Using the stored coefficients and the intercepts (stored as `zeta`) let's assemble the probabilities for:
+* A black female 14 year old being "Definitely Not"
+* A hispanic male 18 year old being "Has used"
+
+```{python}
+# Extract coefficients and thresholds from the probit model
+# R: vape.oprobit$coefficients and vape.oprobit$zeta
+# Python: res_oprobit.params contains both coefficients and thresholds
+
+all_params = res_oprobit.params
+print("All estimated parameters:")
+print(all_params)
+
+# In statsmodels OrderedModel, the first len(X.columns) entries are betas,
+# and the remaining are the threshold parameters
+n_betas = X.shape[1]
+betas = all_params[:n_betas]
+thresholds = all_params[n_betas:]
+
+print("\n--- Coefficients (betas) ---")
+print(betas)
+print("\n--- Thresholds (zeta) ---")
+print(thresholds)
+```
+
+---
+
+```{python}
+# Assemble probabilities using the probit model
+# R: vape.oprobit$coefficients and vape.oprobit$zeta
+
+# Extract named coefficients
+b_female = betas['female']
+b_black = betas['black']
+b_hispanic = betas['hispanic']
+
+# Find the Age_14 and Age_18 coefficient names
+age14_col = [c for c in betas.index if '14' in str(c)][0]
+age18_col = [c for c in betas.index if '18' in str(c)][0]
+b_age14 = betas[age14_col]
+b_age18 = betas[age18_col]
+
+# Get the threshold between Probably.Not.Try and Definitely.Not.Try
+# This is the last threshold (zeta_34)
+zeta_last = thresholds.iloc[-1]
+# And the first threshold (between User and Definitely.Try) -- zeta_01
+zeta_first = thresholds.iloc[0]
+
+# Black female 14: eta = b_female + b_black + b_age14
+eta_bf14 = b_female + b_black + b_age14
+# P(Definitely Not Try) = 1 - Phi(zeta_34 - eta)
+p_defnot_bf14_probit = 1 - stats.norm.cdf(zeta_last - eta_bf14)
+
+# Hispanic male 18: eta = b_hispanic + b_age18
+eta_hm18 = b_hispanic + b_age18
+# P(User) = Phi(zeta_01 - eta)
+p_user_hm18_probit = stats.norm.cdf(zeta_first - eta_hm18)
+
+print("Probit model probabilities:")
+print(f"  P(Def Not Try | black female 14):  {p_defnot_bf14_probit:.4f}  (R: 0.6909)")
+print(f"  P(User | hispanic male 18):        {p_user_hm18_probit:.4f}  (R: 0.5134)")
+
+print("\nLogit model probabilities (for comparison):")
+print(f"  P(Def Not Try | black female 14):  {1 - stats.logistic.cdf(1.1347 - 1.9677):.4f}")
+print(f"  P(User | hispanic male 18):        {stats.logistic.cdf(0.145 - 0.0729):.4f}")
+
+print("\nSome, but not major differences.")
+```
+
+---
+
+### Predicted Probabilities (Fitted Values)
+
+The one other term that is probably worth diving into a little here is the `fitted.values` -- a matrix of probability for being in each category for each data point.
+
+**R equivalent:**
+```r
+head(vape.oprobit$fitted.values)
+```
+
+**Python:** `model.predict()` returns the predicted probability matrix.
+
+```{python}
+# R: head(vape.oprobit$fitted.values)
+# Python: model.predict() returns probabilities for each category
+
+pred_probs = res_oprobit.predict()
+pred_probs_df = pd.DataFrame(pred_probs, columns=category_order)
+
+print("Predicted probabilities (first 6 observations):")
+print(pred_probs_df.head(6).to_string(float_format='{:.6f}'.format))
+print(f"\nTotal observations: {len(pred_probs_df)}")
+
+# Verify rows sum to 1
+print(f"\nRow sums (should all be 1.0): {pred_probs_df.sum(axis=1).unique()[:5]}")
+```
+
+---
+
+### Visualizing Predicted Probabilities
+
+Let's visualize how the predicted probabilities vary with age, holding other characteristics fixed.
+
+```{python}
+# Predicted probabilities by profile
+# Create profiles for different age groups, holding demographics fixed
+
+ages = sorted(df['Age'].unique())
+ref_age = ages[0]  # reference category (dropped in dummies)
+
+# Profile: non-hispanic, non-black, male across ages
+profiles = []
+for age in ages:
+    row = {'female': 0, 'black': 0, 'hispanic': 0}
+    for a in ages[1:]:  # skip reference age
+        col_name = f'Age_{a}'
+        row[col_name] = 1 if age == a else 0
+    profiles.append(row)
+
+profile_df = pd.DataFrame(profiles)
+# Ensure columns match X
+profile_df = profile_df.reindex(columns=X.columns, fill_value=0)
+
+# Predict probabilities for these profiles
+pred_by_age = res_oprobit.model.predict(res_oprobit.params, exog=profile_df)
+pred_by_age_df = pd.DataFrame(pred_by_age, columns=category_order, index=ages)
+
+# Plot stacked area
+fig, ax = plt.subplots(figsize=(10, 6))
+colors = [PITT_BLUE, PITT_GOLD, PITT_DGRAY, '#E87722', '#4CAF50']
+
+pred_by_age_df.plot.bar(stacked=True, color=colors, ax=ax, width=0.8)
+ax.set_xlabel('Age')
+ax.set_ylabel('Predicted Probability')
+ax.set_title('Predicted Category Probabilities by Age\n(non-Hispanic, non-Black male)')
+ax.legend(title='Category', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=9)
+ax.set_ylim(0, 1)
+plt.tight_layout()
+plt.show()
+```
+
+## Custom MLE Implementation
+
+If `statsmodels.OrderedModel` is insufficient for your needs (e.g., you need custom constraints, different parameterizations, or want to understand the mechanics), you can write the ordered logit/probit log-likelihood from scratch and optimize with `scipy.optimize`.
+
+The key insight: for $K$ ordered categories with thresholds $\zeta_1 < \zeta_2 < \ldots < \zeta_{K-1}$ and linear predictor $\eta_i = x_i^T\beta$:
+
+$$P(y_i = k) = F(\zeta_k - \eta_i) - F(\zeta_{k-1} - \eta_i)$$
+
+where $\zeta_0 = -\infty$ and $\zeta_K = +\infty$.
+
+```{python}
+def ordered_model_loglik(params, X, y_codes, n_categories, distr='logit'):
+    """
+    Log-likelihood for ordered logit/probit model.
+    
+    Parameters
+    ----------
+    params : array
+        First len(X.columns) entries are beta coefficients,
+        remaining (n_categories - 1) entries are threshold parameters.
+    X : ndarray
+        Design matrix (n x p)
+    y_codes : ndarray
+        Integer-coded outcome variable (0, 1, ..., K-1)
+    n_categories : int
+        Number of ordered categories K
+    distr : str
+        'logit' or 'probit'
+    
+    Returns
+    -------
+    float
+        Log-likelihood value
+    """
+    n_vars = X.shape[1]
+    beta = params[:n_vars]
+    # Use cumulative sum to enforce ordering of thresholds
+    raw_thresholds = params[n_vars:]
+    thresholds = np.cumsum(np.concatenate([[raw_thresholds[0]], 
+                                           np.exp(raw_thresholds[1:])]))
+    
+    eta = X @ beta  # linear predictor
+    
+    # CDF function
+    if distr == 'logit':
+        F = stats.logistic.cdf
+    else:
+        F = stats.norm.cdf
+    
+    # Compute probabilities for each observation
+    ll = 0.0
+    for k in range(n_categories):
+        mask = (y_codes == k)
+        if not np.any(mask):
+            continue
+        if k == 0:
+            prob = F(thresholds[0] - eta[mask])
+        elif k == n_categories - 1:
+            prob = 1 - F(thresholds[-1] - eta[mask])
+        else:
+            prob = F(thresholds[k] - eta[mask]) - F(thresholds[k-1] - eta[mask])
+        prob = np.clip(prob, 1e-15, 1 - 1e-15)
+        ll += np.sum(np.log(prob))
+    
+    return ll
+
+print("Custom log-likelihood function defined.")
+```
+
+---
+
+```{python}
+# Fit the custom ordered probit model
+X_arr = X.values.astype(float)
+y_codes = df['eCigUse_ordered'].cat.codes.values
+n_cats = len(category_order)
+
+# Initial values: zeros for betas, evenly spaced thresholds
+# For the reparameterized thresholds: first is raw, rest are log-gaps
+init_betas = np.zeros(X_arr.shape[1])
+init_thresh = np.array([0.0, 0.0, 0.0, 0.0])  # will become cumsum with exp
+x0_custom = np.concatenate([init_betas, init_thresh])
+
+# Maximize (minimize negative)
+res_custom = optimize.minimize(
+    lambda p: -ordered_model_loglik(p, X_arr, y_codes, n_cats, distr='probit'),
+    x0=x0_custom,
+    method='BFGS',
+    options={'maxiter': 5000, 'disp': False}
+)
+
+# Extract and display results
+n_vars = X_arr.shape[1]
+custom_betas = res_custom.x[:n_vars]
+raw_thresh = res_custom.x[n_vars:]
+custom_thresholds = np.cumsum(np.concatenate([[raw_thresh[0]], np.exp(raw_thresh[1:])]))
+
+print("Custom MLE Ordered Probit Results")
+print("=" * 50)
+print("\nCoefficients:")
+for name, val in zip(X.columns, custom_betas):
+    print(f"  {name:20s} {val:10.5f}")
+
+print("\nThresholds:")
+threshold_names = [f"{category_order[i]}|{category_order[i+1]}" 
+                   for i in range(n_cats - 1)]
+for name, val in zip(threshold_names, custom_thresholds):
+    print(f"  {name:40s} {val:10.5f}")
+
+print(f"\nLog-likelihood: {-res_custom.fun:.2f}")
+print(f"AIC: {2 * res_custom.fun + 2 * len(res_custom.x):.2f}")
+```
+
+---
+
+```{python}
+# Compare custom MLE to statsmodels results
+print("Comparison: Custom MLE vs statsmodels OrderedModel (Probit)")
+print("=" * 65)
+print(f"{'Parameter':30s} {'Custom':>12s} {'statsmodels':>12s}")
+print("-" * 65)
+
+sm_params = res_oprobit.params
+
+# Print beta coefficients
+for i, name in enumerate(X.columns):
+    print(f"{name:30s} {custom_betas[i]:12.5f} {sm_params.iloc[i]:12.5f}")
+
+# Print thresholds
+for i, tname in enumerate(threshold_names):
+    print(f"{tname:30s} {custom_thresholds[i]:12.5f} {sm_params.iloc[n_vars + i]:12.5f}")
+
+print(f"\n{'Log-Likelihood':30s} {-res_custom.fun:12.2f} {res_oprobit.llf:12.2f}")
+```
+
+---
+
+### Standard Errors via Numerical Hessian
+
+For the custom MLE, we can compute standard errors using the inverse of the observed Fisher information (negative Hessian of the log-likelihood).
+
+```{python}
+# Standard errors from the inverse Hessian
+# scipy stores the inverse Hessian approximation from BFGS
+
+if hasattr(res_custom, 'hess_inv'):
+    # BFGS returns an approximation to the inverse Hessian
+    if hasattr(res_custom.hess_inv, 'todense'):
+        hess_inv = res_custom.hess_inv.todense()
+    else:
+        hess_inv = res_custom.hess_inv
+    custom_se = np.sqrt(np.diag(hess_inv))
+    
+    print("Standard Errors (Custom MLE via BFGS Hessian inverse):")
+    print(f"{'Parameter':30s} {'Estimate':>10s} {'Std Error':>10s} {'t-value':>10s}")
+    print("-" * 65)
+    for i, name in enumerate(X.columns):
+        t_val = custom_betas[i] / custom_se[i] if custom_se[i] > 0 else np.nan
+        print(f"{name:30s} {custom_betas[i]:10.4f} {custom_se[i]:10.4f} {t_val:10.4f}")
+else:
+    print("Hessian inverse not available from optimizer.")
+    print("Computing numerically...")
+    se = utils.mle_standard_errors(
+        lambda p: ordered_model_loglik(p, X_arr, y_codes, n_cats, distr='probit'),
+        res_custom.x
+    )
+    for i, name in enumerate(X.columns):
+        print(f"{name:30s} {custom_betas[i]:10.4f} {se[i]:10.4f}")
+```
+
+## Marginal Effects for Ordered Models
+
+Unlike in binary models where there is a single marginal effect, in ordered models each covariate has a marginal effect **for each category**. A positive coefficient $\beta_j$ means:
+- Increasing $x_j$ **decreases** the probability of the lowest category
+- Increasing $x_j$ **increases** the probability of the highest category
+- The effect on middle categories is ambiguous
+
+For continuous variables with a probit link:
+$$\frac{\partial P(y=k | x)}{\partial x_j} = \left[\phi(\zeta_{k-1} - x^T\beta) - \phi(\zeta_k - x^T\beta)\right] \beta_j$$
+
+For the logit link, replace $\phi$ with the logistic PDF $f(z) = \frac{e^z}{(1+e^z)^2}$.
+
+```{python}
+def marginal_effects_ordered(params, X, n_categories, var_names, cat_names,
+                              distr='probit', at='mean'):
+    """
+    Compute marginal effects for an ordered logit/probit model.
+    
+    Parameters
+    ----------
+    params : array
+        Model parameters [betas, thresholds]
+    X : ndarray
+        Design matrix
+    n_categories : int
+        Number of ordered categories
+    var_names : list
+        Names of explanatory variables
+    cat_names : list
+        Names of outcome categories
+    distr : str
+        'logit' or 'probit'
+    at : str
+        'mean' for marginal effects at means, 'average' for average marginal effects
+    
+    Returns
+    -------
+    DataFrame
+        Marginal effects matrix (variables x categories)
+    """
+    n_vars = len(var_names)
+    beta = params[:n_vars]
+    thresholds = params[n_vars:]
+    
+    if distr == 'logit':
+        pdf = stats.logistic.pdf
+    else:
+        pdf = stats.norm.pdf
+    
+    if at == 'mean':
+        X_eval = X.mean(axis=0).values.reshape(1, -1) if hasattr(X, 'values') else X.mean(axis=0).reshape(1, -1)
+    else:
+        X_eval = X.values if hasattr(X, 'values') else X
+    
+    eta = X_eval @ beta  # (n, ) or (1,)
+    
+    me_matrix = np.zeros((n_vars, n_categories))
+    
+    for k in range(n_categories):
+        if k == 0:
+            # dP(y=0)/dx_j = -pdf(zeta_0 - eta) * beta_j
+            density = -pdf(thresholds[0] - eta)
+        elif k == n_categories - 1:
+            # dP(y=K-1)/dx_j = pdf(zeta_{K-2} - eta) * beta_j
+            density = pdf(thresholds[-1] - eta)
+        else:
+            # dP(y=k)/dx_j = [pdf(zeta_{k-1} - eta) - pdf(zeta_k - eta)] * beta_j
+            density = pdf(thresholds[k-1] - eta) - pdf(thresholds[k] - eta)
+        
+        if at == 'average':
+            avg_density = density.mean()
+        else:
+            avg_density = density[0]
+        
+        for j in range(n_vars):
+            me_matrix[j, k] = avg_density * beta[j]
+    
+    return pd.DataFrame(me_matrix, index=var_names, columns=cat_names)
+
+print("Marginal effects function defined.")
+```
+
+---
+
+```{python}
+# Compute average marginal effects for the ordered probit model
+me_probit = marginal_effects_ordered(
+    res_oprobit.params.values, X, n_cats,
+    var_names=list(X.columns),
+    cat_names=category_order,
+    distr='probit',
+    at='average'
+)
+
+print("Average Marginal Effects (Ordered Probit)")
+print("=" * 80)
+print(me_probit.to_string(float_format='{:.5f}'.format))
+```
+
+---
+
+```{python}
+# Marginal effects at means
+me_at_means = marginal_effects_ordered(
+    res_oprobit.params.values, X, n_cats,
+    var_names=list(X.columns),
+    cat_names=category_order,
+    distr='probit',
+    at='mean'
+)
+
+print("Marginal Effects at Means (Ordered Probit)")
+print("=" * 80)
+print(me_at_means.to_string(float_format='{:.5f}'.format))
+
+print("\nNote: Each row sums to approximately zero (probability must sum to 1):")
+print(me_at_means.sum(axis=1))
+```
+
+---
+
+```{python}
+# Visualize marginal effects for key variables
+key_vars = ['female', 'black', 'hispanic']
+me_subset = me_probit.loc[key_vars]
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+colors = [PITT_BLUE, PITT_GOLD, PITT_DGRAY, '#E87722', '#4CAF50']
+
+for i, var in enumerate(key_vars):
+    ax = axes[i]
+    vals = me_subset.loc[var]
+    bar_colors = [colors[j] for j in range(len(vals))]
+    ax.bar(range(len(vals)), vals.values, color=bar_colors)
+    ax.set_xticks(range(len(vals)))
+    ax.set_xticklabels(['User', 'Def Try', 'Prob Try', 
+                         'Prob Not', 'Def Not'], 
+                        rotation=45, ha='right', fontsize=8)
+    ax.set_title(f'AME: {var}')
+    ax.set_ylabel('Marginal Effect')
+    ax.axhline(y=0, color='black', linewidth=0.5)
+
+plt.suptitle('Average Marginal Effects by Category (Ordered Probit)', fontsize=14)
+plt.tight_layout()
+plt.show()
+```
+
+## Comparing Ordered Logit vs Ordered Probit
+
+Let's compare the two models side by side.
+
+```{python}
+# Side-by-side comparison
+print("Model Comparison: Ordered Logit vs Ordered Probit")
+print("=" * 70)
+print(f"{'':30s} {'Logit':>15s} {'Probit':>15s}")
+print("-" * 70)
+
+logit_params = res_ologit.params
+probit_params = res_oprobit.params
+
+for name in logit_params.index:
+    print(f"{name:30s} {logit_params[name]:15.5f} {probit_params[name]:15.5f}")
+
+print("-" * 70)
+print(f"{'Log-Likelihood':30s} {res_ologit.llf:15.2f} {res_oprobit.llf:15.2f}")
+print(f"{'AIC':30s} {res_ologit.aic:15.2f} {res_oprobit.aic:15.2f}")
+print(f"{'Observations':30s} {res_ologit.nobs:15.0f} {res_oprobit.nobs:15.0f}")
+```
+
+## Summary: R to Python Ordered Model Mapping
+
+| R (MASS) | Python (statsmodels) | Notes |
+|----------|---------------------|-------|
+| `polr(y ~ x, method="logistic")` | `OrderedModel(y, X, distr='logit').fit(method='bfgs')` | Default in R is logit |
+| `polr(y ~ x, method="probit")` | `OrderedModel(y, X, distr='probit').fit(method='bfgs')` | Normal errors |
+| `model$coefficients` | `result.params[:n_betas]` | Beta coefficients |
+| `model$zeta` | `result.params[n_betas:]` | Threshold/cutpoint parameters |
+| `model$fitted.values` | `result.predict()` | Predicted probability matrix |
+| `summary(model)` | `result.summary()` | Full output with std errors |
+| `AIC(model)` | `result.aic` | Akaike Information Criterion |
+| `plogis(x)` | `stats.logistic.cdf(x)` | Logistic CDF |
+| `pnorm(x)` | `stats.norm.cdf(x)` | Normal CDF |
+
+**Key differences:**
+- R's `polr()` stores coefficients and thresholds separately; `statsmodels` puts them all in `params`
+- R uses `as.factor()` for categorical variables; Python uses `pd.get_dummies()` or `pd.Categorical()`
+- For custom MLE, use `scipy.optimize.minimize` with the negative log-likelihood
+- The `utils` module provides `maximize_likelihood()` and `mle_standard_errors()` for custom implementations
+

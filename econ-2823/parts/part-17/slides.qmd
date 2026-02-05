@@ -1,0 +1,491 @@
+---
+title: "R vs Python Reference: Survival Analysis"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+
+| Task | R (`survival`) | Python (`lifelines`) |
+| --- | --- | --- |
+| Load library | `library(survival)` | `from lifelines import KaplanMeierFitter, CoxPHFitter, WeibullAFTFitter, LogNormalAFTFitter, LogLogisticAFTFitter` |
+| Create survival object | `Surv(time, event)` | Not needed; pass duration/event columns directly to `.fit()` |
+| Weibull AFT model | `survreg(Surv(t,e)~x, dist="weibull")` | `WeibullAFTFitter().fit(df, 'time', 'event')` |
+| Log-normal AFT model | `survreg(..., dist="lognormal")` | `LogNormalAFTFitter().fit(df, 'time', 'event')` |
+| Log-logistic AFT model | `survreg(..., dist="loglogistic")` | `LogLogisticAFTFitter().fit(df, 'time', 'event')` |
+| Cox PH model | `coxph(Surv(t,e) ~ x)` | `CoxPHFitter().fit(df, 'time', 'event')` |
+| Kaplan-Meier estimate | `survfit(Surv(t,e) ~ 1)` | `KaplanMeierFitter().fit(T, E)` |
+| Model summary | `summary(model)` | `model.print_summary()` |
+| AIC comparison | `AIC(model)` | `model.AIC_` |
+| Predict risk | `predict(model, type="risk")` | `model.predict_partial_hazard(df)` |
+| Predict median | `predict(model, type="quantile", p=0.5)` | `model.predict_median(df)` |
+| KM survival plot | `plot(survfit(...))` | `kmf.plot_survival_function()` |
+
+**Key differences:**
+- R's `survreg` parameterizes Weibull as an AFT model with `Scale = 1/k`. lifelines uses the same AFT parameterization.
+- In R, you create a `Surv()` object first; in lifelines, you pass the duration and event column names directly.
+- lifelines coefficient signs match R's `survreg` for AFT models (positive = longer survival time).
+- Cox PH coefficients: positive in both R and Python means *higher hazard*.
+
+
+```{python}
+# Setup: colors and plotting style
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import warnings
+warnings.filterwarnings('ignore')
+
+import utils
+utils.set_pitt_style()
+
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_DGRAY = utils.PITT_DGRAY
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+# Survival Models
+---
+Lifespans of various object are frequently targets of understanding. Examples include:
+* Time to failure for a machine
+* Lifespans of people
+* Time durations until an event happens 
+    * finding a job
+    * buying a replacement product
+    * losing a customer
+
+From an [Industry article](https://www.analyticsvidhya.com/blog/2014/04/survival-analysis-model-you/) about survival analysis:
+<blockquote>
+Following are some industrial specific applications of survival analysis:
+<ul>
+<li> Banking - customer lifetime and LTV
+<li>Insurance - time to lapsing on policy
+<li>Mortgages - time to mortgage redemption
+<li>Mail Order Catalogue - time to next purchase
+<li>Retail - time till food customer starts purchasing non-food
+<li>Manufacturing - lifetime of a machine component
+<li>Public Sector - time intervals to critical events
+</ul>
+</blockquote>
+
+While some economists use survival models to understand durations of unemployment or bid arrivals in auctions, I have not used them frequently myself. If you are interested, German Rodriguez at Princeton has a [more extensive course](https://data.princeton.edu/pop509) on this which I have followed for a brief overview. 
+
+Demographers, Biostatisticians, and those in Health Sciences are greater users of these methods.
+
+To set up some of the terms though let's go back to thinking of "the event" and look at deaths!
+
+Actual deaths by age group and state: (downloaded from [mortality.org](https://usa.mortality.org/national.php?national=USA)) where the life tables include the following columns
+
+|Variable | Description |
+| --- | --- |
+|  Year  |    Calendar year or range of years of occurrence |
+| Age   |     Age group for n-year interval from exact age x to just before exact age x+n | 
+| m(x)     |  Central death rate between age x and age x+n | 
+| q(x)   |    Probability of death between age x and age x+n | 
+| a(x)    |    Average length of survival between age x and age x+n for persons dying in the interval | 
+| l(x)     |    Number of survivors at exact age x, assuming l(0) = 100,000 | 
+| d(x)    |    Number of deaths between age x and age x+n | 
+| L(x)  |      Number of person-years lived between age x and age x+n | 
+| T(x)  |      Number of person-years remaining after exact age x | 
+| e(x)   |     Life expectancy at exact age x (in years) = remaining length of life for survivors to age x | 
+
+```{python}
+Mortality_US_m = pd.read_csv("hazards/USA_fltper_1x1.csv")
+Mortality_US_f = pd.read_csv("hazards/USA_mltper_1x1.csv")
+Mortality_US = pd.concat([Mortality_US_m, Mortality_US_f], ignore_index=True)
+
+# Remove the 110+ age group and convert Age to numeric + 0.5
+Mortality_US = Mortality_US[Mortality_US['Age'] != '110+'].copy()
+Mortality_US['Age'] = Mortality_US['Age'].astype(int) + 0.5
+
+Mortality_US.head()
+```
+
+---
+
+### Surivival function:
+Here we plot the survivors from an initial 100,000 births at age 0, for men and women, for the year 1960 and 2020. (the variable `lx`)
+
+```{python}
+fig, ax = plt.subplots()
+
+sex_colors = {'f': PITT_BLUE, 'm': PITT_GOLD}
+year_styles = {1960: '--', 2020: '-'}
+
+for year in [1960, 2020]:
+    for sex in ['f', 'm']:
+        subset = Mortality_US[(Mortality_US['Year'] == year) & (Mortality_US['Sex'] == sex)]
+        ax.plot(subset['Age'], subset['lx'],
+                color=sex_colors[sex], linestyle=year_styles[year],
+                label=f'{sex}, {year}')
+
+ax.set_xlabel('Age (years)')
+ax.set_ylabel('Survivors out of 100,000')
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+Here we can think of the point of death $T$ for a person as being a random variable with a CDF given by $F(t)$. 
+* The CDF $F(t)$ therefore measures the probability that someone has died before age $t$.
+* In contrast the quantity $1-F(t)$ measures the probability that someone is still alive at time $t$!
+
+We will therefore call the amount $S(t)=1-F(t)$ the survival function, which is what we plotted above.
+
+While the example we'll use is mortality for people, the event that we're modelling can be any event which happens at some point in time $t$.
+
+## Hazards
+The derivative of $F(t)$ (the density $f(t)$ for the event) provides us with the unconditional probability of an event occuring at any point in time, but the way data comes to us is often in the form of current survivors. 
+* For these data-points the probability that they survived to time $t$ is given by $S(t)=1-F(t)$
+* given that they have survived up to $t$, the conditional density for the event occuring for $t^\prime\geq t$ is given by $\frac{f(t^\prime)}{1-F(t)}=\frac{f(t^\prime)}{S(t)}$
+
+The instantaneous risk of death at time $t$, conditional on survival to that point is therefore given by:
+$$\lambda(t)=\frac{f(t)}{S(t)}$$
+a feature of the data distribution we will call the the **hazard rate**.
+
+Let's generate the hazard to human life in the US!
+
+```{python}
+Mortality_US['lambda'] = Mortality_US['qx'] / (Mortality_US['lx'] / 100000)
+Mortality_US.head()
+```
+
+---
+
+Illustrating these hazard rates:
+
+```{python}
+fig, ax = plt.subplots()
+
+for year in [1960, 2020]:
+    for sex in ['f', 'm']:
+        subset = Mortality_US[(Mortality_US['Year'] == year) &
+                              (Mortality_US['Sex'] == sex) &
+                              (Mortality_US['Age'] > 35) &
+                              (Mortality_US['Age'] < 50)]
+        ax.plot(subset['Age'], subset['lambda'],
+                color=sex_colors[sex], linestyle=year_styles[year],
+                label=f'{sex}, {year}')
+
+ax.set_xlabel('Age (years)')
+ax.set_ylabel('Hazard rate')
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+The hazard is mathematically related to the Survival rate via:
+$$ \lambda(t)=-\frac{\partial}{\partial t} \log\left(S(t)\right) $$
+which means that the Survival function at any point $T$ can be written as:
+$$ S(t)=\exp\left\{-\int^t_0 \lambda(s) ds\right\}$$
+
+We will refer to the expression 
+$$ \Lambda(t)=\int^t_0 \lambda(s) ds$$
+as the **cumulative hazard**, where we can think of this as the sum of all of the risks we have faced across our lives from age 0 to age $t$.
+
+From $ S(t)=\exp\left\{-\Lambda(t)\right\}$ we can also then say that:
+$$\log(S(t))=-\Lambda(t) $$
+
+## Constant Hazards
+If the hazard rate is a constant, $\lambda(t)=\lambda$, this would mean that the CDF $F(t)$ must be given by:
+ $$1-e^{-\lambda\cdot t},$$ 
+which is precisely the CDF of an exponential distribution!
+* This is the main characteristic of the exponential distribution, that it has a **constant hazard rate**, where survival up to time $t$ tells us nothing else about the subsequent chances!
+* We can model hazards which move through time via a number of other distributions
+
+In terms of our data if we have a single data point it has either:
+* Had the event occur at time $t_i$
+    * where the likelihood of this was $f(t_i)=\lambda(t_i)S(t_i)$
+* Not had the event occur yet 
+    * with likelihood of getting to $t_i=T$ or beyond given by $S(t_i)$
+
+As such if we generate a dummy variable for whether the even has occured $e_i$ the likelihood of the data is given by:
+$$L=\prod^n_{i=1}\lambda(t_i)^{e_i}S(t_i)$$
+and so the log-likelihood is just:
+$$l=\sum^n_{i=1}\log\left(S(t_i)\right) +e_i\log\left(\lambda(t_i)\right)=\sum^n_{i=1}\Lambda(t_i) +e_i\log\left(\lambda(t_i)\right)$$
+
+Supposing that the underlying distribution was exponential, and the hazard rate a constant $\lambda(t)=\lambda$, the cumulative hazard is therefore linear $$\Lambda(t_i)=\lambda \cdot t_i$$
+
+The log-likelihood divided by $N$ is :
+$$\frac{l(\lambda)}{N}=\lambda \frac{1}{N}\sum^n_{i=1}t_i +\frac{N_e}{N}\log\left(\lambda\right)=\lambda\overline{T} + \eta_E\log(\lambda)$$
+where $\eta_E=\frac{N_e}{N}$ is the fraction of the data that has had the event occur and $\overline{T}$ is the average observation time in the data
+
+So under a constant hazard (i.e an exponential distribution!) the max-likelihood estimator is:
+$$\lambda= -\frac{\eta_E}{\overline{T}}$$
+the fraction of the data that has died, divided by the average observed time. 
+
+*(N.B. if $E=1$ so that we observe the time of every event without censoring, the estimator is just the standard max-likelihood estimator for an exponential $\frac{1}{\overline{T}}$)* 
+
+## Modeling effects
+___
+
+There are two main types of model that analysts use for survival data to incorporate predictive covariates:
+1. Accelerated Time Models -  modeling the effects on the duration
+2. Proportional Hazard Models - modeling the effects on the risks
+
+### Accelerated Time Models
+In these models the event-time outcome is modeled as:
+$$\log(T_i)=x_i^T\beta+\sigma \epsilon$$
+where we will chose the distribution for $\epsilon$ and assess this using max-likelihood.
+
+So the failure time for object/person $i$ is modeled as:
+$$ T_i=T^0_i\exp\left\{x_i^T\beta\right\}=T^0_i\cdot\eta_i$$
+so that the estimated effects have a multiplicative relationship $\eta_i=\exp\left\{x_i^T\beta\right\}$ with the failure time.
+
+This is called an accelerated time model, as the effect here is that for someone with $\eta_i=\exp\left\{x_i^T\beta\right\}=1$ their lifespan will be distributed according to the random variable $T^0_i=\exp\left\{\sigma \epsilon\right\}$. But someone with $\eta_i=2$ their lifespan will be distributed according to the variable $2T^0_i$.
+
+The effect on time is that the survivor function will be $S(t_i/2)$ compared to $S(t_i)$ without the multiplier, so affecting the scale at which time affects things.
+
+We therfore need to make some assumption about the noise.
+* An exponential distribution baseline would make all of the hazards constant, just at different levels
+* A common distributional assumption is a Weibull distribution, which has a nice inverse-S shaped survival distribution, that fits well with many applications
+    * This distribution has a shape parameter that $k$ that allows for both linearly increasing and decreasing hazards 
+    * An additional benefit is that Weibulls can also be interpreted as a proportional hazards model (see below)
+
+## Weibull Distributions
+In particular the Weibull distributions' survival function is given by:
+$$ S(t) = \exp\left\{-(\lambda t)^k\right\} $$
+for a scale parameter $\lambda$ that sets the rate at which time causes an effect, and a shape parameter $k$ that governs how quickly things fade off. 
+* $k>1$ implies increasing risks with time
+* $k<1$ decreasing risks with time
+
+Illustrating the Weibull survival function:
+
+```{python}
+def S_weibull(t, lam=1, k=1):
+    """Weibull survival function."""
+    return np.exp(-(lam * t)**k)
+
+t = np.linspace(0, 100, 500)
+
+fig, ax = plt.subplots()
+ax.plot(t, S_weibull(t, lam=1/70, k=0.5), color=PITT_GOLD, linewidth=2, label='k=0.5 (decreasing hazard)')
+ax.plot(t, S_weibull(t, lam=1/70, k=2),   color=PITT_BLUE, linewidth=2, label='k=2 (increasing hazard)')
+ax.set_xlabel('Time, t')
+ax.set_ylabel('Survival S(t)')
+ax.set_xlim(0, 100)
+ax.legend()
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Example Estimation
+If we make assumptions on the distribution of the event, we can therefore derive the hazard and Survival rates. By modeling the mean parameters of the distribution we can therefore fit a model with coavarites. Let's look at individualized data on whether an event occured within a certain duration, here defininig the event as committing a crime for a parolees:
+(original data from [Wooldridge](https://www.stata.com/data/jwooldridge/eacsap/recid.dta))
+
+```{python}
+# Python note: We load the R .rdata file using pyreadr
+import pyreadr
+
+rdata = pyreadr.read_r('hazards/recidivism.rdata')
+# pyreadr returns a dict; get the first (and likely only) DataFrame
+recidivism = list(rdata.values())[0]
+recidivism.head()
+```
+
+---
+
+To run an accelerated time survival model we use the `lifelines` package in Python.
+
+**Python note:** Unlike R's `survival` package which requires creating a `Surv()` object, lifelines takes the duration and event columns directly as arguments to `.fit()`. This simplifies the workflow.
+
+```{python}
+from lifelines import (
+    KaplanMeierFitter,
+    CoxPHFitter,
+    WeibullAFTFitter,
+    LogNormalAFTFitter,
+    LogLogisticAFTFitter
+)
+```
+
+---
+
+The reason we have to handle survival data carefully is that our data here can be quite messy, where many outcomes that haven't failed will be right-censored, but sometimes even for the objects that have failed, we don't know exactly *when* they failed within the interval. 
+
+Because this data is quite simple, we can get away with just telling it the `fail` outcome variable and the duration time variable (here `durat`).
+
+**Python note:** In R you would create a `Surv(durat, fail)` object. In lifelines, we simply pass column names to the fitter. The `fail` column must be boolean or 0/1 (1 = event observed, 0 = censored).
+
+For more complicated environments R's survival package lets you define interval censored data. lifelines also supports left-censored and interval-censored data through specialized fitters, though the syntax differs.
+
+In R:
+```r
+with(df, Surv(leftInterval, rightInterval, type='interval'))
+```
+
+In Python (lifelines), interval censoring is handled through specific parameters in certain fitters.
+
+Once we have the data, we can estimate the model. Let's start with a Weibull AFT model:
+
+```{python}
+# Ensure 'fail' is numeric (0/1) for lifelines
+recidivism['fail'] = recidivism['fail'].astype(int)
+
+# Select the covariates to match the R model
+covariates = ['workprg', 'priors', 'tserved', 'felon',
+              'alcohol', 'drugs', 'black', 'married', 'educ', 'age']
+
+# Prepare the DataFrame with duration, event, and covariates
+df_model = recidivism[covariates + ['durat', 'fail']].copy()
+
+# Fit Weibull AFT model
+weibull_aft = WeibullAFTFitter()
+weibull_aft.fit(df_model, duration_col='durat', event_col='fail')
+weibull_aft.print_summary()
+```
+
+---
+
+**Parameterization note:** R's `survreg` reports:
+- `Scale` = $1/k$ from the Weibull definition
+- `(Intercept)` = $\log(\lambda)$ from the Weibull definition
+
+lifelines' `WeibullAFTFitter` uses the same AFT parameterization, reporting coefficients for both the `lambda_` (location) and `rho_` (scale) parameters. The coefficients should be comparable to R's `survreg` output.
+
+So here the effect of an additional year of time served is to decrease the duration of not reoffending by approximately 18 percent:
+
+```{python}
+# Get the coefficient for tserved from the lambda_ (location) parameters
+coef_tserved = weibull_aft.params_.loc[('lambda_', 'tserved')]
+effect_tserved = np.exp(coef_tserved * 12) - 1
+print(f"Effect of 1 additional year of time served on duration: {effect_tserved:.4f}")
+print(f"  (i.e., {effect_tserved*100:.1f}% change)")
+```
+
+---
+
+Being ten-years older increases the duration by approximately 5 percent:
+
+```{python}
+coef_age = weibull_aft.params_.loc[('lambda_', 'age')]
+effect_age = np.exp(coef_age * 10) - 1
+print(f"Effect of being 10 years older on duration: {effect_age:.4f}")
+print(f"  (i.e., {effect_age*100:.1f}% change)")
+```
+
+---
+
+Other distributions for the error can easily be incorporated into the estimation:
+
+```{python}
+# Fit Log-Normal AFT model
+lognormal_aft = LogNormalAFTFitter()
+lognormal_aft.fit(df_model, duration_col='durat', event_col='fail')
+lognormal_aft.print_summary()
+```
+
+---
+
+And in fact the log-normal fits the data slightly better:
+
+```{python}
+print(f"Log-Normal AIC: {lognormal_aft.AIC_:.3f}")
+print(f"Weibull AIC:    {weibull_aft.AIC_:.3f}")
+print(f"\nLower AIC is better. Log-Normal {'wins' if lognormal_aft.AIC_ < weibull_aft.AIC_ else 'loses'}.")
+```
+
+---
+
+For further details on these models, and choices for the distributions you will have to look to more [advanced sources](http://doi.org/10.1002/9781118032985) and or the [lifelines documentation](https://lifelines.readthedocs.io/) for the package details.
+
+### Proportional Hazard Models
+The other common approach to modeling the data is for the model to have proportional effects via the hazard rate (scaling up and down the risks, instead of the duration/timescale). This model has that the hazard rate for person $i$ (conditional on their observables $x_i$) is given by:
+$$\lambda_i(t|x_i)=\lambda_0(t)\cdot\exp\left\{x_i^T\beta\right\} $$
+where we would then be free to incorporate whichever terms we wanted into the model as demanded by the question.
+
+The model is therefore comprised of:
+* A baseline hazard rate for someone with $x_i=0$ (for every single variable)
+* A multiplicative relationship in the other variables through $\exp\left\{x_i^T\beta\right\}=\prod^K_{k=1}\exp\left\{x_{ik}^T\beta_k\right\}$
+    * Variable $k$ therefore scales up or down the hazard by $\exp\left\{x_{ik}^T\beta_k\right\}$ depending on whether $x_{ik}\beta_k$ is positive or negative
+
+One nice thing about the proportional approach is that the cumulative hazard is similarly proportional as the multiplier is constant over time:
+$$\Lambda_i(t|x_i)=\int^t_0\lambda_0(s)\cdot\exp\left\{x_i^T\beta\right\}ds=\Lambda_0(t)\exp\left\{x_i^T\beta\right\}$$
+which given the relationship between the cumulative hazard and survival function means that we have:
+$$ S(t|x_i)=S_0(t)^{\eta_i}$$
+* where $S_0(t)$ is the baseline survivor function $S_0(t)=\exp\left\{-\Lambda_0(t)\right\}$
+* and $\eta_i=\exp\left\{x_i^T\beta\right\}$ is the net multiplier of the risks, which enter here as a power.
+
+One of the main ways people estimate theses models is to create a partial likelihood function that allows the baseline hazard rate to be unspecified. This method is referred to as a Cox Proportional Hazard model, and it can be estimted with `CoxPHFitter` in lifelines.
+
+```{python}
+cph = CoxPHFitter()
+cph.fit(df_model, duration_col='durat', event_col='fail')
+cph.print_summary()
+```
+
+---
+
+The effect of an additional year of time served therefore has a multiplicative effect on the riskiness of reoffending given by:
+
+```{python}
+coef_tserved_cox = cph.params_['tserved']
+effect_tserved_cox = np.exp(12 * coef_tserved_cox) - 1
+print(f"Multiplicative effect of 1 year of time served on hazard: {effect_tserved_cox:.4f}")
+print(f"  (i.e., {effect_tserved_cox*100:.1f}% change in risk)")
+```
+
+---
+
+So increasing the risk factors by 17 percent!
+
+Similarly, going back to being 10 years older when you were released the effect is:
+
+```{python}
+coef_age_cox = cph.params_['age']
+effect_age_cox = np.exp(10 * coef_age_cox) - 1
+print(f"Multiplicative effect of 10 years older on hazard: {effect_age_cox:.4f}")
+print(f"  (i.e., {effect_age_cox*100:.1f}% change in risk)")
+```
+
+---
+
+So decreasing the risks by 3.5 percent.
+
+Prediction then involves understanding the risk factors
+
+```{python}
+# Python note: lifelines provides predict_partial_hazard for the risk multiplier exp(x*beta)
+# and predict_log_partial_hazard for the linear predictor x*beta
+
+recidivism['lin_pred'] = cph.predict_log_partial_hazard(df_model)
+recidivism['exp_events'] = cph.predict_expectation(df_model)
+recidivism['risk_mult'] = cph.predict_partial_hazard(df_model)
+
+recidivism[['black', 'alcohol', 'drugs', 'felon', 'workprg',
+            'priors', 'tserved', 'durat', 'fail',
+            'lin_pred', 'exp_events', 'risk_mult']].tail()
+```
+
+---
+
+Alternatively we can show how each variable affects the risks multiplicatively (here as a percentage increase/decrease):
+
+**Python note:** R's `predict(model, type="terms")` gives the contribution of each variable to the linear predictor, centered at zero. In Python we compute this manually by multiplying the centered covariate values by their coefficients.
+
+```{python}
+# Compute per-variable risk contributions (centered, as in R's type="terms")
+means = df_model[covariates].mean()
+centered = df_model[covariates] - means
+
+# Each variable's contribution to the linear predictor
+terms_lp = centered * cph.params_[covariates]
+
+# Convert to percentage change in risk
+terms_pct = (np.exp(terms_lp) - 1) * 100
+
+terms_pct.head().round(1)
+```
+

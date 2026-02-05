@@ -1,0 +1,1194 @@
+---
+title: "Standard Errors for Transformations (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+---
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats, optimize
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+---
+
+Given that we're now in a world of very non-linear models, we would like some way of being able to take our estimates of the model parameters and standard errors, and to understand them through more concrete **outcomes** from the model.
+
+### Examples:
+Suppose we've estimated a probability each type of customer buys a product across an array of prices
+
+We now want to use this model to figure out things like:
+* What's the predicted  profits if I run a sale event?
+* How would this compare to my predicted profit under the standard prices?
+* What's the difference!?
+
+We'll talk a little more about probabilities soon when we begin talking about **Probit** and **Logit** models. For now, let's look at an example of streaks:
+* That is we will model the probability of the end of a streak occuring with a fixed probability $p$
+* Our data on observables is the duration of these streaks
+* We will model this with a *geometric* random variable
+
+The geometric random variable is another model of *counts*, here under the assumption that 
+there is a constant chance after each draw for the streak to end. The probability the streak lasts for $x=0,1,2,\ldots$ periods is given by:
+$$ \Pr\left\{X=x\right\}=(1-p)^{x}p$$ 
+
+Let's draw some data on these streaks, where we'll set the probability of the streak ending as $p=\tfrac{1}{8}$
+
+```{python}
+# R: rgeom(100, 1/8)
+# Python: np.random.geometric returns values starting at 1,
+#         so we subtract 1 to match R's convention (starting at 0)
+np.random.seed(42)
+streak_data = np.random.geometric(1/8, 100) - 1
+
+print("First 6 values:", streak_data[:6])
+print(f"\nMin: {streak_data.min()}, Q1: {np.percentile(streak_data, 25):.1f}, "
+      f"Median: {np.median(streak_data):.1f}, Mean: {streak_data.mean():.1f}, "
+      f"Q3: {np.percentile(streak_data, 75):.1f}, Max: {streak_data.max()}")
+```
+
+---
+
+Let's quickly visualize how this count variable differs from the Poisson:
+
+```{python}
+x = np.arange(0, 21)
+
+# R: dpois(x, lambda=8) and dgeom(x, prob=1/8)
+# Python: stats.poisson.pmf(x, mu=8) and stats.geom.pmf(x+1, p=1/8)
+#   Note: scipy's geom.pmf is defined for k=1,2,..., so we use x+1
+poisson_pmf = stats.poisson.pmf(x, mu=8)
+geom_pmf = stats.geom.pmf(x + 1, p=1/8)  # shift by 1 to match R's 0-indexed version
+
+df_probs = pd.DataFrame({
+    'x': np.tile(x, 2),
+    'pmf': np.concatenate([poisson_pmf, geom_pmf]),
+    'dist': np.repeat(['poisson', 'geom'], len(x))
+})
+
+print(df_probs.head(3))
+print(df_probs.tail(3))
+```
+
+---
+
+Draw the probability at each $x$ value:
+
+```{python}
+fig, ax = plt.subplots()
+
+mask_pois = df_probs['dist'] == 'poisson'
+mask_geom = df_probs['dist'] == 'geom'
+
+ax.scatter(df_probs.loc[mask_pois, 'x'], df_probs.loc[mask_pois, 'pmf'],
+           color=PITT_BLUE, s=60, label='Poisson', zorder=5)
+ax.scatter(df_probs.loc[mask_geom, 'x'], df_probs.loc[mask_geom, 'pmf'],
+           color=PITT_GOLD, s=60, label='Geometric', zorder=5)
+
+ax.set_xlabel('x')
+ax.set_ylabel('PMF')
+ax.legend()
+ax.set_title('Poisson vs Geometric PMFs')
+plt.show()
+```
+
+---
+
+So the geometric random variable has a constant rate of decay, where the probability of reaching a value of $x+1$ is $(1-p)$ times the probability of reaching $x$!
+
+For example, suppose we are using these measured durations over the day gaps between using a costly resource: 
+* we've calculated how we can use the data to estimate the probability $\hat{p}$ that the streak ends each day in the quiz
+* and the method of calculating a standard error for it given by $\hat{\sigma}_p$
+
+Let's quickly run an estimation for our data
+
+```{python}
+# Log-likelihood for geometric distribution
+# R: sum(sapply(Streak.Data, dgeom, prob=p, log=TRUE))
+# Python: np.sum(stats.geom.logpmf(streak_data + 1, p=p))
+
+def log_likelihood_geom(p):
+    """Log-likelihood for geometric distribution (0-indexed)."""
+    # Using the formula directly: x*log(1-p) + log(p)
+    return np.sum(streak_data * np.log(1 - p) + np.log(p))
+
+# R: optim(0.1, Log.Likelihood.F, method="Brent", lower=0, upper=1)
+# Python: optimize.minimize_scalar with bounds
+result = optimize.minimize_scalar(
+    lambda p: -log_likelihood_geom(p),
+    bounds=(1e-6, 1 - 1e-6),
+    method='bounded'
+)
+p_hat = result.x
+print(f"p_hat = {p_hat:.7f}")
+```
+
+---
+
+**Estimate**: So our estimator of p (which we set to $\tfrac{1}{8}=0.125$) is:
+
+```{python}
+print(f"p_hat = {p_hat:.7f}")
+```
+
+---
+
+Let's calculate the standard error on our estimate using the score and a numerical derivative:
+
+```{python}
+# Score vector: numerical derivative of individual log-likelihoods
+# R: (sapply(Streak.Data, dgeom, prob=pHat+1e-6, log=TRUE) -
+#      sapply(Streak.Data, dgeom, prob=pHat-1e-6, log=TRUE)) / (2*1e-6)
+eps = 1e-6
+score_vector = (
+    (streak_data * np.log(1 - (p_hat + eps)) + np.log(p_hat + eps)) -
+    (streak_data * np.log(1 - (p_hat - eps)) + np.log(p_hat - eps))
+) / (2 * eps)
+
+# R: sqrt((1/mean(Score.vector**2)) / length(Streak.Data))
+sigma_p = np.sqrt((1 / np.mean(score_vector**2)) / len(streak_data))
+print(f"sigma_p = {sigma_p:.6f}")
+```
+
+---
+
+**Std.Error:** So our estimator for the standard deviation of the estimate is:
+
+```{python}
+print(f"sigma_p = {sigma_p:.6f}")
+```
+
+---
+
+**Confidence Interval**: We can use the estimate $\hat{p}$ and the standard error  $\hat{\sigma}_p$ to construct a 95-percent confidence interval for $p$ just as you did with linear models:
+ $$\text{95% Conf Int: } \left[\hat{p}- 1.96\times\hat{\sigma}_{p},\hat{p}+ 1.96\times\hat{\sigma}_{p}\right] $$
+
+Estimating this and putting it together in a vector for later use:
+
+```{python}
+# R: qnorm(0.975)
+# Python: stats.norm.ppf(0.975)
+crit_value = stats.norm.ppf(0.975)
+
+p_conf_int = {
+    'lower_limit': p_hat - crit_value * sigma_p,
+    'estimate': p_hat,
+    'upper_limit': p_hat + crit_value * sigma_p
+}
+
+for key, val in p_conf_int.items():
+    print(f"{key:>12s}: {val:.7f}")
+```
+
+---
+
+But knowing that the 95% confidence interval for $\hat{p}$ is  $\hat{p}\pm 1.96\times\hat{\sigma}_p$ isn't really an end outcome, it's more of a necessary ingredient. We need to put this estimate back into the model to calculate what we really care about.
+
+For example, suppose the streaks that we're measuring are the number of days without the need to use an inventory item that provides safety protection for 24 hours. Your firm holds two of these items in inventory, which are renewed by a sub-contractor every Monday morning. However, if the inventory is depleted the production line has to stop with a costly delay. 
+
+**What are the chances of this delay?**
+
+#### Plugging the parameter into another distribution
+While our data came in the form of streaks, and these weren't constrained to occur in a fixed window, the application is asking a question about a very different type of random variable: a binomial!
+
+#### Binomial
+A binomial distribution asks the chance that $x$ events each with an independent probability $p$ of occurring out of $n$ possible draws. The probability of this is given by:
+ $$ \Pr\left\{X=x\right\}=\frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$
+ 
+* The first part of this, the $\frac{n!}{x!(n-x)!}$ term is often abbreviated as $\binom{n}{x}$ or *n choose x* in words, enumerates the number of different ways we could have got $x$ successes and $n-x$ failures.
+* The second part of this is the chance that the first $x$ draws were successes the last $n-x$ failures.
+
+* So we have our parameter estimate $\hat{p}$ which gives us our **estimate** for the chance that we use one of the safety product in a 24 hour period
+* But we want to understand what that means for how many uses there are in a week (so $n=7$ if our factory runs 7 days a week).
+* Finally, using the binomial we want to figure out the chances that we use three or more products, so the chance that $\Pr\left\{X\geq 3\right\}$
+
+The probability of exactly $x$ uses in 7 days is given by:
+$$q(x):=\Pr\left\{X=x\right\}=\binom{7}{x}p^x(1-p)^{7-x}$$
+so the probability we want to calculate is:
+$$ Q=1-q(0)-q(1)-q(2) $$
+
+It's easy enough to code this up as a function of the parameter $p$ using the binomial probability given by `stats.binom.pmf()`:
+
+```{python}
+# R: function(p) 1 - dbinom(x=0,size=7,prob=p) - dbinom(x=1,size=7,prob=p) - dbinom(x=2,size=7,prob=p)
+# Python: 1 - stats.binom.pmf(0,7,p) - stats.binom.pmf(1,7,p) - stats.binom.pmf(2,7,p)
+
+def Q(p):
+    """Probability of 3 or more uses in 7 days."""
+    return 1 - stats.binom.pmf(0, 7, p) - stats.binom.pmf(1, 7, p) - stats.binom.pmf(2, 7, p)
+```
+
+---
+
+We can then draw the graph for the probability Q as a function of $p$, where I overlay our estimate $\hat{p}$ as the vertical blue line:
+
+```{python}
+p_vals = np.linspace(0.001, 0.999, 500)
+Q_vals = [Q(p) for p in p_vals]
+
+fig, ax = plt.subplots()
+ax.plot(p_vals, Q_vals, color=PITT_GOLD, linewidth=3)
+ax.axvline(x=p_hat, color=PITT_BLUE, linewidth=2)
+ax.scatter([p_hat], [Q(p_hat)], color=PITT_BLUE, s=80, zorder=5)
+ax.set_xlim(0, 1)
+ax.set_xlabel('Probability of a use in any single day, p')
+ax.set_ylabel('Prob 3 or more in a week, Q')
+plt.show()
+```
+
+---
+
+Because this graph seems relatively well-behaved -- moreso, it is strictly increasing in the input $p$ -- one way we could approach calculating the standard error on the prediction is to just calculate the best/worst case for $p$ from our confidence interval from before, and then look at these values for the function $Q(\cdot)$.
+
+Reminding ourselves that:
+* Our theory says that $\hat{p}$ will be asymptotically normally distributed around the true value $p$
+* We used this to build a confidence interval for the true value $p$ using the assessed standard error 
+
+```{python}
+for key, val in p_conf_int.items():
+    print(f"{key:>12s}: {val:.7f}")
+```
+
+---
+
+So let's overlay the assessed normal and confidence interval on our graph of $Q(p)$:
+
+```{python}
+fig, ax = plt.subplots()
+
+# Confidence interval shaded region
+ax.axvspan(p_conf_int['lower_limit'], p_conf_int['upper_limit'],
+           alpha=0.2, color=PITT_BLUE)
+
+# Q function
+p_range = np.linspace(0.05, 0.2, 500)
+ax.plot(p_range, [Q(p) for p in p_range], color=PITT_GOLD, linewidth=3)
+
+# Vertical line at estimate
+ax.axvline(x=p_hat, color=PITT_BLUE, linewidth=2)
+
+# Points at conf int bounds and estimate
+ci_vals = [p_conf_int['lower_limit'], p_conf_int['estimate'], p_conf_int['upper_limit']]
+ax.scatter(ci_vals, [Q(p) for p in ci_vals], color=PITT_BLUE, s=80, zorder=5)
+
+# Overlay asymptotic normal (scaled to fit on the plot)
+norm_pdf = stats.norm.pdf(p_range, loc=p_hat, scale=sigma_p)
+scale_factor = Q(p_hat) / stats.norm.pdf(p_hat, loc=p_hat, scale=sigma_p)
+ax.plot(p_range, norm_pdf * scale_factor, color=PITT_BLUE, alpha=0.5)
+
+ax.set_xlabel('Probability p')
+ax.set_ylabel('Prob 3 or more in a week')
+plt.show()
+```
+
+---
+
+So in this case we could just calculate the upper- and lower-confidence values for our statistic separately:
+
+```{python}
+Q_conf_int = {k: Q(v) for k, v in p_conf_int.items()}
+
+results = pd.DataFrame({
+    'lower_limit': [p_conf_int['lower_limit'], Q_conf_int['lower_limit']],
+    'estimate':    [p_conf_int['estimate'],    Q_conf_int['estimate']],
+    'upper_limit': [p_conf_int['upper_limit'], Q_conf_int['upper_limit']]
+}, index=['p', 'Q'])
+
+print(results.round(3))
+```
+
+---
+
+Similarly, if we wanted to figure out the probability that we didn't need to call out for an emergency delivery in a year?
+
+```{python}
+def no_call_year(p):
+    """Probability of no emergency call-out in an entire year (52 weeks)."""
+    return (1 - Q(p))**52
+```
+
+---
+
+```{python}
+fig, ax = plt.subplots()
+
+# Confidence interval shaded region
+ax.axvspan(p_conf_int['lower_limit'], p_conf_int['upper_limit'],
+           alpha=0.2, color=PITT_BLUE)
+
+# No-call function
+p_range = np.linspace(0.05, 0.2, 500)
+ax.plot(p_range, [no_call_year(p) for p in p_range], color=PITT_GOLD, linewidth=3)
+
+# Vertical line and points
+ax.axvline(x=p_hat, color=PITT_BLUE, linewidth=2)
+ax.scatter(ci_vals, [no_call_year(p) for p in ci_vals], color=PITT_BLUE, s=80, zorder=5)
+
+# Overlay scaled normal
+scale_factor = no_call_year(p_hat) / stats.norm.pdf(p_hat, loc=p_hat, scale=sigma_p)
+ax.plot(p_range, norm_pdf * scale_factor, color=PITT_BLUE, alpha=0.5)
+
+ax.set_xlabel('Probability p')
+ax.set_ylabel('Prob no call-out in a year')
+plt.show()
+```
+
+---
+
+```{python}
+# Note: for No.Call the CI direction is reversed (decreasing function)
+no_call_conf = {
+    'lower_limit': no_call_year(p_conf_int['upper_limit']),
+    'estimate':    no_call_year(p_conf_int['estimate']),
+    'upper_limit': no_call_year(p_conf_int['lower_limit'])
+}
+
+results = pd.DataFrame({
+    'lower_limit': [p_conf_int['lower_limit'], Q_conf_int['lower_limit'], no_call_conf['lower_limit']],
+    'estimate':    [p_conf_int['estimate'],    Q_conf_int['estimate'],    no_call_conf['estimate']],
+    'upper_limit': [p_conf_int['upper_limit'], Q_conf_int['upper_limit'], no_call_conf['upper_limit']]
+}, index=['p', 'Q', 'No.Call'])
+
+print(results.round(3))
+```
+
+---
+
+However, other statistics/transformations may be less well-behaved. For example, suppose we're trying to calculate the probability that there are either two or three weeks with a call out for the year?
+
+```{python}
+def two_or_three(p):
+    """Probability of exactly 2 or 3 call-out weeks in a year."""
+    return stats.binom.pmf(2, 52, Q(p)) + stats.binom.pmf(3, 52, Q(p))
+
+fig, ax = plt.subplots()
+
+# Confidence interval shaded region
+ax.axvspan(p_conf_int['lower_limit'], p_conf_int['upper_limit'],
+           alpha=0.2, color=PITT_BLUE)
+
+# Two-or-three function
+p_range = np.linspace(0.05, 0.2, 500)
+ax.plot(p_range, [two_or_three(p) for p in p_range], color=PITT_GOLD, linewidth=3)
+
+# Vertical line and points
+ax.axvline(x=p_hat, color=PITT_BLUE, linewidth=2)
+ax.scatter(ci_vals, [two_or_three(p) for p in ci_vals], color=PITT_BLUE, s=80, zorder=5)
+
+# Overlay scaled normal
+scale_factor = two_or_three(p_hat) / stats.norm.pdf(p_hat, loc=p_hat, scale=sigma_p)
+ax.plot(p_range, norm_pdf * scale_factor, color=PITT_BLUE, alpha=0.5)
+
+ax.set_xlabel('Probability p')
+ax.set_ylabel('Prob 2 or 3 call-out weeks')
+plt.show()
+```
+
+---
+
+Here the function is not increasing/decreasing over the parameter $p$ across the interval, as such the computation of the interval is harder to gauge:
+
+Ideally we would want to identify an interval like this one:
+
+```{python}
+fig, ax = plt.subplots()
+
+ax.axvspan(p_conf_int['lower_limit'], p_conf_int['upper_limit'],
+           alpha=0.2, color=PITT_BLUE)
+ax.axhline(y=0.304, color=PITT_BLUE, linewidth=1, alpha=0.7)
+ax.axhline(y=0.481, color=PITT_BLUE, linewidth=1, alpha=0.7)
+
+ax.plot(p_range, [two_or_three(p) for p in p_range], color=PITT_GOLD, linewidth=3)
+ax.axvline(x=p_hat, color=PITT_BLUE, linewidth=2)
+ax.scatter(ci_vals, [two_or_three(p) for p in ci_vals], color=PITT_BLUE, s=80, zorder=5)
+
+scale_factor = two_or_three(p_hat) / stats.norm.pdf(p_hat, loc=p_hat, scale=sigma_p)
+ax.plot(p_range, norm_pdf * scale_factor, color=PITT_BLUE, alpha=0.5)
+
+ax.set_xlabel('Probability p')
+ax.set_ylabel('Prob 2 or 3 call-out weeks')
+plt.show()
+```
+
+---
+
+Feasibly, you could calculate the maximal point of this function to figure out the 95% confidence interval... though even this wouldn't necessarily be the exact interval you wanted to calculate
+
+When anything gets even somewhat complicated, I would usually turn to a simulation method to calculate this, as I know:
+* the generating distribution for $p$
+* and I know the formula for the function
+
+Draw a lot (a whole bunch!) of draws for $p$ from the relevant normal distribution:
+
+```{python}
+# R: rnorm(1e6, mean=pHat, sd=sigma.p)
+# Python: np.random.normal(p_hat, sigma_p, 1_000_000)
+p_draws = np.random.normal(p_hat, sigma_p, 1_000_000)
+```
+
+---
+
+Apply the function to check whether there's two or three in a year:
+
+```{python}
+# R: sapply(pDraws, two.or.three)
+# Python: vectorized application
+out = np.array([two_or_three(p) for p in p_draws])
+```
+
+---
+
+And look at the quantiles of these 1,000,000 draws:
+
+```{python}
+print("First 6 values:", out[:6].round(7))
+print(f"\n2.5% quantile: {np.percentile(out, 2.5):.7f}")
+print(f"97.5% quantile: {np.percentile(out, 97.5):.7f}")
+```
+
+## The Delta-Method
+---
+While the above wasn't too hard to calculate more-tailored outcome statistics for, once we move into more multi-dimensional statistics, we need a more-structured method for generating standard errors.
+
+To achieve this, we will again first turn to a large sample approach combined with the Taylor expansion.
+
+That is, suppose we have an estimator $\hat{\theta}$ that is consistent for a parameter $\theta$, and that we know that $\sqrt{n}(\hat{\theta}-\theta)\rightarrow^D \mathcal{N}(0,\Sigma)$. 
+
+However, we want to figure the distribution for a continuous transformation $g(\hat{\theta})$.
+
+Here we make use of the Taylor Expansion again which tells us that  so long as $(\hat{\theta}-\theta)$ is small we can rewrite
+$$g(\hat{\theta})=g\left(\theta+(\hat{\theta}-\theta)\right)\simeq g(\theta)+\frac{\partial g(\theta)}{\partial \theta}(\hat{\theta}-\theta)$$
+
+*(Technically the constructions make use of slightly stronger related result called the mean-value theorem...)*
+
+So that means that $$
+\sqrt{n}\left(g(\hat{\theta})-g(\theta)\right)
+\simeq
+\frac{\partial g(\theta)}{\partial \theta}\sqrt{n}\left(\hat{\theta}-\theta\right)
+$$
+
+So we conclude that
+* if $\sqrt{n}(\hat{\theta}-\theta)\rightarrow^D \mathcal{N}(0,\Sigma)$
+* then $\sqrt{n}(g(\hat{\theta})-g(\theta))\rightarrow^D \mathcal{N}(0,\frac{\partial g(\theta)}{\partial \theta^T}\Sigma \frac{\partial g(\theta)}{\partial \theta})$
+
+The above is a lot of math, and may look confusing; however, the fundamental idea is that we can now construct confidence intervals via:
+$$g(\hat{\theta})\rightarrow^D \mathcal{N}\Bigl(g(\theta),\frac{1}{N}\frac{\partial g(\theta)}{\partial \theta^T}\Sigma \frac{\partial g(\theta)}{\partial \theta}\Bigr) $$
+
+We just need to plug in estimators for the separate elements:
+* an estimator $\hat{\theta}$ for the parameter vector $\theta$
+* an estimator $\hat{\Sigma}$ for the variance-covariance matrix $\Sigma$
+* an estimator for the derivative vector  for $g(\theta)$ at $\hat{\theta}$
+
+Often the implementation of this will then compute a variance-covariance matrix via:
+
+$$\hat{\Omega}= \frac{1}{N}\frac{\partial g(\hat{\theta})}{\partial \theta^T}\hat{\Sigma} \frac{\partial g(\hat{\theta})}{\partial \theta} $$
+
+This still may seem complicated, but in terms of the coding its relatively easy! We just need:
+* A vector called `dG` which as we saw is not hard to numerically compute if we know $g(\cdot)$
+* The variance-covariance matrix `Sigma_hat` which we can take from most any model in Python with `model.cov_params()`
+
+If you're using a "canned" package, the ensuing code to produce the new variance is then just something as simple as:
+
+```python
+est_model = sm.GLM(y, X, family=...).fit()       # Some model estimation command
+Sigma_hat = est_model.cov_params()                # Extract the vcov matrix (already normalized by N)
+dG = utils.numerical_gradient(g, theta_hat)       # Get derivative of g()
+Omega_hat = dG @ Sigma_hat @ dG                   # Easy formula for new variance!
+```
+
+For the numerical derivative, we can just use a multivariate analog to our previous finite-difference approximation. Our `utils.numerical_gradient` function does exactly this:
+
+```{python}
+# R: numerical.derivative <- function(fun, x) { ... }
+# Python: already available as utils.numerical_gradient
+
+# For reference, the implementation:
+def numerical_derivative_vec(fun, x, eps=1e-6):
+    """Numerical gradient for a multivariate function."""
+    x = np.asarray(x, dtype=float)
+    nn = len(x)
+    dx = np.zeros(nn)
+    for i in range(nn):
+        e = np.zeros(nn)
+        e[i] = eps
+        dx[i] = (fun(x + e) - fun(x - e)) / (2 * eps)
+    return dx
+```
+
+## Quick Example
+---
+Let's generate a Poisson model where each row's mean is given by 
+$$\lambda_i=\exp\left\{\beta_1+\beta_2 x_{1i}+\beta_3 x_{2i}\right\}$$
+for observables $x_1$ and $x_2$, where we'll force $\beta_1=2$, $\beta_2=-1$ and  $\beta_3=1$
+
+```{python}
+np.random.seed(123)
+
+# Draw x1 and x2 observables from normal, rounded to 2 decimals
+x1 = np.round(np.random.normal(0, 0.5, 1000), 2)
+x2 = np.round(np.random.normal(-1, 0.8, 1000), 2)
+beta_true = np.array([2, -1, 1])
+
+# Set the mean for each observation
+lam = np.exp(beta_true[0] + beta_true[1] * x1 + beta_true[2] * x2)
+
+# Draw y from Poisson
+# R: sapply(lambda, function(l) rpois(1, l))
+# Python: np.random.poisson(lam)
+y = np.random.poisson(lam)
+```
+
+---
+
+```{python}
+# Put it into a DataFrame
+data_pois = pd.DataFrame({'y': y, 'x1': x1, 'x2': x2})
+print(data_pois.head(4))
+```
+
+---
+
+Let's estimate the model with `statsmodels.GLM` as this fits into the generalized linear model framework (more on this later):
+
+```{python}
+# R: glm(y ~ x1 + x2, data=data.Pois, family="poisson")
+# Python: sm.GLM with Poisson family
+X_design = sm.add_constant(data_pois[['x1', 'x2']])
+pois_model = sm.GLM(data_pois['y'], X_design, family=sm.families.Poisson()).fit()
+
+print(pois_model.summary())
+
+beta_hat = pois_model.params.values
+print(f"\nbeta_hat = {beta_hat}")
+```
+
+---
+
+```{python}
+# R: confint(pois.model)
+# Python: model.conf_int()
+print(pois_model.conf_int())
+```
+
+---
+
+The model automatically calculates the variance-covariance matrix for the parameter vector where we are using this as:
+$$\hat{\beta}\sim \mathcal{N}(\beta,\tfrac{1}{n}\hat{\Sigma}) $$
+
+```{python}
+# R: vcov(pois.model)
+# Python: model.cov_params()
+Sigma_hat_divN = pois_model.cov_params()
+print(Sigma_hat_divN)
+```
+
+---
+
+Suppose that we want to calculate the probability that the count variable is 0 when $x_1=1$ and $x_2=-2$?
+
+So we want the probability that the value is 0 which is given by
+$$ \Pr\left\{X=0\right\}=e^{-\lambda}$$
+where $\lambda=\exp\left\{\beta_1 +\beta_2-2\beta_3 \right\}$.
+
+```{python}
+# R: function(beta) dpois(0, lambda=exp(beta[1]+beta[2]-2*beta[3]))
+# Python: stats.poisson.pmf(0, mu=exp(...))
+def prob_pois_0(beta):
+    """Probability of a zero count when x1=1, x2=-2."""
+    return stats.poisson.pmf(0, mu=np.exp(beta[0] + beta[1] - 2 * beta[2]))
+
+# Compute the gradient using our numerical derivative
+dG = utils.numerical_gradient(prob_pois_0, beta_hat)
+print(f"dG = {dG}")
+```
+
+---
+
+The previous estimation gave us the variance-covariance matrix, the $\tfrac{1}{n}\hat{\Sigma}$ term. From the Taylor expansion we know that:
+$$g(\hat{\theta})\rightarrow^D \mathcal{N}\Bigl(g(\theta),\Omega\Bigr) $$
+with the variance:
+$$\hat{\Omega}= \frac{\partial g(\hat{\theta})}{\partial \theta^T}\left(\frac{1}{n}\hat{\Sigma}\right) \frac{\partial g(\hat{\theta})}{\partial \theta} $$
+
+```{python}
+# R: t(dG) %*% Sigma.hat.divN %*% dG
+# Python: dG @ Sigma_hat_divN @ dG
+Sigma_hat_arr = Sigma_hat_divN.values  # convert to numpy array
+Omega_hat = dG @ Sigma_hat_arr @ dG
+
+print(f"Omega_hat = {Omega_hat:.7f}")
+print(f"Estimate  = {prob_pois_0(beta_hat):.7f}")
+print(f"Std Error = {np.sqrt(Omega_hat):.7f}")
+```
+
+---
+
+So we now have an estimate and a standard-error/CI for the probability of a zero:
+
+```{python}
+est_zero = prob_pois_0(beta_hat)
+se_zero = np.sqrt(Omega_hat)
+
+delta_method_out = {
+    'estimate_of_zero': est_zero,
+    'std_err': se_zero,
+    'lower_conf': est_zero - 1.96 * se_zero,
+    'upper_conf': est_zero + 1.96 * se_zero
+}
+
+for key, val in delta_method_out.items():
+    print(f"{key:>17s}: {val:.7f}")
+```
+
+---
+
+We can also use the `utils.delta_method` function directly:
+
+```{python}
+# Using the utils module
+g_val, g_se = utils.delta_method(prob_pois_0, beta_hat, Sigma_hat_arr)
+print(f"Delta method (utils): estimate = {g_val:.7f}, SE = {g_se:.7f}")
+```
+
+---
+
+### Check our answer against Simulation
+---
+There are packages that will automate these numerical derivatives in a slightly better way... however, to see how this stacks up we will compare it to a simulation option:
+* Draw values of $\beta$ from the relevant multivariate normal, and simulate the calculation 
+
+```{python}
+# R: mvrnorm(1, mu=beta.hat, Sigma=Sigma.hat.divN)
+# Python: np.random.multivariate_normal(beta_hat, Sigma_hat_arr, 1)
+
+n_sim = 500_000
+beta_draws_sim = np.random.multivariate_normal(beta_hat, Sigma_hat_arr, n_sim)
+
+# Apply the function to each draw
+# R: replicate(5e5, prob.pois.0(mvrnorm(1, mu=beta.hat, Sigma=Sigma.hat.divN)))
+sim_results = np.array([prob_pois_0(b) for b in beta_draws_sim])
+```
+
+---
+
+```{python}
+simulation_out = {
+    'estimate_of_zero': np.mean(sim_results),
+    'std_err': np.std(sim_results, ddof=1),
+    'lower_conf': np.percentile(sim_results, 2.5),
+    'upper_conf': np.percentile(sim_results, 97.5)
+}
+
+for key, val in simulation_out.items():
+    print(f"{key:>17s}: {val:.7f}")
+```
+
+---
+
+Comparing the two methods:
+
+```{python}
+comparison = pd.DataFrame({
+    'simulation': simulation_out,
+    'delta_method': delta_method_out,
+    'difference': {k: simulation_out[k] - delta_method_out[k] for k in simulation_out}
+})
+print(comparison.round(4))
+```
+
+# Resampling methods
+---
+Another popular method for generating the standard-errors moves away from using the asymptotic distribution. Instead, it uses the data itself to approximate the sampling distribution for the estimators 
+
+## Resampling Flavors
+This technique comes in a number of flavors, where I'll just let you know the names and then will focus on outlining just one of these:
+* **Bootstrapping** : This is where we randomly resample $n$ observations from the original $n$ with replacement, and repeat this many times
+* **Jackknifing**: This is where we remove a data point $i$ and use the remaining $n-1$ observations, repeat this for each possible row to remove
+* **Sub-sampling**: Here we take a sub-sample (without replacement) of size $m$ from the original data, and repeat this many times (this method is a bit more complex, but can be consistent under weaker assumptions)
+
+## Bootstrapping
+Here we'll focus on bootstrapping techniques, as they're the most common:
+
+* The basic idea here is that we have a data set $\mathbf{Z}= \left[\mathbf{y} , \mathbf{X}\right]$ with generic elements in row $i$ given by $(y_i , \mathbf{x}_i)$.
+* We will use the idea that we can use the empirical distribution of the data $\mathbf{Z}$ as a stand-in for the actual distribution of $z_i$.
+* As such, we can assemble the sampling distribution for the estimator by drawing a new sample of size $n$ and calculating our estimator!
+
+We can use the `utils.bootstrap` function, or write a custom bootstrap loop. Let's do both:
+
+```{python}
+print(data_pois.head(2))
+```
+
+---
+
+```{python}
+# R: boot(data=data.Pois, statistic=pois.bs, R=10000, formula=y~x1+x2)
+# Python: custom bootstrap loop with statsmodels GLM
+
+def pois_bs_prob0(data_arr):
+    """Bootstrap statistic: prob of zero count at x1=1, x2=-2."""
+    df = pd.DataFrame(data_arr, columns=['y', 'x1', 'x2'])
+    X = sm.add_constant(df[['x1', 'x2']])
+    try:
+        model = sm.GLM(df['y'], X, family=sm.families.Poisson()).fit(disp=0)
+        return prob_pois_0(model.params.values)
+    except:
+        return np.nan
+
+# Use utils.bootstrap
+bs_results_prob0 = utils.bootstrap(
+    data_pois[['y', 'x1', 'x2']].values,
+    pois_bs_prob0,
+    n_boot=10000,
+    seed=42
+)
+```
+
+---
+
+Get the bootstrapped statistics
+
+```{python}
+bs_distribution = bs_results_prob0[~np.isnan(bs_results_prob0)]  # remove any failed fits
+```
+
+---
+
+We can illustrate the bootstrapped distribution with a histogram:
+
+```{python}
+fig, ax = plt.subplots()
+ax.hist(bs_distribution, bins=50, density=True, color=PITT_GOLD,
+        edgecolor=PITT_BLUE, linewidth=1.5)
+ax.set_xlabel('Outcome Prob')
+ax.set_ylabel('Density')
+ax.set_title('Bootstrap Distribution of P(Y=0 | x1=1, x2=-2)')
+plt.show()
+```
+
+---
+
+Assembling the results:
+
+```{python}
+bootstrap_out = {
+    'estimate_of_zero': np.mean(bs_distribution),
+    'std_err': utils.bootstrap_se(bs_distribution),
+    'lower_conf': utils.bootstrap_ci(bs_distribution, method='percentile')[0],
+    'upper_conf': utils.bootstrap_ci(bs_distribution, method='percentile')[1]
+}
+
+for key, val in bootstrap_out.items():
+    print(f"{key:>17s}: {val:.7f}")
+```
+
+---
+
+And we can compare it to what we got from the Asymptotic Normal approach above (with Delta-method and Simulation)
+
+```{python}
+comparison_all = pd.DataFrame({
+    'simulation': simulation_out,
+    'delta_method': delta_method_out,
+    'bootstrap': bootstrap_out
+})
+print(comparison_all.round(4))
+```
+
+---
+
+The bootstrap approach can also be used to figure out the standard errors more generally:
+
+```{python}
+# R: boot(data=data.Pois, statistic=pois.bs, R=1000, formula=y~x1+x2)
+# Python: bootstrap returning all coefficients
+
+def pois_bs_coefs(data_arr):
+    """Bootstrap statistic: return all GLM coefficients."""
+    df = pd.DataFrame(data_arr, columns=['y', 'x1', 'x2'])
+    X = sm.add_constant(df[['x1', 'x2']])
+    try:
+        model = sm.GLM(df['y'], X, family=sm.families.Poisson()).fit(disp=0)
+        return model.params.values
+    except:
+        return np.array([np.nan, np.nan, np.nan])
+
+bs_results_coefs = utils.bootstrap(
+    data_pois[['y', 'x1', 'x2']].values,
+    pois_bs_coefs,
+    n_boot=1000,
+    seed=42
+)
+```
+
+---
+
+We can also compute bootstrap confidence intervals using different methods. The `utils.bootstrap_ci` function supports both percentile and basic methods. Here we also implement the BCa (bias-corrected and accelerated) method:
+
+```{python}
+def bootstrap_ci_bca(bs_estimates, original_estimate, data_arr, statistic, alpha=0.05):
+    """
+    BCa (bias-corrected and accelerated) bootstrap confidence interval.
+    
+    Parameters
+    ----------
+    bs_estimates : array-like
+        Bootstrap estimates (1D)
+    original_estimate : float
+        Estimate from original data
+    data_arr : ndarray
+        Original data array
+    statistic : callable
+        Function computing the statistic
+    alpha : float
+        Significance level
+    
+    Returns
+    -------
+    tuple
+        (lower, upper) confidence bounds
+    """
+    bs_estimates = np.array(bs_estimates)
+    bs_estimates = bs_estimates[~np.isnan(bs_estimates)]
+    
+    # Bias correction factor
+    z0 = stats.norm.ppf(np.mean(bs_estimates < original_estimate))
+    
+    # Acceleration factor via jackknife
+    n = len(data_arr)
+    jack_estimates = []
+    for i in range(n):
+        jack_data = np.delete(data_arr, i, axis=0)
+        try:
+            jack_estimates.append(statistic(jack_data))
+        except:
+            continue
+    jack_estimates = np.array(jack_estimates)
+    jack_mean = np.mean(jack_estimates)
+    a_hat = np.sum((jack_mean - jack_estimates)**3) / (6 * np.sum((jack_mean - jack_estimates)**2)**1.5)
+    
+    # Adjusted percentiles
+    z_alpha_lower = stats.norm.ppf(alpha / 2)
+    z_alpha_upper = stats.norm.ppf(1 - alpha / 2)
+    
+    alpha1 = stats.norm.cdf(z0 + (z0 + z_alpha_lower) / (1 - a_hat * (z0 + z_alpha_lower)))
+    alpha2 = stats.norm.cdf(z0 + (z0 + z_alpha_upper) / (1 - a_hat * (z0 + z_alpha_upper)))
+    
+    return np.percentile(bs_estimates, [100 * alpha1, 100 * alpha2])
+
+# Compute BCa intervals for x1 coefficient (index 1)
+valid_mask = ~np.isnan(bs_results_coefs[:, 1])
+bs_x1 = bs_results_coefs[valid_mask, 1]
+
+# For full BCa we need jackknife -- use a smaller sample for speed
+# Percentile CI for x1
+ci_x1_pct = utils.bootstrap_ci(bs_x1, method='percentile')
+print(f"x1 coefficient - Percentile 95% CI: [{ci_x1_pct[0]:.4f}, {ci_x1_pct[1]:.4f}]")
+
+# Percentile CI for x2
+bs_x2 = bs_results_coefs[valid_mask, 2]
+ci_x2_pct = utils.bootstrap_ci(bs_x2, method='percentile')
+print(f"x2 coefficient - Percentile 95% CI: [{ci_x2_pct[0]:.4f}, {ci_x2_pct[1]:.4f}]")
+```
+
+---
+
+The `bca` stands for *adjusted bootstrap percentile* method, where it's just being slightly more sophisticated about how it picks the limits here in the tails of the draws we made.
+
+While we can be more sophisticated about it, we can also figure out things like the variance covariance matrix simply by looking at how the resampled estimates are empirically related
+
+```{python}
+# R: cov(bs.results$t)
+# Python: np.cov(..., rowvar=False)
+valid_coefs = bs_results_coefs[valid_mask]
+bs_Sigma = np.cov(valid_coefs, rowvar=False)
+
+bs_Sigma_df = pd.DataFrame(
+    bs_Sigma,
+    index=['(Intercept)', 'x1', 'x2'],
+    columns=['(Intercept)', 'x1', 'x2']
+)
+print("Bootstrap Variance-Covariance Matrix:")
+print(bs_Sigma_df)
+```
+
+---
+
+Which we can compare to our estimates from the asymptotic Normal approach from before:
+
+```{python}
+print("Asymptotic Variance-Covariance Matrix:")
+print(Sigma_hat_divN)
+```
+
+---
+
+So the standard errors under these really quite distinct methods are fairly close here.
+
+```{python}
+# Standard errors comparison
+bs_se = np.sqrt(np.diag(bs_Sigma))
+asymp_se = np.sqrt(np.diag(Sigma_hat_divN.values))
+
+se_comparison = pd.DataFrame({
+    'bootstrap_SE': bs_se,
+    'asymptotic_SE': asymp_se
+}, index=['(Intercept)', 'x1', 'x2'])
+
+print(se_comparison)
+```
+
+## Bootstrap Usage
+---
+Bootstraps are very useful ways of assessing standard errors, and are almost more intuitive than the asymptotic Central Limit results. There are however some pros and cons: 
+
+### Pros
+* We're assuming very little about the error structure here, and certainly we're not putting a parametric distribution on it
+    * In many cases bootstrapped confidence intervals can be more accurate than the asymptotic normals 
+* By drawing random samples we're examining how over or under weighing extreme observations could affect the estimates
+    * If you want you can therefore just view this as a test of the "stability" of the results
+* It's constructed directly over the estimation procedure we're using, and so is more holistic
+* Once we have the sampling distribution for our estimated parameters, we can use it to ask whatever question we want
+
+### Cons
+* We do need a *moderate* sample for the empirical distribution to be a good estimator for the true data generating process
+* It can be slow if the estimation routine that we're bootstrapping also takes a long time
+* If there is a dependence structure to the data, this needs to be included into the bootstrap
+    * For example, in time series, the bootstrap sampling scheme has to be adjusted as rows are not independent
+    * Similarly, if there are strata to the data (control/treatment, matching groups, etc) the bootstrap should be adjusted 
+* There are a few situations where you shouldn't use bootstraps:
+    * Extreme values
+    * Distributions with *fat* tails (infinite moments)
+
+# Likelihood Ratio Tests
+---
+Another feature of tests within maximum likelihood estimation that does get used a fair amount is what's called a likelihood ratio test. To do this we:
+* Enforce a constraint on the Likelihood maximization process, where this constraint mirrors our null hypothesis $H_0$.
+    * Estimate the parameters under the constraint $\tilde{\theta}_{H_0}$ and obtain a log-likelihood $l(\tilde{\theta}_{H_0})$ under the constraints
+* We also run the unconstrained version, where the data picks the values for all of the parameters $\hat{\theta}$
+    * This has log likelihood given by $l(\hat{\theta})$ 
+
+The likelihood ratio test statistic is then given by:
+$$\lambda_{H_0}=2 \left(l(\hat{\theta})-l(\tilde{\theta}_{H_0})\right)$$
+where this quantity is always positive (the unrestricted maximizer has to be weakly larger!)
+
+If the null hypothesis is true, then the likelihood ratio test statistic will converge to a $\chi^2_k$ distribution ($k$ standard normals all-squared and summed)
+* We can then use knowledge of the $\chi^2_k$ distribution to test our Null hypothesis
+* $k$ is the difference in dimension enforced by the constraints
+
+As an example, let's go back to our Poisson data and estimate a constraint that $H_0:\beta_3=1.5$
+
+```{python}
+# Unconstrained model
+# R: glm(y ~ x1 + x2, data=data.Pois, family="poisson")
+X_unc = sm.add_constant(data_pois[['x1', 'x2']])
+pois_unc = sm.GLM(data_pois['y'], X_unc, family=sm.families.Poisson()).fit(disp=0)
+
+# Constrained model: fix beta_3 = 1.5
+# R: glm(y ~ x1 + offset(1.5*x2), data=data.Pois, family="poisson")
+# Python: use offset parameter
+X_con = sm.add_constant(data_pois[['x1']])
+pois_con = sm.GLM(
+    data_pois['y'], X_con,
+    family=sm.families.Poisson(),
+    offset=1.5 * data_pois['x2']
+).fit(disp=0)
+
+beta_unc = pois_unc.params
+beta_con = pois_con.params
+
+print("Unconstrained coefficients:")
+print(beta_unc)
+print("\nConstrained coefficients (x2 fixed at 1.5):")
+print(beta_con)
+```
+
+---
+
+We could write a formula to calculate the log likelihood here:
+
+```{python}
+def poisson_loglik(y, mu):
+    """Poisson log-likelihood."""
+    from scipy.special import gammaln
+    return np.sum(y * np.log(mu) - mu - gammaln(y + 1))
+```
+
+---
+
+and then run it on the estimated parameters:
+
+```{python}
+y_arr = data_pois['y'].values
+x1_arr = data_pois['x1'].values
+x2_arr = data_pois['x2'].values
+
+mu_unc = np.exp(beta_unc['const'] + beta_unc['x1'] * x1_arr + beta_unc['x2'] * x2_arr)
+mu_con = np.exp(beta_con['const'] + beta_con['x1'] * x1_arr + 1.5 * x2_arr)
+
+ll_unc = poisson_loglik(y_arr, mu_unc)
+ll_con = poisson_loglik(y_arr, mu_con)
+
+print(f"Log-likelihood (unconstrained): {ll_unc:.3f}")
+print(f"Log-likelihood (constrained):   {ll_con:.3f}")
+```
+
+---
+
+And calculate the likelihood ratio test statistic:
+
+```{python}
+# R: 2*(log.lik.unc - log.lik.con)
+# Python: using utils.likelihood_ratio_test
+lr_stat, p_value = utils.likelihood_ratio_test(ll_con, ll_unc, df=1)
+
+print(f"LR test statistic: {lr_stat:.4f}")
+print(f"p-value:           {p_value:.6f}")
+```
+
+---
+
+We can also extract the log-likelihoods directly from our estimated GLM models:
+
+```{python}
+# R: logLik(pois.unc)
+# Python: model.llf
+print(f"Log-lik (unconstrained): {pois_unc.llf:.3f} (df={len(pois_unc.params)})")
+print(f"Log-lik (constrained):   {pois_con.llf:.3f} (df={len(pois_con.params)})")
+```
+
+---
+
+So given this quicker method, let's consider a joint test for whether: 
+* the `x1` effect is -1 
+* and the `x2` effect is 1
+
+```{python}
+# R: glm(y ~ offset(-1*x1) + offset(1*x2), data=data.Pois, family="poisson")
+# Python: fix both x1=-1 and x2=1, only estimate intercept
+X_con2 = np.ones((len(data_pois), 1))  # intercept only
+pois_con2 = sm.GLM(
+    data_pois['y'], X_con2,
+    family=sm.families.Poisson(),
+    offset=-1 * data_pois['x1'] + 1 * data_pois['x2']
+).fit(disp=0)
+
+# LR test with 2 degrees of freedom (we drop 2 parameters)
+lr_stat2, p_value2 = utils.likelihood_ratio_test(pois_con2.llf, pois_unc.llf, df=2)
+
+print(f"Joint test H0: beta2=-1 and beta3=1")
+print(f"LR test statistic: {lr_stat2:.7f}")
+print(f"p-value (chi2, df=2): {p_value2:.6f}")
+```
+
+## How to choose between models?
+---
+One last note, as we move into more practical Max-Likelihood applications, is how to assess different models.
+
+We would like something like the adjusted $R^2$ measure from linear regression, where we can compare two different models and examine the tradeoffs over:
+* The simplicity of the model and number of parameters
+* How well the model fits the data
+
+I'll just briefly outline two often used criteria for this comparison, where the two key parameters will be:
+* Simplicity: number of different parameters $k$ that we estimate in $\boldsymbol{\theta}$
+* Goodness of Fit : the log likelihood $\log \left(L(\boldsymbol{\theta})\right)$
+
+**What directions do we want for $k$ and $L$ ??**
+
+### Akaike Information Criterion (AIC)
+The AIC for a model is derived from theory for the possible information contained in a model and is given by:
+$$ \text{AIC}= 2 k -2 \log L $$
+
+### Bayesian Information Criterion (BIC)
+The BIC for a model is similar, though the derivation based on slightly different theory:
+$$ \text{BIC}= k \log(n) -2 \log( L) $$
+
+Both of these criteria can be used to choose between two models, where the **lower** is the number the better! For example, the *AIC* is generically reported in the output to GLM model:
+
+```{python}
+# Add random noise as a regressor
+np.random.seed(999)
+data_pois['eps'] = np.random.normal(0, 1, len(data_pois))
+```
+
+---
+
+```{python}
+# Model 1: correct specification
+X1 = sm.add_constant(data_pois[['x1', 'x2']])
+model1 = sm.GLM(data_pois['y'], X1, family=sm.families.Poisson()).fit(disp=0)
+
+# Model 2: adding random noise as a regressor
+X2 = sm.add_constant(data_pois[['x1', 'x2', 'eps']])
+model2 = sm.GLM(data_pois['y'], X2, family=sm.families.Poisson()).fit(disp=0)
+
+print(model2.summary())
+```
+
+---
+
+### Built in commands
+AIC:
+
+```{python}
+# R: AIC(model1), AIC(model2)
+# Python: model.aic
+print(f"AIC (Model 1 - correct):     {model1.aic:.3f}")
+print(f"AIC (Model 2 - with noise):  {model2.aic:.3f}")
+```
+
+---
+
+BIC:
+
+```{python}
+# R: BIC(model1), BIC(model2)
+# Python: model.bic_llf (statsmodels provides BIC based on log-likelihood)
+#   or compute manually: k*log(n) - 2*loglik
+n_obs = len(data_pois)
+k1 = len(model1.params)
+k2 = len(model2.params)
+
+bic1 = k1 * np.log(n_obs) - 2 * model1.llf
+bic2 = k2 * np.log(n_obs) - 2 * model2.llf
+
+print(f"BIC (Model 1 - correct):     {bic1:.3f}")
+print(f"BIC (Model 2 - with noise):  {bic2:.3f}")
+```
+
+## Summary: R to Python Mapping
+
+| R Function | Python Equivalent |
+|---|---|
+| `rgeom(n, p)` | `np.random.geometric(p, n) - 1` (R is 0-indexed) |
+| `dgeom(x, prob, log=TRUE)` | `stats.geom.logpmf(x+1, p)` or manual formula |
+| `dbinom(x, size, prob)` | `stats.binom.pmf(x, size, prob)` |
+| `dpois(x, lambda)` | `stats.poisson.pmf(x, mu)` |
+| `qnorm(p)` | `stats.norm.ppf(p)` |
+| `pchisq(q, df)` | `stats.chi2.cdf(q, df)` |
+| `optim(..., method="Brent")` | `optimize.minimize_scalar(bounds=..., method='bounded')` |
+| `glm(y~x, family="poisson")` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
+| `vcov(model)` | `model.cov_params()` |
+| `confint(model)` | `model.conf_int()` |
+| `logLik(model)` | `model.llf` |
+| `AIC(model)` | `model.aic` |
+| `mvrnorm(n, mu, Sigma)` | `np.random.multivariate_normal(mu, Sigma, n)` |
+| `boot(data, stat, R=1000)` | `utils.bootstrap(data, stat, n_boot=1000)` |
+| `boot.ci(bs, type="bca")` | Custom BCa or `utils.bootstrap_ci(bs, method='percentile')` |
+| `lrtest(m1, m2)` | `utils.likelihood_ratio_test(m_restricted.llf, m_unrestricted.llf, df)` |
+

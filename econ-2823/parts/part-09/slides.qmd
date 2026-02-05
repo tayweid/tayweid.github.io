@@ -1,0 +1,811 @@
+---
+title: "Maximum Likelihood 2: Inference"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats, optimize
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+---
+Here we'll try to do two things:
+1. Outline some properties of Maximum Likelihood estimates
+2. Examine how we can construct standard-errors and tests
+
+
+## Properties of the Maximum Likelihood estimates:
+---
+Under some technical assumptions, the MLE estimator $\hat{\boldsymbol{\theta}}$ of an identifiable parameter vector $\boldsymbol{\theta}_0$  has the following properties:
+1. Consistency: $\hat{\boldsymbol{\theta}}$ converges in probability to the true parameter  $\boldsymbol{\theta}_0$
+2. Asymptotic Normality: $\sqrt{n}\left(\hat{\boldsymbol{\theta}}-\boldsymbol{\theta}_0\right)$ converges in distribution to $\mathcal{N}(0,\Sigma)$
+3. The estimator is efficient, where the asymptotic variance-covariance matrix $\Sigma$ is the smallest possible
+
+Note that the above results are all large sample results
+* We've already seen that the maximum-likelihood estimators can be **biased** in finite samples!
+* Similarly, all of our inference will rely on the sample being *big*
+
+With that proviso, let's dive into how we can compute the variance-covariance matrix $\Sigma$, and from this derive:
+* standard errors
+* confidence intervals
+
+## Theory for the Variance-Covariance of MLE estimators
+---
+To find an estimator for $\Sigma$ we need to define a few other terms first.
+
+First, we define the **score vector** assessed with any possible parameter $\boldsymbol{\theta}$ value as:
+$$ \text{score vector}: \mathbf{s}(\boldsymbol{\theta}) =\frac{\partial\log L(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}}$$
+
+So this is a vector of partial derivatives for the log-likelihood.
+
+But from the chain rule, we know that this will be given by:
+$$\mathbf{s}(\boldsymbol{\theta})=\frac{1}{L(\boldsymbol{\theta})}\frac{\partial L(\boldsymbol{\theta})}{\partial \boldsymbol{\theta}} $$
+
+Second, we define the **Fisher Information Matrix** assessed at the **true** parameter value $\boldsymbol{\theta}_0$ as:
+$$\text{Information matrix: }\mathbf{I}_{\boldsymbol{\theta}_0}=\mathbb{E}\left[ \mathbf{s}(\boldsymbol{\theta}_0) \mathbf{s}(\boldsymbol{\theta}_0)^T \right]= -\mathbb{E}\left[ \frac{\partial\log L(\boldsymbol{\theta}_0)}{\partial \boldsymbol{\theta}\partial \boldsymbol{\theta}^T} \right] $$
+The expectations here are over the realizations of our data which will be distributed according to $y$ (or $y|\mathbf{X}$ if we have covariates), so while the average value might have zero score, this will look a lot like the square of a mean-zero error.
+
+## Cramer-Rao Inequality
+A fundamental result in statistics is that under some technical restrictions on the underlying distributions:
+
+If we have a vector of observations $\mathbf{z}$ which has a density given by $f(\mathbf{z};\boldsymbol{\theta}_0)$ for a finite set of parameters $\boldsymbol{\theta}_0$. Given the likelihood function $L(\tilde{\boldsymbol{\theta}})=f(\mathbf{z};\tilde{\boldsymbol{\theta}})$,  any unbiased estimator $\hat{\boldsymbol{\theta}}(\mathbf{z})$ of $\boldsymbol{\theta}_0$ satisfies:
+
+$$\text{Var}\left(\hat{\boldsymbol{\theta}}(\mathbf{z})\right) \geq \tfrac{1}{n}\mathbf{I}(\boldsymbol{\theta}_0)^{-1}.$$
+
+So, because the maximum likelihood estimator's asymptotic variance is exactly this, that means that the ML-estimator is asymptotically efficient!
+
+If you have the right probability distribution, and a large amount of data, there is no better method than ML!
+
+## Poisson Example (Theory)
+---
+Let's take our simple Poisson model for count data as an example, where the data is as series of counts $(k_1,k_2,\ldots,k_n)$ and there is a solitary parameter $\lambda$. The Likelihood function is given by:
+$$ L(\lambda)= \prod_{i=1}^N \frac{\lambda^{k_i} e^{-\lambda}}{k_i !}.$$
+
+So the Log-likelihood is given by:
+$$ l(\lambda)= \sum_{i=1}^N  \left(k_i\cdot\log(\lambda)-\lambda -\log(k_i !)\right)$$
+
+which means the score is????
+
+The score is the derivative of the log-likelihood with respect to the parameters, which here is the scalar $\lambda$, so we have:
+$$ s(\lambda)=\frac{\partial l(\lambda)}{\partial \lambda}= \sum^{N}_{i=1} \frac{k_i}{\lambda}-N $$
+
+One formula we have for the Fisher Information matrix is given by:
+$$ \mathbf{I}(\lambda)=\mathbb{E}\left[s(\lambda)^2\right]$$
+
+which simplifies to:
+$$\mathbf{I}(\lambda)=\mathbb{E}\left[\left( \sum^{N}_{i=1} \frac{k_i}{\lambda}-N  \right)^2\right]$$
+
+We can expand this to...
+$$\mathbf{I}(\lambda) = \mathbb{E}\left[ N^2 -\frac{2 N}{\lambda}\sum^{N}_{i=1} k_i + \frac{1}{\lambda^2}\left(\sum^{N}_{i=1} k_i\right)^2 \right] $$
+
+Take out $N$ as a common element and write $\tfrac{1}{N}\sum_i k_i=\overline{k}$ to get
+$$\mathbf{I}(\lambda) = \frac{N^2}{\lambda^2}\mathbb{E}\left[ \lambda^2 -2\lambda \overline{k} +\overline{k}^2 \right]$$
+
+Moving the expectations inside the square bracket we get:
+$$\mathbf{I}(\lambda)=\frac{N^2}{\lambda^2}\left[ \lambda^2 -2\lambda \mathbb{E}\overline{k} +\mathbb{E}\overline{k}^2 \right]$$
+
+We know that each of the data draws $k_i$ is an *iid* draw from a Poisson$(\lambda)$, so the data draws have the property that:
+* $\mathbb{E}k_i=\lambda$, so that means $\mathbb{E}\overline{k}=\lambda$
+* $\text{Var}(k_i)=\lambda$, which means that $\mathbb{E}k_i^2=\lambda(1+\lambda)$
+
+So we can simplify this expression to: 
+$$\mathbf{I}(\lambda)=\frac{N^2}{\lambda^2}\left[ -\lambda^2 + \tfrac{N(N-1)}{N^2}\cdot \lambda^2 +\tfrac{1}{N}\lambda\cdot(1+\lambda) \right]$$
+
+which if you multiply through you would find that:
+$$\mathbf{I}(\lambda)= \frac{N}{\lambda} $$
+
+In this particular case, the other formula for the Information matrix would have been far quicker!!
+$$ \mathbf{I}(\lambda)=-\mathbb{E}\left[\frac{\partial^2 \log L(\lambda)}{\partial \lambda^2}\right]=-\mathbb{E}\left[\frac{\partial}{\partial \lambda} s(\lambda)\right]$$
+which is
+$$\mathbf{I}(\lambda)=-\mathbb{E}\left[\frac{\partial}{\partial \lambda}\left( \sum^{N}_{i=1} \frac{k_i}{\lambda}-N \right)\right]= \left[\sum^{N}_{i=1} \frac{\mathbb{E} k_i}{\lambda^2}\right]=\frac{N}{\lambda}$$
+
+... and so our identity holds true!
+
+## Poisson conclusion:
+---
+So the Cramer-Rao inequality tells us that every possible unbiased estimators for $\lambda$ has a variance of at least: 
+$$\mathbf{I}(\lambda)^{-1}=\tfrac{\lambda}{N}$$
+and that asymptotically our MLE estimator will have this variance.
+
+## Calculation of variance-covariance matrix
+---
+
+The theory tells us that the asymptotic variance-covariance matrix for $\sqrt{n}\left(\hat{\boldsymbol{\theta}}-\boldsymbol{\theta}_0\right)$ is given by $\mathbf{I}_{\boldsymbol{\theta}_0}^{-1}$. 
+
+If we knew the true values for the parameters we could calculate these things as in the above example. But typically we *don't* know the true parameters, we have an estimate of them,  and we're trying to get a sense for how inaccurate our estimator is through the theoretical variance! 
+
+We'll proceed in a similar way then to how we constructed *standard errors* in OLS:
+* Using our estimates of the parameters, we'll assemble an *estimator* of the variance-covariance matrix
+* Using this estimated variance, we then create an estimator for the variability of our parameter estimate.
+
+From the above we have two options for computing an estimator for $\mathbf{I}_{\boldsymbol{\theta}_0}$:
+1. Calculate the score vector $s(\hat{\boldsymbol{\theta}})$ *at each data point* and then take averages to get an approximation for the expectation at $\boldsymbol{\theta}_0$
+2. Figure out the Hessian matrix $\mathbf{H}(\hat{\boldsymbol{\theta}})$ (the second derivatives) for the log-likelihood (again, at each data point), and average across these data points to get an approximation of the expectation
+
+While the Hessian can sometimes be easier in *analytical* calculations (per the above), the score is typically less computationally intensive if we're relying on numerical methods.
+
+However we'll again do both for the simple Poisson example.
+
+## Poisson Estimator
+---
+The MLE estimator for the simple Poisson case was that $ \hat{\lambda}=\overline{k}$, the average in the data.
+
+```{python}
+# R: rpois(400, 2)
+# Python: np.random.poisson(2, 400)
+np.random.seed(42)
+pois_data = np.random.poisson(2, 400)  # true value of lambda is 2
+lambda_hat = np.mean(pois_data)
+print(f"lambda_hat = {lambda_hat}")
+```
+
+---
+
+The score for any particular observation is given by:
+$$s(k_j)=\frac{\partial}{\partial \lambda}\log L(\lambda;k_j)=\frac{k_j}{\lambda}-1$$
+
+```{python}
+# R: pois.score.est <- function(kj) ( kj / lambda.hat - 1 )
+# Python: vectorized
+def pois_score_est(kj):
+    return kj / lambda_hat - 1
+
+# R: scores <- sapply(pois.data, pois.score.est)
+# Python: vectorized over numpy array
+scores = pois_score_est(pois_data)
+
+# Take the average of the square of the scores to get Fisher Information
+# R: Fisher.Inf <- sum(scores**2) / length(scores)
+Fisher_Inf = np.mean(scores**2)
+
+# The variance estimator is then the reciprocal of this
+EstVar = 1.0 / Fisher_Inf
+print(f"Estimated asymptotic variance: {EstVar:.6f}")
+```
+
+---
+
+But the theory here tells us that $\sqrt{n}(\hat{\lambda}-\lambda )$ converges in distribution to a mean-zero normal with this variance, so our standard error on the estimate of lambda is given by:
+$$\frac{\sqrt{\hat{\text{Var}}}}{\sqrt{n}} $$
+
+Our estimate and standard error are therefore given by:
+
+```{python}
+n = len(pois_data)
+se_lambda = np.sqrt(EstVar) / np.sqrt(n)
+
+est_pois = pd.Series({'Estimate': lambda_hat, 'Std. Error': se_lambda})
+print(est_pois.round(3))
+```
+
+---
+
+So given our estimator, we're estimating the standard deviation of our estimator as: 
+
+```{python}
+se_lambda = np.sqrt(EstVar / 400)
+print(f"Estimated SE: {se_lambda:.4f}")
+```
+
+---
+
+when the reality is that in this case we know it is:
+
+```{python}
+print(f"True SE: {np.sqrt(2 / 400):.4f}")
+```
+
+## Illustrating this:
+---
+What does this mean about the potential for the noise in our estimates:
+
+```{python}
+x = np.linspace(-0.5, 0.5, 300)
+
+fig, ax = plt.subplots()
+# Actual distribution for the error (gold)
+ax.plot(x, stats.norm.pdf(x, 0, np.sqrt(2 / 400)),
+        color=PITT_GOLD, linewidth=3, label='Actual distribution')
+# Estimated distribution for the error (blue)
+ax.plot(x, stats.norm.pdf(x, 0, se_lambda),
+        color=PITT_BLUE, linewidth=1, label='Estimated distribution')
+ax.set_xlabel(r'$\hat{\lambda} - \lambda$')
+ax.set_ylabel('Density')
+ax.set_title('Actual vs Estimated Sampling Distribution')
+ax.legend()
+plt.show()
+```
+
+---
+
+Similarly, we could have estimated this using the second derivative of the log-likelihood (the Hessian)
+
+```{python}
+# R: pois.hess.est <- function(kj) ( -kj / lambda.hat^2 )
+# Python: vectorized
+def pois_hess_est(kj):
+    return -kj / lambda_hat**2
+
+# R: pois.hess <- sapply(pois.data, pois.hess.est)
+pois_hess = pois_hess_est(pois_data)
+
+# Take the negative of the mean to get I, then invert
+EstVar_H = 1.0 / np.mean(-pois_hess)
+se_hessian = np.sqrt(EstVar_H / 400)
+print(f"SE from Hessian method: {se_hessian:.8f}")
+```
+
+---
+
+Note that this is not identical to the score calculation! The identity only holds at the true value $\lambda$ under the expectation... However, if we're close to the true value, the approximation is still good. 
+
+## Numerical Approximations
+In many situations it may be a bit too much for us to calculate the derivatives analytically, in which case, we could rely on our numerical approximations.
+
+Here I'll use: $$\frac{f(x+\epsilon)-f(x-\epsilon)}{2\epsilon}=f^\prime(x)+O(\epsilon^2)$$
+
+```{python}
+def d_log_likelihood_poisson(kj, lam, eps):
+    """
+    Numerical derivative of Poisson log-likelihood at a single observation.
+    
+    R equivalent:
+        d.log.likelihood.poisson <- function(kj, lambda, eps) {
+            (dpois(kj, lambda=lambda+eps, log=TRUE) - 
+             dpois(kj, lambda=lambda-eps, log=TRUE)) / (2*eps)
+        }
+    
+    Python: stats.poisson.logpmf(kj, mu) is equivalent to dpois(kj, lambda, log=TRUE)
+    """
+    return (stats.poisson.logpmf(kj, lam + eps) - 
+            stats.poisson.logpmf(kj, lam - eps)) / (2 * eps)
+```
+
+---
+
+```{python}
+# Our analytical scores squared and averaged
+print(f"Analytical: {np.mean(scores**2):.7f}")
+
+# Same thing, but with numerical derivatives
+# R: sapply(pois.data, d.log.likelihood.poisson, lambda=lambda.hat, eps=1e-4)
+# Python: vectorized or list comprehension
+num_scores = np.array([d_log_likelihood_poisson(kj, lambda_hat, 1e-4) 
+                       for kj in pois_data])
+print(f"Numerical:  {np.mean(num_scores**2):.7f}")
+```
+
+---
+
+```{python}
+se_lambda_numerical = np.sqrt(1.0 / np.mean(num_scores**2) / 400)
+print(f"SE (numerical): {se_lambda_numerical:.8f}")
+```
+
+---
+
+Note that here we're taking a numerical derivative for every entry. In this case, the score/versus Hessian would be about the same in terms of complication to compute
+
+In general though if we have $k$-parameters to estimate, the variance covariance matrix we're looking for will be a $k\times k$ matrix. When we're using the score method this means computing $n$ different $k$-dimensional numerical derivatives to get an approximation for $\mathbb{E}\left[\mathbf{s}(\boldsymbol{\theta})\mathbf{s}(\boldsymbol{\theta})^T\right]$ where we average across the $n$ points.
+
+In contrast, if we wanted to calculate things with the second derivatives, each Hessian matrix is a $k\times k $ matrix, so we'd have to do $n\cdot k^2$ numerical derivatives!
+
+For example, suppose we have two observable groups and we're trying to estimate the two means.
+
+```{python}
+# R: df.two.groups <- data.frame(Group = ifelse(runif(400) > 1/2, 1, 2))
+np.random.seed(123)
+n_obs = 400
+groups = np.where(np.random.uniform(size=n_obs) > 0.5, 1, 2)
+
+# R: sapply(df.two.groups$Group, function(x) if(x==1) rpois(1,1.5) else rpois(1,2.5))
+k_vals = np.where(groups == 1, 
+                  np.random.poisson(1.5, n_obs), 
+                  np.random.poisson(2.5, n_obs))
+
+df_two_groups = pd.DataFrame({'Group': groups, 'k': k_vals})
+print(df_two_groups.head(6))
+```
+
+---
+
+```{python}
+lambda_hat_1 = df_two_groups.loc[df_two_groups['Group'] == 1, 'k'].mean()
+lambda_hat_2 = df_two_groups.loc[df_two_groups['Group'] == 2, 'k'].mean()
+print(f"lambda1 = {lambda_hat_1:.6f}")
+print(f"lambda2 = {lambda_hat_2:.6f}")
+```
+
+---
+
+```{python}
+eps = 1e-6
+nn = len(df_two_groups)
+
+# Initialize score matrix (N x 2)
+score_matrix = np.zeros((nn, 2))
+
+for i in range(nn):
+    grp = df_two_groups.iloc[i]['Group']
+    kj = df_two_groups.iloc[i]['k']
+    if grp == 1:  # Group 1: d/d lambda1 is non-zero
+        score_matrix[i, 0] = (stats.poisson.logpmf(kj, lambda_hat_1 + eps) - 
+                              stats.poisson.logpmf(kj, lambda_hat_1 - eps)) / (2 * eps)
+    else:  # Group 2: d/d lambda2 is non-zero
+        score_matrix[i, 1] = (stats.poisson.logpmf(kj, lambda_hat_2 + eps) - 
+                              stats.poisson.logpmf(kj, lambda_hat_2 - eps)) / (2 * eps)
+
+# Fisher Information: (S^T S) / n, then invert for Sigma
+# R: Sigma <- solve(t(scoreVector) %*% scoreVector / nn)
+Sigma = np.linalg.inv(score_matrix.T @ score_matrix / nn)
+print("Variance-covariance matrix (Sigma):")
+print(Sigma)
+```
+
+---
+
+As should be obvious, our estimators for the two groups are entirely independent as they're separate samples,  where:
+$$\sqrt{N}\left(\begin{array}{c} \hat{\lambda_1}-\lambda_1 \\ \hat{\lambda_2}-\lambda_2 \end{array}\right)\rightarrow^D \mathcal{N}\left\{  
+0,\hat{\boldsymbol{\Sigma}}
+\right\}$$
+
+Where the lack of any correlation in the estimates means that we get:
+$$\hat{\boldsymbol{\Sigma}}=\left[\begin{array}{cc}
+\hat{\sigma}^2_{\lambda_1} & 0 \\
+0 & \hat{\sigma}^2_{\lambda_2}
+\end{array} \right]$$
+
+So we can calculate the standard errors as:
+
+```{python}
+# R: data.frame(group=c(1,2), mean=c(lambda.hat.1,lambda.hat.2), se=sqrt(diag(Sigma)/nn))
+# diag() picks out the diagonal elements of the Sigma matrix!
+se_df = pd.DataFrame({
+    'group': [1, 2],
+    'mean': [lambda_hat_1, lambda_hat_2],
+    'se': np.sqrt(np.diag(Sigma) / nn)
+})
+print(se_df)
+```
+
+---
+
+Note that another way of setting up this model would have been to say group 1's average was $\lambda_1$ and to define group 2's average as $\lambda_1+\lambda_2$. 
+
+It's pretty easy to show that our estimates would then be given by:
+
+```{python}
+alt_lambda_hat_1 = lambda_hat_1
+alt_lambda_hat_2 = lambda_hat_2 - lambda_hat_1
+```
+
+---
+
+So now $\lambda_1$ appears in all the rows...
+
+```{python}
+eps = 1e-6
+a_score_matrix = np.zeros((nn, 2))
+
+for i in range(nn):
+    grp = df_two_groups.iloc[i]['Group']
+    kj = df_two_groups.iloc[i]['k']
+    if grp == 1:  # Group 1: derivative only over lambda1
+        a_score_matrix[i, 0] = (stats.poisson.logpmf(kj, alt_lambda_hat_1 + eps) - 
+                                stats.poisson.logpmf(kj, alt_lambda_hat_1 - eps)) / (2 * eps)
+    else:  # Group 2: derivative over both lambda1 *and* lambda2
+        a_score_matrix[i, 0] = (stats.poisson.logpmf(kj, alt_lambda_hat_1 + alt_lambda_hat_2 + eps) - 
+                                stats.poisson.logpmf(kj, alt_lambda_hat_1 - eps + alt_lambda_hat_2)) / (2 * eps)
+        a_score_matrix[i, 1] = (stats.poisson.logpmf(kj, alt_lambda_hat_1 + alt_lambda_hat_2 + eps) - 
+                                stats.poisson.logpmf(kj, alt_lambda_hat_1 + alt_lambda_hat_2 - eps)) / (2 * eps)
+
+# R: a.Sigma <- solve(t(a.scoreVector) %*% a.scoreVector / nn)
+a_Sigma = np.linalg.inv(a_score_matrix.T @ a_score_matrix / nn)
+print("Alternative parameterization Sigma:")
+print(a_Sigma)
+```
+
+---
+
+However, if we take the *sum* of the two coefficients, this should have the same variance as the second group from before:
+
+```{python}
+print("a_Sigma:")
+print(a_Sigma)
+print()
+
+# R: t(c(1,1)) %*% a.Sigma %*% c(1,1)
+c = np.array([1, 1])
+var_sum = c @ a_Sigma @ c
+print(f"Var(lambda1 + lambda2) = {var_sum:.6f}")
+```
+
+---
+
+Note that the matrix algebra above is:
+$$\left(\begin{array}{cc}
+1 & 1
+\end{array} \right)  \left[\begin{array}{cc}
+\hat{\sigma}^2_{\lambda_1} & 0 \\
+0 & \hat{\sigma}^2_{\lambda_2}
+\end{array} \right] \left(\begin{array}{c}
+1 \\
+1
+\end{array} \right) = \hat{\sigma}^2_{\lambda_1} + \hat{\sigma}^2_{\lambda_2}$$
+
+## Soccer parameter estimates
+---
+
+Going back to our soccer estimations, let's calculate the standard errors the hard way, before I show you the *easy* way. 
+
+Load in the data
+
+```{python}
+# R: load("soccer/soccerData.rda")
+# Python: use pyreadr to load .rda files
+try:
+    import pyreadr
+    rda_data = pyreadr.read_r('soccer/soccerData.rda')
+    estimData = rda_data['estimData']
+except ImportError:
+    print("pyreadr not installed. Run: pip install pyreadr")
+    print("Attempting to recreate data structure...")
+    estimData = None
+
+if estimData is not None:
+    print(estimData.head())
+```
+
+---
+
+Estimation Equations:
+
+```{python}
+def likelihood_function_list(theta, data):
+    """
+    Compute log-likelihood contribution for each match outcome.
+    Returns a vector of log-probabilities (two per match: home goals and away goals).
+    
+    Parameters:
+    theta: array of length 40
+        theta[0:38] = alpha[0], delta[0], alpha[1], delta[1], ..., alpha[18], delta[18]
+        theta[38] = mu (mean parameter)
+        theta[39] = eta (home advantage)
+    """
+    alpha = np.zeros(20)
+    delta = np.zeros(20)
+    for i in range(19):
+        alpha[i] = theta[2 * i]
+        delta[i] = theta[2 * i + 1]
+    alpha[19] = -np.sum(alpha[:19])  # sum-to-zero constraint
+    delta[19] = -np.sum(delta[:19])  # sum-to-zero constraint
+    
+    n_matches = len(data)
+    prob = np.zeros(2 * n_matches)
+    
+    for row in range(n_matches):
+        H = int(data.iloc[row]['HomeNo'])  # Home team number
+        gH = int(data.iloc[row]['FTHG'])   # Home goals
+        A = int(data.iloc[row]['AwayNo'])  # Away team number
+        gA = int(data.iloc[row]['FTAG'])   # Away goals
+        
+        # log(lambda) for home team: mu + eta + alpha_H - delta_A
+        lambdaH = theta[38] + theta[39] + alpha[H] - delta[A]
+        # log(lambda) for away team: mu + alpha_A - delta_H
+        lambdaA = theta[38] + alpha[A] - delta[H]
+        
+        # Poisson log-likelihood: k*log(lambda) - lambda - log(k!)
+        from math import factorial, log
+        prob[2 * row] = gH * lambdaH - np.exp(lambdaH) - log(factorial(gH))
+        prob[2 * row + 1] = gA * lambdaA - np.exp(lambdaA) - log(factorial(gA))
+    
+    return prob
+```
+
+---
+
+Rather than re-estimate, I'm just going to load in the saved estimates from the last class
+
+```{python}
+# R: load("soccer/SoccerEst.rda")
+try:
+    rda_est = pyreadr.read_r('soccer/SoccerEst.rda')
+    outModel = rda_est['outModel']
+    theta_out = rda_est['theta.out'].values.flatten()
+    print(outModel.head())
+    print(f"\ntheta_out (first 10): {theta_out[:10]}")
+except Exception as e:
+    print(f"Error loading estimates: {e}")
+```
+
+---
+
+So, we need to calculate the score vector which will be an $N\times 40$ matrix...
+
+```{python}
+pVec = likelihood_function_list(theta_out, estimData)  # Log-prob for each score
+eps = 1e-6
+n_params = len(theta_out)
+n_obs_soccer = len(pVec)
+
+# Initialize the score matrix
+score_mat = np.zeros((n_obs_soccer, n_params))
+
+for i in range(n_params):
+    # Create epsilon vector: zeros everywhere except position i
+    eps_vec = np.zeros(n_params)
+    eps_vec[i] = eps
+    # Numerical derivative: [f(theta+eps_i) - f(theta-eps_i)] / (2*eps)
+    score_mat[:, i] = (likelihood_function_list(theta_out + eps_vec, estimData) - 
+                       likelihood_function_list(theta_out - eps_vec, estimData)) / (2 * eps)
+
+# R: aVCM <- solve((t(score.matrix) %*% score.matrix) / length(pVec)) / length(pVec)
+# Fisher information via score outer product, then invert and scale
+aVCM = np.linalg.inv(score_mat.T @ score_mat / n_obs_soccer) / n_obs_soccer
+
+# Standard errors: sqrt of diagonal elements
+seVector = np.sqrt(np.diag(aVCM))
+print(f"Computed {n_params} standard errors")
+print(f"SE for mu (theta[38]): {seVector[38]:.4f}")
+print(f"SE for eta (theta[39]): {seVector[39]:.4f}")
+```
+
+---
+
+Get the team names:
+
+```{python}
+teamNames = outModel.index.tolist()
+```
+
+---
+
+Fancy it up to make it easier to see what it's saying:
+
+```{python}
+alphaOut = np.zeros(20)
+deltaOut = np.zeros(20)
+alphaOutSE = np.zeros(20)
+deltaOutSE = np.zeros(20)
+
+# Vectors for computing constrained team's SE via delta method
+sumAlpha = np.zeros(40)
+sumDelta = np.zeros(40)
+
+for i in range(19):
+    sumAlpha[2 * i] = -1
+    sumDelta[2 * i + 1] = -1
+    alphaOut[i] = theta_out[2 * i]
+    alphaOutSE[i] = seVector[2 * i]
+    deltaOut[i] = theta_out[2 * i + 1]
+    deltaOutSE[i] = seVector[2 * i + 1]
+
+# The 20th team is constrained: sum-to-zero
+alphaOut[19] = -np.sum(alphaOut[:19])
+alphaOutSE[19] = np.sqrt(sumAlpha @ aVCM @ sumAlpha)
+deltaOut[19] = -np.sum(deltaOut[:19])
+deltaOutSE[19] = np.sqrt(sumDelta @ aVCM @ sumDelta)
+```
+
+---
+
+And look at the overall mean/home effect variables too:
+
+```{python}
+general_params = pd.Series({
+    'mu': theta_out[38],
+    'se(mu)': seVector[38],
+    'eta': theta_out[39],
+    'se(eta)': seVector[39]
+})
+print(general_params.round(4))
+```
+
+---
+
+```{python}
+mod_coded = pd.DataFrame({
+    'alpha': np.round(alphaOut, 3),
+    'alpha_se': np.round(alphaOutSE, 3),
+    'delta': np.round(deltaOut, 3),
+    'delta_se': np.round(deltaOutSE, 3)
+}, index=teamNames)
+
+print(mod_coded)
+```
+
+## Generalized Linear Models
+---
+Fortunately, and we will talk about this more as we introduce other models, if we can outline the effects on the mean as the sum of a number of linear parts, we can solve this type of model in Python using what is called a *generalized linear model*.
+
+While the linearity of the predictor is given, the form of how this predictor is used for understanding the outcome $y$ can be highly non-linear.
+
+Here, we reshape the scoreline data to make the predictor $\lambda$ a simple linear combination.  
+
+```{python}
+# R: gather(estimData, key="variable", value="value", "FTHG", "FTAG")
+# Python: pd.melt()
+df = pd.melt(estimData, 
+             id_vars=['HomeTeam', 'HomeNo', 'AwayTeam', 'AwayNo'],
+             value_vars=['FTHG', 'FTAG'],
+             var_name='variable', 
+             value_name='value')
+
+# Create AttackTeam, DefTeam, Home columns
+df['AttackTeam'] = np.where(df['variable'] == 'FTHG', df['HomeTeam'], df['AwayTeam'])
+df['DefTeam'] = np.where(df['variable'] == 'FTHG', df['AwayTeam'], df['HomeTeam'])
+df['Home'] = (df['variable'] == 'FTHG')
+
+# Make factor variables with Man City as reference level
+# R: relevel(as.factor(...), "Man City")
+# Python: Categorical with specified categories (reference handled by formula)
+df['Off'] = pd.Categorical(df['AttackTeam'])
+df['Def'] = pd.Categorical(df['DefTeam'])
+df['value'] = df['value'].astype(int)
+
+print(df[['value', 'Home', 'Off', 'Def']].head(6))
+```
+
+---
+
+We will now attempt to estimate this as a model where the log-mean of the Poisson draw for each observation (so  the $\log(\lambda)$) is given by:
+* a constant/intercept
+* an indicator for whether the team was at home
+* a factor variable for the attacking team
+* a factor variable for the defending team
+
+```{python}
+print(df.head(2))
+```
+
+---
+
+```{python}
+# R: glm(value ~ as.factor(Home) + Off + Def, family=poisson, data=df)
+# Python: statsmodels GLM with Poisson family
+# We use C() for categorical treatment, with Man City as reference
+glm_mod = smf.glm(
+    'value ~ C(Home) + C(Off, Treatment(reference="Man City")) + C(Def, Treatment(reference="Man City"))',
+    data=df,
+    family=sm.families.Poisson()
+).fit()
+
+print(glm_mod.summary())
+```
+
+---
+
+Note that the team values are different, though the normalization here is also different. However, the *home*  parameter ($\eta$ in our previous notation) is obviously comparable.
+
+```{python}
+# R: exp(0.15665)
+# Find the Home coefficient
+home_coef = glm_mod.params['C(Home)[T.True]']
+print(f"Home coefficient: {home_coef:.5f}")
+print(f"exp(Home coef) = {np.exp(home_coef):.6f}")
+```
+
+---
+
+Let's check the parameters we're getting for two teams:
+
+The model output here indicates the **log** of Wolves's expected goals at home against Man City is:
+
+```{python}
+# R: coef(glm.mod)["(Intercept)"] + coef(glm.mod)["as.factor(Home)TRUE"] + coef(glm.mod)["OffWolves"]
+intercept = glm_mod.params['Intercept']
+home_param = glm_mod.params['C(Home)[T.True]']
+wolves_off = glm_mod.params['C(Off, Treatment(reference="Man City"))[T.Wolves]']
+
+log_wolves_xg = intercept + home_param + wolves_off
+print(f"log(Wolves XG at home vs Man City) = {log_wolves_xg:.7f}")
+```
+
+---
+
+So we can take the exponential of this to get the true mean for the expected goals:
+
+```{python}
+print(f"Wolves XG at home vs Man City = {np.exp(log_wolves_xg):.6f}")
+```
+
+---
+
+Our model estimates calculated by the hand coded model indicate:
+
+```{python}
+mu = general_params['mu']
+eta = general_params['eta']
+wolves_alpha = mod_coded.loc['Wolves', 'alpha']
+mancity_delta = mod_coded.loc['Man City', 'delta']
+
+hand_coded_log = mu + eta + wolves_alpha - mancity_delta
+print(f"Hand-coded log(XG) = {hand_coded_log:.7f}")
+print(f"Hand-coded XG      = {np.exp(hand_coded_log):.5f}")
+```
+
+---
+
+**Note** there are some small differences, indicating the extent to which features of the optimization can be important, especially when there are many parameters in the model
+
+Note that all of our standard errors are constructed over the parameters, which are not directly interpretable as means. 
+* The parameters are inputs into the large model
+* Reporting either the parameter or it's standard error only has meaning within the context of the model
+* We will have to come up with a way of expressing the effects in a more meaningful way!
+
+## Comparing Variance-Covariance Matrices
+---
+We can also compare our hand-coded variance-covariance matrix with the one provided by the GLM:
+
+```{python}
+# R: vcov(glm.mod) gives the variance-covariance matrix
+# Python: model.cov_params()
+glm_vcov = glm_mod.cov_params()
+print("GLM Variance-Covariance Matrix (first 5x5 block):")
+print(glm_vcov.iloc[:5, :5].round(6))
+```
+
+## Delta Method for Transformations
+---
+Since the parameters enter through a log-link, the expected goals for a matchup involve $\exp(\cdot)$ of a linear combination. To get standard errors for these transformed quantities, we use the **delta method**:
+
+If $g(\boldsymbol{\theta})$ is a function of parameters with variance-covariance $\boldsymbol{\Sigma}$, then:
+$$\text{Var}\left(g(\hat{\boldsymbol{\theta}})\right) \approx \nabla g(\hat{\boldsymbol{\theta}})^T \boldsymbol{\Sigma} \nabla g(\hat{\boldsymbol{\theta}})$$
+
+We can use the `delta_method` function from our `utils` module for this.
+
+```{python}
+# Example: SE for Wolves' expected goals at home vs Man City
+# Using our hand-coded VCM
+def wolves_xg_home(theta):
+    """Expected goals for Wolves at home vs Man City."""
+    alpha = np.zeros(20)
+    delta = np.zeros(20)
+    for i in range(19):
+        alpha[i] = theta[2*i]
+        delta[i] = theta[2*i + 1]
+    alpha[19] = -np.sum(alpha[:19])
+    delta[19] = -np.sum(delta[:19])
+    # Wolves is team index we need to find
+    wolves_idx = teamNames.index('Wolves')
+    mancity_idx = teamNames.index('Man City')
+    return np.exp(theta[38] + theta[39] + alpha[wolves_idx] - delta[mancity_idx])
+
+xg_val, xg_se = utils.delta_method(wolves_xg_home, theta_out, aVCM)
+print(f"Wolves XG at home vs Man City: {xg_val:.4f} (SE: {xg_se:.4f})")
+print(f"95% CI: [{xg_val - 1.96*xg_se:.4f}, {xg_val + 1.96*xg_se:.4f}]")
+```
+
+## Summary: R to Python Mapping
+---
+
+| Concept | R | Python |
+|---------|---|--------|
+| Poisson density (log) | `dpois(kj, lambda, log=TRUE)` | `stats.poisson.logpmf(kj, mu)` |
+| Numerical gradient | Manual loop | `utils.numerical_gradient()` or `scipy.optimize.approx_fprime()` |
+| Score outer product | `t(S) %*% S / n` | `S.T @ S / n` |
+| Matrix inverse | `solve(A)` | `np.linalg.inv(A)` |
+| Diagonal elements | `diag(A)` | `np.diag(A)` |
+| Reshape wide to long | `gather()` | `pd.melt()` |
+| GLM Poisson | `glm(..., family=poisson)` | `smf.glm(..., family=sm.families.Poisson())` |
+| Variance-covariance | `vcov(model)` | `model.cov_params()` |
+| Delta method | Manual | `utils.delta_method()` |
+| Load .rda files | `load()` | `pyreadr.read_r()` |
+

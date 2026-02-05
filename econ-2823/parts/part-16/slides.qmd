@@ -1,0 +1,1026 @@
+---
+title: "Censoring, and Selection (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+---
+We now focus on using maximum likelihood techniques to understanding some additional violations of the standard model that can cause bias.
+* **Censoring**: whereby data above or below a certain value is measured only at the limit
+* **Selection**: where the participants in our dataset are non-randomly selected, and so may be unrepresentative
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import optimize, stats
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+## Censoring
+---
+
+Suppose that we are modelling the effect of variable $x$ on outcome $y$, where we'll use the classical linear model:
+$$y_i=\beta_0+\beta_1 x_i+\epsilon_i$$
+where $\epsilon_i\sim \mathcal{N}(0,\sigma^2)$.
+
+So this would be the standard regression:
+
+So the values we want to recover here are: $\beta_0=5000$ and $\beta_1=2$
+
+```{python}
+# R: x <- 100*rchisq(10000, df=2)
+# Python: np.random.chisquare(df, size) * 100
+np.random.seed(42)
+
+beta0 = 5000
+beta1 = 2
+n = 10000
+
+x = 100 * np.random.chisquare(df=2, size=n)
+epsilon = np.random.normal(0, 400, size=n)
+y = beta0 + beta1 * x + epsilon
+
+data = pd.DataFrame({'y': y, 'x': x})
+
+# OLS regression
+X_ols = sm.add_constant(data['x'])
+ols_result = sm.OLS(data['y'], X_ols).fit()
+print(ols_result.summary().tables[1])
+```
+
+---
+
+```{python}
+# Plot data with fitted line
+fig, ax = plt.subplots(figsize=(10, 10/1.68))
+ax.scatter(data['x'], data['y'], s=0.5, color=PITT_GOLD, alpha=0.7)
+
+# Add OLS fit line
+x_range = np.linspace(data['x'].min(), data['x'].max(), 100)
+y_fit = ols_result.params[0] + ols_result.params[1] * x_range
+ax.plot(x_range, y_fit, color=PITT_BLUE, linewidth=2)
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_title('Standard OLS Regression')
+plt.show()
+```
+
+---
+
+So here we do pretty well at estimating the effect of the variable $x$ on $y$.
+
+However, suppose that due to data collection limits, we could only measure $y$ up to $\overline{y}=6000$, and for values above this they are *top-coded* at this limit.
+
+```{python}
+# R: data['y.censored'] <- ifelse(y > y.upper, y.upper, y)
+# Python: np.where(condition, value_if_true, value_if_false)
+y_upper = 6000
+data['y_censored'] = np.where(data['y'] > y_upper, y_upper, data['y'])
+
+# OLS on censored data
+ols_censored = sm.OLS(data['y_censored'], X_ols).fit()
+print(ols_censored.summary().tables[1])
+```
+
+---
+
+Now we've substantially underestimated the relationship between y and x, where we can see why when we consider the effect of the truncation:
+
+```{python}
+fig, ax = plt.subplots(figsize=(10, 10/1.68))
+
+# Plot censored data
+uncensored_mask = data['y'] <= y_upper
+ax.scatter(data.loc[uncensored_mask, 'x'], data.loc[uncensored_mask, 'y_censored'],
+           s=0.5, color=PITT_GOLD, alpha=0.7)
+ax.scatter(data.loc[~uncensored_mask, 'x'], data.loc[~uncensored_mask, 'y_censored'],
+           s=0.5, color='red', alpha=0.7)
+
+# OLS on censored data (red line)
+y_fit_censored = ols_censored.params[0] + ols_censored.params[1] * x_range
+ax.plot(x_range, y_fit_censored, color='red', linewidth=2, label='OLS on censored')
+
+# Original OLS (blue line)
+y_fit_orig = ols_result.params[0] + ols_result.params[1] * x_range
+ax.plot(x_range, y_fit_orig, color=PITT_BLUE, linewidth=2, label='OLS on original')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y (censored)')
+ax.set_title('Effect of Top-Coding on OLS')
+ax.legend()
+plt.show()
+```
+
+---
+
+The violation of the assumption here is that if the true relationship is:
+$$ y=\beta_0+\beta_1 x+\epsilon$$
+and we use the censored variable $y_C$ then we effectively have the relationship:
+$$y_C=\begin{cases}
+ \beta_0+\beta_1\cdot x_U+\epsilon & \text{if }\epsilon<\overline{y}-\beta_0-\beta_1 x, \\
+ \overline{y} & \text{otherwise.}\end{cases} $$
+
+If we wanted to estimate $\beta_1$ without bias, we would require that the expected error conditional on all values of $x$ is zero, but that can't be true here as the expected error on the top-coded variable is positive!
+
+One way to proceed here would be to remove all of the top-coded observations:
+
+```{python}
+# OLS excluding censored observations
+subset = data['y_censored'] < y_upper
+ols_truncated = sm.OLS(data.loc[subset, 'y_censored'],
+                       sm.add_constant(data.loc[subset, 'x'])).fit()
+print(ols_truncated.summary().tables[1])
+```
+
+---
+
+But here we're still making a mistake, as the *expected* error is now negative (increasingly so as $x$ gets larger) as we're truncating the sample to remove data points with large errors!
+
+```{python}
+fig, ax = plt.subplots(figsize=(10, 10/1.68))
+
+ax.scatter(data['x'], data['y_censored'], s=0.5, color=PITT_GOLD, alpha=0.7)
+
+# OLS on truncated sample (red line)
+y_fit_trunc = ols_truncated.params[0] + ols_truncated.params[1] * x_range
+ax.plot(x_range, y_fit_trunc, color='red', linewidth=2, label='OLS (drop censored)')
+
+# OLS on full censored data (blue line)
+ax.plot(x_range, y_fit_censored, color=PITT_BLUE, linewidth=2, label='OLS (all censored)')
+
+ax.set_xlabel('x')
+ax.set_ylabel('y (censored)')
+ax.set_title('Dropping Censored Observations Still Biased')
+ax.legend()
+plt.show()
+```
+
+---
+
+The other option we have is to model the censoring. The starting point for much of this is what's called a Tobit regression. We will make the classical linear model assumption that the errors are normally distributed. However, we will now recognize the fact that data points at the upper limit are top coded.
+
+The density on points which are uncensored are therefore given by the standard normal PDF:
+$$\phi\left(\frac{y_i-\beta_0-\beta_1 x_i}{\sigma}\right)$$
+This is the exactly the same as the max-likelihood version of the classical linear model.
+
+The difference is that values at the upper limit $\overline{y}$ we recognize that all values of $\epsilon$ larger than a cutoff could have caused this. The likelihood for these data points is therefore given by the upper tail of the normal via:
+$$\left(1-\Phi\left( \frac{\overline{y}-\beta_0-\beta_1 x_i}{\sigma} \right)\right) $$
+
+Similarly, if we had bottom-coded variables, so left-censored at some point $\underline{y}$, then we would model the left tail of normal via:
+$$ \Phi\left( \frac{\underline{y}-\beta_0-\beta_1 x_i}{\sigma} \right) $$
+
+Given left and right censoring at $\underline{y}$ and $\overline{y}$, respectively, the log-likelihood for the entire data is given by:
+$$\begin{eqnarray}\log \mathcal{L}(\beta_0,\beta_1,\sigma;y,x)=
+\sum_{\underline{y}<y_i<\overline{y}}\log\phi\left(\frac{y_i-\beta_0-\beta_1 x_i}{\sigma}\right)+\\
+\sum_{\underline{y}\geq y_i}\log \Phi\left(\frac{y_i-\beta_0-\beta_1 x_i}{\sigma}\right)+\\
+\sum_{y_i \geq  \overline{y} }\log\left( 1-\Phi\left(\frac{y_i-\beta_0-\beta_1 x_i}{\sigma}\right)\right),\end{eqnarray}
+$$
+and we could find the max-likelihood estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ using the previous methods (and the standard deviation $\hat{\sigma}$ and standard errors).
+
+### Tobit Model: Custom MLE in Python
+
+In R, we used `tobit()` from the `AER` package. In Python, there is no standard built-in Tobit, so we implement it ourselves using `scipy.optimize`.
+
+**Key R to Python mappings:**
+| R | Python |
+|---|--------|
+| `tobit(y ~ x, left=L, right=R)` | Custom MLE with `scipy.optimize.minimize` |
+| `pnorm(x)` | `scipy.stats.norm.cdf(x)` |
+| `dnorm(x)` | `scipy.stats.norm.pdf(x)` |
+
+```{python}
+def tobit_loglik(params, y, X, left=-np.inf, right=np.inf):
+    """
+    Log-likelihood for the Tobit model.
+    
+    Parameters
+    ----------
+    params : array-like
+        [beta_0, beta_1, ..., beta_k, log_sigma]
+        Note: we estimate log(sigma) to ensure sigma > 0
+    y : array-like
+        Dependent variable (possibly censored)
+    X : ndarray
+        Design matrix (including constant)
+    left : float
+        Left censoring point (-np.inf for no left censoring)
+    right : float
+        Right censoring point (np.inf for no right censoring)
+    
+    Returns
+    -------
+    float
+        Log-likelihood value
+    """
+    beta = params[:-1]
+    sigma = np.exp(params[-1])  # ensure positive
+    xb = X @ beta
+    
+    ll = 0.0
+    
+    # Uncensored observations
+    uncensored = (y > left) & (y < right)
+    if np.any(uncensored):
+        # R: dnorm((y - xb) / sigma) / sigma  =  norm.logpdf(y, xb, sigma)
+        ll += np.sum(stats.norm.logpdf(y[uncensored], xb[uncensored], sigma))
+    
+    # Left-censored observations
+    left_censored = (y <= left)
+    if np.any(left_censored):
+        # R: pnorm((left - xb) / sigma)
+        ll += np.sum(np.log(np.maximum(stats.norm.cdf((left - xb[left_censored]) / sigma), 1e-300)))
+    
+    # Right-censored observations
+    right_censored = (y >= right)
+    if np.any(right_censored):
+        # R: 1 - pnorm((right - xb) / sigma)
+        ll += np.sum(np.log(np.maximum(1 - stats.norm.cdf((right - xb[right_censored]) / sigma), 1e-300)))
+    
+    return ll
+```
+
+---
+
+```{python}
+def fit_tobit(y, X, left=-np.inf, right=np.inf):
+    """
+    Fit a Tobit model via maximum likelihood.
+    
+    R equivalent: tobit(y ~ x, left=L, right=R)
+    
+    Parameters
+    ----------
+    y : array-like
+        Dependent variable
+    X : ndarray
+        Design matrix (including constant)
+    left : float
+        Left censoring point
+    right : float
+        Right censoring point
+    
+    Returns
+    -------
+    dict
+        Estimation results
+    """
+    # Initial values from OLS
+    ols = sm.OLS(y, X).fit()
+    init_beta = ols.params
+    init_log_sigma = np.log(np.std(ols.resid))
+    x0 = np.concatenate([init_beta, [init_log_sigma]])
+    
+    # Maximize log-likelihood (minimize negative log-likelihood)
+    result = optimize.minimize(
+        lambda p: -tobit_loglik(p, y, X, left, right),
+        x0,
+        method='BFGS'
+    )
+    
+    # Extract results
+    params = result.x
+    beta = params[:-1]
+    log_sigma = params[-1]
+    sigma = np.exp(log_sigma)
+    loglik = -result.fun
+    
+    # Standard errors from inverse Hessian
+    se = utils.mle_standard_errors(
+        lambda p: tobit_loglik(p, y, X, left, right), params
+    )
+    
+    # Count observations
+    n_left = np.sum(y <= left) if left > -np.inf else 0
+    n_right = np.sum(y >= right) if right < np.inf else 0
+    n_uncensored = len(y) - n_left - n_right
+    
+    return {
+        'beta': beta,
+        'log_sigma': log_sigma,
+        'sigma': sigma,
+        'se': se,
+        'loglik': loglik,
+        'n_total': len(y),
+        'n_left': n_left,
+        'n_uncensored': n_uncensored,
+        'n_right': n_right,
+        'converged': result.success
+    }
+```
+
+---
+
+```{python}
+def print_tobit_summary(result, var_names=None):
+    """
+    Print a summary table similar to R's tobit output.
+    """
+    if var_names is None:
+        var_names = [f'beta_{i}' for i in range(len(result['beta']))]
+    
+    print("Tobit Model (MLE)")
+    print("=" * 65)
+    print(f"Observations:")
+    print(f"  Total: {result['n_total']}  Left-censored: {result['n_left']}  "
+          f"Uncensored: {result['n_uncensored']}  Right-censored: {result['n_right']}")
+    print()
+    print(f"{'':>15s} {'Estimate':>12s} {'Std. Error':>12s} {'z value':>10s} {'Pr(>|z|)':>10s}")
+    print("-" * 65)
+    
+    all_params = np.concatenate([result['beta'], [result['log_sigma']]])
+    all_names = var_names + ['Log(sigma)']
+    all_se = result['se']
+    
+    for name, est, se in zip(all_names, all_params, all_se):
+        z = est / se if se > 0 else np.nan
+        p = 2 * (1 - stats.norm.cdf(abs(z))) if not np.isnan(z) else np.nan
+        stars = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
+        print(f"{name:>15s} {est:12.4f} {se:12.4f} {z:10.3f} {p:10.4f} {stars}")
+    
+    print("-" * 65)
+    print(f"Scale (sigma): {result['sigma']:.4f}")
+    print(f"Log-likelihood: {result['loglik']:.4f}")
+```
+
+---
+
+Now let's estimate the Tobit model with right-censoring at 6000:
+
+```r
+# R version:
+tobit(y.censored ~ x, data=data, left=-Inf, right=6000)
+```
+
+```{python}
+# Fit Tobit with right-censoring at 6000
+# R: tobit(y.censored ~ x, data=data, left=-Inf, right=6000)
+tobit_result = fit_tobit(data['y_censored'].values, X_ols.values,
+                         left=-np.inf, right=y_upper)
+
+print_tobit_summary(tobit_result, var_names=['(Intercept)', 'x'])
+```
+
+---
+
+Note that the error standard deviation is given by its log, where we should be expecting $\sigma=400$:
+
+```{python}
+# R: log(400)
+print(f"log(400) = {np.log(400):.6f}")
+print(f"Estimated log(sigma) = {tobit_result['log_sigma']:.6f}")
+print(f"Estimated sigma = {tobit_result['sigma']:.4f}")
+```
+
+---
+
+If we had censoring on both sides we could specify both the lower and upper censoring points:
+
+```{python}
+# Double censoring
+y_lower = 4500
+data['y_dbl_censored'] = np.clip(data['y_censored'].values, y_lower, y_upper)
+
+# R: tobit(y.dbl.censored ~ x, data=data, left=y.lower, right=y.upper)
+tobit_result_2 = fit_tobit(data['y_dbl_censored'].values, X_ols.values,
+                           left=y_lower, right=y_upper)
+
+print_tobit_summary(tobit_result_2, var_names=['(Intercept)', 'x'])
+```
+
+---
+
+Tobit models are therefore a useful technique for removing the effects of boundary observations. For example, if you were trying to understand the effects of characteristics on wages, you would encounter many individuals at minimum wages (dictated at either the state or federal level), a Tobit might be your first step to understanding how this censoring might be affecting your inference. Note though, that the normal distribution is doing a lot of the heavy lifting here!
+
+There are other methods that weaken the strong distributional assumptions in the Tobit, but they're beyond the scope of this course! (keywords: *non-parametric* or *semi-parametric* censored regression)
+
+## Interval Regression
+
+The other type of censored data you might encounter is interval censored data. That is, instead of observing the true value $y$ you instead see that it lies in the interval $[\underline{y}_i,\overline{y}_i]$. For example, from a survey, a respondent might select a household income category of:
+$$ \$50{,}000 \text{ to } \$60{,}000$$
+
+```{python}
+# Create interval-censored data
+# Each data point is in an interval of width 250, except for lower and upper tails
+# R: floor(data$y/250)*250
+data['y_int_lower'] = np.where(data['y'] > 4500, np.floor(data['y'] / 250) * 250, -np.inf)
+data['y_int_upper'] = np.where(data['y'] < 6000, np.ceil(data['y'] / 250) * 250, np.inf)
+data['y_mid'] = (data['y_int_upper'] + data['y_int_lower']) / 2
+
+print(data[['y_int_lower', 'y_mid', 'y_int_upper', 'x']].head(6))
+```
+
+---
+
+We can define the negative log-likelihood of the interval data using the Tobit-like Normal assumption on the error. For an observation in interval $[\underline{y}_i, \overline{y}_i]$, the likelihood is:
+
+$$\Phi\left(\frac{\overline{y}_i - \beta_0 - \beta_1 x_i}{\sigma}\right) - \Phi\left(\frac{\underline{y}_i - \beta_0 - \beta_1 x_i}{\sigma}\right)$$
+
+```{python}
+def nll_intReg(params, y_lower, y_upper, x):
+    """
+    Negative log-likelihood for interval regression.
+    
+    R equivalent:
+    nll.intReg <- function(beta) {
+        -sum(log(pnorm((y.upper - beta[1] - beta[2]*x) / beta[3]) -
+                 pnorm((y.lower - beta[1] - beta[2]*x) / beta[3])))
+    }
+    
+    Parameters
+    ----------
+    params : array-like
+        [beta_0, beta_1, sigma]
+    y_lower, y_upper : array-like
+        Lower and upper interval bounds
+    x : array-like
+        Predictor variable
+    """
+    b0, b1, sigma = params
+    if sigma <= 0:
+        return 1e10
+    
+    # R: pnorm((y.upper - b0 - b1*x) / sigma)
+    prob = (stats.norm.cdf((y_upper - b0 - b1 * x) / sigma) -
+            stats.norm.cdf((y_lower - b0 - b1 * x) / sigma))
+    
+    prob = np.maximum(prob, 1e-300)  # avoid log(0)
+    return -np.sum(np.log(prob))
+```
+
+---
+
+```{python}
+# Maximum likelihood!
+# R: optim(c(5500, 3, 300), nll.intReg)
+int_result = optimize.minimize(
+    nll_intReg,
+    x0=[5500, 3, 300],
+    args=(data['y_int_lower'].values, data['y_int_upper'].values, data['x'].values),
+    method='Nelder-Mead'
+)
+
+print(f"Interval Regression Results:")
+print(f"  beta_0 (Intercept): {int_result.x[0]:.4f}")
+print(f"  beta_1 (x):         {int_result.x[1]:.4f}")
+print(f"  sigma:              {int_result.x[2]:.4f}")
+print(f"  Neg. Log-Lik:       {int_result.fun:.4f}")
+print(f"  Converged:          {int_result.success}")
+```
+
+## Selection Models
+While in some cases we observe values which are either top or bottom-coded, sometimes we just don't have data on some observations at all. The canonical example in Economics is on wages, and labor force participation.
+
+When we look at the wages of a number of workers, implicitly we are examining a selection for the workers who were willing to work at the offered wages.
+
+So, there is a hidden binary variable:
+* work at the offered wages
+* don't work at the offered wages
+
+Conditional on accepting the offer, we then observe the wages, and characteristics.
+
+So, if we're trying to investigate what leads to higher/lower wages, we would want to understand both how characteristics are mapped into wage offers **and** whether those offers are accepted or declined.
+
+The Heckman selection model uses a pair of limited dependent variables to understand the effects. 
+* A wage-offer equation: $$ w_i^\star= x_i^T \beta +\epsilon^{\text{Ofr}}_i$$
+* A selection equation: $$ u_i^\star= z_i^T\delta  +\epsilon^{\text{Sel}}_i$$ 
+
+where $x_i$ and $z_i$ are possibly overlapping sets of predictors for person $i$ 
+
+As the analyst, we do not perfectly observe the latent variables $u^\star_i$ (the relative happiness for working) and $w_i^\star$ (the wage *offer*), we instead see the two limited variables:
+*  The *currently employed* variable: $$ u_i = \begin{cases}1 & \text{if }u^\star_i \geq 0 \\ 0 & \text{if }u^\star_i < 0\end{cases}$$
+*  The *accepted-wage* variable:
+$$ w_i = \begin{cases}w^\star_i & \text{if }u_i =1 \\ 0 & \text{otherwise}\end{cases}$$
+
+If for example we made the assumption that:
+$$\left(\begin{array}{c}\epsilon^{\text{Ofr}}_i\\ \epsilon^{\text{Sel}}_i\end{array}\right) \sim \mathcal{N}\left(0,\Sigma\right)$$
+then the employed variable in the selection equation would be very similar to a Probit estimate, while the wage variable would be similar to a Tobit.
+
+In addition, the variance-covariance matrix $\Sigma$ allows there to be correlation across the two errors, so something unobserved by the analyst that causes someone to have low wage offers might also cause them to be more/less picky with those offers.  
+
+Because scale is not identified for the binary decision, the variance covariance matrix we are looking for is given by:
+$$\Sigma=\left[\begin{array}{cc} 1 & \rho\\ \rho & \sigma^2 \end{array}\right] $$
+where $\sigma^2$ tells us the variability of the wages and $\rho$ gives us the correlation between the errors.
+
+### Heckman Two-Step Estimator in Python
+
+In R, we used `selection()` from the `sampleSelection` package. In Python, we implement Heckman's two-step procedure:
+
+1. **Step 1**: Estimate a Probit model for the selection equation
+2. **Step 2**: Compute the **inverse Mills ratio** (IMR): $\lambda_i = \frac{\phi(Z_i\hat{\delta})}{\Phi(Z_i\hat{\delta})}$
+3. **Step 3**: Run OLS on the outcome equation, including the IMR as an additional regressor
+
+**Key R to Python mappings:**
+| R | Python |
+|---|--------|
+| `selection(selection=..., outcome=...)` | Two-step Heckman (below) |
+| `pnorm(x)` | `stats.norm.cdf(x)` |
+| `dnorm(x)` | `stats.norm.pdf(x)` |
+| IMR = `dnorm(Xb)/pnorm(Xb)` | `utils.inverse_mills_ratio(Xb)` |
+
+Let's look at the canonical version of this: data from 1975 on married women's labor-force participation decisions and wages, examined in [Mroz (1987)](https://doi.org/10.2307/1911029).
+
+```{python}
+# Load the Mroz87 dataset
+# This is available from statsmodels or we can load it from the web
+try:
+    import statsmodels.datasets
+    mroz = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/sampleSelection/Mroz87.csv')
+except:
+    # Alternative: create synthetic data matching the structure
+    print("Loading data from web...")
+    mroz = pd.read_csv('https://vincentarelbundock.github.io/Rdatasets/csv/sampleSelection/Mroz87.csv')
+
+print(mroz.head())
+```
+
+---
+
+```{python}
+# R: summary(Mroz87[, c('lfp', 'age', 'faminc', 'educ', 'exper', 'city')])
+print(mroz[['lfp', 'age', 'faminc', 'educ', 'exper', 'city']].describe())
+```
+
+---
+
+```{python}
+# R: Mroz87$has.children <- (Mroz87$kids5 + Mroz87$kids618 > 0)
+mroz['has_children'] = ((mroz['kids5'] + mroz['kids618']) > 0).astype(int)
+
+# Create age squared and experience squared
+mroz['age_sq'] = mroz['age'] ** 2
+mroz['exper_sq'] = mroz['exper'] ** 2
+```
+
+---
+
+We specify the two equations as:
+* **Selection** $\Pr\left\{\text{In Labor force}\right\}=\delta_0 + \delta_1\cdot\text{age} +\delta_2\cdot \text{age}^2 +\delta_3\cdot \text{fam.income}+\delta_4\cdot \text{has.children}+\delta_5\cdot \text{educ}$
+* **Outcome** $ \mathbb{E}\text{Wage}|x = \beta_0+\beta_1\cdot\text{exper} +\beta_2\cdot\text{exper}^2+\beta_3\cdot\text{educ}+\beta_4\cdot\text{city}$ 
+
+```{python}
+def heckman_two_step(selection_y, selection_X, outcome_y, outcome_X,
+                     selection_names=None, outcome_names=None):
+    """
+    Heckman two-step selection model.
+    
+    R equivalent:
+    selection(selection = lfp ~ age + I(age^2) + faminc + has.children + educ,
+              outcome = wage ~ exper + I(exper^2) + educ + city,
+              data = Mroz87)
+    
+    Parameters
+    ----------
+    selection_y : array-like
+        Binary selection variable (1 = selected/observed)
+    selection_X : ndarray
+        Design matrix for selection equation (with constant)
+    outcome_y : array-like
+        Outcome variable (only for selected observations)
+    outcome_X : ndarray
+        Design matrix for outcome equation (with constant, selected obs only)
+    selection_names : list, optional
+        Variable names for selection equation
+    outcome_names : list, optional
+        Variable names for outcome equation
+    
+    Returns
+    -------
+    dict
+        Estimation results including probit, OLS, and IMR coefficient
+    """
+    # Step 1: Probit for selection equation
+    # R: glm(lfp ~ ..., family=binomial(link='probit'))
+    probit = sm.Probit(selection_y, selection_X).fit(disp=0)
+    
+    # Step 2: Compute inverse Mills ratio
+    # R: lambda_i = dnorm(Z %*% delta) / pnorm(Z %*% delta)
+    # Python: utils.inverse_mills_ratio(probit.fittedvalues)
+    z_hat = probit.fittedvalues  # Z * delta_hat (linear index)
+    imr = utils.inverse_mills_ratio(z_hat)
+    
+    # Step 3: OLS on selected sample with IMR as additional regressor
+    selected = selection_y == 1
+    imr_selected = imr[selected]
+    
+    # Augment outcome design matrix with IMR
+    outcome_X_aug = np.column_stack([outcome_X, imr_selected])
+    
+    ols = sm.OLS(outcome_y, outcome_X_aug).fit()
+    
+    # Extract results
+    sigma = ols.params[-1]  # coefficient on IMR = rho * sigma
+    rho_sigma = ols.params[-1]
+    
+    # Estimate sigma from residuals (approximate)
+    sigma_hat = np.sqrt(np.mean(ols.resid**2) + rho_sigma**2 * np.mean(imr_selected * (imr_selected + z_hat[selected])))
+    rho_hat = rho_sigma / sigma_hat if sigma_hat > 0 else 0
+    
+    return {
+        'probit': probit,
+        'ols': ols,
+        'imr': imr,
+        'delta': probit.params,
+        'beta': ols.params[:-1],
+        'rho_sigma': rho_sigma,
+        'sigma': sigma_hat,
+        'rho': rho_hat,
+        'selection_names': selection_names,
+        'outcome_names': outcome_names
+    }
+```
+
+---
+
+```{python}
+def print_heckman_summary(result):
+    """
+    Print Heckman model summary similar to R's sampleSelection output.
+    """
+    print("Heckman Selection Model (Two-Step)")
+    print("=" * 65)
+    
+    probit = result['probit']
+    ols = result['ols']
+    
+    sel_names = result['selection_names'] or [f'z_{i}' for i in range(len(probit.params))]
+    out_names = (result['outcome_names'] or [f'x_{i}' for i in range(len(ols.params) - 1)]) + ['IMR (lambda)']
+    
+    n_total = len(result['imr'])
+    n_selected = int(probit.model.endog.sum())
+    print(f"{n_total} observations ({n_total - n_selected} censored and {n_selected} observed)")
+    print()
+    
+    # Selection equation
+    print("Probit selection equation:")
+    print(f"{'':>20s} {'Estimate':>12s} {'Std. Error':>12s} {'z value':>10s} {'Pr(>|z|)':>10s}")
+    print("-" * 65)
+    for name, est, se, z, p in zip(sel_names, probit.params, probit.bse,
+                                    probit.tvalues, probit.pvalues):
+        stars = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
+        print(f"{name:>20s} {est:12.6f} {se:12.6f} {z:10.3f} {p:10.6f} {stars}")
+    print()
+    
+    # Outcome equation
+    print("Outcome equation:")
+    print(f"{'':>20s} {'Estimate':>12s} {'Std. Error':>12s} {'t value':>10s} {'Pr(>|t|)':>10s}")
+    print("-" * 65)
+    for name, est, se, t, p in zip(out_names, ols.params, ols.bse,
+                                    ols.tvalues, ols.pvalues):
+        stars = '***' if p < 0.001 else '**' if p < 0.01 else '*' if p < 0.05 else ''
+        print(f"{name:>20s} {est:12.6f} {se:12.6f} {t:10.3f} {p:10.6f} {stars}")
+    print()
+    
+    # Error terms
+    print("Error terms:")
+    print(f"  sigma: {result['sigma']:.4f}")
+    print(f"  rho:   {result['rho']:.4f}")
+    print("=" * 65)
+```
+
+---
+
+```{python}
+# Prepare data for the Heckman model
+
+# Selection equation: lfp ~ age + age^2 + faminc + has_children + educ
+selection_y = mroz['lfp'].values
+selection_X = sm.add_constant(
+    mroz[['age', 'age_sq', 'faminc', 'has_children', 'educ']].values
+)
+selection_names = ['(Intercept)', 'age', 'I(age^2)', 'faminc', 'has_children', 'educ']
+
+# Outcome equation: wage ~ exper + exper^2 + educ + city
+# Only for selected (lfp == 1) observations
+selected = mroz['lfp'] == 1
+outcome_y = mroz.loc[selected, 'wage'].values
+outcome_X = sm.add_constant(
+    mroz.loc[selected, ['exper', 'exper_sq', 'educ', 'city']].values
+)
+outcome_names = ['(Intercept)', 'exper', 'I(exper^2)', 'educ', 'city']
+```
+
+---
+
+```{python}
+# Fit the Heckman model
+# R: selection(selection = lfp ~ age + I(age^2) + faminc + has.children + educ,
+#              outcome = wage ~ exper + I(exper^2) + educ + city,
+#              data = Mroz87, iterlim = 500)
+heckman_result = heckman_two_step(
+    selection_y, selection_X,
+    outcome_y, outcome_X,
+    selection_names=selection_names,
+    outcome_names=outcome_names
+)
+
+print_heckman_summary(heckman_result)
+```
+
+---
+
+Breaking the different equation estimates out:
+
+```{python}
+# R: delta <- coef(lfp.est)[1:6]
+delta = heckman_result['delta']
+print("Selection equation (delta):")
+for name, val in zip(selection_names, delta):
+    print(f"  {name}: {val:.6f}")
+
+# R: beta <- coef(lfp.est)[7:11]
+beta = heckman_result['beta']
+print("\nOutcome equation (beta):")
+for name, val in zip(outcome_names, beta):
+    print(f"  {name}: {val:.6f}")
+```
+
+---
+
+Again, we need to be careful about how we use these estimates. For a 30 year-old urban woman with five-years work experience, a high-school education and an average family income the effect of having children on the participation decision is:
+
+```{python}
+# R: pnorm(-(delta[1]+delta[2]*30 + delta[3]*30*30 + delta[4]*mean(faminc) + delta[5] + delta[6]*12))
+# Python: stats.norm.cdf is pnorm
+mean_faminc = mroz['faminc'].mean()
+
+# Linear index with children
+z_with = (delta[0] + delta[1]*30 + delta[2]*30**2 +
+          delta[3]*mean_faminc + delta[4]*1 + delta[5]*12)
+
+# Linear index without children
+z_without = (delta[0] + delta[1]*30 + delta[2]*30**2 +
+             delta[3]*mean_faminc + delta[4]*0 + delta[5]*12)
+
+# R: 1 - pnorm(-z) = pnorm(z) = Pr(u* >= 0) = Pr(in labor force)
+prob_with = stats.norm.cdf(z_with)
+prob_without = stats.norm.cdf(z_without)
+
+print(f"Probability of LFP with children:    {prob_with:.4f}")
+print(f"Probability of LFP without children: {prob_without:.4f}")
+print(f"Difference:                          {prob_with - prob_without:.4f}")
+```
+
+---
+
+Expected Wage Offer is:
+
+```{python}
+# R: Mean.Offer <- beta[1]+beta[2]*5+beta[3]*25+beta[4]*12+beta[5]
+mean_offer = beta[0] + beta[1]*5 + beta[2]*25 + beta[3]*12 + beta[4]*1
+print(f"Expected wage offer (30yo, urban, 5yr exp, HS): {mean_offer:.4f}")
+```
+
+---
+
+Because of the model we can look at what the *offer* distribution looks like separately from the observed distribution.
+
+```{python}
+# Predicted wages: unconditional (the offer) and conditional on selection
+# For all observations, compute the linear prediction from the outcome equation
+all_outcome_X = sm.add_constant(
+    mroz[['exper', 'exper_sq', 'educ', 'city']].values
+)
+
+# Unconditional prediction: X * beta
+offers_all = all_outcome_X @ heckman_result['beta']
+
+# Conditional prediction adjusts for selection:
+# E[w | selected] = X*beta + rho*sigma*IMR
+imr_all = heckman_result['imr']
+rho_sigma = heckman_result['rho_sigma']
+
+# For those IN the labor force, the conditional wage is adjusted downward by IMR
+# For those OUT, we predict what they would have earned
+offers_cond_in = offers_all[selected] + rho_sigma * imr_all[selected]
+offers_cond_out = offers_all[~selected] + rho_sigma * imr_all[~selected]
+```
+
+---
+
+Here we can visualize the effect coming from $\rho$, that conditional on the person being in or out of labor force, we can think through what those wages *might have been*. So from this we're realizing that a lot of the women who select out of the labor force would have counterfactually had higher wages.
+
+```{python}
+# Violin plot comparing conditional wage distributions
+pred_data = pd.DataFrame({
+    'value': np.concatenate([offers_cond_out, offers_cond_in]),
+    'key': (['Out'] * len(offers_cond_out)) + (['In'] * len(offers_cond_in))
+})
+
+# Filter to reasonable range
+pred_data = pred_data[(pred_data['value'] > 0) & (pred_data['value'] < 20)]
+
+fig, ax = plt.subplots(figsize=(10, 10/1.68))
+
+# Create violin plot
+parts_out = ax.violinplot(pred_data.loc[pred_data['key'] == 'Out', 'value'].values,
+                          positions=[0], showmeans=True, showmedians=True)
+parts_in = ax.violinplot(pred_data.loc[pred_data['key'] == 'In', 'value'].values,
+                         positions=[1], showmeans=True, showmedians=True)
+
+# Color the violins
+for pc in parts_out['bodies']:
+    pc.set_facecolor(PITT_BLUE)
+    pc.set_alpha(0.7)
+for pc in parts_in['bodies']:
+    pc.set_facecolor(PITT_GOLD)
+    pc.set_alpha(0.7)
+
+ax.set_xticks([0, 1])
+ax.set_xticklabels(['Out of LF', 'In LF'])
+ax.set_ylabel('Predicted Wage')
+ax.set_title('Conditional Wage Distributions by Labor Force Status')
+plt.show()
+```
+
+---
+
+### Extensions
+Alongside this Tobit *type 2* model, there are other options. For example, the other common model would be a Tobit *type 5* model where people select into one of two options $A$ or $B$ (think of different careers say), and then we observe the outcome wage within each of those careers.
+
+So the equations would be
+*  The *selection equation*: $$ u_i = \begin{cases}A & \text{if }u^\star_i \geq 0 \\ B & \text{if }u^\star_i < 0\end{cases}$$
+*  The *accepted-wage* variable:
+$$ w_i = \begin{cases}w^\star_{(A,i)} & \text{if }u_i =A \\ w^\star_{(B,i)} & \text{if }u_i=B\end{cases}$$
+
+We would then write down models for the three latent variables 
+* $u^\star_i$: $i$'s relative preference for $A$ over $B$
+* $w^\star_{(A,i)}$: The wage $i$ would get in $A$
+* $w^\star_{(B,i)}$: The wage $i$ would get in $B$
+
+(Again, the identification conditions for the three equations are not trivial, and you'll need some separate variables to use as instruments in the selection equation.)
+
+### Tobit Type 5 (Switching Regression) Example
+
+Making some simulated data to illustrate the model estimation:
+
+```{python}
+# Simulated switching regression data
+np.random.seed(123)
+
+beta0_A, beta1_A, beta2_A = 20000, 5000, 2000  # Career A
+beta0_B, beta1_B, beta2_B = 50000, 500, 0       # Career B
+
+delta_0, delta_1, delta_2, delta_3 = -3, 1.5, 1/8, -1
+
+Nsim = 5000
+educ = np.random.poisson(12, Nsim)
+exper = 2 * np.random.poisson(3, Nsim) + np.random.poisson(1, Nsim)
+
+# Type is correlated with education
+type_var = (np.random.uniform(size=Nsim) + educ / 20 > 0.6).astype(int)
+male = (np.random.uniform(size=Nsim) > 0.5).astype(int)
+
+eps_S = np.random.normal(size=Nsim)
+eps_A = np.random.normal(0, 5000, Nsim)
+eps_B = np.random.normal(0, 1500, Nsim)
+
+u_sel = delta_0 + type_var * delta_1 + delta_2 * educ + delta_3 * male + eps_S
+selection_A = (u_sel >= 0).astype(int)
+
+y_star_A = beta0_A + beta1_A * educ + beta2_A * exper + eps_A
+y_star_B = beta0_B + beta1_B * educ + beta2_B * exper + eps_B
+
+income = np.where(u_sel >= 0, y_star_A, y_star_B)
+
+data_sim = pd.DataFrame({
+    'income': income,
+    'selection_A': selection_A,
+    'educ': educ,
+    'exper': exper,
+    'type': type_var,
+    'male': male
+})
+
+print(data_sim.head())
+```
+
+---
+
+We can implement the switching regression as two separate Heckman models (one for each regime):
+
+```{python}
+# Step 1: Probit for selection into A vs B
+sel_X = sm.add_constant(data_sim[['type', 'educ', 'male']].values)
+probit_AB = sm.Probit(data_sim['selection_A'].values, sel_X).fit(disp=0)
+
+print("Probit Selection Equation:")
+print(f"{'':>15s} {'Estimate':>12s} {'Std. Error':>12s} {'z value':>10s}")
+print("-" * 55)
+for name, est, se, z in zip(['(Intercept)', 'type', 'educ', 'male'],
+                             probit_AB.params, probit_AB.bse, probit_AB.tvalues):
+    print(f"{name:>15s} {est:12.6f} {se:12.6f} {z:10.3f}")
+```
+
+---
+
+```{python}
+# Step 2: IMR for both regimes
+z_hat_AB = probit_AB.fittedvalues
+
+# For regime A (selected): IMR = phi(z)/Phi(z)
+imr_A = utils.inverse_mills_ratio(z_hat_AB)
+
+# For regime B (not selected): IMR = -phi(z)/(1-Phi(z)) = phi(-z)/Phi(-z)
+# This uses the fact that for the NOT selected, we need the "negative" Mills ratio
+imr_B = -stats.norm.pdf(z_hat_AB) / (1 - stats.norm.cdf(z_hat_AB))
+
+# Step 3: OLS for each regime with IMR
+mask_A = data_sim['selection_A'] == 1
+mask_B = data_sim['selection_A'] == 0
+
+# Regime A (selected into A)
+out_X_A = sm.add_constant(data_sim.loc[mask_A, ['educ', 'exper']].values)
+out_X_A_aug = np.column_stack([out_X_A, imr_A[mask_A]])
+ols_A = sm.OLS(data_sim.loc[mask_A, 'income'].values, out_X_A_aug).fit()
+
+# Regime B (selected into B)
+out_X_B = sm.add_constant(data_sim.loc[mask_B, ['educ', 'exper']].values)
+out_X_B_aug = np.column_stack([out_X_B, imr_B[mask_B]])
+ols_B = sm.OLS(data_sim.loc[mask_B, 'income'].values, out_X_B_aug).fit()
+
+print(f"\nOutcome Equation A (Career A, n={mask_A.sum()}):")
+print(f"{'':>15s} {'Estimate':>12s} {'Std. Error':>12s}")
+print("-" * 45)
+for name, est, se in zip(['(Intercept)', 'educ', 'exper', 'IMR'],
+                          ols_A.params, ols_A.bse):
+    print(f"{name:>15s} {est:12.4f} {se:12.4f}")
+
+print(f"\nOutcome Equation B (Career B, n={mask_B.sum()}):")
+print(f"{'':>15s} {'Estimate':>12s} {'Std. Error':>12s}")
+print("-" * 45)
+for name, est, se in zip(['(Intercept)', 'educ', 'exper', 'IMR'],
+                          ols_B.params, ols_B.bse):
+    print(f"{name:>15s} {est:12.4f} {se:12.4f}")
+```
+
+---
+
+```{python}
+# Compare estimated vs true parameters
+print("Parameter Comparison:")
+print(f"{'':>20s} {'True':>10s} {'Estimated':>10s}")
+print("-" * 45)
+
+print("\nSelection Equation:")
+true_delta = [delta_0, delta_1, delta_2, delta_3]
+for name, true, est in zip(['(Intercept)', 'type', 'educ', 'male'],
+                            true_delta, probit_AB.params):
+    print(f"{name:>20s} {true:10.4f} {est:10.4f}")
+
+print("\nOutcome A:")
+true_A = [beta0_A, beta1_A, beta2_A]
+for name, true, est in zip(['(Intercept)', 'educ', 'exper'],
+                            true_A, ols_A.params[:3]):
+    print(f"{name:>20s} {true:10.4f} {est:10.4f}")
+
+print("\nOutcome B:")
+true_B = [beta0_B, beta1_B, beta2_B]
+for name, true, est in zip(['(Intercept)', 'educ', 'exper'],
+                            true_B, ols_B.params[:3]):
+    print(f"{name:>20s} {true:10.4f} {est:10.4f}")
+```
+
+## Comments:
+* The log-likelihood functions here can be non-concave, which leads to potentially many local maxima. As such, you need to ensure you have pretty good initial conditions.
+* Most of the procedures here use two-step estimators that figure out the selection probabilities, and then use these as instruments in the second stage. These estimates are then used as initial conditions for the max likelihood stage.
+
+* Back in the day (1970s) the two step estimators were used as they didn't really have the computational power to figure out the max likelihood parameters. From the R `sampleSelection` Vignette:
+
+> The original article suggests using the two-step solution for exploratory work and as initial values for ML estimation, since in those days the cost of the two-step solution was \$15 while that of the maximum-likelihood solution was \$700.
+
+* While the computation power is there now for max likelihood, in the academic literature people have moved away from some of the stronger parametric assumptions in max likelihood (here the Normal distribution is doing slightly more heavy lifting that we would like).
+
+* The more modern approach is on **control functions** to model the effects of selection directly in the main equation. Again, this is not quite in the scope of this course, but I provide it as a keyword for further exploration.
+
+## Summary: R to Python Mappings for Censoring and Selection
+
+| R Function | Python Equivalent |
+|------------|-------------------|
+| `tobit(y ~ x, left=L, right=R)` | Custom `fit_tobit()` with `scipy.optimize.minimize` |
+| `selection(selection=..., outcome=...)` | Custom `heckman_two_step()` (Probit + OLS with IMR) |
+| `pnorm(x)` | `scipy.stats.norm.cdf(x)` |
+| `dnorm(x)` | `scipy.stats.norm.pdf(x)` |
+| `log(x)` | `np.log(x)` |
+| `optim(x0, f)` | `scipy.optimize.minimize(f, x0)` |
+| IMR: `dnorm(z)/pnorm(z)` | `utils.inverse_mills_ratio(z)` |
+
+**Key Concepts:**
+- **Tobit**: Model censored data by combining the normal PDF (for uncensored) and CDF (for censored tails) in the likelihood
+- **Heckman**: Correct for selection bias by (1) estimating selection via Probit, (2) computing the inverse Mills ratio, and (3) including the IMR in the outcome regression
+- **Interval regression**: Likelihood based on the difference of two CDF evaluations at the interval bounds
+

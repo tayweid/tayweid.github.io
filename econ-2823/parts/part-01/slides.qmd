@@ -1,0 +1,281 @@
+---
+title: "Jupyter Notebooks (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+We're going to use Jupyter for this class. This is the **Python version** of the introductory notebook.
+
+This environment has some pros and some cons:
+* In my view Jupyter is a nice environment for documenting applications/projects, at the stage where you're already pretty certain about the objects you're manipulating.
+* The ability to run things on demand, and to play with a cell until you're happy is very useful
+* Being able to directly comment what you're doing in Markdown is also great
+* Jupyter can also create much nicer output of what you've done
+
+
+Jupyter is often used to provide formatted documentation of a data science project, particularly as it can be used to export the output to HTML for the web.
+
+It is also a common interface on cloud platforms:
+* [Amazon Sagemaker](https://aws.amazon.com/sagemaker/)
+* [Azure ML Studio](https://studio.azureml.net/)
+* [Google Colab](https://colab.research.google.com/)
+* [Posit Cloud](https://posit.cloud/)
+
+## Python Setup
+
+For Python data science work, we'll use several core libraries:
+* **pandas** - Data manipulation (similar to R's tidyverse/dplyr)
+* **numpy** - Numerical computing
+* **matplotlib** - Plotting (similar to base R graphics)
+* **seaborn** - Statistical visualization (similar to ggplot2)
+* **statsmodels** - Statistical modeling (similar to R's lm(), glm(), etc.)
+
+You can install these via:
+```bash
+pip install pandas numpy matplotlib seaborn statsmodels
+```
+
+## Using Jupyter
+
+You can start jupyter from a terminal command:
+* `jupyter lab` - More customizable tab-based interface
+* `jupyter notebook` - Standard notebook interface
+
+Jupyter notebooks are broken up into cells:
+* While in a cell you can type whatever you want, and hit **Shift+Enter** to run the cell
+* Hitting the **[ESC]** key will move you to Command mode where you can manipulate cells
+
+## Jupyter Command Mode
+When in command mode there are a number of hot keys to do things quickly ([Cheatsheet](https://www.edureka.co/blog/wp-content/uploads/2018/10/Jupyter_Notebook_CheatSheet_Edureka.pdf)):
+* **a** - adds a cell above the current one
+* **b** - adds a cell below the current one
+* **y** - makes the current cell a code cell
+* **m** - makes the current cell a markdown cell
+* **dd** - deletes the current cell (press d twice)
+
+## Jupyter Markdown Cells
+In markdown cells you can enter simple formatted comments to surround your code:
+
+````markdown
+# Heading 1
+## Heading 2
+* Bullet list 1
+* Bullet list 2
+
+---
+
+| head1 | head2 |
+| --- | --- |
+| entry1 | entry2 |
+| entry3 | entry4 |
+
+[Link](https://pitt.edu)
+````
+
+## Jupyter Code Cells
+Code cells contain Python code. Anything you type in the cell and run is the same as if you ran it in a Python interpreter.
+
+```{python}
+# Import core libraries (equivalent to R's library(tidyverse))
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+
+# Set up nicer plot defaults
+plt.rcParams['figure.figsize'] = (10, 6)
+sns.set_style('whitegrid')
+```
+
+---
+
+```{python}
+# Check current working directory
+import os
+os.getcwd()
+```
+
+---
+
+```{python}
+# Load the MLB dataset
+# In pandas, we use pd.read_csv()
+MLB16_18 = pd.read_csv("MLB.csv")
+```
+
+## Output
+Just like R, if you run something without an assignment, the system will provide you with the output.
+
+```{python}
+# View first few rows
+MLB16_18.head()
+```
+
+---
+
+```{python}
+# Column names
+MLB16_18.columns.tolist()
+```
+
+---
+
+```{python}
+# Data types and basic info
+MLB16_18.info()
+```
+
+---
+
+```{python}
+# Summary statistics
+MLB16_18.describe()
+```
+
+## Linear Regression
+
+In Python, we use `statsmodels` for linear regression. The main differences from R:
+* R: `lm(BA ~ Age + Agesqrd, data=MLB16.18)`
+* Python: Need to explicitly add constant and specify X and y separately
+
+```{python}
+# Linear regression
+# R:  BA.reg1 <- lm(data=MLB16.18, BA ~ Age + Agesqrd)
+
+# In Python with statsmodels:
+# 1. Define X (predictor variables) and y (outcome variable)
+X = MLB16_18[['Age', 'Agesqrd']]
+X = sm.add_constant(X)  # Add intercept
+y = MLB16_18['BA']
+
+# 2. Fit the model
+BA_reg1 = sm.OLS(y, X).fit()
+
+# 3. View coefficients
+BA_reg1.params
+```
+
+---
+
+```{python}
+# Full model summary
+print(BA_reg1.summary())
+```
+
+## Plotting
+
+For plotting, we have two main options:
+* **matplotlib** - More like base R graphics
+* **seaborn** - More like ggplot2, with nicer defaults
+
+```{python}
+# Plotting fitted values
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Get unique ages and their fitted values
+plot_data = MLB16_18.copy()
+plot_data['fitted'] = BA_reg1.fittedvalues
+
+# Sort by Age for line plot
+plot_data_sorted = plot_data.groupby('Age')['fitted'].mean().reset_index()
+
+# Plot line
+ax.plot(plot_data_sorted['Age'], plot_data_sorted['fitted'], 
+        linewidth=2, color='#003594', label='Fitted')
+
+# Plot points
+ax.scatter(plot_data_sorted['Age'], plot_data_sorted['fitted'], 
+           s=50, color='red', zorder=5)
+
+ax.set_xlabel('Age')
+ax.set_ylabel('Fitted Batting Average')
+ax.set_title('MLB Batting Average: Fitted Quadratic')
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+```{python}
+# Alternative using seaborn
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Scatter plot with regression line
+sns.regplot(x='Age', y='BA', data=MLB16_18, order=2,
+            scatter_kws={'alpha': 0.5},
+            line_kws={'color': '#003594', 'linewidth': 2},
+            ax=ax)
+
+ax.set_title('MLB Batting Average vs Age (with quadratic fit)')
+plt.tight_layout()
+plt.show()
+```
+
+## Notebook Sequentiality
+
+Any cell you run, it's as if you entered that into the Python interpreter. The notebook has a hidden implicit state.
+
+* While the progression of a notebook is meant to be linear from top to bottom, you can run the cells in any order
+* You need to make sure you understand which cells you've run and in which order
+
+```{python}
+# Example of sequentiality
+y = 4
+x = 6
+x + y
+```
+
+---
+
+```{python}
+# If you run this after the above, x and y have new values
+y = 10
+x = 12
+x + y
+```
+
+## Exporting Notebooks
+
+If you're happy with your notebook, you can save it as a fixed output:
+* Go to `File` > `Download as` and save it as HTML or PDF
+* This will output the current state of the notebook, for whichever cells have been run
+
+Note: if you have multiple notebooks open, the state in each notebook is separate.
+
+## R vs Python: Quick Reference
+
+| R | Python |
+|---|--------|
+| `library(tidyverse)` | `import pandas as pd` |
+| `read_csv("file.csv")` | `pd.read_csv("file.csv")` |
+| `head(df)` | `df.head()` |
+| `colnames(df)` | `df.columns` |
+| `summary(df)` | `df.describe()` |
+| `str(df)` | `df.info()` |
+| `lm(y ~ x, data=df)` | `sm.OLS(y, sm.add_constant(x)).fit()` |
+| `coef(model)` | `model.params` |
+| `summary(model)` | `model.summary()` |
+| `getwd()` | `os.getcwd()` |
+| `setwd(path)` | `os.chdir(path)` |
+
+## Using the Shared Utils Module
+
+For this course, we have a shared utility module `utils.py` that contains helpful functions for numerical methods, MLE, bootstrap, and more.
+
+```{python}
+# Import the shared utilities (will be used in later notebooks)
+import utils
+
+# Set up Pitt-themed plotting style
+utils.set_pitt_style()
+
+# Quick summary statistics
+utils.summary_stats(MLB16_18, columns=['Age', 'BA', 'AB'])
+```
+

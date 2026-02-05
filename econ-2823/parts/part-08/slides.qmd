@@ -1,0 +1,766 @@
+---
+title: "Maximum Likelihood (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats, optimize
+from scipy.special import factorial
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+---
+
+In the last class we examined two types of model that were relatively agnostic with respect to how the error term was distributed (conditionally mean zero and homoskedastic) but where the non-linearity we introduced into the model meant that we had to solve for the optimal solutions using a numerical approach.
+
+We're now going to think about a more-structured approach, where we will assume that we know how the randomness in our data is generated. We will then use this structure to generate a **likelihood function** for the data, in terms of the underlying parameters.
+
+## Likelihood Modeling
+
+In these models we assume a parameterized model for the data generating process. That is we will assume that each data outcome $y_i$ has a known probability distribution, conditional on:  
+* any observables $\mathbf{x}_i$
+* the parameters of the model $\boldsymbol{\theta}$
+
+That is the observation $y_i$ has a probability distribution represented by some function $f_Y(y_i;\mathbf{x}_i,\boldsymbol{\theta} )$
+
+### Example
+Suppose that we assume that similar to classical linear regression, that the conditional outcome $Y_i|\mathbf{x}_i$ is normally distributed with: 
+* mean of $\mathbf{x_i}\boldsymbol{\beta}$ 
+* variance of $\sigma^2$.
+
+In which case the density of $Y_i|\mathbf{x}_i$ is given by:
+ $$f_Y(y_i)=\phi\left(\frac{y_i-\mathbf{x_i}\boldsymbol{\beta}}{\sigma}\right)$$
+
+If we had three independent observations, the joint probability for drawing three values of $y$ from this normal distribution is given by:
+$$\text{Density}(y_1,y_2,y_3)=\phi\left(\frac{y_1-\mathbf{x_1}\boldsymbol{\beta}}{\sigma}\right)\cdot \phi\left(\frac{y_2-\mathbf{x_2}\boldsymbol{\beta}}{\sigma}\right)\cdot \phi\left(\frac{y_3-\mathbf{x_3}\boldsymbol{\beta}}{\sigma}\right) $$
+
+For right now, lets make this model even simpler, and assume that the $\mathbf{x_i}\boldsymbol{\beta}$ term is really simple, a constant $\beta_0$, and that we know that the variance of the error is 1.
+
+If we knew the parameter $\beta_0$, then the density on any three values for $\mathbf{y}=(y_1,y_2,y_3)$ simplifies to:
+$$\text{Density}(y_1,y_2,y_3)=\phi\left(y_1-\beta_0\right)\cdot \phi\left(y_2-\beta_0\right)\cdot \phi\left(y_3-\beta_0\right)  $$
+
+So, this is the probability for any realization of the data, from an ex ante persepective. However, as data analysts, we don't see the true generation process, we only see the data: $$\mathbf{y}=(y_1,y_2,y_3).$$
+
+If we knew the parameter values, we could therefore calculate how likely this sequence of data observations were:
+$$ L(\beta_0,\sigma ; \mathbf{y}) =\phi\left(y_1-\beta_0\right)\cdot \phi\left(y_2-\beta_0\right)\cdot \phi\left(y_3-\beta_0\right)$$
+
+The idea behind maximum likelihood is that can vary our guess on the parameter $\beta_0$ to try to get a sense for how likely the data would be if that were the true parameter.
+
+For example, consider realized data on the outcome given by $\mathbf{y}=(1,-1,3)$
+
+```{python}
+# R: dnorm(1) -> Python: stats.norm.pdf(1)
+stats.norm.pdf(1)
+```
+
+---
+
+```{python}
+# R: dnorm(x, mean, sd) -> Python: stats.norm.pdf(x, loc=mean, scale=sd)
+def example_likelihood(beta0):
+    return stats.norm.pdf(1 - beta0) * stats.norm.pdf(-1 - beta0) * stats.norm.pdf(3 - beta0)
+
+# Plot the likelihood function
+x = np.linspace(-1, 4, 200)
+y = [example_likelihood(b) for b in x]
+
+fig, ax = plt.subplots()
+ax.plot(x, y, color=PITT_BLUE, linewidth=2)
+ax.set_xlabel(r'$\beta_0$')
+ax.set_ylabel('Likelihood')
+ax.set_title(r'Likelihood function for $\mathbf{y}=(1,-1,3)$')
+plt.show()
+```
+
+---
+
+The likelihood is maximized at a value of $\hat{\beta}_0=1$, which we can check with `scipy.optimize.minimize_scalar()`:
+
+```{python}
+# R: optimize(fn, interval, maximum=TRUE)
+# Python: minimize_scalar with negated function (since we want max)
+result = optimize.minimize_scalar(lambda b: -example_likelihood(b), bounds=(0, 2), method='bounded')
+print(f"Maximum at beta_0 = {result.x:.6f}")
+print(f"Likelihood value  = {-result.fun:.10f}")
+```
+
+## Log-likelihoods
+When we're dealing with lots of *independent* draws, the probability for the joint data will be the **product** of each of the marginal distributions. 
+
+That is:
+$$L(\theta;y)=\prod_{i=1}^n \Pr\left\{ y_i;\theta\right\}=\Pr\left\{ y_1;\theta\right\}\cdot\Pr\left\{ y_2;\theta\right\}\cdots\Pr\left\{ y_{n-1};\theta\right\}\cdot \Pr\left\{ y_n;\theta\right\}$$
+
+When multiplying lots of small numbers together, the resulting product can get very small, and small-errors in how the computer represents numbers can lead us to make mistakes. Moreover, this will be annoying to take derivatives over.
+
+To remedy this we will use a frequent "trick" in optimization.
+
+### Transforming the objective function
+If a value $x$ maximizes/minimizes a function $f(x)$, then it will also maximize the transformation $g\bigl(f\left(x\right)\bigr)$ so long as $g(\cdot)$ is a strictly increasing function
+
+```{python}
+def example_f(x):
+    return (x - 4)**2 + 1
+
+def example_g(x):
+    return np.log(example_f(x)**3 / 3)
+
+x = np.linspace(3, 5, 200)
+fig, ax = plt.subplots()
+ax.plot(x, [example_f(xi) for xi in x], color=PITT_BLUE, linewidth=2, label='f(x)')
+ax.plot(x, [example_g(xi) for xi in x], color=PITT_GOLD, linewidth=2, label='g(f(x))')
+ax.axvline(x=4, linewidth=1, color='red', linestyle='--')
+ax.set_xlabel('x')
+ax.set_ylabel('Function value')
+ax.legend()
+plt.show()
+```
+
+---
+
+The *value* of the function $g\bigl(f(x)\bigr)$ is different almost everywhere from $f(x)$... 
+
+...but, importantly the underlying point that minimizes/maximizes the function does not change.
+
+### Using this...
+
+We will make the *product* of the probabilities in the Likelihood expressible as a sum through a $\log(\cdot)$ transformation. We will therefore look to maximize the **log-likelihood**:
+$$l(\theta;y)=\log(L(\theta;y))$$
+
+Here we use two ideas:
+* The $\log$ function is strictly increasing on $(0,\infty)$
+* The likelihood must be positive for any feasible parameters, so the product must also be positive
+    - Note that if any of the probablities are zero, we'll get an error
+    - However, the interpretation will be that the data is *not* possible at this parameterization 
+
+We will therefore try to maximize the log-likelihood:
+$$l(\theta;y)=\log\left(\prod_{i=1}^n \Pr\left\{ y_i;\theta\right\}\right)=\sum_{i=1}^n \log(\Pr\left\{ y_i;\theta\right\})$$
+
+```{python}
+# R: dnorm(x, log=TRUE) -> Python: stats.norm.logpdf(x)
+def example_log_likelihood(beta0):
+    return stats.norm.logpdf(1 - beta0) + stats.norm.logpdf(-1 - beta0) + stats.norm.logpdf(3 - beta0)
+
+x = np.linspace(-2, 4, 200)
+y = [example_log_likelihood(b) for b in x]
+
+fig, ax = plt.subplots()
+ax.plot(x, y, color=PITT_BLUE, linewidth=2)
+ax.scatter([1], [example_log_likelihood(1)], color=PITT_BLUE, s=80, zorder=5)
+ax.axvline(x=1, color=PITT_BLUE, linestyle='--')
+ax.set_xlabel(r'$\beta_0$')
+ax.set_ylabel('Log-Likelihood')
+plt.show()
+```
+
+---
+
+Which has the same optimizing value of $\beta_0$, but a different value at the objective:
+
+```{python}
+# R: optimize(fn, interval, maximum=TRUE)
+# Python: minimize_scalar with negated function
+log_opt = optimize.minimize_scalar(lambda b: -example_log_likelihood(b), bounds=(0, 2), method='bounded')
+print(f"Maximum at beta_0 = {log_opt.x:.6f}")
+print(f"Log-likelihood    = {-log_opt.fun:.6f}")
+```
+
+---
+
+But we can just reverse the original transformation to get the likelihood!
+
+```{python}
+print(f"exp(Log-Likelihood Max) = {np.exp(-log_opt.fun):.10f}")
+print(f"Likelihood Max          = {-optimize.minimize_scalar(lambda b: -example_likelihood(b), bounds=(0, 2), method='bounded').fun:.10f}")
+```
+
+---
+
+Here, we could have figured out the optimal value by just taking an analytical derivative for the first-order condition:
+$$\frac{\partial l(\beta_0)}{\partial \beta_0}= \sum_{i=1}^n \frac{\partial}{\partial\beta_0} \log\left(\phi\left( y_i-\beta_0\right)\right)=\sum_{i=1}^n \frac{-\phi^\prime(y_i-\beta_0)}{\phi(y_i-\beta_0)}$$
+
+So we just need to solve for the derivative of:
+$$ \phi(z)=\frac{1}{\sqrt{2\pi}}\exp\left(-\tfrac{1}{2}z^2\right)$$
+
+You can check this yourselves, but I get:
+$$\phi^\prime(z)=\frac{\partial\phi(z)}{\partial z}=\frac{1}{\sqrt{2\pi}}\exp\left(-\tfrac{1}{2}z^2\right)\cdot (-z)=-\phi(z)\cdot z$$
+
+But that means that:
+$$\frac{\partial l(\beta_0)}{\partial \beta_0}= \sum_{i=1}^n \frac{-\phi^\prime(y_i-\beta_0)}{\phi(y_i-\beta_0)}=
+\sum_{i=1}^n \frac{\phi(y_i-\beta_0)(y_i-\beta)}{\phi(y_i-\beta_0)}$$
+
+So our first-order condition simplifies to:
+$$ \frac{\partial l(\beta_0)}{\partial \beta_0}=\sum_{i=1}^n(y_i-\beta_0)=0$$
+
+So the maximium likelihood value for $\beta_0$ is where this slope is zero, but this is just:
+$$\hat{\beta}_0=\frac{1}{n}\sum_{i=1}^n y_i =\bar{y}$$
+A fairly sensible maximizer when we're looking for the mean!
+
+If we didn't know the standard-deviation parameter $\sigma$, the log likelihood function would have been:
+$$l(\beta_0,\sigma ;y)=\log\left(\phi\left( \tfrac{y_i-\beta_0}{\sigma}\right)\right)$$
+
+And we would have had to solve for two first order conditions
+1.  $\frac{\partial l(\beta_0)}{\partial \beta_0}=\sum_{i=1}^n\frac{y_i-\beta_0}{\sigma}=0$
+2.  $\frac{\partial l(\beta_0)}{\partial \sigma}=\sum_{i=1}^n\frac{(y_i-\beta_0)^2-\sigma^2}{\sigma^3}=0$
+
+This leads to two solutions for the parameters:
+1. $\hat{\beta}=\tfrac{1}{n}\sum_{i=1}^n y_i=\bar{y}$
+2. $\hat{\sigma}=\sqrt{\tfrac{1}{n}\sum_{i=1}^n (y_i-\bar{y})^2}$
+
+**Question:** How does this differ from the formula you would get from OLS?
+
+**Question:** Are either of these estimators biased?
+
+**Question:** Are either of these estimators consistent?
+
+### Numerically we get the same thing:
+Make some data where $y\sim \mathcal{N}(3,4)$
+
+```{python}
+# R: rnorm(1000, mean=3, sd=2)
+np.random.seed(42)
+y = np.random.normal(loc=3, scale=2, size=1000)  # True mean of 3, and sd of 2
+print(f"Sample mean: {np.mean(y):.6f}")
+print(f"Sample sd:   {np.std(y, ddof=1):.6f}")
+```
+
+---
+
+Define a function that calculates the log-likelihood over $y$:
+
+```{python}
+# R: sum(sapply(y, dnorm, mean=theta[1], sd=theta[2], log=TRUE))
+# Python: np.sum(stats.norm.logpdf(y, loc=theta[0], scale=theta[1]))
+def example_log_likelihood_n(theta):
+    """Log-likelihood for normal distribution with mean theta[0] and sd theta[1]."""
+    return np.sum(stats.norm.logpdf(y, loc=theta[0], scale=theta[1]))
+```
+
+---
+
+We find the maximum value of this function using `scipy.optimize.minimize()` (negating since we want to maximize):
+
+```{python}
+# R: optim(par=c(0,1), fn=..., control=list(fnscale=-1))
+# Python: minimize with negated function
+mle_est = optimize.minimize(
+    lambda theta: -example_log_likelihood_n(theta),
+    x0=[0, 1],
+    method='BFGS'
+)
+
+print(f"MLE estimates: mean = {mle_est.x[0]:.6f}, sd = {mle_est.x[1]:.6f}")
+print(f"Log-likelihood at MLE: {-mle_est.fun:.6f}")
+print(f"Convergence: {mle_est.success}")
+```
+
+---
+
+Let's look at a slice of the likelihood across $\beta_0$ while we hold constant the estimate $\hat{\sigma}$ (this is called the **concentrated likelihood**)
+
+```{python}
+beta_vals = np.arange(2, 4.05, 0.05)
+beta_slice = [np.sum(stats.norm.logpdf(y, loc=b, scale=mle_est.x[1])) for b in beta_vals]
+beta_slice_df = pd.DataFrame({'b': beta_vals, 'l': beta_slice})
+```
+
+---
+
+And do the same thing for $\sigma$
+
+```{python}
+sigma_vals = np.arange(1, 3.05, 0.05)
+sigma_slice = [np.sum(stats.norm.logpdf(y, loc=mle_est.x[0], scale=s)) for s in sigma_vals]
+sigma_slice_df = pd.DataFrame({'s': sigma_vals, 'l': sigma_slice})
+```
+
+---
+
+Plotting the concentrated likelihood function over $\beta_0$ (this is the log-likelihood fixing $\sigma=\hat{\sigma}$)
+
+```{python}
+fig, ax = plt.subplots()
+ax.scatter(beta_slice_df['b'], beta_slice_df['l'], color=PITT_BLUE, s=30)
+ax.set_xlabel(r'$\beta_0$')
+ax.set_ylabel('Log-Likelihood')
+ax.set_title(r'Concentrated log-likelihood over $\beta_0$')
+plt.show()
+```
+
+---
+
+And plotting the concentrated likelihood function by $\sigma$ (the log-likelihood fixing $\beta_0=\hat{\beta}_0$)
+
+```{python}
+fig, ax = plt.subplots()
+ax.scatter(sigma_slice_df['s'], sigma_slice_df['l'], color=PITT_BLUE, s=30)
+ax.set_xlabel(r'$\sigma$')
+ax.set_ylabel('Log-Likelihood')
+ax.set_title(r'Concentrated log-likelihood over $\sigma$')
+plt.show()
+```
+
+## Poisson Example
+So let's think through the maximum likelihood equations for a Poisson model where each data point is a random count $K_i$ with probability given by:
+$$ \text{Pr}\left(K_i=k\right)=\frac{\lambda^k e^{-\lambda}}{k!}$$
+
+So suppose that we have a sample of iid draws $(k_1,k_2,\ldots,k_N)$... What is the max-likelihood estimator of $\lambda$?
+
+## Multinomial Example
+
+Here the random variable $Y_i$ can take on $K$ different values from $1$ to $K$. The entire dataset is summarized by the number of observations $n_k$ for each type realization $k$.
+
+The probability of the data is therefore:
+$$L(\mathbf{p})=\frac{n!}{n_1!\cdots n_k!} p_1^{n_1}\cdots p_K^{n_K}$$
+where $p_k$ is a parameter indicating the probability of type $k$.
+
+The log-liklihood is therefore:
+$$l(\mathbf{p})=\sum_{k=1}^K n_k \cdot \log(p_k) $$
+subject to $\sum_k p_k=1$
+
+But here we need to constrain the parameters, which have to sum up to 1!
+$$l(\mathbf{p})=\sum_{k=1}^{K-1} n_k \cdot \log(p_k) +(n-\sum_{k=1}^{K-1} n_k)\log(1-\sum_{k=1}^{K-1}  p_k)$$
+
+So the first-order condition for $p_k$ is:
+$$\frac{n_k}{p_k}-\lambda=0\Rightarrow n_k=\lambda p_k$$
+
+So $\lambda=n$ from summing the $n$ equations and using the constraint, so the max likelihood solution is:
+$$\hat{p}_k=\frac{n_k}{n}$$
+
+## Uniform Example
+How about if we have a series of uniform draws on the interval $[0,\theta]$. So the density on a particular value $u$ is given by:
+$$f(u)=\begin{cases}\frac{1}{\theta} & \text{if } 0\leq u \leq \theta,  \\ 0 & \text{otherwise.}\end{cases}$$
+
+**Question:** Suppose that we have a sample $(u_1,u_2,\ldots,u_N)$, what is the max likelihood estimator of $\theta$?
+
+## Adding in observables
+As we go forward, we'll add conditioning variables into the parameterizations, to try to understand how the estimated probabilities/means/variances shift with other features of the data.
+
+In particular, in many instance we will set up a similar model to the standard linear models from before, where we will model the outcome $y_i$ through a linear combination of the observables $\mathbf{x}_i \boldsymbol{\beta}$. The difference will be that this mean will then enter in a non-linear way into the estimation equations.
+
+For many examples, this will fit into a wider estimation methodology called *generalized linear models* which we will come back to later. For now though, let's proceed by adding some very simple conditioning variables.
+
+Let's start by adding in observable groups, simple factor variables indicating group membership:
+
+### Poisson with observable groups
+Suppose we instead wanted to understand differences across a number of observable groups using count data. That is for each observation, we see the data $(k_i,g_i)$ where $k_i$ is the count we want to explain, and $g_i$ is a factor variable indicating the group that $i$ belongs to (1 to $G$).
+
+We begin to estimate a model where each group's mean is given by $\lambda_g=\lambda_0+ \delta_g$, an average level across all of the groups $\lambda_0$ and a deviation by group $\delta_g$
+
+However, when we try to maximize this we immediately encounter a problem when we solve for the optimal solutions to :
+$$ l(\lambda_0,\delta_1,\cdots, \delta_G)= \sum^N_{i=1} \left( k_i \log(\lambda_0+\delta_{g_i})-(\lambda_0+\delta_{g_i})-\log(k_i!)\right)$$
+
+The FOC for $\lambda_0$ is:
+$$\text{Eq. }\lambda :\sum_{i=1}^N \frac{k_i}{\lambda_0+\delta_{g_i}}=N$$
+While the FOC for a generic group deviation $\delta_g$ is:
+$$ \text{Eq. }g : \sum_{i:g_i=g} \frac{k_i}{\lambda_0+\delta_{g_i}} =N_g = (\text{\# in group }g)$$
+
+But if we sum over the $G$ group first order conditions $\sum_{g=1}^G (\text{Eq }g)$ we get:
+ $$   \sum_g\sum_{i:g_i=g}\frac{k_i}{\lambda_0+\delta_{g_i}}=\sum_g N_g$$
+ 
+But this is exactly:
+$$\lambda :\sum_{i=1}^N \frac{k_i}{\lambda_0+\delta_{g_i}}=N$$
+
+As such, we know that we only have $G$ equations in $G+1$ unknowns... so we can't find a unique solution to maximize this function. 
+
+The problem comes about because to identify a parameter vector $\theta$ it has to be the case that different parameters values lead to different distributions in the likelihoods.
+
+* Here we didn't pin down the distribution, because if the parameter for each group is $\lambda+\delta_g$, we could subtract some amount from lambda, and add that amount to all of the groups.
+* In this case, the problem is directly analogous to including too many controls in a linear model
+    - We need to either normalize one of the groups to have a zero value for the deviation
+    - Or we can enforce a constraint that $\sum_g \delta_g=0$ so that the parameters are deviations around the average
+
+Non-identifiability problems are generally harder to track down in non-linear models, the numerical optimization routines we use to find solutions won't necessarily tell us that we have a problem on this margin
+
+Instead, this will tend to creep up as a failure to converge in your likelihood estimations, where you will then have to diagnose how to resolve the multiplicity.
+
+## Estimation Example
+Our soccer scorelines model provides an example for a simple model where the parameters can be **estimated** from the outcomes
+
+The model for your simulation specified that the number of goals scored by team $i$ when facing team $j$ is a Poisson variable with parameter $\lambda_{ij}=\exp(\alpha_i-\delta_j)$, where
+* $\alpha_i$ is team $i$'s attacking parameter
+* $\delta_j$ is team $j$'s defense parameter
+
+I'm going to expand this by allowing for an average number of goals scored parameter $\mu$, and a home-stadium effect $\eta$.
+
+That is the parameter for team $i$ is:
+* $\lambda_{ij}=\exp(\mu+\eta+\alpha_i-\delta_j)$  if they are the home team
+* $\lambda_{ij}=\exp(\mu+\alpha_i-\delta_j)$  if they are the away team
+
+The probability of the team scoring $k$ goals is then given by:
+$$\Pr\left\{k;\lambda_{ij}\right\}= \frac{\lambda_{ij}^k e^{-\lambda_{ij}}}{k!}$$
+
+But so the log probability for $k$ goals simplifies to:
+$$\log\left(Pr\left\{k;\lambda_{ij}\right\}\right)= k\cdot\log \lambda_{ij}-\lambda_{ij}-\log(k!)$$
+
+Given our model specification of $\lambda_{ij}=\exp(\alpha_i-\delta_j)$ this reduces even further to:
+$$\log\left(Pr\left\{k;\lambda_{ij}\right\}\right)= \begin{cases}k\cdot(\mu+\eta +\alpha_i-\delta_j)-\exp(\mu+\eta+\alpha_i-\delta_j)-\log(k!) & \text{if $i$ is home team} \\ k\cdot(\mu +\alpha_i-\delta_j)-\exp(\mu+\alpha_i-\delta_j)-\log(k!) & \text{if $i$ is away team} \end{cases}$$
+
+## Identification problems?
+
+We've doubled up our identification problems from before:
+* If we add and subtract from $\mu$, and put this into each of the $\alpha_i$ terms then we would have the same mean value
+* But this is also true for the $\delta_j$ terms.
+* Similarly, if we add any constant to all of the $\alpha$ *and* $\delta$ terms.  
+
+Here our solution is to make sure that the sum of each team specific variation sums to zero, that is:
+* $\sum_j \alpha_i=0$
+* $\sum_j \delta_j=0$
+
+As such each team specific term is a *deviation* around the average number of goals scored/conceded.
+
+## Coding it up
+I'm going to grab the scoreline data from this website:
+
+```{python}
+# R: read.csv('https://www.football-data.co.uk/mmz4281/2425/E0.csv')
+data2024_25 = pd.read_csv('https://www.football-data.co.uk/mmz4281/2425/E0.csv')
+data2023_24 = pd.read_csv('https://www.football-data.co.uk/mmz4281/2324/E0.csv')
+data2022_23 = pd.read_csv('https://www.football-data.co.uk/mmz4281/2223/E0.csv')
+data2021_22 = pd.read_csv('https://www.football-data.co.uk/mmz4281/2122/E0.csv')
+data2020_21 = pd.read_csv('https://www.football-data.co.uk/mmz4281/2021/E0.csv')
+```
+
+---
+
+```{python}
+# Get all teams from current season
+all_teams = sorted(set(data2024_25['HomeTeam'].unique()) | set(data2024_25['AwayTeam'].unique()))
+print(all_teams)
+```
+
+---
+
+Here I join the two data sets, but where I make sure only to bring in the data on teams from the current season:
+
+```{python}
+# Filter previous seasons to only include teams from current season
+cols = ['HomeTeam', 'AwayTeam', 'FTHG', 'FTAG', 'Date']
+
+same_team_23_24 = data2023_24[
+    data2023_24['HomeTeam'].isin(all_teams) & data2023_24['AwayTeam'].isin(all_teams)
+][cols]
+
+# Join the data
+seasons_joined = pd.concat([data2024_25[cols], same_team_23_24], ignore_index=True)
+seasons_joined['Date'] = pd.to_datetime(seasons_joined['Date'], dayfirst=True)
+seasons_joined = seasons_joined.sort_values('Date', ascending=False).reset_index(drop=True)
+
+print(seasons_joined.head())
+```
+
+---
+
+Initialize the parameters:
+
+```{python}
+# Create parameter table with team numbers
+param_table = pd.DataFrame({
+    'number': range(1, len(all_teams) + 1),
+    'alpha': 0.0,
+    'delta': 0.0
+}, index=all_teams)
+
+print(param_table.head())
+```
+
+---
+
+Here I will assign each row in the dataset the team number from the param_table:
+
+```{python}
+# Map team names to numbers
+team_to_num = dict(zip(all_teams, range(1, len(all_teams) + 1)))
+seasons_joined['HomeNo'] = seasons_joined['HomeTeam'].map(team_to_num)
+seasons_joined['AwayNo'] = seasons_joined['AwayTeam'].map(team_to_num)
+
+print(seasons_joined.head())
+```
+
+---
+
+Use the numbered factors for estimation:
+
+```{python}
+estim_data = seasons_joined[['HomeTeam', 'HomeNo', 'AwayTeam', 'AwayNo', 'FTHG', 'FTAG']].copy()
+estim_data.to_csv('soccer/soccerData.csv', index=False)
+print(estim_data.head(10))
+```
+
+---
+
+Setting some initial value guesses for a mean and home parameter:
+
+```{python}
+n_teams = len(all_teams)  # 20 teams
+
+# theta has 40 elements: 19 alpha + 19 delta parameters (20th is implied by sum-to-zero)
+# theta[0:37] = team alpha/delta pairs for teams 1-19
+# theta[38] = mu (mean goals parameter)
+# theta[39] = eta (home advantage parameter)
+theta0 = np.zeros(40)
+theta0[38] = np.log(estim_data['FTAG'].mean())  # mu initial guess
+theta0[39] = np.log(estim_data['FTHG'].mean()) - theta0[38]  # eta initial guess
+```
+
+---
+
+Guess the team parameters:
+
+```{python}
+# Initialize team-specific alpha and delta guesses
+for i in range(n_teams):
+    team_no = i + 1
+    # Goals scored by this team (home and away)
+    home_goals = estim_data[estim_data['HomeNo'] == team_no]['FTHG'].values
+    away_goals = estim_data[estim_data['AwayNo'] == team_no]['FTAG'].values
+    goals_scored = np.concatenate([home_goals, away_goals])
+    
+    # Goals conceded by this team
+    home_conceded = estim_data[estim_data['HomeNo'] == team_no]['FTAG'].values
+    away_conceded = estim_data[estim_data['AwayNo'] == team_no]['FTHG'].values
+    goals_conceded = np.concatenate([home_conceded, away_conceded])
+    
+    avg_scored = np.mean(goals_scored) if len(goals_scored) > 0 else 1
+    avg_conceded = np.mean(goals_conceded) if len(goals_conceded) > 0 else 1
+    
+    if i < 19:  # Only set first 19 teams (20th implied by constraint)
+        theta0[2*i] = np.log(max(avg_scored, 0.1)) - (theta0[38] + theta0[39]/2)
+        theta0[2*i + 1] = (theta0[38] + theta0[39]/2) - np.log(max(avg_conceded, 0.1))
+
+print(f"Initial theta (first 10): {theta0[:10]}")
+print(f"mu = {theta0[38]:.4f}, eta = {theta0[39]:.4f}")
+```
+
+---
+
+Create the Likelihood function:
+
+```{python}
+# Pre-extract arrays for speed
+home_no = estim_data['HomeNo'].values
+away_no = estim_data['AwayNo'].values
+home_goals = estim_data['FTHG'].values
+away_goals = estim_data['FTAG'].values
+log_fact_hg = np.log(factorial(home_goals))
+log_fact_ag = np.log(factorial(away_goals))
+
+def likelihood_function(theta):
+    """
+    Poisson log-likelihood for soccer scoreline model.
+    
+    R equivalent: likelihood.function <- function(theta) { ... }
+    
+    Parameters
+    ----------
+    theta : array of length 40
+        theta[0:37] = alpha/delta pairs for teams 1-19
+        theta[38] = mu (mean parameter)
+        theta[39] = eta (home advantage)
+    """
+    # Extract alpha and delta for each team
+    alpha = np.zeros(n_teams)
+    delta = np.zeros(n_teams)
+    for i in range(19):
+        alpha[i] = theta[2*i]
+        delta[i] = theta[2*i + 1]
+    # Sum-to-zero constraint for 20th team
+    alpha[19] = -np.sum(alpha[:19])
+    delta[19] = -np.sum(delta[:19])
+    
+    mu = theta[38]
+    eta = theta[39]
+    
+    # Vectorized computation
+    H = home_no - 1  # Convert to 0-indexed
+    A = away_no - 1
+    
+    # Home team lambda: exp(mu + eta + alpha_H - delta_A)
+    lambda_H = mu + eta + alpha[H] - delta[A]
+    # Away team lambda: exp(mu + alpha_A - delta_H)
+    lambda_A = mu + alpha[A] - delta[H]
+    
+    # Log-likelihood contributions
+    # R: gH*lambdaH - exp(lambdaH) - log(factorial(gH))
+    prob = (home_goals * lambda_H - np.exp(lambda_H) - log_fact_hg +
+            away_goals * lambda_A - np.exp(lambda_A) - log_fact_ag)
+    
+    return np.sum(prob)
+
+print(f"Log-likelihood at initial guess: {likelihood_function(theta0):.4f}")
+```
+
+---
+
+Maximize the parameters:
+
+```{python}
+# R: optim(theta0, likelihood.function, control=list(fnscale=-1), method="BFGS")
+# Python: minimize with negated function
+result = optimize.minimize(
+    lambda theta: -likelihood_function(theta),
+    theta0,
+    method='BFGS'
+)
+
+print(f"Convergence: {result.success}")
+print(f"Log-likelihood at MLE: {-result.fun:.4f}")
+```
+
+---
+
+Let's rearrange things so we can see the model estimates:
+
+```{python}
+theta_out = result.x
+
+# Extract alpha and delta
+alpha_out = np.zeros(n_teams)
+delta_out = np.zeros(n_teams)
+for i in range(19):
+    alpha_out[i] = theta_out[2*i]
+    delta_out[i] = theta_out[2*i + 1]
+alpha_out[19] = -np.sum(alpha_out[:19])
+delta_out[19] = -np.sum(delta_out[:19])
+```
+
+---
+
+Write things to a dataframe:
+
+```{python}
+out_model = pd.DataFrame({
+    'alpha': alpha_out,
+    'delta': delta_out,
+    'XG': np.exp(theta_out[38] + alpha_out),      # Expected goals scored
+    'XGA': np.exp(theta_out[38] - delta_out)       # Expected goals conceded
+}, index=all_teams)
+
+print(out_model)
+out_model.to_csv('soccer/SoccerEst.csv')
+```
+
+---
+
+```{python}
+# Plot team attack vs defense
+fig, ax = plt.subplots(figsize=(10, 10))
+
+ax.scatter(out_model['XGA'], out_model['XG'], color=PITT_BLUE, s=60, zorder=5)
+
+# Add team labels
+for team in out_model.index:
+    ax.annotate(team, 
+                (out_model.loc[team, 'XGA'], out_model.loc[team, 'XG']),
+                fontsize=8, ha='left', va='bottom', rotation=45,
+                color=PITT_BLUE)
+
+ax.set_xlabel('Expected Goals Against (XGA) per game')
+ax.set_ylabel('Expected Goals (XG) per game')
+ax.set_title('Team Attack vs Defense (MLE Estimates)')
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+```{python}
+# Mean goals and home advantage parameters
+print(f"Average goals parameter exp(mu): {np.exp(theta_out[38]):.6f}")
+print(f"Home advantage exp(eta):         {np.exp(theta_out[39]):.6f}")
+```
+
+## Comparison with GLM Poisson
+
+We can verify our manual MLE results using `statsmodels` GLM with a Poisson family. The GLM approach sets up the same model but uses a standard estimation routine.
+
+```{python}
+# Reshape data: each match produces TWO observations (home team goals, away team goals)
+# For home team: goals = FTHG, team = HomeTeam (attack), opponent = AwayTeam (defense), home=1
+# For away team: goals = FTAG, team = AwayTeam (attack), opponent = HomeTeam (defense), home=0
+
+home_obs = estim_data[['HomeTeam', 'AwayTeam', 'FTHG']].copy()
+home_obs.columns = ['team', 'opponent', 'goals']
+home_obs['home'] = 1
+
+away_obs = estim_data[['AwayTeam', 'HomeTeam', 'FTAG']].copy()
+away_obs.columns = ['team', 'opponent', 'goals']
+away_obs['home'] = 0
+
+glm_data = pd.concat([home_obs, away_obs], ignore_index=True)
+
+# Create dummy variables for team (attack) and opponent (defense)
+team_dummies = pd.get_dummies(glm_data['team'], prefix='atk', drop_first=True, dtype=float)
+opp_dummies = pd.get_dummies(glm_data['opponent'], prefix='def', drop_first=True, dtype=float)
+
+# Build design matrix
+X_glm = pd.concat([
+    pd.DataFrame({'const': 1.0, 'home': glm_data['home'].values}),
+    team_dummies.reset_index(drop=True),
+    opp_dummies.reset_index(drop=True)
+], axis=1)
+
+y_glm = glm_data['goals'].values
+
+print(f"Design matrix shape: {X_glm.shape}")
+print(f"Response vector length: {len(y_glm)}")
+```
+
+---
+
+```{python}
+# R: glm(goals ~ home + team + opponent, family=poisson)
+# Python: sm.GLM(y, X, family=sm.families.Poisson()).fit()
+glm_model = sm.GLM(y_glm, X_glm, family=sm.families.Poisson()).fit()
+print(glm_model.summary())
+```
+
+---
+
+```{python}
+# Compare home advantage estimate
+print(f"\nHome advantage comparison:")
+print(f"  Manual MLE eta:     {theta_out[39]:.6f}  ->  exp(eta) = {np.exp(theta_out[39]):.6f}")
+print(f"  GLM home coef:      {glm_model.params['home']:.6f}  ->  exp(home) = {np.exp(glm_model.params['home']):.6f}")
+
+print(f"\nLog-likelihood comparison:")
+print(f"  Manual MLE:  {-result.fun:.4f}")
+print(f"  GLM:         {glm_model.llf:.4f}")
+```
+
+---
+
+We'll come back to discussing how to assess the standard errors on this type of model later on!
+
+## Summary: R to Python MLE Mapping
+
+| R Function | Python Equivalent |
+|------------|-------------------|
+| `dnorm(x, mean, sd)` | `stats.norm.pdf(x, loc=mean, scale=sd)` |
+| `dnorm(x, mean, sd, log=TRUE)` | `stats.norm.logpdf(x, loc=mean, scale=sd)` |
+| `dpois(k, lambda)` | `stats.poisson.pmf(k, mu=lambda)` |
+| `dpois(k, lambda, log=TRUE)` | `stats.poisson.logpmf(k, mu=lambda)` |
+| `optim(par, fn, control=list(fnscale=-1))` | `optimize.minimize(lambda p: -fn(p), x0=par)` |
+| `optimize(fn, interval, maximum=TRUE)` | `optimize.minimize_scalar(lambda x: -fn(x), bounds=interval)` |
+| `glm(y~x, family=poisson)` | `sm.GLM(y, X, family=sm.families.Poisson()).fit()` |
+| `sapply(vec, fun)` | `np.vectorize(fun)(vec)` or list comprehension |
+
+**Key difference:** R's `optim()` uses `fnscale=-1` for maximization, while Python's `scipy.optimize.minimize()` always minimizes. We negate the objective function to convert maximization into minimization.
+

@@ -1,0 +1,839 @@
+---
+title: "Unordered Multinomial Choice (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+---
+In the previous set of slides, we looked at choices where we had a multinomial outcome but the choice was clearly vertical, with a clear ordering. In many situations though we are interested in an unordered set of choices:
+* No Purchase
+* Brand A
+* Brand B
+* Brand C
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats, optimize
+import warnings
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+
+warnings.filterwarnings('ignore')
+np.sqrt(1000)
+```
+
+---
+
+While it may be possible to say that *Brand A* is on average more desirable than *Brand B*, we want the data to pick this out for us, rather than impose it. Here we'll estimate probabilities for a particular individual making some choice, but we can think about these as being market shares.
+
+Again, the techniques come in two main flavors (though there are others, and sub-flavors that we'll touch on a bit below):
+* Multinomial Probit
+* Multinomial Logit
+
+More so than in the binary case, multinomial *logits* are the focal technique, as they are much easier to estimate in practice, however, the way to think about the modeled process is fairly similar.
+
+Suppose we know the error distribution $\epsilon$, we will again think of there being a series of hidden latent variable representing the utility (where these methods are sometimes referred to as random utility models). For person $i$ we will assume that they derive some anticipated happiness from option $m$ given by $U^i(m)$. If given a choice between options 1 to 4 they would then compare the amounts $U^i(1)$, $U^i(2)$, $U^i(3)$ and $U^i(4)$ and make the choice that gives them the greatest expected outcome.
+
+In this way, we can think of the latent variables $U^i(m)$ as being the Utility person $i$ gets from choosing item $m$, and that they are maximizing their own outcomes. We will model this utility as having a linear form in the explanatory variables (though this also can be relaxed):
+$$ U^i(m) = x_{im}\beta+z_i\gamma_m+\epsilon_{im} $$
+
+While we don't observe the utilities, we instead observe a choice for product $m$ only if $U_i(m)$ is greater than all of the other choices for person $i$
+
+$$ U^i(m) = x_{im}\beta+z_i\gamma_m+\epsilon_{im} $$
+The data here is composed of:
+* Choice attributes $x_{im}$ that can vary across both choices and decision makers (but don't have to)
+* Individual attributes $z_i$ that are held constant across choices but that can be weighted differently across choices
+
+The parameters we will try and estimate are:
+* $\beta$ which tells us how different characteristics of the choice feed into utility, and are constant across both decision makers and choices
+* $\gamma_m$ for each option $m$ telling us how specific individual characteristics feed into how much a product is liked/disliked
+
+## Example
+Let's look at an example to make all of this a bit clearer. We'll look at the travel choices for 3880 travellers between [Montreal and Toronto](https://www.google.com/maps/dir/Montreal,+QC,+Canada/Toronto,+ON,+Canada), which appears in the [Vignettes](https://cran.r-project.org/web/packages/mlogit/vignettes/c3.rum.html) accompanying the multinomial package [documentation](https://cran.r-project.org/web/packages/mlogit/mlogit.pdf)
+
+The transportation options were:
+* Car
+* Bus
+* Train
+* Air
+
+### Loading the Data
+
+In R, this dataset is built into the `mlogit` package. In Python, we need to load it ourselves.
+The ModeCanada dataset is available through the `statsmodels` datasets or can be loaded from an R data file.
+Here we'll load it directly from the R package's CSV export.
+
+```{python}
+# Load the ModeCanada dataset
+# This dataset ships with R's mlogit package. We load it from a URL.
+url = "https://raw.githubusercontent.com/cran/mlogit/master/inst/extdata/ModeCanada.csv.gz"
+try:
+    ModeCanada = pd.read_csv(url)
+    print(f"Loaded from URL: {ModeCanada.shape[0]} rows")
+except Exception:
+    # Fallback: construct from statsmodels if available, or use pyreadr
+    try:
+        import pyreadr
+        result = pyreadr.read_r('ModeCanada.rda')
+        ModeCanada = result['ModeCanada']
+    except Exception:
+        print("Could not load ModeCanada data. Please install pyreadr or provide the CSV.")
+
+# Show the last 10 rows (matching R's tail)
+ModeCanada.tail(10)
+```
+
+---
+
+For each individual we have a normalized measure of:
+* Income (`income`)
+* Whether they live in an urban area (`urban`)
+
+For each choice option we have a measure of:
+* The cost (`cost`)
+* The in vehicle time (`ivt`)
+* The out of vehicle time (`ovt`)
+
+The dependent variable here is `choice` where this set of options available to each decision maker is shown for each of the `case` ids (where `noalt` summarizes the number of choices considered)
+
+### Data Preparation
+
+In R, the `dfidx` function reshapes data for the `mlogit` package. In Python, we do this manually with pandas.
+
+We want to only consider the decision makers who consider all four choices. The data is already in "long" format (one row per person-alternative), which is what we need.
+
+```{python}
+# R: MC <- dfidx(ModeCanada, subset = noalt == 4, idx = c("case", "alt"))
+# Python: Filter to cases with all 4 alternatives
+MC = ModeCanada[ModeCanada['noalt'] == 4].copy()
+MC = MC.reset_index(drop=True)
+
+print(f"Observations: {len(MC)}")
+print(f"Unique cases: {MC['case'].nunique()}")
+print(f"\nAlternatives per case:")
+print(MC.groupby('case')['alt'].count().value_counts())
+print(f"\nChoice frequencies:")
+chosen = MC[MC['choice'] == 1]
+freq = chosen['alt'].value_counts(normalize=True).sort_index()
+print(freq)
+```
+
+## Conditional Logit via Custom MLE
+
+### Python's Landscape for Multinomial Choice
+
+**Important note:** Python does not have a direct equivalent to R's `mlogit` package. The key distinction is:
+
+- `statsmodels.MNLogit` implements the **basic multinomial logit** where covariates vary only across individuals, not across alternatives. This is suitable for individual-specific covariates with alternative-specific coefficients (the `| income |` part of R's formula).
+
+- R's `mlogit` implements the full **conditional logit** (McFadden's choice model) where covariates can vary across both individuals *and* alternatives (like `cost`, `freq`, `ovt`), and can also have alternative-specific effects.
+
+To replicate what R's `mlogit` does, we will write a **custom log-likelihood** function and maximize it with `scipy.optimize`. This is a great exercise in understanding how these models actually work!
+
+The R formula was:
+```r
+mlogit(choice ~ cost + freq + ovt | income | ivt, MC)
+```
+
+This has three parts:
+1. **Generic coefficients** (`cost`, `freq`, `ovt`): same $\beta$ across all alternatives
+2. **Alternative-specific coefficients for individual variables** (`income`): separate $\gamma_m$ for each alternative
+3. **Alternative-specific coefficients for choice-varying variables** (`ivt`): separate $\delta_m$ for each alternative
+
+```{python}
+# Define the alternatives (sorted order used internally)
+alternatives = sorted(MC['alt'].unique())
+n_alts = len(alternatives)
+print(f"Alternatives: {alternatives}")
+print(f"Number of alternatives: {n_alts}")
+
+# The base alternative for identification (train is the base in R's mlogit)
+base_alt = 'train'
+non_base_alts = [a for a in alternatives if a != base_alt]
+print(f"Base alternative: {base_alt}")
+print(f"Non-base alternatives: {non_base_alts}")
+```
+
+---
+
+```{python}
+# Reshape data into matrices for fast computation
+# We need: for each case, the attributes of each alternative
+
+cases = MC['case'].unique()
+n_cases = len(cases)
+
+# Create a case-to-index mapping
+case_to_idx = {c: i for i, c in enumerate(cases)}
+
+# Build data matrices
+# Generic variables (same beta across alternatives): cost, freq, ovt
+# These vary across alternatives for a given individual
+generic_vars = ['cost', 'freq', 'ovt']
+
+# Individual-specific with alt-specific coefficients: income
+indiv_vars = ['income']
+
+# Alternative-specific coefficients for choice-varying variable: ivt
+altspec_vars = ['ivt']
+
+# Build arrays: shape (n_cases, n_alts) for each variable
+# Also build the choice indicator
+alt_to_idx = {a: j for j, a in enumerate(alternatives)}
+
+# Initialize arrays
+Y_choice = np.zeros(n_cases, dtype=int)  # index of chosen alternative
+X_generic = np.zeros((n_cases, n_alts, len(generic_vars)))
+X_income = np.zeros((n_cases,))  # income is individual-level
+X_ivt = np.zeros((n_cases, n_alts))  # ivt varies by alternative
+
+for _, row in MC.iterrows():
+    i = case_to_idx[row['case']]
+    j = alt_to_idx[row['alt']]
+    
+    for k, var in enumerate(generic_vars):
+        X_generic[i, j, k] = row[var]
+    
+    X_income[i] = row['income']
+    X_ivt[i, j] = row['ivt']
+    
+    if row['choice'] == 1:
+        Y_choice[i] = j
+
+print(f"Data arrays built: {n_cases} cases, {n_alts} alternatives")
+print(f"Y_choice shape: {Y_choice.shape}")
+print(f"X_generic shape: {X_generic.shape}")
+print(f"X_income shape: {X_income.shape}")
+print(f"X_ivt shape: {X_ivt.shape}")
+```
+
+---
+
+```{python}
+def unpack_params(theta):
+    """
+    Unpack parameter vector into interpretable components.
+    
+    Parameters (13 total, matching R's mlogit output):
+    - intercept for air, bus, car (3)  [train is base]
+    - beta_cost, beta_freq, beta_ovt (3)  [generic]
+    - gamma_income for air, bus, car (3)  [alt-specific, train is base with gamma=0]
+    - delta_ivt for train, air, bus, car (4)  [alt-specific for all]
+    """
+    idx = 0
+    # Intercepts (one per non-base alternative)
+    intercepts = np.zeros(n_alts)
+    for a in non_base_alts:
+        intercepts[alt_to_idx[a]] = theta[idx]
+        idx += 1
+    # intercepts[alt_to_idx[base_alt]] = 0 (already zero)
+    
+    # Generic coefficients
+    beta_generic = theta[idx:idx+len(generic_vars)]
+    idx += len(generic_vars)
+    
+    # Income coefficients (alt-specific, base=0)
+    gamma_income = np.zeros(n_alts)
+    for a in non_base_alts:
+        gamma_income[alt_to_idx[a]] = theta[idx]
+        idx += 1
+    
+    # IVT coefficients (alt-specific for ALL alternatives)
+    delta_ivt = np.zeros(n_alts)
+    for a in alternatives:
+        delta_ivt[alt_to_idx[a]] = theta[idx]
+        idx += 1
+    
+    return intercepts, beta_generic, gamma_income, delta_ivt
+
+
+def compute_utilities(theta):
+    """
+    Compute utility for each case-alternative pair.
+    Returns array of shape (n_cases, n_alts).
+    """
+    intercepts, beta_generic, gamma_income, delta_ivt = unpack_params(theta)
+    
+    # U_ij = intercept_j + X_generic_ij @ beta_generic + income_i * gamma_income_j + ivt_ij * delta_ivt_j
+    V = np.zeros((n_cases, n_alts))
+    
+    # Intercepts
+    V += intercepts[np.newaxis, :]
+    
+    # Generic variables
+    V += np.einsum('ijk,k->ij', X_generic, beta_generic)
+    
+    # Income (individual-level, alt-specific coefficients)
+    V += X_income[:, np.newaxis] * gamma_income[np.newaxis, :]
+    
+    # IVT (alt-varying, alt-specific coefficients)
+    V += X_ivt * delta_ivt[np.newaxis, :]
+    
+    return V
+
+
+def log_likelihood(theta):
+    """
+    Log-likelihood for the conditional logit model.
+    
+    Pr(Y_i = j) = exp(V_ij) / sum_m exp(V_im)
+    LL = sum_i log Pr(Y_i = chosen_i)
+    """
+    V = compute_utilities(theta)
+    
+    # For numerical stability, subtract max
+    V_max = V.max(axis=1, keepdims=True)
+    V_shifted = V - V_max
+    
+    exp_V = np.exp(V_shifted)
+    sum_exp_V = exp_V.sum(axis=1)
+    
+    # Log probability of chosen alternative
+    log_prob = V_shifted[np.arange(n_cases), Y_choice] - np.log(sum_exp_V)
+    
+    return log_prob.sum()
+
+
+# Number of parameters
+n_params = len(non_base_alts) + len(generic_vars) + len(non_base_alts) + n_alts
+print(f"Number of parameters: {n_params}")
+print(f"  Intercepts: {len(non_base_alts)}")
+print(f"  Generic (cost, freq, ovt): {len(generic_vars)}")
+print(f"  Income (alt-specific): {len(non_base_alts)}")
+print(f"  IVT (alt-specific): {n_alts}")
+```
+
+---
+
+```{python}
+# Maximize the log-likelihood
+# R: mlogit(choice ~ cost + freq + ovt | income | ivt, MC)
+
+theta0 = np.zeros(n_params)
+
+result = optimize.minimize(
+    lambda theta: -log_likelihood(theta),  # minimize negative LL
+    theta0,
+    method='BFGS',
+    options={'maxiter': 5000, 'disp': True}
+)
+
+theta_hat = result.x
+ll_value = -result.fun
+
+print(f"\nConverged: {result.success}")
+print(f"Log-Likelihood: {ll_value:.1f}")
+```
+
+---
+
+```{python}
+# Compute standard errors from the Hessian
+# Use utils.numerical_hessian or the inverse Hessian from the optimizer
+
+se = utils.mle_standard_errors(log_likelihood, theta_hat, eps=1e-5)
+
+# Create parameter names matching R output
+param_names = (
+    [f'(Intercept):{a}' for a in non_base_alts] +
+    generic_vars +
+    [f'income:{a}' for a in non_base_alts] +
+    [f'ivt:{a}' for a in alternatives]
+)
+
+# z-values and p-values
+z_values = theta_hat / se
+p_values = 2 * (1 - stats.norm.cdf(np.abs(z_values)))
+
+# Significance stars
+def sig_stars(p):
+    if p < 0.001: return '***'
+    elif p < 0.01: return '**'
+    elif p < 0.05: return '*'
+    elif p < 0.1: return '.'
+    else: return ''
+
+# Create results table
+results_df = pd.DataFrame({
+    'Estimate': theta_hat,
+    'Std. Error': se,
+    'z-value': z_values,
+    'Pr(>|z|)': p_values,
+    '': [sig_stars(p) for p in p_values]
+}, index=param_names)
+
+print("Conditional Logit Estimation Results")
+print("=" * 75)
+print(f"\nFrequencies of alternatives:")
+print(freq)
+print(f"\nCoefficients:")
+print(results_df.to_string(float_format=lambda x: f"{x:.7f}"))
+print("---")
+print("Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1")
+print(f"\nLog-Likelihood: {ll_value:.1f}")
+
+# McFadden R-squared
+# Null model: equal probabilities
+ll_null = n_cases * np.log(1.0 / n_alts)
+mcfadden_r2 = 1 - ll_value / ll_null
+print(f"McFadden R^2:  {mcfadden_r2:.5f}")
+
+# Likelihood ratio test
+lr_stat = 2 * (ll_value - ll_null)
+lr_pval = 1 - stats.chi2.cdf(lr_stat, n_params)
+print(f"Likelihood ratio test: chisq = {lr_stat:.1f} (p.value = {lr_pval:.2e})")
+```
+
+---
+
+### Interpreting the Results
+
+The formula object is made up of three parts:
+1. Terms which can vary across individuals $i$ and choices $m$ but that have a constant effect in each utility
+    * $\beta_\text{cost}$, $\beta_\text{freq}$, $\beta_\text{ovt}$
+2. Terms which are individual specific but which will be estimated with a separate effect for each choice
+    * $\gamma^\text{air}_\text{income}$, $\gamma^\text{bus}_\text{income}$, $\gamma^\text{car}_\text{income}$, $\gamma^\text{train}_\text{income}$
+3. Terms which vary across $i$ and $j$, but where the variable has a choice-specific effect
+    * $\delta^\text{air}_{\text{ivt}}$, $\delta^\text{bus}_{\text{ivt}}$, $\delta^\text{car}_{\text{ivt}}$, $\delta^\text{train}_{\text{ivt}}$
+
+When we allow for choice specific terms, this estimation is often referred to as *conditional logit*.
+
+Under the multinomial logit model the errors are assumed to have what is called an *extreme-value distribution*. This is a little bit funkier than a logistic, but the assumption is made to ensure a similar representation for the odds ratio as before. If the latent variable for option $j$ from the $M$ possible options is $U_i(j)$, then the probability that someone chooses option $j$ is given by:
+$$ \Pr\left\{Y_i=j\right\}=\frac{\exp\left\{U_i(j)\right\}}{\sum_{m=1}^M \exp\left\{U_i(m) \right\}}$$
+
+So because the denominator is a constant in all of the choices, the odds ratio for any two options (here 1 and 2) is given by:
+ $$\frac{ \Pr\left\{Y_i=1\right\}}{ \Pr\left\{Y_i=2\right\}}=\frac{\exp\left\{U_i(1)\right\}}{\exp\left\{U_i(2)\right\}} $$
+
+And the log-odds-ratio is just the difference in the latent variables/utilities:
+ $$\log\left(\frac{ \Pr\left\{Y_i=1\right\}}{ \Pr\left\{Y_i=2\right\}} \right)=U_i(1)-U_i(2)$$
+
+## Independence of Irrelevant Alternatives (IIA)
+This property of multinomial logit is called *Independence of Irrelevant Alternatives*. That is, that the odds-ratio comparing *any* two outcomes is purely a function of the characteristics for those two choices, and does not respond to other features of the overall set of choices. 
+
+While this is mostly a nice feature that was designed into the approach, you can show that it is absurd in some settings. (In particular, if *choice 3* is a direct substitute for product 1 you would imagine some of its features (its pricing) could affect the relative chances between choices 1 and 2.
+
+There are some ways to remove the IIA assumption across pre-specified Nests, where this technique is called *Nested Logit*. This allows for a degree of correlation in the error terms within the nested choices, but independence across the nests.
+
+In particular if you look at the [vignettes](https://cran.r-project.org/web/packages/mlogit/vignettes/c4.relaxiid.html) there is a nice example for Japanese firms choosing regions for investment within the EU, where the nests are chosen at the country level. However, the process here is a bit more involved, using the parameters from the more-standard country-wide multinomial logits as instruments for the second model.
+
+## Multinomial Probits
+Another option that allows for a degree of correlation across the errors is to use a multinomial Probit. Here, the assumption on the error primitives is a bit easier to understand, where we let the error terms have a multivariate Normal distribution $\boldsymbol{\epsilon}\sim \mathcal{N}(0,\Sigma)$ (though scale is not fully identified here, so you should think of the variance matrix as being more of a correlation matrix). 
+
+In contrast to the logit, in the probit we can allow for the errors to be correlated across the choice:
+* So the fact that I have a high idiosyncratic shock to my personal utility on a *Mercedes* can be correlated with my also having a high idiosyncratic shock on an *Audi*, and a negative shock to say a *GM*.
+
+### Multinomial Probit in Python
+
+**Limitation:** Python does not have a well-maintained, general-purpose multinomial probit package equivalent to R's `mlogit(..., probit=TRUE)`. Implementing a multinomial probit requires simulated maximum likelihood (SML), because there is no closed-form expression for the probability that one draw from a multivariate normal exceeds all others.
+
+Below we show a simplified simulation-based approach to give the intuition. In practice, for serious research applications involving multinomial probit, R's `mlogit` package or specialized software is recommended.
+
+```{python}
+# Simulated multinomial probit is computationally expensive.
+# We show the structure here but note the practical limitation.
+#
+# The key idea: Instead of the extreme-value error assumption (logit),
+# we assume errors are multivariate normal:
+#   epsilon ~ N(0, Sigma)
+#
+# The probability of choosing alternative j is:
+#   Pr(Y=j) = Pr(U_j > U_m for all m != j)
+#           = Pr(V_j + eps_j > V_m + eps_m for all m != j)
+#
+# This integral has no closed form for M > 2, so we simulate:
+#   1. Draw eps from N(0, Sigma) many times
+#   2. For each draw, check which alternative has highest utility
+#   3. Fraction choosing j = simulated Pr(Y=j)
+
+def simulated_mnp_loglik(theta, n_sim=200):
+    """
+    Simulated log-likelihood for multinomial probit.
+    Uses the same utility specification as the logit model,
+    but with multivariate normal errors.
+    
+    Note: This is a simplified version with Sigma = I.
+    A full implementation would also estimate Sigma.
+    """
+    V = compute_utilities(theta)
+    rng = np.random.default_rng(42)
+    
+    log_probs = np.zeros(n_cases)
+    
+    for i in range(n_cases):
+        # Draw from N(0, I) for each alternative
+        eps = rng.standard_normal((n_sim, n_alts))
+        U_sim = V[i, :] + eps  # shape (n_sim, n_alts)
+        
+        # Check which alternative wins in each simulation
+        chosen_sim = np.argmax(U_sim, axis=1)
+        
+        # Simulated probability of actual choice
+        sim_prob = np.mean(chosen_sim == Y_choice[i])
+        log_probs[i] = np.log(max(sim_prob, 1e-10))
+    
+    return log_probs.sum()
+
+print("Simulated MNP log-likelihood function defined.")
+print("Note: Full estimation is very slow (minutes to hours).")
+print("In R, mlogit(..., probit=TRUE) took 1m 44s for this dataset.")
+print("\nFor practical multinomial probit estimation, use R's mlogit package.")
+```
+
+---
+
+However, the model now takes a lot longer to run and solve. The reason for this is that we do not generally have closed form expressions for the likelihood that one outcome from a multivariate normal is larger than all of the others! As such when the model is trying to figure out the likelihood for a particular parameter mix it is using *Simulated Maximum Likelihood*.
+
+That is, it randomly draws a random sample from the relevant multivariate normal and uses this to compute the probability that the utility to option $j$ is larger than for the other $M-1$ options.
+
+This simulation approach to maximum likelihood becomes more common as the models get more involved, and can mean that estimation can take a substantial amount of time... which means that bootstrapping standard errors can take a **very** long time
+
+## Mixed Logit
+
+Finally, another alternative to induce correlations is to allow for the **coefficients** to be random. That is suppose our prior model was just:
+$$U_i(j)=\beta x_{ij} +\epsilon_{ij}$$
+
+In a random coefficients model person $i$ would have their own particular value for $\beta_i$, reflecting idiosyncratic tastes for $x_{ij}$ say. As such their utility would be given by:
+$$U_i(j)=\beta_i x_{ij} +\epsilon_{ij}$$
+where we would make a parametric assumption on the distribution such as $\beta_i\sim\mathcal{N}(\beta,\sigma^2_\beta)$.
+
+Given the value of $\beta_i$ the probability of making choice $j$ is given by:
+$$ \Pr\left\{Y_i=j\right\}=\frac{\exp\left\{\beta_i x_{ij} +\epsilon_{ij} \right\}}{ \sum_{m=1}^M  \exp\left\{\beta_i x_{im} +\epsilon_{im} \right\}}$$
+So people with a very high value of $\beta_i$ might be more inclined to make some choices over others, depending on the relevant values for the $x_{im}$ terms.
+
+In practical terms, it's very hard to assess the analytical expectation of the probabilities over the random coefficients, and we instead switch to numerical estimates across all the possible values of $\beta_i$ under the assumed distribution using simulation. 
+
+In making this assumption, we can practically decompose an outcome into its average effect, and the idiosyncratic effect from variable $x_{ij}$ $(\beta_i-\beta)$, reflecting how the individual's $x_{ij}$ variable is weighted both in the considered choice probability:
+$$U_i(j)=\beta x_{ij} +(\beta_i-\beta)x_{ij}+\epsilon_{ij},$$
+but also in the other choice probabilities via the $x_{im}$ terms for the other choices.
+
+### Mixed Logit in Python
+
+By assuming a distribution for $\beta_i$ we will use aggregation across multiple individuals to extract the average value $\beta_i$ and the scale of the individual effects (a standard deviation). 
+
+In R, the `mlogit` command lets us do that by adding details on the variable we are allowing to be random via the `rpar` option:
+```r
+mixedlogit.est <- mlogit(choice ~ cost + freq + ovt | income | ivt, MC, rpar=c(cost="u"))
+```
+
+In Python, we implement this via simulated maximum likelihood. The key idea:
+1. For each individual, draw many $\beta_i$ values from the assumed distribution
+2. For each draw, compute the conditional logit probability
+3. Average over draws to get the simulated choice probability
+
+```{python}
+def mixed_logit_loglik(theta_mixed, n_draws=500):
+    """
+    Simulated log-likelihood for mixed logit with random cost coefficient.
+    
+    The cost coefficient is drawn from a uniform distribution:
+        beta_cost_i ~ Uniform(beta_cost - sigma_cost, beta_cost + sigma_cost)
+    
+    Parameters
+    ----------
+    theta_mixed : array
+        Same as theta for conditional logit, plus one extra parameter:
+        sigma_cost (the spread of the random coefficient)
+    n_draws : int
+        Number of simulation draws per individual
+    """
+    # Last parameter is sigma_cost
+    sigma_cost = theta_mixed[-1]
+    theta_base = theta_mixed[:-1]
+    
+    # Get base utilities (without cost contribution)
+    intercepts, beta_generic, gamma_income, delta_ivt = unpack_params(theta_base)
+    beta_cost_mean = beta_generic[0]  # cost is first generic variable
+    
+    # Base utility without cost
+    V_base = np.zeros((n_cases, n_alts))
+    V_base += intercepts[np.newaxis, :]
+    # Add freq and ovt (generic vars index 1 and 2)
+    V_base += X_generic[:, :, 1] * beta_generic[1]  # freq
+    V_base += X_generic[:, :, 2] * beta_generic[2]  # ovt
+    V_base += X_income[:, np.newaxis] * gamma_income[np.newaxis, :]
+    V_base += X_ivt * delta_ivt[np.newaxis, :]
+    
+    # Cost variable
+    X_cost = X_generic[:, :, 0]  # shape (n_cases, n_alts)
+    
+    # Draw random cost coefficients: Uniform(mean - sigma, mean + sigma)
+    rng = np.random.default_rng(123)
+    # Halton-like draws for better coverage (use uniform draws)
+    u_draws = rng.uniform(0, 1, (n_draws,))
+    beta_cost_draws = beta_cost_mean + sigma_cost * (2 * u_draws - 1)
+    
+    # For each draw, compute choice probabilities
+    log_probs = np.zeros(n_cases)
+    
+    # Vectorized over draws
+    prob_sum = np.zeros((n_cases, n_alts))
+    for d in range(n_draws):
+        V = V_base + X_cost * beta_cost_draws[d]
+        V_max = V.max(axis=1, keepdims=True)
+        V_shifted = V - V_max
+        exp_V = np.exp(V_shifted)
+        sum_exp_V = exp_V.sum(axis=1, keepdims=True)
+        prob_sum += exp_V / sum_exp_V
+    
+    # Average probability across draws
+    avg_probs = prob_sum / n_draws
+    
+    # Log-likelihood
+    chosen_probs = avg_probs[np.arange(n_cases), Y_choice]
+    log_probs = np.log(np.maximum(chosen_probs, 1e-10))
+    
+    return log_probs.sum()
+
+print("Mixed logit log-likelihood function defined.")
+print(f"Parameters: {n_params} (conditional logit) + 1 (sigma_cost) = {n_params + 1}")
+```
+
+---
+
+```{python}
+# Estimate the mixed logit model
+# Start from the conditional logit estimates + small sigma
+theta0_mixed = np.append(theta_hat, 0.01)
+
+print("Estimating mixed logit (this may take a moment)...")
+result_mixed = optimize.minimize(
+    lambda theta: -mixed_logit_loglik(theta, n_draws=200),
+    theta0_mixed,
+    method='BFGS',
+    options={'maxiter': 5000, 'disp': True}
+)
+
+theta_hat_mixed = result_mixed.x
+ll_mixed = -result_mixed.fun
+
+print(f"\nConverged: {result_mixed.success}")
+print(f"Log-Likelihood: {ll_mixed:.1f}")
+```
+
+---
+
+```{python}
+# Compare models using AIC
+# AIC = -2 * LL + 2 * k
+
+aic_logit = -2 * ll_value + 2 * n_params
+aic_mixed = -2 * ll_mixed + 2 * (n_params + 1)
+
+comparison = pd.DataFrame({
+    'Log-Likelihood': [ll_value, ll_mixed],
+    'Parameters': [n_params, n_params + 1],
+    'AIC': [aic_logit, aic_mixed]
+}, index=['Conditional Logit', 'Mixed Logit'])
+
+print("Model Comparison")
+print("=" * 55)
+print(comparison.to_string(float_format=lambda x: f"{x:.2f}"))
+print(f"\nNote: R's mlogit also estimated a multinomial probit (AIC ~ 3747).")
+print(f"Python lacks a ready-made multinomial probit implementation.")
+```
+
+## Prediction and Counterfactuals
+
+```{python}
+def predict_shares(theta):
+    """
+    Predict market shares (average choice probabilities) for each alternative.
+    """
+    V = compute_utilities(theta)
+    V_max = V.max(axis=1, keepdims=True)
+    V_shifted = V - V_max
+    exp_V = np.exp(V_shifted)
+    probs = exp_V / exp_V.sum(axis=1, keepdims=True)
+    return probs.mean(axis=0)
+
+# Current predicted shares
+logit_shares = predict_shares(theta_hat)
+
+shares_df = pd.DataFrame({
+    'Predicted Share': logit_shares
+}, index=alternatives)
+
+print("Current Predicted Market Shares (Conditional Logit)")
+print(shares_df.to_string(float_format=lambda x: f"{x:.7f}"))
+```
+
+---
+
+So let's see what happens in our estimated model as we change things (the whole point of having a model!). Here we'll make trains faster (halve in-vehicle time / 2.5) but triple the cost, simulating a high-speed rail investment.
+
+```{python}
+# Counterfactual: Modify train characteristics
+# R code:
+#   MC2$ivt <- ifelse(MC2$alt=="train", (MC2$ivt)/2.5, MC2$ivt)
+#   MC2$cost <- ifelse(MC2$alt=="train", (MC2$cost)*3, MC2$cost)
+
+# Create counterfactual data arrays
+X_generic_cf = X_generic.copy()
+X_ivt_cf = X_ivt.copy()
+
+train_idx = alt_to_idx['train']
+
+# Halve train IVT (divide by 2.5)
+X_ivt_cf[:, train_idx] = X_ivt[:, train_idx] / 2.5
+
+# Triple train cost
+X_generic_cf[:, train_idx, 0] = X_generic[:, train_idx, 0] * 3  # cost is index 0
+
+def predict_shares_cf(theta, X_gen_cf, X_ivt_cf):
+    """
+    Predict shares with counterfactual data.
+    """
+    intercepts, beta_generic, gamma_income, delta_ivt = unpack_params(theta)
+    
+    V = np.zeros((n_cases, n_alts))
+    V += intercepts[np.newaxis, :]
+    V += np.einsum('ijk,k->ij', X_gen_cf, beta_generic)
+    V += X_income[:, np.newaxis] * gamma_income[np.newaxis, :]
+    V += X_ivt_cf * delta_ivt[np.newaxis, :]
+    
+    V_max = V.max(axis=1, keepdims=True)
+    V_shifted = V - V_max
+    exp_V = np.exp(V_shifted)
+    probs = exp_V / exp_V.sum(axis=1, keepdims=True)
+    return probs.mean(axis=0)
+
+# Counterfactual shares
+logit_cf_shares = predict_shares_cf(theta_hat, X_generic_cf, X_ivt_cf)
+
+cf_df = pd.DataFrame({
+    'original': logit_shares,
+    'counterfactual': logit_cf_shares,
+    'difference (%)': np.round(100 * (logit_cf_shares - logit_shares), 2)
+}, index=alternatives)
+
+print("Conditional Logit: Counterfactual Analysis")
+print("(Train: IVT/2.5, Cost*3)")
+print("=" * 55)
+print(cf_df.to_string(float_format=lambda x: f"{x:.7f}"))
+```
+
+---
+
+```{python}
+# Mixed logit counterfactual
+def predict_shares_mixed_cf(theta_mixed, X_gen_cf, X_ivt_cf, n_draws=200):
+    """
+    Predict shares for mixed logit with counterfactual data.
+    """
+    sigma_cost = theta_mixed[-1]
+    theta_base = theta_mixed[:-1]
+    intercepts, beta_generic, gamma_income, delta_ivt = unpack_params(theta_base)
+    beta_cost_mean = beta_generic[0]
+    
+    V_base = np.zeros((n_cases, n_alts))
+    V_base += intercepts[np.newaxis, :]
+    V_base += X_gen_cf[:, :, 1] * beta_generic[1]  # freq
+    V_base += X_gen_cf[:, :, 2] * beta_generic[2]  # ovt
+    V_base += X_income[:, np.newaxis] * gamma_income[np.newaxis, :]
+    V_base += X_ivt_cf * delta_ivt[np.newaxis, :]
+    
+    X_cost = X_gen_cf[:, :, 0]
+    
+    rng = np.random.default_rng(123)
+    u_draws = rng.uniform(0, 1, (n_draws,))
+    beta_cost_draws = beta_cost_mean + sigma_cost * (2 * u_draws - 1)
+    
+    prob_sum = np.zeros((n_cases, n_alts))
+    for d in range(n_draws):
+        V = V_base + X_cost * beta_cost_draws[d]
+        V_max = V.max(axis=1, keepdims=True)
+        V_shifted = V - V_max
+        exp_V = np.exp(V_shifted)
+        prob_sum += exp_V / exp_V.sum(axis=1, keepdims=True)
+    
+    return (prob_sum / n_draws).mean(axis=0)
+
+# Original and counterfactual shares for mixed logit
+mixed_orig = predict_shares_mixed_cf(theta_hat_mixed, X_generic, X_ivt)
+mixed_cf = predict_shares_mixed_cf(theta_hat_mixed, X_generic_cf, X_ivt_cf)
+
+cf_mixed_df = pd.DataFrame({
+    'original': mixed_orig,
+    'counterfactual': mixed_cf,
+    'difference (%)': np.round(100 * (mixed_cf - mixed_orig), 2)
+}, index=alternatives)
+
+print("Mixed Logit: Counterfactual Analysis")
+print("(Train: IVT/2.5, Cost*3)")
+print("=" * 55)
+print(cf_mixed_df.to_string(float_format=lambda x: f"{x:.7f}"))
+```
+
+---
+
+```{python}
+# Visualize the counterfactual comparison
+fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+x_pos = np.arange(n_alts)
+width = 0.35
+
+# Conditional Logit
+ax = axes[0]
+ax.bar(x_pos - width/2, logit_shares, width, label='Original', color=PITT_BLUE, alpha=0.8)
+ax.bar(x_pos + width/2, logit_cf_shares, width, label='Counterfactual', color=PITT_GOLD, alpha=0.8)
+ax.set_xlabel('Alternative')
+ax.set_ylabel('Market Share')
+ax.set_title('Conditional Logit')
+ax.set_xticks(x_pos)
+ax.set_xticklabels(alternatives)
+ax.legend()
+ax.set_ylim(0, 0.6)
+
+# Mixed Logit
+ax = axes[1]
+ax.bar(x_pos - width/2, mixed_orig, width, label='Original', color=PITT_BLUE, alpha=0.8)
+ax.bar(x_pos + width/2, mixed_cf, width, label='Counterfactual', color=PITT_GOLD, alpha=0.8)
+ax.set_xlabel('Alternative')
+ax.set_ylabel('Market Share')
+ax.set_title('Mixed Logit')
+ax.set_xticks(x_pos)
+ax.set_xticklabels(alternatives)
+ax.legend()
+ax.set_ylim(0, 0.6)
+
+plt.suptitle('Counterfactual: Faster but Costlier Train Service', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+### Conclusion
+Both models agree on the conclusion that the main winner from changes to car costs would be the Train system. So if you were forecasting substantial increases to the costs of running an automobile, you might want to invest in your rail network! 
+
+Depending on how much time we have, we will maybe try to talk about how these techniques with multinomial logits can be incorporated into models of an entire industry. These models use game theoretic models of an oligopoly (similar to the things you looked at with Richard) to understand how prices and product characteristics affect outcomes. After estimation, these structural models (called BLP models after the authors of [this article](https://doi.org/10.2307/2171802), Berry, Levinsohn and Pakes) can be used to make predictions about what would happen if you raised/lowered prices. (See this [Nevo paper](https://doi.org/10.1111/j.1430-9134.2000.00513.x) on a guide for practitioners!)
+
+## Summary: R to Python Mapping for Multinomial Choice
+
+| R (`mlogit` package) | Python Equivalent | Notes |
+|-----|-----|-----|
+| `dfidx(data, idx=c("case","alt"))` | Manual pandas filtering | Data must be in long format |
+| `mlogit(y ~ x1 \| z1 \| w1, data)` | Custom MLE with `scipy.optimize` | No direct equivalent package |
+| `mlogit(..., probit=TRUE)` | Not readily available | Use R for multinomial probit |
+| `mlogit(..., rpar=c(x="n"))` | Custom simulated MLE | Implement simulation loop |
+| `fitted(model, outcome=FALSE)` | Custom prediction function | Compute softmax probabilities |
+| `predict(model, newdata)` | Custom counterfactual function | Modify data arrays, re-predict |
+| `AIC(model)` | `-2*LL + 2*k` | Manual computation |
+
+**Key takeaway:** For multinomial/conditional logit models, Python requires writing custom log-likelihood functions. While this takes more effort, it provides a deeper understanding of how these models work. For production-quality estimation of advanced models (nested logit, multinomial probit, mixed logit), R's `mlogit` package remains the most convenient tool.
+

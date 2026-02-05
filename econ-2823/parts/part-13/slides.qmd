@@ -1,0 +1,950 @@
+---
+title: "Categorical Data: Binary Outcomes (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+----
+Keeping similar explanatory variables from before, let's generate some binary outcome data with the *logit* link function.
+
+
+The expected value $\mu$ of a binary outcome is just the probability $p$ that it takes value one, so the logit link function is given by:
+$$\eta=\log\left(\frac{\mu}{1-\mu}\right)=\log\left(\frac{p}{1-p}\right)=\log\left(\frac{\Pr\left\{X=1\right\}}{\Pr\left\{X=0\right\}}\right)$$ 
+
+That is, the linear model we will specify for the data will be used to represent the log of the *odds ratio* for a success.
+
+One way of viewing this, is that by specifying a linear model $\eta_i=x_i^T \beta$ for the log-odds-ratio, we're really modeling the odds ratio as the product of each term, with exponential growth in each:
+$$ \frac{\Pr\left\{X=1\right\}}{\Pr\left\{X=0\right\}}=\frac{p}{1-p}=\exp(x_i^T \beta)=e^{\beta_0}e^{\beta_1x_{i1}}\cdots e^{\beta_{k}x_{ik}}$$
+
+We can invert the log-odds ratio to get a formula for the probability:
+$$\eta=\log\left(\frac{p}{1-p}\right),$$
+where this leads us to a success probability given by:
+$$\Pr\left\{ X=1\right\}=p=\frac{\exp(\eta)}{ 1+\exp(\eta)}=\frac{\exp(x_i^T \beta)}{ 1+\exp(x_i^T \beta)}$$
+
+So let's set that up with some controlled data, give it some framing, and feed that into a Binomial GLM!
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats, special
+import warnings
+warnings.filterwarnings('ignore')
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_DGRAY = utils.PITT_DGRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+---
+
+```{python}
+# Generate binary outcome data
+# R: Ndata <- 1000
+# Python: same idea, using numpy
+
+np.random.seed(42)
+Ndata = 1000
+
+x1 = np.where(np.random.uniform(size=Ndata) < 0.5, 0, 1)
+x2_0 = np.random.normal(loc=2.1, scale=0.8, size=Ndata)
+x2_1 = np.random.normal(loc=2.5, scale=0.9, size=Ndata)
+x2 = np.where(x1 == 1, x2_1, x2_0)
+
+beta_true = np.array([-2.5, 2.0, 0.5])
+
+# Make the true linear predictor
+eta = beta_true[0] + beta_true[1] * x1 + beta_true[2] * x2
+
+# Make the probability using the logistic (inverse-logit) function
+# R: p.mean <- exp(eta)/(1+exp(eta))
+# Python: scipy.special.expit(eta) or equivalently 1/(1+np.exp(-eta))
+p_mean = special.expit(eta)
+
+# Draw a Bernoulli from the relevant distribution
+# R: sapply(p.mean, function(p.i) ifelse(p.i >= runif(1), TRUE, FALSE))
+# Python: np.random.binomial(1, p_mean)
+binary_outcome = np.random.binomial(1, p_mean).astype(bool)
+```
+
+---
+
+Putting this data into a data frame:
+
+```{python}
+data_bernoulli = pd.DataFrame({
+    'own_multiple_cars': binary_outcome.astype(int),
+    'married': x1.astype(int),
+    'hh_income': np.round(np.exp(8) * np.exp(x2), -1)
+})
+
+data_bernoulli.head()
+```
+
+---
+
+So, given this *binary* variable we can extract estimates from the data using the standard link function for *binomial* data in the GLM -- the *logit* link. (Note that $n=1$ is a very simple, special case of a binomial, which is also referred to as a Bernoulli random variable)
+
+```{python}
+# R: glm(own.multiple.cars ~ married + log(hh.income), data=data.Bernoulli, family='binomial')
+# Python: sm.Logit(y, X).fit()  or  sm.GLM(y, X, family=sm.families.Binomial()).fit()
+
+# Prepare design matrix with constant and log(income)
+data_bernoulli['log_income'] = np.log(data_bernoulli['hh_income'])
+
+X_logit = sm.add_constant(data_bernoulli[['married', 'log_income']])
+y = data_bernoulli['own_multiple_cars']
+
+# Fit logit model
+logit_model = sm.Logit(y, X_logit).fit(disp=0)
+print(logit_model.summary())
+
+beta_binom = logit_model.params
+print(f"\nTrue values: {beta_true}")
+print(f"Note: True intercept in terms of log(income) is -2.5 - 0.5*8 = {-2.5 - 0.5*8}")
+```
+
+---
+
+Note that here we are modeling the log odds-ratio for a success/failure through the variables $x_1$ and $x_2$, so that means that the odds ratio is given by:
+$$\begin{eqnarray} \frac{\Pr\left\{\text{Success}\right\}}{\Pr\left\{\text{Failure}\right\}} &=& \exp\left\{-4+\delta_\text{married}+\tfrac{1}{2}\log(x_\text{income})\right\} \\ &=& \exp\left\{-4\right\}\cdot \exp\left\{\delta_\text{married}\right\}\cdot \exp\left\{\tfrac{1}{2}\log(x_\text{income})\right\} \\
+ &=&  \exp\left\{-4\right\}\cdot \exp\left\{\delta_\text{married}\right\} \sqrt{x_\text{income}}
+\end{eqnarray}$$
+
+So our induced odds ratio relationship is:
+
+```{python}
+# Theoretical and estimated odds ratio functions
+def theory_or(income, married=False):
+    return np.exp(-6.5 + 2 * married) * np.sqrt(income)
+
+def est_or(income, married=False):
+    return np.exp(beta_binom['const'] + married * beta_binom['married'] + beta_binom['log_income'] * np.log(income))
+```
+
+---
+
+So we can graph the estimated odds ratio for income for a married person (the gold line) in comparison to the induced theoretical relationship (the blue line)
+
+```{python}
+income_range = np.linspace(5000, 250000, 500)
+
+fig, ax = plt.subplots()
+ax.plot(income_range, est_or(income_range, married=True), color=PITT_BLUE, linewidth=2, label='Estimated')
+ax.plot(income_range, theory_or(income_range, married=True), color=PITT_GOLD, linewidth=2, label='Theory')
+ax.set_xlabel('Income')
+ax.set_ylabel('Odds ratio for multiple cars')
+ax.set_title('Odds Ratio: Married Household')
+ax.legend()
+plt.show()
+```
+
+---
+
+And for a single person
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(income_range, est_or(income_range, married=False), color=PITT_BLUE, linewidth=2, label='Estimated')
+ax.plot(income_range, theory_or(income_range, married=False), color=PITT_GOLD, linewidth=2, label='Theory')
+ax.set_xlabel('Income')
+ax.set_ylabel('Odds ratio for multiple cars')
+ax.set_title('Odds Ratio: Single Household')
+ax.legend()
+plt.show()
+```
+
+---
+
+Odds ratios are a bit more intuitive to explain to people: 
+* So for a married household at 100k income, the chance they have multiple cars is 3 times as likely as the chance they do *not* have multiple cars
+* The chance of a single household having multiple cars at 100k income is approximately half the probability of not having multiple cars
+
+Still, if we want to get more concrete numbers still, we can convert these *odds ratios* to *probabilities* as:
+$$ \frac{p}{1-p}=\exp(\eta)\Longrightarrow p =\frac{\exp(\eta)}{1+\exp(\eta)}$$
+
+Define probabilities as functions:
+
+```{python}
+# R: exp(eta)/(1+exp(eta)) is equivalent to Python: special.expit(eta)
+
+def est_prob_multiple(income, married=False):
+    eta = beta_binom['const'] + married * beta_binom['married'] + beta_binom['log_income'] * np.log(income)
+    return special.expit(eta)
+
+def theory_prob_multiple(income, married=False):
+    eta = -6.5 + 2 * married + 0.5 * np.log(income)
+    return special.expit(eta)
+```
+
+---
+
+Using these functions we can plot the estimated and induced probabilities of owning multiple cars for a married person:
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(income_range, est_prob_multiple(income_range, married=True), color=PITT_BLUE, linewidth=2, label='Estimated')
+ax.plot(income_range, theory_prob_multiple(income_range, married=True), color=PITT_GOLD, linewidth=1, label='Theory')
+ax.set_xlabel('Income')
+ax.set_ylabel('Prob. multiple cars')
+ax.set_title('Predicted Probability: Married Household')
+ax.legend()
+plt.show()
+```
+
+---
+
+And for a single person:
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(income_range, est_prob_multiple(income_range, married=False), color=PITT_BLUE, linewidth=2, label='Estimated')
+ax.plot(income_range, theory_prob_multiple(income_range, married=False), color=PITT_GOLD, linewidth=1, label='Theory')
+ax.set_xlabel('Income')
+ax.set_ylabel('Prob. multiple cars')
+ax.set_title('Predicted Probability: Single Household')
+ax.legend()
+plt.show()
+```
+
+---
+
+Or, preferably, both together!
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(income_range, est_prob_multiple(income_range, married=True), color=PITT_BLUE, linewidth=2, linestyle='-', label='Estimated, Married')
+ax.plot(income_range, theory_prob_multiple(income_range, married=True), color=PITT_GOLD, linewidth=2, linestyle='-', label='Theory, Married')
+ax.plot(income_range, est_prob_multiple(income_range, married=False), color=PITT_BLUE, linewidth=2, linestyle='--', label='Estimated, Single')
+ax.plot(income_range, theory_prob_multiple(income_range, married=False), color=PITT_GOLD, linewidth=2, linestyle='--', label='Theory, Single')
+ax.set_xlabel('Income')
+ax.set_ylabel('Prob. multiple cars')
+ax.set_title('Predicted Probabilities by Marital Status')
+ax.legend(loc='upper left')
+plt.show()
+```
+
+## Other Link Functions
+If we want to we can change the link function to a non-standard one, which for the most part we will only do with binomial and multinomial data.
+
+The reasoning behind the different choices here is in terms of how we think about the randomness. When the outcomes are 0/1 for a particular outcome, we can think of the outcome as what is called a **limited-dependent variable**.
+
+That is, the true underlying value is given by:
+$$ y^\star_i=x_i^T \beta +\epsilon_i$$
+where $\epsilon_i$ is an unobserved disturbance term.
+
+However, instead of $y^\star_i$, what we see is a *limited* version:
+$$y_i=\begin{cases}0 & \text{if }y^\star_i<0  \\
+1 & \text{if }y^\star_i\geq0
+\end{cases}$$
+
+So in this view (and taking $x_i$ as a constant):
+$$\Pr\left\{ y_i=1\right\} = \Pr\left\{ y^\star_i\geq 0 \right\}=\Pr\left\{ \epsilon_i\geq -x_i^T \beta \right\}$$
+
+Defining $\epsilon_i$'s cumulative distribution function as $F_\epsilon$, this is just:
+$$\Pr\left\{ y_i=1\right\} =1-F_\epsilon\left(-x_i^T \beta \right)$$
+
+## Link Function as a CDF
+But so long as the variable is continuously distributed, the function $F_\epsilon$ is strictly increasing, and thus invertible.
+
+As such, another way of thinking about the link functions with discrete choice models is as a distribution for the unobserved error term.
+
+* Above we constructed a GLM model (under the logit link function) with the assumption that the odds-ratio was log-linear in the relevant variable
+* An equivalent assumption is that there is some underlying latent variable $y_i$ that determines the outcome, where the disturbance term $\epsilon_i$ has a CDF given by: $F_\epsilon(z)=\frac{1}{1+e^{-z}}$
+* This is a *logistic distribution* with a mean of 0
+
+Checking the terms we have $$\Pr\left\{ y_i=1\right\} =1-F_\epsilon\left(-x_i^T \beta \right)=1-\frac{1}{1+\exp(x_i^T\beta)}=\frac{\exp(x_i^T\beta)}{1+\exp(x_i^T\beta)}$$
+
+Thinking about things with a latent variable allows us to consider/model the hidden process behind choices. This will be the standard method that Economists use to understand the world: **Utility**.
+
+That is, we can think about the Utility of a positive outcome (we'll call this outcome $A$) as being the latent variable $y^\star_i$, where we normalize the utility of the negative outcome (outcome $B$) to zero (where scale and normalization don't matter for utilities).
+
+Under the utility framework, if there are two choices $A$ or $B$, an agent will make the $A$ choice (whatever is coded as a 1/True in your data) if the utility is greater than the alternative choice $B$. Given the normalization this is:
+$$ \text{Utility}(A)=y^\star_i=x_i^T\beta +\epsilon_i >0 =\text{Utility}(B)$$
+
+As such, we can think of the model term $x_i^T\beta$ as capturing the average utility difference based on the observable $x_i$, and the disturbance term $\epsilon_i$ as being an unobserved utility component that is idiosyncratic to the individual.
+
+This works so long as the idiosyncratic (and unobserved) utility component is distributed according to a logistic distribution. This distribution when combined with the limited dependent variable approach creates the property that the log odds ratio moves linearly with the $x^T_i \beta$ term.
+
+But is the logistic distribution crazy?
+
+```{python}
+# R: dlogis(x, location=0, scale=1) -> Python: stats.logistic.pdf(x, loc=0, scale=1)
+# R: dnorm(x, mean=0, sd=pi/sqrt(3)) -> Python: stats.norm.pdf(x, loc=0, scale=np.pi/np.sqrt(3))
+
+x = np.linspace(-8, 8, 500)
+
+fig, ax = plt.subplots()
+ax.plot(x, stats.logistic.pdf(x, loc=0, scale=1), color=PITT_GOLD, linewidth=2, label='Logistic PDF')
+ax.plot(x, stats.norm.pdf(x, loc=0, scale=np.pi / np.sqrt(3)), color=PITT_BLUE, linewidth=2, label='Normal PDF')
+ax.set_xlabel('x')
+ax.set_ylabel('Density')
+ax.set_title('Logistic vs Normal Distribution')
+ax.legend()
+plt.show()
+```
+
+---
+
+Note, that the standard logistic function with mean zero and scale parameter 1 has a variance of $\pi^2/3$, so I matched the Normal variance above.
+
+But neither scale nor normalization matter when we think about Utilities because they're inherently comparative:
+* There's no natural unit of utility, and if there was, all that matters is the comparison
+    * If $u(A)$ is greater than $u(B)$, with respect to the choice between $A$ and $B$ it doesn't matter whether $A$ produces 10 happiness units or 20 million happiness units, $A$ will still be chosen over $B$
+* Similarly, because it's comparative, we can normalize one of our utilities to zero (here $u(B)=0$) so that all utility is relative to $B$.
+
+Because of this, we can just set the scale parameter to 1 and forget about it.
+
+## Other Distributions for the Error Term
+Given that we can use essentially any error distribution we want, why should we use the logistic?
+* Well, the main reason is tractability, that the logistic is easy to interpret the coefficients
+* But, the actual distribution of the error term isn't too distinct from a Normal
+
+Still, given how much we like Normal distributions, there is a case to be made for changing the distribution of $\epsilon_i$ in the latent variable model to be a Normal (where again, because scale is not identified, we can set $\sigma=1$ for the errors). The main effect of this is to change the link function in the GLM.
+
+This approach to having the errors be normal is called a **Probit** model (in comparison to 'logit' when the error has a logistic distribution). Fortunately this type of model is easy enough to estimate:
+
+```{python}
+# R: glm(own.multiple.cars ~ married + log(hh.income), data=data.Bernoulli,
+#        family='binomial'(link="probit"))
+# Python: sm.Probit(y, X).fit()
+
+probit_model = sm.Probit(y, X_logit).fit(disp=0)
+beta_probit = probit_model.params
+print(probit_model.summary())
+```
+
+---
+
+While the assumptions on the latent variable error term are more intuitive, the costs of the probit function are that thinking about the effects of the model are a bit more complex.
+
+That is, we need to use the Normal CDF to interpret the effects!
+$$\Pr\left\{y_i=1\right\} = 1-\Phi(-x^T_i \hat{\beta}) $$
+
+While there can be differences in the tails (and there will be some additional advantages in more-general contexts), in many cases the models will have very similar effects.
+
+```{python}
+# Probit predicted probability function
+# R: 1 - pnorm(-eta)  is equivalent to  pnorm(eta) = stats.norm.cdf(eta)
+def est_prob_multiple_probit(income, married=False):
+    eta = beta_probit['const'] + married * beta_probit['married'] + beta_probit['log_income'] * np.log(income)
+    return stats.norm.cdf(eta)
+
+fig, ax = plt.subplots()
+ax.plot(income_range[:300], est_prob_multiple(income_range[:300], married=True),
+        color=PITT_GOLD, linewidth=2, label='Logit model')
+ax.plot(income_range[:300], est_prob_multiple_probit(income_range[:300], married=True),
+        color=PITT_BLUE, linewidth=1, label='Probit model')
+ax.set_xlabel('Income')
+ax.set_ylabel('Prob. multiple cars')
+ax.set_title('Logit vs Probit: Married Household')
+ax.legend()
+plt.show()
+```
+
+---
+
+Stepping back, both non-linear models are taking our linear predictor $\eta=x_i^T \beta$ which can take values in $(-\infty,\infty)$ and mapping it into a probability in $[0,1]$
+
+```{python}
+eta_range = np.linspace(-5, 5, 500)
+
+fig, ax = plt.subplots()
+ax.plot(eta_range, special.expit(eta_range), color=PITT_GOLD, linewidth=2, label='Logit model')
+ax.plot(eta_range, stats.norm.cdf(eta_range / (np.pi / np.sqrt(3))), color=PITT_BLUE, linewidth=1, label='Probit model')
+ax.set_xlabel('Linear predictor')
+ax.set_ylabel('Probability')
+ax.set_title('Link Functions: Logit vs Probit')
+ax.legend()
+plt.show()
+```
+
+---
+
+While the probit and logit models are relatively similar, they are distinct from the linear probability model you looked at earlier in the program:
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(eta_range, special.expit(eta_range), color=PITT_GOLD, linewidth=2, label='Logit model')
+ax.plot(eta_range, stats.norm.cdf(eta_range / (np.pi / np.sqrt(3))), color=PITT_BLUE, linewidth=1, label='Probit model')
+ax.plot(eta_range, eta_range / 5 + 0.5, color='black', linewidth=1, label='Linear prob')
+ax.set_xlim(-4, 4)
+ax.set_xlabel('Scaled model input')
+ax.set_ylabel('Probability')
+ax.set_title('Logit vs Probit vs Linear Probability Model')
+ax.legend()
+plt.show()
+```
+
+## Example with Actual Data
+Attached is a dataset of every single field goal attempt in the NFL for 2009-2019 (regular season play-by-play data from [nflscrapR](https://github.com/ryurko/nflscrapR-data)).
+
+```{python}
+# R: load(file="nfl/fg.rdata") loads a dataframe called FieldGoalData
+# Python: use pyreadr to load .rdata files
+import pyreadr
+
+result = pyreadr.read_r('nfl/fg.rdata')
+FieldGoalData = result['FieldGoalData']
+
+print(f"Number of rows: {len(FieldGoalData)}")
+FieldGoalData.head()
+```
+
+---
+
+This still has way more columns than we need, so let's focus on building a relatively simple model of the probability that a field goal is good. This outcome variable is stored in `field_goal_result`.
+
+```{python}
+print(FieldGoalData['field_goal_result'].unique())
+```
+
+---
+
+```{python}
+FG_not_blocked = FieldGoalData[FieldGoalData['field_goal_result'] != 'blocked'].copy()
+FG_not_blocked['fg_good'] = (FG_not_blocked['field_goal_result'] == 'made').astype(int)
+print(f"Rows after filtering blocked kicks: {len(FG_not_blocked)}")
+```
+
+---
+
+We're going to begin our model with a single variable, the distance to goal:
+* The distance from the goal (`yardline_100`)
+
+```{python}
+fig, ax = plt.subplots()
+ax.hist(FG_not_blocked['yardline_100'], bins=range(0, 60, 5), density=True,
+        color=PITT_GOLD, edgecolor=PITT_BLUE, linewidth=2)
+ax.set_xlabel('Yardline')
+ax.set_ylabel('Density')
+ax.set_title('Distribution of Field Goal Attempts by Distance')
+plt.show()
+```
+
+---
+
+Let's look at the density plots of the Made and Missed Field goals with a violin plot:
+
+```{python}
+fig, ax = plt.subplots()
+
+made = FG_not_blocked[FG_not_blocked['fg_good'] == 1]['yardline_100']
+missed = FG_not_blocked[FG_not_blocked['fg_good'] == 0]['yardline_100']
+
+parts = ax.violinplot([missed.values, made.values], positions=[0, 1], vert=True, showmeans=True)
+for i, pc in enumerate(parts['bodies']):
+    pc.set_facecolor([PITT_BLUE, PITT_GOLD][i])
+    pc.set_alpha(0.7)
+
+ax.set_xticks([0, 1])
+ax.set_xticklabels(['Missed', 'Made'])
+ax.set_ylabel('Yardline')
+ax.set_title('Field Goal Distance by Outcome')
+plt.show()
+```
+
+---
+
+So, from the early part of the program, you'd probably be tempted to run a linear probability model here:
+
+```{python}
+# R: lm(fg_good ~ yardline_100, data=FG.not.blocked)
+# Python: sm.OLS(y, X).fit()
+
+X_fg = sm.add_constant(FG_not_blocked['yardline_100'])
+y_fg = FG_not_blocked['fg_good']
+
+good_kick_lm = sm.OLS(y_fg, X_fg).fit()
+print(good_kick_lm.summary())
+```
+
+---
+
+But from what we've learned on max-likelihood and GLMs we can now model this binary outcome with either a logit or a probit model: (note that thinking about it as a *utility* here is a bit weird. Instead we would consider the $\epsilon$ as a luck term.)
+
+```{python}
+# R: glm(fg_good ~ yardline_100, data=FG.not.blocked, family="binomial")
+# Python: sm.Logit(y, X).fit()
+good_kick_logit = sm.Logit(y_fg, X_fg).fit(disp=0)
+
+# R: glm(fg_good ~ yardline_100, data=FG.not.blocked, family='binomial'(link="probit"))
+# Python: sm.Probit(y, X).fit()
+good_kick_probit = sm.Probit(y_fg, X_fg).fit(disp=0)
+
+print("Logit coefficients:", good_kick_logit.params.values)
+print("Probit coefficients:", good_kick_probit.params.values)
+print("LPM coefficients:", good_kick_lm.params.values)
+```
+
+---
+
+I want to graph the response, so I'm going to write functions that incorporate each model:
+
+```{python}
+def est_fg_lm(yards, beta=good_kick_lm.params):
+    return beta['const'] + beta['yardline_100'] * yards
+
+def est_fg_logit(yards, beta=good_kick_logit.params):
+    eta = beta['const'] + beta['yardline_100'] * yards
+    return special.expit(eta)
+
+def est_fg_probit(yards, beta=good_kick_probit.params):
+    eta = beta['const'] + beta['yardline_100'] * yards
+    return stats.norm.cdf(eta)
+```
+
+---
+
+```{python}
+yards = np.linspace(0, 80, 500)
+
+fig, ax = plt.subplots()
+ax.plot(yards, est_fg_probit(yards), color=PITT_GOLD, linewidth=2, label='Probit')
+ax.plot(yards, est_fg_logit(yards), color=PITT_BLUE, linewidth=2, label='Logit')
+ax.plot(yards, est_fg_lm(yards), color='black', linewidth=1, label='LPM')
+ax.set_xlabel('Yard line')
+ax.set_ylabel('Probability')
+ax.set_title('Field Goal Success Probability by Model')
+ax.legend()
+plt.show()
+```
+
+---
+
+The linear probability model does a fairly good job so long as we are looking at the large majority of field goal kicks.
+
+```{python}
+print(FG_not_blocked['yardline_100'].quantile([0.1, 0.9]))
+```
+
+---
+
+Let's also look at what the data is telling us. Here I divide the actual data up into 5 yard bins:
+
+```{python}
+# R: seq(from=0, to=45, by=5) then loop
+# Python: use pd.cut or manual binning
+
+yd_bins = np.arange(0, 50, 5)
+bin_data = []
+for val in yd_bins:
+    subset = FG_not_blocked[(FG_not_blocked['yardline_100'] > val) & 
+                            (FG_not_blocked['yardline_100'] <= val + 5)]
+    bin_data.append({'midpoint': val + 2.5, 'mean_fg_good': subset['fg_good'].mean()})
+
+out_matrix = pd.DataFrame(bin_data)
+out_matrix
+```
+
+---
+
+Overlaying this as a series of points on our graph:
+
+```{python}
+fig, ax = plt.subplots()
+ax.plot(yards, est_fg_lm(yards), color='black', linewidth=2, label='LPM')
+ax.plot(yards, est_fg_logit(yards), color=PITT_BLUE, linewidth=2, label='Logit')
+ax.plot(yards, est_fg_probit(yards), color=PITT_GOLD, linewidth=2, label='Probit')
+ax.scatter(out_matrix['midpoint'], out_matrix['mean_fg_good'], color='#DC582A', s=80, zorder=5, label='Data')
+ax.set_xlim(0, 80)
+ax.set_xlabel('Yard line')
+ax.set_ylabel('Probability')
+ax.set_title('Model Predictions vs Actual Data')
+ax.legend()
+plt.show()
+```
+
+---
+
+So, even the non-linear models lack the ability to track the very large drop off in the chances once we reach the 50 yard line.
+
+But because the GLM uses a linear model for the predictor we can leverage elements of our previous modeling options from linear models! 
+* Let's just add in a term that will allow us to penalize really long attempts...
+
+```{python}
+FG_not_blocked['yards_over_40'] = np.where(FG_not_blocked['yardline_100'] > 40,
+                                            FG_not_blocked['yardline_100'] - 40, 0)
+```
+
+---
+
+Re-running the three models:
+
+```{python}
+X_fg2 = sm.add_constant(FG_not_blocked[['yardline_100', 'yards_over_40']])
+
+good_kick_lm_2 = sm.OLS(y_fg, X_fg2).fit()
+good_kick_logit_2 = sm.Logit(y_fg, X_fg2).fit(disp=0)
+good_kick_probit_2 = sm.Probit(y_fg, X_fg2).fit(disp=0)
+
+print(good_kick_logit_2.summary())
+```
+
+---
+
+And writing functions to visualize the effects:
+
+```{python}
+def est_fg_lm_2(yards, beta=good_kick_lm_2.params):
+    over40 = np.where(yards > 40, yards - 40, 0)
+    return beta['const'] + beta['yardline_100'] * yards + beta['yards_over_40'] * over40
+
+def est_fg_logit_2(yards, beta=good_kick_logit_2.params):
+    over40 = np.where(yards > 40, yards - 40, 0)
+    eta = beta['const'] + beta['yardline_100'] * yards + beta['yards_over_40'] * over40
+    return special.expit(eta)
+
+def est_fg_probit_2(yards, beta=good_kick_probit_2.params):
+    over40 = np.where(yards > 40, yards - 40, 0)
+    eta = beta['const'] + beta['yardline_100'] * yards + beta['yards_over_40'] * over40
+    return stats.norm.cdf(eta)
+
+print(f"LPM prediction at 12 yards: {est_fg_lm_2(12):.4f}")
+```
+
+---
+
+So we can illustrate the three models together as:
+
+```{python}
+yards_plot = np.linspace(0, 60, 500)
+
+fig, ax = plt.subplots()
+ax.plot(yards_plot, est_fg_lm_2(yards_plot), color='black', linewidth=2, label='LPM')
+ax.plot(yards_plot, est_fg_logit_2(yards_plot), color=PITT_BLUE, linewidth=2, label='Logit')
+ax.plot(yards_plot, est_fg_probit_2(yards_plot), color=PITT_GOLD, linewidth=2, label='Probit')
+ax.scatter(out_matrix['midpoint'], out_matrix['mean_fg_good'], color='#DC582A', s=60, zorder=5, label='Data')
+ax.set_xlim(0, 60)
+ax.set_xlabel('Yard line')
+ax.set_ylabel('Probability')
+ax.set_title('Model 2 Predictions vs Actual Data')
+ax.legend()
+plt.show()
+```
+
+---
+
+Especially as we add more terms to the model, explicitly forcing the model to be a well-defined probability will make more and more sense, as your predictions will tend to be better as you move away from the data averages.
+
+The costs for this greater structure on the outcome variable is that you can not directly interpret the coefficients as you could with the linear-probability model.
+
+```{python}
+print(good_kick_lm_2.summary())
+```
+
+---
+
+This could be read off directly! A 1.1 percentage point drop in the probability for each yard away from the goal line... and a 5.7 percentage point drop for each yard beyond the 40.
+
+However, the model is incoherent when we try to predict a 55 yarder:
+
+```{python}
+yd_vals = np.arange(0, 65, 5)
+pred_table = pd.DataFrame({
+    'yds': yd_vals + 2.5,
+    'lpm': np.round(est_fg_lm_2(yd_vals), 3),
+    'logit': np.round(est_fg_logit_2(yd_vals), 3),
+    'probit': np.round(est_fg_probit_2(yd_vals), 3)
+})
+pred_table
+```
+
+---
+
+In contrast, because the probit and logit models are non-linear, the effects from an increase/decrease in the yardage can only be figured out through the model.
+
+Let's focus on the logit model and try to assess the effect of each additional yard!
+
+```{python}
+yd_vals2 = np.arange(1, 65, 5)
+me_table = pd.DataFrame({
+    'Yard_Line': yd_vals2,
+    'D_lpm': est_fg_lm_2(yd_vals2 - 1) - est_fg_lm_2(yd_vals2),
+    'D_logit': est_fg_logit_2(yd_vals2 - 1) - est_fg_logit_2(yd_vals2)
+})
+me_table
+```
+
+---
+
+```{python}
+yards_me = np.linspace(0, 60, 500)
+
+fig, ax = plt.subplots()
+ax.plot(yards_me, est_fg_lm_2(yards_me - 1) - est_fg_lm_2(yards_me),
+        color=PITT_GOLD, linewidth=2, label='LPM')
+ax.plot(yards_me, est_fg_logit_2(yards_me - 1) - est_fg_logit_2(yards_me),
+        color=PITT_BLUE, linewidth=2, label='Logit')
+ax.set_xlim(0, 60)
+ax.set_xlabel('Yard line')
+ax.set_ylabel('Change in probability from additional yard')
+ax.set_title('Marginal Effect of Distance')
+ax.legend()
+plt.show()
+```
+
+---
+
+Making the increment even smaller so it's more clearly a derivative:
+
+```{python}
+eps = 1e-6
+
+fig, ax = plt.subplots()
+ax.plot(yards_me, (est_fg_lm_2(yards_me - eps) - est_fg_lm_2(yards_me)) / eps,
+        color=PITT_GOLD, linewidth=2, label='LPM')
+ax.plot(yards_me, (est_fg_logit_2(yards_me - eps) - est_fg_logit_2(yards_me)) / eps,
+        color=PITT_BLUE, linewidth=2, label='Logit')
+ax.set_xlim(0, 60)
+ax.set_xlabel('Yard line')
+ax.set_ylabel('Change in probability from additional yard')
+ax.set_title('Marginal Effect of Distance (Derivative)')
+ax.legend()
+plt.show()
+```
+
+## Marginal Effects
+One way people get around the problem of the non-linearity in the model when communicating the parameters to others is to provide the marginal effects at the average.
+
+That is for a parameter $\beta_i$ of a continuous variable $x_1$ we calculate the derivative for the model probability with respect to $x_i$ and report this effect at the data average.
+
+If our model is $\beta_0+\beta_1 x_1+\beta_2 x_2$, the probability is:
+$$\Pr\left\{y_i=1 |x_1,x_2\right\} =\frac{\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)}{\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)+1}$$
+
+The marginal effect is then *(note: this is just algebra)*:
+$$\frac{\partial}{\partial x_1}  \frac{\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)}{\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)+1}=\frac{\beta_1\cdot\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)}{(\exp(\beta_0+\beta_1 x_1+\beta_2 x_2)+1)^2}$$
+
+And then we assess this at the average values of $x_1$ and $x_2$:
+$$\frac{\beta_1\cdot\exp(\beta_0+\beta_1 \bar{x}_1+\beta_2 \bar{x}_2)}{(\exp(\beta_0+\beta_1 \bar{x}_1+\beta_2 \bar{x}_2)+1)^2} $$
+
+If instead the variable $x_1$ is a binary characteristic variable we would indicate the marginal effect via the discrete change:
+$$\Pr\left\{y_i=1 |x_1=1,\bar{x}_2\right\}-\Pr\left\{y_i=1 |x_1=0,\bar{x}_2\right\} $$
+
+Similarly, along with the change in the variable, we can also calculate standard errors for the marginal effect using the delta method.
+
+In Python we can implement marginal effects manually, using the `marginal_effects_binary` and `marginal_effects_at_means` functions from our `utils` module.
+
+To illustrate marginal effects, let's make the model of Field Goal success a bit richer by adding in a psychological variable: **Is the kick clutch?**
+
+```{python}
+FG_not_blocked['last_seconds'] = (FG_not_blocked['game_seconds_remaining'] < 30).astype(int)
+FG_not_blocked['close_game'] = (
+    (FG_not_blocked['posteam_score'] - FG_not_blocked['defteam_score'] > -3) &
+    (FG_not_blocked['defteam_score'] >= FG_not_blocked['posteam_score'])
+).astype(int)
+FG_not_blocked['high_pressure'] = (FG_not_blocked['close_game'] * FG_not_blocked['last_seconds']).astype(int)
+
+print(f"High pressure kicks: {FG_not_blocked['high_pressure'].sum()} out of {len(FG_not_blocked)}")
+```
+
+---
+
+So `high_pressure` captures situations where this is a game-winning kick.
+
+Incorporating this into the model:
+
+```{python}
+# R: glm(fg_good ~ yardline_100 + high_pressure, data=FG.not.blocked, family="binomial")
+# Python: sm.Logit(y, X).fit()
+
+X_fg_hp = sm.add_constant(FG_not_blocked[['yardline_100', 'high_pressure']])
+y_fg_hp = FG_not_blocked['fg_good']
+
+good_kick_logit_hp = sm.Logit(y_fg_hp, X_fg_hp).fit(disp=0)
+print(good_kick_logit_hp.summary())
+```
+
+---
+
+### Marginal Effects at the Means
+
+Using the `margins` approach from R, we compute the marginal effects at the mean values of our covariates:
+
+```{python}
+# R: margins(good.kick.logit.hp, at=list(yardline_100=mean.yd, high_pressure=FALSE))
+# Python: Compute manually
+
+b = good_kick_logit_hp.params
+mean_yd = FG_not_blocked['yardline_100'].mean()
+mean_hp = FG_not_blocked['high_pressure'].mean()
+
+print(f"Mean yardline: {mean_yd:.2f}")
+print(f"Mean high pressure: {mean_hp:.4f}")
+
+# Marginal effect at means (non-high-pressure)
+eta_mean_nhp = b['const'] + b['yardline_100'] * mean_yd
+eta_mean_hp = b['const'] + b['yardline_100'] * mean_yd + b['high_pressure']
+
+# For continuous variable: beta * f(eta) where f is logistic PDF
+# The logistic PDF at eta is: exp(eta)/(1+exp(eta))^2
+dprob_dyard = b['yardline_100'] * np.exp(eta_mean_nhp) / (1 + np.exp(eta_mean_nhp))**2
+
+# For binary variable: P(y=1|hp=1,xbar) - P(y=1|hp=0,xbar)
+delta_prob_hp = (np.exp(eta_mean_hp) / (1 + np.exp(eta_mean_hp)) -
+                 np.exp(eta_mean_nhp) / (1 + np.exp(eta_mean_nhp)))
+
+print(f"\nMarginal effects at means (non-high-pressure):")
+print(f"  dProb/dYard:         {dprob_dyard:.6f}")
+print(f"  Delta Prob (HP):     {delta_prob_hp:.6f}")
+```
+
+---
+
+### Average Marginal Effects
+
+Even better than these marginal effects at the means though are averages across the marginal effects. That is, we can calculate the marginal effect of an increase/decrease in *each* variable, and for every single data observation $i$. 
+
+So this would give us:
+$$ \left( \left.\frac{\partial \Pr\left\{ y_i=1 | x_{1},x_{2} \right\}}{\partial x_1}\right|_{x_{i1},x_{i2}},  \left.\frac{\partial \Pr\left\{ y_i=1 | x_{1},x_{2} \right\}}{\partial x_2}\right|_{x_{i1},x_{i2}} \right) $$
+
+for every single person $i$. And then we can take averages over this to get the *average marginal effect*.
+
+```{python}
+# Use the marginal_effects_binary function from utils
+# R: summary(margins(good.kick.logit.hp, type='response'))
+# Python: utils.marginal_effects_binary(model, X, link='logit')
+
+ame = utils.marginal_effects_binary(good_kick_logit_hp, X_fg_hp.values, link='logit')
+
+print("Average Marginal Effects (Logit):")
+print(f"{'Variable':<20} {'AME':>12}")
+print("-" * 32)
+for var_name, ame_val in zip(X_fg_hp.columns, ame):
+    print(f"{var_name:<20} {ame_val:>12.6f}")
+```
+
+---
+
+Let's also verify this manually and see the computation step by step:
+
+```{python}
+# Manual average marginal effects calculation
+# For each observation, compute the logistic PDF at the linear predictor
+# Then multiply by the coefficient and average
+
+beta_hp = good_kick_logit_hp.params
+X_hp_vals = X_fg_hp.values
+
+# Linear predictor for each observation
+linear_pred = X_hp_vals @ beta_hp.values
+
+# Logistic PDF: f(eta) = exp(eta)/(1+exp(eta))^2 = expit(eta) * (1-expit(eta))
+p_hat = special.expit(linear_pred)
+logistic_pdf = p_hat * (1 - p_hat)
+
+# For continuous variable (yardline_100): AME = mean(f(eta_i) * beta)
+ame_yardline_manual = np.mean(logistic_pdf * beta_hp['yardline_100'])
+
+# For binary variable (high_pressure): AME = mean(P(y=1|hp=1,x_i) - P(y=1|hp=0,x_i))
+eta_with_hp = beta_hp['const'] + beta_hp['yardline_100'] * FG_not_blocked['yardline_100'].values + beta_hp['high_pressure']
+eta_without_hp = beta_hp['const'] + beta_hp['yardline_100'] * FG_not_blocked['yardline_100'].values
+ame_hp_manual = np.mean(special.expit(eta_with_hp) - special.expit(eta_without_hp))
+
+print("Manual AME computation:")
+print(f"  AME yardline_100:   {ame_yardline_manual:.6f}")
+print(f"  AME high_pressure:  {ame_hp_manual:.6f}")
+print("\nThese should match the R output:")
+print(f"  R AME yardline_100: -0.012031")
+print(f"  R AME high_pressure: -0.073371")
+```
+
+---
+
+We can also compute marginal effects at the means using our utils module:
+
+```{python}
+# Marginal effects at the means
+mem = utils.marginal_effects_at_means(good_kick_logit_hp, X_fg_hp.values, link='logit')
+
+print("Marginal Effects at the Means (Logit):")
+print(f"{'Variable':<20} {'MEM':>12}")
+print("-" * 32)
+for var_name, mem_val in zip(X_fg_hp.columns, mem):
+    print(f"{var_name:<20} {mem_val:>12.6f}")
+```
+
+## Model Comparison
+
+Let's compare the logit and probit models for the field goal data using information criteria and predicted probabilities.
+
+```{python}
+# Fit both models with the high-pressure variable
+logit_hp = sm.Logit(y_fg_hp, X_fg_hp).fit(disp=0)
+probit_hp = sm.Probit(y_fg_hp, X_fg_hp).fit(disp=0)
+
+print("Model Comparison:")
+print(f"{'':>20} {'Logit':>12} {'Probit':>12}")
+print("-" * 44)
+print(f"{'Log-Likelihood':>20} {logit_hp.llf:>12.1f} {probit_hp.llf:>12.1f}")
+print(f"{'AIC':>20} {logit_hp.aic:>12.1f} {probit_hp.aic:>12.1f}")
+print(f"{'BIC':>20} {logit_hp.bic:>12.1f} {probit_hp.bic:>12.1f}")
+print(f"{'Pseudo R-squared':>20} {logit_hp.prsquared:>12.4f} {probit_hp.prsquared:>12.4f}")
+```
+
+---
+
+```{python}
+# Compare coefficients side by side
+comparison = pd.DataFrame({
+    'Logit': logit_hp.params,
+    'Probit': probit_hp.params,
+    'Logit SE': logit_hp.bse,
+    'Probit SE': probit_hp.bse
+})
+print("\nCoefficient Comparison:")
+comparison.round(4)
+```
+
+---
+
+```{python}
+# Average marginal effects for both models
+ame_logit = utils.marginal_effects_binary(logit_hp, X_fg_hp.values, link='logit')
+ame_probit = utils.marginal_effects_binary(probit_hp, X_fg_hp.values, link='probit')
+
+ame_comparison = pd.DataFrame({
+    'Variable': X_fg_hp.columns,
+    'AME (Logit)': ame_logit,
+    'AME (Probit)': ame_probit
+})
+
+print("Average Marginal Effects Comparison:")
+print(ame_comparison.to_string(index=False, float_format='{:.6f}'.format))
+print("\nNote: AMEs are typically very similar between logit and probit models.")
+```
+
+## Summary: R to Python Mapping for Binary Outcome Models
+
+| R Code | Python Equivalent |
+|--------|------------------|
+| `glm(y ~ x, family='binomial')` | `sm.Logit(y, X).fit()` |
+| `glm(y ~ x, family=binomial(link='probit'))` | `sm.Probit(y, X).fit()` |
+| `plogis(x)` | `scipy.special.expit(x)` or `1/(1+np.exp(-x))` |
+| `qlogis(p)` | `scipy.special.logit(p)` or `np.log(p/(1-p))` |
+| `pnorm(x)` | `scipy.stats.norm.cdf(x)` |
+| `dnorm(x)` | `scipy.stats.norm.pdf(x)` |
+| `dlogis(x)` | `scipy.stats.logistic.pdf(x)` |
+| `coef(model)` | `model.params` |
+| `summary(model)` | `model.summary()` |
+| `predict(model, type='response')` | `model.predict(X)` |
+| `margins(model)` | `utils.marginal_effects_binary(model, X)` |
+| `AIC(model)` | `model.aic` |
+| `BIC(model)` | `model.bic` |
+| `load("file.rdata")` | `pyreadr.read_r("file.rdata")` |
+
+**Key differences:**
+- In R, `glm` handles formula syntax (`y ~ x1 + x2`) automatically. In Python, you must manually construct the design matrix `X` (use `sm.add_constant()` for the intercept).
+- R's `margins` package computes average marginal effects directly. In Python, we implement this manually or use `utils.marginal_effects_binary()`.
+- For binary variables, the "marginal effect" is really a discrete change: $P(y=1|x=1) - P(y=1|x=0)$.
+

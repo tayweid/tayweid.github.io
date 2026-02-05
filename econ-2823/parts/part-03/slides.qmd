@@ -1,0 +1,570 @@
+---
+title: "Numerical Methods 2 - Optimization (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+___
+Continuing on...
+
+
+As we're continuing from last time, let me just import and redefine some of the functions from before.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import optimize
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+
+# Define Pitt colors for plotting
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+```
+
+---
+
+```{python}
+# Build the Taylor coefficient matrix for high-order derivatives
+A = np.zeros((5, 5))
+for i, offset in enumerate([-2, -1, 0, 1, 2]):
+    for j in range(5):
+        A[i, j] = (offset ** j) / np.math.factorial(j)
+
+# Reorder rows to match: [f(x+2e), f(x+e), f(x), f(x-e), f(x-2e)]
+A = A[[4, 3, 2, 1, 0], :]
+
+# Weights for first derivative (O(eps^4) method)
+b = np.array([0, 1, 0, 0, 0])
+A_inv = np.linalg.inv(A)
+w1 = b @ A_inv
+
+# Weights for second derivative (O(eps^3) method)
+b = np.array([0, 0, 1, 0, 0])
+w2 = b @ A_inv
+
+# Define high-order numerical derivative functions
+def n_deriv_1(f, x, eps=1e-6):
+    """Five-point stencil first derivative (O(eps^4) accuracy)."""
+    return (w1[0]*f(x+2*eps) + w1[1]*f(x+eps) + w1[2]*f(x) + 
+            w1[3]*f(x-eps) + w1[4]*f(x-2*eps)) / eps
+
+def n_deriv_2(f, x, eps=1e-3):
+    """Five-point stencil second derivative (O(eps^3) accuracy)."""
+    return (w2[0]*f(x+2*eps) + w2[1]*f(x+eps) + w2[2]*f(x) + 
+            w2[3]*f(x-eps) + w2[4]*f(x-2*eps)) / eps**2
+```
+
+# Numerical Optimization
+
+**Checklist:**
+- [x] Numerical derivatives
+- [x] Numerical solutions to equations
+- [ ] Numerical Optimization
+
+We're going to show how numerical optimization works within:
+- one dimension
+- with a continuous function
+
+If the problem is smooth then we can try to use the same **first-order conditions** that you've used in the theoretical parts of the course. A necessary condition to be at an optimal point for a continuous differentiable function is that the slope is zero:
+$$ f^\prime(x)=0$$
+
+## Option 1: Use Analytical Derivatives
+
+Just code up the analytical derivative, and solve for its roots!
+
+Define our test functions:
+- $ f(x)= 2 x^2 - 10 x + 3 $ 
+- $g(x)=f(x)e^{-x/10}$
+
+```{python}
+# Define functions
+def f(x):
+    return 2*x**2 - 10*x + 3
+
+def g(x):
+    return f(x) * np.exp(-x/10)
+
+# Analytical derivatives
+def d_f(x):
+    return 4*x - 10
+
+def d_g(x):
+    return -0.1 * np.exp(-0.1*x) * f(x) + np.exp(-0.1*x) * (4*x - 10)
+```
+
+---
+
+```{python}
+# Newton-Raphson for root finding
+def newton_raphson(func_in, x0, tol=1e-8, eps=1e-6, output=False):
+    """
+    Newton-Raphson root finding.
+    
+    Parameters
+    ----------
+    func_in : callable
+        Function to find root of
+    x0 : float
+        Initial guess
+    tol : float
+        Tolerance
+    eps : float
+        Step size for numerical derivative
+    output : bool
+        Whether to print progress
+    """
+    xx = x0
+    fval = func_in(xx)
+    error = abs(func_in(xx))
+    ii = 1
+    
+    while error > tol:
+        fd = n_deriv_1(func_in, xx, eps)
+        xx = xx - fval / fd
+        fval = func_in(xx)
+        error = abs(fval)
+        ii += 1
+    
+    if output:
+        print(f"Converged to solution {xx:.5f} in {ii-1} steps")
+    return xx
+```
+
+---
+
+```{python}
+# Plot derivative of f(x) to find where f'(x) = 0
+x = np.linspace(0, 5, 200)
+
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(x, d_f(x), color=PITT_BLUE, linewidth=2, label="f'(x)")
+ax.axhline(y=0, color=PITT_GOLD, linewidth=1)
+ax.set_xlabel('x')
+ax.set_ylabel("f'(x)")
+ax.set_title("Derivative of f(x) = 2x² - 10x + 3")
+plt.show()
+```
+
+---
+
+```{python}
+# Find optimal by solving f'(x) = 0
+f_sol = newton_raphson(d_f, 1, output=True)
+```
+
+---
+
+```{python}
+# For the medium function g(x)
+fig, ax = plt.subplots(figsize=(10, 6))
+x = np.linspace(0, 40, 200)
+ax.plot(x, d_g(x), color=PITT_BLUE, linewidth=2, label="g'(x)")
+ax.axhline(y=0, color=PITT_GOLD, linewidth=1)
+ax.set_xlabel('x')
+ax.set_ylabel("g'(x)")
+ax.set_title("Derivative of g(x) = (2x² - 10x + 3)exp(-x/10)")
+plt.show()
+```
+
+---
+
+```{python}
+# Find both solutions
+g_sol_1 = newton_raphson(d_g, 0, output=True)
+g_sol_2 = newton_raphson(d_g, 20, output=True)
+
+print(f"\ng({g_sol_1:.5f}) = {g(g_sol_1):.5f}")
+print(f"g({g_sol_2:.5f}) = {g(g_sol_2):.5f}")
+```
+
+## Option 2: Fully Numeric Optimization
+
+Suppose we don't want to even think about the derivatives, then we can just go fully numeric!
+
+```{python}
+def newton_raphson_fullnumeric(f, x0, tol=1e-8, eps=1e-6, maxiter=50, output=False):
+    """
+    Fully numeric optimization using Newton-Raphson.
+    Solves f'(x) = 0 using numerical derivatives.
+    """
+    xx = x0
+    # Numerical first derivative
+    fval = n_deriv_1(f, xx, eps)
+    error = abs(fval)
+    ii = 1
+    
+    while error > tol and ii < maxiter:
+        # Numerical second derivative
+        fd = n_deriv_2(f, xx, np.sqrt(eps))
+        # Newton-Raphson: x1 = x0 - f'(x0)/f''(x0)
+        xx = xx - fval / fd
+        fval = n_deriv_1(f, xx, eps)
+        error = abs(fval)
+        ii += 1
+    
+    if ii >= maxiter:
+        print("Exited due to non-convergence")
+    if output and ii < maxiter:
+        print(f"Converged to solution {xx:.5f} in {ii-1} steps")
+    return xx
+```
+
+---
+
+```{python}
+# For the easy function
+f_sol_nd = newton_raphson_fullnumeric(f, x0=1, output=True)
+```
+
+---
+
+```{python}
+# For the medium function
+g_sol_1_nd = newton_raphson_fullnumeric(g, 0, output=True)
+g_sol_2_nd = newton_raphson_fullnumeric(g, 20, output=True)
+
+# Differences from analytical method?
+print(f"\nDifference from analytical: {g_sol_1 - g_sol_1_nd:.2e}, {g_sol_2 - g_sol_2_nd:.2e}")
+```
+
+## Type of Optima: Maxima vs Minima
+
+Both local minima and local maxima satisfy the $f^\prime(x)=0$ condition. We can figure out which type by checking the second derivative:
+
+* For a **maximum**: $f^{\prime\prime}(x)<0$ (slope decreasing)
+* For a **minimum**: $f^{\prime\prime}(x)>0$ (slope increasing)
+
+```{python}
+# Check second-order conditions at each solution
+soc_1 = n_deriv_2(g, g_sol_1, 1e-5)
+soc_2 = n_deriv_2(g, g_sol_2, 1e-5)
+
+print(f"Solution 1 (x = {g_sol_1:.5f}): f''(x) = {soc_1:.5f}")
+print(f"  -> {'LOCAL MINIMUM' if soc_1 > 0 else 'LOCAL MAXIMUM'}")
+
+print(f"\nSolution 2 (x = {g_sol_2:.5f}): f''(x) = {soc_2:.5f}")
+print(f"  -> {'LOCAL MINIMUM' if soc_2 > 0 else 'LOCAL MAXIMUM'}")
+```
+
+---
+
+```{python}
+# Visualize the solutions
+fig, ax = plt.subplots(figsize=(10, 6))
+x = np.linspace(g_sol_1 - 5, g_sol_2 + 5, 200)
+
+ax.plot(x, g(x), color=PITT_BLUE, linewidth=2, label='g(x)')
+ax.axhline(y=g(g_sol_1), color=PITT_GOLD, linewidth=1, alpha=0.7)
+ax.axhline(y=g(g_sol_2), color=PITT_GOLD, linewidth=1, alpha=0.7)
+ax.scatter([g_sol_1, g_sol_2], [g(g_sol_1), g(g_sol_2)], 
+           color='black', s=100, zorder=5)
+
+ax.annotate(f'Min: ({g_sol_1:.2f}, {g(g_sol_1):.2f})', 
+            (g_sol_1, g(g_sol_1)), xytext=(10, -20), textcoords='offset points')
+ax.annotate(f'Max: ({g_sol_2:.2f}, {g(g_sol_2):.2f})', 
+            (g_sol_2, g(g_sol_2)), xytext=(10, 10), textcoords='offset points')
+
+ax.set_xlabel('x')
+ax.set_ylabel('g(x)')
+ax.set_title('Illustrating Local Optima')
+plt.show()
+```
+
+## Global vs Local Optima
+
+Only one of these is a **global** optimum. Let's zoom out to see the bigger picture.
+
+```{python}
+# Zoom out
+fig, ax = plt.subplots(figsize=(10, 6))
+x = np.linspace(-5, 105, 500)
+
+ax.plot(x, g(x), color=PITT_BLUE, linewidth=2)
+ax.axhline(y=g(g_sol_1), color=PITT_GOLD, linewidth=1, alpha=0.7, label=f'g(min) = {g(g_sol_1):.2f}')
+ax.axhline(y=g(g_sol_2), color=PITT_GOLD, linewidth=1, alpha=0.7, label=f'g(max) = {g(g_sol_2):.2f}')
+ax.axhline(y=0, color=PITT_GOLD, linewidth=1, linestyle='--', alpha=0.5)
+ax.scatter([g_sol_1, g_sol_2], [g(g_sol_1), g(g_sol_2)], color='black', s=100, zorder=5)
+
+ax.set_xlabel('x')
+ax.set_ylabel('g(x)')
+ax.set_title('Local vs. Global Optima')
+ax.legend()
+plt.show()
+```
+
+## Local Solutions: The Challenge
+
+When minimizing a function that is not single-peaked/troughed, gradient methods can get stuck at local solutions.
+
+```{python}
+# Define a wavy function with many local optima
+def wavy_f(x):
+    return ((-(x-2)**2) * np.cos(x-2) - 
+            90 * np.cos(20*(x-2)) * np.exp(-30*(x-2)**4) + 
+            np.exp((x-2)**2))
+
+fig, ax = plt.subplots(figsize=(10, 6))
+x = np.linspace(0, 4, 500)
+ax.plot(x, wavy_f(x), color=PITT_BLUE, linewidth=2)
+ax.set_xlabel('x')
+ax.set_ylabel('f(x)')
+ax.set_title('A Function with Many Local Optima')
+plt.show()
+```
+
+---
+
+```{python}
+# Different starting points lead to different solutions
+starts = [0, 1.6, 2.05, 2.1, 2.3]
+for x0 in starts:
+    sol = newton_raphson_fullnumeric(wavy_f, x0, output=True)
+```
+
+## Multi-dimensional Optimization
+
+Consider the function:
+$$ f(x_1,x_2)=2 x_1^2+2 x_2^2-2 x_1 x_2 - 5x_1+x_2$$
+
+The first-order conditions give us:
+$$\begin{array}{rccl} 
+\frac{\partial f(x_1,x_2)}{\partial x_1} & = & 4 x_1- 2 x_2 -5&=0 \\
+\frac{\partial f(x_1,x_2)}{\partial x_2} & = & 4 x_2- 2 x_1 +1 &=0 
+\end{array}$$
+
+The unique minimizing solution is: $x_1^\star=\tfrac{3}{2}$ and $x_2^\star=\tfrac{1}{2}$.
+
+```{python}
+# Define a function of 2 inputs
+def f2(x):
+    return 2*x[0]**2 + 2*x[1]**2 - 2*x[0]*x[1] - 5*x[0] + x[1]
+
+print(f"f2([0, 0]) = {f2([0, 0])}")
+print(f"f2([1.5, 0.5]) = {f2([1.5, 0.5])}")
+print(f"f2([1.6, 0.4]) = {f2([1.6, 0.4])}")
+```
+
+## Multi-dimensional Second-Order Conditions
+
+For multi-dimensional problems, we need:
+* The **gradient vector** of partial derivatives: $\nabla f=\left(\frac{\partial f}{\partial x_1}, \ldots ,\frac{\partial f}{\partial x_n}\right)^T$
+* The **Hessian matrix** of second-order derivatives
+
+The second-order conditions check whether the Hessian is:
+* **Positive definite** (all eigenvalues > 0) → local **minimum**
+* **Negative definite** (all eigenvalues < 0) → local **maximum**
+
+## Optimization in Python with SciPy
+
+Python's `scipy.optimize` module provides optimization routines similar to R's `optim()`.
+
+**Key mapping:**
+| R | Python |
+|---|--------|
+| `optim(x0, f, method="BFGS")` | `optimize.minimize(f, x0, method='BFGS')` |
+| `optim(..., hessian=TRUE)` | `optimize.minimize(..., options={'return_hess': True})` |
+| `optimize(f, interval=c(a,b))` | `optimize.minimize_scalar(f, bounds=(a,b), method='bounded')` |
+
+```{python}
+# Optimize the 2D function using BFGS
+# R: optim(c(0,0), f2, method="BFGS", hessian=TRUE)
+# Python:
+result = optimize.minimize(f2, [0, 0], method='BFGS')
+
+print("Optimization Result:")
+print(f"  Optimal x: {result.x}")
+print(f"  Optimal value: {result.fun}")
+print(f"  Function evaluations: {result.nfev}")
+print(f"  Gradient evaluations: {result.njev}")
+print(f"  Success: {result.success}")
+```
+
+---
+
+```{python}
+# To get the Hessian, we can compute it numerically
+hess = utils.numerical_hessian(f2, result.x)
+
+print("Hessian at optimal point:")
+print(hess)
+
+# Check if positive definite (all eigenvalues > 0 means minimum)
+eigenvalues = np.linalg.eigvals(hess)
+print(f"\nEigenvalues: {eigenvalues}")
+print(f"Is positive definite (minimum)? {np.all(eigenvalues > 0)}")
+print(f"Is negative definite (maximum)? {np.all(eigenvalues < 0)}")
+```
+
+## Local Solutions in Multiple Dimensions
+
+The problem of getting stuck at local solutions doesn't go away with more dimensions!
+
+```{python}
+# 2D version of our wavy function
+def wavy_f_2d(x):
+    return (wavy_f(x[0]) + 90) * (1 + (x[1] - 3)**2) / 100
+
+# BFGS may find a local minimum
+result_bfgs = optimize.minimize(wavy_f_2d, [0, 0], method='BFGS')
+
+print("BFGS result:")
+print(f"  Found: {result_bfgs.x}")
+print(f"  Value: {result_bfgs.fun}")
+
+# Actual global minimum
+print(f"\nGlobal minimum at [2, 3]: {wavy_f_2d([2, 3])}")
+```
+
+## Non-Gradient Methods: Nelder-Mead
+
+The default method in R's `optim()` (Nelder-Mead) does not use gradients at all. Instead, it creates a simplex mesh.
+
+A nice visualization: https://www.benfrederickson.com/numerical-optimization/
+
+```{python}
+# Nelder-Mead in Python
+# R: optim(c(0,0), wavy.f.dim2)
+# Python:
+result_nm = optimize.minimize(wavy_f_2d, [0, 0], method='Nelder-Mead')
+
+print("Nelder-Mead result:")
+print(f"  Found: {result_nm.x}")
+print(f"  Value: {result_nm.fun}")
+```
+
+---
+
+```{python}
+# For 1D optimization, use minimize_scalar
+# R: optimize(g, interval=c(-10, 5))
+# Python:
+result_1d = optimize.minimize_scalar(g, bounds=(-10, 5), method='bounded')
+
+print("1D optimization result:")
+print(f"  Minimum at x = {result_1d.x:.6f}")
+print(f"  Value: {result_1d.fun:.6f}")
+```
+
+---
+
+```{python}
+# Finding a local minimum in the wavy function
+result_wavy = optimize.minimize_scalar(wavy_f, bounds=(1.5, 2.5), method='bounded')
+
+print(f"Wavy function minimum: x = {result_wavy.x:.6f}")
+print(f"Value: {result_wavy.fun:.6f}")
+print(f"Compare to wavy_f(2) = {wavy_f(2):.6f}")
+```
+
+## Simulated Annealing and Global Optimization
+
+When we're concerned about reaching global optima, **simulated annealing** is a stochastic method that can help escape local minima.
+
+In scipy, we can use `optimize.dual_annealing()` or `optimize.basinhopping()`.
+
+```{python}
+# Dual annealing for global optimization
+# R: optim(c(0,0), wavy.f.dim2, method="SANN")
+# Python:
+result_da = optimize.dual_annealing(wavy_f_2d, bounds=[(-5, 10), (-5, 10)])
+
+print("Dual Annealing result:")
+print(f"  Found: {result_da.x}")
+print(f"  Value: {result_da.fun}")
+print(f"  Function evaluations: {result_da.nfev}")
+```
+
+---
+
+```{python}
+# Basin-hopping: combines local optimization with random restarts
+result_bh = optimize.basinhopping(wavy_f_2d, [0, 0], niter=100)
+
+print("Basin-Hopping result:")
+print(f"  Found: {result_bh.x}")
+print(f"  Value: {result_bh.fun}")
+```
+
+---
+
+```{python}
+# Combining approaches: global search followed by local refinement
+result_global = optimize.dual_annealing(wavy_f_2d, bounds=[(-5, 10), (-5, 10)])
+result_refined = optimize.minimize(wavy_f_2d, result_global.x, method='BFGS')
+
+print("Combined approach:")
+print(f"  After global search: {result_global.x}, value = {result_global.fun}")
+print(f"  After refinement:    {result_refined.x}, value = {result_refined.fun}")
+```
+
+## Non-uniqueness and Identification
+
+Sometimes the objective does not have a unique maximizer. Consider:
+$$ f(x_1,x_2)=-(x_1+x_2-3)^2$$
+
+Any value of $(x_1,x_2)$ that sums to 3 will minimize it. This relates to **identification problems** in estimation.
+
+```{python}
+# Non-unique optimizer
+def f_saddle(x):
+    return (x[0] + x[1] - 3)**2 + (x[0]**2) * 0.000001
+
+result = optimize.minimize(f_saddle, [0, 0], method='BFGS')
+print(f"Found: {result.x}")
+print(f"Value: {result.fun}")
+print(f"Sum of x: {sum(result.x)}")
+
+# Check the Hessian
+hess = utils.numerical_hessian(f_saddle, result.x)
+print(f"\nHessian:\n{hess}")
+print(f"Eigenvalues: {np.linalg.eigvals(hess)}")
+```
+
+## Summary: R to Python Optimization Mapping
+
+| R Function | Python Equivalent |
+|------------|-------------------|
+| `optim(x0, f, method="BFGS")` | `scipy.optimize.minimize(f, x0, method='BFGS')` |
+| `optim(x0, f, method="Nelder-Mead")` | `scipy.optimize.minimize(f, x0, method='Nelder-Mead')` |
+| `optim(x0, f, method="SANN")` | `scipy.optimize.dual_annealing(f, bounds)` |
+| `optim(x0, f, method="Brent", lower=a, upper=b)` | `scipy.optimize.minimize_scalar(f, bounds=(a,b), method='bounded')` |
+| `optimize(f, interval=c(a,b))` | `scipy.optimize.minimize_scalar(f, bounds=(a,b), method='bounded')` |
+| `is.positive.definite(H)` | `np.all(np.linalg.eigvals(H) > 0)` |
+
+**Key Notes:**
+- R's `optim()` minimizes by default; to maximize, multiply function by -1
+- Python's `scipy.optimize.minimize` also minimizes by default
+- For maximization in Python: `minimize(lambda x: -f(x), x0)`
+
+```{python}
+# Example: Maximizing g(x) to find the maximum
+result_max = optimize.minimize(lambda x: -g(x), 20)  # Negate for maximization
+
+print(f"Maximum of g(x):")
+print(f"  x = {result_max.x[0]:.6f}")
+print(f"  g(x) = {g(result_max.x[0]):.6f}")
+```
+
+## Using the Shared Utils Module
+
+The `utils.py` module provides several helpful functions for optimization:
+
+```{python}
+# Numerical gradient (for multivariate functions)
+grad = utils.numerical_gradient(f2, [1.5, 0.5])
+print(f"Gradient at optimal: {grad}")
+print(f"(Should be close to [0, 0] at the optimum)")
+
+# Numerical Hessian
+hess = utils.numerical_hessian(f2, [1.5, 0.5])
+print(f"\nHessian at optimal:\n{hess}")
+```
+

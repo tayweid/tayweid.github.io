@@ -1,0 +1,649 @@
+---
+title: "Simulation as a Tool (Python Version)"
+format:
+  revealjs:
+    transition: none
+    theme: simple
+    slide-number: true
+jupyter: python3
+---
+
+
+Similar to our numerical approach to solving equations and optimizing problems, we might also struggle to deal with the analytical complexities of transforming our results.
+
+Even where we **can** probably calculate something if we thought about it long enough, the time it takes to do this could have been dedicated to running a quick simulation and getting a ballpark on the number.
+
+
+```{python}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from scipy import stats
+import utils
+
+# Set up plotting style
+utils.set_pitt_style()
+PITT_BLUE = utils.PITT_BLUE
+PITT_GOLD = utils.PITT_GOLD
+PITT_GRAY = utils.PITT_GRAY
+PITT_LGRAY = utils.PITT_LGRAY
+```
+
+## Law of Large Numbers
+
+The fundamental idea here is that we make use of the law of large numbers.
+
+For an iid sample $(X_1, X_2, \ldots, X_n)$ with mean $\mu_X$ and variance $\sigma^2_X$, the LLN tells us that for any positive difference $\epsilon$ as $n \rightarrow \infty$:
+$$\Pr\left\{\left| \overline X_n-\mu_X \right|>\epsilon \right\} \rightarrow 0 $$
+
+### Simulation as a brute-force calculator
+
+If there's a value $\mu$ that we'd like to approximate, if we can construct a random variable $X$ with $\mathbb{E}X = \mu$, then one option is simply to simulate it!
+
+## Example: Calculating Pi
+
+A simple geometric problem is trying to calculate the value of $\pi$.
+
+### Analytical approach: Nilakantha Series
+$$\pi = 3 + \frac{4}{2\times 3\times 4}-\frac{4}{4\times 5\times 6}+\frac{4}{6\times 7\times 8} + \ldots$$
+
+```{python}
+def nilakantha_pi(n):
+    """Calculate pi using the Nilakantha series."""
+    x = 3.0
+    for k in range(1, n + 1):
+        x += 4 * ((-1) ** (k + 1)) / ((1 + 2*k)**3 - (1 + 2*k))
+    return x
+
+# Test it
+print(f"nilakantha_pi(200) = {nilakantha_pi(200):.10f}")
+print(f"Actual pi          = {np.pi:.10f}")
+print(f"Error              = {abs(np.pi - nilakantha_pi(200)):.2e}")
+```
+
+---
+
+```{python}
+# Convergence of Nilakantha series
+ns = np.arange(3, 201)
+pi_estimates = [nilakantha_pi(n) for n in ns]
+errors = np.abs(np.pi - np.array(pi_estimates))
+
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(ns, errors, color=PITT_BLUE, s=20)
+ax.set_yscale('log')
+ax.set_xlabel('n (number of terms)')
+ax.set_ylabel('Error')
+ax.set_title('Convergence of Nilakantha Series')
+plt.show()
+```
+
+---
+
+### Simulation approach: Monte Carlo
+
+We can estimate $\pi$ using simulation by drawing random points and checking if they fall inside a circle.
+
+Draw $(U_1, U_2)$ uniformly from $[-1, 1]^2$ and define:
+$$ X = \begin{cases} 4 & \text{if } U_1^2 + U_2^2 \leq 1 \\ 0 & \text{otherwise} \end{cases} $$
+
+Then $\mathbb{E}X = \Pr\{(U_1, U_2) \text{ in circle}\} \cdot 4 = \frac{\pi \cdot 1^2}{2 \times 2} \cdot 4 = \pi$
+
+```{python}
+# R: runif(n, min=-1, max=1)
+# Python: np.random.uniform(-1, 1, n)
+
+n = 10000
+u1 = np.random.uniform(-1, 1, n)
+u2 = np.random.uniform(-1, 1, n)
+
+# R: ifelse((u1**2 + u2**2) <= 1, 4, 0)
+# Python: np.where((u1**2 + u2**2) <= 1, 4, 0)
+in_circle = np.where((u1**2 + u2**2) <= 1, 4, 0)
+
+pi_estimate = np.mean(in_circle)
+print(f"Pi estimate with n={n}: {pi_estimate:.6f}")
+print(f"Actual pi: {np.pi:.6f}")
+```
+
+---
+
+```{python}
+# Visualize the Monte Carlo simulation
+fig, ax = plt.subplots(figsize=(8, 8))
+
+in_mask = (u1**2 + u2**2) <= 1
+ax.scatter(u1[in_mask], u2[in_mask], color=PITT_GOLD, s=1, alpha=0.5, label='Inside circle')
+ax.scatter(u1[~in_mask], u2[~in_mask], color=PITT_BLUE, s=1, alpha=0.5, label='Outside circle')
+
+# Draw circle
+theta = np.linspace(0, 2*np.pi, 100)
+ax.plot(np.cos(theta), np.sin(theta), 'k-', linewidth=2)
+
+ax.set_xlim(-1.1, 1.1)
+ax.set_ylim(-1.1, 1.1)
+ax.set_aspect('equal')
+ax.legend()
+ax.set_title(f'Monte Carlo Pi Estimation (n={n})')
+plt.show()
+```
+
+---
+
+```{python}
+# Convergence with sample size
+def pi_sim(n):
+    """Estimate pi using Monte Carlo with n samples."""
+    u1 = np.random.uniform(-1, 1, n)
+    u2 = np.random.uniform(-1, 1, n)
+    return np.mean(np.where((u1**2 + u2**2) <= 1, 4, 0))
+
+# Test with increasing sample sizes
+sample_sizes = 10 ** np.arange(3, 8)
+pi_estimates = [pi_sim(n) for n in sample_sizes]
+errors = np.abs(np.pi - np.array(pi_estimates))
+
+results = pd.DataFrame({
+    'n': sample_sizes,
+    'pi_estimate': pi_estimates,
+    'error': errors
+})
+print(results)
+```
+
+---
+
+```{python}
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(results['n'], results['error'], color=PITT_BLUE, s=100)
+ax.set_xscale('log')
+ax.set_yscale('log')
+ax.set_xlabel('Sample size (n)')
+ax.set_ylabel('Error')
+ax.set_title('Monte Carlo Pi Convergence')
+plt.show()
+```
+
+## Electoral College Simulation
+
+A more complex example: forecasting US presidential elections. The winner is determined by electoral votes from each state.
+
+```{python}
+# Load data from The Economist model
+economist_data = pd.read_csv('economist/state_averages_and_predictions_topline.csv')
+ev_data = pd.read_csv('ev.csv')
+
+print("Economist Data:")
+print(economist_data.head())
+print("\nElectoral Votes:")
+print(ev_data.head())
+```
+
+---
+
+```{python}
+# Create state probability dataframe
+state_prob = economist_data[['state', 'projected_win_prob']].copy()
+state_prob.columns = ['state', 'dem_prob']
+state_prob['rep_prob'] = 1 - state_prob['dem_prob']
+
+# Merge with electoral votes
+state_prob = state_prob.merge(ev_data, on='state')
+state_prob = state_prob.set_index('state')
+
+print(state_prob.head())
+state_list = state_prob.index.tolist()
+```
+
+---
+
+```{python}
+def state_draw(prob_list, ev_list):
+    """
+    Simulate one election outcome.
+    
+    Parameters
+    ----------
+    prob_list : array-like
+        Democratic win probability for each state
+    ev_list : array-like
+        Electoral votes for each state
+        
+    Returns
+    -------
+    dict
+        Election outcome with dem and rep totals
+    """
+    n_states = len(prob_list)
+    rnd = np.random.uniform(0, 1, n_states)
+    
+    # Dem wins state if random < probability
+    dem_wins = rnd < np.array(prob_list)
+    dem_ev = np.sum(np.array(ev_list) * dem_wins)
+    
+    return {
+        'dem_total': dem_ev,
+        'rep_total': 538 - dem_ev
+    }
+```
+
+---
+
+```{python}
+# Test one draw
+result = state_draw(state_prob['dem_prob'].values, state_prob['ev'].values)
+print(f"Democratic EV: {result['dem_total']}")
+print(f"Republican EV: {result['rep_total']}")
+```
+
+---
+
+```{python}
+# Run simulation many times
+# R: n.sims <- 500000
+# Python: vectorized approach is much faster
+
+n_sims = 100000
+
+def run_election_simulation(prob_list, ev_list, n_sims):
+    """Run multiple election simulations."""
+    n_states = len(prob_list)
+    
+    # Generate all random numbers at once (much faster than loop)
+    rnd = np.random.uniform(0, 1, (n_sims, n_states))
+    
+    # Compare to probabilities
+    dem_wins = rnd < np.array(prob_list)
+    
+    # Calculate totals
+    dem_totals = np.sum(dem_wins * np.array(ev_list), axis=1)
+    
+    return dem_totals
+
+dem_totals = run_election_simulation(
+    state_prob['dem_prob'].values, 
+    state_prob['ev'].values, 
+    n_sims
+)
+
+# Democratic win probability
+dem_win_prob = np.mean(dem_totals > 269)  # Need > 269 to win
+print(f"Democratic win probability: {dem_win_prob:.4f}")
+```
+
+---
+
+```{python}
+# Visualize distribution of electoral votes
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.hist(dem_totals, bins=50, color=PITT_BLUE, edgecolor='white', alpha=0.7)
+ax.axvline(x=269, color=PITT_GOLD, linewidth=2, linestyle='--', label='Needed to win')
+ax.set_xlabel('Democratic Electoral Votes')
+ax.set_ylabel('Frequency')
+ax.set_title(f'Distribution of Democratic EV (n={n_sims} simulations)')
+ax.legend()
+plt.show()
+```
+
+---
+
+### Adding Common Shocks (Correlation)
+
+The independent model doesn't capture correlations between states. We add common shocks:
+
+$$ \Pr(\text{State } j \text{ is Dem}) = \frac{\exp(\alpha_j + \epsilon)}{\exp(\alpha_j + \epsilon) + 1} $$
+
+where $\epsilon$ is a common $U[-k, k]$ shock and $\alpha_j$ is a state-level parameter.
+
+```{python}
+def exp_prob(x):
+    """Logistic function: maps R to (0,1)."""
+    return np.exp(x) / (np.exp(x) + 1)
+
+# Visualize the logistic function
+x = np.linspace(-10, 10, 200)
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.plot(x, exp_prob(x), color=PITT_BLUE, linewidth=2)
+ax.set_xlabel('x')
+ax.set_ylabel('Probability')
+ax.set_title('Logistic Function: exp(x)/(exp(x)+1)')
+ax.axhline(y=0.5, color=PITT_GOLD, linestyle='--', alpha=0.5)
+plt.show()
+```
+
+---
+
+```{python}
+def gen_alpha(p, k):
+    """
+    Generate alpha parameter from probability p and shock range k.
+    
+    Inverts the relationship to get alpha from observed probability.
+    """
+    if p <= 0.0001:
+        return -10
+    elif p >= 0.9999:
+        return 10
+    else:
+        return k + np.log(np.exp(2*p*k) - 1) - np.log(np.exp(2*k) - np.exp(2*k*p))
+```
+
+---
+
+```{python}
+# Generate alpha parameters for each state
+k_val = 5
+state_prob['alpha'] = state_prob['dem_prob'].apply(lambda p: gen_alpha(p, k_val))
+print(state_prob[['dem_prob', 'ev', 'alpha']].head())
+```
+
+---
+
+```{python}
+def run_election_with_shock(alpha_list, ev_list, k_param, n_sims):
+    """
+    Run election simulation with common shock.
+    """
+    n_states = len(alpha_list)
+    
+    # Generate common shock for each simulation
+    shocks = np.random.uniform(-k_param, k_param, n_sims)
+    
+    # Generate random draws for each state in each simulation
+    rnd = np.random.uniform(0, 1, (n_sims, n_states))
+    
+    # Calculate probabilities with shock
+    alpha_array = np.array(alpha_list)
+    probs = exp_prob(alpha_array[np.newaxis, :] + shocks[:, np.newaxis])
+    
+    # Determine outcomes
+    dem_wins = rnd < probs
+    dem_totals = np.sum(dem_wins * np.array(ev_list), axis=1)
+    
+    return dem_totals, shocks
+```
+
+---
+
+```{python}
+# Run simulation with common shocks
+k_val = 8
+dem_totals_shock, shocks = run_election_with_shock(
+    state_prob['alpha'].values,
+    state_prob['ev'].values,
+    k_val,
+    n_sims
+)
+
+dem_win_prob_shock = np.mean(dem_totals_shock > 269)
+print(f"Democratic win probability (with shock): {dem_win_prob_shock:.4f}")
+```
+
+---
+
+```{python}
+# Visualize how shock affects outcome
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Bin by shock value and calculate mean EV
+shock_bins = np.linspace(-k_val, k_val, 50)
+shock_centers = (shock_bins[:-1] + shock_bins[1:]) / 2
+bin_indices = np.digitize(shocks, shock_bins)
+
+mean_ev_by_shock = [np.mean(dem_totals_shock[bin_indices == i]) 
+                    for i in range(1, len(shock_bins))]
+
+ax.scatter(shock_centers, mean_ev_by_shock, color=PITT_BLUE, s=30)
+ax.axhline(y=269, color=PITT_GOLD, linestyle='--', label='Needed to win')
+ax.set_xlabel('Common Shock')
+ax.set_ylabel('Mean Democratic EV')
+ax.set_title('Effect of Common Shock on Election Outcome')
+ax.legend()
+plt.show()
+```
+
+## Simulating an Econometric Method
+
+Simulations help us understand the **finite-sample properties** of econometric methods.
+
+While asymptotic results mean we can use $t$ and $F$ tests for OLS, these may not be appropriate for finite samples with non-normal disturbances.
+
+```{python}
+def sim_linear_model(n, beta0=1, beta1=1, sigma_x=1, sigma_u=1):
+    """
+    Simulate a linear model and return OLS estimate and standard error.
+    
+    Uses a very non-normal error distribution (beta distribution).
+    """
+    # Draw x values
+    x = np.random.normal(0, sigma_x, n)
+    
+    # Draw u from a very non-normal distribution
+    # R: (rbeta(n, 0.5, 0.5) - 1) * sigma_u * sqrt(8)
+    u = (np.random.beta(0.5, 0.5, n) - 0.5) * 2 * sigma_u * np.sqrt(8)
+    
+    # Generate y
+    y = beta0 + beta1 * x + u
+    
+    # Fit OLS model
+    X = sm.add_constant(x)
+    model = sm.OLS(y, X).fit()
+    
+    return {
+        'estimate': model.params[1],  # beta1 estimate
+        'std_error': model.bse[1]     # standard error
+    }
+```
+
+---
+
+```{python}
+# Test once
+result = sim_linear_model(50)
+print(f"Estimate: {result['estimate']:.4f}")
+print(f"Std Error: {result['std_error']:.4f}")
+```
+
+---
+
+```{python}
+def monte_carlo_sim(func, n_sims=10000, **kwargs):
+    """
+    Run Monte Carlo simulation.
+    
+    Parameters
+    ----------
+    func : callable
+        Function to simulate (must return dict)
+    n_sims : int
+        Number of simulations
+    **kwargs
+        Arguments to pass to func
+        
+    Returns
+    -------
+    DataFrame
+        Results from all simulations
+    """
+    results = [func(**kwargs) for _ in range(n_sims)]
+    return pd.DataFrame(results)
+```
+
+---
+
+```{python}
+# Run simulation with n=25
+sim_df_25 = monte_carlo_sim(sim_linear_model, n_sims=10000, n=25)
+print(f"Mean estimate: {sim_df_25['estimate'].mean():.4f}")
+print(f"Std of estimates: {sim_df_25['estimate'].std():.4f}")
+print(f"Theoretical SE (1/sqrt(n-2)): {1/np.sqrt(23):.4f}")
+```
+
+---
+
+```{python}
+# Distribution of beta_1 estimate
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Histogram of estimates
+ax.hist(sim_df_25['estimate'], bins=50, density=True, color=PITT_BLUE, 
+        edgecolor='white', alpha=0.7, label='Simulated')
+
+# Overlay theoretical normal
+x = np.linspace(0.4, 1.6, 100)
+ax.plot(x, stats.norm.pdf(x, 1, 0.2), color=PITT_GOLD, linewidth=3, 
+        label='Normal(1, 0.2)')
+
+ax.set_xlabel('Beta_1 Estimate')
+ax.set_ylabel('Density')
+ax.set_title('Distribution of OLS Estimate (n=25)')
+ax.legend()
+plt.show()
+```
+
+---
+
+```{python}
+# T-statistic distribution
+# True beta_1 = 1, so t-stat for H0: beta_1 = 1 is:
+sim_df_25['t_stat'] = (sim_df_25['estimate'] - 1) / sim_df_25['std_error']
+
+fig, ax = plt.subplots(figsize=(10, 6))
+
+# Histogram of t-statistics
+ax.hist(sim_df_25['t_stat'], bins=50, density=True, color=PITT_BLUE,
+        edgecolor='white', alpha=0.7, label='Simulated')
+
+# Overlay theoretical t-distribution
+x = np.linspace(-4, 4, 100)
+ax.plot(x, stats.t.pdf(x, df=23), color=PITT_GOLD, linewidth=3,
+        label='t(23)')
+
+ax.set_xlabel('t-statistic')
+ax.set_ylabel('Density')
+ax.set_title('T-statistic Distribution (H0: beta_1 = 1)')
+ax.legend()
+plt.show()
+```
+
+---
+
+```{python}
+# Type I error rate
+# Critical value for 95% test with df=23
+t_crit = stats.t.ppf(0.975, df=23)
+print(f"Critical value (97.5%): {t_crit:.4f}")
+
+# Empirical rejection rate
+type_1_error = np.mean(np.abs(sim_df_25['t_stat']) > t_crit)
+print(f"Empirical Type I error rate: {type_1_error:.4f}")
+print(f"Nominal level: 0.05")
+```
+
+## Soccer Scorelines Simulation
+
+Using FiveThirtyEight model parameters, we can simulate soccer match outcomes using a Poisson process.
+
+A Poisson distribution with parameter $\lambda$ has:
+$$ \Pr(k) = \frac{\lambda^k e^{-\lambda}}{k!} $$
+
+For team $i$ playing team $j$, goals scored follow:
+$$ \lambda_{ij} = \exp(\alpha_i - \delta_j) $$
+
+where $\alpha_i$ is offense and $\delta_j$ is defense.
+
+```{python}
+# Load FiveThirtyEight team data
+teams_data = pd.read_csv('538/spi_global_rankings.csv')
+print(teams_data.head())
+```
+
+---
+
+```{python}
+# Filter to Premier League
+prem_league = teams_data[teams_data['league'] == 'Barclays Premier League'].copy()
+prem_league = prem_league.set_index('name')
+
+# Calculate alpha and delta parameters
+lmean_def = np.log(prem_league['def'].mean())
+lmean_off = np.log(prem_league['off'].mean())
+
+prem_league['alpha'] = np.log(prem_league['off']) - lmean_def
+prem_league['delta'] = lmean_off - np.log(prem_league['def'])
+
+print(prem_league[['off', 'def', 'alpha', 'delta']].head())
+```
+
+---
+
+```{python}
+# Create parameter dictionaries
+alpha_dict = prem_league['alpha'].to_dict()
+delta_dict = prem_league['delta'].to_dict()
+
+def draw_score(team1, team2):
+    """
+    Simulate a match between two teams.
+    
+    Returns (team1_goals, team2_goals)
+    """
+    # R: rpois(1, exp(alpha[team1] - delta[team2]))
+    # Python: np.random.poisson(np.exp(alpha[team1] - delta[team2]))
+    lambda1 = np.exp(alpha_dict[team1] - delta_dict[team2])
+    lambda2 = np.exp(alpha_dict[team2] - delta_dict[team1])
+    
+    return np.random.poisson(lambda1), np.random.poisson(lambda2)
+```
+
+---
+
+```{python}
+# Test: Liverpool vs Manchester City
+print("Liverpool vs Manchester City:")
+for i in range(10):
+    score = draw_score('Liverpool', 'Manchester City')
+    print(f"  {score[0]} - {score[1]}")
+```
+
+---
+
+```{python}
+# Simulate multiple matches
+def simulate_matches(team1, team2, n_matches=10000):
+    """Simulate many matches between two teams."""
+    lambda1 = np.exp(alpha_dict[team1] - delta_dict[team2])
+    lambda2 = np.exp(alpha_dict[team2] - delta_dict[team1])
+    
+    goals1 = np.random.poisson(lambda1, n_matches)
+    goals2 = np.random.poisson(lambda2, n_matches)
+    
+    return goals1, goals2
+
+# Liverpool vs Arsenal
+liv_goals, ars_goals = simulate_matches('Liverpool', 'Arsenal', 10000)
+
+print(f"Liverpool vs Arsenal (10,000 simulations):")
+print(f"  Liverpool wins: {np.mean(liv_goals > ars_goals):.3f}")
+print(f"  Draw: {np.mean(liv_goals == ars_goals):.3f}")
+print(f"  Arsenal wins: {np.mean(liv_goals < ars_goals):.3f}")
+print(f"  Average Liverpool goals: {np.mean(liv_goals):.2f}")
+print(f"  Average Arsenal goals: {np.mean(ars_goals):.2f}")
+```
+
+## Summary: R to Python Random Number Mapping
+
+| R Function | Python Equivalent |
+|------------|-------------------|
+| `runif(n, min, max)` | `np.random.uniform(min, max, n)` |
+| `rnorm(n, mean, sd)` | `np.random.normal(mean, sd, n)` |
+| `rpois(n, lambda)` | `np.random.poisson(lambda, n)` |
+| `rbeta(n, a, b)` | `np.random.beta(a, b, n)` |
+| `rbinom(n, size, prob)` | `np.random.binomial(size, prob, n)` |
+| `sample(x, n, replace)` | `np.random.choice(x, n, replace=replace)` |
+| `ifelse(cond, yes, no)` | `np.where(cond, yes, no)` |
+| `sapply(vec, fun)` | `[fun(x) for x in vec]` or `np.vectorize(fun)(vec)` |
+
+**Performance tip:** In Python, vectorized operations with NumPy are much faster than loops. Always try to generate all random numbers at once rather than in a loop.
+
