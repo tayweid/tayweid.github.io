@@ -15,7 +15,6 @@ ________ Not communicate directly or indirectly with others during the MiniExam.
 
 
 
-
 ---
 
 ###### Q1. Monthly inflation rates for the United States (see Table 1)
@@ -25,7 +24,7 @@ a) **Identify the data dimensions:**
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 ---
 
@@ -36,7 +35,7 @@ a) **Identify the data dimensions:**
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 
 
@@ -47,18 +46,18 @@ a) **Identify the data dimensions:**
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 ---
 
-###### Q4. Employee age and salary data (see Table 4)
+###### Q4. Unemployment rates for three states over time (see Table 4)
 
 a) **Identify the data dimensions:**
    - Data Structure: _________________________________________________
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 ---
 
@@ -69,7 +68,7 @@ a) **Identify the data dimensions:**
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 ---
 
@@ -80,7 +79,7 @@ a) **Identify the data dimensions:**
    - Variable Type(s): ______________________________________________
    - Number of Variables: ___________________________________________
 
-b) **Draw or describe an appropriate visualization to the right →**
+b) **Draw or describe the most effective visualization to the right →**
 
 ## Data Tables
 
@@ -103,29 +102,31 @@ b) **Draw or describe an appropriate visualization to the right →**
 | 004     | Downtown     |
 | ...     | ...          |
 
-**Table 3: Quarterly Sales**
-| Quarter | Store_A | Store_B | Store_C |
-| ------- | ------- | ------- | ------- |
-| Q1_2023 | 45,000  | 38,000  | 52,000  |
-| Q2_2023 | 48,000  | 41,000  | 51,000  |
-| Q3_2023 | 52,000  | 39,000  | 55,000  |
-| ...     | ...     | ...     | ...     |
+**Table 3: Quarterly Sales ($)**
+
+| Store   | Q1_2023 | Q2_2023 | Q3_2023 | Q4_2023 | ... |
+| ------- | ------- | ------- | ------- | ------- | --- |
+| Store_A | 45,000  | 48,000  | 52,000  | 61,000  | ... |
+| Store_B | 38,000  | 41,000  | 39,000  | 47,000  | ... |
+| Store_C | 52,000  | 51,000  | 55,000  | 63,000  | ... |
 
 
 
 
+**Table 4: State Unemployment Rates (%)**
 
-
-
-**Table 4: Employee Data**
-
-| Employee_ID | Age  | Annual_Salary |
-| ----------- | ---- | ------------- |
-| E001        | 25   | 45,000        |
-| E002        | 32   | 58,000        |
-| E003        | 28   | 51,000        |
-| E004        | 45   | 78,000        |
-| ...         | ...  | ...           |
+| State        | Year | Unemployment_Rate |
+| ------------ | ---- | ----------------- |
+| Pennsylvania | 2020 | 8.1               |
+| Pennsylvania | 2021 | 6.4               |
+| Pennsylvania | 2022 | 4.5               |
+| Ohio         | 2020 | 7.9               |
+| Ohio         | 2021 | 5.8               |
+| Ohio         | 2022 | 4.2               |
+| New York     | 2020 | 10.2              |
+| New York     | 2021 | 7.6               |
+| New York     | 2022 | 4.9               |
+| ...          | ...  | ...               |
 
 **Table 5: Customer Wait Times**
 | Customer | Wait_Time (minutes) |

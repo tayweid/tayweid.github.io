@@ -83,9 +83,19 @@ const EconApp = {
                     const indicatorTrack = indicator.querySelector('.indicator-track');
                     let isProgrammaticScroll = false; // Flag to prevent flickering
 
+                    // Count how many livestream indicators exist in this carousel
+                    const livestreamTabs = Array.from(indicatorTabs).filter(tab =>
+                        tab.classList.contains('livestream-indicator')
+                    );
+                    const hasMultipleLivestreams = livestreamTabs.length > 1;
+
                     // Simple active state update - maps card index to visible indicator index
                     // Also reveals/hides livestream indicator based on proximity
                     const updateActiveIndicator = (cardIndex) => {
+                        // Check if current card is a livestream
+                        const currentCard = cards[cardIndex];
+                        const isLivestreamActive = currentCard && currentCard.classList.contains('livestream-card');
+
                         // Update active states
                         indicatorTabs.forEach(tab => {
                             const tabIndex = parseInt(tab.getAttribute('data-index'));
@@ -94,9 +104,13 @@ const EconApp = {
                                 tab.classList.add('active');
                             }
 
-                            // Reveal livestream indicator when livestream card is active
+                            // Reveal livestream indicators
                             if (tab.classList.contains('livestream-indicator')) {
-                                if (tabIndex === cardIndex) {
+                                if (hasMultipleLivestreams && isLivestreamActive) {
+                                    // If multiple livestreams and viewing any livestream, show all
+                                    tab.classList.add('revealed');
+                                } else if (tabIndex === cardIndex) {
+                                    // Otherwise only show the active one
                                     tab.classList.add('revealed');
                                 } else {
                                     tab.classList.remove('revealed');
