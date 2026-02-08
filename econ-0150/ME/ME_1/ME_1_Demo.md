@@ -39,6 +39,8 @@ b) **Draw or describe the most effective visualization to the right →**
 
 
 
+
+
 ###### Q3. Quarterly sales for three retail stores (see Table 3)
 
 a) **Identify the data dimensions:**
@@ -81,6 +83,8 @@ a) **Identify the data dimensions:**
 
 b) **Draw or describe the most effective visualization to the right →**
 
+
+
 ## Data Tables
 
 **Table 1: Monthly Inflation Rates**
@@ -113,22 +117,24 @@ b) **Draw or describe the most effective visualization to the right →**
 
 
 
+
+
+
+
+
 **Table 4: State Unemployment Rates (%)**
 
 | State        | Year | Unemployment_Rate |
 | ------------ | ---- | ----------------- |
 | Pennsylvania | 2020 | 8.1               |
-| Pennsylvania | 2021 | 6.4               |
 | Pennsylvania | 2022 | 4.5               |
 | Ohio         | 2020 | 7.9               |
-| Ohio         | 2021 | 5.8               |
 | Ohio         | 2022 | 4.2               |
 | New York     | 2020 | 10.2              |
-| New York     | 2021 | 7.6               |
 | New York     | 2022 | 4.9               |
-| ...          | ...  | ...               |
 
 **Table 5: Customer Wait Times**
+
 | Customer | Wait_Time (minutes) |
 | -------- | ------------------- |
 | C001     | 3.5                 |
@@ -145,6 +151,4 @@ b) **Draw or describe the most effective visualization to the right →**
 | P003       | Electronics | 4.5             |
 | P004       | Home        | 3.9             |
 | P005       | Clothing    | 4.1             |
-| P006       | Electronics | 3.7             |
-| P007       | Home        | 4.3             |
-| P008       | Clothing    | 3.6             |
+| ...        | ...         |                 |
