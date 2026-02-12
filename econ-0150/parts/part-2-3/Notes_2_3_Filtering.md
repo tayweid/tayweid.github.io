@@ -1,4 +1,50 @@
-## Part 2.3 | Filtering Data
+## Part 2.3 | Numerical × Numerical × Categorical
+
+### Filtering Cross-Sectional Data
+
+In Part 2.1, we explored the relationship between coffee production and GDP across all countries. But what if we want to focus on a specific region? We can **filter** by category to zoom in on subsets of our data.
+
+Let's focus on countries in the Americas. How does GDP relate to coffee production for this subset?
+
+![](../part-2-1/i/c_13.png)
+
+By filtering for countries in the Americas, we can see the relationship more clearly within this region.
+
+![](../part-2-1/i/c_14.png)
+
+The log-log scatter plot of American coffee producers lets us understand how production levels differ for countries with similar GDPs. We can find the country in the Americas that produces the most coffee.
+
+![](../part-2-1/i/c_15.png)
+
+Brazil is the highest along the *y*-axis than any other coffee producer in the Americas, so its production is the largest. Which country's GDP is closest to Brazil's?
+
+If we draw a vertical line through Brazil, Mexico will come closest to it, which means it is the country with the most similar GDP to Brazil.
+
+![](../part-2-1/i/c_16.png)
+
+What can we conclude from the plot? Although countries with higher GDPs tend to produce more coffee, this relationship isn't a rule. For example, two countries with similar GDPs — Brazil and Mexico — have a production ratio of 10. We could see it clearly thanks to logarithmic axes.
+
+### Encoding Categories with Color and Shape
+
+When we want to distinguish categorical groups in a scatterplot, we can use **color** or **shape** to encode the category. This is different from the continuous color encoding we saw in Part 2.1 — here we're using distinct colors or shapes for each category.
+
+#### Color Encoding
+
+Each color can represent a different category, such as continent:
+
+![](../part-2-1/i/e_09.png)
+
+Different colors allow us to quickly identify which continent each country belongs to while still seeing the relationship between GDP and coffee production.
+
+#### Shape Encoding
+
+What if we have many groups or need to print in black and white? **Shape** provides another way to encode categorical information.
+
+![](../part-2-1/i/e_04.png)
+
+Here, circles represent countries in the Americas, squares represent Africa, and triangles represent Asia. Even without color, we can see geographic patterns in coffee production.
+
+### Filtering Data: A Coffee Shop Example
 
 When opening a new cafe, one of the many decisions to make is which hours it should operate. Lets consider a new location in upstate New York, near the border of Canada. When should the shop open? And how long should it stay open?
 

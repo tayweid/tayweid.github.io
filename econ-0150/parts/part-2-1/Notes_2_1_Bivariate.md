@@ -1,4 +1,4 @@
-## Part 2.1 | Bivariate Relationships
+## Part 2.1 | Relationships Between Numerical Variables
 
 ### Why Visualize Relationships?
 
@@ -89,23 +89,7 @@ The new tool — logarithmic scales — will help us describe the relationship b
 
 ![](i/c_13.png)
 
-In the log-log plot we can see that in general, countries with larger GDP tend to produce more coffee, and vice versa. On the whole, larger GDP indicates larger coffee production. But is it always true?
-
-Let's zoom in on one of the world's regions. How might we focus on countries in the Americas? We can do this by filtering by region. Here we've filtered for countries in the Americas.
-
-![](i/c_14.png)
-
-The log-log scatter plot of American coffee producers will let us understand how production levels differ for American countries with similar GDPs. We can find the country in the Americas that produces the most coffee. 
-
-![](i/c_15.png)
-
-Brazil is the highest along the *y*-axis than any other coffee producer in the Americas, so its production is the largest. Which country's GDP is clostest to Brazil's?
-
-If we draw a vertical line through Brazil, Mexio will come closest to it, which means it is the country with the most similar GDP to Brazil.
-
-![](i/c_16.png)
-
-What can we conclude from the plot? Although countries with higher GDPs tend to produce more coffee, this relationship isn't a rule. For example, two countries with similar GDPs — Brazil and Mexico — have a production ratio of 10. We could see it clearly thanks to logarithmic axes.
+In the log-log plot we can see that in general, countries with larger GDP tend to produce more coffee, and vice versa. On the whole, larger GDP indicates larger coffee production. But is it always true? We'll explore filtering by region in Part 2.3.
 
 ### Adding More Variables: Size Encoding
 
@@ -125,34 +109,19 @@ This type of visualization is called a **bubble chart**. We can now see three va
 
 Indonesia and Brazil stand out — they're large countries with high coffee production. Vietnam produces a lot of coffee but has a smaller bubble (smaller population than Indonesia). This gives us richer insight than a simple two-variable scatter plot.
 
-### Adding More Variables: Shape Encoding
+### Adding More Variables: Color Encoding
 
-What if we want to distinguish groups, like which continent each country belongs to? We could use color, but what if we have many groups or need to print in black and white? **Shape** provides another way to encode categorical information.
+We can also use **color** to encode a third numerical variable. A **continuous color scale** maps values to shades — lighter colors indicate lower values, darker colors indicate higher values.
 
-![](i/e_04.png)
+![](i/e_07.png)
 
-Here, circles represent countries in the Americas, squares represent Africa, and triangles represent Asia. Even without color, we can see geographic patterns in coffee production.
+Here, each point's color represents that country's population. Darker points have larger populations.
 
-### Combining Encodings
+![](i/e_08.png)
 
-We can combine size and shape to show four variables simultaneously:
-
-- **x-position** → GDP
-- **y-position** → Coffee Production
-- **size** → Population
-- **shape** → Continent
-
-![](i/e_05.png)
-
-Now we can see that Brazil and Indonesia dominate coffee production, that they're both large-population countries, and that they're on different continents (Americas and Asia). This rich visualization lets us explore multiple dimensions of the data at once.
-
-![](i/e_06.png)
-
-Be careful not to overload a single plot — too many encodings can make it hard to read. But thoughtfully combining position, size, shape, and color can reveal patterns that simpler plots would miss.
+Color encoding works well when bubble sizes would be hard to compare, or when you want to highlight a different pattern than size would show. Brazil, Indonesia, and Ethiopia stand out as darker points — high-population countries.
 
 ### Scatterplots and Timeseries Relationships
-
-### Coffee vs. Oil
 
 Next, we’ll compare coffee prices with the prices of another commodity: oil. A **commodity** is a product that can be traded or sold, such as coffee or oil.
 

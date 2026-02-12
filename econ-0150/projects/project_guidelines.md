@@ -1,38 +1,43 @@
-## ECON 0150 | Final Project
+## ECON 0150 | Spring 2026 | Final Project
 
 ### Guidelines
 
-The final project is your place to demostrate your ability to analyze and communicate data. You will select a dataset, conduct a comprehensive analysis, and present your findings through both a slide presentation and a written report. I'll select some projects to be displayed on the course website after the semester has finished and used as references for future classes.
+The final project is your place to demostrate your ability to analyze and communicate data, using at least one skill / concept from each of the six parts. You will select a dataset, conduct a comprehensive analysis, and present your findings through both a slide presentation and a written report. I'll select some projects to be displayed on the course website after the semester has finished and used as references for future classes.
 
-The most challenging steps in the final project are typically 1) finding a question that's answerable with data, and 2) finding a dataset that on the vast internet. I've provided some example projects from past semesters and a list of good economic data sources (e.g., FRED, World Bank, BLS, Election Data Source, etc.). You're more than welcome to 1) use data from one of the provided databases, or 2) find or collect your own dataset related to an economic question of interest to you. 
+The most challenging steps in the final project are typically 1) finding a question that's answerable with data, and 2) finding a dataset that on the vast internet. I've provided some example projects from past semesters and a list of good economic data sources (e.g., FRED, World Bank, BLS, Election Data Source, etc.). You're more than welcome to 1) use data from one of the provided replications or databases, or 2) find or collect your own dataset related to an economic question of interest to you. If you choose to use a dataset from a previous semesters' group, you need to demonstrate that you and not the previous group can analyze and communicate data.
+
+The project will build progressively over the semester. At the end of each Part, you will submit a part project demostrating your ability to apply the concepts in that Part to a dataset of your choosing. You are encouraged to work in a group and to pick a topic that could turn into your final project. But you are more than welcome to switch groups or topics at any point. 
 
 Make this your own and have fun with it! There are general guidelines, but don't let the guildelines stop you from doing what interests you. Lets just have a quick chat about it.
 
 #### Timeline
 
-**Friday, November 7 (in Homework)**
+**Part 1 Project**
 
+- Diagram a dataset and summarize a single variable in a dataset of your choosing.
+
+**Part 2 Project**
+
+- Diagram a dataset and visualize a relationship between variables in a dataset of your choosing.
+
+**Later**
+
+- *Part 3 Project*
+- *Part 4 Project*
+- *Part 5 Project*
 - *Project groups of 2-3: select and submit to your group and a general question of interest to you.*
-
-**Tuesday, November 18**
 
 - *Project proposal: Select a topic/question, a descriptive figure, and a statistical model.*
 
-**Friday, December 5 (on Gradescope)** 
-
 - *Draft analysis: Send me a draft of your writeup and slides, including at least one figure,.*
 
-**Finals Period** (1PM Section: *Friday, December 12, at 12PM* | 2:30 PM Section: *Monday, December 8 at 12PM*)
-
 - *Final presentation: Present 1-2 slides, described below.*
-
-**Friday, December 12, 5PM**
 
 - *Written report and replication folder, described below.*
 
 #### Written Report (1-2 pages)
 
-Submit a short report (roughly 2 pages) and a folder with all your data and replication code. Your report  will include the following:
+Submit a short report (roughly 2 pages) and a folder with all your data and replication code. Your report will include the following:
 
 1. Introduction and question
 
