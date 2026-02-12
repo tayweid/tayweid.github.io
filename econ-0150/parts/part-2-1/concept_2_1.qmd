@@ -11,53 +11,51 @@ format:
 
 <br> 
 
-### *Part 2.1 | Bivariate Relationships*
+### *Part 2.1 | Relationships Between Numerical Variables*
 
 ---
 
 ## Bivariate Relationships
-<p class="subheader">Let's summarize what we know about each...</p>
+<p class="subheader">Let's summarize what we know about four datasets.</p>
 
 ---
 
 ## Bivariate Relationships
-<p class="subheader">Let's summarize what we know about each...</p>
+<p class="subheader">Let's summarize what we know about four datasets.</p>
 
 ![](i/a_01.png)
 
 . . .
 
-*> same mean, same standard deviation, same correlation...*
-
----
-
-## Bivariate Relationships
-<p class="subheader">Are these datasets the same?</p>
-
-![](i/a_01.png)
+*> same means, same standard deviations, same correlation between x and y...*
 
 . . .
 
-*> the summary statistics say yes*
+*> are these datasets the same?*
 
 ---
 
 ## Bivariate Relationships
-<p class="subheader">But what do the relationships look like?</p>
+<p class="subheader">Are these the same datasets?</p>
 
-![](i/a_01.png)
+. . .
 
-*> we've only summarized each variable separately — what about together?*
+<br><br><br>
+
+Lets take a look at the data in a Notebook!
+
+. . .
+
+
+```{.python}
+# Visualize all four datasets
+sns.relplot(anscombe, x='x', y='y', col='dataset')
+```
 
 ---
 
 ## Bivariate Relationships
-<p class="subheader">But what do the relationships look like?</p>
-
----
-
-## Bivariate Relationships
-<p class="subheader">But what do the relationships look like?</p>
+<p class="subheader">Are these the same datasets?</p>
 
 ![](i/a_02.png)
 
@@ -80,7 +78,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_01.png)
@@ -95,7 +93,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_02.png)
@@ -106,7 +104,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Q. Is there a relationship between GDP and coffee production?</p>
 
 ![](i/c_03.png)
@@ -117,7 +115,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 ![](i/c_03.png)
@@ -128,7 +126,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries have a GDP above $2 trillion?</p>
 
 ![](i/c_04.png)
@@ -137,7 +135,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](i/c_03.png)
@@ -146,7 +144,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries have a production above ½ billion kg?</p>
 
 ![](i/c_05.png)
@@ -155,7 +153,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_03.png)
@@ -164,7 +162,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_06.png)
@@ -173,7 +171,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_07.png)
@@ -182,7 +180,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce less coffee per dollar than Brazil?</p>
 
 ![](i/c_08.png)
@@ -191,7 +189,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
 ![](i/c_07.png)
@@ -200,7 +198,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which countries produce more coffee per dollar than Brazil?</p>
 
 ![](i/c_09.png)
@@ -209,7 +207,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Do the GDPs of the upper or lower pair differ by a larger amount?</p>
 
 ![](i/c_10.png)
@@ -220,7 +218,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](i/c_10.png)
@@ -231,7 +229,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which is larger: the ratio of GDPs of the upper or lower pair?</p>
 
 ![](i/c_11.png)
@@ -240,7 +238,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](i/c_11.png)
@@ -249,7 +247,7 @@ format:
 
 ---
 
-## Cross-Sectional Relationships
+## Bivariate Relationships in Cross-Section
 <p class="subheader">Which country produces the second highest output of coffee?</p>
 
 ![](i/c_12.png)
@@ -257,64 +255,6 @@ format:
 . . .
 
 *> scaling the vertical axis in logs clarifies both small and large variation*
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
-
-![](i/c_13.png)
-
-. . .
-
-*> lets use a filter with this data*
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
-
-![](i/c_14.png)
-
-. . .
-
-*> looks positive, but we'll formally test this in Part 4*
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">Which country in the Americas produces the most coffee?</p>
-
-![](i/c_14.png)
-
-*> looks positive, but we'll formally test this in Part 4*
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">Which country in the Americas produces the most coffee?</p>
-
-![](i/c_15.png)
-
-*> *
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
-
-![](i/c_15.png)
-
-*> we can use the horizontal axis*
-
----
-
-## Cross-Sectional Relationships
-<p class="subheader">Which country’s GDP is closest to Brazil’s GDP?</p>
-
-![](i/c_16.png)
-
-*> we can use a vertical line here to find the closest on the horizontal axis*
 
 ---
 
@@ -331,7 +271,7 @@ format:
 
 ---
 
-## Adding More Variables
+## Trivariate Relationships: Size
 <p class="subheader">We can use SIZE to encode a third numerical variable</p>
 
 ![](i/e_01.png)
@@ -340,7 +280,7 @@ format:
 
 ---
 
-## Size Encoding
+## Trivariate Relationships: Size
 <p class="subheader">Each point's SIZE now represents population</p>
 
 ![](i/e_02.png)
@@ -351,7 +291,7 @@ format:
 
 ---
 
-## Size Encoding
+## Trivariate Relationships: Size
 <p class="subheader">Indonesia and Brazil stand out — large countries with high production</p>
 
 ![](i/e_03.png)
@@ -362,47 +302,38 @@ format:
 
 ---
 
-## Shape Encoding
-<p class="subheader">What if we want to distinguish groups?</p>
+## Trivariate Relationships: Color
+<p class="subheader">We can also use COLOR to encode a third numerical variable</p>
 
 <br>
 
 ::: {.incremental}
-- Color works, but what if we have many groups?
-- Or need to print in black & white?
-- **Shape** lets us distinguish categories
+- A **continuous color scale** maps values to shades
+- Lighter → lower values, Darker → higher values
+- Works well when size would be hard to compare
 :::
 
 ---
 
-## Shape Encoding
-<p class="subheader">Each SHAPE represents a continent</p>
+## Trivariate Relationships: Color
+<p class="subheader">Each point's COLOR now represents population</p>
 
-![](i/e_04.png)
-
-. . .
-
-*> circles = Americas, squares = Africa, triangles = Asia*
-
----
-
-## Combining Encodings
-<p class="subheader">We can use BOTH size and shape together</p>
-
-![](i/e_05.png)
+![](i/e_07.png)
 
 . . .
 
-*> now we see: GDP (x), production (y), population (size), continent (shape)*
+*> darker points = larger population*
 
 ---
 
-## Combining Encodings
-<p class="subheader">Four variables in one plot</p>
+## Trivariate Relationships: Color
+<p class="subheader">Color makes it easy to spot high-population countries</p>
 
-![](i/e_06.png)
+![](i/e_08.png)
 
-*> Brazil and Indonesia dominate — large populations in Americas and Asia*
+. . .
+
+*> Brazil, Indonesia, and Ethiopia stand out as darker points*
 
 ---
 
@@ -414,8 +345,7 @@ format:
 - **Scatterplots** show relationships between two numerical variables
 - **Log scales** help compare ratios and see variation across orders of magnitude
 - **Size encoding** adds a third numerical variable (bubble charts)
-- **Shape encoding** distinguishes categorical groups
-- Combining encodings lets us visualize multiple dimensions at once
+- **Color encoding** adds a third numerical variable (continuous color scale)
 :::
 
 ---
@@ -423,23 +353,16 @@ format:
 ## Exercise 2.1 | Cross-Sectional Scatterplots
 <p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
 
-We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.
+![](i/c_13.png)
 
-- **Data:** `Beans_GDP_2019.csv`
+
+Was the relationship between coffee production and GDP different in 1980?
+
+- **Data:** `Beans_GDP_1980.csv`
 
 ---
 
 ## Exercise 2.1 | Cross-Sectional Scatterplots
-<p class="subheader">Visualizing GDP and Coffee Production Relationships</p>
-
-```{.python}
-# Scatterplot
-sns.scatterplot(gdp, x='GDP', y='coffee_prod')
-```
-
----
-
-## Exercise 2.1 | Log Transformation
 <p class="subheader">How does GDP relate to coffee production?</p>
 
 ```{.python}
@@ -469,7 +392,27 @@ plt.yscale('log')
 
 ---
 
-## Timeseries Relationships
+## Exercise 2.1 | Cross-Sectional Scatterplots
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{.python}
+# Encode population size as bubble size
+sns.scatterplot(gdp, x='GDP', y='coffee_prod', size='population', sizes=(10,200))
+```
+
+---
+
+## Exercise 2.1 | Cross-Sectional Scatterplots
+<p class="subheader">How does GDP relate to coffee production?</p>
+
+```{.python}
+# Encode population size as color
+sns.scatterplot(gdp, x='GDP', y='coffee_prod', hue='population')
+```
+
+---
+
+## Bivariate Relationships: Timeseries
 <p class="subheader">How do the two commodity prices relate to each other?</p>
 
 ![](i/c_18.png)
@@ -480,28 +423,28 @@ plt.yscale('log')
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">How do the two commodity prices relate to each other?</p>
 
 ![](i/c_19.png)
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
 
 ![](i/c_19.png)
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">In which years did oil and coffee prices move in **opposite** directions?</p>
 
 ![](i/c_20.png)
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">But are the two prices positively or negatively related to each other?</p>
 
 ![](i/c_20.png)
@@ -512,7 +455,7 @@ plt.yscale('log')
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">But are the two prices positively or negatively related to each other?</p>
 
 ![](i/c_21.png)
@@ -523,7 +466,7 @@ plt.yscale('log')
 
 ---
 
-## Timeseries Relationships
+## Bivariate Relationships: Timeseries
 <p class="subheader">Does the price of oil determine the price of coffee?</p>
 
 ![](i/c_21.png)
@@ -548,5 +491,5 @@ We’re going to use a scatterplot to visually examine the relationship between 
 
 ```{.python}
 # Scatterplot
-sns.scatterplot(gdp, x='GDP', y='coffee_prod')
+sns.scatterplot(prices, x='Coffee', y='Oil')
 ```

@@ -198,59 +198,52 @@
 The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-2.1-bivariate-relationships"><em>Part 2.1 | Bivariate Relationships</em></h3>
+<h3 id="part-2.1-relationships-between-numerical-variables"><em>Part 2.1 | Relationships Between Numerical Variables</em></h3>
 </section>
 <section id="bivariate-relationships" class="slide level2">
 <h2>Bivariate Relationships</h2>
 <p class="subheader">
-Let’s summarize what we know about each…
+Let’s summarize what we know about four datasets.
 </p>
 </section>
 <section id="bivariate-relationships-1" class="slide level2">
 <h2>Bivariate Relationships</h2>
 <p class="subheader">
-Let’s summarize what we know about each…
+Let’s summarize what we know about four datasets.
 </p>
 
 <img data-src="i/a_01.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; same mean, same standard deviation, same correlation…</em></p>
+<p><em>&gt; same means, same standard deviations, same correlation between x and y…</em></p>
+</div>
+<div class="fragment">
+<p><em>&gt; are these datasets the same?</em></p>
 </div>
 </section>
 <section id="bivariate-relationships-2" class="slide level2">
 <h2>Bivariate Relationships</h2>
 <p class="subheader">
-Are these datasets the same?
+Are these the same datasets?
 </p>
-
-<img data-src="i/a_01.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; the summary statistics say yes</em></p>
+<div class="fragment">
+<p><br><br><br></p>
+<p>Lets take a look at the data in a Notebook!</p>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Visualize all four datasets</span></span>
+<span id="cb1-2"><a href=""></a>sns.relplot(anscombe, x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>, col<span class="op">=</span><span class="st">'dataset'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bivariate-relationships-3" class="slide level2">
 <h2>Bivariate Relationships</h2>
 <p class="subheader">
-But what do the relationships look like?
-</p>
-
-<img data-src="i/a_01.png" class="r-stretch"><p><em>&gt; we’ve only summarized each variable separately — what about together?</em></p>
-</section>
-<section id="bivariate-relationships-4" class="slide level2">
-<h2>Bivariate Relationships</h2>
-<p class="subheader">
-But what do the relationships look like?
-</p>
-</section>
-<section id="bivariate-relationships-5" class="slide level2">
-<h2>Bivariate Relationships</h2>
-<p class="subheader">
-But what do the relationships look like?
+Are these the same datasets?
 </p>
 
 <img data-src="i/a_02.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; very different! summarizing variables isn’t enough</em></p>
 </div>
 </section>
-<section id="bivariate-relationships-6" class="slide level2">
+<section id="bivariate-relationships-4" class="slide level2">
 <h2>Bivariate Relationships</h2>
 <p class="subheader">
 Summary statistics can hide important patterns
@@ -264,8 +257,8 @@ Summary statistics can hide important patterns
 </ul>
 </div>
 </section>
-<section id="cross-sectional-relationships" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Q. Is there a relationship between GDP and coffee production?
 </p>
@@ -277,8 +270,8 @@ Q. Is there a relationship between GDP and coffee production?
 <p><em>&gt; lets use a two dimensional graph</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-1" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-1" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Q. Is there a relationship between GDP and coffee production?
 </p>
@@ -287,8 +280,8 @@ Q. Is there a relationship between GDP and coffee production?
 <p><em>&gt; two dimensions is nice, but the points have no meaningful relationships</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-2" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-2" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Q. Is there a relationship between GDP and coffee production?
 </p>
@@ -297,8 +290,8 @@ Q. Is there a relationship between GDP and coffee production?
 <p><em>&gt; a scatterplot effectively visualizes scross sectional data with two dimensions</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-3" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-3" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries have a GDP above $2 trillion?
 </p>
@@ -307,80 +300,80 @@ Which countries have a GDP above $2 trillion?
 <p><em>&gt; look at the horizontal axis and select all that are greater than 2</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-4" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-4" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries have a GDP above $2 trillion?
 </p>
 
 <img data-src="i/c_04.png" class="r-stretch"><p><em>&gt; look at the horizontal axis and select all that are greater than 2</em></p>
 </section>
-<section id="cross-sectional-relationships-5" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-5" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries have a production above ½ billion kg?
 </p>
 
 <img data-src="i/c_03.png" class="r-stretch"><p><em>&gt; and we can use either axis</em></p>
 </section>
-<section id="cross-sectional-relationships-6" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-6" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries have a production above ½ billion kg?
 </p>
 
 <img data-src="i/c_05.png" class="r-stretch"><p><em>&gt; and we can use either axis</em></p>
 </section>
-<section id="cross-sectional-relationships-7" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-7" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce less coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_03.png" class="r-stretch"><p><em>&gt; we can also compare BETWEEN data points</em></p>
 </section>
-<section id="cross-sectional-relationships-8" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-8" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce less coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_06.png" class="r-stretch"><p><em>&gt; we can also compare BETWEEN data points</em></p>
 </section>
-<section id="cross-sectional-relationships-9" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-9" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce less coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
 </section>
-<section id="cross-sectional-relationships-10" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-10" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce less coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_08.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
 </section>
-<section id="cross-sectional-relationships-11" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-11" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce more coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
 </section>
-<section id="cross-sectional-relationships-12" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-12" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which countries produce more coffee per dollar than Brazil?
 </p>
 
 <img data-src="i/c_09.png" class="r-stretch"><p><em>&gt; separating lines can help make comparisons between ratios</em></p>
 </section>
-<section id="cross-sectional-relationships-13" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-13" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Do the GDPs of the upper or lower pair differ by a larger amount?
 </p>
@@ -389,8 +382,8 @@ Do the GDPs of the upper or lower pair differ by a larger amount?
 <p><em>&gt; use the differences on the horizontal axis to measure differences</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-14" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-14" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which is larger: the ratio of GDPs of the upper or lower pair?
 </p>
@@ -399,24 +392,24 @@ Which is larger: the ratio of GDPs of the upper or lower pair?
 <p><em>&gt; this question is difficult to answer with this scale</em></p>
 </div>
 </section>
-<section id="cross-sectional-relationships-15" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-15" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which is larger: the ratio of GDPs of the upper or lower pair?
 </p>
 
 <img data-src="i/c_11.png" class="r-stretch"><p><em>&gt; a log scale makes RATIOS easier to visualize: each tick is 10x larger</em></p>
 </section>
-<section id="cross-sectional-relationships-16" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-16" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which country produces the second highest output of coffee?
 </p>
 
 <img data-src="i/c_11.png" class="r-stretch"><p><em>&gt; a log scale also makes it easier to see SCALING</em></p>
 </section>
-<section id="cross-sectional-relationships-17" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
+<section id="bivariate-relationships-in-cross-section-17" class="slide level2">
+<h2>Bivariate Relationships in Cross-Section</h2>
 <p class="subheader">
 Which country produces the second highest output of coffee?
 </p>
@@ -424,58 +417,6 @@ Which country produces the second highest output of coffee?
 <img data-src="i/c_12.png" class="r-stretch"><div class="fragment">
 <p><em>&gt; scaling the vertical axis in logs clarifies both small and large variation</em></p>
 </div>
-</section>
-<section id="cross-sectional-relationships-18" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-How does GDP relate to coffee production in the Americas?
-</p>
-
-<img data-src="i/c_13.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; lets use a filter with this data</em></p>
-</div>
-</section>
-<section id="cross-sectional-relationships-19" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-How does GDP relate to coffee production in the Americas?
-</p>
-
-<img data-src="i/c_14.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; looks positive, but we’ll formally test this in Part 4</em></p>
-</div>
-</section>
-<section id="cross-sectional-relationships-20" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-Which country in the Americas produces the most coffee?
-</p>
-
-<img data-src="i/c_14.png" class="r-stretch"><p><em>&gt; looks positive, but we’ll formally test this in Part 4</em></p>
-</section>
-<section id="cross-sectional-relationships-21" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-Which country in the Americas produces the most coffee?
-</p>
-
-<img data-src="i/c_15.png" class="r-stretch"><p><em>&gt; </em></p>
-</section>
-<section id="cross-sectional-relationships-22" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-Which country’s GDP is closest to Brazil’s GDP?
-</p>
-
-<img data-src="i/c_15.png" class="r-stretch"><p><em>&gt; we can use the horizontal axis</em></p>
-</section>
-<section id="cross-sectional-relationships-23" class="slide level2">
-<h2>Cross-Sectional Relationships</h2>
-<p class="subheader">
-Which country’s GDP is closest to Brazil’s GDP?
-</p>
-
-<img data-src="i/c_16.png" class="r-stretch"><p><em>&gt; we can use a vertical line here to find the closest on the horizontal axis</em></p>
 </section>
 <section id="adding-more-variables" class="slide level2">
 <h2>Adding More Variables</h2>
@@ -491,16 +432,16 @@ So far we’ve encoded two variables using position
 </ul>
 </div>
 </section>
-<section id="adding-more-variables-1" class="slide level2">
-<h2>Adding More Variables</h2>
+<section id="trivariate-relationships-size" class="slide level2">
+<h2>Trivariate Relationships: Size</h2>
 <p class="subheader">
 We can use SIZE to encode a third numerical variable
 </p>
 
 <img data-src="i/e_01.png" class="r-stretch"><p><em>&gt; our standard scatterplot with position encoding</em></p>
 </section>
-<section id="size-encoding" class="slide level2">
-<h2>Size Encoding</h2>
+<section id="trivariate-relationships-size-1" class="slide level2">
+<h2>Trivariate Relationships: Size</h2>
 <p class="subheader">
 Each point’s SIZE now represents population
 </p>
@@ -509,8 +450,8 @@ Each point’s SIZE now represents population
 <p><em>&gt; larger bubbles = larger population</em></p>
 </div>
 </section>
-<section id="size-encoding-1" class="slide level2">
-<h2>Size Encoding</h2>
+<section id="trivariate-relationships-size-2" class="slide level2">
+<h2>Trivariate Relationships: Size</h2>
 <p class="subheader">
 Indonesia and Brazil stand out — large countries with high production
 </p>
@@ -519,47 +460,39 @@ Indonesia and Brazil stand out — large countries with high production
 <p><em>&gt; we can now see three variables at once: GDP, production, AND population</em></p>
 </div>
 </section>
-<section id="shape-encoding" class="slide level2">
-<h2>Shape Encoding</h2>
+<section id="trivariate-relationships-color" class="slide level2">
+<h2>Trivariate Relationships: Color</h2>
 <p class="subheader">
-What if we want to distinguish groups?
+We can also use COLOR to encode a third numerical variable
 </p>
 <p><br></p>
 <div>
 <ul>
-<li class="fragment">Color works, but what if we have many groups?</li>
-<li class="fragment">Or need to print in black &amp; white?</li>
-<li class="fragment"><strong>Shape</strong> lets us distinguish categories</li>
+<li class="fragment">A <strong>continuous color scale</strong> maps values to shades</li>
+<li class="fragment">Lighter → lower values, Darker → higher values</li>
+<li class="fragment">Works well when size would be hard to compare</li>
 </ul>
 </div>
 </section>
-<section id="shape-encoding-1" class="slide level2">
-<h2>Shape Encoding</h2>
+<section id="trivariate-relationships-color-1" class="slide level2">
+<h2>Trivariate Relationships: Color</h2>
 <p class="subheader">
-Each SHAPE represents a continent
+Each point’s COLOR now represents population
 </p>
 
-<img data-src="i/e_04.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; circles = Americas, squares = Africa, triangles = Asia</em></p>
+<img data-src="i/e_07.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; darker points = larger population</em></p>
 </div>
 </section>
-<section id="combining-encodings" class="slide level2">
-<h2>Combining Encodings</h2>
+<section id="trivariate-relationships-color-2" class="slide level2">
+<h2>Trivariate Relationships: Color</h2>
 <p class="subheader">
-We can use BOTH size and shape together
+Color makes it easy to spot high-population countries
 </p>
 
-<img data-src="i/e_05.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; now we see: GDP (x), production (y), population (size), continent (shape)</em></p>
+<img data-src="i/e_08.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; Brazil, Indonesia, and Ethiopia stand out as darker points</em></p>
 </div>
-</section>
-<section id="combining-encodings-1" class="slide level2">
-<h2>Combining Encodings</h2>
-<p class="subheader">
-Four variables in one plot
-</p>
-
-<img data-src="i/e_06.png" class="r-stretch"><p><em>&gt; Brazil and Indonesia dominate — large populations in Americas and Asia</em></p>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
@@ -569,8 +502,7 @@ Four variables in one plot
 <li class="fragment"><strong>Scatterplots</strong> show relationships between two numerical variables</li>
 <li class="fragment"><strong>Log scales</strong> help compare ratios and see variation across orders of magnitude</li>
 <li class="fragment"><strong>Size encoding</strong> adds a third numerical variable (bubble charts)</li>
-<li class="fragment"><strong>Shape encoding</strong> distinguishes categorical groups</li>
-<li class="fragment">Combining encodings lets us visualize multiple dimensions at once</li>
+<li class="fragment"><strong>Color encoding</strong> adds a third numerical variable (continuous color scale)</li>
 </ul>
 </div>
 </section>
@@ -579,21 +511,14 @@ Four variables in one plot
 <p class="subheader">
 Visualizing GDP and Coffee Production Relationships
 </p>
-<p>We’re going to use a scatterplot to visually examine the relationship between coffee production and GDP.</p>
+
+<img data-src="i/c_13.png" class="r-stretch"><p>Was the relationship between coffee production and GDP different in 1980?</p>
 <ul>
-<li><strong>Data:</strong> <code>Beans_GDP_2019.csv</code></li>
+<li><strong>Data:</strong> <code>Beans_GDP_1980.csv</code></li>
 </ul>
 </section>
 <section id="exercise-2.1-cross-sectional-scatterplots-1" class="slide level2">
 <h2>Exercise 2.1 | Cross-Sectional Scatterplots</h2>
-<p class="subheader">
-Visualizing GDP and Coffee Production Relationships
-</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Scatterplot</span></span>
-<span id="cb1-2"><a href=""></a>sns.scatterplot(gdp, x<span class="op">=</span><span class="st">'GDP'</span>, y<span class="op">=</span><span class="st">'coffee_prod'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="exercise-2.1-log-transformation" class="slide level2">
-<h2>Exercise 2.1 | Log Transformation</h2>
 <p class="subheader">
 How does GDP relate to coffee production?
 </p>
@@ -605,7 +530,7 @@ How does GDP relate to coffee production?
 <span id="cb3-2"><a href=""></a>sns.scatterplot(gdp, x<span class="op">=</span><span class="st">'log_GDP'</span>, y<span class="op">=</span><span class="st">'log_prod'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exercise-2.1-log-transformation-1" class="slide level2">
+<section id="exercise-2.1-log-transformation" class="slide level2">
 <h2>Exercise 2.1 | Log Transformation</h2>
 <p class="subheader">
 Alternative: use log scale without transforming
@@ -615,8 +540,24 @@ Alternative: use log scale without transforming
 <span id="cb4-3"><a href=""></a>plt.xscale(<span class="st">'log'</span>)</span>
 <span id="cb4-4"><a href=""></a>plt.yscale(<span class="st">'log'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="timeseries-relationships" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="exercise-2.1-cross-sectional-scatterplots-2" class="slide level2">
+<h2>Exercise 2.1 | Cross-Sectional Scatterplots</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Encode population size as bubble size</span></span>
+<span id="cb5-2"><a href=""></a>sns.scatterplot(gdp, x<span class="op">=</span><span class="st">'GDP'</span>, y<span class="op">=</span><span class="st">'coffee_prod'</span>, size<span class="op">=</span><span class="st">'population'</span>, sizes<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">200</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="exercise-2.1-cross-sectional-scatterplots-3" class="slide level2">
+<h2>Exercise 2.1 | Cross-Sectional Scatterplots</h2>
+<p class="subheader">
+How does GDP relate to coffee production?
+</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Encode population size as color</span></span>
+<span id="cb6-2"><a href=""></a>sns.scatterplot(gdp, x<span class="op">=</span><span class="st">'GDP'</span>, y<span class="op">=</span><span class="st">'coffee_prod'</span>, hue<span class="op">=</span><span class="st">'population'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bivariate-relationships-timeseries" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 How do the two commodity prices relate to each other?
 </p>
@@ -625,29 +566,29 @@ How do the two commodity prices relate to each other?
 <p><em>&gt; difficult to tell because of the axis scale</em></p>
 </div>
 </section>
-<section id="timeseries-relationships-1" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-1" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 How do the two commodity prices relate to each other?
 </p>
 
 <img data-src="i/c_19.png" class="r-stretch"></section>
-<section id="timeseries-relationships-2" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-2" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 In which years did oil and coffee prices move in <strong>opposite</strong> directions?
 </p>
 
 <img data-src="i/c_19.png" class="r-stretch"></section>
-<section id="timeseries-relationships-3" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-3" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 In which years did oil and coffee prices move in <strong>opposite</strong> directions?
 </p>
 
 <img data-src="i/c_20.png" class="r-stretch"></section>
-<section id="timeseries-relationships-4" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-4" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 But are the two prices positively or negatively related to each other?
 </p>
@@ -656,8 +597,8 @@ But are the two prices positively or negatively related to each other?
 <p><em>&gt; this is difficult to see with just a Multi-Lineplot…</em></p>
 </div>
 </section>
-<section id="timeseries-relationships-5" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-5" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 But are the two prices positively or negatively related to each other?
 </p>
@@ -666,8 +607,8 @@ But are the two prices positively or negatively related to each other?
 <p><em>&gt; a Scatterplot can show the relationship between two variables through time</em></p>
 </div>
 </section>
-<section id="timeseries-relationships-6" class="slide level2">
-<h2>Timeseries Relationships</h2>
+<section id="bivariate-relationships-timeseries-6" class="slide level2">
+<h2>Bivariate Relationships: Timeseries</h2>
 <p class="subheader">
 Does the price of oil determine the price of coffee?
 </p>
@@ -691,8 +632,8 @@ Visualizing Coffee Prices and Oil Prices
 <p class="subheader">
 Visualizing Coffee Prices and Oil Prices
 </p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Scatterplot</span></span>
-<span id="cb5-2"><a href=""></a>sns.scatterplot(gdp, x<span class="op">=</span><span class="st">'GDP'</span>, y<span class="op">=</span><span class="st">'coffee_prod'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Scatterplot</span></span>
+<span id="cb7-2"><a href=""></a>sns.scatterplot(prices, x<span class="op">=</span><span class="st">'Coffee'</span>, y<span class="op">=</span><span class="st">'Oil'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </section>
     </div>

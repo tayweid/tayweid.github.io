@@ -53,19 +53,18 @@
         <div class="content">
 
             <div class="description">
-                <h1 class="title title-tight">Part 2 | Bivariate EDA</h1>
+                <h1 class="title title-tight">Part 2 | Multivariate EDA</h1>
                 <i class="subtitle-text">> summarize relationships between variables</i>
                 <p>
                     We'll explore how variables relate to each other through scatterplots, grouped comparisons,
-                    filtering, and geographic visualizations. This is where data starts telling richer stories.
+                    and conditional analysis. This is where data starts telling richer stories.
                 </p>
             </div>
 
             <!-- Part 2.1 -->
             <div class="carousel-container" id="part-21">
-                <h1 class="subtitle">Part 2.1 | Bivariate (Num × Num)</h1>
-                <p>Visualize the relationship between two numerical variables. Scatterplots, bubble charts, and why
-                    summary statistics can mislead.</p>
+                <h1 class="subtitle">Part 2.1 | Numerical × Numerical (× Numerical)</h1>
+                <p>Visualize relationships between numerical variables. Anscombe's Quartet shows why we visualize. Scatterplots for two variables; bubble charts and color encoding for three or more.</p>
                 <div class="carousel">
                     <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                         <span>‹</span>
@@ -154,8 +153,8 @@
 
             <!-- Part 2.2 -->
             <div class="carousel-container" id="part-22">
-                <h1 class="subtitle">Part 2.2 | Grouping (Num × Cat)</h1>
-                <p>Compare a numerical variable across categories. Grouped boxplots and summary statistics by group.</p>
+                <h1 class="subtitle">Part 2.2 | Numerical × Categorical</h1>
+                <p>Compare a numerical variable across categories. Grouped boxplots show how distributions differ by group.</p>
                 <div class="carousel">
                     <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                         <span>‹</span>
@@ -244,8 +243,8 @@
 
             <!-- Part 2.3 -->
             <div class="carousel-container" id="part-23">
-                <h1 class="subtitle">Part 2.3 | Filtering Data</h1>
-                <p>Use logical operators (AND, OR, NOT) and comparison operators to create subsets. Focus analysis on specific groups.</p>
+                <h1 class="subtitle">Part 2.3 | Numerical × Numerical × Categorical</h1>
+                <p>Does a relationship differ across groups? Use color and faceting to compare scatterplots by category. Filter data to focus on specific subgroups.</p>
                 <div class="carousel">
                     <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
                         <span>‹</span>
@@ -271,8 +270,8 @@
                                 <img src="" alt="Video thumbnail" class="placeholder-bg">
                             </div>
                             <div class="card-content">
-                                <h3 class="card-title">Concept 2.3 // Filtering Data</h3>
-                                <p class="card-description">Creating subsets with logical conditions to focus analysis.</p>
+                                <h3 class="card-title">Concept 2.3 // Conditional Relationships</h3>
+                                <p class="card-description">Scatterplots by category; faceting; filtering to compare subgroups.</p>
                                 <div class="card-downloads">
                                     <a href="parts/part-2-3/concept_2_3.pdf" class="download-link" target="_blank">
                                         <i class="fa fa-file-pdf-o"></i> Slides
@@ -293,8 +292,8 @@
                                 <img src="" alt="Video thumbnail" class="placeholder-bg">
                             </div>
                             <div class="card-content">
-                                <h3 class="card-title">Exercise 2.3 // Filtering Location Data</h3>
-                                <p class="card-description">Filter Starbucks location data by various conditions.</p>
+                                <h3 class="card-title">Exercise 2.3 // Conditional Analysis</h3>
+                                <p class="card-description">Compare relationships across groups using color, facets, and filters.</p>
                                 <div class="card-downloads">
                                     <a href="parts/part-2-3/Exercise_2_3.ipynb" class="download-link" target="_blank">
                                         <i class="fa fa-file-code-o"></i> Notebook
@@ -330,96 +329,12 @@
                 </div>
             </div>
 
-            <!-- Part 2.5 -->
-            <div class="carousel-container" id="part-25">
-                <h1 class="subtitle">Part 2.5 | Geographic Data</h1>
-                <p>Visualize data with a spatial dimension. Maps as a way to show how variables vary across locations.
-                </p>
-                <div class="carousel">
-                    <button class="carousel-arrow carousel-arrow-left" aria-label="Previous">
-                        <span>‹</span>
-                    </button>
-                    <div class="carousel-track">
-
-                        <!-- Livestream (hidden to left, no indicator) -->
-                        <div class="carousel-card livestream-card" data-video-id="">
-                            <div class="card-video">
-                                <img src="" alt="Video thumbnail" class="placeholder-bg">
-                            </div>
-                            <div class="card-content">
-                                <h3 class="card-title">Livestream 2.5</h3>
-                                <p class="card-description">Class recording</p>
-                                <div class="card-downloads">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Concept -->
-                        <div class="carousel-card concept-card" data-video-id="">
-                            <div class="card-video">
-                                <img src="" alt="Video thumbnail" class="placeholder-bg">
-                            </div>
-                            <div class="card-content">
-                                <h3 class="card-title">Concept 2.5 // Geographic Data</h3>
-                                <p class="card-description">Location as an index; choropleth maps; spatial patterns.</p>
-                                <div class="card-downloads">
-                                    <a href="parts/part-2-5/concept_2_5.pdf" class="download-link" target="_blank">
-                                        <i class="fa fa-file-pdf-o"></i> Slides
-                                    </a>
-                                    <a href="parts/part-2-5/concept_2_5.html" class="download-link" target="_blank">
-                                        <i class="fa fa-file-pdf-o"></i> Interactive
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Exercise -->
-                        <div class="carousel-card exercise-card" data-video-id="">
-                            <div class="card-video">
-                                <img src="" alt="Video thumbnail" class="placeholder-bg">
-                            </div>
-                            <div class="card-content">
-                                <h3 class="card-title">Exercise 2.5 // Mapping Data</h3>
-                                <p class="card-description">Practice creating choropleth maps.</p>
-                                <div class="card-downloads">
-                                    <!-- Exercise notebook to be added -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Homework -->
-                        <div class="carousel-card homework-card" data-video-id="">
-                            <div class="card-video">
-                                <img src="" alt="Video thumbnail" class="placeholder-bg">
-                            </div>
-                            <div class="card-content">
-                                <h3 class="card-title">Homework 2.5</h3>
-                                <p class="card-description">Due on Gradescope</p>
-                                <div class="card-downloads">
-                                    <a href="parts/part-2-5/HW_2_5.pdf" class="download-link" target="_blank">
-                                        <i class="fa fa-file-pdf-o"></i> Assignment
-                                    </a>
-                                    <a href="parts/part-2-5/Homework_2_5.ipynb" class="download-link" target="_blank">
-                                        <i class="fa fa-file-code-o"></i> Notebook
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <button class="carousel-arrow carousel-arrow-right" aria-label="Next">
-                        <span>›</span>
-                    </button>
-                    <div class="carousel-indicator"></div>
-                </div>
-            </div>
-
             <!-- MINIEXAMS -->
             <div id="miniexams">
                 <h1 class="subtitle">MiniExams</h1>
                 <p>
-                    MiniExam 2 covers everything in Part 2: bivariate relationships, grouped comparisons, filtering,
-                    and geographic data. Practice with the exercises and homework to prepare.
+                    MiniExam 2 covers everything in Part 2: numerical relationships, grouped comparisons, and conditional analysis.
+                    Practice with the exercises and homework to prepare.
                 </p>
 
                 <div class="carousel-card standalone-card homework-card" data-video-id="">
@@ -428,7 +343,7 @@
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">MiniExam 2 Demo</h3>
-                        <p class="card-description">MiniExam 2 Demo covers all material from Parts 2.1 through 2.3 and 2.5.</p>
+                        <p class="card-description">MiniExam 2 Demo covers all material from Parts 2.1 through 2.3.</p>
                         <div class="card-downloads">
                             <a href="ME/ME_2/ME_2_Demo.pdf" class="download-link" target="_blank">
                                 <i class="fa fa-file-pdf-o"></i> Demo
@@ -452,10 +367,9 @@
                 <ul>
                     <span>Contents</span>
                     <hr class="nav-hr-right">
-                    <li class="nav-item-no-margin"><a href="#part-21" class="active nav-link-right">2.1 | Bivariate</a></li>
-                    <li><a href="#part-22" class="nav-link-right">2.2 | Grouping</a></li>
-                    <li><a href="#part-23" class="nav-link-right">2.3 | Filtering</a></li>
-                    <li><a href="#part-25" class="nav-link-right">2.5 | Geographic</a></li>
+                    <li class="nav-item-no-margin"><a href="#part-21" class="active nav-link-right">2.1 | N × N</a></li>
+                    <li><a href="#part-22" class="nav-link-right">2.2 | N × C</a></li>
+                    <li><a href="#part-23" class="nav-link-right">2.3 | N × N × C</a></li>
                     <li><a href="#miniexams" class="nav-link-right">MiniExam</a></li>
                 </ul>
             </nav>

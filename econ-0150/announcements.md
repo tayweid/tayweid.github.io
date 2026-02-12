@@ -70,11 +70,13 @@ Taylor
 
 Hi folks,
 
-Congrats on making it through Part 1! We've covered how to explore and summarize data appropriately. We started the semester with exploratory data analysis with nice and well organized datasets. Everything I've given you so far has been in the right format to easily summarize. But sometimes we don't get datasets that are nicely set up for our question at hand. 
+Congrats on making it through Part 1! We've covered how to explore and summarize univariate data appropriately. 
 
-On Tuesday (tomorrow) after MiniExam 1 we start Part 2, where we begin developing basic skills of data operations. We'll begin with cleaning data, then talk about grouping, transforming, reshaping, and merging. These skills will set up all the foundational skills to use data to develop statistical models starting in Part 3.
+MiniExam 1 will take place during the first 20 minutes of class on Tuesday (tomorrow). As I mentioned in class, the MiniExam 1 Demo is posted at the bottom of the Part 1 page. If you feel good about the Demo, the Homework, and the Exercises we've done in class, you're going to be in good shape going into the MiniExam. The updated recording I made had some technical issues so we'll have to be content with last semester's similar video. It should give you a good idea about the thought process. The questions and solutions posted below the video are up-to-date this semester.
 
-MiniExam 1 will take place during the first 20 minutes of class on Tuesday (tomorrow). As I mentioned in class, the MiniExam 1 Demo is posted at the bottom of the Part 1 page. If you feel good about the Demo, the Homework, and the Exercises we've done in class, you're going to be in good shape going into the MiniExam. And don't hesitate to reach out before the next MiniExam if you feel like you'd want more resources next time.
+After MiniExam 1 we'll talk about your Part 1 project where you demonstrate the practical side of working with data. You'll take a dataset of your choosing and summarize a single variable. At this point, the skills for the Part 1 project should feel straightforward. So focus on finding a dataset that will be of interest to you as we build to the course's final project.
+
+On Thursday, we'll start Part 2, summarizing multivariate RELATIONSHIPS. This is where we begin to be able to ask bigger questions of our datasets. 
 
 
 

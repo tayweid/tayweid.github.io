@@ -8,9 +8,102 @@ format:
 ## ECON 0150 | Economic Data Analysis {.center}
 <p class="subheader-center">The economist's data analysis skillset.</p>
 
-<br> 
+<br>
 
-### *Part 2.3 | Filtering Data*
+### *Part 2.3 | Numerical × Numerical × Categorical*
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
+
+![](../part-2-1/i/c_13.png)
+
+. . .
+
+*> lets use a filter with this data*
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">How does GDP relate to coffee production in the Americas?</p>
+
+![](../part-2-1/i/c_14.png)
+
+. . .
+
+*> looks positive, but we'll formally test this in Part 4*
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">Which country in the Americas produces the most coffee?</p>
+
+![](../part-2-1/i/c_14.png)
+
+*> looks positive, but we'll formally test this in Part 4*
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">Which country in the Americas produces the most coffee?</p>
+
+![](../part-2-1/i/c_15.png)
+
+*> *
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">Which country's GDP is closest to Brazil's GDP?</p>
+
+![](../part-2-1/i/c_15.png)
+
+*> we can use the horizontal axis*
+
+---
+
+## Cross-Sectional Relationships
+<p class="subheader">Which country's GDP is closest to Brazil's GDP?</p>
+
+![](../part-2-1/i/c_16.png)
+
+*> we can use a vertical line here to find the closest on the horizontal axis*
+
+---
+
+## Encoding Categories
+<p class="subheader">We can use color and shape to distinguish categorical groups</p>
+
+<br>
+
+::: {.incremental}
+- **Color encoding** maps categories to different colors
+- **Shape encoding** maps categories to different shapes
+- Useful for comparing groups within a scatterplot
+:::
+
+---
+
+## Color Encoding
+<p class="subheader">Each COLOR represents a continent</p>
+
+![](../part-2-1/i/e_09.png)
+
+. . .
+
+*> different colors = different continents*
+
+---
+
+## Shape Encoding
+<p class="subheader">Each SHAPE represents a continent</p>
+
+![](../part-2-1/i/e_04.png)
+
+. . .
+
+*> circles = Americas, squares = Africa, triangles = Asia*
 
 ---
 
