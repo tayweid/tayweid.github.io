@@ -258,6 +258,17 @@ sns.relplot(anscombe, x='x', y='y', col='dataset')
 
 ---
 
+## Bivariate Relationships in Cross-Section
+<p class="subheader">Linear vs Log Scale: Same data, different views</p>
+
+![](i/c_03_12.png)
+
+. . .
+
+*> log scales reveal patterns hidden by outliers in linear scale*
+
+---
+
 ## Adding More Variables
 <p class="subheader">So far we've encoded two variables using position</p>
 
