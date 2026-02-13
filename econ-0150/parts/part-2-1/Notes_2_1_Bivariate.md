@@ -103,11 +103,7 @@ Now let's make each point's size represent that country's population. Larger bub
 
 ![](i/e_02.png)
 
-This type of visualization is called a **bubble chart**. We can now see three variables at once: GDP (horizontal position), coffee production (vertical position), and population (bubble size).
-
-![](i/e_03.png)
-
-Indonesia and Brazil stand out — they're large countries with high coffee production. Vietnam produces a lot of coffee but has a smaller bubble (smaller population than Indonesia). This gives us richer insight than a simple two-variable scatter plot.
+This type of visualization is called a **bubble chart**. We can now see three variables at once: GDP (horizontal position), coffee production (vertical position), and population (bubble size). Larger countries stand out giving us richer insight than a simple two-variable scatter plot, even if only marginally.
 
 ### Adding More Variables: Color Encoding
 
@@ -115,11 +111,7 @@ We can also use **color** to encode a third numerical variable. A **continuous c
 
 ![](i/e_07.png)
 
-Here, each point's color represents that country's population. Darker points have larger populations.
-
-![](i/e_08.png)
-
-Color encoding works well when bubble sizes would be hard to compare, or when you want to highlight a different pattern than size would show. Brazil, Indonesia, and Ethiopia stand out as darker points — high-population countries.
+Here, each point's color represents that country's population. Darker points have larger populations. Similar to bubble charts, color scales can add a small amount of visual information but can also make the main visualized relationship less clear.
 
 ### Scatterplots and Timeseries Relationships
 
