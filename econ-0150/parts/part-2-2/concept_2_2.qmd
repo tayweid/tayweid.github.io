@@ -61,7 +61,7 @@ Use a boxplot to show the distribution of numerical variables by category.
 
 ```{.python}
 # Boxplot
-sns.boxplot(data, x='Offer ID', y='Revenue')
+sns.boxplot(data, x='Offer ID', y='Revenue', whis=(0,100))
 ```
 
 ---
@@ -91,6 +91,15 @@ data[['Revenue', 'log2_Revenue']].head()
 
 ---
 
+## Log Transformation: Visualized
+<p class="subheader">The transformation spreads out skewed data</p>
+
+![](i/log_transform_joint.png)
+
+*> x-axis is compressed at low values; y-axis spreads them out evenly*
+
+---
+
 ## Exercise 2.2 | Log Revenue by Offer Type
 <p class="subheader">Create a boxplot with the log-transformed variable to better see the distribution.</p>
 
@@ -109,7 +118,7 @@ data['log2_Revenue'] = np.log2(1 + data['Revenue'])
 Create a boxplot of log revenue `log2_Revenue`. 
 
 ```{.python}
-sns.boxplot(data, x='Offer ID', y='log2_Revenue')
+sns.boxplot(data, x='Offer ID', y='log2_Revenue', whis=(0,100))
 ```
 
 . . .
@@ -134,7 +143,7 @@ sns.stripplot(data, x='Offer ID', y='log2_Revenue', alpha=0.3, color='black')
 ---
 
 ## Exercise 2.2 | Investigate the Data
-<p class="subheader">Count the unique values in the Event column to understand what's causing the zeros.</p>
+<p class="subheader">What's in the Event column?</p>
 
 . . .
 
@@ -148,10 +157,10 @@ data['Event'].value_counts()
 
 . . .
 
-Summarize counts using a bar chart.
+Summarize counts using a countplot.
 
 ```{.python}
-data['Event'].value_counts().plot(kind='barh')
+sns.countplot(data, x='Event')
 ```
 
 ---
@@ -161,7 +170,31 @@ data['Event'].value_counts().plot(kind='barh')
 
 ![](i/event_counts.png)
 
-*> offers and completions have zero revenue; transactions are real spending*
+*> most rows are offers, not transactions*
+
+---
+
+## Exercise 2.2 | Revenue by Event
+<p class="subheader">Where is revenue coming from?</p>
+
+. . .
+
+<br>
+
+Create a boxplot of `Revenue` by `Event`.
+
+```{.python}
+sns.boxplot(data, x='Event', y='Revenue', whis=(0,100))
+```
+
+---
+
+## Revenue by Event Type
+<p class="subheader">Only transactions have revenue</p>
+
+![](i/revenue_by_event.png)
+
+*> offers and completions have zero revenue — that's why we see so many zeros*
 
 ---
 
@@ -185,7 +218,7 @@ transactions = data[data['Event'] == 'transaction']
 2. Create a boxplot of log revenue by offer type using only transactions.
 
 ```{.python}
-sns.boxplot(transactions, x='Offer ID', y='log2_Revenue')
+sns.boxplot(transactions, x='Offer ID', y='log2_Revenue', whis=(0,100))
 sns.stripplot(transactions, x='Offer ID', y='log2_Revenue')
 ```
 
@@ -276,7 +309,7 @@ transactions.groupby('Offer ID')['log2_Revenue'].agg(['mean', 'std', 'count']).r
 
 ```{.python}
 two_offers = transactions[transactions['Offer ID'].isin(['Bogo 5', 'Bogo 10'])]
-sns.boxplot(two_offers, x='Offer ID', y='log2_Revenue')
+sns.boxplot(two_offers, x='Offer ID', y='log2_Revenue', whis=(0,100))
 ```
 
 ---

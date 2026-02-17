@@ -1,84 +1,116 @@
-- the two means doesn't work well. maybe take out the wrong one so we stay on track. it's already long enough. somehow add it to part 1.
+## Part 2.2 | Numerical Variables by Category
 
-## Part 2.2 | Grouping Data
+### The Economic Question
 
-One of the basic ideas in economics is that people respond to incentives. Like many restaurants and retailers, Starbucks offers a variety of incentives to help entice customers to change their behavior. Every time you make a purchase, unless you're using cash, Starbucks will keep track of you and your decisions. If you use a promo code, Starbucks knows what you've bought in the past, and that you're using the promo now. Starbucks preserves a record of every time a customer uses an offer so they can determine which offers are most effective at changing behavior. We're going to use this data to examine which of their promos changes behavior the most. 
+In Part 0, we saw how Card and Krueger tested a hypothesis about minimum wage. Economic theory predicted one thing: higher minimum wages would reduce employment. But the data told a different story. They compared employment in New Jersey (which raised its minimum wage) to Pennsylvania (which didn't) and found no significant difference.
 
-*How can they tell which promotions are working?* This table contains a record of every time an offer has been sent to a customer (an “Offer”) or used for a purchase (a “Transaction”). 
+We're going to do something similar here, although not nearly as impactful. One of the basic ideas in economics is that people respond to incentives. Starbucks sends different promotional offers to different customers: BOGO deals, dollars off, percentage discounts. Economic intuition says bigger incentives should lead to bigger responses. But do they?
 
-*Can you tell from the table which offer types are most effective?* Clearly not. As is typical for large datasets, the dataset itself can give a nice picture of what's in the data, but it's very difficult to get a sense of the data and the relationships in the data without doing something else. 
+*Our hypothesis: Customers who receive larger offers (like BOGO 10) will spend more than those who receive smaller offers (like BOGO 5).*
 
-*What should we do here to try to understand which offers have been sent?* Well we could count up the offers sent and then make a bar chart of counts by `Offer ID`! 
+The data contains records of every time Starbucks sent an offer and every purchase customers made. Our job is to test whether the data supports our hypothesis.
 
-![](i/i_01.png)
+### First Attempt: Just Look at the Data
 
-*Does this tell us which offers were most effective?* Not directly. It tells us which offers were sent, but we want to understand something meaningful about how effective the offers were when they were sent. 
+Let's start by visualizing spending by offer type. A boxplot shows the distribution of a numerical variable across categories.
 
-*What's a way we could measure how much revenue each offer brings in?* Lets add up the revenue by `Offer ID`. Here is a more useful-looking table and figure of total revenue from each promotion. 
+![](i/first_attempt_raw.png)
 
-![](i/i_07.png)
+*What's wrong with this picture?* Everything is compressed at zero. We can't see any meaningful differences between offer types. This is a common problem with spending data — most values are small, but a few large purchases stretch the scale.
 
-*How did we get this from the original table?* I made this table from the original data by **grouping** rows by their Offer ID, and **summing** the revenues. Every good data analysis program has this functionality. Notice that our grouped table has 5 rows, corresponding to the 5 different Offer IDs. But that’s not the only column we can group by.
+### Log Transformation
 
-*How many rows would you expect if we group by `Event`?* We get one for every cateogy in the column. There are only two rows, because there are only two types of values in `Event`
+When data is heavily skewed, a log transformation helps. We'll use log base 2, where each unit represents a doubling of spending:
 
-![](i/i_02.png)
+- log2(1+$7) = 3
+- log2(1+$15) = 4
+- log2(1+$31) = 5
 
-*How much revenue do you think is brought in for each of these two Event-Types?* Here’s what we get when we group by `Event` and then sum up the revenue in each group. The sum value for 'offer' is 0 because there is no revenue from these values. 
+The "+1" handles zero-dollar values (since log of zero is undefined). Now small differences at low spending levels are visible, and large outliers don't dominate the scale.
 
-![](i/i_03.png)
+![](i/log_transform_joint.png)
 
-#### Grouping and Filtering
+The x-axis histogram shows the original data which is heavily skewed right. The y-axis histogram shows the transformed data which is much more spread out. This is why we transform.
 
-*Now we have an idea of how grouping works, how might we use the data to find out which offer has changed behavior the most?* We saw earlier that of all Starbucks' offers, *2off10* brought in the most revenue in total. 
+### A Problem in the Data
 
-*But does this mean that 2off10 is the most effective?* Not necessarily. It might be that Starbucks sent out way more of this offer. It turns out '2off10' is sent out way more often than '5off20' and '3off7'.
+After transforming, we can see the distributions better. But there's a new problem: lots of zeros.
 
-![](i/i_04.png)
+![](i/log_with_zeros.png)
 
-*How might we compare revenue by offers according to how often they were sent out?* Lets find the average revenue by Offer-Type! When we group by Offer ID and take the mean we get surprisingly small numbers. 
+*Why so many zeros?* Let's investigate. The data has three types of events:
 
-![](i/i_09.png)
+- **offer** — Starbucks sent an offer to a customer
+- **transaction** — a customer made a purchase
+- **offer completed** — a customer redeemed an offer
 
-*How can the average spend be only 8.81 for the offer "5 off when you spend 20”?* Should the spending be at least 20? We forgot to remove the Offer rows! All the Offer rows in the table had a revenue of 0. 
+Only transactions have revenue. Offers and completions have zero revenue because they're not purchases. We were accidentally including non-purchases in our analysis.
 
-*How should we fix this problem?* Lets filter for only Transaction rows then find the mean. We can see now that *5off20* brings in the most Revenue per Transaction. 
+### Filter First, Then Analyze
 
-![](i/i_08.png)
+This is a crucial lesson: *know your data before you analyze it.* We need to filter for transactions only.
 
-*Do you think that means it is the most effective offer?* It depends what we mean by effective. You have to spend at least $20 to unlock this offer, so it’s not surprising that the average spend is high. 
+```python
+transactions = data[data['Event'] == 'transaction']
+```
 
-*How would we measure which offer changed behavior the most?* Even though Mean Revenue by Offer Type is useful, I would want to know which offer would be most likely to be used upon being sent. In other words, what is the Redeption Rate by Offer Type? I want to know how likely the offer is to be used once it's sent. 
+Now every row is a real purchase.
 
-#### Grouping, Filtering, and Transforming
+![](i/transactions_clean_strip.png)
 
-*Mechanically, how would we go about finding the Redemption Rate?* All we need is the number of Transactions divided by the number of Offers. To start, lets filter for Transactions, then group by `Offer ID`, then count. 
+The stripplot shows individual transactions. Now we can see actual variation in spending across offer types.
 
-![](i/i_05.png)
+### Grouped Statistics
 
-Then we can do the same thing for all the offers sent out: filter for 'Offer', group by `Offer ID`, then count. 
+With clean data, we can calculate summary statistics by offer type:
 
-![](i/i_04a.png)
+| Offer ID | Mean | Std | Count |
+|----------|------|-----|-------|
+| 2off10 | 4.32 | 0.89 | ... |
+| 3off7 | 4.18 | 0.94 | ... |
+| 5off20 | 4.58 | 0.77 | ... |
+| Bogo 5 | 4.27 | 0.91 | ... |
+| Bogo 10 | 4.41 | 0.85 | ... |
 
-Then all we need to do is divide the number of Transactions per Offer-Type by the number of Offers per Offer-Type.
+The means differ. 5off20 has the highest average log spending. Bogo 10 beats Bogo 5. But look at those standard deviations — there's substantial variation within each group.
 
-![](i/i_06.png)
+### Testing the Hypothesis: Bogo 5 vs Bogo 10
 
-#### Conclusions
+Back to our hypothesis. Economic intuition says Bogo 10 (a bigger incentive) should lead to more spending than Bogo 5. The means support this — Bogo 10 is higher. But let's look at the full distributions.
 
-As usual, our question informs our analysis. The main question we might be interested in are which offer changes behavior the most. We can either look at behavior as whether the buyer used the offer or how much they spent when the used the offer. 
+![](i/compare_01.png)
 
-If we look at how much revenue would we expect each offer type to bring in, according to 'Mean Revenue per Offer-Type', it looks like *5off20* is the most effective by this metric. However, at $5 per transaction it's fairly expensive for Starbucks. 
+Bogo 10 does have higher average spending. But look at the overlap. Many Bogo 5 customers spent more than many Bogo 10 customers.
 
-Instead, if we look at how likely is the buyer to purchase something with the offer, according to 'Redemption Rate per Offer-Type', *5off20* doesn't look so good on this metric — less than half of the *5off20* offers sent to customers are ever used.
+![](i/compare_02.png)
 
-If we look at both together:
+The gray region shows where the distributions overlap. It's substantial.
 
-- *2off10* ranks second on both metrics, while *3off7* is best for Transactions per Offer and third best for Revenue per Offer.
+### The Key Question
 
-- *3off7* and *2off10* do a similar job of bringing in customers and revenue. But the cost of offering these discounts for the cafe is not the same.
+This is where Card and Krueger faced the same challenge. They found that New Jersey employment was slightly higher than Pennsylvania after the minimum wage increase. But was that difference real, or just noise?
 
-Which would you recommend as the most cost effective offer?
+We're in the same position. Bogo 10 spending is higher than Bogo 5 on average. But:
 
-*2off10* is a smaller discount than *3off7* both in dollars ($2 vs. $3) and as a percentage of the sale (20% vs. 43%)
+- There's lots of variation within each group
+- The distributions overlap considerably
+- Some Bogo 5 customers outspent Bogo 10 customers
 
+*Is the difference we observe actually meaningful, or could it have happened by chance?*
+
+This is the fundamental question of statistical inference. We can describe the data. We can visualize it. But to answer whether the difference is real, we need new tools.
+
+### Looking Ahead
+
+In Part 3, we'll learn how to answer this question formally. Just like Card and Krueger needed statistical methods to conclude that the minimum wage effect was "not significantly different from zero," we need methods to determine if Bogo 10 really outperforms Bogo 5, or if we're just seeing noise.
+
+For now, the takeaway is this: *means can hide important information.* Always visualize your distributions. And when you see overlap, be skeptical of simple comparisons.
+
+### Summary
+
+- **Summary statistics can hide problems** — always visualize
+- **Log transformation** helps with skewed data
+- **Filter your data** — make sure you're analyzing what you think
+- **Boxplots by category** show distributions, not just means
+- **Overlapping distributions** raise inference questions
+- **Testing hypotheses** requires more than comparing means
