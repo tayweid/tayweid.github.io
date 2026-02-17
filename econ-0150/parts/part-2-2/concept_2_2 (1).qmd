@@ -1,0 +1,345 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 2.2 | Numerical Variables by Category*
+
+---
+
+## Behavioral Response to Incentives
+<p class="subheader">How do buyers respond to different discount structures?</p>
+
+<br><br>
+
+::: {.incremental}
+- Starbucks sent different promotional offers to different buyers
+- Each offer has a different structure (BOGO, $2 off $10, $5 off $20, etc.)
+:::
+
+<br><br>
+
+. . .
+
+***Question:** Which incentive structure affects buying behavior the most?*
+
+---
+
+## The Data
+<p class="subheader">Let's load the data and take a look</p>
+
+```{python}
+import pandas as pd
+import numpy as np
+data = pd.read_csv('data/Starbucks_Promos.csv', index_col=0)
+data.head(5)
+```
+
+. . .
+
+<br>
+
+*> which would we expect customers to respond most to: Bogo 5 or Bogo 10?*
+
+---
+
+## Exercise 2.2 | Revenue by Offer Type
+<p class="subheader">Visualize the data to answer whether Bogo 5 or Bogo 10 has higher average spending.</p>
+
+. . .
+
+<br><br>
+
+Use a boxplot to show the distribution of numerical variables by category.
+
+```{.python}
+# Boxplot
+sns.boxplot(data, x='Offer ID', y='Revenue')
+```
+
+---
+
+## Revenue by Offer Type: Boxplot
+<p class="subheader">The distribution of revenue by offer type.</p>
+
+![](i/first_attempt_raw.png)
+
+. . .
+
+*> hard to see — why are so many values compressed at zero?*
+
+---
+
+## Log Transformation: Skewed Data
+<p class="subheader">Each unit = a doubling of spending</p>
+
+```{python}
+data['log2_Revenue'] = np.log2(1 + data['Revenue'])
+data[['Revenue', 'log2_Revenue']].head()
+```
+
+. . .
+
+*> log2(1+$7) = 3, log2(1+$15) = 4, log2(1+$31) = 5*
+
+---
+
+## Exercise 2.2 | Log Revenue by Offer Type
+<p class="subheader">Create a boxplot with the log-transformed variable to better see the distribution.</p>
+
+. . .
+
+<br>
+
+Log transform `Revenue`. 
+
+```{.python}
+data['log2_Revenue'] = np.log2(1 + data['Revenue'])
+```
+
+. . .
+
+Create a boxplot of log revenue `log2_Revenue`. 
+
+```{.python}
+sns.boxplot(data, x='Offer ID', y='log2_Revenue')
+```
+
+. . .
+
+Add a stripplot.
+
+```{.python}
+sns.stripplot(data, x='Offer ID', y='log2_Revenue', alpha=0.3, color='black')
+```
+
+---
+
+## Log Revenue by Offer Type: Boxplot
+<p class="subheader">Now we can see the data better.</p>
+
+![](i/log_with_zeros.png)
+
+. . .
+
+*> why are there so many zeros?*
+
+---
+
+## Exercise 2.2 | Investigate the Data
+<p class="subheader">Count the unique values in the Event column to understand what's causing the zeros.</p>
+
+. . .
+
+<br>
+
+Count the unique values in `Event`.
+
+```{.python}
+data['Event'].value_counts()
+```
+
+. . .
+
+Summarize counts using a bar chart.
+
+```{.python}
+data['Event'].value_counts().plot(kind='barh')
+```
+
+---
+
+## Three Event Types
+<p class="subheader">Not all rows are purchases</p>
+
+![](i/event_counts.png)
+
+*> offers and completions have zero revenue; transactions are real spending*
+
+---
+
+## Exercise 2.2 | Summarize Transactions
+<p class="subheader"></p>
+
+<br>
+
+. . .
+
+1. Keep only rows where Event equals `transaction`.
+
+```{.python}
+transactions = data[data['Event'] == 'transaction']
+```
+
+. . .
+
+<br>
+
+2. Create a boxplot of log revenue by offer type using only transactions.
+
+```{.python}
+sns.boxplot(transactions, x='Offer ID', y='log2_Revenue')
+sns.stripplot(transactions, x='Offer ID', y='log2_Revenue')
+```
+
+---
+
+## Summarize Transactions
+<p class="subheader">Every row is a real purchase.</p>
+
+![](i/transactions_clean_strip.png)
+
+. . .
+
+*> which offer type has higher spending?*
+
+---
+
+## Exercise 2.2 | Grouped Statistics
+<p class="subheader">Calculate the mean, standard deviation, and count of log revenue by offer type.</p>
+
+. . .
+
+```{.python}
+transactions.groupby('Offer ID')['log2_Revenue'].agg(['mean', 'std', 'count'])
+```
+
+---
+
+## Grouped Statistics
+<p class="subheader">Average log spending by offer type</p>
+
+```{python}
+transactions = data[data['Event'] == 'transaction'].copy()
+transactions['log2_Revenue'] = np.log2(1 + transactions['Revenue'])
+transactions.groupby('Offer ID')['log2_Revenue'].agg(['mean', 'std', 'count']).round(2)
+```
+
+. . .
+
+*> 5off20 has the highest mean*
+
+. . .
+
+*> Bogo 10 has a higher mean than Bogo 5*
+
+. . .
+
+*> but is this the whole story?*
+
+---
+
+## The Workflow
+<p class="subheader">Filter → Transform → Group → Visualize</p>
+
+<br><br>
+
+::: {.incremental}
+1. **Filter** — keep only relevant rows
+2. **Transform** — log scale for skewed data
+3. **Group** — organize by a categorical variable
+4. **Summarize** — compare distributions across groups
+:::
+
+. . .
+
+<br>
+
+*> you can also see this doesn't always progress in a straight line!*
+
+---
+
+## Distributions by Offer Type
+<p class="subheader">Each point is one transaction</p>
+
+![](i/box_strip_01.png)
+
+*> substantial variation within each offer type*
+
+. . .
+
+*> why are there small purchases in 5off20?*
+
+---
+
+## Exercise 2.2 | Compare Two Offers
+<p class="subheader">Filter for just Bogo 5 and Bogo 10, then create a boxplot to compare them.</p>
+
+. . .
+
+```{.python}
+two_offers = transactions[transactions['Offer ID'].isin(['Bogo 5', 'Bogo 10'])]
+sns.boxplot(two_offers, x='Offer ID', y='log2_Revenue')
+```
+
+---
+
+## Comparing Two Offers
+<p class="subheader">BOGO 5 vs BOGO 10: Do buyers respond differently?</p>
+
+![](i/compare_01.png)
+
+. . .
+
+*> BOGO 10 has higher average spending — but look at the overlap*
+
+---
+
+## The Overlap Problem
+<p class="subheader">Many BOGO 5 buyers spent more than BOGO 10 buyers</p>
+
+![](i/compare_02.png)
+
+*> when distributions overlap this much, is the difference meaningful?*
+
+---
+
+## The Key Question
+<p class="subheader">Is the difference real or just noise?</p>
+
+<br><br>
+
+::: {.incremental}
+- Average spending differs across offer types
+- But there's substantial variation *within* each group
+- Some "lower" offer buyers outspent "higher" offer buyers
+:::
+
+. . .
+
+<br>
+
+***Question:** Is this difference we observe actually meaningful?*
+
+---
+
+## Part 2.2 | Summary
+
+<br><br>
+
+::: {.incremental}
+- **Summary statistics can hide problems** — always visualize
+- **Filter your data** — make sure you're analyzing what you think
+- **Log transformation** helps with skewed data
+- **Boxplots by category** show distributions, not just means
+- **Overlapping distributions** raise inference questions
+:::
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | Part 2.2 |
+|-------|----------|
+| Variables | Numerical + Categorical |
+| Structures | Cross-section |
+| Operations | Filter, Log transform, Groupby |
+| Visualizations | Bar chart, Boxplot, Stripplot by category |

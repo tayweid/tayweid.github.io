@@ -86,19 +86,19 @@ Taylor
 
 
 
-#### Economic Data Analysis | Week 6
+#### Economic Data Analysis | Week 6 + MiniExam 2
 
 Hi folks,
 
-Congrats on making it through MiniExam 1! We started the semester getting familiar with data and developing a systematic method for understanding what it contains. We started Part 2 by recognizing that not every dataset is nice enough to apply exploratory data analysis to on it's own, so we developed our first type of Data Operation in Part 2.1: Data Cleaning. This week we're doing more interesting work, continuing Part 2.2: Transforming Data, and Part 2.3: Filtering Data, allowing us to ask questions of subgroups within our data.
+Congrats on making it through MiniExam 1! Last week after the MiniExam we started moving from summarizing single variables in Part 1 to relationships between variables in Part 2. We used the scatterplot to show Numerical by Numerical relationships in Part 2.1. This week we're starting the week with Numerical by Categorical relationships in Part 2.2 and then finishing the week by looking at Numerical by Numerical relationships that vary by Category in Part 2.3. 
 
-As always, you'll have homework for both parts, due on Friday at 5 with a no questions asked extension if you email me.
+This will close out Part 2! I've gone ahead and scheduled MiniExam 2 for Tuesday February 24. 
 
-By the end of Part 2 you'll have a full set of data skills in hand before we start building the foundations of the statistical models we use in the field in Part 3.
+See ya in class!
 
-See you tomorrow!
+Taylor 
 
-Taylor
+
 
 #### Economic Data Analysis | Week 7 + MiniExam 2
 
