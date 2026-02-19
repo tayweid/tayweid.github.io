@@ -283,11 +283,11 @@ Lets try to explaining the paradox.
 <p><br></p>
 <p>This is a <strong>Part 2.1 question</strong> — a relationship between two numerical variables.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Use log votes</span></span>
-<span id="cb2-2"><a href=""></a>data[<span class="st">'log_votes'</span>] <span class="op">=</span> np.log(data[<span class="st">'total_votes_2024'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href=""></a>data[<span class="st">'log_votes_2024'</span>] <span class="op">=</span> np.log(data[<span class="st">'total_votes_2024'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Plot using lmplot (scatterplot is good too)</span></span>
-<span id="cb3-2"><a href=""></a>sns.lmplot(data, x<span class="op">=</span><span class="st">'log_votes'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href=""></a>sns.lmplot(data, x<span class="op">=</span><span class="st">'log_votes_2024'</span>, y<span class="op">=</span><span class="st">'dem_share_2024'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="do-large-counties-vote-differently" class="slide level2">
@@ -297,23 +297,25 @@ Large counties vote more Democratic
 </p>
 
 <img data-src="i/size_vs_dem_2024.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; correlation: 0.49 — most people live in Democratic-leaning counties</em></p>
+<p><em>&gt; Democratic-leaning counties are larger (correlation: 0.49)</em></p>
 </div>
 </section>
 <section id="question-3-is-this-related-to-income" class="slide level2">
 <h2>Question 3: Is This Related to Income?</h2>
 <p class="subheader">
-Large counties tend to be richer
+Large counties tend to be richer. Is income related to voting?
 </p>
 <p><br></p>
 <div class="fragment">
-<p>Is the Democratic lean about size, or about income?</p>
+<p><em><strong>Question:</strong> Is the Democratic lean related to income?</em></p>
 </div>
 <div class="fragment">
 <p><br></p>
-<p>Another <strong>Part 2.1 question</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>data[<span class="st">'log_income'</span>] <span class="op">=</span> np.log(data[<span class="st">'income'</span>])</span>
-<span id="cb4-2"><a href=""></a>sns.lmplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is another <strong>Part 2.1 question</strong>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Use log income</span></span>
+<span id="cb4-2"><a href=""></a>data[<span class="st">'log_income'</span>] <span class="op">=</span> np.log(data[<span class="st">'income'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Use lmplot for a best fit line</span></span>
+<span id="cb5-2"><a href=""></a>sns.lmplot(data, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share_2024'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="income-and-democratic-voting-2024" class="slide level2">
@@ -329,10 +331,9 @@ Richer counties vote more Democratic
 <section id="question-4-has-the-relationship-changed" class="slide level2">
 <h2>Question 4: Has the Relationship Changed?</h2>
 <p class="subheader">
-We need to see both years at once
+Have higher income counties always leaned Democratic?
 </p>
 <p><br></p>
-<div class="fragment">
 <p>Prior tools fall short:</p>
 <div>
 <ul>
@@ -340,24 +341,28 @@ We need to see both years at once
 <li class="fragment"><strong>Part 2.2 (boxplot):</strong> Ignores the income relationship entirely</li>
 </ul>
 </div>
-</div>
 <div class="fragment">
 <p><br></p>
-<p><em>&gt; neither tool shows how a relationship varies by category</em></p>
+<p><em>&gt; neither tool shows how the relationship between two numerical variables varies by category</em></p>
 </div>
 </section>
-<section id="the-new-tool-scatter-by-category" class="slide level2">
-<h2>The New Tool: Scatter by Category</h2>
+<section id="new-tool-scatter-by-category" class="slide level2">
+<h2>New Tool: Scatter by Category</h2>
 <p class="subheader">
 Color points by year to see how the relationship differs
 </p>
 <p><br></p>
 <div class="fragment">
-<p>We need a scatter plot that shows the income-voting relationship separately for each year.</p>
+<p>We need a scatter plot that shows bivariate relationships separately by category.</p>
 </div>
 <div class="fragment">
 <p><br></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>sns.lmplot(data<span class="op">=</span>data_long, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>, hue<span class="op">=</span><span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Log income in the long format dataset</span></span>
+<span id="cb6-2"><a href=""></a>data_long[<span class="st">'log_income'</span>] <span class="op">=</span> np.log(data_long[<span class="st">'income'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># Use lmplot with hue for the category</span></span>
+<span id="cb7-2"><a href=""></a>sns.lmplot(data_long, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>, hue<span class="op">=</span><span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="income-and-democratic-voting-2000-vs-2024" class="slide level2">
@@ -367,7 +372,7 @@ The relationship has flipped
 </p>
 
 <img data-src="i/income_vs_dem_by_year.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; in 2000, richer counties leaned Republican. By 2024, they lean Democratic.</em></p>
+<p><em>&gt; in 2000, richer counties leaned Republican; by 2024, they lean Democratic</em></p>
 </div>
 </section>
 <section id="the-insight" class="slide level2">
@@ -394,7 +399,7 @@ Combining income and election data
 <p>To answer Q2-Q4, we needed data from multiple sources.</p>
 <div class="fragment">
 <p><br></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>data <span class="op">=</span> pd.merge(income, elections, on<span class="op">=</span><span class="st">'county_fips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>data <span class="op">=</span> pd.merge(income, elections, on<span class="op">=</span><span class="st">'county_fips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><br></p>

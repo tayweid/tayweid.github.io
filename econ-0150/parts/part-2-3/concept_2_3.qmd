@@ -110,14 +110,14 @@ This is a **Part 2.1 question** — a relationship between two numerical variabl
 
 ```{.python}
 # Use log votes
-data['log_votes'] = np.log(data['total_votes_2024'])
+data['log_votes_2024'] = np.log(data['total_votes_2024'])
 ```
 
 . . .
 
 ```{.python}
 # Plot using lmplot (scatterplot is good too)
-sns.lmplot(data, x='log_votes', y='dem_share')
+sns.lmplot(data, x='log_votes_2024', y='dem_share_2024')
 ```
 
 ---
@@ -129,28 +129,33 @@ sns.lmplot(data, x='log_votes', y='dem_share')
 
 . . .
 
-*> correlation: 0.49 — most people live in Democratic-leaning counties*
+*> Democratic-leaning counties are larger (correlation: 0.49)*
 
 ---
 
 ## Question 3: Is This Related to Income?
-<p class="subheader">Large counties tend to be richer</p>
+<p class="subheader">Large counties tend to be richer. Is income related to voting?</p>
 
 <br>
 
 . . .
 
-Is the Democratic lean about size, or about income?
+***Question:** Is the Democratic lean related to income?*
 
 . . .
 
 <br>
 
-Another **Part 2.1 question**.
+This is another **Part 2.1 question**.
 
 ```{.python}
+# Use log income
 data['log_income'] = np.log(data['income'])
-sns.lmplot(data=data, x='log_income', y='dem_share')
+```
+
+```{.python}
+# Use lmplot for a best fit line
+sns.lmplot(data, x='log_income', y='dem_share_2024')
 ```
 
 ---
@@ -167,11 +172,9 @@ sns.lmplot(data=data, x='log_income', y='dem_share')
 ---
 
 ## Question 4: Has the Relationship Changed?
-<p class="subheader">We need to see both years at once</p>
+<p class="subheader">Have higher income counties always leaned Democratic?</p>
 
 <br>
-
-. . .
 
 Prior tools fall short:
 
@@ -184,25 +187,33 @@ Prior tools fall short:
 
 <br>
 
-*> neither tool shows how a relationship varies by category*
+*> neither tool shows how the relationship between two numerical variables varies by category*
 
 ---
 
-## The New Tool: Scatter by Category
+## New Tool: Scatter by Category
 <p class="subheader">Color points by year to see how the relationship differs</p>
 
 <br>
 
 . . .
 
-We need a scatter plot that shows the income-voting relationship separately for each year.
+We need a scatter plot that shows bivariate relationships separately by category.
 
 . . .
 
 <br>
 
 ```{.python}
-sns.lmplot(data=data_long, x='log_income', y='dem_share', hue='Year')
+# Log income in the long format dataset
+data_long['log_income'] = np.log(data_long['income'])
+```
+
+. . .
+
+```{.python}
+# Use lmplot with hue for the category
+sns.lmplot(data_long, x='log_income', y='dem_share', hue='Year')
 ```
 
 ---
@@ -214,7 +225,7 @@ sns.lmplot(data=data_long, x='log_income', y='dem_share', hue='Year')
 
 . . .
 
-*> in 2000, richer counties leaned Republican. By 2024, they lean Democratic.*
+*> in 2000, richer counties leaned Republican; by 2024, they lean Democratic*
 
 ---
 
