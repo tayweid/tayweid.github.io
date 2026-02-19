@@ -198,19 +198,19 @@
 The economist’s data analysis skillset.
 </p>
 <p><br></p>
-<h3 id="part-2.3-bivariate-relationships-by-category"><em>Part 2.3 | Bivariate Relationships by Category</em></h3>
+<h3 id="part-2.3-numerical-by-numerical-by-category"><em>Part 2.3 | Numerical by Numerical by Category</em></h3>
 </section>
 <section id="economic-realignment" class="slide level2">
 <h2>Economic Realignment</h2>
 <p class="subheader">
-Has American politics become more divided along economic lines?
+Has American politics become more geographically divided along economic lines?
 </p>
 <p><br><br></p>
 <div>
 <ul>
 <li class="fragment">Do wealthy and poor counties vote differently now than twenty years ago?</li>
-<li class="fragment">This is the kind of question you might explore in a final project</li>
-<li class="fragment">It requires combining data from multiple sources</li>
+<li class="fragment">This is the kind of question you might explore in a final project.</li>
+<li class="fragment">This question requires combining data from multiple sources.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -239,19 +239,20 @@ Two datasets, each answering different questions
 </ul>
 </div>
 </section>
-<section id="question-1-has-county-level-voting-changed" class="slide level2">
-<h2>Question 1: Has County-Level Voting Changed?</h2>
+<section id="question-1-do-counties-vote-differently-today" class="slide level2">
+<h2>Question 1: Do Counties Vote Differently Today?</h2>
 <p class="subheader">
-Comparing distributions across years
+Compare county distributions between 2000 and 2024.
 </p>
 <p><br></p>
 <div class="fragment">
-<p>This is a <strong>Part 2.2 question</strong> — a numerical variable compared across categories.</p>
+<p>This is a <strong>Part 2.2 (or 1.4)</strong> question: a numerical variable across categories.</p>
 </div>
 <div class="fragment">
 <p><br></p>
-<p>A boxplot is the right tool.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>sns.boxplot(data<span class="op">=</span>data_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Use a box+stripplot</span></span>
+<span id="cb1-2"><a href=""></a>sns.boxplot(data_long, x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>, whis<span class="op">=</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb1-3"><a href=""></a>sns.stripplot(data_long.sample(<span class="dv">400</span>), x<span class="op">=</span><span class="st">'Year'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="democratic-vote-share-by-year" class="slide level2">
@@ -267,21 +268,30 @@ Counties shifted Republican on average
 <section id="question-2-do-large-counties-vote-differently" class="slide level2">
 <h2>Question 2: Do Large Counties Vote Differently?</h2>
 <p class="subheader">
-Explaining the paradox
+Lets try to explaining the paradox.
 </p>
 <p><br></p>
+<ul>
+<li>Counties aren’t equal in population.</li>
+<li>Small rural counties outnumber large urban ones.</li>
+</ul>
 <div class="fragment">
-<p>Counties aren’t equal in population. Small rural counties outnumber large urban ones.</p>
+<p><br></p>
+<p><em><strong>Question:</strong> Do larger counties lean Democratic?</em></p>
 </div>
 <div class="fragment">
 <p><br></p>
 <p>This is a <strong>Part 2.1 question</strong> — a relationship between two numerical variables.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>data[<span class="st">'log_votes'</span>] <span class="op">=</span> np.log(data[<span class="st">'total_votes_2024'</span>])</span>
-<span id="cb2-2"><a href=""></a>sns.lmplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">'log_votes'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Use log votes</span></span>
+<span id="cb2-2"><a href=""></a>data[<span class="st">'log_votes'</span>] <span class="op">=</span> np.log(data[<span class="st">'total_votes_2024'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a><span class="co"># Plot using lmplot (scatterplot is good too)</span></span>
+<span id="cb3-2"><a href=""></a>sns.lmplot(data, x<span class="op">=</span><span class="st">'log_votes'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="county-size-and-democratic-voting" class="slide level2">
-<h2>County Size and Democratic Voting</h2>
+<section id="do-large-counties-vote-differently" class="slide level2">
+<h2>Do Large Counties Vote Differently?</h2>
 <p class="subheader">
 Large counties vote more Democratic
 </p>
@@ -302,8 +312,8 @@ Large counties tend to be richer
 <div class="fragment">
 <p><br></p>
 <p>Another <strong>Part 2.1 question</strong>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>data[<span class="st">'log_income'</span>] <span class="op">=</span> np.log(data[<span class="st">'income'</span>])</span>
-<span id="cb3-2"><a href=""></a>sns.lmplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>data[<span class="st">'log_income'</span>] <span class="op">=</span> np.log(data[<span class="st">'income'</span>])</span>
+<span id="cb4-2"><a href=""></a>sns.lmplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="income-and-democratic-voting-2024" class="slide level2">
@@ -347,7 +357,7 @@ Color points by year to see how the relationship differs
 </div>
 <div class="fragment">
 <p><br></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>sns.lmplot(data<span class="op">=</span>data_long, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>, hue<span class="op">=</span><span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>sns.lmplot(data<span class="op">=</span>data_long, x<span class="op">=</span><span class="st">'log_income'</span>, y<span class="op">=</span><span class="st">'dem_share'</span>, hue<span class="op">=</span><span class="st">'Year'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="income-and-democratic-voting-2000-vs-2024" class="slide level2">
@@ -384,7 +394,7 @@ Combining income and election data
 <p>To answer Q2-Q4, we needed data from multiple sources.</p>
 <div class="fragment">
 <p><br></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a>data <span class="op">=</span> pd.merge(income, elections, on<span class="op">=</span><span class="st">'county_fips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>data <span class="op">=</span> pd.merge(income, elections, on<span class="op">=</span><span class="st">'county_fips'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><br></p>

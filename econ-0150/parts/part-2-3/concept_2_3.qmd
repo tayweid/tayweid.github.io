@@ -1,0 +1,293 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 2.3 | Numerical by Numerical by Category*
+
+---
+
+## Economic Realignment
+<p class="subheader">Has American politics become more geographically divided along economic lines?</p>
+
+<br><br>
+
+::: {.incremental}
+- Do wealthy and poor counties vote differently now than twenty years ago?
+- This is the kind of question you might explore in a final project.
+- This question requires combining data from multiple sources.
+:::
+
+. . .
+
+<br>
+
+***Question:** Has the relationship between income and voting changed?*
+
+---
+
+## The Data
+<p class="subheader">Two datasets, each answering different questions</p>
+
+<br>
+
+**Dataset 1: Income by County**
+
+- Median household income for each U.S. county
+- From the Census
+
+. . .
+
+<br>
+
+**Dataset 2: Elections by County**
+
+- Democratic vote share for each county
+- Multiple years: 2000, 2004, ..., 2024
+- Includes total votes cast (proxy for county size)
+
+---
+
+## Question 1: Do Counties Vote Differently Today?
+<p class="subheader">Compare county distributions between 2000 and 2024.</p>
+
+<br>
+
+. . .
+
+This is a **Part 2.2 (or 1.4)** question: a numerical variable across categories.
+
+. . .
+
+<br>
+
+
+```{.python}
+# Use a box+stripplot
+sns.boxplot(data_long, x='Year', y='dem_share', whis=(0,100))
+sns.stripplot(data_long.sample(400), x='Year', y='dem_share')
+```
+
+---
+
+## Democratic Vote Share by Year
+<p class="subheader">Counties shifted Republican on average</p>
+
+![](i/dem_share_by_year.png)
+
+. . .
+
+*> median dropped from 41% to 29% — but why were elections still close?*
+
+---
+
+## Question 2: Do Large Counties Vote Differently?
+<p class="subheader">Lets try to explaining the paradox.</p>
+
+<br>
+
+- Counties aren't equal in population.
+- Small rural counties outnumber large urban ones.
+
+. . .
+
+<br>
+
+***Question:** Do larger counties lean Democratic?*
+
+. . .
+
+<br>
+
+This is a **Part 2.1 question** — a relationship between two numerical variables.
+
+```{.python}
+# Use log votes
+data['log_votes'] = np.log(data['total_votes_2024'])
+```
+
+. . .
+
+```{.python}
+# Plot using lmplot (scatterplot is good too)
+sns.lmplot(data, x='log_votes', y='dem_share')
+```
+
+---
+
+## Do Large Counties Vote Differently?
+<p class="subheader">Large counties vote more Democratic</p>
+
+![](i/size_vs_dem_2024.png)
+
+. . .
+
+*> correlation: 0.49 — most people live in Democratic-leaning counties*
+
+---
+
+## Question 3: Is This Related to Income?
+<p class="subheader">Large counties tend to be richer</p>
+
+<br>
+
+. . .
+
+Is the Democratic lean about size, or about income?
+
+. . .
+
+<br>
+
+Another **Part 2.1 question**.
+
+```{.python}
+data['log_income'] = np.log(data['income'])
+sns.lmplot(data=data, x='log_income', y='dem_share')
+```
+
+---
+
+## Income and Democratic Voting (2024)
+<p class="subheader">Richer counties vote more Democratic</p>
+
+![](i/income_vs_dem_2024.png)
+
+. . .
+
+*> correlation: 0.25 — but was it always this way?*
+
+---
+
+## Question 4: Has the Relationship Changed?
+<p class="subheader">We need to see both years at once</p>
+
+<br>
+
+. . .
+
+Prior tools fall short:
+
+::: {.incremental}
+- **Part 2.1 (scatter):** Shows one year at a time
+- **Part 2.2 (boxplot):** Ignores the income relationship entirely
+:::
+
+. . .
+
+<br>
+
+*> neither tool shows how a relationship varies by category*
+
+---
+
+## The New Tool: Scatter by Category
+<p class="subheader">Color points by year to see how the relationship differs</p>
+
+<br>
+
+. . .
+
+We need a scatter plot that shows the income-voting relationship separately for each year.
+
+. . .
+
+<br>
+
+```{.python}
+sns.lmplot(data=data_long, x='log_income', y='dem_share', hue='Year')
+```
+
+---
+
+## Income and Democratic Voting: 2000 vs 2024
+<p class="subheader">The relationship has flipped</p>
+
+![](i/income_vs_dem_by_year.png)
+
+. . .
+
+*> in 2000, richer counties leaned Republican. By 2024, they lean Democratic.*
+
+---
+
+## The Insight
+<p class="subheader">Each question built on the previous</p>
+
+<br><br>
+
+::: {.incremental}
+- **Q1:** Counties shifted Republican on average
+- **Q2:** But large counties vote Democratic (explains why elections are close)
+- **Q3:** Richer counties vote Democratic
+- **Q4:** This relationship completely flipped since 2000
+:::
+
+---
+
+## Merging Datasets
+<p class="subheader">Combining income and election data</p>
+
+<br>
+
+To answer Q2-Q4, we needed data from multiple sources.
+
+. . .
+
+<br>
+
+```{.python}
+data = pd.merge(income, elections, on='county_fips')
+```
+
+. . .
+
+<br>
+
+*> the merge matches 3,106 of ~3,200 counties — 97% success*
+
+---
+
+## The Workflow
+<p class="subheader">A template for final projects</p>
+
+<br><br>
+
+::: {.incremental}
+1. **Q1 (Part 2.2):** Boxplot by year — counties shifted Republican
+2. **Q2 (Part 2.1):** Scatter of size vs. voting — large counties vote Democratic
+3. **Q3 (Part 2.1):** Scatter of income vs. voting — richer counties vote Democratic
+4. **Q4 (Part 2.3):** Scatter by category — the relationship flipped
+:::
+
+---
+
+## Part 2.3 | Summary
+
+<br><br>
+
+::: {.incremental}
+- **Part 2.1 tools** (scatter) show relationships between two numerical variables
+- **Part 2.2 tools** (boxplot) show how a numerical variable differs by category
+- **Part 2.3 tools** (scatter by category) show how a *relationship* differs by category
+- **Merging** combines datasets when your question requires variables from both
+:::
+
+---
+
+## Building Blocks
+<p class="subheader">What this unit adds to your toolkit</p>
+
+| Block | Part 2.3 |
+|-------|----------|
+| Variables | Numerical + Categorical |
+| Structures | Cross-section, Panel |
+| Operations | Merge, Reshape (melt), Add hue |
+| Visualizations | Scatter by category (lmplot with hue) |
