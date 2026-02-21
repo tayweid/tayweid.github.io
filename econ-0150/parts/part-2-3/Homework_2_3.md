@@ -1,89 +1,58 @@
-## Homework 2.3 | Bivariate Relationships by Category
+## ECON 0150 | Spring 2026 | Homework 2.3
 
-### Overview
+Homework is designed to both test your knowlege and challenge you to apply familiar concepts in new applications. Answer clearly and completely. You are welcomed and encouraged to work in groups so long as your work is your own. Use the provided datasets to answer the following questions. Then submit your figures and answers to Gradescope.
 
-In this homework, you'll analyze Amazon bestseller data to explore whether the relationship between user reviews and ratings differs between Fiction and Non-Fiction books. This brings together skills from all of Part 2.
+#### Q1. Explore the Data
 
-### The Data
+The dataset `amazon_book_sales.csv` contains the 50 bestselling Amazon books each year between 2009 and 2021. Prices are expressed in US dollars and rounded to the nearest dollar.
 
-We'll use Amazon bestseller data with the following variables:
+a) How many unique books are in the dataset *(hint: use `.unique()` to count a book only once even if it shows up in multiple years)*?
 
-- **Name**: Book title
-- **Author**: Book author
-- **User Rating**: Average rating (0-5 scale)
-- **Reviews**: Number of user reviews
-- **Price**: Book price in dollars
-- **Year**: Year the book was a bestseller
-- **Genre**: Fiction or Non-Fiction
 
-```python
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
 
-file_path = 'https://tayweid.github.io/econ-0150/parts/part-2-1/data/'
-books = pd.read_csv(file_path + 'amazon_book_sales.csv')
-```
+b) How many books are Fiction? How many are Non-Fiction? *(hint: use a filter)*
 
----
 
-### Question 1: Explore the Data
 
-(a) How many books are in the dataset?
+#### Q2. Ratings by Genre
 
-(b) How many books are Fiction? How many are Non-Fiction?
+The column `Genre` describes whether the bestseller is Fiction or Non-Fiction.
 
----
+a) Create a boxplot of `User Rating` by `Genre`. Add a stripplot overlay.
 
-### Question 2: Ratings by Genre (Part 2.2 Review)
 
-(a) Create a boxplot of `User Rating` by `Genre`. Add a stripplot overlay.
 
-```python
-sns.boxplot(data=books, x='Genre', y='User Rating')
-sns.stripplot(data=books, x='Genre', y='User Rating', color='black', alpha=0.3)
-```
+b) Calculate the mean and standard deviation of `User Rating` by `Genre`.
 
-(b) Calculate the mean, standard deviation, and count for each genre.
 
-```python
-books.groupby('Genre')['User Rating'].agg(['mean', 'std', 'count'])
-```
 
-(c) Which genre has higher average ratings? Is the difference large or small relative to the variation within each group?
+c) Which genre has higher average ratings? Is the difference large or small relative to the variation within each group?
 
----
 
-### Question 3: Reviews and Ratings (Part 2.1 Review)
 
-(a) Create a scatter plot of `Reviews` (x-axis) vs `User Rating` (y-axis) for all books.
+#### Q3. Reviews and Ratings
 
-```python
-sns.scatterplot(data=books, x='Reviews', y='User Rating')
-```
+a) Create a scatter plot of `Reviews` (x-axis) vs `User Rating` (y-axis) for all books.
 
-(b) Is there a relationship between reviews and ratings? If so, is it positive, negative, or unclear?
 
----
 
-### Question 4: Does the Relationship Differ by Genre? (Part 2.3)
+b) Is there a relationship between reviews and ratings? If so, is it positive, negative, or unclear?
 
-(a) Create a scatter plot of `Reviews` vs `User Rating`, colored by `Genre`.
 
-```python
-sns.lmplot(data=books, x='Reviews', y='User Rating', hue='Genre')
-```
 
-(b) Does the relationship between reviews and ratings differ between Fiction and Non-Fiction? Describe what you see.
+c) How might you use a transformation to improve this figure?
 
-(c) In one sentence, what might explain any differences you observe?
 
----
 
-### Summary
+#### Q4. Does the Relationship Differ by Genre?
 
-In this homework, you practiced:
+a) Create a scatter plot of `Reviews` vs `User Rating`, colored by `Genre`. Use any transformations you suggested in Q3.c). 
 
-- **Part 2.2 skills**: Boxplots and grouped statistics to compare distributions by category
-- **Part 2.1 skills**: Scatter plots to examine relationships between numerical variables
-- **Part 2.3 skills**: Using `hue` to see how relationships differ across categories
+
+
+b) Does the relationship between reviews and ratings differ between Fiction and Non-Fiction? Describe the pattern.
+
+
+
+c) In one sentence, what hypothesis might explain any differences you observe?
+
