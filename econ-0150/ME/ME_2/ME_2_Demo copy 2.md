@@ -12,11 +12,13 @@ ________ I will complete this MiniExam solely using my own work.
 ________ I will not use any digital resources unless explicitly allowed by the instructor.
 ________ I will not communicate directly or indirectly with others during the MiniExam.
 
+---
+
 ##### Q1. Choose the Right Visualization (see Data 1a, 1b, 1c)
 
-For each dataset, identify the variable types and draw the most appropriate Part 2 visualization.
+For each dataset, identify the variable types and draw the most appropriate Part 2 visualization. 
 
-a) **Data 1a** Variable Types: ______________________  b) **Data 1b** Variable Types: ______________________  c) **Data 1c** Variable Types: ______________________
+a) **Data 1a** Variable Types: ______________________  b) **Data 1b** Variable Types: ______________________  c) **Data 1c** Variable Types: ______________________ 
 
 ![Q1](i/Q3_blank.png)
 
@@ -43,24 +45,58 @@ c) Product A has log2(1 + Revenue) = 4. Product B has log2(1 + Revenue) = 7. The
 
 ##### Q4. Investigate and Visualize (see Data 4)
 
-A nonprofit tracks shift data for its volunteers and employees. Data 4 shows each person's role, the day of their shift, and their shift pay. Volunteers are unpaid.
+A nonprofit tracks shift data for its volunteers and employees. Table 2 shows each person's role, the day of their shift, and their shift pay. Volunteers are unpaid.
 
-a) Visualize Shift_Pay grouped by Day using all the data in Data 4. b) Filter for employees only. Visualize Shift_Pay grouped by Day for employees only.
-
-![Q4](i/Q4_blank.png)
-
-
-##### Q5. Interpret a Scatter Plot by Category (see Data 5)
-
-a) As Study Hours increase, what happens to Exam Score for Online students?
+a) Visualize Shift_Pay grouped by Day using all the data in Table 2. 
 
 
 
-b) As Study Hours increase, what happens to Exam Score for In-Person students?
+
+
+b) Filter for employees only. Visualize Shift_Pay grouped by Day for employees only.
 
 
 
-c) Which group benefits more from additional study hours? 
+
+
+##### Q5. Reshape Wide to Long (see Data 5)
+
+Table 3 shows quarterly sales in wide format, where each quarter has its own column.
+
+Reshape this table into long format so that each row represents one store in one quarter. Fill in the result:
+
+| Store   | Quarter | Sales |
+|---------|---------|-------|
+| _______ | _______ | _____ |
+| _______ | _______ | _____ |
+| _______ | _______ | _____ |
+| _______ | _______ | _____ |
+
+How many rows does the long-format table have? ________
+
+
+
+##### Q6. Scatter by Category (see Data 6)
+
+Table 4 shows average class size and test scores for Public and Private schools.
+
+a) **Draw a scatter plot with Avg_Class_Size (x-axis) vs Avg_Test_Score (y-axis), colored by Type →**
+
+
+
+b) For Public schools, as Avg_Class_Size increases from 15 to 30, Avg_Test_Score changes by ________ points, or about ________ points per student.
+
+
+
+c) For Private schools, as Avg_Class_Size increases from 15 to 30, Avg_Test_Score changes by ________ points, or about ________ points per student.
+
+
+
+d) In one sentence, what do these findings tell you about the relationship between class size and test scores?
+
+
+
+
 
 
 
@@ -99,6 +135,8 @@ c) Which group benefits more from additional study hours?
 | S5      | STEM  | 9           | 3.5 |
 | S6      | Arts  | 9           | 3.9 |
 
+
+
 ### Data 2: Three Visualizations
 
 ![](i/Q3.png)
@@ -121,6 +159,25 @@ c) Which group benefits more from additional study hours?
 | P13       | Volunteer | Weekday | 0         |
 | P14       | Employee  | Weekend | 180       |
 
-### Data 5: Study Hours vs Exam Score by Format
 
-![](i/Q5.png)
+
+### Data 5: Quarterly Sales (Wide Format)
+| Store   | Q1_Sales | Q2_Sales |
+|---------|----------|----------|
+| Store_A | 100      | 150      |
+| Store_B | 200      | 180      |
+
+
+
+
+### Data 6: Class Size and Test Scores by School Type
+| School | Type    | Avg_Class_Size | Avg_Test_Score |
+|--------|---------|----------------|----------------|
+| S1     | Public  | 15             | 88             |
+| S2     | Public  | 20             | 82             |
+| S3     | Public  | 25             | 76             |
+| S4     | Public  | 30             | 70             |
+| S5     | Private | 15             | 72             |
+| S6     | Private | 20             | 78             |
+| S7     | Private | 25             | 84             |
+| S8     | Private | 30             | 90             |

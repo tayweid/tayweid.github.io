@@ -1,5 +1,19 @@
 ## ECON 0150 | MiniExam 2 | Skillset
 
+### The Big Picture
+
+Part 2 trains students to build and interpret the visualizations that underpin the statistical models in Parts 3–5. Each visualization type maps to a modeling technique:
+
+- **Boxplots by category** (Part 2.2) → Two-sample t-tests (Part 3)
+- **Scatter plots** (Part 2.1) → Bivariate regression (Part 4)
+- **Scatter plots colored by category** (Part 2.3) → Multivariate regression with a categorical control (Part 5)
+
+Before visualizing, students need to prepare data: **filtering** to remove rows that aren't relevant to the question (e.g., keeping only transactions, not offer events) and **log transformations** to deskew heavily skewed data so that patterns become visible. Students should be able to interpret all figure types, including those plotted on log-transformed axes.
+
+---
+
+### Skills by Part
+
 This document lists the skills covered in Part 2 (2.1, 2.2, 2.3) that students should be able to demonstrate on MiniExam 2.
 
 ---
@@ -28,15 +42,17 @@ Students should be able to:
 
 7. **Filter data on a single condition** — Given a condition (e.g., Salary > 50,000), identify which rows remain in the filtered dataset.
 
-8. **Filter data on multiple values** — Keep only rows where a categorical variable matches one of several values (e.g., Department is "Sales" or "HR").
+8. **Filter data on multiple values** — Keep only rows where a categorical variable matches one of several values (e.g., Department is "Sales" or "HR"). Note: this semester covers single-column filters and multi-value matching, not compound AND/OR logic across columns.
 
-9. **Read and compare boxplots** — Identify the median, spread (IQR), and range from a boxplot. Compare distributions across categories: which group has a higher center, more variation, or outliers.
+9. **Investigate and clean data** — When a visualization looks unexpected (e.g., a boxplot compressed at zero), use counting to diagnose the issue, identify which rows are causing the problem, and filter to clean the data before re-visualizing.
 
-10. **Interpret a stripplot overlay** — Understand that a stripplot shows individual data points on top of a boxplot, revealing clusters, gaps, or patterns that the box alone might hide.
+10. **Read and compare boxplots** — Identify the median, spread (IQR), and range from a boxplot. Compare distributions across categories: which group has a higher center, more variation, or outliers.
 
-11. **Calculate grouped statistics** — Given a dataset grouped by category, compute the mean, standard deviation, and count for each group.
+11. **Interpret a stripplot overlay** — Understand that a stripplot shows individual data points on top of a boxplot, revealing clusters, gaps, or patterns that the box alone might hide.
 
-12. **Perform multi-step operations** — Chain together a filter, a group-by, and an aggregation to answer a specific question about a subset of the data.
+12. **Calculate grouped statistics** — Given a dataset grouped by category, compute the mean, standard deviation, and count for each group.
+
+13. **Perform multi-step operations** — Chain together a filter, a group-by, and an aggregation to answer a specific question about a subset of the data.
 
 ---
 
@@ -44,12 +60,12 @@ Students should be able to:
 
 Students should be able to:
 
-13. **Merge two datasets on a shared key** — Given two tables with a common column, predict which rows match and what the merged table looks like. Understand that unmatched rows are dropped (in a default merge).
+14. **Merge two datasets on a shared key** — Given two tables with a common column, predict which rows match and what the merged table looks like. Understand that unmatched rows are dropped (in a default merge).
 
-14. **Reshape data from wide to long format** — Given a table where each column represents a time period or category, convert it to long format where each row represents one observation. Understand why long format is needed for certain visualizations.
+15. **Reshape data from wide to long format** — Given a table where each column represents a time period or category, convert it to long format where each row represents one observation. Understand why long format is needed for certain visualizations.
 
-15. **Read a scatter plot colored by category** — Identify separate trends for each group in a scatter plot with color-coded categories. Determine whether the relationship differs across groups.
+16. **Read a scatter plot colored by category** — Identify separate trends for each group in a scatter plot with color-coded categories. Determine whether the relationship differs across groups.
 
-16. **Describe how a relationship differs by group** — Articulate specific differences: one group shows a stronger/weaker relationship, or the direction reverses, or one group is shifted up/down.
+17. **Describe how a relationship differs by group** — Articulate specific differences: one group shows a stronger/weaker relationship, or the direction reverses, or one group is shifted up/down.
 
-17. **Choose the right visualization** — Given a research question and data description, select the appropriate tool: scatter plot (two numerical variables), boxplot by category (one numerical + one categorical), or scatter by category (two numerical + one categorical).
+18. **Choose the right visualization** — Given a research question and data description, select the appropriate tool: scatter plot (two numerical variables), boxplot by category (one numerical + one categorical), or scatter by category (two numerical + one categorical).
