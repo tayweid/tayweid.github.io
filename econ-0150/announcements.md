@@ -98,9 +98,23 @@ See ya in class!
 
 Taylor 
 
+#### Economic Data Analysis: Week 7 + MiniExam 2
+
+Hi folks,
+
+Welcome to Week 7. This is a big one. On Tuesday (tomorrow) we're taking MiniExam 2. The demo is posted, covering mainly bivariate data visualization and methods. Then we start building statistical models of data. You've seen some of the core ideas in your stats class: Random Variables, Probability Distributions, Sampling, Central Limit Theory, and Confidence Intervals. These form the foundation of a more powerful framework we call the General Linear Model. Many of you have seen some of the pieces, but very few of you will have seen the model in its whole. This is the workhorse model we use in early every area of empirical science. We'll start tomorrow.
+
+Get some good sleep tonight. See you in class.
 
 
-#### Economic Data Analysis | Week 7 + MiniExam 2
+
+Warmly,
+
+Taylor
+
+
+
+#### Economic Data Analysis | Week 7 (old)
 
 Hi folks,
 
@@ -117,20 +131,6 @@ Warmly,
 Taylor
 
 
-
-#### Economic Data Analysis: Week 8 + MiniExam 2
-
-Hi folks,
-
-Welcome to Week 8. This is a big one. On Tuesday we're taking MiniExam 2. Then we start building statistical models of data. You've seen some of the core ideas in your stats class: Random Variables, Probability Distributions, Sampling, Central Limit Theory, and Confidence Intervals. These form the foundation of a more powerful framework we call the General Linear Model. Many of you have seen some of the pieces, but very few of you will have seen the model in its whole. This is the workhorse model we use in early every area of empirical science. We'll start tomorrow.
-
-Get some good sleep tonight. See you in class.
-
-
-
-Warmly,
-
-Taylor
 
 #### Economic Data Analysis: Week 9 + MiniExam 3
 

@@ -206,17 +206,15 @@ The economist’s data analysis skillset.
 What can we infer about those not in our data?
 </p>
 <p><br><br></p>
-<div>
 <ul>
-<li class="fragment">We’ve mastered <strong>summarizing</strong> data</li>
-<li class="fragment">But often we want to say something about the <strong>population</strong>, not just our <strong>data</strong></li>
+<li>We’ve <strong>summarized</strong> data</li>
+<li>But often we want to say something about the <strong>population</strong>, not just our <strong>data</strong></li>
 </ul>
-</div>
 </section>
 <section id="data-question-1-sleep-time-in-two-samples" class="slide level2">
 <h2>Data Question 1: Sleep Time in Two Samples</h2>
 <p class="subheader">
-Which group sleeps longer?
+Which sample sleeps longer?
 </p>
 
 <img data-src="i/c_01.png" class="r-stretch"><div class="fragment">
@@ -226,7 +224,7 @@ Which group sleeps longer?
 <section id="data-question-2-sleep-time-in-two-samples" class="slide level2">
 <h2>Data Question 2: Sleep Time in Two Samples</h2>
 <p class="subheader">
-Which group sleeps longer?
+Which sample sleeps longer?
 </p>
 
 <img data-src="i/c_02.png" class="r-stretch"><div class="fragment">
@@ -236,28 +234,28 @@ Which group sleeps longer?
 <section id="measures-of-location" class="slide level2">
 <h2>Measures of Location</h2>
 <p class="subheader">
-Where is the “center” of each group?
+Where is the “center” of each sample group?
 </p>
 <p><br></p>
-<p><strong>Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}\]</span></p>
+<p><strong>Sample (Data) Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}\]</span></p>
 </section>
 <section id="measures-of-location-1" class="slide level2">
 <h2>Measures of Location</h2>
 <p class="subheader">
-Where is the “center” of each group?
+Where is the “center” of each sample group?
 </p>
 <p><br></p>
-<p><strong>Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
+<p><strong>Sample (Data) Mean</strong>: The average value <span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i\]</span></p>
 <div class="fragment">
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Calculate means</span></span>
 <span id="cb1-2"><a href=""></a>mean_A <span class="op">=</span> group_A.mean()</span>
 <span id="cb1-3"><a href=""></a>mean_B <span class="op">=</span> group_B.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="8e483210" class="cell" data-execution_count="1">
+<div id="ca229a25" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A mean: 7.14 hours
-Group B mean: 6.98 hours</code></pre>
+<pre><code>Group A mean: 6.96 hours
+Group B mean: 6.97 hours</code></pre>
 </div>
 </div>
 </div>
@@ -265,20 +263,20 @@ Group B mean: 6.98 hours</code></pre>
 <section id="data-question-2-sleep-time-in-two-samples-1" class="slide level2">
 <h2>Data Question 2: Sleep Time in Two Samples</h2>
 <p class="subheader">
-Which group sleeps longer?
+Which sample group sleeps longer?
 </p>
 
-<img data-src="i/c_03.png" class="r-stretch"><div id="da84cb40" class="cell" data-execution_count="2">
+<img data-src="i/c_03.png" class="r-stretch"><div id="49e4c590" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A mean: 7.14 hours
-Group B mean: 6.98 hours</code></pre>
+<pre><code>Sample Group A mean: 6.96 hours
+Sample Group B mean: 6.97 hours</code></pre>
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; group A sleeps longer <strong>on average</strong></em></p>
+<p><em>&gt; Group A sleeps longer <strong>on average</strong></em> in our sample</p>
 </div>
 <div class="fragment">
-<p><em>&gt; but some in Group B sleep longer than most in Group A!</em></p>
+<p><em>&gt; but some in Sample Group B sleep longer than most in Sample Group A!</em></p>
 </div>
 </section>
 <section id="measures-of-dispersion" class="slide level2">
@@ -346,7 +344,7 @@ How spread out is the data?
 How spread out is the data?
 </p>
 <p><br></p>
-<p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
+<p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[\begin{align}S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\end{align}\]</span></p>
 <div class="fragment">
 <ul>
 <li>Treats negatives appropriately</li>
@@ -363,16 +361,16 @@ How spread out is the data?
 </p>
 <p><br></p>
 <p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
-<div id="b450617f" class="cell" data-execution_count="3">
+<div id="bfb8e0b1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Calculate standard deviations</span></span>
 <span id="cb4-2"><a href=""></a>std_A <span class="op">=</span> group_A.std()</span>
 <span id="cb4-3"><a href=""></a>std_B <span class="op">=</span> group_B.std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="1894333c" class="cell" data-execution_count="4">
+<div id="6c5264b4" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A std dev: 1.50 hours
-Group B std dev: 0.78 hours</code></pre>
+<pre><code>Group A std dev: 1.51 hours
+Group B std dev: 0.71 hours</code></pre>
 </div>
 </div>
 </div>
@@ -383,11 +381,11 @@ Group B std dev: 0.78 hours</code></pre>
 <section id="sample-vs-population" class="slide level2">
 <h2>Sample vs Population</h2>
 <p class="subheader">
-Both groups are 50 people selected from two different counties.
+Both sample groups are 50 people selected from two different counties.
 </p>
 
 <img data-src="i/c_03.png" class="r-stretch"><div class="fragment">
-<p>Old question: “Which <strong>group</strong> sleeps longer?” <em>(about the <strong>data</strong>)</em></p>
+<p>Old question: “Which <strong>sample group</strong> sleeps longer?” <em>(about the <strong>data</strong>)</em></p>
 </div>
 <div class="fragment">
 <p>New question: “Which <strong>county</strong> sleeps longer?” <em>(about the <strong>population</strong>)</em></p>
@@ -399,13 +397,17 @@ Both groups are 50 people selected from two different counties.
 The data is a sample drawn from a population.
 </p>
 
-<img data-src="i/sample.png" class="r-stretch"></section>
+<img data-src="i/sample.png" class="r-stretch"><div class="fragment">
+<p><span class="math inline">\(\mu\)</span> - population mean</p>
+<p><span class="math inline">\(\sigma\)</span> - population standard deviation</p>
+</div>
+</section>
 <section id="sample-vs-population-2" class="slide level2">
 <h2>Sample vs Population</h2>
 <p class="subheader">
-We observe <strong>samples</strong> but want to understand <strong>populations</strong>.
+We observe <strong>samples</strong>. We study <strong>populations</strong>.
 </p>
-<p><br><br></p>
+<p><br></p>
 <div>
 <ul>
 <li class="fragment"><strong>Data</strong>: 50 individuals we happened to sample from both counties</li>
@@ -415,6 +417,10 @@ We observe <strong>samples</strong> but want to understand <strong>populations</
 <li class="fragment">The population is a theoretical concept - an infinite pool of possibilities</li>
 </ul></li>
 </ul>
+</div>
+<p><br><br></p>
+<div class="fragment">
+<p><em><strong>Fundamental Tension</strong>: we observe data, which is drawn from a population, but is not the population itself, which is the object of our study.</em></p>
 </div>
 </section>
 <section id="sample-vs-population-3" class="slide level2">
@@ -564,7 +570,7 @@ What can we say about an unknown population if all see see is the sample?
 <ul>
 <li class="fragment">Part 3.2 | <strong>Central Limit Theorem</strong> - the distribution of the sample mean</li>
 <li class="fragment">Part 3.3 | <strong>Confidence Intervals</strong> - the closeness of the sample mean to the truth</li>
-<li class="fragment">Part 3.4 | <strong>Hypothesis Testing</strong> - the probability we are wrong</li>
+<li class="fragment">Part 3.4 | <strong>Statiscial Modeling</strong> - testing wrongness of hypothetical relationships</li>
 </ul>
 </div>
 <div class="fragment">

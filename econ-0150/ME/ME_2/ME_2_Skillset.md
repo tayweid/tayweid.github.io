@@ -2,70 +2,45 @@
 
 ### The Big Picture
 
-Part 2 trains students to build and interpret the visualizations that underpin the statistical models in Parts 3–5. Each visualization type maps to a modeling technique:
+Part 2 trains students to build and interpret the visualizations that underpin the statistical models in Parts 3-5. Each visualization type maps to a modeling technique:
 
 - **Boxplots by category** (Part 2.2) → Two-sample t-tests (Part 3)
 - **Scatter plots** (Part 2.1) → Bivariate regression (Part 4)
 - **Scatter plots colored by category** (Part 2.3) → Multivariate regression with a categorical control (Part 5)
 
-Before visualizing, students need to prepare data: **filtering** to remove rows that aren't relevant to the question (e.g., keeping only transactions, not offer events) and **log transformations** to deskew heavily skewed data so that patterns become visible. Students should be able to interpret all figure types, including those plotted on log-transformed axes.
+Before visualizing, students need to prepare data: **filtering** to remove rows that aren't relevant to the question and **log transformations** to deskew heavily skewed data so that patterns become visible.
 
 ---
 
-### Skills by Part
+### Skills and How They're Assessed
 
-This document lists the skills covered in Part 2 (2.1, 2.2, 2.3) that students should be able to demonstrate on MiniExam 2.
-
----
-
-### Part 2.1: Bivariate Relationships
-
-Students should be able to:
-
-1. **Identify the direction of a relationship** — Given two numerical variables, determine whether the relationship is positive, negative, or unclear.
-
-2. **Judge the strength of a relationship** — Distinguish between strong relationships (points cluster tightly around a trend) and weak ones (points are widely scattered).
-
-3. **Understand why visualization matters** — Recognize that datasets can share identical summary statistics (mean, standard deviation, correlation) yet show very different patterns when plotted (Anscombe's quartet).
-
-4. **Apply log transformations** — Calculate log-transformed values (log base 2 or log base 10) and understand what they do: compress large values, spread small values, and make skewed data easier to compare.
-
-5. **Interpret log-transformed axes** — On a log2 scale, recognize that each unit represents a doubling. On a log10 scale, each unit represents a tenfold increase.
-
----
-
-### Part 2.2: Numerical Variables by Category
-
-Students should be able to:
-
-6. **Count observations by category** — Given a categorical column, determine how many rows fall into each category.
-
-7. **Filter data on a single condition** — Given a condition (e.g., Salary > 50,000), identify which rows remain in the filtered dataset.
-
-8. **Filter data on multiple values** — Keep only rows where a categorical variable matches one of several values (e.g., Department is "Sales" or "HR"). Note: this semester covers single-column filters and multi-value matching, not compound AND/OR logic across columns.
-
-9. **Investigate and clean data** — When a visualization looks unexpected (e.g., a boxplot compressed at zero), use counting to diagnose the issue, identify which rows are causing the problem, and filter to clean the data before re-visualizing.
-
-10. **Read and compare boxplots** — Identify the median, spread (IQR), and range from a boxplot. Compare distributions across categories: which group has a higher center, more variation, or outliers.
-
-11. **Interpret a stripplot overlay** — Understand that a stripplot shows individual data points on top of a boxplot, revealing clusters, gaps, or patterns that the box alone might hide.
-
-12. **Calculate grouped statistics** — Given a dataset grouped by category, compute the mean, standard deviation, and count for each group.
-
-13. **Perform multi-step operations** — Chain together a filter, a group-by, and an aggregation to answer a specific question about a subset of the data.
+| # | Skill | Assessed In |
+|---|-------|-------------|
+| 1 | **Choose the right visualization** — Given a dataset, identify variable types and select the appropriate figure: scatter plot (two numerical), boxplot by category (one numerical + one categorical), or scatter by category (two numerical + one categorical). | Q1 |
+| 2 | **Draw a scatter plot** — Plot two numerical variables against each other with labeled axes. | Q1b |
+| 3 | **Draw a boxplot by category** — Sketch a boxplot comparing a numerical variable across groups. | Q1a, Q4 |
+| 4 | **Draw a scatter plot colored by category** — Sketch a scatter plot with points colored by a categorical variable. | Q1c |
+| 5 | **Identify variable types** — Classify variables as numerical or categorical from a data table. | Q1 |
+| 6 | **Diagnose a misleading figure** — Recognize when a visualization fails to show patterns due to skewed data (exponential growth, heavy-tailed distributions). | Q2 |
+| 7 | **Fix a figure with log transforms** — Redraw a figure using log-scaled axes to reveal hidden patterns. Know when to log one axis vs. both. | Q2 |
+| 8 | **Interpret log2 scales** — Understand that each unit on a log2 scale represents a doubling of the original value. | Q3a |
+| 9 | **Interpret log10 scales** — Understand that each unit on a log10 scale represents a tenfold increase. | Q3b |
+| 10 | **Compare values on a log scale** — Given two log-transformed values, determine how many times larger one original value is than the other (e.g., 3 units apart on log2 = 8x). | Q3c |
+| 11 | **Investigate and clean data** — When a boxplot looks compressed (e.g., most values at zero), diagnose the issue and filter to reveal meaningful variation. | Q4 |
+| 12 | **Filter data** — Identify which rows to keep or remove based on a condition (e.g., keep only employees, remove volunteers). | Q4b |
+| 13 | **Read a scatter plot colored by category** — Identify separate trends for each group in a color-coded scatter plot. | Q5 |
+| 14 | **Describe how a relationship differs by group** — Articulate that one group shows a steeper/shallower trend than another and explain what that means in context. | Q5c |
 
 ---
 
-### Part 2.3: Bivariate Relationships by Category
+### Skills NOT on This Exam
 
-Students should be able to:
+The following Part 2 skills are covered in class but not assessed on this MiniExam:
 
-14. **Merge two datasets on a shared key** — Given two tables with a common column, predict which rows match and what the merged table looks like. Understand that unmatched rows are dropped (in a default merge).
-
-15. **Reshape data from wide to long format** — Given a table where each column represents a time period or category, convert it to long format where each row represents one observation. Understand why long format is needed for certain visualizations.
-
-16. **Read a scatter plot colored by category** — Identify separate trends for each group in a scatter plot with color-coded categories. Determine whether the relationship differs across groups.
-
-17. **Describe how a relationship differs by group** — Articulate specific differences: one group shows a stronger/weaker relationship, or the direction reverses, or one group is shifted up/down.
-
-18. **Choose the right visualization** — Given a research question and data description, select the appropriate tool: scatter plot (two numerical variables), boxplot by category (one numerical + one categorical), or scatter by category (two numerical + one categorical).
+- Calculating grouped statistics (mean, count by category)
+- Multi-step operations (filter + group-by + aggregate)
+- Reshaping data from wide to long format
+- Merging two datasets on a shared key
+- Interpreting Anscombe's Quartet (why visualization matters)
+- Reading a stripplot overlay on a boxplot
+- Relationship reversals across groups (Simpson's paradox)

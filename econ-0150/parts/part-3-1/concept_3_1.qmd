@@ -20,15 +20,13 @@ format:
 
 <br><br>
 
-:::{.incremental}
-- We've mastered **summarizing** data
+- We've **summarized** data
 - But often we want to say something about the **population**, not just our **data**
-:::
 
 ---
 
 ## Data Question 1: Sleep Time in Two Samples
-<p class="subheader">Which group sleeps longer?</p>
+<p class="subheader">Which sample sleeps longer?</p>
 
 ![](i/c_01.png)
 
@@ -39,7 +37,7 @@ format:
 ---
 
 ## Data Question 2: Sleep Time in Two Samples
-<p class="subheader">Which group sleeps longer?</p>
+<p class="subheader">Which sample sleeps longer?</p>
 
 ![](i/c_02.png)
 
@@ -50,21 +48,21 @@ format:
 ---
 
 ## Measures of Location
-<p class="subheader">Where is the "center" of each group?</p>
+<p class="subheader">Where is the "center" of each sample group?</p>
 
 <br>
 
-**Mean**: The average value
+**Sample (Data) Mean**: The average value
 $$\bar{x} = \frac{x_1 + x_2 + ... x_N}{N}$$
 
 ---
 
 ## Measures of Location
-<p class="subheader">Where is the "center" of each group?</p>
+<p class="subheader">Where is the "center" of each sample group?</p>
 
 <br>
 
-**Mean**: The average value
+**Sample (Data) Mean**: The average value
 $$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
 
 . . .
@@ -94,23 +92,23 @@ print(f"Group B mean: {mean_B:.2f} hours")
 ---
 
 ## Data Question 2: Sleep Time in Two Samples
-<p class="subheader">Which group sleeps longer?</p>
+<p class="subheader">Which sample group sleeps longer?</p>
 
 ![](i/c_03.png)
 
 
 ```{python}
-print(f"Group A mean: {mean_A:.2f} hours")
-print(f"Group B mean: {mean_B:.2f} hours")
+print(f"Sample Group A mean: {mean_A:.2f} hours")
+print(f"Sample Group B mean: {mean_B:.2f} hours")
 ```
 
 . . .
 
-*> group A sleeps longer **on average***
+*> Group A sleeps longer **on average*** in our sample
 
 . . .
 
-*> but some in Group B sleep longer than most in Group A!*
+*> but some in Sample Group B sleep longer than most in Sample Group A!*
 
 ---
 
@@ -183,7 +181,7 @@ $$ Var_X = \sum \frac{(x_i - \bar{x})^2}{n}$$
 <br>
 
 **Standard Deviation**: A measure of spread
-$$S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}$$
+$$\begin{align}S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\end{align}$$
 
 . . .
 
@@ -223,13 +221,13 @@ print(f"Group B std dev: {std_B:.2f} hours")
 ---
 
 ## Sample vs Population
-<p class="subheader">Both groups are 50 people selected from two different counties.</p>
+<p class="subheader">Both sample groups are 50 people selected from two different counties.</p>
 
 ![](i/c_03.png)
 
 . . .
 
-Old question: "Which **group** sleeps longer?" *(about the **data**)*
+Old question: "Which **sample group** sleeps longer?" *(about the **data**)*
 
 . . .
 
@@ -242,12 +240,18 @@ New question: "Which **county** sleeps longer?" *(about the **population**)*
 
 ![](i/sample.png)
 
+. . .
+
+$\mu$ - population mean
+
+$\sigma$ - population standard deviation
+
 ---
 
 ## Sample vs Population
-<p class="subheader">We observe **samples** but want to understand **populations**.</p>
+<p class="subheader">We observe **samples**. We study **populations**.</p>
 
-<br><br>
+<br>
 
 :::{.incremental}
 - **Data**: 50 individuals we happened to sample from both counties
@@ -255,6 +259,12 @@ New question: "Which **county** sleeps longer?" *(about the **population**)*
     - Even if we surveyed everyone today, tomorrow would bring new residents
     - The population is a theoretical concept - an infinite pool of possibilities
 :::
+
+<br><br>
+
+. . .
+
+***Fundamental Tension**: we observe data, which is drawn from a population, but is not the population itself, which is the object of our study.*
 
 ---
 
@@ -419,7 +429,7 @@ $$s \neq \sigma$$
 :::{.incremental}
 - Part 3.2 | **Central Limit Theorem** - the distribution of the sample mean
 - Part 3.3 | **Confidence Intervals** - the closeness of the sample mean to the truth
-- Part 3.4 | **Hypothesis Testing** - the probability we are wrong
+- Part 3.4 | **Statiscial Modeling** - testing wrongness of hypothetical relationships
 :::
 
 . . .
