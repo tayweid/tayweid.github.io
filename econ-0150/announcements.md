@@ -114,6 +114,22 @@ Taylor
 
 
 
+#### Project 2 Workshop
+
+Hi folks,
+
+Just a quick little announcement. The Part 2 Project guidelines are posted on Gradescope and on the Project Guidelines file on the course website. Like the Part 1 Project, this is aimed to get you exploring relationships between variables as we build to your final project. 
+
+I'm holding a Part 2 Project Workshop during my office hours on Friday. Feel free to drop in and chat about your project and work through any challenges you may be running into. 
+
+ 
+
+Bon courage!
+
+Taylor
+
+
+
 #### Economic Data Analysis | Week 7 (old)
 
 Hi folks,

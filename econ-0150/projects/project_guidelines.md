@@ -18,7 +18,7 @@ Make this your own and have fun with it! There are general guidelines, but don't
 
 **Part 2 Project**
 
-- Diagram a dataset and visualize a relationship between variables in a dataset of your choosing.
+- Visualize a relationship between variables in a dataset of your choosing using a Part 2 tool
 
 **Later**
 
