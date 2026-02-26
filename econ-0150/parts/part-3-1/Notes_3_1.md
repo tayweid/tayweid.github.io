@@ -8,7 +8,7 @@
 - Measures of dispersion: build up from range → mean deviation → MAD → variance → SD, each fixing the previous (tennis court analogy: how far you'll run)
 - Random variable vocabulary: probability function, observation, sample
 - If we knew the population distribution, we could answer anything (mathematically or by simulation) — but we never do
-- Cliff-hanger: what can we know about the population from just a sample?
+- What can we know about the population from just a sample?
 
 ---
 
@@ -40,8 +40,9 @@ There are several options:
 
 **Mean**: The average value.
 
-$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
-
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+$$
 The mean is the workhorse of statistics. It's simple to compute, it's "smooth" in a mathematical sense (small changes in data produce small changes in the mean), and — as we'll see — it connects beautifully to measures of variability. It's the point that minimizes the total squared distance to all observations. For our tennis court analogy, standing at the mean minimizes the average squared distance you'd have to cover.
 
 Calculate the mean for both groups.
@@ -52,36 +53,36 @@ Group A sleeps longer on average. But look at those distributions again. Some pe
 
 ### Measures of Dispersion
 
-We know the centers of the two groups. But how spread out is each group's data? Back to the tennis court: you're standing at the mean — the optimal position. But how much *running* will you have to do? If my shots are tightly clustered, not much. If they're spread all over the court, a lot. We need a number that captures this.
+We know the centers of the two groups. But how spread out is each group's data? Thinking back to the tennis court: you're standing at the mean, but how much *running* will you have to do? If my shots are tightly clustered, you won't run not much. If they're spread all over the court, you'll run a lot. We need a number that captures this idea. Let's build up a measure of spread step by step. 
 
-Let's build up a measure of spread step by step, and each step will fix a problem with the previous one.
+**Range**: The difference between the largest and smallest value. This is simple, but it only uses two data points. It doesn't respond to changes near the middle of the distribution. If one outlier moves, the range changes dramatically. But if any of the other data moves, range doesn't change at all. It ignores most of the information we have. Instead lets think about how far I have to run if I'm standing at the mean.
 
-**Range**: The difference between the largest and smallest value. Simple, but it only uses two data points. It doesn't respond to changes near the middle of the distribution. If one outlier moves, the range changes dramatically, but the rest of the data hasn't changed at all. It ignores most of the information we have.
-
-**Mean deviation**: You're standing at the mean. For each shot, you measure the distance you'd have to run: $x_i - \bar{x}$. Then you take the average of all those distances.
-
-$$\frac{1}{n}\sum(x_i - \bar{x})$$
-
+**Mean deviation**: You're standing at the mean. Then for each shot, you measure the distance you'd have to run, which is the distance between the mean and the datapoint itself: $x_i - \bar{x}$. Then you take the average of all those distances.
+$$
+\frac{1}{n}\sum(x_i - \bar{x})
+$$
 This seems natural — how far do you run on average? But there's a problem. Try computing it. Some shots go left (negative distance), some go right (positive distance), and they cancel out perfectly. The mean deviation is always exactly zero. That's not useful.
 
 *[Stage direction: show a number line with a few data points and their mean. Draw arrows from each point to the mean. Some point left, some point right. Label the positive and negative distances. Note that they sum to zero.]*
 
-**Mean absolute deviation**: Forget which direction — just measure how *far* you run, ignoring left vs right. Take the absolute value first, then average.
-
-$$\frac{1}{n}\sum|x_i - \bar{x}|$$
-
+**Mean absolute deviation**: Instead, lets ignore the direction, just measuring how *far* you run. Running left one unit or right one unit are measured as the same deviation. Lets do this by take the absolute value first, then the average.
+$$
+\frac{1}{n}\sum|x_i - \bar{x}|
+$$
 Now the cancellation problem is gone. This is a perfectly reasonable measure of spread, and it has an intuitive interpretation: the average distance you'd run per shot. But mathematically, absolute values are awkward — they create a "kink" at zero that makes them harder to work with in calculus, proofs, and derivations. We want something that handles the sign problem and is also mathematically convenient.
 
 **Variance**: Square the deviations instead of taking absolute values.
 
-$$Var_X = \frac{1}{n}\sum(x_i - \bar{x})^2$$
-
+$$
+Var = \frac{1}{n}\sum(x_i - \bar{x})^2
+$$
 Squaring accomplishes two things: it makes all deviations positive (since any number squared is non-negative), and it's smooth and differentiable — no kink. The downside is that the units are squared — if we're measuring hours, the variance is in hours-squared, which isn't interpretable.
 
 **Standard deviation**: Take the square root of the variance.
 
-$$S_X = \sqrt{\frac{1}{n}\sum(x_i - \bar{x})^2}$$
-
+$$
+S_X = \sqrt{\frac{1}{n}\sum(x_i - \bar{x})^2}
+$$
 Now we have a measure that handles negative deviations, is mathematically nice, and has interpretable units. The standard deviation is roughly the average distance each observation sits from the mean — back in the same units as the original data.
 
 *[Stage direction: show formulas appearing progressively, each one building on and fixing the previous. Keep all five visible at the end so students can see the progression: range → mean deviation (fails: always zero) → MAD (works but mathematically awkward) → variance (nice math, bad units) → SD (nice math, good units).]*
@@ -90,13 +91,13 @@ Group A has a larger standard deviation than Group B. That's why the distributio
 
 ### The Shift — The Population Question
 
-Now here's the twist. These two groups aren't just any groups. Group A is 50 people sampled from **County A**. Group B is 50 people sampled from **County B**.
+We've just described 100 people, 50 in Group A sampled from **Allegheny County** and 50 in Group B sampled from **Butler County**. But I don't particularly care about these 100 people specifically. What I'm interested in is the differences in sleep time not for those in the sample I just drew but for the people living in these two counties *as a population*. And that population is *not* in my sample.
 
-The question changes. Instead of "which *sample group* sleeps longer?" — a question about the data — we're now asking "which *county* sleeps longer?" That's a question about the **population**.
+This is a subtlely different question. Instead of asking "which *sample group* sleeps longer?" — a question about the data — we're now asking "which *county* sleeps longer?" That's a question about the **population**.
 
 *[Stage direction: show a diagram with two large clouds labeled "County A Population" and "County B Population," each with a small subset of dots highlighted and an arrow pointing down to the sample data we've been looking at.]*
 
-Why is this different? Because the data is just 50 people we happened to sample. If we sampled again tomorrow, we'd get 50 different people with slightly different sleep patterns. The sample might look a little different. But the county hasn't changed.
+Why is this different? The data is just 50 people we happened to sample. If we sampled again tomorrow, we'd get 50 different people with slightly different sleep patterns. The sample might look a little different. But the county hasn't changed.
 
 And "the county" here doesn't just mean the people currently living there. Even if we surveyed every resident today, tomorrow brings new residents, new sleep schedules. The population is a theoretical concept — an infinite pool of possible observations. It's a **random variable**.
 
@@ -120,8 +121,9 @@ We'll use "population" and "random variable" interchangeably — both refer to t
 
 Here's a thought experiment. Suppose I told you I actually made up this data on a computer. I *know* County A's probability function exactly:
 
-$$x_i \sim N(\mu = 7.2, \sigma = 1.5)$$
-
+$$
+x_i \sim N(\mu = 7.2, \sigma = 1.5)
+$$
 This says: sleep times in County A follow a normal distribution centered at 7.2 hours with a standard deviation of 1.5 hours. If we know the distribution, we can answer *any* probability question about the population.
 
 **Question 1**: What proportion of County A sleeps less than 5 hours?
@@ -144,7 +146,7 @@ We compute `stats.norm.ppf(0.04, loc=7.2, scale=1.5)` for the lower bound and `s
 
 When we know the probability function, we can calculate everything exactly. Any question about the population has a precise answer.
 
-Sometimes the math gets complicated. If the distribution is very complex — like the election models Nate Silver built at FiveThirtyEight — you can't always solve things with a formula. In those cases, we *simulate*: draw thousands of observations from the distribution and compute whatever we need from the simulated data. This isn't cheating. The random variable captures every possible way the world could go; each draw is one particular way the world went. With enough draws, the simulated answers converge to the true answers. This idea — that repeated sampling from a distribution reveals its properties — is going to become central to everything we do in Part 3.
+Sometimes the math gets complicated. If the distribution is very complex — like the election models Nate Silver built at FiveThirtyEight — you can't always solve things with a formula. In those cases, we *simulate*: draw thousands of observations from the distribution and compute whatever we need from the simulated data. The random variable captures every possible way the world could go and each draw is one particular way the world went. With enough draws, the simulated answers converge to the true answers. This idea — that repeated sampling from a distribution reveals its properties — is going to become central to much of what we do in Part 3.
 
 ### Many Distribution Shapes
 
@@ -156,12 +158,17 @@ Each one of these describes a different kind of random process. The probability 
 
 ### The Cliff-Hanger
 
-But here's the problem. In practice, we *never* know the probability function. I made up the County A example — I generated the data from a known distribution. In real research, we don't have that luxury. We just see the sample.
+But the problem is that in practice we *never* know the probability function. I made up the County A example — I generated the data from a known distribution. In real research, we don't have that luxury. We just see the sample.
 
 And the sample statistics aren't the population parameters:
 
-$$\bar{x} \neq \mu$$
-$$S \neq \sigma$$
+$$
+\bar{x} \neq \mu
+$$
+
+$$
+S \neq \sigma
+$$
 
 The sample mean $\bar{x}$ is our best guess of $\mu$, and the sample standard deviation $S$ is our best guess of $\sigma$. But they're just guesses. If we drew a different sample, we'd get different values for both.
 
@@ -175,4 +182,4 @@ This is the fundamental tension that the rest of Part 3 resolves:
 - **Part 3.3** — We use that distribution to build confidence intervals and test hypotheses — quantifying how surprised we should be by any claim about $\mu$.
 - **Part 3.4** — Hypothesis testing turns out to be the simplest case of a much more powerful framework — the general linear model — which sets up everything in Part 4.
 
-We can answer questions about an unknown population using just a sample. Next time, we'll see how.
+We can answer questions about an unknown population using just a sample. Next time, we'll start building the tools to resolve this tension.
