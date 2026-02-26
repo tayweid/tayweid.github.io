@@ -252,10 +252,10 @@ Where is the “center” of each sample group?
 <span id="cb1-3"><a href=""></a>mean_B <span class="op">=</span> group_B.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="1db416a3" class="cell" data-execution_count="1">
+<div id="bcdcd059" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A mean: 7.25 hours
-Group B mean: 6.95 hours</code></pre>
+<pre><code>Group A mean: 7.20 hours
+Group B mean: 6.72 hours</code></pre>
 </div>
 </div>
 </div>
@@ -266,10 +266,10 @@ Group B mean: 6.95 hours</code></pre>
 Which sample group sleeps longer?
 </p>
 
-<img data-src="i/c_03.png" class="r-stretch"><div id="c879190b" class="cell" data-execution_count="2">
+<img data-src="i/c_03.png" class="r-stretch"><div id="f559b79a" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample Group A mean: 7.25 hours
-Sample Group B mean: 6.95 hours</code></pre>
+<pre><code>Sample Group A mean: 7.20 hours
+Sample Group B mean: 6.72 hours</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -361,16 +361,16 @@ How spread out is the data?
 </p>
 <p><br></p>
 <p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
-<div id="706e8599" class="cell" data-execution_count="3">
+<div id="33b2fec9" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Calculate standard deviations</span></span>
 <span id="cb4-2"><a href=""></a>std_A <span class="op">=</span> group_A.std()</span>
 <span id="cb4-3"><a href=""></a>std_B <span class="op">=</span> group_B.std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="3d92d83b" class="cell" data-execution_count="4">
+<div id="2baaa46c" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A std dev: 1.48 hours
-Group B std dev: 0.59 hours</code></pre>
+<pre><code>Group A std dev: 1.60 hours
+Group B std dev: 0.70 hours</code></pre>
 </div>
 </div>
 </div>
@@ -478,36 +478,48 @@ Random variables can have many kinds of probability functions.
 </p>
 
 <img data-src="i/distributions.png" class="r-stretch"></section>
-<section id="pdfs-and-cdfs" class="slide level2">
-<h2>PDFs and CDFs</h2>
+<section id="probability-density-function-pdf" class="slide level2">
+<h2>Probability Density Function (PDF)</h2>
 <p class="subheader">
-Two ways to describe a probability distribution.
+The height of <span class="math inline">\(f(x)\)</span> at each value.
 </p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>PDF</strong>: the height of <span class="math inline">\(f(x)\)</span> at each value.</p>
-<div id="b14f2498" class="cell" data-execution_count="5">
+<div id="ffb5a2a2" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
-<div>
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_3_1_files/figure-revealjs/cell-6-output-1.png" width="469" height="276"></p>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="853" height="228"></p>
 </figure>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p>. . .</p>
-<p><strong>CDF</strong>: the area under <span class="math inline">\(f(x)\)</span> up to each value — <span class="math inline">\(P(X \leq x)\)</span>.</p>
-<div id="0be21a3d" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
 <div>
+<ol type="1">
+<li class="fragment"><strong><span class="math inline">\(f(x) \geq 0\)</span></strong>: probabilities are never negative.</li>
+<li class="fragment"><strong><span class="math inline">\(\int f(x)\,dx = 1\)</span></strong>: total probability sums to one.</li>
+</ol>
+</div>
+</section>
+<section id="cumulative-distribution-function-cdf" class="slide level2">
+<h2>Cumulative Distribution Function (CDF)</h2>
+<p class="subheader">
+The area under <span class="math inline">\(f(x)\)</span> up to each value — <span class="math inline">\(F(x) = P(X \leq x)\)</span>.
+</p>
+<div id="58699e0b" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_3_1_files/figure-revealjs/cell-7-output-1.png" width="469" height="276"></p>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="853" height="228"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+<div>
+<ol type="1">
+<li class="fragment"><strong><span class="math inline">\(F(x)\)</span> is non-decreasing</strong>: more area accumulates as <span class="math inline">\(x\)</span> increases.</li>
+<li class="fragment"><strong><span class="math inline">\(F(-\infty) = 0\)</span>, <span class="math inline">\(F(\infty) = 1\)</span></strong>: ranges from 0 to 1.</li>
+<li class="fragment"><strong><span class="math inline">\(F(x)\)</span> gives probability directly</strong>: <span class="math inline">\(P(X \leq 5) = F(5)\)</span>.</li>
+</ol>
+</div>
 </section>
 <section id="exercise-3.1-known-distribution" class="slide level2">
 <h2>Exercise 3.1 | Known Distribution</h2>

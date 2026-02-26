@@ -326,16 +326,12 @@ $\sigma$ - population standard deviation
 
 ---
 
-## PDFs and CDFs
-<p class="subheader">Two ways to describe a probability distribution.</p>
-
-:::: {.columns}
-::: {.column width="50%"}
-
-**PDF**: the height of $f(x)$ at each value.
+## Probability Density Function (PDF)
+<p class="subheader">The height of $f(x)$ at each value.</p>
 
 ```{python}
 #| echo: false
+#| fig-align: center
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
@@ -344,9 +340,12 @@ import seaborn as sns
 x = np.linspace(2, 13, 1000)
 y = stats.norm.pdf(x, 7.2, 1.5)
 
-plt.figure(figsize=(5, 3))
+plt.figure(figsize=(9, 2.5))
 plt.plot(x, y, 'b-', linewidth=2)
-plt.fill_between(x, y, alpha=0.15, color='blue')
+x_pt = 6.0
+y_pt = stats.norm.pdf(x_pt, 7.2, 1.5)
+plt.plot([x_pt, x_pt], [0, y_pt], 'r--', linewidth=1.5)
+plt.plot(x_pt, y_pt, 'ro', markersize=6)
 plt.xlabel('x')
 plt.ylabel('f(x)')
 plt.yticks([])
@@ -356,37 +355,48 @@ plt.tight_layout()
 plt.show()
 ```
 
+::: {.incremental}
+1. **$f(x) \geq 0$**: probabilities are never negative.
+2. **$\int f(x)\,dx = 1$**: total probability sums to one.
 :::
 
-::: {.column width="50%"}
+---
 
-. . .
-
-**CDF**: the area under $f(x)$ up to each value — $P(X \leq x)$.
+## Cumulative Distribution Function (CDF)
+<p class="subheader">The area under $f(x)$ up to each value — $F(x) = P(X \leq x)$.</p>
 
 ```{python}
 #| echo: false
+#| fig-align: center
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
 import seaborn as sns
 
 x = np.linspace(2, 13, 1000)
-y = stats.norm.cdf(x, 7.2, 1.5)
+y = stats.norm.pdf(x, 7.2, 1.5)
 
-plt.figure(figsize=(5, 3))
+plt.figure(figsize=(9, 2.5))
 plt.plot(x, y, 'b-', linewidth=2)
+x_pt = 6.0
+x_fill = x[x <= x_pt]
+y_fill = stats.norm.pdf(x_fill, 7.2, 1.5)
+plt.fill_between(x_fill, y_fill, alpha=0.3, color='red')
+plt.plot([x_pt, x_pt], [0, stats.norm.pdf(x_pt, 7.2, 1.5)], 'r--', linewidth=1.5)
 plt.xlabel('x')
-plt.ylabel('F(x)')
-plt.yticks([0, 0.5, 1])
+plt.ylabel('f(x)')
+plt.yticks([])
 
-sns.despine(left=False, bottom=False, right=True, top=True, offset=0, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
+::: {.incremental}
+1. **$F(x)$ is non-decreasing**: more area accumulates as $x$ increases.
+2. **$F(-\infty) = 0$, $F(\infty) = 1$**: ranges from 0 to 1.
+3. **$F(x)$ gives probability directly**: $P(X \leq 5) = F(5)$.
 :::
-::::
 
 ---
 
