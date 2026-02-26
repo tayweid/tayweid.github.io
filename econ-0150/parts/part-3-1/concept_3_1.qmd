@@ -326,6 +326,70 @@ $\sigma$ - population standard deviation
 
 ---
 
+## PDFs and CDFs
+<p class="subheader">Two ways to describe a probability distribution.</p>
+
+:::: {.columns}
+::: {.column width="50%"}
+
+**PDF**: the height of $f(x)$ at each value.
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+x = np.linspace(2, 13, 1000)
+y = stats.norm.pdf(x, 7.2, 1.5)
+
+plt.figure(figsize=(5, 3))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.fill_between(x, y, alpha=0.15, color='blue')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.yticks([])
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+:::
+
+::: {.column width="50%"}
+
+. . .
+
+**CDF**: the area under $f(x)$ up to each value — $P(X \leq x)$.
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+x = np.linspace(2, 13, 1000)
+y = stats.norm.cdf(x, 7.2, 1.5)
+
+plt.figure(figsize=(5, 3))
+plt.plot(x, y, 'b-', linewidth=2)
+plt.xlabel('x')
+plt.ylabel('F(x)')
+plt.yticks([0, 0.5, 1])
+
+sns.despine(left=False, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+:::
+::::
+
+---
+
 ## Exercise 3.1 | Known Distribution
 <p class="subheader">We can answer **many** kinds of probability questions when we know the distribution.</p>
 

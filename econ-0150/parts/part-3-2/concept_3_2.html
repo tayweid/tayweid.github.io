@@ -27,6 +27,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="concept_3_2_files/libs/revealjs/dist/theme/quarto-bbe7401fe57d4b791b917637bb662036.css">
   <link rel="stylesheet" href="custom.css">
@@ -148,7 +213,7 @@ If all we see is the sample, how do we learn about a population?
 </div>
 <div class="fragment">
 <ul>
-<li>If we only see a sample, what <em>can </em>we say about the population?</li>
+<li>If we only see a sample, what <em>can</em> we say about the population?</li>
 </ul>
 </div>
 </section>
@@ -201,60 +266,61 @@ But if all we see is the sample, what can we know about a population?
 <p><em>&gt; how do we learn about <span class="math inline">\(\mu\)</span> if all we have is <span class="math inline">\(n\)</span>, <span class="math inline">\(\bar{x}\)</span>, and <span class="math inline">\(S\)</span>?</em></p>
 </div>
 </section>
-<section id="exercise-3.2-sampling-dice-sample-size-n1" class="slide level2">
-<h2>Exercise 3.2 | Sampling Dice (sample size: n=1)</h2>
+<section id="exercise-3.2-sampling-dice-n1" class="slide level2">
+<h2>Exercise 3.2 | Sampling Dice (n=1)</h2>
 <p class="subheader">
-Lets pretend we don’t know the probability function for dice.
+Let’s pretend we don’t know the probability function for dice.
 </p>
 <p><br></p>
-<p>Lets start with something boring.</p>
+<p>Let’s start with something simple.</p>
 <p><br></p>
 <ol type="1">
-<li>Roll a dice once (sample size: n=1).</li>
+<li>Roll a die once (sample size: n=1).</li>
 <li>We’ll plot the distribution of our samples.</li>
 </ol>
 </section>
-<section id="exercise-3.2-sampling-variability" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n1" class="slide level2">
+<h2>Exercise 3.2 | Results (n=1)</h2>
 <p class="subheader">
 Your samples have a lot of variability!
 </p>
 
 <img data-src="i/c_02.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; this variability perfectly matches what we would expect from a fair dice</em></p>
+<p><em>&gt; this variability perfectly matches what we would expect from a fair die</em></p>
 </div>
 </section>
 <section id="exercise-3.2-sampling-dice-n2" class="slide level2">
 <h2>Exercise 3.2 | Sampling Dice (n=2)</h2>
 <p class="subheader">
-Lets pretend we don’t know the probability function for dice.
+Now take a sample of two rolls and compute the mean.
 </p>
 <p><br></p>
-<p>Next is something slighly less boring.</p>
+<p>Next is something slightly less boring.</p>
 <p><br></p>
 <ol type="1">
-<li>Roll a dice once (sample size: n=2).</li>
-<li>We’ll plot the distribution of our samples.</li>
+<li>Roll a die twice (sample size: n=2).</li>
+<li>Calculate the mean of your two rolls.</li>
+<li>We’ll plot the distribution of your sample means.</li>
 </ol>
 </section>
-<section id="exercise-3.2-sampling-variability-1" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n2" class="slide level2">
+<h2>Exercise 3.2 | Results (n=2)</h2>
 <p class="subheader">
-Like before, each sample has a slighly different sample mean.
+Each sample has a slightly different sample mean.
 </p>
 
 <img data-src="i/c_03.png" class="r-stretch"><p><br></p>
 <div class="fragment">
-<p><em>&gt; theres a lot of variability in your sample means!</em></p>
+<p><em>&gt; there’s a lot of variability in your sample means!</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
 </div>
 </section>
-<section id="exercise-3.2-sampling-variability-2" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n2-1" class="slide level2">
+<h2>Exercise 3.2 | Results (n=2)</h2>
 <p class="subheader">
-The variability in the sample mean with a larger sample size.
+The distribution of sample means bunches in the middle.
 </p>
 
 <img data-src="i/c_04.png" class="r-stretch"><div class="fragment">
@@ -268,97 +334,71 @@ The variability in the sample mean with a larger sample size.
 <section id="exercise-3.2-sampling-dice-n3" class="slide level2">
 <h2>Exercise 3.2 | Sampling Dice (n=3)</h2>
 <p class="subheader">
-Lets pretend we don’t know the probability function for dice.
+Now take a sample of three rolls and compute the mean.
 </p>
 <p><br></p>
 <p>Next is something even less boring.</p>
 <p><br></p>
 <ol type="1">
-<li>Roll a dice once (sample size: n=3).</li>
-<li>We’ll plot the distribution of our samples.</li>
+<li>Roll a die three times (sample size: n=3).</li>
+<li>Calculate the mean of your three rolls.</li>
+<li>We’ll plot the distribution of your sample means.</li>
 </ol>
 </section>
-<section id="exercise-3.2-sampling-variability-3" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n3" class="slide level2">
+<h2>Exercise 3.2 | Results (n=3)</h2>
 <p class="subheader">
-The variability in the sample mean with a larger sample size.
+The distribution of sample means with n=3.
 </p>
 
-<img data-src="i/c_05.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; theres a even more variability in your sample means!</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
+<img data-src="i/c_06.png" class="r-stretch"><div class="fragment">
+<p><em>&gt; what do you notice about the shape with n=3?</em></p>
 </div>
 </section>
-<section id="exercise-3.2-sampling-variability-4" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n3-1" class="slide level2">
+<h2>Exercise 3.2 | Results (n=3)</h2>
 <p class="subheader">
-The variability in the sample mean with a larger sample size.
+The distribution of sample means with n=3.
 </p>
 
-<img data-src="i/c_06.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=3?</em></p>
-</section>
-<section id="exercise-3.2-sampling-variability-5" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
-<p class="subheader">
-The variability in the sample mean with a larger sample size.
-</p>
-
-<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=3?</em></p>
-</section>
-<section id="exercise-3.2-sampling-variability-6" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
-<p class="subheader">
-The variability in the sample mean with a larger sample size.
-</p>
-
-<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; there’s some curvature to the shape</em></p>
+<img data-src="i/c_07.png" class="r-stretch"><p><em>&gt; there’s some curvature to the shape — the edges are rounding into a curve</em></p>
 </section>
 <section id="exercise-3.2-sampling-dice-n30" class="slide level2">
 <h2>Exercise 3.2 | Sampling Dice (n=30)</h2>
 <p class="subheader">
-Lets pretend we don’t know the probability function for dice.
+Now let’s really increase the sample size.
 </p>
 <p><br></p>
 <p>Next is something very un-boring.</p>
 <p><br></p>
 <ol type="1">
-<li>Roll a dice once (sample size: n=30).</li>
-<li>We’ll plot the distribution of our samples.</li>
+<li>Roll a die thirty times (sample size: n=30).</li>
+<li>We’ll simulate this 1,000 times and plot the distribution of sample means.</li>
 </ol>
 </section>
-<section id="exercise-3.2-sampling-variability-7" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n30" class="slide level2">
+<h2>Exercise 3.2 | Results (n=30)</h2>
 <p class="subheader">
-The variability in the sample mean with a larger sample size.
+Your individual samples each look different.
 </p>
 
 <img data-src="i/c_08.png" class="r-stretch"><div class="fragment">
-<p><em>&gt; theres a even more ways your sample could look!</em></p>
+<p><em>&gt; there are even more ways your sample could look!</em></p>
 </div>
 <div class="fragment">
 <p><em>&gt; what do you expect to see when we plot these sample means (<span class="math inline">\(\bar{x}\)</span>)?</em></p>
 </div>
 </section>
-<section id="exercise-3.2-sampling-variability-8" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
-<p class="subheader">
-What happens when we really increase the sample size?
-</p>
-
-<img data-src="i/c_09.png" class="r-stretch"><p><em>&gt; what do you notice with the shape with n=30?</em></p>
-</section>
-<section id="exercise-3.2-sampling-variability-9" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n30-1" class="slide level2">
+<h2>Exercise 3.2 | Results (n=30)</h2>
 <p class="subheader">
 What happens when we really increase the sample size?
 </p>
 
 <img data-src="i/c_09.png" class="r-stretch"><p><em>&gt; the distribution of sample means gets tighter and more bell-shaped</em></p>
 </section>
-<section id="exercise-3.2-sampling-variability-10" class="slide level2">
-<h2>Exercise 3.2 | Sampling Variability</h2>
+<section id="exercise-3.2-results-n30-2" class="slide level2">
+<h2>Exercise 3.2 | Results (n=30)</h2>
 <p class="subheader">
 What happens when we really increase the sample size?
 </p>
@@ -367,56 +407,78 @@ What happens when we really increase the sample size?
 <p><em>&gt; what is this probability function in red?</em></p>
 </div>
 </section>
-<section id="random-variables-known-2" class="slide level2">
-<h2>Random Variables: Known</h2>
+<section id="the-central-limit-theorem" class="slide level2">
+<h2>The Central Limit Theorem</h2>
 <p class="subheader">
-If we know the random variable, we can learn many things about the population.
+The distribution of sample means approximates a normal distribution as sample size increases.
 </p>
 <div class="columns">
-<div class="column" style="width:40%;">
-<ul>
-<li>Probability wait time &lt; 10:
-<ul>
-<li>P(X &lt; 10) = 0.21</li>
-</ul></li>
-<li>Probability wait time &gt; 15:
-<ul>
-<li>P(X &gt; 15) = 0.11</li>
-</ul></li>
-<li>Probability between 10 - 15:
-<ul>
-<li>P(10 &lt; X &lt; 15) = 0.59</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:60%;">
-<p><img data-src="i/c_01.png"></p>
-</div></div>
+<div class="column" style="width:50%;">
+<p><span class="math display">\[\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)\]</span></p>
 <p><br></p>
-<p><em>&gt; when we know the probability function, we can calculate everything exactly</em></p>
-</section>
-<section id="random-variables-unknown-1" class="slide level2">
-<h2>Random Variables: Unknown</h2>
-<p class="subheader">
-If we take multiple samples, we get different sample means.
-</p>
-<p>Each sample gives us a different estimate of the population mean.</p>
-<div id="1e0d2eac" class="cell" data-execution_count="1">
+<div>
+<ol type="1">
+<li class="fragment"><strong>Shape</strong>: the sampling distribution is normal</li>
+<li class="fragment"><strong>Center</strong>: it’s centered on the population mean <span class="math inline">\(\mu\)</span></li>
+<li class="fragment"><strong>Spread</strong>: the standard error <span class="math inline">\(\sigma/\sqrt{n}\)</span> shrinks with larger <span class="math inline">\(n\)</span></li>
+</ol>
+</div>
+</div><div class="column" style="width:50%;">
+<div id="ed139aca" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div>
 <figure>
-<p><img data-src="concept_3_2_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="854" height="278"></p>
+<p><img data-src="concept_3_2_files/figure-revealjs/cell-2-output-1.png" width="470" height="277"></p>
 </figure>
 </div>
 </div>
 </div>
+</div></div>
 </section>
-<section id="random-variables-unknown-2" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="the-standard-error" class="slide level2">
+<h2>The Standard Error</h2>
 <p class="subheader">
-If we take multiple samples, their means will vary.
+Where does <span class="math inline">\(\sigma / \sqrt{n}\)</span> come from?
+</p>
+<p><br></p>
+<p>Each observation <span class="math inline">\(x_i\)</span> is drawn independently with variance <span class="math inline">\(\sigma^2\)</span>, so: <span class="math display">\[Var(x_1 + x_2 + \cdots + x_n) = n\sigma^2\]</span></p>
+<div class="fragment">
+<p>Dividing by <span class="math inline">\(n\)</span> divides the variance by <span class="math inline">\(n^2\)</span>: <span class="math display">\[Var\Big(\frac{x_1 + x_2 + \cdots + x_n}{n}\Big) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n}\]</span></p>
+</div>
+<div class="fragment">
+<p>Take the square root: <span class="math display">\[SD(\bar{x}) = \sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}\]</span></p>
+</div>
+</section>
+<section id="skewed-distributions" class="slide level2">
+<h2>Skewed Distributions</h2>
+<p class="subheader">
+Does the CLT work for distributions that aren’t as nice?
 </p>
 <p><br><br></p>
-<div id="42c67ee7" class="cell" data-execution_count="2">
+<p><strong>Question</strong>: <em>Does the CLT still work when the population looks asymmetric?</em></p>
+</section>
+<section id="exercise-3.2-skewed-population" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population</h2>
+<p class="subheader">
+Simulate 1,000 sample means from a chi-squared population with n=1.
+</p>
+<p><br></p>
+<div class="fragment">
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a><span class="co"># Simulate 1000 sample means from a skewed population</span></span>
+<span id="cb1-2"><a href=""></a>samples <span class="op">=</span> stats.chi2.rvs(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>(<span class="dv">1000</span>, <span class="dv">1</span>))</span>
+<span id="cb1-3"><a href=""></a>sample_means <span class="op">=</span> samples.mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-4"><a href=""></a>sns.histplot(sample_means, bins<span class="op">=</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p><em>&gt; with n=1, the sample means are just the raw observations</em></p>
+</div>
+</section>
+<section id="exercise-3.2-skewed-population-n1" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population (n=1)</h2>
+<p class="subheader">
+The distribution of sample means looks just like the population — very skewed.
+</p>
+<div id="0eccde54" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -425,14 +487,16 @@ If we take multiple samples, their means will vary.
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><em>&gt; now increase the sample size to n=5</em></p>
+</div>
 </section>
-<section id="random-variables-unknown-3" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="exercise-3.2-skewed-population-n5" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population (n=5)</h2>
 <p class="subheader">
-If we take multiple samples, their means will vary, and by much less than the original distribution.
+The skew is already diminishing.
 </p>
-<p><br><br></p>
-<div id="e8b27f7a" class="cell" data-execution_count="3">
+<div id="2dba3737" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -441,15 +505,16 @@ If we take multiple samples, their means will vary, and by much less than the or
 </div>
 </div>
 </div>
-<p><em>&gt; why? think about rolling two dice… it’s much less likely to get a 2 than a 7</em></p>
+<div class="fragment">
+<p><em>&gt; now increase to n=30</em></p>
+</div>
 </section>
-<section id="random-variables-unknown-4" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="exercise-3.2-skewed-population-n30" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population (n=30)</h2>
 <p class="subheader">
-As sample size grows, the distribution of the sample means approaches a normal distribution.
+It looks normal — despite the skewed population.
 </p>
-<p><br><br></p>
-<div id="5e40e249" class="cell" data-execution_count="4">
+<div id="11d5d98b" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -458,14 +523,16 @@ As sample size grows, the distribution of the sample means approaches a normal d
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><em>&gt; now increase to n=1000</em></p>
+</div>
 </section>
-<section id="random-variables-unknown-5" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="exercise-3.2-skewed-population-n1000" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population (n=1000)</h2>
 <p class="subheader">
-As sample size grows, the normal distribution the sample means approach gets narrower.
+Very tight, very normal.
 </p>
-<p><br><br></p>
-<div id="6add7602" class="cell" data-execution_count="5">
+<div id="90d1aa1b" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -474,14 +541,31 @@ As sample size grows, the normal distribution the sample means approach gets nar
 </div>
 </div>
 </div>
+<div class="fragment">
+<p><em>&gt; the skew has completely disappeared</em></p>
+</div>
 </section>
-<section id="random-variables-unknown-6" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="exercise-3.2-skewed-population-1" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population</h2>
 <p class="subheader">
-The normal distribution the sample means approach is centered on the population mean!
+Overlay the n=1 distribution behind the n=1000 distribution.
 </p>
-<p><br><br></p>
-<div id="cbb7fbc7" class="cell" data-execution_count="6">
+<div class="fragment">
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a><span class="co"># Overlay n=1 (raw population) behind n=1000 (tight, normal)</span></span>
+<span id="cb2-2"><a href=""></a>means_1 <span class="op">=</span> stats.chi2.rvs(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>(<span class="dv">1000</span>, <span class="dv">1</span>)).mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a href=""></a>means_1000 <span class="op">=</span> stats.chi2.rvs(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>(<span class="dv">1000</span>, <span class="dv">1000</span>)).mean(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-4"><a href=""></a></span>
+<span id="cb2-5"><a href=""></a>sns.histplot(means_1, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, stat<span class="op">=</span><span class="st">'density'</span>, label<span class="op">=</span><span class="st">'Sample means (n=1)'</span>)</span>
+<span id="cb2-6"><a href=""></a>sns.histplot(means_1000, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, stat<span class="op">=</span><span class="st">'density'</span>, label<span class="op">=</span><span class="st">'Sample means (n=1000)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-3.2-skewed-population-2" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population</h2>
+<p class="subheader">
+From skewed population to normal sampling distribution.
+</p>
+<p><br></p>
+<div id="551082b9" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -491,16 +575,15 @@ The normal distribution the sample means approach is centered on the population 
 </div>
 </div>
 <div class="fragment">
-<p><em>&gt; the sample mean <span class="math inline">\(\bar{x}\)</span> follows a normal distribution around the truth</em> 😱</p>
-<p><span class="math display">\[\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)\]</span></p>
+<p><em>&gt; the CLT works for (nearly) any distribution shape</em></p>
 </div>
 </section>
-<section id="random-variables-unknown-7" class="slide level2">
-<h2>Random Variables: Unknown</h2>
+<section id="exercise-3.2-skewed-population-3" class="slide level2">
+<h2>Exercise 3.2 | Skewed Population</h2>
 <p class="subheader">
-This works for (nearly) any distribution shape as sample size increases.
+The full picture — sample means converge to normal as n increases.
 </p>
-<div id="ecff8c09" class="cell" data-execution_count="7">
+<div id="82da2950" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -510,36 +593,65 @@ This works for (nearly) any distribution shape as sample size increases.
 </div>
 </div>
 </section>
-<section id="the-central-limit-theorem" class="slide level2">
-<h2>The Central Limit Theorem</h2>
+<section id="key-properties" class="slide level2">
+<h2>Key Properties</h2>
 <p class="subheader">
-The distribution of sample means approximates a normal distribution as sample size increases, regardless of the population’s distribution.
+Three things to notice about the sampling distribution of <span class="math inline">\(\bar{x}\)</span>.
 </p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="key-insights">Key insights:</h4>
-<ul>
-<li>Sample means cluster around μ</li>
-<li>Standard error = σ/√n</li>
-<li>Normal shape emerges</li>
-</ul>
-<h4 id="implications">Implications:</h4>
-<ul>
-<li>We can predict the behavior of x̄</li>
-<li>This works for (nearly) ANY distribution</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<div id="abfefc1e" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
+<p><br></p>
 <div>
-<figure>
-<p><img data-src="concept_3_2_files/figure-revealjs/cell-9-output-1.png" width="470" height="277"></p>
-</figure>
+<ol type="1">
+<li class="fragment"><strong>Unbiased</strong>: the sampling distribution is centered on the population mean <span class="math inline">\(\mu\)</span>.</li>
+<li class="fragment"><strong>Precise</strong>: the standard error <span class="math inline">\(\sigma/\sqrt{n}\)</span> shrinks as sample size increases.</li>
+<li class="fragment"><strong>Universal</strong>: the shape approaches normal regardless of the population.</li>
+</ol>
 </div>
+</section>
+<section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
+<p class="subheader">
+The CLT isn’t magic. There are a few conditions.
+</p>
+<p><br></p>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Independence</strong>: observations don’t influence each other.</li>
+<li class="fragment"><strong>Identical distribution</strong>: observations come from the same population.</li>
+<li class="fragment"><strong>Sample size</strong>: <span class="math inline">\(n \geq 30\)</span> is usually sufficient.</li>
+</ol>
 </div>
+</section>
+<section id="what-weve-achieved" class="slide level2">
+<h2>What We’ve Achieved</h2>
+<p class="subheader">
+From an unobservable population to a knowable sampling distribution.
+</p>
+<p><br></p>
+<div>
+<ol type="1">
+<li class="fragment"><strong>Problem</strong>: the population distribution is unobservable.</li>
+<li class="fragment"><strong>Insight</strong>: the distribution of <span class="math inline">\(\bar{x}\)</span> is knowable even when the population isn’t.</li>
+<li class="fragment"><strong>Implication</strong>: that distribution is centered on <span class="math inline">\(\mu\)</span>, linking sample to population.</li>
+</ol>
 </div>
-</div></div>
+</section>
+<section id="looking-ahead" class="slide level2">
+<h2>Looking Ahead</h2>
+<p class="subheader">
+We know the sampling distribution. Now what do we do with it?
+</p>
+<p><br><br></p>
+<div>
+<ul>
+<li class="fragment">Part 3.3 | <strong>Confidence Intervals</strong> - how close is <span class="math inline">\(\bar{x}\)</span> to the true <span class="math inline">\(\mu\)</span>?</li>
+<li class="fragment">Part 3.4 | <strong>Hypothesis Testing</strong> - can we test whether <span class="math inline">\(\mu\)</span> equals a specific value?</li>
+</ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><em>&gt; the CLT gives us the distribution — Parts 3.3 and 3.4 show us how to use it</em></p>
 
+</div>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

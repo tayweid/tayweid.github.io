@@ -252,10 +252,10 @@ Where is the “center” of each sample group?
 <span id="cb1-3"><a href=""></a>mean_B <span class="op">=</span> group_B.mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="ca229a25" class="cell" data-execution_count="1">
+<div id="1db416a3" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A mean: 6.96 hours
-Group B mean: 6.97 hours</code></pre>
+<pre><code>Group A mean: 7.25 hours
+Group B mean: 6.95 hours</code></pre>
 </div>
 </div>
 </div>
@@ -266,10 +266,10 @@ Group B mean: 6.97 hours</code></pre>
 Which sample group sleeps longer?
 </p>
 
-<img data-src="i/c_03.png" class="r-stretch"><div id="49e4c590" class="cell" data-execution_count="2">
+<img data-src="i/c_03.png" class="r-stretch"><div id="c879190b" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample Group A mean: 6.96 hours
-Sample Group B mean: 6.97 hours</code></pre>
+<pre><code>Sample Group A mean: 7.25 hours
+Sample Group B mean: 6.95 hours</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -361,16 +361,16 @@ How spread out is the data?
 </p>
 <p><br></p>
 <p><strong>Standard Deviation</strong>: A measure of spread <span class="math display">\[S_X = \sqrt{\sum \frac{(x_i - \bar{x})^2}{n}}\]</span></p>
-<div id="bfb8e0b1" class="cell" data-execution_count="3">
+<div id="706e8599" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a><span class="co"># Calculate standard deviations</span></span>
 <span id="cb4-2"><a href=""></a>std_A <span class="op">=</span> group_A.std()</span>
 <span id="cb4-3"><a href=""></a>std_B <span class="op">=</span> group_B.std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="6c5264b4" class="cell" data-execution_count="4">
+<div id="3d92d83b" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-stdout">
-<pre><code>Group A std dev: 1.51 hours
-Group B std dev: 0.71 hours</code></pre>
+<pre><code>Group A std dev: 1.48 hours
+Group B std dev: 0.59 hours</code></pre>
 </div>
 </div>
 </div>
@@ -478,6 +478,37 @@ Random variables can have many kinds of probability functions.
 </p>
 
 <img data-src="i/distributions.png" class="r-stretch"></section>
+<section id="pdfs-and-cdfs" class="slide level2">
+<h2>PDFs and CDFs</h2>
+<p class="subheader">
+Two ways to describe a probability distribution.
+</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>PDF</strong>: the height of <span class="math inline">\(f(x)\)</span> at each value.</p>
+<div id="b14f2498" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-6-output-1.png" width="469" height="276"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>. . .</p>
+<p><strong>CDF</strong>: the area under <span class="math inline">\(f(x)\)</span> up to each value — <span class="math inline">\(P(X \leq x)\)</span>.</p>
+<div id="0be21a3d" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="concept_3_1_files/figure-revealjs/cell-7-output-1.png" width="469" height="276"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
 <section id="exercise-3.1-known-distribution" class="slide level2">
 <h2>Exercise 3.1 | Known Distribution</h2>
 <p class="subheader">

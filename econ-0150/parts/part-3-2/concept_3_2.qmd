@@ -9,7 +9,7 @@ format:
 ## ECON 0150 | Economic Data Analysis {.center}
 <p class="subheader-center">The economist's data analysis skillset.</p>
 
-<br> 
+<br>
 
 ### *Part 3.2 | Sampling and the Central Limit Theorem*
 
@@ -26,7 +26,7 @@ format:
 
 . . .
 
-- If we only see a sample, what *can *we say about the population?
+- If we only see a sample, what *can* we say about the population?
 
 ---
 
@@ -78,55 +78,56 @@ format:
 
 ---
 
-## Exercise 3.2 | Sampling Dice (sample size: n=1)
-<p class="subheader">Lets pretend we don't know the probability function for dice.</p>
+## Exercise 3.2 | Sampling Dice (n=1)
+<p class="subheader">Let's pretend we don't know the probability function for dice.</p>
 
 <br>
 
-Lets start with something boring.
+Let's start with something simple.
 
 <br>
 
-1. Roll a dice once (sample size: n=1).
+1. Roll a die once (sample size: n=1).
 2. We'll plot the distribution of our samples.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
+## Exercise 3.2 | Results (n=1)
 <p class="subheader">Your samples have a lot of variability!</p>
 
 ![](i/c_02.png)
 
 . . .
 
-*> this variability perfectly matches what we would expect from a fair dice*
+*> this variability perfectly matches what we would expect from a fair die*
 
 ---
 
 ## Exercise 3.2 | Sampling Dice (n=2)
-<p class="subheader">Lets pretend we don't know the probability function for dice.</p>
+<p class="subheader">Now take a sample of two rolls and compute the mean.</p>
 
 <br>
 
-Next is something slighly less boring.
+Next is something slightly less boring.
 
 <br>
 
-1. Roll a dice once (sample size: n=2).
-2. We'll plot the distribution of our samples.
+1. Roll a die twice (sample size: n=2).
+2. Calculate the mean of your two rolls.
+3. We'll plot the distribution of your sample means.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">Like before, each sample has a slighly different sample mean.</p>
+## Exercise 3.2 | Results (n=2)
+<p class="subheader">Each sample has a slightly different sample mean.</p>
 
 ![](i/c_03.png)
 
-<br> 
+<br>
 
 . . .
 
-*> theres a lot of variability in your sample means!*
+*> there's a lot of variability in your sample means!*
 
 . . .
 
@@ -134,8 +135,8 @@ Next is something slighly less boring.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
+## Exercise 3.2 | Results (n=2)
+<p class="subheader">The distribution of sample means bunches in the middle.</p>
 
 ![](i/c_04.png)
 
@@ -149,11 +150,10 @@ Next is something slighly less boring.
 
 *> there are more ways to get 7/2 than 2/2!*
 
-
 ---
 
 ## Exercise 3.2 | Sampling Dice (n=3)
-<p class="subheader">Lets pretend we don't know the probability function for dice.</p>
+<p class="subheader">Now take a sample of three rolls and compute the mean.</p>
 
 <br>
 
@@ -161,55 +161,34 @@ Next is something even less boring.
 
 <br>
 
-1. Roll a dice once (sample size: n=3).
-2. We'll plot the distribution of our samples.
+1. Roll a die three times (sample size: n=3).
+2. Calculate the mean of your three rolls.
+3. We'll plot the distribution of your sample means.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
-
-![](i/c_05.png)
-
-. . .
-
-*> theres a even more variability in your sample means!*
-
-. . .
-
-*> what do you expect to see when we plot these sample means ($\bar{x}$)?*
-
----
-
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
+## Exercise 3.2 | Results (n=3)
+<p class="subheader">The distribution of sample means with n=3.</p>
 
 ![](i/c_06.png)
 
-*> what do you notice with the shape with n=3?*
+. . .
+
+*> what do you notice about the shape with n=3?*
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
+## Exercise 3.2 | Results (n=3)
+<p class="subheader">The distribution of sample means with n=3.</p>
 
 ![](i/c_07.png)
 
-*> what do you notice with the shape with n=3?*
-
----
-
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
-
-![](i/c_07.png)
-
-*> there's some curvature to the shape*
+*> there's some curvature to the shape — the edges are rounding into a curve*
 
 ---
 
 ## Exercise 3.2 | Sampling Dice (n=30)
-<p class="subheader">Lets pretend we don't know the probability function for dice.</p>
+<p class="subheader">Now let's really increase the sample size.</p>
 
 <br>
 
@@ -217,19 +196,19 @@ Next is something very un-boring.
 
 <br>
 
-1. Roll a dice once (sample size: n=30).
-2. We'll plot the distribution of our samples.
+1. Roll a die thirty times (sample size: n=30).
+2. We'll simulate this 1,000 times and plot the distribution of sample means.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">The variability in the sample mean with a larger sample size.</p>
+## Exercise 3.2 | Results (n=30)
+<p class="subheader">Your individual samples each look different.</p>
 
 ![](i/c_08.png)
 
 . . .
 
-*> theres a even more ways your sample could look!*
+*> there are even more ways your sample could look!*
 
 . . .
 
@@ -237,16 +216,7 @@ Next is something very un-boring.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
-<p class="subheader">What happens when we really increase the sample size?</p>
-
-![](i/c_09.png)
-
-*> what do you notice with the shape with n=30?*
-
----
-
-## Exercise 3.2 | Sampling Variability
+## Exercise 3.2 | Results (n=30)
 <p class="subheader">What happens when we really increase the sample size?</p>
 
 ![](i/c_09.png)
@@ -255,7 +225,7 @@ Next is something very un-boring.
 
 ---
 
-## Exercise 3.2 | Sampling Variability
+## Exercise 3.2 | Results (n=30)
 <p class="subheader">What happens when we really increase the sample size?</p>
 
 ![](i/c_10.png)
@@ -266,355 +236,22 @@ Next is something very un-boring.
 
 ---
 
-## Random Variables: Known
-<p class="subheader">If we know the random variable, we can learn many things about the population.</p>
+## The Central Limit Theorem
+<p class="subheader">The distribution of sample means approximates a normal distribution as sample size increases.</p>
 
 :::: {.columns}
-::: {.column width="40%"}
-- Probability wait time < 10:
-  - P(X < 10) = 0.21
-- Probability wait time > 15:
-  - P(X > 15) = 0.11
-- Probability between 10 - 15:
-  - P(10 < X < 15) = 0.59
-:::
-
-::: {.column width="60%"}
-![](i/c_01.png)
-:::
-::::
-
-<br>
-
-*> when we know the probability function, we can calculate everything exactly*
-
----
-
-## Random Variables: Unknown
-<p class="subheader">If we take multiple samples, we get different sample means.</p>
-
-Each sample gives us a different estimate of the population mean.
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-import seaborn as sns
-
-
-np.random.seed(123)
-n_samples = 5
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-
-plt.figure(figsize=(9, 3))
-for i, s in enumerate(samples):
-    plt.subplot(1, n_samples, i+1)
-    plt.hist(s, bins=8, alpha=0.7)
-    plt.axvline(x=means[i], color='red', linestyle='--')
-    plt.title(f'x̄ = {means[i]:.1f}')
-    plt.yticks([])
-    plt.xticks([6, 12, 18])
-  
-    plt.xlabel('Minutes', fontsize=16)
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Random Variables: Unknown
-<p class="subheader">If we take multiple samples, their means will vary.</p>
-
-<br><br>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-
-np.random.seed(123)
-n_samples = 500
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-
-plt.figure(figsize=(9, 3))
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
-plt.yticks([])
-plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
-plt.xlim(6,18)
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Random Variables: Unknown
-<p class="subheader">If we take multiple samples, their means will vary, and by much less than the original distribution.</p>
-
-<br><br>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-
-np.random.seed(123)
-n_samples = 500
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-all_samples = np.random.normal(12, 2.5, 30000)
-
-plt.figure(figsize=(9, 3))
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
-plt.hist(all_samples, bins=40, alpha=0.3, label='Sample observations', zorder=-1, density=True)
-plt.yticks([])
-plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
-plt.xlim(6,18)
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
-*> why? think about rolling two dice... it's much less likely to get a 2 than a 7*
-
----
-
-## Random Variables: Unknown
-<p class="subheader">As sample size grows, the distribution of the sample means approaches a normal distribution.</p>
-
-<br><br>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-
-np.random.seed(123)
-n_samples = 500
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-
-plt.figure(figsize=(9, 3))
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
-plt.hist(all_samples, bins=40, alpha=0.1, label='Sample observations', zorder=-1, density=True)
-
-x = np.linspace(10, 14, 1000)
-y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
-plt.plot(x, y, 'r-', label='Normal Distribution')
-
-plt.yticks([])
-plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
-plt.xlim(6,18)
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Random Variables: Unknown
-<p class="subheader">As sample size grows, the normal distribution the sample means approach gets narrower.</p>
-
-<br><br>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-
-
-np.random.seed(123)
-n_samples = 500
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-
-plt.figure(figsize=(9, 3))
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
-plt.hist(all_samples, bins=40, alpha=0.1, label='Sample means (n=1)', zorder=-1, density=True)
-
-n_samples = 500
-sample_size = 60
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=60)', density=True)
-
-x = np.linspace(10, 14, 1000)
-y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
-plt.plot(x, y, 'r-', label='Normal Distribution')
-
-plt.yticks([])
-plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
-plt.xlim(6,18)
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## Random Variables: Unknown
-<p class="subheader">The normal distribution the sample means approach is centered on the population mean!</p>
-
-<br><br>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-
-np.random.seed(123)
-n_samples = 500
-sample_size = 30
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-
-plt.figure(figsize=(9, 3))
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=30)', density=True)
-plt.hist(all_samples, bins=40, alpha=0.1, label='Sample means (n=1)', zorder=-1, density=True)
-
-n_samples = 500
-sample_size = 60
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=60)', density=True)
-
-n_samples = 500
-sample_size = 1000
-samples = [np.random.normal(12, 2.5, sample_size) for _ in range(n_samples)]
-means = [np.mean(s) for s in samples]
-plt.hist(means, bins=20, alpha=0.7, label='Sample means (n=1000)', density=True)
-
-x = np.linspace(10, 14, 1000)
-y = stats.norm.pdf(x, 12, 2.5/np.sqrt(sample_size))
-plt.plot(x, y, 'r-', label='Normal Distribution')
-
-plt.yticks([])
-plt.xticks([6, 12, 18])
-plt.xlabel('Minutes', fontsize=16)
-plt.xlim(6,18)
-plt.legend()
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-
-plt.tight_layout()
-plt.show()
-```
-
-. . .
-
-*> the sample mean $\bar{x}$ follows a normal distribution around the truth* 😱
+::: {.column width="50%"}
 
 $$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
 
----
+<br>
 
-## Random Variables: Unknown
-<p class="subheader">This works for (nearly) any distribution shape as sample size increases.</p>
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-import seaborn as sns
+::: {.incremental}
+1. **Shape**: the sampling distribution is normal
+2. **Center**: it's centered on the population mean $\mu$
+3. **Spread**: the standard error $\sigma/\sqrt{n}$ shrinks with larger $n$
+:::
 
-# Create a skewed distribution
-def skewed_dist(size):
-    return stats.chi2.rvs(df=3, size=size)
-
-sample_sizes = [1, 5, 30, 1000]
-n_samples = 10000
-fig, axes = plt.subplots(4, 1, figsize=(10, 6))
-
-# Different sample sizes
-for i, n in enumerate(sample_sizes):
-    sample_means = []
-    for _ in range(n_samples):
-        sample = skewed_dist(n)
-        sample_means.append(np.mean(sample))
-    
-    bin_size = 30
-    edge_color='white'
-    if n > 100:
-      bin_size = 60
-      edge_color = '#4C72B0'
-
-    axes[i].hist(sample_means, bins=bin_size, density=True, alpha=0.7,
-                  edgecolor=edge_color, color='#4C72B0', label=f'Sample Mean (n={n})')
-    axes[i].set_xlabel("")
-    axes[i].set_xlim(0, 15)
-    axes[i].set_yticks([])
-    axes[i].legend()
-    
-    # Add a normal curve for larger sample sizes
-    if n >= 5:
-        x = np.linspace(min(sample_means), max(sample_means), 100)
-        mean_est = 3  # Chi-square df=3 has mean of 3
-        std_est = np.sqrt(6/n)  # Chi-square df=3 has variance of 6
-        y = stats.norm.pdf(x, mean_est, std_est)
-        axes[i].plot(x, y, 'r--', linewidth=2)
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
----
-
-## The Central Limit Theorem
-<p class="subheader">The distribution of sample means approximates a normal distribution as sample size increases, regardless of the population's distribution.</p>
-
-:::: {.columns}
-::: {.column width="50%"}
-#### Key insights:
-
-  - Sample means cluster around μ
-  - Standard error = σ/√n
-  - Normal shape emerges
-
-#### Implications:
-
-  - We can predict the behavior of x̄
-  - This works for (nearly) ANY distribution
 :::
 
 ::: {.column width="50%"}
@@ -623,11 +260,12 @@ plt.show()
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import stats
+import seaborn as sns
 
 np.random.seed(123)
 n_means = 1000
 sample_size = 30
-sample_means = [np.mean(np.random.normal(12, 2.5, sample_size)) 
+sample_means = [np.mean(np.random.normal(12, 2.5, sample_size))
                 for _ in range(n_means)]
 
 plt.figure(figsize=(5, 3))
@@ -646,3 +284,342 @@ plt.show()
 ```
 :::
 ::::
+
+---
+
+## The Standard Error
+<p class="subheader">Where does $\sigma / \sqrt{n}$ come from?</p>
+
+<br>
+
+Each observation $x_i$ is drawn independently with variance $\sigma^2$, so:
+$$Var(x_1 + x_2 + \cdots + x_n) = n\sigma^2$$
+
+. . .
+
+Dividing by $n$ divides the variance by $n^2$:
+$$Var\Big(\frac{x_1 + x_2 + \cdots + x_n}{n}\Big) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n}$$
+
+. . .
+
+Take the square root:
+$$SD(\bar{x}) = \sqrt{\frac{\sigma^2}{n}} = \frac{\sigma}{\sqrt{n}}$$
+
+---
+
+## Skewed Distributions
+<p class="subheader">Does the CLT work for distributions that aren't as nice?</p>
+
+<br><br>
+
+**Question**: *Does the CLT still work when the population looks asymmetric?*
+
+---
+
+## Exercise 3.2 | Skewed Population
+<p class="subheader">Simulate 1,000 sample means from a chi-squared population with n=1.</p>
+
+<br>
+
+. . .
+
+```{.python}
+# Simulate 1000 sample means from a skewed population
+samples = stats.chi2.rvs(df=3, size=(1000, 1))
+sample_means = samples.mean(axis=1)
+sns.histplot(sample_means, bins=30)
+```
+
+. . .
+
+*> with n=1, the sample means are just the raw observations*
+
+---
+
+## Exercise 3.2 | Skewed Population (n=1)
+<p class="subheader">The distribution of sample means looks just like the population — very skewed.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+np.random.seed(123)
+means = stats.chi2.rvs(df=3, size=(1000, 1)).mean(axis=1)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=30, alpha=0.7, density=True, color='#4C72B0', label='Sample means (n=1)')
+plt.yticks([])
+plt.xticks([0, 3, 6, 9, 12, 15])
+plt.xlabel('Value', fontsize=16)
+plt.xlim(0, 15)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> now increase the sample size to n=5*
+
+---
+
+## Exercise 3.2 | Skewed Population (n=5)
+<p class="subheader">The skew is already diminishing.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+np.random.seed(123)
+means = stats.chi2.rvs(df=3, size=(1000, 5)).mean(axis=1)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=30, alpha=0.7, density=True, color='#4C72B0', label='Sample means (n=5)')
+plt.yticks([])
+plt.xticks([0, 3, 6, 9, 12, 15])
+plt.xlabel('Value', fontsize=16)
+plt.xlim(0, 15)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> now increase to n=30*
+
+---
+
+## Exercise 3.2 | Skewed Population (n=30)
+<p class="subheader">It looks normal — despite the skewed population.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+np.random.seed(123)
+means = stats.chi2.rvs(df=3, size=(1000, 30)).mean(axis=1)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=30, alpha=0.7, density=True, color='#4C72B0', label='Sample means (n=30)')
+plt.yticks([])
+plt.xticks([0, 3, 6, 9, 12, 15])
+plt.xlabel('Value', fontsize=16)
+plt.xlim(0, 15)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> now increase to n=1000*
+
+---
+
+## Exercise 3.2 | Skewed Population (n=1000)
+<p class="subheader">Very tight, very normal.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+np.random.seed(123)
+means = stats.chi2.rvs(df=3, size=(1000, 1000)).mean(axis=1)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means, bins=30, alpha=0.7, density=True, color='#4C72B0', label='Sample means (n=1000)')
+plt.yticks([])
+plt.xticks([0, 3, 6, 9, 12, 15])
+plt.xlabel('Value', fontsize=16)
+plt.xlim(0, 15)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the skew has completely disappeared*
+
+---
+
+## Exercise 3.2 | Skewed Population
+<p class="subheader">Overlay the n=1 distribution behind the n=1000 distribution.</p>
+
+. . .
+
+```{.python}
+# Overlay n=1 (raw population) behind n=1000 (tight, normal)
+means_1 = stats.chi2.rvs(df=3, size=(1000, 1)).mean(axis=1)
+means_1000 = stats.chi2.rvs(df=3, size=(1000, 1000)).mean(axis=1)
+
+sns.histplot(means_1, bins=30, alpha=0.3, stat='density', label='Sample means (n=1)')
+sns.histplot(means_1000, bins=30, alpha=0.7, stat='density', label='Sample means (n=1000)')
+```
+
+---
+
+## Exercise 3.2 | Skewed Population
+<p class="subheader">From skewed population to normal sampling distribution.</p>
+
+<br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+np.random.seed(123)
+means_1 = stats.chi2.rvs(df=3, size=(1000, 1)).mean(axis=1)
+means_1000 = stats.chi2.rvs(df=3, size=(1000, 1000)).mean(axis=1)
+
+plt.figure(figsize=(9, 3))
+plt.hist(means_1, bins=30, alpha=0.3, density=True, color='#4C72B0', label='Sample means (n=1)')
+plt.hist(means_1000, bins=30, alpha=0.7, density=True, color='#4C72B0', edgecolor='#4C72B0', label='Sample means (n=1000)')
+plt.yticks([])
+plt.xticks([0, 3, 6, 9, 12, 15])
+plt.xlabel('Value', fontsize=16)
+plt.xlim(0, 15)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the CLT works for (nearly) any distribution shape*
+
+---
+
+## Exercise 3.2 | Skewed Population
+<p class="subheader">The full picture — sample means converge to normal as n increases.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+def skewed_dist(size):
+    return stats.chi2.rvs(df=3, size=size)
+
+sample_sizes = [1, 5, 30, 1000]
+n_samples = 10000
+fig, axes = plt.subplots(4, 1, figsize=(10, 6))
+
+for i, n in enumerate(sample_sizes):
+    sample_means = skewed_dist((n_samples, n)).mean(axis=1)
+
+    bin_size = 30
+    edge_color='white'
+    if n > 100:
+      bin_size = 60
+      edge_color = '#4C72B0'
+
+    axes[i].hist(sample_means, bins=bin_size, density=True, alpha=0.7,
+                  edgecolor=edge_color, color='#4C72B0', label=f'Sample Mean (n={n})')
+    axes[i].set_xlabel("")
+    axes[i].set_xlim(0, 15)
+    axes[i].set_yticks([])
+    axes[i].legend()
+
+    if n >= 5:
+        x = np.linspace(min(sample_means), max(sample_means), 100)
+        mean_est = 3
+        std_est = np.sqrt(6/n)
+        y = stats.norm.pdf(x, mean_est, std_est)
+        axes[i].plot(x, y, 'r--', linewidth=2)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Key Properties
+<p class="subheader">Three things to notice about the sampling distribution of $\bar{x}$.</p>
+
+<br>
+
+::: {.incremental}
+1. **Unbiased**: the sampling distribution is centered on the population mean $\mu$.
+2. **Precise**: the standard error $\sigma/\sqrt{n}$ shrinks as sample size increases.
+3. **Universal**: the shape approaches normal regardless of the population.
+:::
+
+---
+
+## Assumptions
+<p class="subheader">The CLT isn't magic. There are a few conditions.</p>
+
+<br>
+
+::: {.incremental}
+1. **Independence**: observations don't influence each other.
+2. **Identical distribution**: observations come from the same population.
+3. **Sample size**: $n \geq 30$ is usually sufficient.
+:::
+
+---
+
+## What We've Achieved
+<p class="subheader">From an unobservable population to a knowable sampling distribution.</p>
+
+<br>
+
+::: {.incremental}
+1. **Problem**: the population distribution is unobservable.
+2. **Insight**: the distribution of $\bar{x}$ is knowable even when the population isn't.
+3. **Implication**: that distribution is centered on $\mu$, linking sample to population.
+:::
+
+---
+
+## Looking Ahead
+<p class="subheader">We know the sampling distribution. Now what do we do with it?</p>
+
+<br><br>
+
+:::{.incremental}
+- Part 3.3 | **Confidence Intervals** - how close is $\bar{x}$ to the true $\mu$?
+- Part 3.4 | **Hypothesis Testing** - can we test whether $\mu$ equals a specific value?
+:::
+
+. . .
+
+<br>
+
+*> the CLT gives us the distribution — Parts 3.3 and 3.4 show us how to use it*
