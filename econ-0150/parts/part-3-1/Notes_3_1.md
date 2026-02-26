@@ -156,6 +156,20 @@ And random variables don't have to be normal. They come in all shapes — skewed
 
 Each one of these describes a different kind of random process. The probability function tells us which values are likely, which are rare, and how spread out the outcomes are. If we knew the function, we'd know everything.
 
+### PDFs and CDFs
+
+Every continuous random variable has two key functions that describe it.
+
+The **probability density function (PDF)** gives the height of the curve at each value — $f(x)$. It tells us where observations are more or less likely to fall. Two properties define a valid PDF: $f(x) \geq 0$ (probabilities are never negative) and $\int f(x)\,dx = 1$ (total probability sums to one).
+
+*[Stage direction: show a normal curve (N(7.2, 1.5)) with a red dashed vertical line at x = 6.0 showing the height f(6.0). The y-axis is unlabeled (no tick marks). The height of the curve at that point is the PDF value.]*
+
+The **cumulative distribution function (CDF)** gives the area under $f(x)$ up to each value — $F(x) = P(X \leq x)$. Instead of asking "how dense is the distribution here?", the CDF asks "what fraction of the population falls below this point?" Three properties: $F(x)$ is non-decreasing (more area accumulates as $x$ increases), $F(-\infty) = 0$ and $F(\infty) = 1$ (ranges from 0 to 1), and $F(x)$ gives probability directly — $P(X \leq 5) = F(5)$.
+
+*[Stage direction: show the same normal curve with the area under the curve shaded red up to x = 6.0. A red dashed vertical line marks x = 6.0. The shaded area represents F(6.0) = P(X ≤ 6.0).]*
+
+These two functions are how we answer probability questions. The PDF tells us where observations concentrate, and the CDF tells us what proportion falls below any threshold. All three exercises that follow use these functions.
+
 ### The Cliff-Hanger
 
 But the problem is that in practice we *never* know the probability function. I made up the County A example — I generated the data from a known distribution. In real research, we don't have that luxury. We just see the sample.
