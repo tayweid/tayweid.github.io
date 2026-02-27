@@ -1,0 +1,820 @@
+
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader-center">The economist's data analysis skillset.</p>
+
+<br>
+
+### *Part 3.3 | Confidence and Hypothesis Testing*
+
+---
+
+## Back to New Jersey
+<p class="subheader">Card and Krueger surveyed 331 NJ fast food restaurants before and after a minimum wage increase.</p>
+
+<br>
+
+:::{.incremental}
+- In 1992, NJ raised its minimum wage from \$4.25 to \$5.05
+- The simplest economic theory predicts employment should **fall**
+- Card and Krueger found: average change was **+0.59 FTE workers** per store
+- But that's a **sample mean** from 331 restaurants
+:::
+
+. . .
+
+*> is +0.59 meaningfully different from zero? Or just noise?*
+
+---
+
+## Central Limit Theorem: Refresher
+<p class="subheader">The sample mean follows a normal distribution around the true mean ($\mu$).</p>
+
+The standard deviation of the sample means is the standard error:
+$$SE = \frac{\sigma}{\sqrt{n}}$$
+
+. . .
+
+*> as the sample size grows, the variability in sample means gets smaller*
+
+---
+
+## Confidence Intervals: Known $\sigma$
+<p class="subheader">If we knew $\sigma = 9.8$, we could calculate probabilities.</p>
+
+. . .
+
+What's the probability $\bar{x}$ is within one standard error of $\mu$ with $n=331$?
+
+. . .
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+mu = 0
+sigma = 9.8
+n = 331
+se = sigma / np.sqrt(n)
+
+x = np.linspace(mu - 3.5*se, mu + 3.5*se, 1000)
+y = stats.norm.pdf(x, mu, se)
+
+plt.figure(figsize=(10, 3))
+plt.plot(x, y, 'b-', alpha=0.5)
+plt.fill_between(x[(x >= mu - se) & (x <= mu + se)],
+                 y[(x >= mu - se) & (x <= mu + se)],
+                 color='blue', alpha=0.3)
+plt.axvline(x=mu - se, color='red', linestyle='--')
+plt.axvline(x=mu + se, color='red', linestyle='--')
+plt.axvline(x=mu, color='green', linestyle='--')
+plt.yticks([])
+plt.xlabel('Change in FTE Employment', fontsize=16)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> $P(\mu - SE \leq \bar{x} \leq \mu + SE) \approx 0.68$*
+
+. . .
+
+*> we call $[\mu - \frac{\sigma}{\sqrt{n}}, \mu + \frac{\sigma}{\sqrt{n}}]$ a 68% confidence interval*
+
+---
+
+## Exercise 3.3 | Confidence Intervals: Known $\sigma$
+<p class="subheader">$\sigma = 9.8$ and $n=331$</p>
+
+**Question:** what's the probability $\bar{x}$ is closer than $2\cdot SE$ to $\mu$?
+
+. . .
+
+```python
+se = sigma / np.sqrt(n)
+probability = stats.norm.cdf(mu + 2*se, loc=mu, scale=se) - stats.norm.cdf(mu - 2*se, loc=mu, scale=se)
+```
+
+---
+
+## Exercise 3.3 | Simulating Confidence Intervals
+<p class="subheader">Simulate employment changes and calculate the 95% confidence interval.</p>
+
+Generate some sample data.
+
+```{python}
+#| echo: true
+sample = np.random.normal(0, 9.8, 331)
+```
+
+. . .
+
+Calculate sample statistics.
+
+```{python}
+#| echo: true
+x_bar = np.mean(sample)
+s = np.std(sample, ddof=1)
+n = len(sample)
+se = s / np.sqrt(n)
+```
+
+. . .
+
+*> if we took many samples, 95% of the time this interval would contain the truth*
+
+---
+
+## The Problem
+<p class="subheader">We centered the confidence interval on $\mu$.</p>
+
+<br><br>
+
+:::{.incremental}
+- But we don't *know* $\mu$ — that's the whole point of the study
+- If we knew the true effect of the minimum wage, we wouldn't need the data
+- So how is a confidence interval centered on $\mu$ useful?
+:::
+
+---
+
+## The Centerpoint Flip
+<p class="subheader">The distance between $\bar{x}$ and $\mu$ is the same in both directions.</p>
+
+<br>
+
+. . .
+
+If $\bar{x}$ is within 1.96 SE of $\mu$, then $\mu$ is within 1.96 SE of $\bar{x}$.
+
+. . .
+
+<br>
+
+*> instead of asking where $\bar{x}$ lands relative to $\mu$...*
+
+. . .
+
+*> we ask where $\mu$ could be relative to our observed $\bar{x}$*
+
+---
+
+## The Centerpoint Flip
+<p class="subheader">We can verify: the same samples pass both tests.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+np.random.seed(8)
+mu = 0
+sigma = 9.8
+n = 331
+se = sigma / np.sqrt(n)
+n_intervals = 20
+
+x_bars = [np.mean(np.random.normal(mu, sigma, n)) for _ in range(n_intervals)]
+
+plt.figure(figsize=(10, 5))
+for i, xb in enumerate(x_bars):
+    lower = xb - 1.96 * se
+    upper = xb + 1.96 * se
+    contains = lower <= mu <= upper
+    color = '#2ca02c' if contains else '#d62728'
+    plt.plot([lower, upper], [i, i], color=color, linewidth=2)
+    plt.plot(xb, i, 'o', color=color, markersize=5)
+
+plt.axvline(x=mu, color='blue', linestyle='--', linewidth=1, label='$\mu$')
+plt.xlabel('Change in FTE Employment', fontsize=14)
+plt.ylabel('Sample', fontsize=14)
+plt.yticks([])
+plt.legend(fontsize=14)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> if we drew many samples, 95% of the CIs we construct would contain $\mu$*
+
+---
+
+## The Confidence Interval for New Jersey
+<p class="subheader">Center the 95% CI on Card and Krueger's observed mean.</p>
+
+<br>
+
+$$0.59 \pm 1.96 \times 0.54 = [-0.47, \; 1.65]$$
+
+. . .
+
+<br>
+
+*> zero is inside this interval — the data is consistent with no employment effect*
+
+. . .
+
+*> but the interval excludes large negative effects — ruling out the textbook prediction*
+
+---
+
+## Interpretation
+<p class="subheader">What does "95% confident" really mean?</p>
+
+<br><br>
+
+. . .
+
+✅ If we repeated this study many times, 95% of the CIs would contain $\mu$.
+
+. . .
+
+❌ There is NOT a 95% probability that $\mu$ is in this particular interval.
+
+. . .
+
+<br>
+
+*> the confidence is in the method, not in any single interval*
+
+---
+
+## Confidence Intervals: Unknown $\sigma$
+<p class="subheader">What if we don't know $\sigma$ either?</p>
+
+. . .
+
+*> we used $\bar{x}$ to estimate $\mu$*
+
+. . .
+
+*> can we use $s$ to estimate $\sigma$?*
+
+. . .
+
+*> yes, but there's a catch...*
+
+---
+
+## Using $s$ Instead of $\sigma$
+<p class="subheader">Sample standard deviation ($s$) has its own sampling variability.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+np.random.seed(123)
+n_samples = 1000
+sample_size = 15
+samples = [np.random.normal(0, 9.8, sample_size) for _ in range(n_samples)]
+sds = [np.std(s, ddof=1) for s in samples]
+
+plt.figure(figsize=(9, 3))
+plt.hist(sds, bins=30, density=True, alpha=0.7)
+plt.axvline(x=9.8, color='red', linestyle='--', label='True σ = 9.8')
+plt.yticks([])
+plt.xlabel('Sample Standard Deviation (s)', fontsize=16)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> with only 15 restaurants, $s$ could be quite far from $\sigma$ — this adds extra uncertainty*
+
+---
+
+## Normal vs t-Distribution
+<p class="subheader">The t-distribution accounts for the variation in $s$ around $\sigma$.</p>
+
+. . .
+
+*> $\bar{x}$ follows a normal distribution with $\mu$ and $\sigma$*
+
+. . .
+
+*> since $s$ is random, using it instead of $\sigma$ introduces another source of uncertainty*
+
+. . .
+
+*> this gives us the t-distribution with $n-1$ degrees of freedom*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+x = np.linspace(-4, 4, 1000)
+z = stats.norm.pdf(x, 0, 1)
+t14 = stats.t.pdf(x, df=14)
+t330 = stats.t.pdf(x, df=330)
+
+plt.figure(figsize=(9, 3))
+plt.plot(x, z, 'b-', label='Normal', alpha=0.7)
+plt.plot(x, t14, 'r-', label='t (df=14, n=15)', alpha=0.7)
+plt.plot(x, t330, 'g-', label='t (df=330, n=331)', alpha=0.7)
+plt.yticks([])
+plt.xlabel('Standard Errors', fontsize=16)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## The t-Distribution
+<p class="subheader">...accounts for the extra uncertainty in $s$ around $\sigma$.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+x = np.linspace(-4, 4, 1000)
+z = stats.norm.pdf(x, 0, 1)
+t14 = stats.t.pdf(x, df=14)
+t330 = stats.t.pdf(x, df=330)
+
+plt.figure(figsize=(9, 3))
+plt.plot(x, z, 'b-', label='Normal', alpha=0.7)
+plt.plot(x, t14, 'r-', label='t (df=14, n=15)', alpha=0.7)
+plt.plot(x, t330, 'g-', label='t (df=330, n=331)', alpha=0.7)
+plt.yticks([])
+plt.xlabel('Standard Errors', fontsize=16)
+plt.legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> t-distribution has heavier tails than normal*
+
+. . .
+
+*> approaches normal as sample size ($n$) increases*
+
+---
+
+## Exercise 3.3 | Normal vs t
+<p class="subheader">The probability of closeness will be too large if we use the Normal instead of t.</p>
+
+
+
+---
+
+## Putting It All Together
+<p class="subheader">Now we can quantify our uncertainty about the true employment effect.</p>
+
+. . .
+
+1. **Center** the sampling distribution on $\bar{x} = 0.59$.
+
+. . .
+
+2. **Width** comes from $S / \sqrt{n}$ — the sample standard error.
+
+. . .
+
+3. **Shape** is the t-distribution with $n - 1$ degrees of freedom.
+
+. . .
+
+**The Card and Krueger Confidence Interval** ($\bar{x} = 0.59$, $S \approx 9.8$, $n = 331$, $df = 330$):
+
+$$95\% \text{ CI}: \quad 0.59 \pm 1.967 \times 0.54 = [-0.47, \; 1.65]$$
+
+. . .
+
+*> with $df = 330$, the t-distribution is nearly identical to the normal ($z = 1.960$)*
+
+---
+
+## Testing the Theory
+<p class="subheader">What if we want to test a specific claim about the mean?</p>
+
+<br>
+
+. . .
+
+*> economic theory predicts employment should fall — or at least not change*
+
+. . .
+
+*> Card and Krueger observed $\bar{x} = +0.59$. Is that consistent with no effect?*
+
+. . .
+
+*> same math as before, but now we center the distribution on a specific hypothesis*
+
+. . .
+
+*> instead of finding where $\mu$ might be, we're testing a specific value of $\mu$*
+
+---
+
+## The Null Hypothesis
+<p class="subheader">We formalize this approach by setting up a "null hypothesis"</p>
+
+<br>
+
+. . .
+
+**Null Hypothesis** ($H_0$): *The minimum wage had no effect on employment*
+
+. . .
+
+- $H_0: \mu = 0$
+
+. . .
+
+**Alternative Hypothesis** ($H_1$): *The minimum wage changed employment*
+
+. . .
+
+- $H_1: \mu \neq 0$
+
+. . .
+
+**Testing Approach**:
+
+- Calculate how "surprising" our data would be if $H_0$ were true
+- If sufficiently surprising, we reject $H_0$
+
+---
+
+## NJ Employment Change
+<p class="subheader">If $\bar{x}=0.59$, is that consistent with $\mu_0=0$?</p>
+
+. . .
+
+*> let's see where our observed mean falls under the null distribution*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+mu_0 = 0
+std_err = 0.54
+observed_mean = 0.59
+df = 330
+
+x = np.linspace(mu_0 - 3.5*std_err, mu_0 + 3.5*std_err, 1000)
+y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
+
+plt.figure(figsize=(10, 3))
+plt.plot(x, y, 'r-', linewidth=2)
+plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
+
+# Shade the 95% CI around the null
+t_critical = stats.t.ppf(0.975, df)
+ci_lower = mu_0 - t_critical * std_err
+ci_upper = mu_0 + t_critical * std_err
+plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)],
+                 0,
+                 y[(x >= ci_lower) & (x <= ci_upper)],
+                 color='blue', alpha=0.2)
+
+# Mark the observed mean
+plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
+plt.annotate(f'Observed\nMean: {observed_mean}', xy=(observed_mean, 0.3),
+             xytext=(observed_mean + 0.35, 0.5), fontsize=12,
+             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5))
+
+plt.yticks([])
+plt.xlabel('Change in FTE Employment', fontsize=14)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> our observed mean is well within the 95% interval — not surprising if $\mu = 0$*
+
+---
+
+## The t-Statistic
+<p class="subheader">How many standard errors is our sample mean from the null?</p>
+
+. . .
+
+The **t-statistic** measures how many standard errors our sample mean is from the null value:
+
+. . .
+
+$$t = \frac{\bar{x} - \mu_0}{S/\sqrt{n}}$$
+
+. . .
+
+$$t = \frac{0.59 - 0}{9.8/\sqrt{331}} = \frac{0.59}{0.54} = 1.09$$
+
+. . .
+
+Where:
+
+- $\bar{x}$ is our sample mean (0.59 FTE)
+- $\mu_0$ is our null value (0)
+- $S$ is our sample standard deviation (9.8)
+- $n$ is our sample size (331)
+
+---
+
+## Quantifying Surprise: p-values
+<p class="subheader">How likely is it to get $\bar{x}$ this far or farther from 0, if the true mean is 0?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+mu_0 = 0
+std_err = 0.54
+observed_mean = 0.59
+df = 330
+
+x = np.linspace(mu_0 - 3.5*std_err, mu_0 + 3.5*std_err, 1000)
+y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
+
+t_stat = (observed_mean - mu_0) / std_err
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
+
+plt.figure(figsize=(10, 3))
+plt.plot(x, y, 'r-', linewidth=2)
+plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
+
+# Mark the observed mean
+plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
+
+# Shade the tails
+x_right = np.linspace(observed_mean, mu_0 + 3.5*std_err, 500)
+y_right = stats.t.pdf(x_right, df, loc=mu_0, scale=std_err)
+plt.fill_between(x_right, 0, y_right, color='red', alpha=0.3)
+
+x_left = np.linspace(mu_0 - 3.5*std_err, mu_0 - observed_mean, 500)
+y_left = stats.t.pdf(x_left, df, loc=mu_0, scale=std_err)
+plt.fill_between(x_left, 0, y_left, color='red', alpha=0.3)
+
+plt.annotate(f'p-value = {p_value:.2f}', xy=(mu_0, 0.3),
+             xytext=(mu_0, 0.5), fontsize=14, ha='center',
+             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
+
+plt.yticks([])
+plt.xlabel('Change in FTE Employment', fontsize=14)
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=-5, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+```python
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=n-1))
+```
+
+. . .
+
+*> if $\mu=0$, we'd see $\bar{x}$ this far from 0 about 28% of the time — not surprising*
+
+. . .
+
+*> p-value > 0.05, so we don't reject the claim that $\mu = 0$*
+
+---
+
+## The t-test
+<p class="subheader">This example has become a formal hypothesis test.</p>
+
+:::: {.columns}
+::: {.column width="40%"}
+**One-sample t-test:**
+
+- $H_0: \mu = 0$
+- $H_1: \mu \neq 0$
+- Test statistic: $t = 1.09$
+- Degrees of freedom: 330
+- p-value: 0.28
+
+**Decision rule:**
+
+- If p-value < 0.05, reject $H_0$
+- Otherwise, fail to reject $H_0$
+:::
+
+::: {.column width="60%"}
+```python
+# Imports
+import numpy as np
+from scipy import stats
+```
+
+<br>
+
+```python
+# Sample statistics
+x_bar = 0.59
+mu_0 = 0       # null hypothesis
+s = 9.8
+n = 331
+```
+
+<br>
+
+```python
+# Calculate t-statistic
+t_stat = (x_bar - mu_0) / (s / np.sqrt(n))
+```
+
+<br>
+
+```python
+# Calculate p-value
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=n-1))
+```
+:::
+::::
+
+---
+
+## What Card and Krueger Did Next
+<p class="subheader">They compared NJ to Pennsylvania to sharpen the analysis.</p>
+
+<br>
+
+:::{.incremental}
+- NJ alone: $\bar{x} = +0.59$, not statistically significant ($p \approx 0.28$)
+- PA saw employment *fall* by 2.16 FTE workers per store
+- Difference-in-differences: $+2.76$ FTE ($SE = 1.36$, $p \approx 0.04$)
+- The comparison removed confounding factors affecting both states
+:::
+
+. . .
+
+*> we'll see this approach — using control groups — when we get to regression in Part 4*
+
+---
+
+## Statistical vs. Practical Significance
+<p class="subheader">A caution about hypothesis testing</p>
+
+<br>
+
+. . .
+
+**Statistical significance:**
+
+- Formal rejection of the null hypothesis (p < 0.05)
+- Only tells us if the effect is unlikely to be exactly zero
+
+. . .
+
+**Practical significance:**
+
+- Whether the effect size matters in the real world
+- Card and Krueger: the *direction* contradicted theory, even though NJ alone wasn't significant
+
+. . .
+
+*> always consider the magnitude of the effect, not just the p-value*
+
+---
+
+## Common Misinterpretations
+<p class="subheader">What a p-value is NOT</p>
+
+<br>
+
+❌ **Not:** The probability that $H_0$ is true
+
+   - A p-value of 0.28 doesn't mean there's a 28% chance the minimum wage had no effect. It assumes the null is true and calculates how surprising our result would be.
+
+---
+
+## Common Misinterpretations
+<p class="subheader">What a p-value is NOT</p>
+
+<br>
+
+❌ **Not:** The probability that the results occurred by chance
+
+   - All results reflect some combination of real effects and random variation. The p-value doesn't separate these components.
+
+---
+
+## Common Misinterpretations
+<p class="subheader">What a p-value IS</p>
+
+<br>
+
+✅ **Correct:** The probability of observing a test statistic at least as extreme as ours, if $H_0$ were true
+
+   - It measures the compatibility between our data and the null hypothesis.
+
+*> the p-value answers "How surprising is this data if the null is true?" not "Is the null true?"*
+
+---
+
+## Looking Ahead
+<p class="subheader">The hypothesis testing framework is powerful and general.</p>
+
+<br>
+
+. . .
+
+- Part 3.4 | **The Simplest Linear Model** — hypothesis testing as the simplest regression
+
+. . .
+
+- Part 4 | **Bivariate Models** — regression coefficients are tested using t-tests
+
+. . .
+
+*> the tools we built today apply to every model we'll see in Parts 4 and 5*

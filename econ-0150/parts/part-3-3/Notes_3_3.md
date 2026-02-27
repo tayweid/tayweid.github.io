@@ -13,11 +13,12 @@
 
 Last time we discovered something remarkable. Even though we don't know the population distribution, we know exactly how the sample mean behaves:
 
-$$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
-
+$$
+\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)
+$$
 The sample mean follows an approximately normal distribution centered on the true mean with a standard deviation — the standard error — of $\sigma / \sqrt{n}$. This is the central limit theorem.
 
-Now what? We have the distribution. Let's use it.
+Now that we have the distribution, let's use it.
 
 ---
 
