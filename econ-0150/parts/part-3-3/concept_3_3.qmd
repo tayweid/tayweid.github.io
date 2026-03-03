@@ -196,7 +196,7 @@ plt.show()
 
 . . .
 
-*> about 95 out of 100 intervals capture the truth*
+*> about 68 out of 100 intervals capture the truth*
 
 ---
 

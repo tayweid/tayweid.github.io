@@ -4,6 +4,7 @@ format:
     css: custom.css
     transition: none
     aspect-ratio: "16:9"
+    embed-resources: true
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
