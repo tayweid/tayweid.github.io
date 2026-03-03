@@ -130,39 +130,25 @@ Taylor
 
 
 
-#### Economic Data Analysis | Week 7 (old)
+#### Economic Data Analysis: Week 8 + MiniExam 3
 
 Hi folks,
 
-I hope your weekend was lovely and full of sunshine. This week we're rounding out the rest of the basic skillset for working with data. What if we want to compare average costs by employee or total ridership by bus route? On Tuesday we'll talk about tools and approaches for **Grouping**. Then on Thursday we'll close out Part 2 with our last data operation: **Merging Datasets**. 
+Welcome to Week 8! Hope your weekend was lovely. Last week after MiniExam 2 we started developing the foundational idea in statistical modeling: we never observe the population directly; but with the CLT we don't need to see the population to make claims about it. 
 
-MiniExam 2 will take place during the first 20 minutes of class on Tuesday October 14, a week from tomorrow, and will cover everything in Part 2.
+I expect you to be in class this week, especially for the Exercises. These ideas are some of the most foundational we'll cover this semester so it's especially important to be in class. Let me know if you need to be gone and I'll give you an extension on the Exercises. 
 
-Next week we will have covered the core skillsets for working with data. We are now on the doorstep to begin working with the core ideas to start building real statistical models. These are the big ideas that allow us to generate new knowlege from data, some of the biggest ideas we have in science. Get hyped.
+On Tuesday we'll start building the the tools to leverage the Central Limit Theorem to make inferences about unknown populations. On Thursday we'll then develop the language to measure our uncertainty about the closeness of our sample to the truth.
 
+Although the framework might feel new, much of these concepts will feel like review to many of you. If you're feeling unfamiliar working with random variables and sampling, maybe spend a bit more time on the homework in this part, or drop by office hours. 
 
+**MiniExam 3** is scheduled for the **Thursday** after we get back from Spring Break. As usual, this will take place at the beginning of class, followed by a quick break, then an introduction to Part 4: Bivariate General Linear Model.
 
-Warmly,
+Yours!
 
 Taylor
 
 
-
-#### Economic Data Analysis: Week 9 + MiniExam 3
-
-Hi folks,
-
-Welcome to Week 9! Hope your weekend was lovely. Last week after MiniExam 2 we started developing the foundational idea in statistical modeling: we never observe the population directly; but with the CLT we don't need to see the population to make claims about it. This week we're building the tools to leverage those ideas to make inferences about unknown populations.
-
-Homework 3.1 and Homework 3.2 are posted on the Part 3 page. Although the framework might feel new, much of these concepts will feel like review to many of you. If you're feeling unfamiliar working with random variables and sampling, maybe spend a bit more time on the homework in this part, or drop by office hours for me or the UTAs. 
-
-**MiniExam 3** is scheduled for next week, **Tuesday October 28**. As usual, this will take place at the beginning of class, followed by a quick break, then an introduction to Part 4: Bivariate General Linear Model.
-
-
-
-Yours, 
-
-Taylor
 
 #### Economic Data Analysis: Week 10 + MiniExam 3
 

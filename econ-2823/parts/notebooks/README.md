@@ -1,2 +1,0 @@
-# MQEnotebooks
-Class notebooks

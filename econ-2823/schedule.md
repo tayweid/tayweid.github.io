@@ -3,20 +3,20 @@
 #### Class 1
 
 - Syllabus
-- Intro Notebook
+- Part 00: Welcome
   - MLB.csv
-- Numerical Methods 1
+- Part 01: Jupyter
+- Part 02: Numerical Methods (pt1)
 
 #### Class 2
 
-- Numerical Methods 1
-- Numerical Methods 2
-- Data Hour: APIs with Python (so 4 is not covered in class?)
+- Part 02: Numerical Methods (pt1, pt2)
+- Data 01: APIs
 
 #### Class 3
 
-- Numerical Methods 2
-- Simulation Methods
+- Part 02: Numerical Methods (pt2)
+- Part 03: Simulation
   - State Probs (https://github.com/TheEconomist/us-potus-model)
   - State Correlations (https://github.com/TheEconomist/us-potus-model)
   - Electoral Votes (https://en.wikipedia.org/wiki/United_States_Electoral_College)
@@ -24,74 +24,73 @@
 
 #### Class 4
 
-- Simulation Methods
-- Organizing and searching Data 
+- Part 03: Simulation
+- Data 02: Finding Data
 
 #### Class 5
 
-- Non-linear Least Squares and Quantile Regression
+- Part 04: NLS and Quantile Regression
   - Twitter User Data
   - Snapchat User Data
   - Sales Data (https://data.wprdc.org/dataset/real-estate-sales)
 
 #### Class 6
 
-- SQL
+- Data 03: SQL
   - survey.db
-- Non-linear Least Squares and Quantile Regression
-- Maximum Likelihood
+- Part 04: NLS and Quantile Regression
+- Part 05: Maximum Likelihood (pt1)
 
 #### Class 7
 
-- Maximum Likelihood
-- Maximum Likelihood 2
+- Part 05: Maximum Likelihood (pt1, pt2)
 - Group Project 1
 
 #### Class 8
 
-- Maximum Likelihood
-- Standard Errors
-- Generalized Linear Models
+- Part 05: Maximum Likelihood (pt2)
+- Part 06: Standard Errors
+- Part 07: GLMs
 
 #### Class 9
 
-- Standard Errors
-- Generalized Linear Models
-- Binary Models
+- Part 06: Standard Errors
+- Part 07: GLMs
+- Part 08: Binary Outcomes
   - Field Goal Data (fg.rdata)
 
 #### Class 10
 
-- Generalized Linear Models
-- Binary Models
+- Part 07: GLMs
+- Part 08: Binary Outcomes
   - Field Goal Data (fg.rdata)
 
 #### Class 11
 
-- Binary Models
+- Part 08: Binary Outcomes
   - Field Goal Data (fg.rdata)
-- Ordered Multinomials
+- Part 09: Ordered Multinomials
   - eCigarette Survey
 
 #### Class 12
 
-- Ordered Multinomials
+- Part 09: Ordered Multinomials
   - eCigarette Survey
-- Unordered Multinomials
-- Censored Regression
+- Part 10: Multinomial Choice
+- Part 11: Censoring and Selection
 
 #### Class 13
 
-- Unordered Multinomials
-- Censored Regression
-- Hazard Models
+- Part 10: Multinomial Choice
+- Part 11: Censoring and Selection
+- Part 12: Hazard Models
   - Mortality Men
   - Mortality Women
   - Recidivism
 
 #### Class 14
 
-- Survival Models
+- Part 12: Hazard Models
   - Male US Mortality (USA_mltper_1x1.csv)
-  - Female US Mortality Data (USA_fltper_1x1.cs)
+  - Female US Mortality Data (USA_fltper_1x1.csv)
   - Recidivism

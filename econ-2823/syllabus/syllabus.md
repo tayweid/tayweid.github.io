@@ -1,27 +1,20 @@
-# Course Syllabus
+# ECON 2823 | Applications of Economic Analysis Techniques
 
-## Details
+### Taylor Weidman | 4702 Posvar Hall | taylorjweidman@pitt.edu
 
-**Instructor:** Taylor Weidman
+This course moves beyond ordinary regression to look at more-specialized models and data that are important to economists. We will expand your knowledge of econometric methods to account for qualitative and selected dependent variables via maximum likelihood, and present more structured estimation models. Throughout, the focus is on building your experience with more advanced techniques, both for estimation and inferences; your understanding of the pros and cons of these methods; and, importantly, how best to extract insights from them to aid in decision making. Econometric methods are best learned through practice, so put in the time and reps to master them.
 
-**Office Hours:** Wednesdays, 2:30pm to 4:30pm
+The class will meet in person in the MQE classroom, and attendance is expected. Announcements about any changes to this plan will be made via Canvas.
 
-- Normally I'll try to be in the MQE space for the first hour, especially if a homework is due!
-- If I'm not there, or you wanted to set up an individual appointment, just email and we can figure out a slot in person in my office.
+## Course Resources
 
-**e-mail:** <!-- TODO: add email -->
+- **Canvas** is used primarily for announcements.
+- **Gradescope** will be the portal to collect and return assignments.
+- **Office Hours** are a great resource so come see me! Friday, 1:00 pm to 3:00 pm. Times are also listed on Canvas.
 
-## Objectives
+## Software
 
-Applications of Economic Analysis Techniques moves beyond ordinary regression to look at more-specialized models and data that are important to economists. The course expands students' knowledge of econometric methods to account for qualitative and selected dependent variables via maximum likelihood, and presents more structured estimation models. Throughout, the focus is on building students' experience with more advanced techniques, both for estimation and inferences; their understanding of the pros and cons of these methods; and, importantly, how best to extract insights from them to aid in decision making.
-
-## Logistics
-
-The class will meet in person, and attendance is expected. The class meets in the MQE classroom. Announcements about any changes to this plan will be made via Canvas.
-
-## Hardware and Software
-
-Computer use during class is highly recommended. This class will use R via a Python environment. Each student should make sure they have those programs on their laptop. Installations of R (and RStudio) are assumed given the previous classes, however we will also install the [Anaconda](https://www.anaconda.com/) distribution of Python to use Jupyter, an interactive Python notebook environment that is commonly used by data scientists.
+Computer use during class is highly recommended. This class will use Python. Make sure you have it on your laptop. We will use the [Anaconda](https://www.anaconda.com/) distribution of Python and Jupyter, an interactive Python notebook environment that is commonly used by data scientists.
 
 ## Class Schedule
 
@@ -40,17 +33,29 @@ Computer use during class is highly recommended. This class will use R via a Pyt
 13. Class 13: Choice models, Censoring & Selection
 14. Class 14: Hazard Models
 
-## Academic Integrity
+## Disability Services
+
+If you have a disability for which you are or may be requesting an accommodation, you are encouraged to contact both your instructor and Disability Resources and Services (DRS), 140 William Pitt Union, (412) 648-7890, drsrecep@pitt.edu, (412) 228-5347 for P3 ASL users, as early as possible in the term. DRS will verify your disability and determine reasonable accommodations for this course.
+
+## Email Policy
+
+Don't hesitate to email me with questions. When you do, be considerate of a few things. First, I will try to respond to you as quickly as possible. It's easiest for me to respond if your email has a direct question. I get a considerable number of emails, so during busy times it may take longer than a day or two to get back to you. Second, I do not check emails outside of regular working hours, so if you email me at night or on the weekend, I likely won't see your email until later. This is a good practice I'd encourage for you too.
+
+## AI Policy
+
+Artificial intelligence of all kinds is an increasingly powerful tool you will need to be familiar with in your life and work. This class does not prohibit use of AI. However, all work must be your own. Copying from an uncited source is a serious issue. That said, do not hesitate to use AI when it can be of use but I would encourage you to treat it as an instructor. Work with it to learn the skills; do not copy.
+
+## Academic Conduct Code
 
 Students in this course will be expected to comply with the University of Pittsburgh's Policy on Academic Integrity. Any student suspected of violating this obligation for any reason during the semester will be required to participate in the procedural process, initiated at the instructor level, as outlined in the University Guidelines on Academic Integrity. This may include, but is not limited to, the confiscation of the examination of any individual suspected of violating University Policy.
 
-## Diversity and Inclusion
+All students are expected to adhere to the standards of the University of Pittsburgh's Policy on Academic Integrity. Any violation is a serious matter. Any student engaged in cheating, plagiarism, or other acts of academic dishonesty would be subject to disciplinary action, may 1) receive a zero on an assessment, or 2) receive an F in the class.
 
-The University of Pittsburgh does not tolerate any form of discrimination, harassment, or retaliation based on disability, race, color, religion, national origin, ancestry, genetic information, marital status, familial status, sex, age, sexual orientation, veteran status or gender identity or other factors as stated in the University's Title IX policy. The University is committed to taking prompt action to end a hostile environment that interferes with the University's mission. For more information about policies, procedures, and practices, see [this link](https://www.diversity.pitt.edu/). I ask that everyone in the class strive to help ensure that all members of this class can learn in a supportive and respectful environment. If there are instances of the aforementioned issues, please contact the Title IX Coordinator, by calling 412-648-7860, or by e-mail. Reports can also be [filed online](https://www.diversity.pitt.edu/). You may also choose to report this to a faculty/staff member; they are required to communicate this to the University's Office of Diversity and Inclusion. If you wish to maintain complete confidentiality, you may also contact the University Counseling Center (412-648-7930).
+## Grades
 
-## Disability Resource Statement
+No matter your grade in the class, you belong in my classroom. All assessments are designed to push you to do excellent work and convince both you and me of your critical thinking skills with as little unpleasantness as possible. I've deliberately designed the class with no busywork, trick questions, or high-stakes exams. And in return I expect you to work hard.
 
-If you have a disability for which you are or may be requesting an accommodation, you are encouraged to contact both your instructor and the Office of Disability Resources and Services, 140 William Pitt Union, 412-648-7890/412-624-3346 (Fax), as early as possible in the term. Disability Resources and Services will verify your disability and determine reasonable accommodations for this course. For more information, visit [this link](https://www.studentaffairs.pitt.edu/drs/).
+Missed work cannot be made up post-hoc. Contact me before the due date to apply for an extension if you anticipate submitting late work.
 
 ## Course Summary
 
@@ -64,3 +69,8 @@ If you have a disability for which you are or may be requesting an accommodation
 | Mon Apr 20, 2026 | Group Assignment 2 | due by 9am |
 | Fri Apr 24, 2026 | Quiz 5 | due by 5pm |
 | | Final | |
+
+## Final Notes
+
+1. I care about your progress over the semester and will do everything I can to help you succeed. Please don't hesitate to stop by office hours or email me if you have any questions or concerns, or even if you just want to chat about the course.
+2. I also encourage you to use some of the excellent learning tools available for free online for learning Python and econometric methods.

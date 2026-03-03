@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(xargs:*)",
+      "Bash(done)",
+      "Bash(for i in {08..17})",
+      "Bash(do head -50 \"/Users/taylorjweidman/Library/CloudStorage/GoogleDrive-plusdirt@gmail.com/Other computers/Macbook Air/PROJECTS/tayweid.github.io/econ-2823/parts/part-$i/\"*\".md\")",
+      "Bash(python3:*)",
+      "Bash(cd:*)",
+      "Bash(grep:*)",
+      "WebFetch(domain:alistairjwilson.github.io)"
+    ]
+  }
+}
