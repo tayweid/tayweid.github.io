@@ -74,12 +74,12 @@ I'm going to trace out the distribution with a mathematical function in red. Wha
 
 ### Central Limit Theorem
 
-That red curve is a **normal distribution** centered on the population mean ($\mu = 3.5$ for a fair die) with a standard deviation of $\sigma / \sqrt{n}$. 
+That red curve is a **normal distribution** centered on the population mean ($\mu = 3.5$ for a fair die) with a standard deviation of $\sigma / \sqrt{n}$.
 
 $$
-\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)
+\bar{x} \xrightarrow{d} N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)
 $$
-This the main result of the **central limit theorem**. If you take a sample of $n$ observations from *any* distribution and compute the mean, the distribution of that mean across many samples will be approximately normal, centered on the population mean, with standard deviation equal to the population standard deviation over the square root of the sample size. With very few exceptions, it doesn't matter what the population looks like — uniform, skewed, bimodal. The sample means converge to a normal distribution.
+This is the main result of the **central limit theorem**. As the sample size grows, the distribution of the sample mean converges to a normal distribution centered on the population mean, with standard deviation equal to the population standard deviation over the square root of the sample size. With very few exceptions, it doesn't matter what the population looks like — uniform, skewed, bimodal. The sample means converge to a normal distribution.
 
 *[Stage direction: show the formula prominently. Below it, show the progression from n = 1 to n = 30 in a row of four small histograms, each with its red normal overlay. The fit improves dramatically from left to right.]*
 

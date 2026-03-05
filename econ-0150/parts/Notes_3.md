@@ -60,9 +60,9 @@ Now roll two dice and calculate the mean. Your means will be different from each
 
 As we increase the sample size to 5, then 30, the distribution of sample means gets tighter and more bell-shaped. And if I overlay a specific probability function on top — a normal distribution centered on the population mean with a standard deviation of $\sigma / \sqrt{n}$ — it matches the shape of our sample means almost exactly.
 
-$$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
+$$\bar{x} \xrightarrow{d} N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
 
-This is the **central limit theorem**. With very few restrictions, the distribution of the sample mean approaches a normal distribution centered on the truth, regardless of the shape of the population. The population could be uniform, skewed, bimodal — it doesn't matter. The sample means will still be approximately normal.
+This is the **central limit theorem**. As the sample size grows, the distribution of the sample mean converges to a normal distribution centered on the truth, regardless of the shape of the population. The population could be uniform, skewed, bimodal — it doesn't matter. The sample means will still be approximately normal.
 
 Three properties to notice. First, the distribution is centered on $\mu$, the population mean. Second, it gets tighter as $n$ increases — larger samples produce more precise estimates. Third, the spread is governed by $\sigma / \sqrt{n}$, which we call the **standard error**. The standard error tells us how much sampling variability to expect.
 
@@ -223,6 +223,6 @@ Everything in Part 4 builds directly on what we've done here. The framework is t
 | Part | Core Idea | Key Result |
 |------|-----------|------------|
 | 3.1 | Data is a sample from an unknown population | We want to learn about the population, but only observe the sample |
-| 3.2 | Central limit theorem | $\bar{x} \sim N(\mu, \sigma/\sqrt{n})$ regardless of population shape |
+| 3.2 | Central limit theorem | $\bar{x} \xrightarrow{d} N(\mu, \sigma/\sqrt{n})$ regardless of population shape |
 | 3.3 | Confidence and hypothesis testing | Flip the centerpoint to $\bar{x}$; use t-distribution for unknown $\sigma$; p-values quantify surprise |
 | 3.4 | The simplest linear model | Mean minimizes MSE; hypothesis testing is the simplest GLM; sets up Part 4 |

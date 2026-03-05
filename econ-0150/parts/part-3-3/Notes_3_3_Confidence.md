@@ -26,7 +26,7 @@ A confidence interval gives us a range of plausible values for the true populati
 
 Thanks to the **central limit theorem (CLT)**, if we repeatedly sampled from the population, the sample mean ($\bar{x}$) would follow a normal distribution:
 $$
-\bar{x} \sim N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
+\bar{x} \xrightarrow{d} N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)
 $$
 where:
 

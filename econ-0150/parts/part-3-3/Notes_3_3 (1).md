@@ -28,10 +28,10 @@ But that +0.59 is a sample mean from 331 restaurants. A different 331 restaurant
 The central limit theorem tells us:
 
 $$
-\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)
+\bar{x} \xrightarrow{d} N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)
 $$
 
-The sample mean follows a normal distribution centered on the population mean $\mu$ with standard error $\sigma / \sqrt{n}$. We don't know $\mu$, but we know the shape of the sampling distribution. That's enough.
+As the sample size grows, the distribution of $\bar{x}$ converges to a normal centered on the population mean $\mu$ with standard error $\sigma / \sqrt{n}$. We don't know $\mu$, but we know the shape of the sampling distribution. That's enough.
 
 ---
 

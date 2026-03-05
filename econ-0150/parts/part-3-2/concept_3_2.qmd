@@ -243,12 +243,12 @@ Next is something very un-boring.
 :::: {.columns}
 ::: {.column width="50%"}
 
-$$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
+$$\bar{x} \xrightarrow{d} N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
 
 <br>
 
 ::: {.incremental}
-1. **Shape**: the sampling distribution is normal
+1. **Shape**: the sampling distribution converges to normal
 2. **Center**: it's centered on the population mean $\mu$
 3. **Spread**: the standard error $\sigma/\sqrt{n}$ shrinks with larger $n$
 :::

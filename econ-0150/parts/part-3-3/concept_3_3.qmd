@@ -53,9 +53,9 @@ format:
 
 <br>
 
-The sample mean $\bar{x}$ of (nearly) any distribution follows a normal distribution centered on the population mean $\mu$ with standard deviation $SE = \sigma / \sqrt{n}$.
+As the sample size grows, the distribution of $\bar{x}$ converges to a normal distribution centered on $\mu$ with standard deviation $SE = \sigma / \sqrt{n}$.
 
-$$\bar{x} \sim N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
+$$\bar{x} \xrightarrow{d} N\Big(\mu, \frac{\sigma}{\sqrt{n}}\Big)$$
 
 :::{.incremental}
 - We don't need to know the shape of the distribution to know the shape of the sampling distribution.
