@@ -170,7 +170,7 @@ This is exactly the one-sample t-test from 3.3, expressed in regression language
 
 ### Exercise Preview
 
-*Exercise 3.5: Are wait times different in the morning vs afternoon? Students compute the difference in wait times for each observation, then fit the intercept-only model ($y_{diff} \sim 1$) to the differences. The intercept estimates the average difference. Testing $\beta_0 = 0$ asks whether there's a systematic difference between morning and afternoon.*
+*Exercise 3.4: Are wait times different in the morning vs afternoon? Students compute the difference in wait times for each observation, then fit the intercept-only model ($y_{diff} \sim 1$) to the differences. The intercept estimates the average difference. Testing $\beta_0 = 0$ asks whether there's a systematic difference between morning and afternoon.*
 
 ### Why This Matters
 
