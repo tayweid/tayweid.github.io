@@ -1,679 +1,757 @@
+
 ---
 format:
   revealjs:
     css: custom.css
     transition: none
     aspect-ratio: "16:9"
+    embed-resources: true
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader">The economist's data analysis pipeline.</p>
+<p class="subheader-center">Building economic models with data.</p>
 
-<br> 
+<br>
 
-### *Part 3.4 | Testing Hypotheses*
+### *Part 3.4 | The Simplest Linear Model*
+
 
 ---
 
-## Confidence Intervals Recap
-<p class="subheader">We used the distribution of sample means to systematize the probability of "closeness" of $\bar{x}$ and $\mu$.</p>
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
 
-:::: {.columns}
-::: {.column width="50%"}
-- The difference between $\bar{x}$ and $\mu$ follows a t distribution with SE = $\frac{s}{\sqrt{n}}$
-- 95% of samples will have $\bar{x}$ no further than 1.96 standard errors from $\mu$
-:::
+<br><br><br><br>
 
-::: {.column width="50%"}
+
+We just developed the simplest GLM!
+
+---
+
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
+
+<br>
+
+**What is a GLM?**
+
+-  Basically just a line drawn through the data.
+
+. . .
+
+**Linear Model Equation**: $y = mx + b$
+
+- We call $y$ the 'outcome variable' (numerical only in this class)
+
+. . .
+
+- We call $x$ the 'predictor variable' (categorical or numerical)
+
+. . .
+
+- Can have more than one predictor variable: $y = m_1 x_1 + m_2 x_2 + b$
+
+. . .
+
+- If you want to be fancy, write it like: $y_i = mx_i + b + \epsilon_i$
+
+
+---
+
+## General Linear Model (GLM)
+<p class="subheader">The General Linear Model just draws lines through data points.</p>
+
+<br>
+
+**How do we choose the line?**
+
+- We minimize the 'wrongness' of the model.
+
+. . .
+
+**Mean Squared Error**: $MSE = \frac{1}{n} \sum_i \epsilon_i^2$
+
+- This $\epsilon_i$ is just how wrong our model is for data point $i$
+
+. . .
+
+- This is just the average distance between the line and a data point.
+
+. . .
+
+- This is very similar to *Variance*!
+
+---
+
+## GLM: Intercept-Only
+<p class="subheader">A model with no x ( basically: x=0 ).</p>
+
+The simplest GLM is using only an intercept term: $y=b$.
+
+- The data $x_i$ is in blue.
+- The model $b$ is in red.
+- The error $\epsilon_i$ is in green.
+
+. . .
+
 ```{python}
 #| echo: false
+#| fig-align: center
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import stats
 import seaborn as sns
-
 
 # Update Matplotlib parameters
 plt.rcParams.update({
-    'font.family': 'serif',              # Set the font family
-    'font.serif': ['Times New Roman'],   # Use a specific serif font
-    'font.style': 'italic',              # Set the font style to italic
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
 })
 
-np.random.seed(123)
-n_means = 1000
-sample_size = 30
-sample_means = [np.mean(np.random.normal(0, 2.5, sample_size)) 
-                for _ in range(n_means)]
+# Set random seed for reproducibility
+np.random.seed(42)
 
-se = 2.5/np.sqrt(sample_size)
+# Sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
 
-plt.figure(figsize=(5, 3))
-plt.hist(sample_means, bins=25, density=True, alpha=0.5)
-x = np.linspace(-2, 2, 1000)
-y = stats.norm.pdf(x, 0, 2.5/np.sqrt(sample_size))
-plt.plot(x, y, 'r-')
-plt.axvline(x=0, color='blue', linestyle='--')
-plt.axvline(x=-1.96*se, color='green', linestyle='--')
-plt.axvline(x=1.96*se, color='green', linestyle='--')
-plt.title('Distribution of $\\bar{x}-\mu$', fontsize=20)
-plt.yticks([])
+# Initial plot
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(11, 3))
 
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+# Plot 1: Data points and horizontal line
+x = np.arange(1, n+1)
+ax1.scatter(x, data, alpha=0.7)
+
+ax1.set_title('Raw Data', fontsize=20)
+ax1.set_xticks([])
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+ax1.grid(False)
+
+# Plot 2: High b
+x = np.arange(1, n+1)
+line_mean = 2.5
+ax2.scatter(x, data, alpha=0.7)
+line, = ax2.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+for i in range(n):
+    ax2.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+
+ax2.set_title('Choosing b=2.5', fontsize=20)
+ax2.set_xticks([])
+ax2.grid(False)
+
+# Plot 3:
+x = np.arange(1, n+1)
+line_mean = 1.5
+ax3.scatter(x, data, alpha=0.7)
+line, = ax3.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+for i in range(n):
+    ax3.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+
+ax3.set_title('Choosing b=1.5', fontsize=20)
+ax3.set_xticks([])
+ax3.grid(False)
+
+sns.despine(left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> what should we choose for b to minimize the model's error?*
+
+---
+
+## GLM: Line Fitting and the Sample Mean
+<p class="subheader">The sample mean minimizes the MSE.</p>
+
+We minimize the MSE by choosing $b$ to be equal to the sample mean $\bar{y}$.
+
+<br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Sample data
+n = 30
+data = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
+
+# Initial plot
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Plot 1: Data
+x = np.arange(1, n+1)
+line_mean = np.mean(data)
+ax1.scatter(x, data, alpha=0.7)
+line, = ax1.plot(x, [line_mean] * n, 'r-', linewidth=2)
+
+# Add vertical lines for errors
+for i in range(n):
+    ax1.plot([x[i], x[i]], [data[i], line_mean], 'g--', alpha=0.5)
+
+ax1.set_title('Choosing b=$\\bar{y}$', fontsize=20)
+ax1.set_ylabel('Wait Time Difference', fontsize=20)
+
+ax1.set_xticks([])
+ax1.grid(False)
+
+sns.despine(ax=ax1, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+# Plot 2: Mean squared error visualization
+
+line_values = np.linspace(-10+line_mean, 10+line_mean, 100)
+mse_values = np.array([np.mean((data - val)**2) for val in line_values])
+ax2.plot(line_values, mse_values, 'b-', linewidth=2)
+
+ax2.set_yticks([])
+
+ax2.axvline(line_mean, color='r', linestyle='--')
+
+ax2.scatter([line_mean], [np.mean((data - line_mean)**2)], color='r', s=100, zorder=2)
+
+ax2.set_xlabel('Intercept Parameter: b', fontsize=20)
+ax2.set_title('Mean Squared Error', fontsize=20)
+ax2.grid(False)
+sns.despine(ax=ax2, left=True, bottom=False, right=True, top=True, offset=0, trim=True)
 
 plt.tight_layout()
 plt.show()
 ```
-:::
-::::
 
 . . .
+
+*> when we've minimized MSE, it's equal to the Variance!*
+
+---
+
+## GLM: Sampling Error and Line Fitting
+<p class="subheader">Like before, if we take many samples, we get slightly different means and slightly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Use the same sample data as in the previous slides
+original_data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2.0, 1.9, 2.1]
+
+# For demonstrating sampling error, create multiple samples
+np.random.seed(42)
+num_samples = 8
+sample_size = 30
+
+# Generate all samples at once (vectorized)
+samples = np.array([np.random.choice(original_data, size=sample_size, replace=True)
+                     for i in range(num_samples)])
+sample_means = samples.mean(axis=1)
+
+# Create a figure with subplots for each sample
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+# Plot each sample with its mean line
+for i, (ax, sample, mean) in enumerate(zip(axes, samples, sample_means)):
+    x = np.arange(1, len(sample) + 1)
+    ax.scatter(x, sample, alpha=0.7)
+    ax.axhline(mean, color='r', linestyle='-', linewidth=2)
+
+    # Add vertical lines for errors
+    for j in range(len(sample)):
+        ax.plot([x[j], x[j]], [sample[j], mean], 'g--', alpha=0.5)
+
+    ax.set_title(f'Sample {i+1}: Mean = {mean:.2f}', fontsize=14)
+    ax.set_xticks([])
+    ax.set_ylim(0, 4)
+
+    if i % 4 == 0:
+        ax.set_ylabel('Wait Time Difference', fontsize=14)
+
+    sns.despine(ax=ax, left=False, bottom=True, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+
+plt.show()
+```
+
+---
+
+## GLM: Distribution Around the Sample Mean
+<p class="subheader">The intercept terms follow a t-distribution centered on the true mean.</p>
 
 <br><br>
 
-*> in the wait time example, we asked "where is the true mean wait time?"*
-
-. . .
-
-*> but what if we want to test a specific claim about the mean?*
-
----
-
-## Flipping The Question
-<p class="subheader">What if we want to test a specific claim about the mean?</p>
-
-<br>
-
-. . .
-
-*> "my boss claims the mean wait time is 10 minutes"*
-
-. . .
-
-*> is our data consistent with that specific claim?*
-
-. . .
-
-*> same math as last time, but a different question...*
-
-. . .
-
-*> instead of finding where some $\mu$ might be, we're testing a specific value of $\mu$*
-
----
-
-## Example: Wait Times
-<p class="subheader">If $\bar{x}=10.85$, is that consistent with $\mu_0=10$?</p>
-
-. . .
-
-*> let's simulate data where $\mu=10$ and see what sample means we'd get*
-
 ```{python}
 #| echo: false
 #| fig-align: center
+
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import stats
 import seaborn as sns
+from scipy import stats
 
+# Set random seed for reproducibility
 np.random.seed(42)
-true_mean = 10
-std_dev = 2.5
+
+# Parameters
+true_mean = 2
+true_std = 0.5
 sample_size = 30
 n_samples = 1000
 
-# Generate samples and calculate their means
-sample_means = [np.mean(np.random.normal(true_mean, std_dev, sample_size)) 
-                for _ in range(n_samples)]
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0.5, density=True,
+         edgecolor='white', label='Sample Means')
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means), max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+# Add vertical line for true mean
+plt.axvline(true_mean, color='black', linestyle='-', linewidth=2, label='True Mean')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> we only observe one sample mean, so we center the distribution there*
+
+---
+
+## GLM: Distribution Around the Sample Mean
+<p class="subheader">We center the sampling distribution on our observed sample mean.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+
+sample_mean = 1.97
+
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
+
+# Plot the histogram of sample means
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0.05, density=True,
+         edgecolor='white')
+plt.axvline(true_mean, color='black', linestyle='-', linewidth=2, label='True Mean', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0.1)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> what is the probability of seeing this if the average wait time is 1.8 minutes?*
+
+---
+
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+
+<br><br>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+
+sample_mean = 1.97
+
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
 
 plt.figure(figsize=(10, 4))
-plt.hist(sample_means, bins=30, density=True, alpha=0.6, color='#4C72B0')
-x = np.linspace(8.5, 11.5, 1000)
-y = stats.norm.pdf(x, true_mean, std_dev/np.sqrt(sample_size))
-plt.plot(x, y, 'r-', linewidth=2)
-plt.axvline(x=true_mean, color='red', linestyle='--', linewidth=2)
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True,
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
 
-# Add annotation for the observed value
-observed_mean = 10.85
-plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
-plt.annotate(f'Observed\nMean: {observed_mean}', xy=(observed_mean, 0.5),
-             xytext=(observed_mean+0.3, 1.0), fontsize=12,
-             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5))
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, sample_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
 
-plt.title('Distribution of Sample Means if True Mean is 10', fontsize=16)
-plt.xlabel('Sample Mean (minutes)', fontsize=14)
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
 plt.yticks([])
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
 . . .
 
-*> how "surprising" would our observed $\bar{x}$ be if $\mu$ actually was 10?*
+*> here we're centering the t-distribution on the observed sample mean*
 
 . . .
 
-*> notice we've centered the distribution on our hypothesis: $\mu_0$*
+*> as before, this is mathematically equivalent to centering on the null*
 
 ---
 
-## Example: Wait Times
-<p class="subheader">The math to answer this question is identical to confidence intervals.</p>
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
 
-:::: {.columns}
-::: {.column width="60%"}
-If sample standard deviation is $s = 2.5$:
-
-$$SE = \frac{s}{\sqrt{n}}$$
-
-$$SE = \frac{2.5}{\sqrt{30}}$$
-
-$$SE = 0.456$$
-:::
-
-::: {.column width="40%"}
-```{python}
-#| echo: false
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-import seaborn as sns
-
-mu_0 = 10
-std_err = 2.5/np.sqrt(30)
-observed_mean = 10.85
-df = 29  # degrees of freedom = n-1
-
-x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
-y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
-
-plt.figure(figsize=(5, 3))
-plt.plot(x, y, 'r-', linewidth=2)
-plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
-
-# Shade the confidence interval
-t_critical = stats.t.ppf(0.975, df)  # t-value for 95% CI
-ci_lower = mu_0 - t_critical * std_err
-ci_upper = mu_0 + t_critical * std_err
-plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)], 
-                 0, 
-                 y[(x >= ci_lower) & (x <= ci_upper)], 
-                 color='blue', alpha=0.2)
-
-# Mark the observed mean
-plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
-
-plt.yticks([])
-plt.title('t-Distribution if μ=10 (df=29)')
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
-plt.tight_layout()
-plt.show()
-```
-:::
-::::
-
-```python
-s = 2.5
-n = 30
-se = s / np.sqrt(30)
-```
-
----
-
-## Example: Wait Times
-<p class="subheader">The math to answer this question is identical to confidence intervals.</p>
-
-:::: {.columns}
-::: {.column width="60%"}
-If sample standard deviation is $s = 2.5$:
-
-$$SE = 0.456$$
-
-If true mean is $\mu_0 = 10$:
-
-$$\bar{x} \sim t_{29}(10, 0.456)$$
-
-So the critical value for 95%:
-$$t_{crit} = 2.045$$
-:::
-
-::: {.column width="40%"}
-```{python}
-#| echo: false
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy import stats
-import seaborn as sns
-
-mu_0 = 10
-std_err = 2.5/np.sqrt(30)
-observed_mean = 10.85
-df = 29  # degrees of freedom = n-1
-
-x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
-y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
-
-plt.figure(figsize=(5, 3))
-plt.plot(x, y, 'r-', linewidth=2)
-plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
-
-# Shade the confidence interval
-t_critical = stats.t.ppf(0.975, df)  # t-value for 95% CI
-ci_lower = mu_0 - t_critical * std_err
-ci_upper = mu_0 + t_critical * std_err
-plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)], 
-                 0, 
-                 y[(x >= ci_lower) & (x <= ci_upper)], 
-                 color='blue', alpha=0.2)
-
-# Mark the observed mean
-plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
-
-plt.yticks([])
-plt.title('t-Distribution if μ=10 (df=29)')
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
-plt.tight_layout()
-plt.show()
-```
-:::
-::::
-
-```python
-stats.t.interval(0.95, df=30)
-```
-
----
-
-## Example: Wait Times
-<p class="subheader">The math to answer this question is identical to confidence intervals.</p>
+<br><br>
 
 ```{python}
 #| echo: false
+#| fig-align: center
+
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy import stats
 import seaborn as sns
+from scipy import stats
 
-mu_0 = 10
-std_err = 2.5/np.sqrt(30)
-observed_mean = 10.85
-df = 29  # degrees of freedom = n-1
+# Set random seed for reproducibility
+np.random.seed(42)
 
-x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
-y = stats.t.pdf(x, df, loc=mu_0, scale=std_err)
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
 
-plt.figure(figsize=(11, 3))
-plt.plot(x, y, 'r-', linewidth=2)
-plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
+sample_mean = 1.97
 
-# Shade the confidence interval
-t_critical = stats.t.ppf(0.975, df)  # t-value for 95% CI
-ci_lower = mu_0 - t_critical * std_err
-ci_upper = mu_0 + t_critical * std_err
-plt.fill_between(x[(x >= ci_lower) & (x <= ci_upper)], 
-                 0, 
-                 y[(x >= ci_lower) & (x <= ci_upper)], 
-                 color='blue', alpha=0.2)
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
 
-# Mark the observed mean
-plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
-plt.annotate(f'Observed\nMean: {observed_mean}', xy=(observed_mean, 0.5),
-             xytext=(observed_mean+0.3, 1.0), fontsize=12,
-             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5))
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True,
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
 
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical line for true mean
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
 plt.yticks([])
-plt.title('t-Distribution if μ=10 (df=29)')
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-7, trim=True)
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
-A 95% confidence interval around $\mu_0$ would be: $[9.07, 10.93]$
-
-. . .
-
-*> our observed mean ($\bar{x} = 10.85$) is within this interval — not surprising if μ=10*
-
-. . .
-
-*> but if we observed $\bar{x} = 11.5$, that would be outside the interval — surprising!*
-
 ---
 
-## The Null Hypothesis
-<p class="subheader">We formalize this approach by setting up a "null hypothesis"</p>
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
 
-<br>
+<br><br>
 
-. . .
+```{python}
+#| echo: false
+#| fig-align: center
 
-**Null Hypothesis** ($H_0$): *The specific value or claim we're testing*
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
 
-. . .
+# Set random seed for reproducibility
+np.random.seed(42)
 
-- $H_0: \mu = 10$ (wait time is 10 minutes)
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
 
-. . .
+sample_mean = 1.97
+equally_extreme = np.round(null - (sample_mean-null),2)
 
-**Alternative Hypothesis** ($H_1$ or $H_a$): *What we accept if we reject the null*
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
 
-. . .
+plt.figure(figsize=(10, 4))
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True,
+         edgecolor='white')
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
 
-- $H_1: \mu \neq 10$ (wait time is not 10 minutes)
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
 
-. . .
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
 
-**Testing Approach**: 
+# Add vertical
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+plt.axvline(equally_extreme, color='red', alpha=0.2, linestyle='-', linewidth=2, label=f'Equally Extreme: {equally_extreme}')
 
-- Calculate how "surprising" our data would be if $H_0$ were true
-- If sufficiently surprising, we reject $H_0$
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
 
 ---
-
-## Quantifying Surprise: p-values
-<p class="subheader">The p-value measures how compatible our data is with the null hypothesis.</p>
-
-<br>
-
-. . .
-
-**p-value**: *The probability of observing a test statistic at least as extreme as ours, if the null hypothesis were true*
-
-. . .
-
-<br>
-
-**For our example:**
-
-- Null: $\mu = 10$
-
-. . .
-
-- Observed: $\bar{x} = 10.85$
-
-. . .
-
-*> How likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?*
-
----
-
-## Quantifying Surprise: p-values
-<p class="subheader">Example cont.: What is the probability of an error as large as the observed mean?</p>
-
-*> how likely is it to get $\bar{x}$ this far or farther from 10, if the true mean is 10?*
-
+## GLM: Finding p-values
+<p class="subheader">The probability of something as extreme as our sample mean given the null.</p>
+<br><br>
 ```{python}
 #| echo: false
 #| fig-align: center
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from scipy import stats
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Parameters
+true_mean = 2
+true_std = 0.5
+sample_size = 30
+n_samples = 1000
+null = 1.8
+sample_mean = 1.97
+equally_extreme = np.round(null - (sample_mean-null),2)
+
+# Simulate many sample means (vectorized)
+sample_means = np.random.normal(true_mean, true_std, size=(n_samples, sample_size)).mean(axis=1)
+
+plt.figure(figsize=(10, 4))
+
+plt.hist(sample_means, bins=30, color='red', alpha=0, density=True,
+         edgecolor='white')
+
+plt.axvline(null, color='black', linestyle='-', linewidth=2, label='Null Hypothesis', alpha=0.2)
+
+# Overlay the theoretical sampling distribution
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, null, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, label='t-dist')
+
+x = np.linspace(min(sample_means)-.2, max(sample_means), 1000)
+y = stats.norm.pdf(x, true_mean, true_std / np.sqrt(sample_size))
+plt.plot(x, y, 'green', linestyle='--', linewidth=2, alpha=0)
+
+# Add vertical lines
+plt.axvline(sample_mean, color='red', linestyle='-', linewidth=2, label=f'Sample Mean: {sample_mean}')
+plt.axvline(equally_extreme, color='red', alpha=0.2, linestyle='-', linewidth=2, label=f'Equally Extreme: {equally_extreme}')
+
+# Shade the tails for p-value
+# Right tail (values >= sample_mean)
+x_right = x[x >= sample_mean]
+y_right = stats.norm.pdf(x_right, null, true_std / np.sqrt(sample_size))
+plt.fill_between(x_right, 0, y_right, color='blue', alpha=0.3, label='p-value area')
+
+# Left tail (values <= equally_extreme)
+x_left = x[x <= equally_extreme]
+y_left = stats.norm.pdf(x_left, null, true_std / np.sqrt(sample_size))
+plt.fill_between(x_left, 0, y_left, color='blue', alpha=0.3)
+
+plt.xlabel('Intercept Parameter: b', fontsize=16)
+plt.xlim(1.4,2.7)
+plt.legend()
+plt.ylim(bottom=0)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## GLM: Intercept Model
+<p class="subheader">A t-test is a linear model with only an intercept: $y = \beta_0 + \epsilon$</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+
+import numpy as np
+import matplotlib.pyplot as plt
 import seaborn as sns
 
-mu_0 = 10
-std_err = 2.5/np.sqrt(30)
-observed_mean = 10.85
+# Set random seed for reproducibility
+np.random.seed(42)
 
-x = np.linspace(mu_0-3*std_err, mu_0+3*std_err, 1000)
-y = stats.norm.pdf(x, mu_0, std_err)
+# Generate sample data
+n = 30
+y = [1.3, 2.4, 2.2, 1.3, 3. , 2.3, 0.8, 2.7, 2. , 2.9, 1.7, 1.9, 2.2,
+       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+       1.8, 2. , 1.9, 2.1]
 
-# Calculate two-tailed p-value
-z_score = (observed_mean - mu_0) / std_err
-p_value = stats.t.cdf((mu_0-observed_mean)/se, df=29) * 2
-
+# Create the plot
 plt.figure(figsize=(11, 3))
-plt.plot(x, y, 'r-', linewidth=2)
-plt.axvline(x=mu_0, color='blue', linestyle='--', linewidth=1)
 
-# Mark the observed mean
-plt.axvline(x=observed_mean, color='green', linestyle='-', linewidth=2)
-plt.annotate(f'Observed\nMean: {observed_mean}', xy=(observed_mean, 0.5),
-             xytext=(observed_mean+0.3, 1.0), fontsize=12,
-             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5))
+# Plot the data points
+plt.scatter(range(1, n+1), y, alpha=0.7, label='Data Points')
 
-# Shade the area representing the p-value
-x_right = np.linspace(observed_mean, mu_0+3*std_err, 500)
-y_right = stats.norm.pdf(x_right, mu_0, std_err)
-plt.fill_between(x_right, 0, y_right, color='red', alpha=0.3)
+# Plot the horizontal line at the mean
+mean_y = np.mean(y)
+plt.axhline(mean_y, color='r', linestyle='-', linewidth=2, label=f'Mean ({chr(946)}{chr(8320)} = {mean_y:.2f})')
 
-x_left = np.linspace(mu_0-3*std_err, mu_0-(observed_mean-mu_0), 500)
-y_left = stats.norm.pdf(x_left, mu_0, std_err)
-plt.fill_between(x_left, 0, y_left, color='red', alpha=0.3)
+# Add vertical lines for errors
+for i in range(n):
+    plt.plot([i+1, i+1], [y[i], mean_y], 'g--', alpha=0.4)
 
-plt.annotate(f'p-value = {p_value:.3f}', xy=(mu_0, 0.4),
-             xytext=(mu_0, 0.6), fontsize=14, ha='center',
-             bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="gray", alpha=0.8))
+plt.ylabel('Wait Time Difference', fontsize=16)
+plt.grid(False)
+sns.despine(left=False, bottom=True, right=True, top=True, trim=True)
+plt.xticks([])
 
-plt.title('Two-tailed Test for μ=10', fontsize=16)
-plt.xlabel('Sample Mean (minutes)', fontsize=14)
-plt.yticks([])
-
-sns.despine(left=True, bottom=False, right=True, top=True, offset=-5, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
 . . .
 
-```python
-stats.t.cdf((mu_0-xbar)/se, df=n-1)) * 2
-```
+*> the sample mean $\beta_0$ minimizes the sum of squared errors*
 
 . . .
 
-*> interpretation: if μ=10, we'd see $\bar{x}$ this far from 10 about 7.2% of the time*
+*> the p-value tells us the probability of the data given the default null*
 
 . . .
 
-*> often, we reject $H_0$ if p-value < 0.05 (5%)*
+*> the best guess of the true mean is $\beta_0$*
 
 . . .
 
-*> here, p-value > 0.05, so we don't reject the claim that μ=10*
+*> this is the simplest version of an OLS regression model*
 
 ---
 
-## Test Statistic: The t-statistic
-<p class="subheader">We can standardize our result for easier interpretation</p>
-
-. . .
-
-The **t-statistic** measures how many standard errors our sample mean is from the null value:
-
-. . .
-
-$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}}$$
-
-. . .
-
-Where:
-
-- $\bar{x}$ is our sample mean (10.85)
-- $\mu_0$ is our null value (10)
-- $s$ is our sample standard deviation (2.5)
-- $n$ is our sample size (30)
+## Exercise 3.4 | Difference in Wait Times
+<p class="subheader">Are wait times different in the morning and afternoon?</p>
 
 ---
 
-## Test Statistic: The t-statistic
-<p class="subheader">We can standardize our result for easier interpretation</p>
-
-The **t-statistic** measures how many standard errors our sample mean is from the null value:
-
-$$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} = \frac{10.85 - 10}{2.5/\sqrt{30}} = \frac{0.85}{0.456} = 1.86$$
-
-Where:
-
-- $\bar{x}$ is our sample mean (10.85)
-- $\mu_0$ is our null value (10)
-- $s$ is our sample standard deviation (2.5)
-- $n$ is our sample size (30)
-
----
-
-## The t-test
-<p class="subheader">This example has become a formal hypothesis test.</p>
-
-:::: {.columns}
-::: {.column width="40%"}
-**One-sample t-test:**
-
-- $H_0: \mu = 10$  
-- $H_1: \mu \neq 10$
-- Test statistic: $t = 1.86$
-- Degrees of freedom: 29
-- p-value: 0.072
-
-**Decision rule:**
-
-- If p-value < 0.05, reject $H_0$
-- Otherwise, fail to reject $H_0$
-:::
-
-::: {.column width="60%"}
-```python
-# Imports
-import numpy as np
-from scipy import stats
-```
-
-<br>
-
-```python
-# Sample Data
-sample_mu = 10.85
-pop_mu = 10    # null hypothesis
-std_dev = 2.5    
-n = 30
-```
-
-<br>
-
-```python
-# Calculate t-statistic
-t_stat = (sample_mu - pop_mu) / (std_dev / np.sqrt(n))
-```
-
-<br>
-
-```python
-# Calculate p-value
-p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=n-1))
-```
-:::
-::::
+## Looking Forward: Part 4
+<p class="subheader">Bivariate General Linear Model</p>
 
 . . .
 
-*> t-tests are extremely common, especially in regression (coming soon!)*
+**In Part 4 we will explore:**
 
----
+- Part 4.1 | Categorical Predictors
+- Part 4.2 | Numerical Predictors
+- Part 4.3 | Timeseries Models
+- Part 4.4 | Model Diagnostics
 
-## Statistical vs. Practical Significance
-<p class="subheader">A caution about hypothesis testing</p>
-
-<br>
-
-. . .
-
-**Statistical significance:**
-
-- Formal rejection of the null hypothesis (p < 0.05)
-- Only tells us if the effect is unlikely due to chance
-
-. . .
-
-**Practical significance:**
-
-- Whether the effect size matters in the real world
-- A statistically significant result can still be tiny
-
-. . .
-
-*> with large samples, even tiny differences can be statistically significant*
-
-. . .
-
-*> always consider the magnitude of the effect, not just the p-value*
-
----
-
-## Common Misinterpretations
-<p class="subheader">What a p-value is NOT</p>
-
-<br>
-
-❌ **Not:** The probability that $H_0$ is true
-
-   - The p-value doesn't tell us if the null hypothesis is correct. It assumes the null is true and then calculates how surprising our result would be under that assumption.
-   - *Example:* A p-value of 0.04 doesn't mean there's a 4% chance the null hypothesis is true.
-
----
-
-## Common Misinterpretations
-<p class="subheader">What a p-value is NOT</p>
-
-<br>
-
-❌ **Not:** The probability that the results occurred by chance
-
-   - All results reflect some combination of real effects and random variation. The p-value doesn't separate these components.
-   - *Example:* A p-value of 0.04 doesn't mean there's a 4% chance our results are due to chance and 96% chance they're real.
-
----
-
-## Common Misinterpretations
-<p class="subheader">What a p-value is NOT</p>
-
-<br>
-
-❌ **Not:** The probability that $H_1$ is true
-
-   - The p-value doesn't directly address the alternative hypothesis or its likelihood.
-   - *Example:* A p-value of 0.04 doesn't mean there's a 96% chance the alternative hypothesis is true.
-
----
-
-## Common Misinterpretations
-<p class="subheader">What a p-value is NOT</p>
-
-<br>
-
-✅ **Correct:** The probability of observing a test statistic at least as extreme as ours, if $H_0$ were true
-
-   - It measures the compatibility between our data and the null hypothesis.
-   - *Example:* A p-value of 0.04 means: "If the null hypothesis were true, we'd see results this extreme or more extreme only about 4% of the time."
-
-*> think of it like this: The p-value answers "How surprising is this data if the null hypothesis is true?" not "Is the null hypothesis true?"*
-
----
-
-## Looking Forward
-<p class="subheader">The t-test framework extends to many scenarios</p>
-
-<br>
-
-. . .
-
-**Next time:**
-
-- Comparing means between two groups
-
-. . .
-
-**Coming soon:**
-
-- This same framework underlies regression analysis
-- Regression coefficients are tested using t-tests
-- ANOVA uses the same fundamental approach
-
-. . .
-
-*> the hypothesis testing framework is foundational for modern science*
+*> all built on the same statistical foundation we explored today*
