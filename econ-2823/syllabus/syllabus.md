@@ -61,13 +61,11 @@ Missed work cannot be made up post-hoc. Contact me before the due date to apply 
 
 | Date | Details | Due |
 |------|---------|-----|
-| Fri Mar 20, 2026 | Quiz 1 | due by 5pm |
-| Mon Mar 30, 2026 | Group Assignment 1 | due by 8:30am |
-| Fri Apr 3, 2026 | Quiz 2 | due by 5pm |
-| Fri Apr 10, 2026 | Quiz 3 | due by 5pm |
-| Fri Apr 17, 2026 | Quiz 4 | due by 5pm |
-| Mon Apr 20, 2026 | Group Assignment 2 | due by 9am |
-| Fri Apr 24, 2026 | Quiz 5 | due by 5pm |
+| Fri Mar 27, 2026 | Checkpoint 1 | due by 5pm |
+| Fri Apr 3, 2026 | Checkpoint 2 | due by 5pm |
+| Fri Apr 10, 2026 | Checkpoint 3 | due by 5pm |
+| Fri Apr 17, 2026 | Checkpoint 4 | due by 5pm |
+| Fri Apr 24, 2026 | Checkpoint 5 | due by 5pm |
 | | Final | |
 
 ## Final Notes

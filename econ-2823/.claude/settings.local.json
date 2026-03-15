@@ -9,7 +9,11 @@
       "Bash(python3:*)",
       "Bash(cd:*)",
       "Bash(grep:*)",
-      "WebFetch(domain:alistairjwilson.github.io)"
+      "WebFetch(domain:alistairjwilson.github.io)",
+      "WebSearch",
+      "WebFetch(domain:www.registrar.pitt.edu)",
+      "WebFetch(domain:www.provost.pitt.edu)",
+      "WebFetch(domain:www.utimes.pitt.edu)"
     ]
   }
 }
