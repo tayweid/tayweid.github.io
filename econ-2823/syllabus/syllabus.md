@@ -57,7 +57,7 @@ No matter your grade in the class, you belong in my classroom. All assessments a
 
 Missed work cannot be made up post-hoc. Contact me before the due date to apply for an extension if you anticipate submitting late work.
 
-## Course Summary
+## Dates
 
 | Date | Details | Due |
 |------|---------|-----|
