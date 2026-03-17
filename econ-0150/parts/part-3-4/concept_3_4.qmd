@@ -822,8 +822,8 @@ Compare the intercept coefficient to the sample mean from Question 1.
 
 **In Part 4 we will explore:**
 
-- Part 4.1 | Categorical Predictors
-- Part 4.2 | Numerical Predictors
+- Part 4.1 | Numerical Predictors
+- Part 4.2 | Categorical Predictors
 - Part 4.3 | Timeseries Models
 - Part 4.4 | Model Diagnostics
 

@@ -1,166 +1,180 @@
-## Part 4.1 | Categorical Predictors
+## Part 4.1 | Numerical Predictors
 
 ### Overview
 
-- The simplest extension from the intercept-only model: instead of one mean, compare two means
-- Code the category as a dummy variable (0/1) — now it's a number we can put on the x-axis
-- $\beta_0$ = mean of the reference group (where $x = 0$); $\beta_1$ = difference between group means
-- The p-value on $\beta_1$ tests whether the difference is significant — this is a two-sample t-test in regression language
-- Null slopes visualization shows how extreme our observed difference is compared to chance
-- More than two groups: ANOVA as regression with multiple dummy variables
-- Reference group coding changes which differences we estimate directly, but the model is equivalent
-- GLM summary: one-sample t-test, two-sample t-test, ANOVA — all the same framework
+- Natural extension from the intercept-only model: the horizontal line gets a slope
+- The bivariate model: $y_i = \beta_0 + \beta_1 x_i + \epsilon_i$ — predictions now vary with $x$
+- Errors are vertical distances from a tilted line, not a flat one
+- MSE minimization with two parameters: compare candidate lines (too steep, too flat, just right)
+- MSE as a function of $\beta_1$ — another U-shaped curve with a clear minimum
+- Sampling error in the slope: many samples give many different $\beta_1$ values
+- Distribution of $\beta_1$: histogram of slopes follows a t-distribution centered on the true slope
+- Hypothesis testing: $H_0: \beta_1 = 0$ — is there a relationship?
+- Null slopes visualization: many grey lines from the null overlaid on data, observed slope in red
+- Predictions: plug in $x$ to get $\hat{y}$; moving one unit right changes $\hat{y}$ by $\beta_1$
+- Interpretation: $\beta_1$ is the change in $y$ for a one-unit change in $x$; $\beta_0$ is the predicted $y$ when $x = 0$
+- GLM summary: intercept-only model → bivariate regression — same framework, same MSE, same t-tests
 
 ---
 
-### Opening — From One Mean to Two
+### Opening — From a Horizontal Line to a Tilted One
 
-In 3.4, we built the intercept-only model. We estimated a single mean, tested whether it was zero, and saw that the one-sample t-test is the simplest possible regression. The exercise at the end of 3.4 compared morning and afternoon wait times by computing differences — already a group comparison, just handled indirectly.
+In 3.4, we built the intercept-only model. We drew a horizontal line through data, chose the height that minimized MSE, and discovered that the optimal parameter was the sample mean. We could test whether the intercept was zero — a one-sample t-test in regression language.
 
-Now let's do this directly. Many economic questions involve comparing groups. Do neighborhoods with green space have lower temperatures? Do low-income areas face higher pollution? Do countries with higher GDP have happier citizens? These are all questions about whether two (or more) groups differ on some outcome.
+But in general we don't ask many questions about vertical intercepts. More interesting questions involve relationships between variables. Do people wait longer later in the day? Are wealthier countries happier? Does education predict wages? These are all questions about whether one variable moves with another.
 
-Here's the key insight: if we code the group as a number, we can use the same regression framework from 3.4. The model doesn't care whether $x$ is "minutes after opening" or "1 if high greenspace, 0 if low greenspace." It just needs a number.
+To answer them, we tilt the line. Instead of $\hat{y}_i = \beta_0$ (a flat line), we fit $\hat{y}_i = \beta_0 + \beta_1 x_i$ (a line with a slope). The slope $\beta_1$ captures the relationship between $x$ and $y$.
 
----
-
-### Dummy Variables
-
-Let's say we're interested in whether neighborhoods with high green space have lower temperatures. We have data on 100 neighborhoods — 50 with low green space and 50 with high green space.
-
-We create a **dummy variable**: $HighGreen = 1$ if the neighborhood has high green space, $HighGreen = 0$ otherwise. Now each observation has a temperature (the outcome) and a number (0 or 1) as the predictor.
-
-*[Stage direction: show a box/strip plot of temperature by greenspace group. X-axis has two positions: 0 (Low Greenspace) and 1 (High Greenspace). Data points are jittered horizontally within each group. Box plots show the distribution of temperatures in each group. The low-greenspace group is visibly warmer on average.]*
-
-We can plot these two groups on the same axes we'd use for any scatter plot. The x-axis has two values — 0 and 1 — and the y-axis shows temperature. It looks different from a typical scatter plot, but the math is identical.
+*[Stage direction: show a 3-panel figure. Left panel: raw scatter plot of wait time vs minutes after opening — blue dots showing a cloud that drifts upward. Center panel: same data with a horizontal red line at the mean (the intercept-only model from 3.4), green dashed error segments from each point to the line. Right panel: empty — we haven't fit the tilted model yet.]*
 
 ---
 
-### The Model
+### The Bivariate Model
 
-We write the model just like any regression:
+We write the model as:
 
-$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \epsilon$$
+$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
 
-This is the same equation from 3.4, just with a real predictor variable. The line connects two points — one at $x = 0$ and one at $x = 1$.
+This is the same equation as the intercept-only model, but now the prediction depends on $x$:
 
-*[Stage direction: same data as before, but now overlay a red regression line connecting the mean of the low-greenspace group (at $x = 0$) to the mean of the high-greenspace group (at $x = 1$). The line has a downward slope because high-greenspace neighborhoods are cooler.]*
+$$\hat{y}_i = \beta_0 + \beta_1 x_i$$
 
-The model only makes predictions at two x-values. When $x = 0$ (low greenspace), the prediction is $\hat{y} = \beta_0$. When $x = 1$ (high greenspace), the prediction is $\hat{y} = \beta_0 + \beta_1$. The line connecting these two predictions is the regression line.
+Each observation gets its own prediction based on its $x$-value. The error is still the vertical distance between the data point and the line:
 
----
+$$\epsilon_i = y_i - \hat{y}_i$$
 
-### Interpreting $\beta_0$
+But now the line is tilted, so the errors are distances from a slanted line rather than a flat one.
 
-When $x = 0$, our model predicts $\hat{y} = \beta_0$. Since $x = 0$ corresponds to the low-greenspace group, the intercept is the mean temperature of the reference group.
+*[Stage direction: same 3-panel figure, now complete. Left: raw data. Center: intercept-only model with horizontal line and error segments. Right: regression line (tilted, red) with error segments. The errors in the right panel are visibly smaller — the tilted line fits better. Titles: "Raw Data," "Model 1: $y = \beta_0 + \epsilon$," "Model 2: $y = \beta_0 + \beta_1 x + \epsilon$."]*
 
-Ask students: what does $\beta_0$ represent here?
-
-*[Stage direction: same figure with regression line. Label $\beta_0$ at the point where the line meets $x = 0$. Add a horizontal dashed line from the y-axis to the point, and label it with the numerical value (e.g., $\beta_0 = 22.03°C$).]*
-
-This is exactly the same interpretation as the intercept-only model — $\beta_0$ is a group mean. The difference is that now it's the mean of one specific group rather than the mean of all the data.
+Compare the two models. Model 1 ignores $x$ entirely — same prediction for everyone. Model 2 uses $x$ to make better predictions. When there's a real relationship, the tilted line produces smaller errors. Two things to notice: (1) a slope improves model fit when there's a relationship, and (2) the intercept is no longer the mean — it's the predicted value when $x = 0$.
 
 ---
 
-### Interpreting $\beta_1$
+### Choosing the Slope — MSE
 
-When $x = 1$, the model predicts $\hat{y} = \beta_0 + \beta_1$. So $\beta_1$ is the difference between the high-greenspace mean and the low-greenspace mean:
+How do we find the best slope? Same logic as 3.4: minimize MSE. But now we're choosing two parameters — both $\beta_0$ and $\beta_1$.
 
-$$\beta_1 = \bar{y}_{high} - \bar{y}_{low}$$
+Consider three candidate lines through the wait-time scatter plot:
 
-It's the slope of the line from $x = 0$ to $x = 1$. In a standard regression, we'd say "$\beta_1$ is the change in $y$ for a one-unit change in $x$." Here, a one-unit change in $x$ means moving from one group to the other.
+*[Stage direction: 3-panel figure. Each panel shows the same scatter data with a different red line. Left panel: line too steep ($\beta_1 = 0.020$) — errors large at both ends. Center panel: line too shallow ($\beta_1 = 0.004$) — errors large in the middle and at the extremes. Right panel: optimal line ($\beta_1 \approx 0.011$) — errors balanced and minimal. Each panel shows MSE in the title. The optimal model has the lowest MSE.]*
 
-*[Stage direction: same figure. Now label $\beta_1$ as the vertical gap between the two group means. Draw an arrow or bracket showing the distance from $\beta_0$ at $x = 0$ to $\beta_0 + \beta_1$ at $x = 1$. Label it "$\beta_1 = -2.97°C$" (the slope is negative because high-greenspace neighborhoods are cooler).]*
-
-If $\beta_1$ is negative, the high-greenspace group has lower temperatures. If it's positive, the high-greenspace group has higher temperatures. If it's zero, there's no difference between the groups.
+Model A is too steep — it overshoots at the right and undershoots at the left. Model B is too shallow — it barely tilts, leaving large errors everywhere. Model C gets the slope right, and its MSE is the smallest. MSE minimization picks the line that balances all the errors as well as possible.
 
 ---
 
-### This Is a Two-Sample T-Test
+### MSE as a Function of $\beta_1$
 
-The p-value on $\beta_1$ tests whether the difference between the two group means is statistically significant. The null hypothesis is $H_0: \beta_1 = 0$ — no difference between the groups.
+Just as in 3.4 we plotted MSE against different values of $\beta_0$ and found a U-shaped curve, we can plot MSE against different values of $\beta_1$.
 
-This is exactly the same as a two-sample t-test. The math is identical. The same test statistic, the same p-value. We've just expressed it in regression language.
+*[Stage direction: 2-panel figure. Left: the optimal regression line through the scatter data, with error segments. Right: a U-shaped curve showing MSE on the y-axis and $\beta_1$ on the x-axis. The curve has a clear minimum. A red dot marks the minimum, and a dashed vertical line drops to the x-axis at the optimal $\beta_1$. The curve tells us: slopes too large or too small both increase MSE. There's one slope that minimizes it.]*
 
-Why bother? Because the regression framework is more general. A two-sample t-test only compares two groups. Regression can handle continuous predictors, multiple groups, and multiple predictors all at once. The two-sample t-test is a special case.
-
-*[Stage direction: show the null slopes visualization. Plot the data (two groups) with the observed regression line in red. Overlay 100 grey lines drawn from the null distribution — each one represents a possible slope we might observe by chance if there were no difference between groups. The grey lines cluster around zero slope (horizontal). The observed red line stands out clearly below the grey lines. Add a text note: "Grey lines: possible samples under the null (no difference)."]*
-
-The null slopes visualization makes the logic concrete. If there were no difference between groups, the slopes we'd observe by chance would cluster around zero. Our observed slope is far from zero — it's unlikely to have arisen by chance.
+The optimal slope gives the best guess of the relationship between $x$ and $y$. But could this slope just be sampling error? What if the true slope is zero — no relationship at all — and we happened to draw a sample that looks like there's one?
 
 ---
 
-### Exercise: Environmental Justice
+### Sampling Error in the Slope
 
-Do low-income neighborhoods face higher pollution levels? This is an environmental justice question with real policy implications.
+Just as the sample mean varies from sample to sample, so does the estimated slope. Take many samples from the same population, fit a line to each one, and record the slope.
 
-*Exercise 4.1: Neighborhood Income and Pollution*
+*[Stage direction: 8-panel grid (2 rows of 4). Each panel shows a different random sample — blue dots with a red regression line. The slopes vary across panels: some steeper, some shallower, one nearly flat. Each panel title shows the estimated slope (e.g., "Sample 1: Slope = 0.0094," "Sample 3: Slope = 0.0142"). The slopes are all in the same neighborhood but noticeably different — this is sampling variability.]*
 
-**Step 1: Summarize the data.** Visualize pollution levels by income group.
-
-*[Stage direction: strip/box plot of Air Pollution Index by income group. X-axis: "High Income (0)" and "Low Income (1)." Data points jittered. Low-income group visibly has higher pollution levels and slightly more spread.]*
-
-**Step 2: Build a model.**
-
-$$Pollution = \beta_0 + \beta_1 \cdot LowIncome + \epsilon$$
-
-**Step 3: Estimate the model.** Fit the regression. Report $\beta_0$ (mean pollution in high-income areas), $\beta_1$ (additional pollution in low-income areas), and the p-value.
-
-*[Stage direction: same plot with the regression line overlaid. Label $\beta_0$ at x=0 (e.g., 23.9) and $\beta_0 + \beta_1$ at x=1 (e.g., 39.8). Label the slope $\beta_1 = 15.9$.]*
-
-**Step 4: Check the residuals.** Make a residual plot (residuals vs predicted values). With only two predicted values, the residual plot has two vertical columns. Check that the spread is roughly equal in both groups.
-
-**Step 5: Interpret.** A significant positive $\beta_1$ means low-income neighborhoods face higher pollution — evidence of environmental inequality.
+Each sample gives a slightly different slope. Some are steeper, some shallower. This is exactly the same phenomenon we saw with the sample mean in 3.2 and with the intercept in 3.4. The estimated slope is a random variable with its own sampling distribution.
 
 ---
 
-### More Than Two Groups — ANOVA
+### Distribution of $\beta_1$
 
-What if the predictor has more than two categories? Suppose we want to compare temperatures across four climate regions: Coastal, Mountain, Desert, and Plains.
+If we collect slopes from many samples and plot them on a histogram, we get a bell curve.
 
-We can't code four categories with a single 0/1 variable. Instead, we create a dummy variable for each group except one — the **reference group**. If Coastal is the reference:
+*[Stage direction: histogram of slope coefficients from ~1,000 simulated samples. The histogram is bell-shaped, centered on the true population slope. Overlay a green dashed t-distribution curve. Mark the true slope with a black vertical dashed line. The sampling distribution of $\beta_1$ is approximately normal (or t-distributed) centered on the true population slope.]*
 
-$$Temperature = \beta_0 + \beta_1 \cdot Mountain + \beta_2 \cdot Desert + \beta_3 \cdot Plains + \epsilon$$
-
-Each dummy variable equals 1 for observations in that group and 0 otherwise. The interpretation:
-
-- $\beta_0$ = mean temperature in Coastal areas (the reference)
-- $\beta_1$ = difference between Mountain and Coastal
-- $\beta_2$ = difference between Desert and Coastal
-- $\beta_3$ = difference between Plains and Coastal
-
-*[Stage direction: show a multi-group comparison figure. Four groups on the x-axis (Coastal, Mountain, Desert, Plains). Data points jittered within each group. Horizontal lines at each group's mean. The Coastal group is highlighted as the reference. Vertical arrows show the differences $\beta_1$, $\beta_2$, $\beta_3$ from the reference group mean to each other group mean.]*
-
-Each coefficient has its own t-test and p-value. If $\beta_2$ has a small p-value, Desert regions have significantly different temperatures from Coastal regions. This is ANOVA — Analysis of Variance — expressed in regression language.
-
-Why do we leave out one group? Because if you know someone is not Mountain, not Desert, and not Plains, you know they're Coastal. Including all four dummies would be redundant — the model can't estimate them all independently.
+The slopes follow a normal distribution centered on the true population slope. The CLT applies to slope coefficients just as it applies to means. This lets us perform a t-test on the slope.
 
 ---
 
-### Reference Group Coding
+### Hypothesis Testing — Is $\beta_1 = 0$?
 
-The choice of reference group changes which differences the coefficients directly estimate. If we recode so Desert is the reference:
+The default null hypothesis is:
 
-$$Temperature = \beta_0 + \beta_1 \cdot Coastal + \beta_2 \cdot Mountain + \beta_3 \cdot Plains + \epsilon$$
+$$H_0: \beta_1 = 0$$
 
-Now $\beta_0$ is the mean temperature in Desert areas, and the other coefficients measure differences from Desert. The model is equivalent — same predictions, same residuals, same MSE — but the coefficients directly answer different comparison questions.
+"There is no relationship between $x$ and $y$." If $\beta_1 = 0$, the line is flat — $x$ doesn't help predict $y$ at all. We're back to the intercept-only model.
+
+The p-value answers: how surprising is our observed slope if the true slope is zero?
+
+*[Stage direction: progression of 3 slides building the hypothesis test:*
+1. *First: the sampling distribution centered on the true slope, with a red dashed line at our sample slope. Caption: "We don't know the entire distribution, just our sample slope."*
+2. *Second: shift the distribution — center it on zero (the null). Show both the sample slope (red dashed) and the null (black solid). Caption: "Center the distribution on our null."*
+3. *Third: same as above, but shade the two tails beyond the sample slope and its mirror image. These blue-shaded regions are the p-value. Caption: "The p-value is the probability of a slope as extreme as ours under the null ($\beta_1 = 0$)."]*
+
+A small p-value is evidence against the null. If the probability of seeing our slope by chance (under no relationship) is tiny, we conclude the relationship is real.
 
 ---
 
-### GLM Summary So Far
+### Null Slopes Visualization
 
-We've now seen four tests that are all the same framework:
+Another way to see this: generate many possible slopes under the null hypothesis ($\beta_1 = 0$) and overlay them on the data.
 
-| Test | Model | What It Tests |
-|------|-------|---------------|
-| One-sample t-test | $y = \beta_0 + \epsilon$ | Is the mean different from zero? |
-| Two-sample t-test | $y = \beta_0 + \beta_1 \cdot Group + \epsilon$ | Is the difference between two groups significant? |
-| ANOVA | $y = \beta_0 + \beta_1 \cdot G_1 + \beta_2 \cdot G_2 + ... + \epsilon$ | Are there differences across multiple groups? |
-| Regression | $y = \beta_0 + \beta_1 \cdot x + \epsilon$ | Is there a relationship? *(next time)* |
+*[Stage direction: single panel. The scatter data is faded (low opacity). Fifty grey lines are drawn through the data, each with a slope drawn from the null distribution (centered on zero). The lines cluster around horizontal — they're nearly flat because the null says no relationship. The observed regression line is drawn in red, clearly steeper than the grey lines. Caption: "Grey lines: possible slopes under the null (no relationship). Red line: our observed slope."]*
 
-All minimize MSE. All test coefficients with t-distributions. All produce p-values with the same interpretation. The GLM is a unifying framework.
+How likely does it look like our red slope was drawn from the null slopes? If it stands out clearly from the grey lines, the p-value is small. The relationship is real.
+
+---
+
+### Exercise 4.1 — Happiness and Per Capita GDP
+
+Are wealthier countries happier? The World Happiness Report data includes life evaluation scores (0–10 scale) and GDP per capita for countries around the world.
+
+*Exercise 4.1: Happiness and Log GDP Per Capita*
+
+**Step 1: Explore the data.** Load the data. Create a scatter plot of life evaluation vs log GDP per capita. Describe the pattern — is there a visible relationship?
+
+**Step 2: Fit the model.** Fit the regression: $LifeEvaluation = \beta_0 + \beta_1 \cdot logGDP + \epsilon$. Report the estimated slope and its p-value.
+
+**Step 3: Make predictions.** Use the estimated equation to predict life evaluation at specific values of log GDP per capita.
+
+**Step 4: Interpret.** What does a one-unit increase in log GDP per capita mean for life evaluation? What does $\beta_0$ represent — and is it meaningful in this context?
+
+---
+
+### Predictions
+
+Once we have the estimated equation, predictions are arithmetic. Plug in any $x$-value and compute $\hat{y}$:
+
+$$\hat{y} = \beta_0 + \beta_1 \cdot x$$
+
+*[Stage direction: progression showing predictions. First panel: scatter data with regression line, all points visible. Second panel: highlight points near $x = 100$, fade the rest, draw a green vertical line at $x = 100$, mark where it hits the regression line. Third panel: add a horizontal green line from the y-axis to the prediction point, label the prediction value. Caption: "Plug $x = 100$ into the equation."]*
+
+What if we want the prediction at $x = 200$? Same process — plug it in. The predicted value is $\beta_1 \times 100$ units higher than the prediction at $x = 100$, because $\beta_1$ is the change in $\hat{y}$ per unit change in $x$.
+
+---
+
+### Interpretation
+
+**The slope ($\beta_1$)**: the change in $y$ for a one-unit change in $x$, holding everything else constant. In the wait-time example: "For every additional minute after opening, expected wait time increases by $\beta_1$ minutes." In the happiness example: "For every one-unit increase in log GDP per capita, life evaluation increases by $\beta_1$ points."
+
+*[Stage direction: single panel showing the regression line with two predictions highlighted. At $x_1 = 200$ and $x_2 = 300$, green dots on the line. Purple arrows show $\Delta x = 100$ (horizontal) and $\Delta y$ (vertical). The slope is the ratio $\Delta y / \Delta x = \beta_1$. Caption: "$\beta_1$ tells us how much $y$ increases for every 1-unit increase in $x$."]*
+
+**The intercept ($\beta_0$)**: the predicted $y$ when $x = 0$. Sometimes this is meaningful (wait time at the moment the shop opens). Sometimes it's not (a country with zero GDP doesn't exist). In either case, $\beta_0$ anchors the line — you need it to make predictions, even if interpreting it directly doesn't make sense.
+
+---
+
+### GLM Summary
+
+We've now seen two models in the same framework:
+
+| Model | Equation | What It Tests |
+|-------|----------|---------------|
+| Intercept-only (3.4) | $y = \beta_0 + \epsilon$ | Is the mean different from zero? (One-sample t-test) |
+| Numerical predictor (4.1) | $y = \beta_0 + \beta_1 x + \epsilon$ | Is there a relationship between $x$ and $y$? ($\beta_1 = 0$?) |
+
+Both minimize MSE. Both produce coefficients with t-distributions. Both yield p-values with the same interpretation: the probability of seeing results this extreme if the null is true.
+
+The only difference is the complexity of the model. In 3.4, the model was a flat line and the coefficient was a mean. Here, the model is a tilted line and the new coefficient is a slope. Same framework, more interesting questions.
 
 ---
 
 ### Looking Ahead
 
-We've compared group means using regression. The predictor was 0 and 1, and the line connected two group means. But what if the predictor is continuous — not just 0 and 1, but any number? Next time, we fit lines through scatter plots and test whether slopes are zero.
+What if the predictor isn't continuous but binary — 0 or 1? In Part 4.2, we use categorical predictors. The line connects two group means, the slope is the difference between them, and the t-test on the slope is exactly the two-sample t-test. Same framework, new type of predictor.

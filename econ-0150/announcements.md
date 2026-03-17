@@ -150,17 +150,23 @@ Taylor
 
 
 
+#### Week 9 | Spring Break
+
+
+
 #### Economic Data Analysis: Week 10 + MiniExam 3
 
 Hi folks,
 
-It was so fun seeing everyone on Sunday for the review session. Hope that was helpful! 
+Welcome back from break! If you're coming in from a warm sunny place the weather (like I am) today might feel a little sad. But we've almost made it to spring!
 
-After we finish MiniExam 3 on Tuesday (tomorrow) we're going to build statistical models using the primary software tools we use in the field: Ordinary Least Squares. As you'll see, the hypothesis testing framework we've just developed is the simplest  possible linear model. 
+On Tuesday (today) we're starting Part 4 by extending the ideas of sampling distributions in Part 3 to examine the sampling distribution of **relationships** between numerical and categorical variables, building our first Bivariate General Linear Model. We'll discuss how bivariate GLMs are a simple extension of the univariate GLM framework we've just built in Part 3. If we have time in class, we'll do some review for MiniExam 3. If we don't have time, we'll schedule a review session on Wednesday. 
 
-On Thursday we begin Part 4 by extending the General Linear Model to handle relationships between variables, what you may have learned as "regression". We'll discuss how bivariate GLMs are a simple extension of the univariate GLM framework we've just built in Part 3.
+On Thursday we'll start with MiniExam 3 then start extending the General Linear Model to handle relationships between numerical variables, what you may have learned as "regression". 
 
-As always sleep well and see you tomorrow!
+Also just wanted to remind you that Homework 3.3 and Homework 3.4 (posted later today) will be due on Friday this week. 
+
+It's always a lot coming back from spring break, but we've got it!
 
 Warmly,
 

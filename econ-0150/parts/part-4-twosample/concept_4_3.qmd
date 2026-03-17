@@ -1,0 +1,1092 @@
+---
+format:
+  revealjs:
+    css: custom.css
+    transition: none
+    aspect-ratio: "16:9"
+---
+
+## ECON 0150 | Economic Data Analysis {.center}
+<p class="subheader">The economist's data analysis pipeline.</p>
+
+<br> 
+
+### *Part 4.1 | Extending The t-Test*
+
+---
+
+## One-Sample t-Test: Example (using sample stats)
+<p class="subheader">How surprising would it be for the average wait time to be 10 minutes?</p>
+
+:::: {.columns}
+::: {.column width="40%"}
+**One-sample t-test:**
+
+- $H_0: \mu = 10$  
+- $H_1: \mu \neq 10$
+- n: 29
+- t-stat: $t = 2.401$
+- p-value: 0.0230
+:::
+
+::: {.column width="60%"}
+```python
+# Imports
+import numpy as np
+from scipy import stats
+```
+
+<br>
+
+```python
+# Sample Data
+sample_mu = 10.864
+pop_mu = 10    # null hypothesis
+std_dev = 1.971
+n = 30
+```
+
+<br>
+
+```python
+# Calculate t-statistic
+t_stat = (sample_mu - pop_mu) / (std_dev / np.sqrt(n))
+```
+
+<br>
+
+```python
+# Calculate p-value
+p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df=n-1))
+```
+:::
+::::
+
+. . .
+
+*> so there is a 2.3% chance of seeing data this extreme given a true mean of 10*
+
+---
+
+## One-Sample t-Test: Example (using sample data)
+<p class="subheader">How surprising would it be for the average wait time to be 10 minutes?</p>
+
+. . .
+
+*> we can perform this very simply from raw data*
+
+```python
+# Imports
+import scipy.stats as stats
+import numpy as np
+```
+. . .
+
+*> load the observed data*
+```python
+# Sample Data
+data = [11.39, 13.55, 10.54, 12.45, 9.  , 12.34, 7.74, 10.97, 9.77, 10.03, 9.52,
+    14.09, 8.01, 13.4 , 13.46, 9.43, 10.39, 10.32, 9.36, 7.42, 9.95, 13.72,
+    8.14, 12.71, 12.43, 12.83, 11.46, 13.12, 10.12, 8.27]
+```
+
+. . .
+
+*> define the null hypothesis*
+```python
+# Null Hypothesis
+null = 10
+```
+
+. . .
+
+*> perform the test*
+```python
+# Calculate t-statistic and p-value
+t_stat, p_value = stats.ttest_1samp(data, null)
+```
+
+. . .
+
+*> so there is a 2.3% chance of seeing data this extreme given a true mean of 10*
+
+---
+
+## One-Sample t-Test: Example
+<p class="subheader">How surprising would it be for the average wait time to be 10 minutes?</p>
+
+*> so there is a 2.3% chance of seeing data this extreme given a true mean of 10*
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as stats
+import seaborn as sns
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',              # Set the font family
+    'font.serif': ['Times New Roman'],   # Use a specific serif font
+    'font.style': 'italic',              # Set the font style to italic
+})
+
+# Define parameters
+sample_mu = 10.864 # Sample mean
+pop_mu = 10        # Null hypothesis (H0)
+std_dev = 1.971    # Standard deviation  
+n = 30             # Sample size
+se = std_dev / np.sqrt(n)  # Standard error
+df = n - 1         # Degrees of freedom
+
+# Calculate t-statistic
+t_stat = (sample_mu - pop_mu) / se  # About 1.86
+
+# Create the plot
+plt.figure(figsize=(10, 4))
+x = np.linspace(pop_mu - 3*se, pop_mu + 3*se, 1000)
+y = stats.norm.pdf(x, pop_mu, se)  # Normal approximation for simplicity
+
+# Plot the sampling distribution under H0
+plt.plot(x, y, 'b-', linewidth=2)
+
+# Shade the tails (two-tailed p-value)
+cut_point = abs(sample_mu - pop_mu)
+plt.fill_between(x, y, where=(x >= pop_mu + cut_point) | (x <= pop_mu - cut_point), 
+                alpha=0.3, color='red')
+
+# Add vertical lines for null, sample mean, and symmetric point
+plt.axvline(pop_mu, color='blue', linestyle='--', label='H0: μ = 10')
+plt.axvline(sample_mu, color='red', linestyle='--', label='Sample Mean: 10.85')
+plt.axvline(pop_mu - cut_point, color='purple', linestyle='--', label='Equally Extreme: 9.15')
+
+# Set y-axis to start at 0
+y_max = max(y) * 1.1  # Add a little padding at the top
+plt.ylim(0, y_max)
+
+# Add annotations with arrows instead of legend
+arrow_props = dict(arrowstyle='->', connectionstyle='arc3,rad=0.2', color='black')
+
+# Annotation for null hypothesis
+plt.annotate('Null: μ = 10', 
+            xy=(pop_mu, 0.5*max(y)), 
+            xytext=(pop_mu-0.4, 0.4*max(y)),
+            arrowprops=arrow_props)
+
+# Annotation for sample mean
+plt.annotate('Sample Mean: 10.85', 
+            xy=(sample_mu, 0.5*max(y)), 
+            xytext=(sample_mu+0.3, 0.7*max(y)),
+            arrowprops=arrow_props)
+
+# Annotation for equally extreme point
+plt.annotate('Equally Extreme: 9.15', 
+            xy=(pop_mu - cut_point, 0.5*max(y)), 
+            xytext=(pop_mu - cut_point-0.5, 0.6*max(y)),
+            arrowprops=arrow_props)
+
+plt.xlabel("Minutes", fontsize=20)
+plt.yticks([])
+plt.grid(False)
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> but why check both tails?*
+
+*> why also consider 9.15, which is equally far from 10 but on the opposite side?*
+
+---
+
+## One-Tail vs Two-Tail
+<p class="subheader">... there are at least two key reasons for a two-tail test.</p>
+
+. . .
+
+1. **Scientific Integrity**: Since we're testing the hypothesis "$\mu = 10$" against "$\mu \neq 10$", we should be equally open to evidence in either direction.
+
+. . .
+
+2. **Statistical Reasoning**: If the true mean is 10, our sampling distribution is centered there, and random samples could fall on either side.
+
+---
+
+## t-Test: Differences in Means
+<p class="subheader">Instead of asking whether $\mu=10$ lets ask whether $\mu_1=\mu_2$</p>
+
+<br>
+
+. . .
+
+*> the core question: "are two means different from each other?"*
+
+<br>
+
+. . .
+
+**Common scenarios:**
+
+- Wait times at different times of day
+- Appointment lengths with different doctors
+- Wages across different groups
+- Treatment effects in experimental settings
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">Are wait times different in the morning vs the afternoon?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Larger datasets with 30 values each
+morning = [
+    7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4,
+    6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7,
+    6.3, 6.9, 6.4, 7.0, 6.6, 6.2, 6.8, 7.2, 6.5, 6.7
+]
+
+afternoon = [
+    8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3,
+    8.6, 9.1, 8.4, 8.9, 9.4, 8.2, 9.0, 8.5, 8.8, 9.2,
+    8.7, 9.1, 8.3, 8.9, 9.3, 8.0, 8.6, 9.2, 8.4, 8.8
+]
+
+# Calculate statistics
+mean_morning = np.mean(morning)
+mean_afternoon = np.mean(afternoon)
+diff_means = mean_morning - mean_afternoon
+std_morning = np.std(morning, ddof=1)
+std_afternoon = np.std(afternoon, ddof=1)
+n_morning = len(morning)
+n_afternoon = len(afternoon)
+
+# Calculate standard errors
+se_morning = std_morning / np.sqrt(n_morning)
+se_afternoon = std_afternoon / np.sqrt(n_afternoon)
+se_diff = np.sqrt((std_morning**2 / n_morning) + (std_afternoon**2 / n_afternoon))
+
+# Perform two-sample t-test using scipy.stats (Welch's t-test)
+t_stat, p_value = stats.ttest_ind(morning, afternoon, equal_var=False)
+
+# Create figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
+
+# Plot 1: Box plots with data points
+ax1.boxplot([morning, afternoon], labels=['Morning', 'Afternoon'])
+# Use jitter for better visibility with more points
+x_jitter1 = np.random.normal(1, 0.05, size=n_morning)
+x_jitter2 = np.random.normal(2, 0.05, size=n_afternoon)
+ax1.scatter(x_jitter1, morning, alpha=0.6, color='blue')
+ax1.scatter(x_jitter2, afternoon, alpha=0.6, color='red')
+ax1.set_ylabel('Wait Time (minutes)', fontsize=20)
+ax1.set_ylim(5, 10)  # Setting reasonable y-axis limits
+
+# Plot 2: Means with confidence intervals
+means = [mean_morning, mean_afternoon]
+errors = [se_morning, se_afternoon]
+ax2.bar(['Morning', 'Afternoon'], means, yerr=errors, alpha=0.7, 
+       capsize=20, color=['blue', 'red'])
+ax2.set_ylabel('Mean Wait Time (minutes)', fontsize=20)
+ax2.set_ylim(5, 10)  # Setting reasonable y-axis limits
+
+plt.tight_layout()
+sns.despine()
+plt.show()
+```
+
+. . .
+
+*> is there a way to turn this into a one-sample t-Test that we're familiar with?*
+
+. . .
+
+*> what if we took the differences between sample menas?*
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> I ran many sample means from two distributions with equal means*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.7, density=True, color='skyblue', edgecolor='white', label="Sample Means")
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label="t-Distribution")
+
+plt.yticks([])
+plt.legend()
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the distribution of differences centers on zero*
+
+. . .
+
+*> but what is the standard error of the difference between two samples?*
+
+---
+
+## The Math: Combining Standard Errors
+<p class="subheader">What is the standard error of the difference in sample means?</p>
+
+<br>
+
+. . .
+
+**For a single sample mean:**
+
+$$SE_{\bar{x}} = \sqrt{\frac{s^2}{n}}$$
+
+. . .
+
+**For the difference in sample means:**
+
+$$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$$
+
+. . .
+
+*> two sources of sampling variation combine, but not additively*
+
+. . .
+
+*> if variances and sample sizes are equal, then*
+$SE_{\bar{x}_1 - \bar{x}_2} = \sqrt{\frac{2s^2}{n}} = \frac{s\sqrt{2}}{\sqrt{n}}$
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> so the distribution of the differences will be wider than either sample*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.7, density=True, color='skyblue', edgecolor='white')
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label='Difference in Samples')
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff/3)
+plt.plot(x, y, 'blue', linewidth=2, label='An Original Sample')
+
+plt.legend()
+
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> the null hypothesis comparing two means is typically: $\mu_1 - \mu_2 = 0$*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.7, density=True, color='skyblue', edgecolor='white')
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label="t-Distribution")
+
+plt.yticks([])
+plt.legend()
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> the null hypothesis comparing two means is typically: $\mu_1 - \mu_2 = 0$*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.2, density=True, color='skyblue', edgecolor='white')
+
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label="t-Distribution")
+
+plt.axvline(x=0, color='black', linestyle='--', linewidth=1, label='Null')
+
+plt.yticks([])
+
+plt.legend()
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> if the observed difference is $\bar{x}_1 - \bar{x}_2 = 1.1$...*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.2, density=True, color='skyblue', edgecolor='white')
+
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label="t-Distribution")
+
+plt.axvline(x=0, color='black', linestyle='--', linewidth=1, label='Null')
+
+plt.axvline(x=1.1, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+
+plt.axvline(x=-1.1, color='green', linestyle='--', linewidth=2, alpha=0.2, label='Equally Extreme')
+
+plt.legend()
+
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are equal, the difference in sample means would center on zero.</p>
+
+*> if the observed difference is $\bar{x}_1 - \bar{x}_2 = 1.1$...*
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+# Parameters
+np.random.seed(42)
+true_mean = 10
+sample_size = 30
+n_simulations = 1000
+std_dev = 2.5
+# Simulate differences between sample means when true means are equal
+diff_means = []
+for _ in range(n_simulations):
+    sample1 = np.random.normal(true_mean, std_dev, sample_size)
+    sample2 = np.random.normal(true_mean, std_dev, sample_size)
+    diff_means.append(np.mean(sample1) - np.mean(sample2))
+# Plot the distribution of differences
+plt.figure(figsize=(10, 4))
+plt.hist(diff_means, bins=30, alpha=0.2, density=True, color='skyblue', edgecolor='white')
+# Add a theoretical normal curve
+x = np.linspace(min(diff_means), max(diff_means), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+se_diff = np.sqrt(2) * std_dev / np.sqrt(sample_size)
+y = stats.norm.pdf(x, 0, se_diff)
+plt.plot(x, y, 'r-', linewidth=2, label="t-Distribution")
+
+plt.axvline(x=0, color='black', linestyle='--', linewidth=1, label='Null')
+plt.axvline(x=1.1, color='green', linestyle='--', linewidth=2, label='Sample Mean')
+plt.axvline(x=-1.1, color='green', linestyle='--', linewidth=2, alpha=0.2, label='Equally Extreme')
+
+plt.legend()
+
+# Shade areas outside the green lines in red
+plt.fill_between(x, y, where=(x >= 1.1) | (x <= -1.1), color='red', alpha=0.3)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+plt.tight_layout()
+plt.show()
+```
+
+*> like before, a p-value quantifies how surprising would be a big difference*
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are not equal, the difference in sample means would not center on zero.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+# Parameters - these represent our collected samples
+np.random.seed(42)
+morning = [7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4, 6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7]
+afternoon = [8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3, 8.6, 9.1, 8.4, 8.9, 9.4]
+morning_mean = np.mean(morning)
+afternoon_mean = np.mean(afternoon)
+morning_std = np.std(morning, ddof=1)
+afternoon_std = np.std(afternoon, ddof=1)
+morning_size = len(morning)
+afternoon_size = len(afternoon)
+observed_diff = morning_mean - afternoon_mean
+# Standard errors
+se_morning = morning_std / np.sqrt(morning_size)
+se_afternoon = afternoon_std / np.sqrt(afternoon_size)
+se_diff = np.sqrt(se_morning**2 + se_afternoon**2)
+
+# Create figure with just the two panels we want to keep
+fig, axes = plt.subplots(1, 2, figsize=(12, 3))
+
+# Panel 1: Bootstrap sampling distributions (left panel)
+n_bootstrap = 1000
+bootstrap_means_morning = []
+bootstrap_means_afternoon = []
+for _ in range(n_bootstrap):
+    # Resample with replacement
+    boot_morning = np.random.choice(morning, size=morning_size, replace=True)
+    boot_afternoon = np.random.choice(afternoon, size=afternoon_size, replace=True)
+    
+    # Calculate and store means
+    bootstrap_means_morning.append(np.mean(boot_morning))
+    bootstrap_means_afternoon.append(np.mean(boot_afternoon))
+axes[0].hist(bootstrap_means_morning, bins=20, alpha=0.5, color='blue', label='Morning means')
+axes[0].hist(bootstrap_means_afternoon, bins=20, alpha=0.5, color='red', label='Afternoon means')
+axes[0].axvline(x=morning_mean, color='blue', linestyle='--')
+axes[0].axvline(x=afternoon_mean, color='red', linestyle='--')
+axes[0].legend()
+axes[0].set_yticks([])
+
+# Panel 2: Bootstrap distribution of differences (right panel)
+bootstrap_diffs = np.array(bootstrap_means_morning) - np.array(bootstrap_means_afternoon)
+
+axes[1].axvline(x=observed_diff, color='green', linestyle='--', linewidth=2, 
+                label=f'Sample Mean Difference: {observed_diff:.2f}')
+axes[1].set_yticks([])
+axes[1].legend()
+
+# Add a theoretical normal curve
+x = np.linspace(min(bootstrap_diffs), max(bootstrap_diffs), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+y = stats.norm.pdf(x, observed_diff, se_diff)
+# Scale the normal distribution to match the histogram height
+hist_height = plt.hist(bootstrap_diffs, bins=25, color='skyblue')[0].max()
+pdf_max = max(stats.norm.pdf(x, observed_diff, se_diff))
+scaling_factor = hist_height / pdf_max
+y = y * scaling_factor
+axes[1].legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are not equal, the difference in sample means would not center on zero.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+# Parameters - these represent our collected samples
+np.random.seed(42)
+morning = [7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4, 6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7]
+afternoon = [8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3, 8.6, 9.1, 8.4, 8.9, 9.4]
+morning_mean = np.mean(morning)
+afternoon_mean = np.mean(afternoon)
+morning_std = np.std(morning, ddof=1)
+afternoon_std = np.std(afternoon, ddof=1)
+morning_size = len(morning)
+afternoon_size = len(afternoon)
+observed_diff = morning_mean - afternoon_mean
+# Standard errors
+se_morning = morning_std / np.sqrt(morning_size)
+se_afternoon = afternoon_std / np.sqrt(afternoon_size)
+se_diff = np.sqrt(se_morning**2 + se_afternoon**2)
+
+# Create figure with just the two panels we want to keep
+fig, axes = plt.subplots(1, 2, figsize=(12, 3))
+
+# Panel 1: Bootstrap sampling distributions (left panel)
+n_bootstrap = 1000
+bootstrap_means_morning = []
+bootstrap_means_afternoon = []
+for _ in range(n_bootstrap):
+    # Resample with replacement
+    boot_morning = np.random.choice(morning, size=morning_size, replace=True)
+    boot_afternoon = np.random.choice(afternoon, size=afternoon_size, replace=True)
+    
+    # Calculate and store means
+    bootstrap_means_morning.append(np.mean(boot_morning))
+    bootstrap_means_afternoon.append(np.mean(boot_afternoon))
+axes[0].hist(bootstrap_means_morning, bins=20, alpha=0.5, color='blue', label='Morning means')
+axes[0].hist(bootstrap_means_afternoon, bins=20, alpha=0.5, color='red', label='Afternoon means')
+axes[0].axvline(x=morning_mean, color='blue', linestyle='--')
+axes[0].axvline(x=afternoon_mean, color='red', linestyle='--')
+axes[0].legend()
+axes[0].set_yticks([])
+
+# Panel 2: Bootstrap distribution of differences (right panel)
+bootstrap_diffs = np.array(bootstrap_means_morning) - np.array(bootstrap_means_afternoon)
+
+axes[1].axvline(x=observed_diff, color='green', linestyle='--', linewidth=2, 
+                label=f'Sample Mean Difference: {observed_diff:.2f}')
+axes[1].axvline(x=0, color='k', linestyle='--', linewidth=1, label='Null Hypothesis')
+axes[1].set_yticks([])
+axes[1].legend()
+
+# Add a theoretical normal curve
+x = np.linspace(min(bootstrap_diffs), max(bootstrap_diffs), 1000)
+# The standard error of the difference is sqrt(SE1²+SE2²)
+y = stats.norm.pdf(x, observed_diff, se_diff)
+# Scale the normal distribution to match the histogram height
+hist_height = plt.hist(bootstrap_diffs, bins=25, color='skyblue')[0].max()
+pdf_max = max(stats.norm.pdf(x, observed_diff, se_diff))
+scaling_factor = hist_height / pdf_max
+y = y * scaling_factor
+axes[1].plot(x-observed_diff, y, 'red', linewidth=2, label='t-Dist')
+axes[1].legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Two-Sample t-Test: Example
+<p class="subheader">If the true means are not equal, the difference in sample means would not center on zero.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import stats
+import seaborn as sns
+# Parameters - these represent our collected samples
+np.random.seed(42)
+morning = [7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4, 6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7]
+afternoon = [8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3, 8.6, 9.1, 8.4, 8.9, 9.4]
+morning_mean = np.mean(morning)
+afternoon_mean = np.mean(afternoon)
+morning_std = np.std(morning, ddof=1)
+afternoon_std = np.std(afternoon, ddof=1)
+morning_size = len(morning)
+afternoon_size = len(afternoon)
+observed_diff = morning_mean - afternoon_mean
+# Standard errors
+se_morning = morning_std / np.sqrt(morning_size)
+se_afternoon = afternoon_std / np.sqrt(afternoon_size)
+se_diff = np.sqrt(se_morning**2 + se_afternoon**2)
+
+# Create figure with just the two panels we want to keep
+fig, axes = plt.subplots(1, 2, figsize=(12, 3))
+
+# Panel 1: Bootstrap sampling distributions (left panel)
+n_bootstrap = 1000
+bootstrap_means_morning = []
+bootstrap_means_afternoon = []
+for _ in range(n_bootstrap):
+    # Resample with replacement
+    boot_morning = np.random.choice(morning, size=morning_size, replace=True)
+    boot_afternoon = np.random.choice(afternoon, size=afternoon_size, replace=True)
+    
+    # Calculate and store means
+    bootstrap_means_morning.append(np.mean(boot_morning))
+    bootstrap_means_afternoon.append(np.mean(boot_afternoon))
+axes[0].hist(bootstrap_means_morning, bins=20, alpha=0.5, color='blue', label='Morning means')
+axes[0].hist(bootstrap_means_afternoon, bins=20, alpha=0.5, color='red', label='Afternoon means')
+axes[0].axvline(x=morning_mean, color='blue', linestyle='--')
+axes[0].axvline(x=afternoon_mean, color='red', linestyle='--')
+axes[0].legend()
+axes[0].set_yticks([])
+
+# Panel 2: Bootstrap distribution of differences (right panel)
+bootstrap_diffs = np.array(bootstrap_means_morning) - np.array(bootstrap_means_afternoon)
+
+axes[1].axvline(x=0, color='k', linestyle='--', linewidth=1, label='Null Hypothesis')
+axes[1].axvline(x=observed_diff, color='green', linestyle='--', linewidth=2, 
+                label=f'Sample Mean Difference: {observed_diff:.2f}')
+axes[1].axvline(x=-observed_diff, color='green', linestyle='--', linewidth=2, alpha=0.2,
+                label=f'Equally Extreme: {-observed_diff:.2f}')
+axes[1].set_yticks([])
+
+# Add a theoretical normal curve
+x = np.linspace(min(bootstrap_diffs), max(bootstrap_diffs), 1000)
+
+# The standard error of the difference is sqrt(SE1²+SE2²)
+y = stats.norm.pdf(x, observed_diff, se_diff)
+# Scale the normal distribution to match the histogram height
+hist_height = plt.hist(bootstrap_diffs, bins=25, color='skyblue')[0].max()
+pdf_max = max(stats.norm.pdf(x, observed_diff, se_diff))
+scaling_factor = hist_height / pdf_max
+y = y * scaling_factor
+
+axes[1].plot(x-observed_diff, y, 'red', linewidth=2, label='t-Dist')
+axes[1].legend()
+
+sns.despine(left=True, bottom=False, right=True, top=True, offset=0, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+. . .
+
+*> the p-value tells us how often we'd see differences this extreme by chance*
+
+. . .
+
+*> here it looks like the area is basically zero*
+---
+
+## Two-Sample t-test: Step by Step
+<p class="subheader">Example: Morning vs. Afternoon Wait Times</p>
+
+*> load the data*
+
+```python
+morning = [
+    7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4,
+    6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7,
+    6.3, 6.9, 6.4, 7.0, 6.6, 6.2, 6.8, 7.2, 6.5, 6.7
+]
+
+afternoon = [
+    8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3,
+    8.6, 9.1, 8.4, 8.9, 9.4, 8.2, 9.0, 8.5, 8.8, 9.2,
+    8.7, 9.1, 8.3, 8.9, 9.3, 8.0, 8.6, 9.2, 8.4, 8.8
+]
+```
+
+. . .
+
+*> perform two-sample t-test using scipy.stats*
+
+```python
+t_stat, p_value = stats.ttest_ind(morning, afternoon, equal_var=False)
+```
+
+. . .
+
+*> small p-value = surprising difference (reject null hypothesis of equal means)*
+
+. . .
+
+*> large p-value = difference could easily happen by chance (fail to reject null)*
+
+---
+
+## Visualizing the Difference
+<p class="subheader">Morning vs. Afternoon Wait Times</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Larger datasets with 30 values each
+morning = [
+    7.2, 6.8, 5.9, 7.5, 6.5, 6.0, 7.1, 6.3, 6.7, 6.4,
+    6.9, 7.2, 6.2, 6.8, 7.0, 6.5, 7.3, 6.6, 7.1, 6.7,
+    6.3, 6.9, 6.4, 7.0, 6.6, 6.2, 6.8, 7.2, 6.5, 6.7
+]
+
+afternoon = [
+    8.5, 9.2, 8.1, 8.8, 9.5, 8.3, 7.9, 9.0, 8.7, 9.3,
+    8.6, 9.1, 8.4, 8.9, 9.4, 8.2, 9.0, 8.5, 8.8, 9.2,
+    8.7, 9.1, 8.3, 8.9, 9.3, 8.0, 8.6, 9.2, 8.4, 8.8
+]
+
+# Calculate statistics
+mean_morning = np.mean(morning)
+mean_afternoon = np.mean(afternoon)
+diff_means = mean_morning - mean_afternoon
+std_morning = np.std(morning, ddof=1)
+std_afternoon = np.std(afternoon, ddof=1)
+n_morning = len(morning)
+n_afternoon = len(afternoon)
+
+# Calculate standard errors
+se_morning = std_morning / np.sqrt(n_morning)
+se_afternoon = std_afternoon / np.sqrt(n_afternoon)
+se_diff = np.sqrt((std_morning**2 / n_morning) + (std_afternoon**2 / n_afternoon))
+
+# Perform two-sample t-test using scipy.stats (Welch's t-test)
+t_stat, p_value = stats.ttest_ind(morning, afternoon, equal_var=False)
+
+# Create figure with two subplots
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+
+# Plot 1: Box plots with data points
+ax1.boxplot([morning, afternoon], labels=['Morning', 'Afternoon'])
+# Use jitter for better visibility with more points
+x_jitter1 = np.random.normal(1, 0.05, size=n_morning)
+x_jitter2 = np.random.normal(2, 0.05, size=n_afternoon)
+ax1.scatter(x_jitter1, morning, alpha=0.6, color='blue')
+ax1.scatter(x_jitter2, afternoon, alpha=0.6, color='red')
+ax1.set_ylabel('Wait Time (minutes)')
+ax1.set_title('Wait Times: Morning vs. Afternoon')
+
+# Plot 2: Means with confidence intervals
+means = [mean_morning, mean_afternoon]
+errors = [se_morning, se_afternoon]
+ax2.bar(['Morning', 'Afternoon'], means, yerr=errors, alpha=0.7, 
+       capsize=10, color=['blue', 'red'])
+ax2.set_ylabel('Mean Wait Time (minutes)')
+ax2.set_title('Mean Wait Times with Standard Errors')
+ax2.set_ylim(5, 10)  # Setting reasonable y-axis limits
+
+# Add annotation with difference and p-value
+ax2.annotate(f'Difference: {-diff_means:.2f} min\np-value: {p_value:.10f}', 
+            xy=(0.5, mean_morning), xytext=(0.5, (mean_morning + mean_afternoon)/2 - 1),
+            ha='center', fontsize=10, bbox=dict(facecolor='white', alpha=0.8))
+
+plt.tight_layout()
+sns.despine()
+plt.show()
+```
+
+. . .
+
+*> wait times are longer in the afternoon than the morning (p<0.001)*
+
+. . .
+
+*> reject the null that the means are equal*
+
+---
+
+## Key Insights
+<p class="subheader">Connecting t-tests and regression</p>
+
+<br>
+
+. . .
+
+**One-sample t-test:**
+
+- Tests the sample mean against a specific null value
+- Next time: regression with only an intercept
+
+. . .
+
+**Two-sample t-test:**
+
+- Tests if the difference in sample means is zero
+- Next time: regression with an intercept and one dummy variable
+
+---
+
+## Common Applications in Economics
+<p class="subheader">Two-sample t-tests are one of the most common tests in economic research!</p>
+
+<br>
+
+. . .
+
+**Labor Economics:**
+
+- Wage gaps between different demographic groups
+- Employment effects of policy changes
+
+. . .
+
+**Development Economics:**
+
+- Impact of interventions on economic outcomes
+- Differences between treatment and control groups
+
+. . .
+
+**Financial Economics:**
+
+- Comparing returns across different time periods
+- Testing market efficiency
+
+---
+
+## Looking Forward
+<p class="subheader">Connecting to regression and extending to multiple groups</p>
+
+<br>
+
+. . .
+
+**Next time:**
+
+- Connecting to regression
+- Comparing more than two groups (ANOVA)
+
+. . .
+
+**Coming soon:**
+
+- Multiple regression
+- Controlling for confounding variables
+- Interaction effects
+
+. . .
+
+*> all built on the same fundamental statistical framework*

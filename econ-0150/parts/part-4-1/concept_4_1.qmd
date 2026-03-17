@@ -1535,124 +1535,27 @@ plt.show()
 ---
 
 ## The General Linear Model
-<p class="subheader">GLM performs a t-test on all model coefficients.</p>
+<p class="subheader">Extending the GLM framework</p>
 
-. . .
+- Part 3 | Intercept-Only Model | $y = \beta_0 + \epsilon$
 
-**Univariate** *(Part 3)*: $y = \beta_0 + \epsilon$
-
-. . .
-
-- Equivalent to a one-sample t-test
-- Tests whether $\beta_0 = \mu_0$ (default null)
-
-. . .
-
-**Numerical Predictor**: $y = \beta_0 + \beta_1 x + \epsilon$
-
-. . .
-
-- $x$ is a numerical variable (like age, income, temperature, etc.)
-- Tests both intercept ($\beta_0 = 0$) and slope ($\beta_1 = 0$)
-- Null hypothesis on slope: no relationship between x and y ($\beta_1 = 0$)
-
-
----
-
-## The General Linear Model
-<p class="subheader">GLM uses the idea of a t-test with any coefficient.</p>
-
-**Categorical Predictor** *(next time)*: $y = \beta_0 + \beta_1 x + \epsilon$
-
-. . .
-
-- $x$ is a categorical variable (like age, income, temperature, etc.)
-- Equivalent to a two-sample t-test (when $x$ is binary)
-
-. . .
-
-**Multivariate GLM** *(Part 5)*:
-
-. . .
-
-- Adds more predictor variables: $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon$
-- Each coefficient has its own t-test against the null that it equals zero
-
----
-
-## Economic Applications
-<p class="subheader">GLM is the workhorse statistical tool in empirical economics.</p>
-
-. . .
-
-**Labor Economics:** *relationship between education and wages.*
-
-$$\text{wage} = \beta_0 + \beta_1 \text{education} + \varepsilon$$
-
-. . .
-
-**Policy Analysis:** *relationship between minimum wages and employment.*
-
-$$\text{employment} = \beta_0 + \beta_1 \text{minimum_wage} + \varepsilon$$
-
-. . .
-
-**Political Economy:** *relationship between neighbor's party and voter turnout*
-
-$$\text{voted} = \beta_0 + \beta_1 \text{neighborhood_politics} + \varepsilon$$
-
----
-
-## Bivariate GLM: Numerical Predictors 
-<p class="subheader">Summary</p>
-
-. . .
-
-**GLM Framework:** 
-
-- *T-tests and regression are part of the same very flexible framework.*
-
-. . .
-
-**Numerical Predictors:** 
-
-- *Bivariate GLM extends the t-test by allowing continuous predictors.*
-
-. . .
-
-**Same Distribution:** 
-
-- *Coefficient estimates follow t-distributions centered on the true population values.*
-
-. . .
-
-**Same Interpretation:** 
-
-- *The p-values have the same interpretation: probability of seeing results this extreme if the null is true.*
+- Part 4.1 | Numerical Predictor | $y = \beta_0 + \beta_1 x + \epsilon$
+- Part 4.2 | Categorical Predictor | $y = \beta_0 + \beta_1 x + \epsilon$
+- Part 4.3 | Model Diagnostics
+- Part 4.4 | Causality
 
 ---
 
 ## Looking Forward
 <p class="subheader">Extending the GLM framework</p>
 
-. . .
+Part 5 | Control Variables
 
-**Next Up:**
-
-- Part 4.2 | Bad Models
-- Part 4.3 | Categorical Predictors
-- Part 4.4 | Timeseries
-- Part 4.5 | Causality
-
-. . .
-
-**Later:**
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon$$
 
 - Part 5.1 | Numerical Controls
 - Part 5.2 | Categorical Controls
 - Part 5.3 | Interactions
 - Part 5.4 | Model Selection
-
-. . .
 
 *> all built on the same statistical foundation*

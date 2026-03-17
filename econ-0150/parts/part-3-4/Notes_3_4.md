@@ -192,8 +192,8 @@ Everything in Part 4 builds directly on what we've done here. The framework is t
 
 Here's what's coming:
 
-- **Part 4.1** — Categorical predictors: comparing group means using dummy variables — the simplest extension from the intercept-only model
-- **Part 4.2** — Numerical predictors: fitting a line through a scatter plot, testing whether the slope is zero
+- **Part 4.1** — Numerical predictors: fitting a line through a scatter plot, testing whether the slope is zero
+- **Part 4.2** — Categorical predictors: comparing group means using dummy variables — the special case where the predictor is binary
 - **Part 4.3** — Timeseries: handling data that unfolds over time, where observations depend on their past values
 - **Part 4.4** — Model diagnostics: checking whether our model's assumptions hold and what to do when they don't
 
