@@ -1,173 +1,193 @@
-## Part 4.2 | Numerical Predictors
+## Part 4.2 | Categorical Predictors
 
 ### Overview
 
-- Transition from categorical to continuous predictor: the line tilts through a full scatter plot
-- The bivariate model: $y_i = \beta_0 + \beta_1 x_i + \epsilon_i$
-- MSE minimization: compare candidate lines, find the slope that minimizes total squared error
-- MSE as a function of $\beta_1$ — another U-shaped curve with a clear minimum
-- Sampling error in the slope: different samples produce different slopes
-- Distribution of $\beta_1$: t-distribution centered on the true population slope
-- Hypothesis testing: $H_0: \beta_1 = 0$ — is there a relationship?
-- Null slopes visualization: lines from the null distribution overlaid on the data
-- Predictions: plug in $x$ to get $\hat{y}$; interpretation of $\beta_1$ as the change in $y$ per unit change in $x$
-- GLM summary: one-sample t-test, two-sample t-test, ANOVA, regression — all the same framework
-- Exercise: happiness and GDP
+- In 4.1, we fit a tilted line through continuous data and tested whether the slope was zero
+- Many economic questions compare groups, not continuous relationships — what happens when the predictor is just 0 and 1?
+- When data are naturally paired (3.4), we compute differences and test the mean difference — but pairing isn't always possible
+- When groups can't be paired, we code the category as a dummy variable and use the same regression framework from 4.1
+- $\beta_0$ = predicted $y$ when $x = 0$ = mean of the reference group (same interpretation rule as 4.1)
+- $\beta_1$ = change in $y$ for a one-unit change in $x$ = difference between group means (same rule — one unit just means one group to the other)
+- Sampling error: different samples give different slopes — the estimated difference varies from sample to sample
+- Distribution of $\beta_1$: the slopes follow a t-distribution centered on the true population difference
+- Hypothesis testing: $H_0: \beta_1 = 0$ — is the difference between groups real or just sampling noise?
+- Null slopes visualization shows how extreme our observed difference is compared to chance
+- This is a two-sample t-test expressed in regression language
+- GLM summary: intercept-only, numerical predictor, binary predictor — all the same framework
 
 ---
 
-### Opening — From Categories to Continuous Predictors
+### Opening — From Continuous to Categorical
 
-In 4.1, the predictor was a dummy variable — 0 or 1 — and the regression line connected two group means. The model could only make two distinct predictions. Now we remove that restriction. The predictor is a continuous number — GDP per capita, minutes after opening, years of education — and the model makes a different prediction for every value of $x$.
+In 4.1, we put a continuous variable on the x-axis, fit a tilted line, and tested whether the slope was zero. That line ran through a cloud of points, and the slope told us how much $y$ changes for every one-unit increase in $x$.
 
-*[Stage direction: show a scatter plot of happiness (y-axis) vs GDP per capita (x-axis) for ~50 countries. No line yet — just the cloud of points. The relationship is clearly positive: wealthier countries tend to be happier. Title: "Are wealthier countries happier?"]*
+But many economic questions aren't about continuous relationships. They're about comparing groups. Is temperature different in high-greenspace vs low-greenspace neighborhoods? Do low-income areas face more pollution? Do workers with a college degree earn more than workers without one? These questions all involve a categorical predictor — a variable that sorts observations into groups rather than placing them on a continuous scale.
 
-We've seen scatter plots like this since Part 2. We described the relationship as "positive" or "strong." Now we can be precise.
-
----
-
-### The Bivariate Model
-
-We write the model:
-
-$$y_i = \beta_0 + \beta_1 x_i + \epsilon_i$$
-
-This is the same equation we introduced in 3.4, now with a real predictor variable. The model makes a different prediction for each observation:
-
-$$\hat{y}_i = \beta_0 + \beta_1 x_i$$
-
-The prediction lies on the line. The error $\epsilon_i = y_i - \hat{y}_i$ is the vertical distance from the data point to the line.
-
-*[Stage direction: same scatter plot, now with a red regression line overlaid. Green dashed segments connect each data point vertically to the line, showing the errors. Label one point's components: the data point $y_i$ at the top of the segment, the predicted value $\hat{y}_i$ where the segment meets the line, and the error $\epsilon_i$ as the length of the segment.]*
-
-Compared to the intercept-only model from 3.4, the line now tilts. The errors measure distance from a tilted line rather than a flat one. And the MSE should be smaller — because the tilted line explains some of the variability that the horizontal line couldn't.
+How do we handle this in the regression framework we've been building? It turns out we already have the tools. We just need to think carefully about what happens when $x$ can only be 0 or 1.
 
 ---
 
-### Choosing the Slope — MSE
+### When Pairing Works
 
-How do we find the best line? Same idea as 3.4: minimize the mean squared error. But now we're choosing two parameters — $\beta_0$ and $\beta_1$ — instead of one.
+We've actually compared groups before. At the end of 3.4, we compared morning and afternoon wait times. The trick was that the data were naturally paired — each coffee shop had both a morning observation and an afternoon observation on the same day. So we could compute a difference for each pair:
 
-*[Stage direction: 3-panel figure. Each panel shows the same scatter plot with a different regression line in red and green dashed error segments from each point to the line.*
-- *Left panel: a line that's too steep ($\beta_1$ too large). Errors are large. Title: "Model A — MSE = 8.42."*
-- *Center panel: a line that's too flat ($\beta_1$ too small). Errors are large in a different pattern. Title: "Model B — MSE = 5.87."*
-- *Right panel: the optimal line ($\beta_1$ from OLS). Errors are as small as possible. Title: "Model C — MSE = 3.21."]*
+$$d_i = y_{i,afternoon} - y_{i,morning}$$
 
-Which line produces the smallest total squared error? Model C — the one that balances the errors most evenly. This is what OLS (ordinary least squares) does: it finds the slope and intercept that minimize MSE.
+Once we had those differences, we fit the intercept-only model ($d \sim 1$) and tested whether the mean difference was zero. If $\beta_0 \neq 0$, the two time periods differ systematically.
+
+This works beautifully when pairing is natural. Same shop, same day — the only thing that changed was the time of day. Any other factors (location, size, neighborhood) are held constant because we're comparing each shop to itself.
 
 ---
 
-### MSE as a Function of $\beta_1$
+### When Pairing Breaks Down
 
-We can visualize the optimization directly. Try every possible slope, compute the MSE for each one, and plot the result.
+Now consider the greenspace question: we have 100 neighborhoods, some with high green space and some with low green space, and we want to know whether they differ in temperature.
 
-*[Stage direction: 2-panel figure.*
-- *Left panel: the scatter plot with the optimal regression line and green dashed errors. Title: "Model C."*
-- *Right panel: a U-shaped curve plotting MSE (y-axis) against the slope $\beta_1$ (x-axis). The curve has a clear minimum. A red dot marks the minimum, with a red dashed line dropping to the x-axis at $\hat{\beta}_1$. Title: "MSE for Different Slopes."]*
+We can't pair them. There's no natural match between a specific high-greenspace neighborhood and a specific low-greenspace neighborhood. They're different places with different characteristics. We can't compute a difference for each "pair" because there are no pairs.
 
-This should look familiar. In 3.4, we plotted MSE as a function of $b$ (the intercept) and found that the sample mean minimized it. Here, we're plotting MSE as a function of the slope, and the minimum gives us the best-fitting slope. Same logic, one more dimension.
+It gets worse. What if we have 60 low-greenspace neighborhoods and 40 high-greenspace neighborhoods? The groups aren't even the same size. There's no way to line them up one-to-one.
+
+We need a different approach — one that compares group means without requiring paired observations. And we already have one. The regression framework from 4.1 doesn't care whether $x$ is continuous or not. It just needs $x$ to be a number.
+
+---
+
+### The Binary Predictor — Same Regression, Different X
+
+Here's the key insight: if we code the group as a number, we can use the same regression from 4.1.
+
+Create a **dummy variable**: $HighGreen = 1$ if the neighborhood has high green space, $HighGreen = 0$ otherwise. Now each observation has a temperature (the outcome) and a number — 0 or 1 — as the predictor.
+
+*[Stage direction: show a box/strip plot of temperature by greenspace group. X-axis has two positions: 0 (Low Greenspace) and 1 (High Greenspace). Data points are jittered horizontally within each group. Box plots show the distribution of temperatures in each group. The low-greenspace group is visibly warmer on average.]*
+
+Plot these two groups on the same axes we'd use for any scatter plot. The x-axis has two values — 0 and 1 — and the y-axis shows temperature. It looks different from the continuous scatter in 4.1, but the math is identical.
+
+We write the model exactly as before:
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \epsilon$$
+
+The line connects two points — one at $x = 0$ and one at $x = 1$ — instead of running through a continuous cloud. But it's still a line, and we still find it by minimizing MSE.
+
+*[Stage direction: same data as before, but now overlay a red regression line connecting the mean of the low-greenspace group (at $x = 0$) to the mean of the high-greenspace group (at $x = 1$). The line has a downward slope because high-greenspace neighborhoods are cooler.]*
+
+The model only makes predictions at two x-values. When $x = 0$ (low greenspace), the prediction is $\hat{y} = \beta_0$. When $x = 1$ (high greenspace), the prediction is $\hat{y} = \beta_0 + \beta_1$. The line connecting these two predictions is the regression line.
+
+---
+
+### Interpreting $\beta_0$ and $\beta_1$
+
+The interpretation rules are the same as 4.1 — they just look different because $x$ only takes two values.
+
+**The intercept ($\beta_0$)**: the predicted $y$ when $x = 0$. In 4.1, this was the predicted wait time when minutes-after-opening was zero. Here, $x = 0$ corresponds to the low-greenspace group, so $\beta_0$ is the mean temperature of the reference group.
+
+*[Stage direction: same figure with regression line. Label $\beta_0$ at the point where the line meets $x = 0$. Add a horizontal dashed line from the y-axis to the point, and label it with the numerical value (e.g., $\beta_0 = 22.03°C$).]*
+
+**The slope ($\beta_1$)**: the change in $y$ for a one-unit change in $x$. In 4.1, moving one unit on $x$ meant moving along a continuous scale — one more minute, one more unit of log GDP. Here, moving one unit on $x$ means jumping from one group to the other. So $\beta_1$ is the difference between the two group means:
+
+$$\beta_1 = \bar{y}_{high} - \bar{y}_{low}$$
+
+*[Stage direction: same figure. Now label $\beta_1$ as the vertical gap between the two group means. Draw an arrow or bracket showing the distance from $\beta_0$ at $x = 0$ to $\beta_0 + \beta_1$ at $x = 1$. Label it "$\beta_1 = -2.97°C$" (the slope is negative because high-greenspace neighborhoods are cooler).]*
+
+If $\beta_1$ is negative, the high-greenspace group has lower temperatures. If it's positive, the high-greenspace group has higher temperatures. If it's zero, there's no difference between the groups.
+
+Same interpretation rule, just a special case. The model doesn't know whether $x$ is continuous or binary — it just computes the slope.
 
 ---
 
 ### Sampling Error in the Slope
 
-Now imagine taking many samples from the same population. Each sample gives a slightly different scatter plot, and OLS gives a slightly different slope.
+We observe one sample — 100 neighborhoods — and estimate one slope. But a different sample of 100 neighborhoods would give a different slope. Just as in 4.1, the estimated $\beta_1$ varies from sample to sample.
 
-*[Stage direction: 8-panel grid (2 rows of 4). Each panel shows a different sample — blue dots in a scatter plot with a red regression line. Each panel has a title like "Sample 1: Slope = 0.0112" or "Sample 4: Slope = 0.0068." The slopes vary across panels — some steeper, some flatter — but they're all in the same ballpark. The true relationship is visible in each sample, just noisier.]*
+*[Stage direction: 8-panel grid (2 rows of 4). Each panel shows a different random sample of neighborhoods — two clusters of jittered points at $x = 0$ and $x = 1$, with a red regression line connecting the two group means. The slopes vary across panels: some steeper negative, some shallower, one nearly flat. Each panel title shows the estimated slope (e.g., "Sample 1: $\beta_1$ = −3.41," "Sample 5: $\beta_1$ = −1.92"). The slopes are all in the same neighborhood but noticeably different — this is sampling variability.]*
 
-Each sample gives a slightly different $\beta_1$. Some slopes are steeper than the truth, some are flatter. This is sampling variability — the same phenomenon from 3.2 and 3.4, now applied to slope coefficients.
+Each sample gives a slightly different difference between the two group means. Some samples make the groups look more different, some less. This is the same phenomenon we saw in 4.1 with continuous data — the estimated slope is a random variable with its own sampling distribution.
 
 ---
 
 ### Distribution of $\beta_1$
 
-Collect all the slopes from many samples and plot them on a histogram. What do we see?
+If we collect slopes from many samples and plot them on a histogram, we get a bell curve — just as we did in 4.1.
 
-*[Stage direction: histogram of ~1,000 slope coefficients. The histogram is bell-shaped. Overlay a green dashed t-distribution curve. A black vertical dashed line marks the true population slope. The histogram is centered on the truth. Title: "Sampling Distribution of $\beta_1$."]*
+*[Stage direction: histogram of slope coefficients ($\beta_1$ = difference between group means) from ~1,000 simulated samples. The histogram is bell-shaped, centered on the true population difference. Overlay a green dashed t-distribution curve. Mark the true difference with a black vertical dashed line. The sampling distribution of $\beta_1$ is approximately t-distributed, centered on the true population difference between groups.]*
 
-It's the familiar bell curve. The distribution of $\beta_1$ across samples follows a t-distribution centered on the true population slope.
-
-This shouldn't be surprising. The CLT applies to slope coefficients too — they're functions of the data, and as the sample size grows, their sampling distribution approaches normal. The t-distribution accounts for the extra uncertainty from estimating the standard error.
+The differences follow a t-distribution centered on the true population difference. The CLT applies to the difference between group means just as it applies to a single mean or a continuous slope. This lets us perform a t-test.
 
 ---
 
-### Centering on the Observed Slope
+### Hypothesis Testing — Is $\beta_1 = 0$?
 
-In practice, we only have one sample. We observe one slope. Just as we did in 3.3, we center the sampling distribution on our observed value.
+The default null hypothesis is:
 
-*[Stage direction: t-distribution centered on zero (the null hypothesis). The observed slope is marked with a red vertical dashed line to the right of zero. A black vertical line marks zero (the null). The curve is centered on the null. Title shows: "Default Null: $\beta_1 = 0$."]*
+$$H_0: \beta_1 = 0$$
 
-We know the shape and spread of the distribution. That's enough to test hypotheses.
+"There is no difference between the two groups." If $\beta_1 = 0$, the line is flat — both groups have the same mean, and knowing which group a neighborhood belongs to doesn't help predict its temperature.
 
----
+The p-value answers: how surprising is our observed slope if the true difference is zero?
 
-### Testing Whether $\beta_1 = 0$
+*[Stage direction: progression of 3 slides building the hypothesis test:*
+1. *First: the sampling distribution centered on the true difference, with a red dashed line at our sample slope. Caption: "We don't know the entire distribution, just our sample slope."*
+2. *Second: shift the distribution — center it on zero (the null). Show both the sample slope (red dashed) and the null (black solid). Caption: "Center the distribution on our null."*
+3. *Third: same as above, but shade the two tails beyond the sample slope and its mirror image. These blue-shaded regions are the p-value. Caption: "The p-value is the probability of a difference as extreme as ours under the null ($\beta_1 = 0$)."]*
 
-The default null hypothesis is $H_0: \beta_1 = 0$ — there is no relationship between $x$ and $y$. If the true slope were zero, the predictor would be useless and the regression line would be flat.
-
-We ask: if there were no relationship, how surprising is the slope we observed? The p-value is the probability of seeing a slope as extreme as ours (or more extreme) under the null distribution.
-
-*[Stage direction: t-distribution centered on zero. The observed slope is marked with a red dashed vertical line. A mirror of the observed slope on the other side of zero is marked with a faded red dashed line ("Equally Extreme"). The tails beyond both lines are shaded in blue, labeled "p-value." The shaded area is small — the slope is far from zero.]*
-
-A small p-value means our slope is far from what we'd expect by chance — evidence of a real relationship. A large p-value means a slope like ours could easily arise from sampling variability alone.
+A small p-value is evidence against the null. If the probability of seeing a difference this large by chance (under no real group difference) is tiny, we conclude the groups really do differ.
 
 ---
 
 ### Null Slopes Visualization
 
-Another way to see this: draw many lines from the null distribution and overlay them on the data.
+Another way to see this: generate many possible slopes under the null hypothesis ($\beta_1 = 0$) and overlay them on the data.
 
-*[Stage direction: the scatter plot with data points shown at low opacity. Many grey lines (50+) are overlaid — each representing a slope drawn from the null distribution ($\beta_1 = 0$). The grey lines cluster around horizontal (zero slope), fanning out slightly due to sampling variability. The observed regression line is plotted in red on top, clearly steeper than all the grey lines. Label: "Grey lines: possible slopes under the null ($\beta_1 = 0$)."]*
+*[Stage direction: single panel. The two-group data is faded (low opacity). Fifty grey lines are drawn through the data, each with a slope drawn from the null distribution (centered on zero). The lines cluster around horizontal — they're nearly flat because the null says no difference. The observed regression line is drawn in red, clearly steeper than the grey lines. Caption: "Grey lines: possible slopes under the null (no difference). Red line: our observed slope."]*
 
-If our red line looks like one of the grey lines, we can't reject the null. If it stands out — steeper or flatter than anything the null would produce — the relationship is real.
-
----
-
-### Predictions
-
-The fitted line lets us predict $y$ for any value of $x$. What's the expected wait time at 100 minutes after opening? Plug it in:
-
-$$\hat{y} = \beta_0 + \beta_1 \cdot 100$$
-
-*[Stage direction: scatter plot with regression line. A green vertical dashed line at $x = 100$. Where the vertical line meets the regression line, a green star marks the prediction point. A green horizontal dashed line extends from the prediction point to the y-axis, showing the predicted value. Data points near $x = 100$ are highlighted (full opacity) while other points are faded.]*
-
-What about at 200 minutes? The prediction is $\beta_1 \cdot 100$ higher than at 100 minutes. Moving 100 units to the right on the x-axis changes the prediction by exactly $100 \cdot \beta_1$.
+How likely does it look like our red slope was drawn from the null slopes? If it stands out clearly from the grey lines, the p-value is small. The difference between groups is real.
 
 ---
 
-### Interpreting $\beta_1$
+### This Is a Two-Sample T-Test
 
-$\beta_1$ is the change in $y$ for a one-unit change in $x$. This is the most important number the model produces.
+Everything we just did — estimating the difference, building its sampling distribution, testing whether it's zero — is exactly a two-sample t-test. The math is identical. The same test statistic, the same p-value. We've just expressed it in regression language.
 
-*[Stage direction: scatter plot with regression line, data faded. Two green prediction points on the line are marked — one at $x_1 = 200$ and one at $x_2 = 300$. A purple horizontal double-arrow between them is labeled "$\Delta x = 100$ min." A purple vertical double-arrow on the left shows the change in predicted values, labeled "$\Delta y = 1.10$." The visual makes clear: move right by $\Delta x$, move up by $\Delta y = \beta_1 \cdot \Delta x$.]*
-
-In our example, $\beta_1 \approx 0.011$ means that for each additional minute after opening, the expected wait time increases by about 0.011 minutes. Over 100 minutes, that's about 1.1 minutes longer.
-
-What about $\beta_0$? It's the predicted $y$ when $x = 0$ — the expected wait time when the shop first opens. But be careful: if $x = 0$ is outside the range of the data, $\beta_0$ may not have a meaningful interpretation. Don't predict where you don't have data.
+Why bother? Because the regression framework is more general. A two-sample t-test only compares two groups. Regression can handle continuous predictors, multiple groups, and multiple predictors all at once. The two-sample t-test is a special case.
 
 ---
 
-### GLM Summary
+### Exercise: Environmental Justice
 
-We can now see the full picture. Every test we've encountered is a special case of the GLM:
+Do low-income neighborhoods face higher pollution levels? This is an environmental justice question with real policy implications.
 
-| Test | Model | Predictor Type |
-|------|-------|----------------|
-| One-sample t-test | $y = \beta_0 + \epsilon$ | None (intercept only) |
-| Two-sample t-test | $y = \beta_0 + \beta_1 \cdot Group + \epsilon$ | Binary dummy (0/1) |
-| ANOVA | $y = \beta_0 + \beta_1 G_1 + \beta_2 G_2 + ... + \epsilon$ | Multiple dummies |
-| Regression | $y = \beta_0 + \beta_1 x + \epsilon$ | Continuous number |
+*Exercise 4.2: Neighborhood Income and Pollution*
 
-All minimize MSE. All produce coefficients with t-distributions. All test whether coefficients equal zero. The framework is unified — the only thing that changes is what goes in for $x$.
+**Step 1: Summarize the data.** Visualize pollution levels by income group.
+
+*[Stage direction: strip/box plot of Air Pollution Index by income group. X-axis: "High Income (0)" and "Low Income (1)." Data points jittered. Low-income group visibly has higher pollution levels and slightly more spread.]*
+
+**Step 2: Build a model.**
+
+$$Pollution = \beta_0 + \beta_1 \cdot LowIncome + \epsilon$$
+
+**Step 3: Estimate the model.** Fit the regression. Report $\beta_0$ (mean pollution in high-income areas), $\beta_1$ (additional pollution in low-income areas), and the p-value.
+
+*[Stage direction: same plot with the regression line overlaid. Label $\beta_0$ at x=0 (e.g., 23.9) and $\beta_0 + \beta_1$ at x=1 (e.g., 39.8). Label the slope $\beta_1 = 15.9$.]*
+
+**Step 4: Check the residuals.** Make a residual plot (residuals vs predicted values). With only two predicted values, the residual plot has two vertical columns. Check that the spread is roughly equal in both groups.
+
+**Step 5: Interpret.** A significant positive $\beta_1$ means low-income neighborhoods face higher pollution — evidence of environmental inequality.
 
 ---
 
-### Exercise Preview
+### GLM Summary So Far
 
-*Exercise 4.2: Happiness and Per Capita GDP.* Students fit the model $Happiness = \beta_0 + \beta_1 \cdot \log(GDP) + \epsilon$, interpret the slope, test the null $H_0: \beta_1 = 0$, make predictions for specific GDP levels, and check the residuals.
+We've now seen three models in the same framework, building in complexity:
+
+| Model | Equation | What It Tests |
+|-------|----------|---------------|
+| Intercept-only (3.4) | $y = \beta_0 + \epsilon$ | Is the mean different from zero? (One-sample t-test) |
+| Numerical predictor (4.1) | $y = \beta_0 + \beta_1 x + \epsilon$ | Is there a relationship between $x$ and $y$? (Tilted line through continuous scatter) |
+| Binary predictor (4.2) | $y = \beta_0 + \beta_1 \cdot Group + \epsilon$ | Is the difference between two groups significant? (Tilted line connecting two group means) |
+
+The model doesn't care what $x$ is — continuous or binary. Same MSE minimization, same t-tests on coefficients, same p-values. The GLM is a unifying framework. 4.1 and 4.2 aren't different methods — they're the same method applied to different types of predictors.
 
 ---
 
 ### Looking Ahead
 
-We can fit lines through scatter plots and test relationships between variables. But what about data that unfolds over time? When observations are ordered — GDP this quarter, then next quarter, then the quarter after — they're no longer independent. The errors from one period carry over into the next. In 4.3, we learn how to handle this.
+We've compared group means using regression. The predictor was 0 and 1, and the line connected two group means. In 4.1 the predictor was continuous — the line ran through a full scatter plot. Now we've seen categorical, numerical, and intercept-only models all within the same GLM framework. Next, in 4.3, we ask: can we trust the numbers our models produce? We check the assumptions behind OLS and learn what to do when they're violated.

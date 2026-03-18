@@ -2,7 +2,7 @@
 
 Part 3 ended with the intercept-only model -- a horizontal line through data where the optimal parameter is the sample mean. We could test whether that parameter is zero. But in general we don't ask many questions about vertical intercepts. More interesting questions involve relationships between variables: does green space lower temperatures? Do wealthier countries have happier citizens? Does unemployment move with GDP? To answer these, we need to add a real predictor variable. Instead of a horizontal line, we fit lines with slopes. The slope gets its own sampling distribution, standard error, and p-value. We can now test whether relationships exist between variables.
 
-The arc is: (4.1) numerical predictors -- fitting lines through scatter plots and testing whether slopes are zero; (4.2) categorical predictors -- the special case where the predictor is binary, turning group comparisons into regression; (4.3) timeseries predictors -- handling data that unfolds over time, where observations depend on their past values; (4.4) model diagnostics -- checking whether our model's assumptions hold and what to do when they don't.
+The arc is: (4.1) numerical predictors -- fitting lines through scatter plots and testing whether slopes are zero; (4.2) categorical predictors -- the special case where the predictor is binary, turning group comparisons into regression; (4.3) model assumptions -- checking whether our model's assumptions hold and what to do when they don't (with timeseries as an independence violation example); (4.4) causality -- the distinction between correlation and causation, confounding variables, and control variables.
 
 ---
 
@@ -57,32 +57,7 @@ By the end, the GLM summary table spans one-sample t-tests ($y \sim 1$), two-sam
 
 ---
 
-### Part 4.3 | Timeseries
-
-#### Outline
-
-- Data over time: many economic questions involve time series
-- Autocorrelation: today's value depends on yesterday's -- observations are not independent
-- Lag plots reveal autocorrelation
-- Model 1 (Levels): $Y = \beta_0 + \beta_1 \cdot t + \epsilon$ -- residuals show runs (consistently positive, then consistently negative)
-- Diagnosing autocorrelation: residual plots and residual lag plots
-- Model 2 (First Differences): $\Delta Y_t = Y_t - Y_{t-1}$ -- removes much of the autocorrelation
-- Model 3 (Double First Differences): $\Delta Y = \beta_0 + \beta_1 \cdot \Delta X + \epsilon$ -- do changes in X relate to changes in Y?
-- Model 4 (Growth Rates): $g_Y = \beta_0 + \beta_1 \cdot g_X + \epsilon$ -- normalizes for exponential growth
-- Interpretation changes at each level: $\beta_0$ and $\beta_1$ mean different things in levels vs differences vs growth rates
-- Exercise: GDP and unemployment across model specifications
-
-#### Narrative
-
-So far our models have used cross-sectional data -- different cities, different neighborhoods. But many economic questions involve data that unfolds over time. When we put time on the x-axis, something breaks: today's value depends on yesterday's. This is autocorrelation, and it violates the independence assumption that our standard errors rely on. If we ignore it, our standard errors are too small and our p-values lie.
-
-The naive approach -- regressing $Y$ on time in levels -- produces residuals that show runs: consistently positive for a while, then consistently negative. The fix is to model changes rather than levels. First differences ($\Delta Y_t = Y_t - Y_{t-1}$) remove much of the autocorrelation. Double first differences ($\Delta Y = \beta_0 + \beta_1 \cdot \Delta X + \epsilon$) let us ask whether changes in one variable relate to changes in another. For variables with exponential growth, growth rates ($g_Y = \Delta Y / Y_{t-1}$) normalize the scale and produce stationary series.
-
-Each specification changes the interpretation of the coefficients. In levels, $\beta_1$ is the relationship between $Y$ and $X$. In first differences, $\beta_1$ is the short-term relationship between changes. In growth rates, $\beta_1$ is how Y's growth responds to X's growth. Students compare all three specifications using GDP and unemployment data.
-
----
-
-### Part 4.4 | Model Diagnostics
+### Part 4.3 | Model Assumptions
 
 #### Outline
 
@@ -94,23 +69,37 @@ Each specification changes the interpretation of the coefficients. In levels, $\
 - Checking linearity: curved residuals reveal non-linear relationships; fix with transformations ($x^2$, $\log$)
 - Checking homoskedasticity: fan-shaped residuals mean unequal spread; fix with robust standard errors
 - Checking normality: histogram of residuals; CLT makes this less critical with large samples
-- Checking independence: residual lag plots reveal autocorrelation; fix with differencing (connects to 4.3)
-- The diagnostic workflow applies to all model types from 4.1--4.3
+- Checking independence: residual lag plots reveal autocorrelation; fix with differencing (timeseries as a violation-of-independence example)
+- The diagnostic workflow applies to all model types from 4.1--4.2
 - Exercise: revisit earlier models with full diagnostic checks
 
 #### Narrative
 
-We've built models with numerical predictors (4.1), categorical predictors (4.2), and time series (4.3). Every model gave us coefficients, standard errors, and p-values. But should we trust those numbers? The answer depends on whether the model's assumptions are met. Two scatter plots side by side -- one where a linear model fits well, one where it doesn't -- both produce coefficients and p-values, but one of them is misleading.
+We've built models with numerical predictors (4.1) and categorical predictors (4.2). Every model gave us coefficients, standard errors, and p-values. But should we trust those numbers? The answer depends on whether the model's assumptions are met. Two scatter plots side by side -- one where a linear model fits well, one where it doesn't -- both produce coefficients and p-values, but one of them is misleading.
 
-The key diagnostic tool is the residual plot: residuals against predicted values. If the model is well-specified, this looks like random noise. Patterns reveal problems. A U-shape means non-linearity -- fix with transformations. A fan or funnel shape means heteroskedasticity -- fix with robust standard errors. Autocorrelation in the residuals means the independence assumption is violated -- fix with differencing, as we learned in 4.3.
+The key diagnostic tool is the residual plot: residuals against predicted values. If the model is well-specified, this looks like random noise. Patterns reveal problems. A U-shape means non-linearity -- fix with transformations. A fan or funnel shape means heteroskedasticity -- fix with robust standard errors. Autocorrelation in the residuals means the independence assumption is violated -- fix with differencing. Timeseries data serves as a concrete example of how independence violations arise and how to address them.
 
-Students have been doing "check the residuals" in every exercise since 4.1 -- now they understand the full theory behind it. The diagnostic workflow (fit the model, extract residuals, make residual plots, check for patterns) applies to every model type. This section is the capstone of Part 4: we can build models and we can validate them.
+Students have been doing "check the residuals" in every exercise since 4.1 -- now they understand the full theory behind it. The diagnostic workflow (fit the model, extract residuals, make residual plots, check for patterns) applies to every model type.
 
 ---
 
-### Optional: Causality
+### Part 4.4 | Causality
 
-An optional section covers the distinction between correlation and causation. Using the ice cream and drowning example, students learn that significant slopes don't necessarily mean causal relationships -- confounding variables can create spurious correlations. The fix is control variables: adding the confounder to the model isolates the true relationship. This previews the multivariate framework in Part 5.
+#### Outline
+
+- A significant $\beta_1$ means there's a relationship -- but does $X$ cause $Y$?
+- The ice cream and drowning example: a strong positive correlation that is entirely spurious
+- Three possible explanations for any correlation: direct causation, reverse causation, confounding
+- Confounding variables create spurious correlations by affecting both $X$ and $Y$
+- The regression still finds the "least wrong" predictions -- but prediction is not causation
+- The fix: add the confounding variable to the model as a control variable
+- Multiple regression: each coefficient represents the effect of that variable holding others constant
+- Domain knowledge is essential -- statistics alone cannot establish causation
+- This previews the multivariate framework in Part 5
+
+#### Narrative
+
+We've learned to test whether relationships exist. We've found significant slopes. The p-value on $\beta_1$ told us that the relationship between $X$ and $Y$ is unlikely to be zero. But does a significant $\beta_1$ mean $X$ causes $Y$? The ice cream and drowning example shows a strong positive correlation that is entirely spurious -- confounding variables can create correlations where no causal relationship exists. The fix is control variables: adding the confounder to the model isolates the true relationship. This previews the multivariate framework in Part 5.
 
 ---
 
@@ -120,5 +109,5 @@ An optional section covers the distinction between correlation and causation. Us
 |------|-----------|------------|
 | 4.1 | Numerical predictors | Slopes have sampling distributions and p-values; test whether relationships exist |
 | 4.2 | Categorical predictors | Dummy variables turn group comparisons into regression; two-sample t-test and ANOVA are special cases of the GLM |
-| 4.3 | Timeseries | Autocorrelation breaks independence; differencing and growth rates fix it |
-| 4.4 | Model diagnostics | Residual plots check linearity, homoskedasticity, normality, independence; diagnostics validate all model types |
+| 4.3 | Model assumptions | Residual plots check linearity, homoskedasticity, normality, independence; timeseries as independence violation example |
+| 4.4 | Causality | Correlation vs causation; confounding variables; control variables preview multivariate framework |

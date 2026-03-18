@@ -67,14 +67,12 @@ Sequential to-do list for course prep. Course structure is in `course_outline.md
 ## Part 4: Bivariate GLM
 
 ### 4.1 Numerical Predictors
-### 4.2 Model Residuals
-- Fix slide title (says "Part 4.3" should be "Part 4.2")
-
+### 4.2 Categorical Predictors
+### 4.3 Model Assumptions
 - Log scales used here — be better with describing the estimate with log predictor and/or log outcome
+- Timeseries folded in as independence violation example
 
-### 4.3 Categorical Predictors
-### 4.4 Time Series Models
-- Differencing transformation used here — be better with this
+### 4.4 Causality
 
 ---
 

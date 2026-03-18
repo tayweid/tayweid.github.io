@@ -194,7 +194,7 @@ Here's what's coming:
 
 - **Part 4.1** — Numerical predictors: fitting a line through a scatter plot, testing whether the slope is zero
 - **Part 4.2** — Categorical predictors: comparing group means using dummy variables — the special case where the predictor is binary
-- **Part 4.3** — Timeseries: handling data that unfolds over time, where observations depend on their past values
-- **Part 4.4** — Model diagnostics: checking whether our model's assumptions hold and what to do when they don't
+- **Part 4.3** — Model assumptions: checking whether our model's assumptions hold and what to do when they don't
+- **Part 4.4** — Causality: the distinction between correlation and causation, confounding variables, and control variables
 
 All built on the same statistical foundation we developed in Part 3: the CLT, the sampling distribution of parameters, and the t-test for model coefficients.

@@ -7,33 +7,16 @@ format:
 ---
 
 ## ECON 0150 | Economic Data Analysis {.center}
-<p class="subheader">The economist's data analysis skillset.</p>
+<p class="subheader">The economist's data analysis workflow.</p>
 
-<br> 
+<br>
 
-### *Part 4.3 | Model Residuals and Diagnostics*
-
----
-
-## General Linear Model
-<p class="subheader">... a flexible approach to run many statistical tests.</p>
-
-**The Linear Model**: $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$
-
-. . .
-
-- $\beta_0$ is the intercept (value of $\bar{y}$ when x = 0)
-- $\beta_1$ is the slope (change in y per unit change in x)
-- $\varepsilon_i$ is the error term (random noise around the model)
-
-. . .
-
-**OLS Estimation**: Minimizes $\sum_{i=1}^n \varepsilon_i^2$
+### *Part 4.2 | Categorical Predictors*
 
 ---
 
-## GLM: Intercept Model
-<p class="subheader">A one-sample t-test is a horizontal line model.</p>
+## GLM: The story so far
+<p class="subheader">We've built two models — and now we need a third.</p>
 
 ```{python}
 #| echo: false
@@ -41,299 +24,463 @@ format:
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Create a figure with three subplots
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(12, 4))
+
+# --- Panel 1: Paired differences (3.4) ---
+wait_difference = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
+                   2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
+                   1.8, 2.0, 1.9, 2.1]
+n_diff = len(wait_difference)
+mean_diff = np.mean(wait_difference)
+
+np.random.seed(42)
+jitter_x = np.random.uniform(-0.3, 0.3, n_diff)
+ax1.scatter(jitter_x, wait_difference, alpha=0.6, color='darkblue', s=30)
+ax1.axhline(mean_diff, color='r', linestyle='-', linewidth=2)
+ax1.set_xlim(-1, 1)
+ax1.set_xticks([])
+ax1.set_ylabel('Wait Difference (min)', fontsize=12)
+ax1.set_title('Part 3.4: Paired\n$d = \\beta_0 + \\varepsilon$', fontsize=13)
+
+# --- Panel 2: Continuous predictor (4.1) ---
+np.random.seed(42)
+n = 60
+minutes_after_open = np.linspace(0, 600, n)
+wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)
+wait_times = np.maximum(0, wait_times)
+slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
+
+ax2.scatter(minutes_after_open, wait_times, alpha=0.6, color='darkblue', s=30)
+x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
+y_line = intercept + slope * x_line
+ax2.plot(x_line, y_line, 'r-', linewidth=2)
+ax2.set_xlabel('Minutes After Opening', fontsize=12)
+ax2.set_ylabel('Wait Time (min)', fontsize=12)
+ax2.set_title('Part 4.1: Numerical\n$y = \\beta_0 + \\beta_1 x + \\varepsilon$', fontsize=13)
+
+# --- Panel 3: Unpaired groups (4.2 preview) ---
+np.random.seed(42)
+n_g = 50
+low_green = 22 + np.random.normal(0, 1.5, n_g)
+high_green = 19 + np.random.normal(0, 1.5, n_g)
+jitter_g = np.random.uniform(-0.15, 0.15, 2*n_g)
+x_groups = np.concatenate([np.zeros(n_g), np.ones(n_g)])
+
+ax3.scatter(x_groups + jitter_g, np.concatenate([low_green, high_green]),
+            alpha=0.4, color='darkblue', s=30)
+ax3.set_xticks([0, 1])
+ax3.set_xticklabels(['0\n(No)', '1\n(Yes)'])
+ax3.set_xlabel('High Greenspace', fontsize=12)
+ax3.set_ylabel('Temperature (°C)', fontsize=12)
+ax3.set_xlim(-0.5, 1.5)
+ax3.set_title('Part 4.2: Categorical\n$y = \\beta_0 + \\beta_1 x + \\varepsilon$ ?', fontsize=13)
+
+sns.despine(ax=ax1, left=False, bottom=True, right=True, top=True, trim=True)
+sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+sns.despine(ax=ax3, left=False, bottom=False, right=True, top=True, trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*We need a new approach, but we already have the tools.*
+
+---
+
+## GLM: City Greenspace and Temperature
+<p class="subheader">Q. Is temperature lower in neighborhoods with more green space?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data,
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlabel('High Greenspace', fontsize=14)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*Q. Does temperature change as we move out on the horizontal axis?*
+
+. . .
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+*> The regression framework doesn't care whether $x$ is continuous or binary. Code the group as 0 and 1, and fit the same model.*
+
+. . .
+
+*> the GLM performs a t-test on $\beta_1$, whether the difference is significant*
+
+---
+
+## GLM: City Greenspace and Temperature
+<p class="subheader">Q. Does temperature change as we move out on the horizontal axis?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data,
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate and display the means
+mean_low = np.mean(low_green)
+mean_high = np.mean(high_green)
+plt.plot([0, 1], [mean_low, mean_high], 'r-', linewidth=2)
+
+plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlabel('High Greenspace', fontsize=14)
+
+plt.text(-0.35, mean_low, f'$\\beta_0$ = {mean_low:.2f}°C', fontsize=12, va='center')
+plt.text(1.15, mean_high, f'$\\beta_0$ + $\\beta_1$ = {mean_high:.2f}°C', fontsize=12, va='center')
+plt.text(0.5, (mean_low+mean_high)/2+0.5, f'$\\beta_1$ = {mean_high-mean_low:.2f}°C', fontsize=12, va='center', ha='center', rotation=-8)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+How would we interpret $\beta_0$ here?
+
+. . .
+
+*> $\beta_0$ is the mean temperature in ($x=0$) low green space cities (22.03°C)*
+
+---
+
+## GLM: City Greenspace and Temperature
+<p class="subheader">Q. Does temperature change as we move out on the horizontal axis?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='high_green', y='temperature', data=data,
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate and display the means
+mean_low = np.mean(low_green)
+mean_high = np.mean(high_green)
+plt.plot([0, 1], [mean_low, mean_high], 'r-', linewidth=2)
+
+plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlabel('High Greenspace', fontsize=14)
+
+plt.text(-0.35, mean_low, f'$\\beta_0$ = {mean_low:.2f}°C', fontsize=12, va='center')
+plt.text(1.15, mean_high, f'$\\beta_0$ + $\\beta_1$ = {mean_high:.2f}°C', fontsize=12, va='center')
+plt.text(0.5, (mean_low+mean_high)/2+0.5, f'$\\beta_1$ = {mean_high-mean_low:.2f}°C', fontsize=12, va='center', ha='center', rotation=-8)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+$$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
+
+. . .
+
+How would we interpret $\beta_1$ here?
+
+. . .
+
+*> Cities with Green Space (x=1) have a temperature that is lower by $\beta_1$*
+
+. . .
+
+*> ie. a one unit increase in $x$ changes temperature by $\beta_1$*
+
+
+---
+
+## Categorical GLM: sampling error
+<p class="subheader">Like before, if we take many samples, we get slightly different slopes and slightly different fits.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Define true parameters
+true_mean_low = 22
+true_mean_high = 19
+noise_std = 1.5
+n_per_group = 50
+
+# Function to generate a single sample dataset
+def generate_sample(n=50):
+    low = true_mean_low + np.random.normal(0, noise_std, n)
+    high = true_mean_high + np.random.normal(0, noise_std, n)
+    x = np.concatenate([np.zeros(n), np.ones(n)])
+    y = np.concatenate([low, high])
+    return x, y
+
+# Generate 8 different samples and fit models
+n_examples = 8
+samples = []
+slopes = []
+intercepts = []
+
+for i in range(n_examples):
+    x, y = generate_sample()
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    samples.append((x, y))
+    slopes.append(slope)
+    intercepts.append(intercept)
+
+# Create subplot grid for the 8 examples
+fig, axes = plt.subplots(2, 4, figsize=(11, 6))
+axes = axes.flatten()
+
+for i, ax in enumerate(axes):
+    x, y = samples[i]
+    slope = slopes[i]
+    intercept = intercepts[i]
+
+    # Jitter x for display
+    jitter = np.random.uniform(-0.1, 0.1, len(x))
+
+    # Plot data points
+    ax.scatter(x + jitter, y, alpha=0.4, s=20, color='darkblue')
+
+    # Plot regression line
+    x_line = np.array([0, 1])
+    y_line = intercept + slope * x_line
+    ax.plot(x_line, y_line, 'r-', linewidth=2)
+
+    # Clean up axis labels
+    if i % 4 == 0:
+        ax.set_ylabel('Temperature (°C)', fontsize=10)
+    if i >= 4:
+        ax.set_xlabel('High Greenspace', fontsize=10)
+    else:
+        ax.set_xlabel('')
+
+    ax.set_xticks([0, 1])
+    ax.set_xticklabels(['0', '1'])
+    ax.set_xlim(-0.4, 1.4)
+    ax.set_ylim(14, 27)
+
+    # Set title
+    ax.set_title(f'Sample {i+1}: $\\beta_1$ = {slope:.2f}', fontsize=11)
+
+    sns.despine(ax=ax, left=False, bottom=False, right=True, top=True, trim=True)
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+## Categorical GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population difference.</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
 
 # Set random seed for reproducibility
 np.random.seed(42)
 
-# Generate sample data
-n = 30
-data = [1.3, 2.4, 2.2, 1.3, 3.0, 2.3, 0.8, 2.7, 2.0, 2.9, 1.7, 1.9, 2.2,
-       2.1, 2.4, 1.7, 1.7, 1.9, 1.7, 2.5, 2.4, 2.2, 1.9, 1.9, 2.7, 1.8,
-       1.8, 2.0, 1.9, 2.1]
+# True parameters
+true_mean_low = 22
+true_mean_high = 19
+true_diff = true_mean_high - true_mean_low  # -3
+noise_std = 1.5
+n_per_group = 50
+n_simulations = 1000
+
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    low = true_mean_low + np.random.normal(0, noise_std, n_per_group)
+    high = true_mean_high + np.random.normal(0, noise_std, n_per_group)
+    x = np.concatenate([np.zeros(n_per_group), np.ones(n_per_group)])
+    y = np.concatenate([low, high])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
 
 # Create the plot
-plt.figure(figsize=(11, 3))
+plt.figure(figsize=(10, 4))
 
-# Plot the data points
-plt.scatter(range(1, n+1), data, alpha=0.7, label='Data Points')
+# Plot histogram of slope coefficients
+plt.hist(slope_coefficients, bins=30, alpha=0.2, density=True,
+         color='red', edgecolor='white', label='Sample Slopes')
 
-# Plot the horizontal line at the mean
-mean_data = np.mean(data)
-plt.axhline(mean_data, color='r', linestyle='-', linewidth=2, label=f'Mean ($\\beta_0$ = {mean_data:.2f})')
+# Overlay theoretical t-distribution
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=2*n_per_group-2, loc=true_diff, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
 
-# Add vertical lines for errors
-for i in range(n):
-    plt.plot([i+1, i+1], [data[i], mean_data], 'g--', alpha=0.4)
+# Add vertical line for true difference
+plt.axvline(true_diff, color='black', linestyle='--', linewidth=2,
+           label=f'True Difference')
 
-plt.ylabel('Temperature Difference (°C)', fontsize=16)
-plt.grid(False)
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
 plt.legend()
-plt.xticks([])
-sns.despine(bottom=True, trim=True)
-
-plt.tight_layout()
-```
-
-$$Temperature = \beta_0 + \varepsilon$$
-
-. . .
-
-*> the intercept $\beta_0$ is the estimated mean temperature*
-
-. . .
-
-*> the p-value is the probability of seeing $\beta_0$ if the null is true*
-
----
-
-## GLM: Intercept + Slope
-<p class="subheader">A regression is a test of relationships.</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-import pandas as pd
-
-# Update Matplotlib parameters
-plt.rcParams.update({
-    'font.family': 'serif',              # Set the font family
-    'font.serif': ['Times New Roman'],   # Use a specific serif font
-    'font.style': 'italic',              # Set the font style to italic
-})
-
-# Set a seed for reproducibility
-np.random.seed(42)
-
-# Generate wait times dataset
-n = 60
-minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
-wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
-wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
-
-# Fit regression models
-slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
-mean_wait = np.mean(wait_times)
-
-# Calculate MSE for both models
-mse_mean = np.mean((wait_times - mean_wait)**2)
-mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
-
-# Create a figure with two subplots
-fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
-
-# Plot 2: Linear regression model
-ax2.scatter(minutes_after_open, wait_times, alpha=0.7)
-x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
-y_line = intercept + slope * x_line
-ax2.plot(x_line, y_line, 'r-', linewidth=2)
-
-# Add vertical error lines for regression model
-for i in range(0, n, 1):  # Show errors for every 5th point
-    y_pred = intercept + slope * minutes_after_open[i]
-    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
-             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.5)
-
-ax2.set_xlabel('Minutes After Opening', fontsize=14)
-ax2.set_ylabel('Wait Time', fontsize=14)
-ax2.legend()
-
-# Use the same styling as your other plots
-sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
-$$\text{WaitTime} = \beta_0 + \beta_1 \text{MinutesAfterOpening} + \epsilon$$
-
-. . .
-
-*> the intercept parameter $\beta_0$ is the estimated temperature at 0 on the horizontal*
-
-. . .
-
-*> the slope parameter $\beta_1$ is the estimated change in y for a 1 unit change in x*
-
-. . .
-
-*> the p-value is the probability of seeing parameter ($\beta_0$ or $\beta_1$) if the null is true*
-
----
-
-## GLM: Intercept + Slope
-<p class="subheader">Which model do you think offers better predictions?</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-
-# Set seed for reproducibility
-np.random.seed(42)
-
-# Sample data
-x = np.linspace(0, 10, 50)
-y_linear = 2 + 0.5 * x + np.random.normal(0, 1, 50)
-y_nonlinear = 2 + (np.exp(x*0.36) + np.random.normal(0, 3, 50))/4
-
-# Create subplots
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
-
-# Linear relationship (well-specified)
-slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_linear)
-y_pred1 = intercept1 + slope1 * x
-
-ax1.scatter(x, y_linear, alpha=0.7, label='Observed data')
-ax1.plot(x, y_pred1, 'r-', linewidth=2, label='Linear fit')
-ax1.set_xlabel('Predictor Variable (x)')
-ax1.set_ylabel('Outcome Variable (y)')
-ax1.set_title('Model 1', fontsize=20)
-ax1.legend(frameon=False)
-
-# Nonlinear relationship (mis-specified with linear fit)
-slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_nonlinear)
-y_pred2 = intercept2 + slope2 * x
-
-ax2.scatter(x, y_nonlinear, alpha=0.7, label='Observed data')
-ax2.plot(x, y_pred2, 'r-', linewidth=2, label='Linear fit')
-ax2.set_xlabel('Predictor Variable (x)')
-ax2.set_ylabel('Outcome Variable (y)')
-ax2.set_title('Model 2', fontsize=20)
-ax2.legend(frameon=False)
-
-sns.despine(trim=True)
-plt.tight_layout()
-```
-
-. . .
-
-*> our model will offer inaccurate predictions if some assumptions aren't met*
-
----
-
-## GLM Assumptions
-<p class="subheader">Our test results are only valid when the model assumptions are valid.</p>
-
-<br>
-
-. . .
-
-1. **Linearity**: The relationship between X and Y is linear
-   
-. . . 
-
-2. **Homoskedasticity**: Equal error variance across all values of X
-
-. . .
-
-3. **Normality**: Errors are normally distributed
-
-. . .
-
-4. **Independence**: Observations are independent from each other
-
-
----
-
-## GLM Assumptions: why check?
-<p class="subheader">Assumption violations affect our inferences</p>
-
-<br>
-
-**If assumptions are violated:**
-
-- Coefficient estimates may be biased
-- Standard errors may be wrong
-- p-values may be misleading
-- Predictions may be unreliable
-
-. . .
-
-*> to test whether the model is 'specified', we can calculate the residuals and the model predictions*
-
----
-
-## Model Residuals
-<p class="subheader">... we can directly examine the error of the model.</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-import pandas as pd
-
-# Update Matplotlib parameters
-plt.rcParams.update({
-    'font.family': 'serif',              # Set the font family
-    'font.serif': ['Times New Roman'],   # Use a specific serif font
-    'font.style': 'italic',              # Set the font style to italic
-})
-
-# Set a seed for reproducibility
-np.random.seed(42)
-
-# Generate wait times dataset
-n = 60
-minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
-wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
-wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
-
-# Fit regression models
-slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
-mean_wait = np.mean(wait_times)
-
-# Calculate MSE for both models
-mse_mean = np.mean((wait_times - mean_wait)**2)
-mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
-
-# Create a figure with two subplots
-fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
-
-# Plot 2: Linear regression model
-ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
-x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
-y_line = intercept + slope * x_line
-ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=0.1)
-
-# Add vertical error lines for regression model
-for i in range(0, n, 1):  # Show errors for every 5th point
-    y_pred = intercept + slope * minutes_after_open[i]
-    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
-             [wait_times[i], y_pred], 'green', linestyle=':', alpha=1)
-
-# Use the same styling as your other plots
-sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
 . . .
 
-<br>
-
-```python
-# Calculate residuals
-residuals = model.resid
-sns.histplot(residuals)
-```
+*> the slopes follow a normal distribution around the population difference!*
 
 . . .
 
-*> this is $\varepsilon$*
+*> this lets us perform a t-test on the slope!*
 
 ---
 
-## Model Predictions
-<p class="subheader">... we can directly examine the predictions of the model.</p>
+## Categorical GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population difference.</p>
 
 ```{python}
 #| echo: false
@@ -342,336 +489,68 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
-import pandas as pd
 
 # Update Matplotlib parameters
 plt.rcParams.update({
-    'font.family': 'serif',              # Set the font family
-    'font.serif': ['Times New Roman'],   # Use a specific serif font
-    'font.style': 'italic',              # Set the font style to italic
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
 })
 
-# Set a seed for reproducibility
+# Set random seed for reproducibility
 np.random.seed(42)
 
-# Generate wait times dataset
-n = 60
-minutes_after_open = np.linspace(0, 600, n)  # 0 to 600 minutes
-wait_times = 5 + 0.01 * minutes_after_open + np.random.normal(0, 2, n)  # Base wait + trend + noise
-wait_times = np.maximum(0, wait_times)  # Ensure no negative wait times
+# True parameters
+true_mean_low = 22
+true_mean_high = 19
+true_diff = true_mean_high - true_mean_low  # -3
+noise_std = 1.5
+n_per_group = 50
+n_simulations = 1000
 
-# Fit regression models
-slope, intercept, r_value, p_value, std_err = stats.linregress(minutes_after_open, wait_times)
-mean_wait = np.mean(wait_times)
+sample_slope = -2.97
 
-# Calculate MSE for both models
-mse_mean = np.mean((wait_times - mean_wait)**2)
-mse_regression = np.mean((wait_times - (intercept + slope * minutes_after_open))**2)
-
-# Create a figure with two subplots
-fig, ax2 = plt.subplots(1, 1, figsize=(11, 3))
-
-# Plot 2: Linear regression model
-ax2.scatter(minutes_after_open, wait_times, alpha=0.1)
-x_line = np.array([min(minutes_after_open), max(minutes_after_open)])
-y_line = intercept + slope * x_line
-ax2.plot(x_line, y_line, 'r-', linewidth=2, alpha=1)
-
-# Add vertical error lines for regression model
-for i in range(0, n, 1):  # Show errors for every 5th point
-    y_pred = intercept + slope * minutes_after_open[i]
-    ax2.plot([minutes_after_open[i], minutes_after_open[i]], 
-             [wait_times[i], y_pred], 'green', linestyle=':', alpha=0.1)
-
-# Use the same styling as your other plots
-sns.despine(ax=ax2, left=False, bottom=False, right=True, top=True, trim=True)
-plt.tight_layout()
-plt.show()
-```
-
-<br>
-
-. . .
-
-```python
-# Calculate predictions
-predictions = model.predict()
-sns.histplot(predictions)
-```
-. . .
-
-*> this is $\hat{y}$, the model prediction*
-
----
-
-## Exercise 4.2 | Residual Plot of Happiness and GDP
-<p class="subheader">A **Residual Plot** directly visualizes the error for each model estimate.</p>
-
-<br><br>
-
-```python
-# Residual Plot: predictions against residuals
-plt.scatter(predictions, residuals)
-```
-
----
-
-## Assumption 1: Checking for Linearity
-<p class="subheader">The error term should be unrelated to the fitted value.</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
-
-# Set seed for reproducibility
-np.random.seed(42)
-
-# Generate education data (years)
-education = np.concatenate([np.random.randint(10, 13, 50), 
-                           np.random.randint(13, 17, 70),
-                           np.random.randint(17, 22, 30)])
-
-# Generate wage data with more pronounced heteroskedasticity
-base_wage = 20000
-education_effect = 2000
-error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
-wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
-
-# Sample data
-np.random.seed(42)
-x = np.linspace(0, 10, 50)
-y_linear = 2 + 0.5 * x + np.random.normal(0, 1, 50)
-y_nonlinear = 2 + 0.5 * x + 0.2 * x**2 + np.random.normal(0, 1, 50)
-
-# Create subplots
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
-
-# Linear model
-from scipy import stats
-slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_linear)
-y_pred1 = intercept1 + slope1 * x
-residuals1 = y_linear - y_pred1
-
-ax1.scatter(y_pred1, residuals1, alpha=0.7)
-ax1.axhline(y=0, color='r', linestyle='-')
-ax1.set_xlabel('Fitted Values ($\hat{y}$)')
-ax1.set_ylabel('Residuals ($\hat{\\varepsilon}$)')
-ax1.set_title('Model 1', fontsize=20)
-
-# Nonlinear model fitted with linear regression
-slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_nonlinear)
-y_pred2 = intercept2 + slope2 * x
-residuals2 = y_nonlinear - y_pred2
-
-ax2.scatter(y_pred2, residuals2, alpha=0.7)
-ax2.axhline(y=0, color='r', linestyle='-')
-ax2.set_xlabel('Fitted Values ($\hat{y}$)')
-ax2.set_title('Model 2', fontsize=20)
-
-sns.despine(trim=True)
-plt.tight_layout()
-```
-
-. . .
-
-*> the left figure shows that the model is equally wrong everywhere*
-
-. . .
-
-*> the right figure shows that the model is a good fit at only some values*
-
----
-
-## Assumption 1: Checking for Linearity
-<p class="subheader">A non-linear relationship will produce non-linear residuals.</p>
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import statsmodels.api as sm
-import pandas as pd
-
-# Set seed for reproducibility
-np.random.seed(42)
-
-# Generate age data
-age = np.random.uniform(18, 65, 150)
-
-# Generate income with a STRONGLY non-linear relationship to age
-# Income follows a pronounced inverted U shape with age
-true_income = 20000 + 4000 * age - 70 * (age-40)**2
-noise = np.random.normal(0, 15000, len(age))
-income = true_income + noise
-
-# Create DataFrame
-data = pd.DataFrame({
-    'age': age,
-    'income': income
-})
-
-# Fit linear model
-X_linear = sm.add_constant(age)
-linear_model = sm.OLS(income, X_linear).fit()
-
-# Fit quadratic model
-age_squared = age**2
-X_quadratic = sm.add_constant(np.column_stack((age, age_squared)))
-quadratic_model = sm.OLS(income, X_quadratic).fit()
-
-# Predictions for plotting
-age_range = np.linspace(18, 65, 100)
-X_linear_pred = sm.add_constant(age_range)
-linear_predictions = linear_model.predict(X_linear_pred)
-
-age_range_squared = age_range**2
-X_quadratic_pred = sm.add_constant(np.column_stack((age_range, age_range_squared)))
-quadratic_predictions = quadratic_model.predict(X_quadratic_pred)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    low = true_mean_low + np.random.normal(0, noise_std, n_per_group)
+    high = true_mean_high + np.random.normal(0, noise_std, n_per_group)
+    x = np.concatenate([np.zeros(n_per_group), np.ones(n_per_group)])
+    y = np.concatenate([low, high])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
 
 # Create the plot
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+plt.figure(figsize=(10, 4))
 
-# Linear regression plot
-ax1.scatter(age, income, alpha=0.6, color='#4C72B0')
-ax1.plot(age_range, linear_predictions, color='red', linewidth=2, 
-         label=f'Linear: R² = {linear_model.rsquared:.2f}')
-ax1.set_title('Linear Regression: Age vs. Income', fontsize=14)
-ax1.set_xlabel('Age (years)', fontsize=12)
-ax1.set_ylabel('Annual Income ($)', fontsize=12)
-ax1.legend()
+# Plot histogram of slope coefficients (faded)
+plt.hist(slope_coefficients, bins=30, alpha=0.05, density=True,
+         color='red', edgecolor='white', label='Sample Slopes')
 
-# Add true curve to highlight the actual relationship
-ax1.plot(age_range, 20000 + 4000 * age_range - 70 * (age_range-40)**2, 
-         color='green', linestyle='--', linewidth=2, label='True relationship')
-ax1.legend()
+# Overlay theoretical t-distribution
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(min(slope_coefficients), max(slope_coefficients), 1000)
+y_pdf = stats.t.pdf(x_pdf, df=2*n_per_group-2, loc=true_diff, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
 
-# Residuals of linear model
-fitted_values = linear_model.predict(X_linear)  # Get fitted values
-residuals = income - fitted_values
+# Add vertical line for sample slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2,
+           label=f'Sample Slope')
 
-sns.regplot(x=fitted_values, y=residuals, lowess=True, scatter_kws={'alpha': 0.4}, 
-            line_kws={'color': 'red'}, ax=ax2)
-ax2.axhline(y=0, color='black', linestyle='--')
-ax2.set_title('Residuals vs. Fitted Values (Linear Model)', fontsize=14)
-ax2.set_xlabel('Fitted Values ($)', fontsize=12)
-ax2.set_ylabel('Residuals ($)', fontsize=12)
-
-# Add annotation highlighting the pattern
-ax2.annotate('Clear U-shaped pattern\nin residuals', xy=(175000, -20000), xytext=(100000, -60000),
-            arrowprops=dict(facecolor='black', shrink=0.05, width=1), fontsize=12)
-
-sns.despine()
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
-. . .
-
-*> linear model misses curvature, leading to systematic errors*
+*> we don't know the entire distribution, just our sample slope*
 
 ---
 
-## Handling Non-Linear Relationships
-<p class="subheader">Transform variables to become linear</p>
-
-Adding a square term or performing a log transformation can fix the problem.
-
-. . .
-
-<br>
-
-*instead of*
-
-$$\text{income} = \beta_0 + \beta_1 \text{age} + \varepsilon$$
-
-. . .
-
-*we could use*
-
-$$\text{income} = \beta_0 + \beta_1 \text{age} + \beta_2 \text{age}^2 + \varepsilon$$
-
-. . .
-
-It's also common to log transform either the $x$ or $y$ variable. 
-
----
-
-## Assumption 2: Homoskedasticity
-<p class="subheader">Residuals should be spread out the same everywhere.</p>
-
-Which one of these figures shows homoskedasticity?
-
-```{python}
-#| echo: false
-#| fig-align: center
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Sample data
-np.random.seed(42)
-x = np.linspace(0, 10, 50)
-
-# Homoskedastic errors
-y_homo = 2 + 0.5 * x + np.random.normal(0, 1, 50)
-
-# Heteroskedastic errors (variance increases with x)
-y_hetero = 2 + 0.5 * x + np.random.normal(0, 0.2 + 0.3 * x, 50)
-
-# Create subplots
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
-
-# Homoskedastic model
-slope1, intercept1, r1, p1, se1 = stats.linregress(x, y_homo)
-y_pred1 = intercept1 + slope1 * x
-residuals1 = y_homo - y_pred1
-
-ax1.scatter(y_pred1, residuals1, alpha=0.7)
-ax1.axhline(y=0, color='r', linestyle='-')
-ax1.set_xlabel('Fitted Values ($\hat{y}$)')
-ax1.set_ylabel('Residuals ($\hat{\\varepsilon}$)')
-
-# Heteroskedastic model
-slope2, intercept2, r2, p2, se2 = stats.linregress(x, y_hetero)
-y_pred2 = intercept2 + slope2 * x
-residuals2 = y_hetero - y_pred2
-
-ax2.scatter(y_pred2, residuals2, alpha=0.7)
-ax2.axhline(y=0, color='r', linestyle='-')
-ax2.set_xlabel('Fitted Values ($\hat{y}$)')
-
-sns.despine(trim=True)
-plt.tight_layout()
-```
-
-. . .
-
-*> the left figure shows constant variability (homoskedasticity)*
-
-. . .
-
-*> the right figure shows increasing variability (heteroskedasticity)*
-
-. . .
-
-*> residual plots should show that the model is equally wrong everywhere*
-
----
-
-## Assumption 2: Homoskedasticity
-<p class="subheader">The spread of residuals should not change across values of X.</p>
+## Categorical GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population difference.</p>
 
 ```{python}
 #| echo: false
@@ -681,132 +560,72 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-# Set seed for reproducibility
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set random seed for reproducibility
 np.random.seed(42)
 
-# Generate education data (years)
-education = np.concatenate([np.random.randint(10, 13, 50), 
-                           np.random.randint(13, 17, 70),
-                           np.random.randint(17, 22, 30)])
+# True parameters
+true_mean_low = 22
+true_mean_high = 19
+true_diff = true_mean_high - true_mean_low  # -3
+noise_std = 1.5
+n_per_group = 50
+n_simulations = 1000
 
-# Generate wage data with more pronounced heteroskedasticity
-base_wage = 20000
-education_effect = 2000
-error_scale = 3000 * np.power(education/10, 2)  # More dramatic increase in variance
-wages = base_wage + education_effect * education + np.random.normal(0, error_scale, len(education))
+sample_slope = -2.97
+null = 0
 
-# Fit regression line
-slope, intercept, r_value, p_value, std_err = stats.linregress(education, wages)
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    low = true_mean_low + np.random.normal(0, noise_std, n_per_group)
+    high = true_mean_high + np.random.normal(0, noise_std, n_per_group)
+    x = np.concatenate([np.zeros(n_per_group), np.ones(n_per_group)])
+    y = np.concatenate([low, high])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
 
-# Add regression line
-x_line = np.array([min(education), max(education)])
-y_line = intercept + slope * x_line
+# Create the plot
+plt.figure(figsize=(10, 4))
 
-# Calculate residuals
-predictions = intercept + slope * education
-residuals = wages - predictions
+# Plot histogram of slope coefficients (very faded)
+plt.hist(slope_coefficients, bins=30, alpha=0.02, density=True,
+         color='red', edgecolor='white')
 
-# Create figure with two panels
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+# Overlay theoretical t-distribution centered on null
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(-6, 6, 1000)
+y_pdf = stats.t.pdf(x_pdf, df=2*n_per_group-2, loc=null, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
 
-# Left panel: Scatter with regression line and spread highlighted
-ax1.scatter(education, wages, alpha=0.6, color='#4C72B0')
-ax1.plot(x_line, y_line, color='red', linewidth=2)
+# Add vertical line for sample slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2,
+           label=f'Sample Slope')
+plt.axvline(null, color='black', linestyle='-', linewidth=2,
+           label=f'Default Null')
 
-# Add shaded regions to show increasing spread
-x_regions = [12, 16, 20]
-for i in range(len(x_regions)):
-    x = x_regions[i]
-    y_pred = intercept + slope * x
-    spread = 4 * 2000 * np.sqrt(x) / 3
-    ax1.fill_between([x-0.5, x+0.5], 
-                     [y_pred-spread, y_pred-spread],
-                     [y_pred+spread, y_pred+spread],
-                     color='gray', alpha=0.3)
-    
-ax1.set_title('Education vs. Wages: Increasing Spread', fontsize=14)
-ax1.set_xlabel('Years of Education', fontsize=12)
-ax1.set_ylabel('Annual Wage ($)', fontsize=12)
-
-# Add annotations for different education levels
-ax1.annotate('High school\n(less spread)', xy=(11.5, 60000), fontsize=10)
-ax1.annotate('Bachelor\'s\n(medium spread)', xy=(15.5, 68000), fontsize=10)
-ax1.annotate('PhD\n(more spread)', xy=(19.5, 76000), fontsize=10)
-
-# Right panel: Residuals plot showing heteroskedasticity
-ax2.scatter(predictions, residuals, alpha=0.6, color='#4C72B0')
-ax2.axhline(y=0, color='red', linestyle='-', linewidth=2)
-
-# Add visual guides to show increasing spread
-fitted_smooth = np.linspace(predictions.min(), predictions.max(), 100)
-education_equiv = (fitted_smooth - intercept) / slope
-upper_bound = 2000 * np.power(education_equiv/10, 2.2)
-lower_bound = -2000 * np.power(education_equiv/10, 2.2)
-
-ax2.plot(fitted_smooth, upper_bound, '--', color='gray', alpha=0.5, linewidth=1.5)
-ax2.plot(fitted_smooth, lower_bound, '--', color='gray', alpha=0.5, linewidth=1.5)
-
-# Add shaded region to emphasize the pattern
-ax2.fill_between(fitted_smooth, lower_bound, upper_bound, alpha=0.1, color='gray')
-
-ax2.set_title('Residuals vs. Fitted Values: Heteroskedasticity', fontsize=14)
-ax2.set_xlabel('Fitted Values (Predicted Wage)', fontsize=12)
-ax2.set_ylabel('Residuals ($)', fontsize=12)
-
-# Add text annotations for smaller/larger errors
-ax2.text(43000, -8000, 'Smaller errors', 
-        fontsize=11, ha='center', color='darkgreen', fontweight='bold')
-ax2.text(60000, -15000, 'Larger errors', 
-        fontsize=11, ha='center', color='darkred', fontweight='bold')
-
-# Add arrow annotations for spread
-ax2.annotate('', xy=(60000, 12000), xytext=(60000, -12000),
-            arrowprops=dict(arrowstyle='<->', color='darkred', lw=2))
-
-ax2.annotate('', xy=(43000, 5000), xytext=(43000, -5000),
-            arrowprops=dict(arrowstyle='<->', color='darkgreen', lw=2))
-
-sns.despine()
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.legend()
+plt.yticks([])
+sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 plt.show()
 ```
 
-. . .
+*> center the distribution on our null*
 
-*> the spread of points increases as education increases*
-
-. . .
-
-*> PhD wages vary more than high school wages*
+*> check the distance from the sample*
 
 ---
 
-## Handling Heteroskedasticity
-<p class="subheader">Robust standard errors give more accurate measures of uncertainty</p>
-
-<br><br>
-
-Robust Standard Errors adjust for the changing spread in our data.
-
-. . .
-
-Use robust standard errors to give more accurate hypothesis tests.
-
-. . .
-
-<br><br>
-
-```python
-# Fit the model with robust standard errors (HC3: heteroskedastic-constant)
-robust_model = smf.ols('wages ~ education', data=df).fit(cov_type='HC3')
-```
-
----
-
-## Assumption 3: Normality
-<p class="subheader">Residuals should be normally distributed.</p>
-
-By the CLT we can still use GLM without this *so long as* the sample is large.
+## Categorical GLM: sampling distribution of slopes
+<p class="subheader">The slope coefficient follows a normal distribution centered on the population difference.</p>
 
 ```{python}
 #| echo: false
@@ -814,71 +633,489 @@ By the CLT we can still use GLM without this *so long as* the sample is large.
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import scipy.stats as stats
+from scipy import stats
 
-# Sample data
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set random seed for reproducibility
 np.random.seed(42)
-n = 1000
-# Normal errors
-normal_residuals = np.random.normal(0, 1, n)
-# Skewed errors
-skewed_residuals = stats.skewnorm.rvs(5, size=n)
-skewed_residuals = skewed_residuals - skewed_residuals.mean()  # Center at 0
 
-# Create subplots
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 3))
+# True parameters
+true_mean_low = 22
+true_mean_high = 19
+true_diff = true_mean_high - true_mean_low  # -3
+noise_std = 1.5
+n_per_group = 50
+n_simulations = 1000
 
-# Normal histogram with curve
-sns.histplot(normal_residuals, kde=True, ax=ax1)
-ax1.set_xlabel('Residuals ($\hat{\\varepsilon}$)')
-ax1.set_yticks([])
-ax1.set_ylabel('')
-ax1.set_title('Roughly Normal')
+sample_slope = -2.97
+null = 0
 
-# Skewed histogram with curve
-sns.histplot(skewed_residuals, kde=True, ax=ax2)
-ax2.set_xlabel('Residuals ($\hat{\\varepsilon}$)')
-ax2.set_yticks([])
-ax2.set_ylabel('')
-ax2.set_title('Not Normal')
+# Run many simulations to get slope coefficients
+slope_coefficients = []
+for i in range(n_simulations):
+    low = true_mean_low + np.random.normal(0, noise_std, n_per_group)
+    high = true_mean_high + np.random.normal(0, noise_std, n_per_group)
+    x = np.concatenate([np.zeros(n_per_group), np.ones(n_per_group)])
+    y = np.concatenate([low, high])
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+    slope_coefficients.append(slope)
 
+# Create the plot
+plt.figure(figsize=(10, 4))
+
+# Plot histogram of slope coefficients (very faded)
+plt.hist(slope_coefficients, bins=30, alpha=0.01, density=True,
+         color='red', edgecolor='white')
+
+# Overlay theoretical t-distribution centered on null
+se_slope = np.std(slope_coefficients)
+x_pdf = np.linspace(-6, 6, 1000)
+y_pdf = stats.t.pdf(x_pdf, df=2*n_per_group-2, loc=null, scale=se_slope)
+plt.plot(x_pdf, y_pdf, color='green', linestyle='--', linewidth=2, label='Sampling Dist.')
+
+# Add vertical line for sample slope
+plt.axvline(sample_slope, color='red', linestyle='--', linewidth=2,
+           label=f'Sample Slope')
+# Add vertical line for null hypothesis
+plt.axvline(null, color='black', linestyle='-', linewidth=2,
+           label=f'Default Null')
+plt.axvline(-sample_slope, color='red', linestyle='--', linewidth=2, alpha=0.3,
+           label=f'Equally Extreme')
+
+# SHADE P-VALUE REGIONS
+# Left tail (beyond sample slope, which is negative)
+x_left = x_pdf[x_pdf <= sample_slope]
+y_left = stats.t.pdf(x_left, df=2*n_per_group-2, loc=null, scale=se_slope)
+plt.fill_between(x_left, 0, y_left, alpha=0.3, color='blue', label='p-Value')
+
+# Right tail (beyond mirror of sample slope)
+x_right = x_pdf[x_pdf >= -sample_slope]
+y_right = stats.t.pdf(x_right, df=2*n_per_group-2, loc=null, scale=se_slope)
+plt.fill_between(x_right, 0, y_right, alpha=0.3, color='blue')
+
+plt.xlabel('Slope Coefficient: $\\beta_1$', fontsize=16)
+plt.legend()
+plt.yticks([])
 sns.despine(left=True, bottom=False, right=True, top=True, trim=True)
-
 plt.tight_layout()
+plt.show()
 ```
+
+. . .
+
+*> p-value: the 'surprisingness' of our sample if $\beta_1 = 0$*
+
+. . .
+
+*> the probability of seeing our sample by chance if there is no difference*
+
+. . .
+
+*> a small p-value is evidence against the null hypothesis ($\beta_1 = 0$)*
 
 ---
 
-## Assumption 4: Indepedence
-<p class="subheader">Observations are independent from each other</p>
+## Categorical GLM: null slopes
+<p class="subheader">Many possible slopes we might observe by chance if the null ($\beta_1 = 0$) were true.</p>
 
-<br><br>
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
-We'll return to this assumption in ***Part 4.4 | Timeseries***.
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
 
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+
+sns.boxplot(x='high_green', y='temperature', data=data,
+            color='white',  # Use white for the boxes
+            width=0.2,
+            zorder=-1)
+
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+# Calculate and display the means
+mean_low = np.mean(low_green)
+mean_high = np.mean(high_green)
+
+# Calculate standard error for the difference in means
+pooled_std = np.sqrt(((n-1)*np.var(low_green, ddof=1) + (n-1)*np.var(high_green, ddof=1)) / (2*n - 2))
+se_diff = pooled_std * np.sqrt(1/n + 1/n)
+
+# Draw random samples under null hypothesis (no difference)
+n_samples = 100
+np.random.seed(42)
+for i in range(n_samples):
+    # Random slope centered on 0 with appropriate standard error
+    random_slope = np.random.normal(0, se_diff*1.5)
+    random_high = mean_low + random_slope
+    plt.plot([0, 1], [mean_low, random_high], 'grey', alpha=0.1, linewidth=0.8)
+
+# Plot the observed difference (on top)
+plt.plot([0, 1], [mean_low, mean_high], 'r-', linewidth=2, label='Observed difference')
+
+plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlabel('High Greenspace', fontsize=14)
+
+plt.text(-0.35, mean_low, f'$\\beta_0$ = {mean_low:.2f}°C', fontsize=12, va='center')
+plt.text(1.15, mean_high, f'$\\beta_0$ + $\\beta_1$ = {mean_high:.2f}°C', fontsize=12, va='center')
+plt.text(0.5, (mean_low+mean_high)/2+0.5, f'$\\beta_1$ = {mean_high-mean_low:.2f}°C', fontsize=12, va='center', ha='center', rotation=-8)
+
+# Add text explaining the null distribution
+plt.text(0.5, 23.5, 'Grey lines: possible samples under the null (no difference)',
+         fontsize=10, ha='center', style='italic', color='gray')
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> how likely does it look like this slope was drawn from the null slopes?*
+
+. . .
+
+*> p-value: the probability of a slope as extreme as ours under the null ($\beta_1=0$)*
+
+---
+
+## This is a two-sample t-test
+<p class="subheader">Same test, different language.</p>
+
+<br>
+
+The math we just did — estimating the difference between group means, building its sampling distribution, testing whether it's zero — is exactly a **two-sample t-test**.
+
+. . .
+
+<br>
+
+- Same test statistic
+- Same p-value
+- Same conclusion
+
+. . .
+
+<br>
+
+*> Regression is more general — it can handle continuous predictors, multiple groups, and control variables all at once.*
+
+. . .
+
+*> The two-sample t-test is a special case of the GLM.*
+
+---
+
+## Exercise: Income and Mental Health
+<p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
+
+**Step 1: Summarize the data**
+
+. . .
+
+<br>
+
+```python
+# Load BRFSS data
+data = pd.read_csv('data/BRFSS_cleaned.csv')
+data['low_income'] = (data['INCOME2'] <= 5).astype(int)
+
+# Visualize Binary Predictor
+sns.boxplot(data=data, x='low_income', y='MENTHLTH', color='white', width=0.2)
+plt.xticks([0,1], labels=['Above $35k', 'Below $35k']  # INCOME2 <= 5)
+```
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Load BRFSS data
+data = pd.read_csv('data/BRFSS_cleaned.csv')
+data['low_income'] = (data['INCOME2'] <= 5).astype(int)
+data = data[['low_income', 'MENTHLTH']].dropna()
+
+# Take a random subsample for cleaner visualization
+np.random.seed(42)
+sample = data.sample(n=200, random_state=42)
+jitter = np.random.uniform(-0.15, 0.15, len(sample))
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='MENTHLTH', data=sample,
+            color='white', width=0.2, zorder=-1)
+plt.scatter(sample['low_income'] + jitter, sample['MENTHLTH'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['Above $35k\n(0)', 'Below $35k\n(1)'])
+plt.ylabel('Days of Poor Mental Health', fontsize=14)
+plt.xlabel('Income Below $35,000', fontsize=14)
+
+plt.xlim(-0.5, 1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+
+---
+
+## Exercise: Income and Mental Health
+<p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
+
+**Step 2: Build a model**
+
+. . .
+
+$$MentalHealthDays = \beta_0 + \beta_1 \cdot LowIncome + \varepsilon$$
+
+---
+
+## Exercise: Income and Mental Health
+<p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
+
+**Step 3: Estimate the model**
+
+. . .
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Load BRFSS data
+data = pd.read_csv('data/BRFSS_cleaned.csv')
+data['low_income'] = (data['INCOME2'] <= 5).astype(int)
+data = data[['low_income', 'MENTHLTH']].dropna()
+
+# Compute group means from full data
+mean_above = data[data['low_income'] == 0]['MENTHLTH'].mean()
+mean_below = data[data['low_income'] == 1]['MENTHLTH'].mean()
+beta_1 = mean_below - mean_above
+
+# Take a random subsample for visualization
+np.random.seed(42)
+sample = data.sample(n=200, random_state=42)
+jitter = np.random.uniform(-0.15, 0.15, len(sample))
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='MENTHLTH', data=sample,
+            color='white', width=0.2, zorder=-1)
+plt.scatter(sample['low_income'] + jitter, sample['MENTHLTH'], alpha=0.4, color='darkblue')
+
+# Regression line connecting group means
+plt.plot([0, 1], [mean_above, mean_below], 'r-', linewidth=2)
+
+plt.xticks([0, 1], ['Above $35k\n(0)', 'Below $35k\n(1)'])
+plt.ylabel('Days of Poor Mental Health', fontsize=14)
+plt.xlabel('Income Below $35,000', fontsize=14)
+plt.text(-0.4, mean_above, f'$\\beta_0$ = {mean_above:.1f}', fontsize=12, va='center')
+plt.text(1.15, mean_below, f'$\\beta_0$ + $\\beta_1$ = {mean_below:.1f}', fontsize=12, va='center')
+plt.text(0.5, (mean_above + mean_below)/2 + 2, f'$\\beta_1$ = {beta_1:.1f}', fontsize=12, va='center', ha='center')
+
+plt.xlim(-0.5, 1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+```python
+# Model: y = b + mx
+model = smf.ols('MENTHLTH ~ low_income', data).fit() # Intercept is included by default
+print(model.summary().tables[1])
+```
+
+. . .
+
+- $\beta_0$ = Mean poor mental health days for those earning above $35k
+
+- $\beta_1$ = Additional poor mental health days for those earning below $35k
+
+---
+
+## Exercise: Income and Mental Health
+<p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
+
+**Step 4: Check the residuals**
+
+```python
+sns.scatterplot(x=model.predict(), y=model.resid, alpha=0.5)
+plt.axhline(y=0, color='red', linestyle='-')
+plt.xlabel('Fitted Values')
+plt.ylabel('Residuals')
+```
+
+. . .
+
+*> what do you notice about this residual plot?*
+
+---
+
+## Exercise: Income and Mental Health
+<p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
+
+**Step 5: Interpret and communicate the findings**
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Load BRFSS data
+data = pd.read_csv('data/BRFSS_cleaned.csv')
+data['low_income'] = (data['INCOME2'] <= 5).astype(int)
+data = data[['low_income', 'MENTHLTH']].dropna()
+
+# Compute group means from full data
+mean_above = data[data['low_income'] == 0]['MENTHLTH'].mean()
+mean_below = data[data['low_income'] == 1]['MENTHLTH'].mean()
+beta_1 = mean_below - mean_above
+
+# Take a random subsample for visualization
+np.random.seed(42)
+sample = data.sample(n=200, random_state=42)
+jitter = np.random.uniform(-0.15, 0.15, len(sample))
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+sns.boxplot(x='low_income', y='MENTHLTH', data=sample,
+            color='white', width=0.2, zorder=-1)
+plt.scatter(sample['low_income'] + jitter, sample['MENTHLTH'], alpha=0.4, color='darkblue')
+
+# Regression line connecting group means
+plt.plot([0, 1], [mean_above, mean_below], 'r-', linewidth=2)
+
+plt.xticks([0, 1], ['Above $35k\n(0)', 'Below $35k\n(1)'])
+plt.ylabel('Days of Poor Mental Health', fontsize=14)
+plt.xlabel('Income Below $35,000', fontsize=14)
+plt.text(-0.4, mean_above, f'$\\beta_0$ = {mean_above:.1f}', fontsize=12, va='center')
+plt.text(1.15, mean_below, f'$\\beta_0$ + $\\beta_1$ = {mean_below:.1f}', fontsize=12, va='center')
+plt.text(0.5, (mean_above + mean_below)/2 + 2, f'$\\beta_1$ = {beta_1:.1f}', fontsize=12, va='center', ha='center')
+
+plt.xlim(-0.5, 1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+. . .
+
+*> A significant positive $\beta_1$ suggests those earning under $35k report more poor mental health days per month*
+
+. . .
+
+*> but does low income cause poor mental health, or are other factors at play?*
+
+---
+
+## GLM: Summary *(so far)*
+<p class="subheader">GLM's unified framework for testing statistical models</p>
+
+. . .
+
+**Intercept-Only Model**: Continuous outcome variable ($y$) with only an intercept
+
+$$y = \beta_0 + \varepsilon$$
+
+. . .
+
+**Numerical Predictor**: Continuous outcome variable ($y$) with a continuous predictor ($x$)
+
+$$y = \beta_0 + \beta_1 x + \varepsilon$$
+
+. . .
+
+**Binary Predictor**: Continuous outcome variable ($y$) with a dummy ($Group$)
+
+$$y = \beta_0 + \beta_1 \cdot Group + \varepsilon$$
+
+. . .
+
+<br>
+
+*> all use the same OLS framework and interpretation of coefficients and p-values*
+
+---
+
+## The General Linear Model
+<p class="subheader">Extending the GLM framework</p>
+
+- Part 3 | Intercept-Only Model | $y = \beta_0 + \epsilon$
+
+- Part 4.1 | Numerical Predictor | $y = \beta_0 + \beta_1 x + \epsilon$
+- Part 4.2 | Categorical Predictor | $y = \beta_0 + \beta_1 x + \epsilon$
+- Part 4.3 | Model Diagnostics
+- Part 4.4 | Causality
 
 ---
 
 ## Looking Forward
 <p class="subheader">Extending the GLM framework</p>
 
-. . .
+Part 5 | Control Variables
 
-**Next Up:**
-
-- Part 4.3 | Categorical Predictors
-- Part 4.4 | Timeseries
-- Part 4.5 | Causality
-
-. . .
-
-**Later:**
+$$y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + ... + \varepsilon$$
 
 - Part 5.1 | Numerical Controls
 - Part 5.2 | Categorical Controls
 - Part 5.3 | Interactions
 - Part 5.4 | Model Selection
-
-. . .
 
 *> all built on the same statistical foundation*

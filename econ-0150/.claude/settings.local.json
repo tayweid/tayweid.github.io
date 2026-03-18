@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(BASE=\"/Users/taylorjweidman/Library/CloudStorage/GoogleDrive-plusdirt@gmail.com/Other computers/Macbook Air/PROJECTS/tayweid.github.io/econ-0150/parts\" echo \"=== STAGING ===\" ls -R \"$BASE/part-4-staging/\")",
+      "Bash(test:*)"
     ]
   }
 }

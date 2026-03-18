@@ -1,176 +1,185 @@
-## Part 4.3 | Timeseries
+## Part 4.3 | Model Assumptions
 
 ### Overview
 
-- Many economic questions involve data that unfolds over time
-- Time series have a special property: autocorrelation — today's value depends on yesterday's
-- This violates the independence assumption, making standard errors and p-values unreliable
-- Model 1 (Levels): fit a line through a time series — residuals show runs of positive and negative errors
-- Model 2 (First Differences): model changes instead of levels — removes much of the autocorrelation
-- Model 3 (Double First Differences): relate changes in $X$ to changes in $Y$
-- Model 4 (Growth Rates): for exponentially growing variables, normalize by dividing by the previous value
-- Each specification changes the interpretation of $\beta_0$ and $\beta_1$
-- Exercise: GDP and unemployment across model specifications
+- Every model produces coefficients, standard errors, and p-values — but should we trust them?
+- The answer depends on whether the model's assumptions are met
+- Two diagnostic quantities: residuals ($\hat{\epsilon}_i = y_i - \hat{y}_i$) and predicted values ($\hat{y}_i$)
+- The residual plot (residuals vs predicted values) is the single most important diagnostic tool
+- Four OLS assumptions: (1) Linearity, (2) Homoskedasticity, (3) Normality, (4) Independence
+- Checking linearity: U-shaped residuals → non-linear relationship → fix with transformations
+- Checking homoskedasticity: fan-shaped residuals → unequal spread → fix with robust standard errors
+- Checking normality: histogram of residuals should be roughly bell-shaped; CLT makes this less critical
+- Checking independence: residual lag plot reveals autocorrelation → fix with differencing
+- The diagnostic workflow applies to all model types from 4.1–4.2
 
 ---
 
-### Opening — Data Over Time
+### Opening — Can We Trust Our Models?
 
-So far our models have used cross-sectional data — different cities at one point in time, different neighborhoods, different countries. We compared green space and temperature, income and pollution, happiness and GDP. In each case, the observations were independent: one city's temperature tells us nothing about another city's temperature.
+We've built models with numerical predictors (4.1) and categorical predictors (4.2). Every model gave us coefficients, standard errors, and p-values. Every model told us whether a relationship was "significant." But should we believe those numbers?
 
-But many of the most important questions in economics involve data that unfolds over time. How has GDP changed over the last 50 years? Is unemployment rising or falling? Do changes in one variable predict changes in another? When we put time on the x-axis, something fundamental changes.
-
-*[Stage direction: show a time series plot — GDP (or a simulated autocorrelated series) plotted as connected dots over ~100 time periods. The series trends upward with visible momentum: when it's going up, it tends to keep going up; when it dips, it stays low for a while. The visual impression is smooth persistence, not random scatter.]*
-
-Notice how different this looks from a scatter plot. The points aren't randomly scattered — they're connected, and they have momentum. If the value is high today, it'll probably be high tomorrow. If it dipped last period, it's likely still low this period. This persistence has a name.
+The honest answer: it depends. The p-values and confidence intervals our models produce are only valid if certain assumptions are met. When those assumptions are violated, the model still runs — it still gives you numbers — but those numbers can be misleading. We need a way to check.
 
 ---
 
-### Autocorrelation
-
-**Autocorrelation** means observations are correlated with their own past values. If it's hot today, it'll probably be hot tomorrow. If GDP grew last quarter, it'll probably grow this quarter. Each observation "remembers" what came before.
-
-We can visualize autocorrelation directly with a **lag plot**: plot today's value ($Y_t$) against yesterday's value ($Y_{t-1}$).
-
-*[Stage direction: lag plot — scatter of $Y_t$ (y-axis) against $Y_{t-1}$ (x-axis) for the time series from the previous figure. The points form a tight positive relationship along the diagonal (identity line drawn in grey dashed). A text box shows "Correlation: 0.89" or similar. The positive relationship is visually striking — high past values predict high current values.]*
-
-The strong positive relationship tells us today's value is tightly linked to yesterday's. This is the essence of autocorrelation.
-
----
-
-### Why This Matters
-
-Our regression framework assumes errors are independent. The standard error formula, the t-distribution, the p-values — all rely on the assumption that one observation's error is unrelated to the next.
-
-When errors are autocorrelated, the standard errors are wrong. Specifically, they're too small. We think we're more precise than we actually are. Confidence intervals are too narrow. P-values are too small. We "find" significant relationships that aren't really there.
-
-This isn't a minor technicality. Autocorrelation can make a completely random time series look like it has a significant trend. It's one of the most common ways statistical analysis goes wrong in practice.
-
----
-
-### Model 1 — Levels
-
-The naive approach: take the raw time series and fit a regression line.
-
-$$Y = \beta_0 + \beta_1 \cdot t + \epsilon$$
-
-*[Stage direction: time series plot with a red regression line through it. Green dashed segments show the errors from each data point to the line. The key visual feature: the errors show "runs." For a stretch of time, the series is above the line (positive errors), then for a stretch it's below (negative errors), then above again. The errors are not random — they cluster.]*
-
-Look at the errors. They're not randomly scattered around zero. When the model over-predicts, it over-predicts for several consecutive periods. When it under-predicts, it under-predicts for several consecutive periods. This is the signature of autocorrelation in the residuals.
-
----
-
-### Diagnosing Autocorrelation
-
-We can see autocorrelation in two diagnostic plots:
+### Two Models, One Misleading
 
 *[Stage direction: 2-panel figure.*
-- *Left panel: "Residual Plot" — residuals (y-axis) plotted against time (x-axis). The residuals show clear runs: positive for a stretch, then negative, then positive again. A horizontal dashed line at zero. The pattern is visually obvious — this is not random noise.*
-- *Right panel: "Residual Lag Plot" — current residual $\epsilon_t$ (y-axis) against lagged residual $\epsilon_{t-1}$ (x-axis). A strong positive relationship is visible. A red regression line through the points slopes upward. Text: "Autocorrelation = 0.65" (or similar). Dashed reference lines at zero on both axes.]*
+- *Left panel: scatter plot of data where a linear model fits well. Blue data points with a red regression line through them. The points scatter randomly around the line with roughly constant spread. Title: "Model 1."*
+- *Right panel: scatter plot of data with a curved relationship (exponential or quadratic). A red linear regression line is forced through the data. The line clearly misses the curvature — it under-predicts at the ends and over-predicts in the middle. Title: "Model 2."]*
 
-The left panel shows the runs in the residuals over time. The right panel shows the autocorrelation directly: if the residual was positive last period, it tends to be positive this period too. This is the smoking gun — our independence assumption is violated.
+Both models produce coefficients, standard errors, and p-values. Both give you a $\beta_1$ and a confidence interval. But Model 2 is wrong — it's fitting a straight line to curved data. Its predictions are systematically off. Its p-values don't mean what they claim.
 
----
-
-### Model 2 — First Differences
-
-Instead of modeling the level of $Y$, model the *change* in $Y$:
-
-$$\Delta Y_t = Y_t - Y_{t-1}$$
-
-First differences ask: how much did $Y$ change from one period to the next?
-
-*[Stage direction: 2-panel figure stacked vertically.*
-- *Top panel: the original time series — trending upward, autocorrelated, persistent. Title: "Original (Levels)."*
-- *Bottom panel: the first differences of the same series — fluctuating around a constant with no visible trend or persistence. Much more random-looking. A red horizontal line at the mean of the differences (slightly positive if the original series was trending up, at zero if not). Title: "First Differences."]*
-
-The transformation is dramatic. The original series trends upward with persistent momentum. The first differences fluctuate around a constant — they look much more like random noise. Most of the autocorrelation has been removed.
+How would you tell which model to trust just by looking at the data? You might see the curvature in the right panel. But with more variables and messier data, it's not always obvious. We need a systematic tool.
 
 ---
 
-### Interpreting First Differences
+### Residuals and Predicted Values
 
-What do first differences tell us?
+Every model produces two quantities that are the raw material for diagnostics:
 
-If the original series has no trend, the first differences fluctuate around zero — sometimes positive (went up), sometimes negative (went down), averaging to nothing.
+1. **Predicted values** ($\hat{y}_i$): the model's best guess for each observation — the point on the line.
+2. **Residuals** ($\hat{\epsilon}_i = y_i - \hat{y}_i$): the gap between what we observe and what the model predicts — the vertical distance from the point to the line.
 
-If the original series has a positive trend, the first differences are mostly positive — the series keeps going up. The intercept $\beta_0$ of a regression on the first differences captures this average rate of change. A positive $\beta_0$ means $Y$ is trending upward.
+*[Stage direction: scatter plot with a regression line. Data points in blue, line in red. For a few representative points, draw green dashed segments from the data point vertically to the line. Label one segment: "$y_i$" at the data point, "$\hat{y}_i$" where the segment meets the line, and "$\epsilon_i$" as the length of the segment. Fade the data and line slightly, and highlight the green segments to emphasize that residuals are what we're analyzing.]*
 
-*[Stage direction: first differences plotted over time with a red horizontal regression line at the positive intercept. The differences scatter around this line. The slope of the regression ($\beta_1$ on time) is essentially zero — the rate of change isn't changing. Title: "First Differences: $\beta_0 > 0$ (positive trend), $\beta_1 \approx 0$ (constant rate)."]*
-
----
-
-### Model 3 — Double First Differences
-
-When we have two time series and want to know whether they're related, we difference both:
-
-$$\Delta Y_t = \beta_0 + \beta_1 \cdot \Delta X_t + \epsilon_t$$
-
-Now we're asking: do changes in $X$ relate to changes in $Y$? When $X$ increases, does $Y$ tend to increase too?
-
-*[Stage direction: scatter plot of $\Delta X$ (x-axis) vs $\Delta Y$ (y-axis). Each point represents one time period's changes. A red regression line through the scatter. Dashed reference lines at zero on both axes. The relationship should be visible but noisy. Title: "$\Delta Y$ vs $\Delta X$."]*
-
-This specification has several advantages:
-- It further reduces autocorrelation in the error terms
-- $\beta_0$ captures $Y$'s time trend (how $Y$ changes even when $X$ doesn't)
-- $\beta_1$ captures the short-term relationship between changes in $X$ and changes in $Y$
-- The interpretation is clean: "a one-unit increase in $\Delta X$ is associated with a $\beta_1$-unit increase in $\Delta Y$"
+If the model is good, the residuals should be random noise — no pattern, no structure. If the residuals have a pattern, the model is missing something.
 
 ---
 
-### Checking the Fix
+### The Residual Plot
 
-Do first differences actually solve the autocorrelation problem? We can check with the same diagnostic plots:
+The single most important diagnostic: plot the residuals (y-axis) against the predicted values (x-axis).
 
-*[Stage direction: 2-panel figure (same layout as the levels diagnostic).*
-- *Left panel: "Residual Plot" — residuals from the differenced regression plotted against time. The pattern is much more random now — no visible runs. Close to random scatter around zero.*
-- *Right panel: "Residual Lag Plot" — current residual vs lagged residual. The relationship is much weaker. Text: "Autocorrelation = 0.15" (much smaller than before). The points form a cloud with little structure.]*
+*[Stage direction: 2-panel figure.*
+- *Left panel: residual plot from a well-specified model. Residuals scatter randomly around zero with roughly constant spread. No visible pattern. A horizontal red line at zero. Title: "Good: Random Scatter."*
+- *Right panel: residual plot from a mis-specified model (linear fit to curved data). Residuals show a clear U-shape — negative at low predicted values, positive in the middle, negative at high predicted values. A horizontal red line at zero. Title: "Bad: U-Shaped Pattern."]*
 
-The autocorrelation is much reduced. The residuals look more like random noise. Our standard errors and p-values are more trustworthy.
+If the residual plot looks like random noise — points scattered evenly around zero — the model is well-specified. If there's a pattern — a curve, a fan, clusters — something is wrong.
 
----
-
-### Model 4 — Growth Rates
-
-For variables with exponential growth — GDP, prices, population — first differences have a problem: the absolute changes grow over time. GDP might grow by $100 billion in 1960 and by $500 billion in 2020, even if the growth rate is the same.
-
-Growth rates normalize by dividing the change by the previous level:
-
-$$g_Y = \frac{Y_t - Y_{t-1}}{Y_{t-1}} = \frac{\Delta Y_t}{Y_{t-1}}$$
-
-*[Stage direction: 3-panel figure stacked vertically.*
-- *Top panel: an exponential time series (GDP-like). Title: "Original Series (Exponential Growth)."*
-- *Middle panel: first differences of the same series — the changes themselves grow over time, creating a fan shape. Title: "First Differences (Growing Over Time)."*
-- *Bottom panel: growth rates (percentage changes) — stationary, fluctuating around a constant growth rate. A black dashed horizontal line at the true growth rate (e.g., 5%). Title: "Growth Rates (Stationary Around Growth Rate)."]*
-
-The growth rate model:
-
-$$g_Y = \beta_0 + \beta_1 \cdot g_X + \epsilon$$
-
-Now $\beta_0$ is $Y$'s baseline growth rate, and $\beta_1$ is how $Y$'s growth responds to a one-percentage-point increase in $X$'s growth. This is the standard specification for macroeconomic analysis.
-
-*[Stage direction: scatter plot of $X$ growth rate (x-axis) vs $Y$ growth rate (y-axis). Red regression line. Dashed reference lines at zero on both axes. Title: "Growth Rate Model: $g_Y$ vs $g_X$."]*
+Why do we plot residuals against predicted values rather than against $x$? Because with more complicated models (multiple predictors), there's no single $x$ to plot against. The predicted value $\hat{y}$ is a single number that captures the entire model's output. This approach scales to any model complexity.
 
 ---
 
-### Choosing Between Specifications
+### The Four OLS Assumptions
 
-| Model | Equation | $\beta_1$ Interpretation | Best For |
-|-------|----------|--------------------------|----------|
-| Levels | $Y = \beta_0 + \beta_1 X + \epsilon$ | Relationship between levels | Cross-sectional data |
-| First Diff | $\Delta Y = \beta_0 + \beta_1 \Delta X + \epsilon$ | Short-term relationship between changes | Trending time series |
-| Growth Rates | $g_Y = \beta_0 + \beta_1 g_X + \epsilon$ | Response of $Y$'s growth to $X$'s growth | Exponentially growing series |
+For our hypothesis tests to be valid, four things need to be true about the errors:
 
-The right choice depends on the data. For cross-sectional data (cities, countries), levels are fine. For trending time series, use first differences. For exponentially growing series, use growth rates. Always check the residuals.
+1. **Linearity**: The relationship between $X$ and $Y$ is linear
+2. **Homoskedasticity**: The spread of errors is constant across all values of $X$
+3. **Normality**: The errors are normally distributed
+4. **Independence**: The errors are independent from each other
+
+These aren't just technicalities. Each violation affects our results in a specific way. Let's check each one.
+
+---
+
+### Assumption 1 — Linearity
+
+A linear model assumes the relationship between $x$ and $y$ is a straight line. If the true relationship is curved, the linear model will be systematically wrong — over-predicting in some regions and under-predicting in others.
+
+**Example**: age and income. Income tends to rise with age through mid-career, then flatten or decline near retirement. The relationship is an inverted U, not a straight line.
+
+*[Stage direction: 2-panel figure.*
+- *Left panel: scatter plot of age (x-axis) vs income (y-axis) with 150 data points. A red linear regression line is overlaid. A green dashed curve shows the true quadratic relationship. The linear line misses the curvature. Title: "Linear Regression: Age vs Income."*
+- *Right panel: residual plot (residuals vs fitted values) from the linear model. Clear U-shaped pattern — negative residuals at low and high fitted values, positive in the middle. A red LOWESS smooth line confirms the curve. An annotation arrow points to the U-shape: "Clear U-shaped pattern in residuals." Title: "Residuals vs Fitted Values (Linear Model)."]*
+
+The residual plot reveals the problem. The U-shape tells us: the model under-predicts for young and old workers and over-predicts for middle-aged workers. The relationship is not linear.
+
+**Handling non-linearity**: Transform the variables. Common fixes:
+- Add a squared term: $income = \beta_0 + \beta_1 \cdot age + \beta_2 \cdot age^2 + \epsilon$
+- Take logs: $\log(income) = \beta_0 + \beta_1 \cdot age + \epsilon$
+
+The goal is to make the residual plot look like random noise. If the pattern disappears after the transformation, you've fixed the problem.
+
+---
+
+### Assumption 2 — Homoskedasticity
+
+"Homoskedasticity" means "same spread." The errors should have roughly equal variance across the range of predicted values. The opposite — **heteroskedasticity** ("different spread") — means the model is more wrong in some regions than others.
+
+**Example**: education and wages. A high school graduate might earn $30,000-$50,000, a range of $20,000. A PhD might earn $50,000-$200,000, a range of $150,000. More education → more variability in wages.
+
+*[Stage direction: 2-panel figure.*
+- *Left panel: scatter plot of education (x-axis) vs wages (y-axis). Red regression line overlaid. The spread of points clearly increases with education — tight clustering at low education, wide fan at high education. Grey shaded regions at three education levels show the increasing spread. Annotations: "High school (less spread)" near x=12, "Bachelor's (medium spread)" near x=16, "PhD (more spread)" near x=20. Title: "Education vs Wages: Increasing Spread."*
+- *Right panel: residual plot. Clear fan or funnel shape — residuals are tightly clustered at low fitted values and widely spread at high fitted values. Grey dashed envelope lines and shaded region emphasize the expanding spread. Annotations: "Smaller errors" at left, "Larger errors" at right with double-headed arrows showing the spread. Title: "Residuals vs Fitted Values: Heteroskedasticity."]*
+
+Which of these residual plots shows homoskedasticity?
+
+*[Stage direction: 2-panel figure.*
+- *Left panel: residual plot with constant spread — points scatter evenly around zero at all fitted values. Title: (unlabeled).*
+- *Right panel: residual plot with fan-shaped spread — tight at left, wide at right. Title: (unlabeled).]*
+
+The left panel shows constant variability (homoskedasticity). The right panel shows increasing variability (heteroskedasticity). The residual plot should show that the model is equally wrong everywhere.
+
+**Why it matters**: The coefficient estimates ($\beta_0$, $\beta_1$) are still unbiased — they're still centered on the truth. But the standard errors are wrong. With heteroskedasticity, the usual standard errors are typically too small, making us overconfident. P-values are unreliable.
+
+**Handling heteroskedasticity**: The fix is **robust standard errors**. These adjust for the changing spread without changing the coefficient estimates. The $\beta$'s stay the same; only the standard errors (and therefore the p-values) change.
+
+Conceptually, robust standard errors let the "ruler" we use to measure uncertainty stretch or shrink depending on the local spread of the data. In practice, this is a one-line change when fitting the model: specify `cov_type='HC3'`.
+
+---
+
+### Assumption 3 — Normality
+
+The errors should be approximately normally distributed — the histogram of residuals should look roughly bell-shaped.
+
+*[Stage direction: 2-panel figure.*
+- *Left panel: histogram of residuals that looks roughly normal — symmetric, bell-shaped, centered at zero. A KDE (kernel density estimate) curve overlaid. Title: "Roughly Normal."*
+- *Right panel: histogram of residuals that is clearly skewed — long right tail, not symmetric. A KDE curve shows the asymmetry. Title: "Not Normal."]*
+
+This assumption matters most with small samples. With small $n$, our t-tests and confidence intervals rely on the errors being close to normal. With large samples, the CLT saves us — the sampling distribution of the coefficients approaches normal regardless of the error distribution, just like the sampling distribution of the mean approaches normal regardless of the population shape (3.2).
+
+In practice, normality is the least critical assumption. Check it, but don't panic about minor departures — especially with reasonable sample sizes.
+
+---
+
+### Assumption 4 — Independence
+
+Observations should be independent from each other. One observation's error should tell us nothing about another observation's error.
+
+This is where timeseries data runs into trouble. In cross-sectional data (different cities, different people), independence is usually reasonable — one city's temperature doesn't affect another's. But in time series, today's error is correlated with yesterday's.
+
+*[Stage direction: 2-panel figure comparing residual lag plots.*
+- *Left panel: "Levels Model" — residual lag plot from a time series regression in levels. Current residual (y-axis) vs lagged residual (x-axis). Strong positive relationship. Red regression line slopes clearly upward. Text: "Autocorrelation = 0.65." Title: "Residual Lag Plot: Levels Model."*
+- *Right panel: "Differenced Model" — residual lag plot from the first-differences specification. The relationship is much weaker — points form a diffuse cloud. Text: "Autocorrelation = 0.12." Title: "Residual Lag Plot: Differenced Model."]*
+
+The left panel is the signature of autocorrelation: if the residual was positive last period, it tends to be positive this period too. The right panel shows the fix — differencing removes most of the autocorrelation.
+
+**Handling non-independence**: Use differencing techniques — first differences or growth rates. These transform the data so that the residuals are approximately independent. Always check the residual lag plot after differencing to confirm the fix worked.
+
+---
+
+### The Diagnostic Workflow
+
+For every model you build — whether it has categorical, numerical, or time-based predictors — follow the same diagnostic steps:
+
+1. **Fit the model** and extract residuals and predicted values
+2. **Make a residual plot** (residuals vs predicted values)
+3. **Check for linearity**: is there a curved pattern?
+4. **Check for homoskedasticity**: does the spread change?
+5. **Check for normality**: are the residuals roughly bell-shaped?
+6. **Check for independence**: (for time series) does the residual lag plot show autocorrelation?
+
+If a problem appears, apply the appropriate fix:
+- Non-linearity → transform variables ($x^2$, $\log x$, $\log y$)
+- Heteroskedasticity → use robust standard errors
+- Non-normality → less concerning with large samples; consider transformations if severe
+- Autocorrelation → difference the data
+
+Students have been doing "Step 4: Check the residuals" in every exercise throughout Part 4. Now they understand the full theory behind that step — what they're checking for, why it matters, and what to do when problems appear.
 
 ---
 
 ### Exercise Preview
 
-*Exercise 4.3: GDP and Unemployment.* Students work with quarterly macroeconomic data. They fit the levels model ($GDP \sim Unemployment$), the first differences model ($\Delta GDP \sim \Delta Unemployment$), and the growth rate model ($g_{GDP} \sim g_{Unemployment}$). For each specification, they check the residual lag plot for autocorrelation and compare the coefficients and p-values. The levels model will show significant autocorrelation in the residuals; the differenced and growth rate models will be much cleaner.
+*Exercise 4.3: Full Diagnostic Checks.* Students revisit models from earlier exercises — the happiness/GDP model (4.1) and the environmental justice model (4.2). For each, they produce the full set of diagnostics: residual plots, residual histograms, and residual lag plots. They identify which assumptions are met and which are violated, and apply the appropriate fixes (robust standard errors, variable transformations, differencing).
 
 ---
 
-### Looking Ahead
+### Looking Ahead — Part 5
 
-We've now built models with categorical predictors (4.1), numerical predictors (4.2), and time-based predictors (4.3). Each model gave us coefficients, standard errors, and p-values. But how do we know if we should trust those results? In 4.4, we learn the full theory of model diagnostics — the four assumptions behind OLS, how to check each one, and what to do when they fail. Students have been doing "Step 4: Check the residuals" in every exercise. Now they'll understand the full framework behind it.
+We've built and validated bivariate models — models with one predictor and one outcome. In Part 5, we extend to the full multivariate framework. We'll add numerical controls (5.1), categorical controls (5.2), interaction effects (5.3), and model selection (5.4). The diagnostic tools from this section apply to every model we'll build going forward. The residual plot remains the essential check, no matter how many predictors we add.
+
+All of this is built on the same OLS foundation from Parts 3 and 4: minimize MSE, estimate coefficients, test them with t-distributions, and check assumptions with residual diagnostics.
