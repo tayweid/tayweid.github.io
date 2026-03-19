@@ -16,7 +16,7 @@ format:
 ---
 
 ## GLM: The story so far
-<p class="subheader">We've built two models — and now we need a third.</p>
+<p class="subheader">We've built two models. Now we need a third.</p>
 
 ```{python}
 #| echo: false
@@ -92,7 +92,11 @@ sns.despine(ax=ax3, left=False, bottom=False, right=True, top=True, trim=True)
 plt.tight_layout()
 ```
 
+***Q.** Do neighborhoods with greenspace have lower temperatures?*
+
 . . .
+
+<br><br>
 
 *We need a new approach, but we already have the tools.*
 
@@ -133,10 +137,6 @@ data = pd.DataFrame({
 
 # Plot the data
 plt.figure(figsize=(11, 4))
-sns.boxplot(x='high_green', y='temperature', data=data,
-            color='white',  # Use white for the boxes
-            width=0.2,
-            zorder=-1)
 plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
 
 plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
@@ -148,21 +148,69 @@ sns.despine(trim=True)
 plt.tight_layout()
 ```
 
+*What is the variable type of **High Greenspace**?*
+
 . . .
 
-*Q. Does temperature change as we move out on the horizontal axis?*
+***Q.** Does temperature change as we increase by one on the horizontal axis?*
 
 . . .
 
 $$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
 
+---
+
+## GLM: City Greenspace and Temperature
+<p class="subheader">Q. Is temperature lower in neighborhoods with more green space?</p>
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Update Matplotlib parameters
+plt.rcParams.update({
+    'font.family': 'serif',
+    'font.serif': ['Times New Roman'],
+    'font.style': 'italic',
+})
+
+# Set seed for reproducibility
+np.random.seed(42)
+
+# Create 50 data points for each group
+n = 50
+low_green = 22 + np.random.normal(0, 1.5, n)  # Higher temperatures
+high_green = 19 + np.random.normal(0, 1.5, n)  # Lower temperatures
+jitter = np.random.uniform(-0.1,0.1,2*n)
+
+# Combine into a dataframe
+data = pd.DataFrame({
+    'temperature': np.concatenate([low_green, high_green]),
+    'high_green': np.concatenate([np.zeros(n), np.ones(n)])
+})
+
+# Plot the data
+plt.figure(figsize=(11, 4))
+plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
+
+plt.xticks([0, 1], ['0\n(No)', '1\n(Yes)'])
+plt.ylabel('Temperature (°C)', fontsize=14)
+plt.xlabel('High Greenspace', fontsize=14)
+
+plt.xlim(-0.5,1.5)
+sns.despine(trim=True)
+plt.tight_layout()
+```
+
+1. The GLM framework doesn't care whether $x$ is continuous or binary. We code the group as 0 and 1, and fit the same model.
+
 . . .
 
-*> The regression framework doesn't care whether $x$ is continuous or binary. Code the group as 0 and 1, and fit the same model.*
-
-. . .
-
-*> the GLM performs a t-test on $\beta_1$, whether the difference is significant*
+2. Like with numerical predictors, the GLM tests whether $\beta_1$ is different from zero.
 
 ---
 
@@ -201,10 +249,6 @@ data = pd.DataFrame({
 
 # Plot the data
 plt.figure(figsize=(11, 4))
-sns.boxplot(x='high_green', y='temperature', data=data,
-            color='white',  # Use white for the boxes
-            width=0.2,
-            zorder=-1)
 plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
 
 # Calculate and display the means
@@ -272,10 +316,6 @@ data = pd.DataFrame({
 
 # Plot the data
 plt.figure(figsize=(11, 4))
-sns.boxplot(x='high_green', y='temperature', data=data,
-            color='white',  # Use white for the boxes
-            width=0.2,
-            zorder=-1)
 plt.scatter(data['high_green']+jitter, data['temperature'], alpha=0.4, color='darkblue')
 
 # Calculate and display the means
@@ -297,8 +337,6 @@ plt.tight_layout()
 ```
 
 $$Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon$$
-
-. . .
 
 How would we interpret $\beta_1$ here?
 
@@ -812,29 +850,23 @@ plt.tight_layout()
 ---
 
 ## This is a two-sample t-test
-<p class="subheader">Same test, different language.</p>
+<p class="subheader">This is a simpler view of a t-test.</p>
 
 <br>
 
-The math we just did — estimating the difference between group means, building its sampling distribution, testing whether it's zero — is exactly a **two-sample t-test**.
+1. Estimating differences between group means is exactly a **two-sample t-test**.
 
 . . .
 
-<br>
+2. GLM is a general framework that can handle in one modeling approach:
 
-- Same test statistic
-- Same p-value
-- Same conclusion
-
-. . .
-
-<br>
-
-*> Regression is more general — it can handle continuous predictors, multiple groups, and control variables all at once.*
+- Numerical predictors
+- Categorical predictors
+- Control variables (later)
 
 . . .
 
-*> The two-sample t-test is a special case of the GLM.*
+3. The two-sample t-test is a special case of the GLM.
 
 ---
 
@@ -986,7 +1018,7 @@ print(model.summary().tables[1])
 ## Exercise: Income and Mental Health
 <p class="subheader">Do individuals earning under $35,000 report more poor mental health days?</p>
 
-**Step 4: Check the residuals**
+**Step 4: Check the residuals (next time)**
 
 ```python
 sns.scatterplot(x=model.predict(), y=model.resid, alpha=0.5)
@@ -1065,36 +1097,7 @@ plt.tight_layout()
 
 ---
 
-## GLM: Summary *(so far)*
-<p class="subheader">GLM's unified framework for testing statistical models</p>
-
-. . .
-
-**Intercept-Only Model**: Continuous outcome variable ($y$) with only an intercept
-
-$$y = \beta_0 + \varepsilon$$
-
-. . .
-
-**Numerical Predictor**: Continuous outcome variable ($y$) with a continuous predictor ($x$)
-
-$$y = \beta_0 + \beta_1 x + \varepsilon$$
-
-. . .
-
-**Binary Predictor**: Continuous outcome variable ($y$) with a dummy ($Group$)
-
-$$y = \beta_0 + \beta_1 \cdot Group + \varepsilon$$
-
-. . .
-
-<br>
-
-*> all use the same OLS framework and interpretation of coefficients and p-values*
-
----
-
-## The General Linear Model
+## The General Linear Model *(so far)*
 <p class="subheader">Extending the GLM framework</p>
 
 - Part 3 | Intercept-Only Model | $y = \beta_0 + \epsilon$

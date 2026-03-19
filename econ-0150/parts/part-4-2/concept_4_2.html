@@ -203,9 +203,9 @@ The economist’s data analysis workflow.
 <section id="glm-the-story-so-far" class="slide level2">
 <h2>GLM: The story so far</h2>
 <p class="subheader">
-We’ve built two models — and now we need a third.
+We’ve built two models. Now we need a third.
 </p>
-<div id="c2a4e03c" class="cell" data-execution_count="1">
+<div id="0595901f" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -214,7 +214,9 @@ We’ve built two models — and now we need a third.
 </div>
 </div>
 </div>
+<p><em><strong>Q.</strong> Do neighborhoods with greenspace have lower temperatures?</em></p>
 <div class="fragment">
+<p><br><br></p>
 <p><em>We need a new approach, but we already have the tools.</em></p>
 </div>
 </section>
@@ -223,7 +225,7 @@ We’ve built two models — and now we need a third.
 <p class="subheader">
 Q. Is temperature lower in neighborhoods with more green space?
 </p>
-<div id="85f09102" class="cell" data-execution_count="2">
+<div id="5520e10c" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -232,29 +234,47 @@ Q. Is temperature lower in neighborhoods with more green space?
 </div>
 </div>
 </div>
+<p><em>What is the variable type of <strong>High Greenspace</strong>?</em></p>
 <div class="fragment">
-<p><em>Q. Does temperature change as we move out on the horizontal axis?</em></p>
+<p><em><strong>Q.</strong> Does temperature change as we increase by one on the horizontal axis?</em></p>
 </div>
 <div class="fragment">
 <p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><em>&gt; The regression framework doesn’t care whether <span class="math inline">\(x\)</span> is continuous or binary. Code the group as 0 and 1, and fit the same model.</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; the GLM performs a t-test on <span class="math inline">\(\beta_1\)</span>, whether the difference is significant</em></p>
 </div>
 </section>
 <section id="glm-city-greenspace-and-temperature-1" class="slide level2">
 <h2>GLM: City Greenspace and Temperature</h2>
 <p class="subheader">
-Q. Does temperature change as we move out on the horizontal axis?
+Q. Is temperature lower in neighborhoods with more green space?
 </p>
-<div id="1993f05b" class="cell" data-execution_count="3">
+<div id="f135cace" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="concept_4_2_files/figure-revealjs/cell-4-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li>The GLM framework doesn’t care whether <span class="math inline">\(x\)</span> is continuous or binary. We code the group as 0 and 1, and fit the same model.</li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Like with numerical predictors, the GLM tests whether <span class="math inline">\(\beta_1\)</span> is different from zero.</li>
+</ol>
+</div>
+</section>
+<section id="glm-city-greenspace-and-temperature-2" class="slide level2">
+<h2>GLM: City Greenspace and Temperature</h2>
+<p class="subheader">
+Q. Does temperature change as we move out on the horizontal axis?
+</p>
+<div id="a01321c5" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
@@ -267,24 +287,22 @@ Q. Does temperature change as we move out on the horizontal axis?
 <p><em>&gt; <span class="math inline">\(\beta_0\)</span> is the mean temperature in (<span class="math inline">\(x=0\)</span>) low green space cities (22.03°C)</em></p>
 </div>
 </section>
-<section id="glm-city-greenspace-and-temperature-2" class="slide level2">
+<section id="glm-city-greenspace-and-temperature-3" class="slide level2">
 <h2>GLM: City Greenspace and Temperature</h2>
 <p class="subheader">
 Q. Does temperature change as we move out on the horizontal axis?
 </p>
-<div id="acacc192" class="cell" data-execution_count="4">
+<div id="ef52ac9d" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-5-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><span class="math display">\[Temperature = \beta_0 + \beta_1 \cdot HighGreen + \varepsilon\]</span></p>
-<div class="fragment">
 <p>How would we interpret <span class="math inline">\(\beta_1\)</span> here?</p>
-</div>
 <div class="fragment">
 <p><em>&gt; Cities with Green Space (x=1) have a temperature that is lower by <span class="math inline">\(\beta_1\)</span></em></p>
 </div>
@@ -297,11 +315,11 @@ Q. Does temperature change as we move out on the horizontal axis?
 <p class="subheader">
 Like before, if we take many samples, we get slightly different slopes and slightly different fits.
 </p>
-<div id="e3f7944c" class="cell" data-execution_count="5">
+<div id="ca87224d" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-6-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="565"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="1046" height="565"></p>
 </figure>
 </div>
 </div>
@@ -312,11 +330,11 @@ Like before, if we take many samples, we get slightly different slopes and sligh
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population difference.
 </p>
-<div id="85822c1a" class="cell" data-execution_count="6">
+<div id="529bf519" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-7-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
@@ -333,11 +351,11 @@ The slope coefficient follows a normal distribution centered on the population d
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population difference.
 </p>
-<div id="a9352287" class="cell" data-execution_count="7">
+<div id="c7ed7bde" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-8-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
@@ -349,11 +367,11 @@ The slope coefficient follows a normal distribution centered on the population d
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population difference.
 </p>
-<div id="ca83d559" class="cell" data-execution_count="8">
+<div id="5c736470" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-9-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
@@ -366,11 +384,11 @@ The slope coefficient follows a normal distribution centered on the population d
 <p class="subheader">
 The slope coefficient follows a normal distribution centered on the population difference.
 </p>
-<div id="08370048" class="cell" data-execution_count="9">
+<div id="ed9d9b16" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-10-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="950" height="372"></p>
 </figure>
 </div>
 </div>
@@ -390,11 +408,11 @@ The slope coefficient follows a normal distribution centered on the population d
 <p class="subheader">
 Many possible slopes we might observe by chance if the null (<span class="math inline">\(\beta_1 = 0\)</span>) were true.
 </p>
-<div id="e68e041b" class="cell" data-execution_count="10">
+<div id="5a8d62fa" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-11-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-12-output-1.png" class="quarto-figure quarto-figure-center" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
@@ -409,24 +427,26 @@ Many possible slopes we might observe by chance if the null (<span class="math i
 <section id="this-is-a-two-sample-t-test" class="slide level2">
 <h2>This is a two-sample t-test</h2>
 <p class="subheader">
-Same test, different language.
+This is a simpler view of a t-test.
 </p>
 <p><br></p>
-<p>The math we just did — estimating the difference between group means, building its sampling distribution, testing whether it’s zero — is exactly a <strong>two-sample t-test</strong>.</p>
+<ol type="1">
+<li>Estimating differences between group means is exactly a <strong>two-sample t-test</strong>.</li>
+</ol>
 <div class="fragment">
-<p><br></p>
+<ol start="2" type="1">
+<li>GLM is a general framework that can handle in one modeling approach:</li>
+</ol>
 <ul>
-<li>Same test statistic</li>
-<li>Same p-value</li>
-<li>Same conclusion</li>
+<li>Numerical predictors</li>
+<li>Categorical predictors</li>
+<li>Control variables (later)</li>
 </ul>
 </div>
 <div class="fragment">
-<p><br></p>
-<p><em>&gt; Regression is more general — it can handle continuous predictors, multiple groups, and control variables all at once.</em></p>
-</div>
-<div class="fragment">
-<p><em>&gt; The two-sample t-test is a special case of the GLM.</em></p>
+<ol start="3" type="1">
+<li>The two-sample t-test is a special case of the GLM.</li>
+</ol>
 </div>
 </section>
 <section id="exercise-income-and-mental-health" class="slide level2">
@@ -446,11 +466,11 @@ Do individuals earning under $35,000 report more poor mental health days?
 <span id="cb1-7"><a href=""></a>plt.xticks([<span class="dv">0</span>,<span class="dv">1</span>], labels<span class="op">=</span>[<span class="st">'Above $35k'</span>, <span class="st">'Below $35k'</span>]  <span class="co"># INCOME2 &lt;= 5)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
-<div id="ac464ce6" class="cell" data-execution_count="11">
+<div id="61ebf068" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-12-output-1.png" width="1047" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-13-output-1.png" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
@@ -474,11 +494,11 @@ Do individuals earning under $35,000 report more poor mental health days?
 </p>
 <p><strong>Step 3: Estimate the model</strong></p>
 <div class="fragment">
-<div id="a13fc9a9" class="cell" data-execution_count="12">
+<div id="6c6efc75" class="cell" data-execution_count="13">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-13-output-1.png" width="1047" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-14-output-1.png" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
@@ -501,7 +521,7 @@ Do individuals earning under $35,000 report more poor mental health days?
 <p class="subheader">
 Do individuals earning under $35,000 report more poor mental health days?
 </p>
-<p><strong>Step 4: Check the residuals</strong></p>
+<p><strong>Step 4: Check the residuals (next time)</strong></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>sns.scatterplot(x<span class="op">=</span>model.predict(), y<span class="op">=</span>model.resid, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb3-2"><a href=""></a>plt.axhline(y<span class="op">=</span><span class="dv">0</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
 <span id="cb3-3"><a href=""></a>plt.xlabel(<span class="st">'Fitted Values'</span>)</span>
@@ -516,11 +536,11 @@ Do individuals earning under $35,000 report more poor mental health days?
 Do individuals earning under $35,000 report more poor mental health days?
 </p>
 <p><strong>Step 5: Interpret and communicate the findings</strong></p>
-<div id="f278774b" class="cell" data-execution_count="13">
+<div id="332102da" class="cell" data-execution_count="14">
 <div class="cell-output cell-output-display">
 <div>
 <figure>
-<p><img data-src="concept_4_2_files/figure-revealjs/cell-14-output-1.png" width="1047" height="375"></p>
+<p><img data-src="concept_4_2_files/figure-revealjs/cell-15-output-1.png" width="1047" height="375"></p>
 </figure>
 </div>
 </div>
@@ -532,30 +552,8 @@ Do individuals earning under $35,000 report more poor mental health days?
 <p><em>&gt; but does low income cause poor mental health, or are other factors at play?</em></p>
 </div>
 </section>
-<section id="glm-summary-so-far" class="slide level2">
-<h2>GLM: Summary <em>(so far)</em></h2>
-<p class="subheader">
-GLM’s unified framework for testing statistical models
-</p>
-<div class="fragment">
-<p><strong>Intercept-Only Model</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with only an intercept</p>
-<p><span class="math display">\[y = \beta_0 + \varepsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Numerical Predictor</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with a continuous predictor (<span class="math inline">\(x\)</span>)</p>
-<p><span class="math display">\[y = \beta_0 + \beta_1 x + \varepsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Binary Predictor</strong>: Continuous outcome variable (<span class="math inline">\(y\)</span>) with a dummy (<span class="math inline">\(Group\)</span>)</p>
-<p><span class="math display">\[y = \beta_0 + \beta_1 \cdot Group + \varepsilon\]</span></p>
-</div>
-<div class="fragment">
-<p><br></p>
-<p><em>&gt; all use the same OLS framework and interpretation of coefficients and p-values</em></p>
-</div>
-</section>
-<section id="the-general-linear-model" class="slide level2">
-<h2>The General Linear Model</h2>
+<section id="the-general-linear-model-so-far" class="slide level2">
+<h2>The General Linear Model <em>(so far)</em></h2>
 <p class="subheader">
 Extending the GLM framework
 </p>
