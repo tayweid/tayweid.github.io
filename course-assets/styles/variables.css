@@ -1,0 +1,28 @@
+/* =============================================================================
+   CSS VARIABLES & RESET
+   ============================================================================= */
+
+:root {
+    --main-bg-color: #212121;
+    --main-fg-color: #BBBBBB;
+    --main-md-color: #333333;
+    --main-link-color: #4C72B0;
+    --main-cool-white: #D1D1D1;
+    --main-cool-blue: #4284F2;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Computer Modern Serif", serif;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+    background: var(--main-bg-color);
+    color: var(--main-fg-color);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

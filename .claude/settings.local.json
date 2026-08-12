@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(cp:*)",
+      "Bash(rg:*)",
+      "Bash(sed -i '' 's/content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0\"/content=\"width=device-width, initial-scale=1\"/' index.html econ-0100/*.html econ-0150/*.html econ-2823/*.html)",
+      "Bash(echo \"remaining: $?\")"
+    ],
+    "deny": []
+  }
+}

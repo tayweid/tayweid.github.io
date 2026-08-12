@@ -1,0 +1,1 @@
+let d,t,a=!1;function u(){return a?d:void 0}function o(n,r){const e=d||n();return t!==void 0?t:t=(async()=>(a=!0,await e.init(r),d=e))()}function c(n,r,e,l){const i=u();if(i){e(i);return}o(n,r).then(e).catch(l)}export{o as createGlobalRenderer,u as getGlobalRenderer,c as withGlobalRenderer};

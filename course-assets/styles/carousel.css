@@ -1,0 +1,700 @@
+/* =============================================================================
+   CAROUSEL
+   ============================================================================= */
+
+/* Card Downloads - New simplified structure */
+.card-downloads {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--main-md-color);
+    flex-wrap: wrap;
+    min-height: 40px; /* Constant height for all cards */
+    align-items: center; /* Center content vertically when present */
+}
+
+.download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: var(--main-md-color);
+    border-radius: 4px;
+    color: var(--main-fg-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+}
+
+.download-link:hover {
+    background: var(--main-link-color);
+    color: white;
+    transform: none;
+}
+
+.download-link i {
+    font-size: 12px;
+}
+
+.practice-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: var(--main-md-color);
+    border-radius: 4px;
+    color: var(--main-fg-color);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.practice-link:hover {
+    background: var(--main-link-color);
+    color: white;
+    transform: none;
+}
+
+.practice-link i {
+    font-size: 12px;
+}
+
+.carousel-container {
+    margin: 0;
+    max-width: 100%;
+    overflow: visible;
+    position: relative;
+}
+
+.block-description {
+    margin: 10px 0 20px 0;
+    color: var(--main-fg-color);
+    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px);
+    line-height: 1.4;
+    text-align: left;
+}
+
+/* Carousel Indicator */
+.carousel-indicator {
+    position: absolute;
+    top: 35px;  /* Position with padding from top of cards */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;  /* Allow clicking through to cards below */
+}
+
+.indicator-track {
+    position: relative;
+    display: flex;
+    gap: 20px; /* Increased gap to accommodate exercise connectors */
+    align-items: center;
+    pointer-events: auto;  /* Re-enable pointer events for the track */
+    background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
+    border-radius: 20px; /* Oval shape */
+    padding: 4px 14px;
+    transition: background 0.3s ease;
+    overflow: visible; /* Allow connector lines to be visible */
+}
+
+.indicator-track:hover {
+    background: rgba(0, 0, 0, 0.95); /* Almost fully opaque on hover */
+}
+
+.indicator-tab {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    overflow: visible; /* Ensure pseudo-elements can extend outside */
+}
+
+/* Dot styles for different card types */
+
+.indicator-tab::before {
+    content: '';
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* Livestream cards: hidden by default, appears when active */
+.indicator-tab.livestream-indicator {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-right: -20px; /* Compensate for gap when hidden */
+    transition: all 0.3s ease;
+}
+
+.indicator-tab.livestream-indicator.revealed {
+    width: auto;
+    opacity: 1;
+    margin-right: 0;
+}
+
+/* Livestream icon for livestream indicator */
+.indicator-tab.livestream-indicator::before {
+    content: '\f03d';
+    font-family: 'FontAwesome';
+    width: auto;
+    height: auto;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.indicator-tab.livestream-indicator:hover::before {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.livestream-indicator.active::before {
+    color: rgba(66, 132, 242, 1);
+}
+
+/* Concept cards: large solid dots */
+.indicator-tab.concept-indicator::before {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+}
+
+.indicator-tab.concept-indicator:hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.concept-indicator.active::before {
+    width: 32px;
+    height: 12px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Exercise cards: hollow circles with connector */
+.indicator-tab.exercise-indicator {
+    position: relative;
+}
+
+/* Exercise connector line */
+.indicator-tab.exercise-indicator::after {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 12px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%);
+    margin-right: 4px;
+}
+
+.indicator-tab.exercise-indicator::before {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.indicator-tab.exercise-indicator:hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.exercise-indicator.active::before {
+    width: 32px;
+    height: 12px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+
+/* Homework cards: solid squares */
+.indicator-tab.homework-indicator {
+    position: relative;
+}
+
+/* Add vertical separator line before homework */
+.indicator-tab + .indicator-tab.homework-indicator::after {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 2px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%);
+    margin-right: 9px;
+}
+
+.indicator-tab.homework-indicator::before {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-sizing: border-box;
+}
+
+.indicator-tab.homework-indicator:hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.homework-indicator.active::before {
+    width: 32px;
+    height: 12px;
+    background: rgba(66, 132, 242, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* Remove SVG styles */
+.indicator-tab svg {
+    display: none;
+}
+
+/* Hide the old slider element, pill, and span text */
+.indicator-slider,
+.indicator-pill {
+    display: none;
+}
+
+.indicator-tab span {
+    display: none;
+}
+
+.carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 40px;
+    padding: 15px calc(50% - min(400px, 45vw));
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;  /* Force stop at each snap point */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    flex: 1;
+    align-items: flex-start;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.carousel-card {
+    flex: 0 0 auto;
+    width: 800px;
+    max-width: 100%;
+    border: 1px solid var(--main-md-color);  /* Thinner border */
+    border-radius: 15px;
+    padding: 0;
+    background-color: var(--main-bg-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;  /* Force stop at each card */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.carousel-card.active {
+    /* Removed blue border and box shadow */
+}
+
+.carousel-card:hover {
+    background-color: #181818;
+}
+
+/* Livestream card - hidden to the left, no indicator */
+.carousel-card.livestream-card {
+    opacity: 0.7;
+}
+
+.carousel-card.livestream-card:hover {
+    opacity: 1;
+}
+
+/* Placeholder card for missing content */
+.carousel-card.placeholder {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+}
+
+.carousel-card.placeholder:hover {
+    background-color: var(--main-bg-color);
+}
+
+.carousel-card.placeholder .card-video {
+    background: var(--main-md-color);
+    padding-bottom: 56%;
+    position: relative;
+}
+
+.carousel-card.placeholder .card-video::after {
+    content: "▶";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+/* Clean styling for all non-video cards (those with placeholder-bg images) */
+img.placeholder-bg {
+    display: none; /* Hide the broken default YouTube thumbnail */
+}
+
+.card-video:has(img.placeholder-bg) {
+    background: var(--main-md-color);
+    position: relative;
+}
+
+.card-video:has(img.placeholder-bg)::after {
+    content: "Video not yet available";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* No play button for placeholder cards */
+.carousel-card.placeholder .card-video::after {
+    display: none;
+}
+
+/* Standalone card (not in carousel) */
+.carousel-card.standalone-card {
+    margin: 20px auto;
+    cursor: default;
+}
+
+.carousel-card.standalone-card .card-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 13px 13px 0 0;
+}
+
+.card-video {
+    position: relative;
+    padding-bottom: 56%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 13px 13px 0 0;
+    background: var(--main-md-color);
+    cursor: pointer;
+}
+
+.card-video img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.card-video:hover .play-button {
+    background: rgba(0, 0, 0, 0.9);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    margin: 0 0 5px 0;
+    font-size: 20px;
+    font-size: clamp(16px, 2vw, 20px);  /* Responsive sizing with min/max */
+    color: white;
+    line-height: 1.2;
+    font-weight: 300;
+}
+
+.chapter-topic {
+    color: var(--main-fg-color);
+    font-weight: normal;
+}
+
+.card-description {
+    margin: 0;
+    font-size: 18px;
+    font-size: clamp(14px, 1.8vw, 18px);  /* Responsive sizing with min/max */
+    color: var(--main-fg-color);
+    line-height: 1.4;
+    flex-grow: 1;
+    font-style: italic;
+}
+
+.card-download {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--main-cool-blue);
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.card-download:hover {
+    color: var(--main-cool-white);
+}
+
+.card-links {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--main-fg-color);
+}
+
+.card-links a {
+    color: var(--main-cool-blue);
+    text-decoration: none;
+    margin: 0 2px;
+}
+
+.card-links a:hover {
+    color: var(--main-cool-white);
+}
+
+/* Vignette download icons in titles */
+.card-title .fa-download {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.card-title .fa-download:hover {
+    color: var(--main-cool-blue);
+}
+
+/* Text-only card style */
+.card-text-only {
+    padding: 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.card-text-only .card-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.card-text-only .card-description {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.card-text-only .card-download {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+/* Arrow buttons */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s ease, opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.carousel-arrow:hover {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-arrow-left {
+    left: calc(50% - 380px);
+}
+
+.carousel-arrow-right {
+    right: calc(50% - 380px);
+}
+
+.carousel-arrow span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+}
+
+/* Mobile styles */
+@media screen and (max-width: 1000px) {
+    .carousel-arrow {
+        display: none;
+    }
+    
+    .carousel-card {
+        flex: 0 0 auto;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .carousel-track {
+        padding: 15px 0;
+        gap: 30px;
+    }
+    
+    .card-video {
+        padding-bottom: 56%;
+    }
+    
+    .card-content {
+        padding: 15px;
+    }
+    
+    /* Removed font size reduction - keeping same size as desktop */
+    
+    /* Indicator scales automatically with font-size, no overrides needed */
+}
+
+/* True mobile styles */
+@media screen and (max-width: 650px) {
+    /* Indicator continues to scale automatically with font-size */
+}
+
+/* Part 0 mini card - positioned right side */
+.course-part-box:has(.part0-card-container) {
+    position: relative;
+    padding-right: 270px;
+    min-height: 140px;
+}
+
+.part0-card-container {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    width: 250px;
+}
+
+.part0-card {
+    height: 100%;
+}
+
+.part0-card .card-video {
+    height: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 0 13px 13px 0;
+}
+
+.part0-card .card-video img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 650px) {
+    .course-part-box:has(.part0-card-container) {
+        padding-right: 0.7em;
+        padding-top: 120px;
+    }
+
+    .part0-card-container {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: 0;
+        width: auto;
+        height: 120px;
+    }
+
+    .part0-card .card-video {
+        border-radius: 13px 13px 0 0;
+    }
+}
+
