@@ -84,209 +84,117 @@
 /* Carousel Indicator */
 .carousel-indicator {
     position: absolute;
-    top: 35px;  /* Position with padding from top of cards */
+    top: 32px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
     display: flex;
     justify-content: center;
-    pointer-events: none;  /* Allow clicking through to cards below */
+    width: calc(100% - 32px);
+    pointer-events: none;
 }
 
 .indicator-track {
-    position: relative;
     display: flex;
-    gap: 20px; /* Increased gap to accommodate exercise connectors */
+    gap: 4px;
     align-items: center;
-    pointer-events: auto;  /* Re-enable pointer events for the track */
-    background: rgba(0, 0, 0, 0.85); /* Nearly opaque background */
-    border-radius: 20px; /* Oval shape */
-    padding: 4px 14px;
-    transition: background 0.3s ease;
-    overflow: visible; /* Allow connector lines to be visible */
+    max-width: 100%;
+    padding: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    pointer-events: auto;
+    background: rgba(16, 16, 16, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.indicator-track::-webkit-scrollbar {
+    display: none;
 }
 
 .indicator-track:hover {
-    background: rgba(0, 0, 0, 0.95); /* Almost fully opaque on hover */
+    background: rgba(16, 16, 16, 0.92);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .indicator-tab {
-    position: relative;
     background: transparent;
     border: none;
-    padding: 0;
+    border-radius: 17px;
+    padding: 0 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    width: auto;
-    height: 30px;
+    min-width: 40px;
+    height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2;
-    overflow: visible; /* Ensure pseudo-elements can extend outside */
+    gap: 7px;
+    color: rgba(255, 255, 255, 0.62);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
 }
 
-/* Dot styles for different card types */
-
-.indicator-tab::before {
-    content: '';
-    display: block;
-    transition: all 0.3s ease;
+.indicator-tab:hover {
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(255, 255, 255, 0.08);
 }
 
-/* Livestream cards: hidden by default, appears when active */
+.indicator-tab:focus-visible {
+    outline: 2px solid var(--main-cool-blue);
+    outline-offset: 2px;
+}
+
+.indicator-tab.active {
+    color: white;
+    background: rgba(66, 132, 242, 0.7);
+}
+
+.indicator-icon {
+    width: 14px;
+    flex: 0 0 14px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.indicator-label {
+    display: inline;
+}
+
+/* Keep class recordings tucked to the left until the student scrolls to one. */
 .indicator-tab.livestream-indicator {
+    min-width: 0;
     width: 0;
+    padding: 0;
     opacity: 0;
     overflow: hidden;
-    margin-right: -20px; /* Compensate for gap when hidden */
-    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .indicator-tab.livestream-indicator.revealed {
     width: auto;
+    min-width: 40px;
+    padding: 0 12px;
     opacity: 1;
-    margin-right: 0;
+    pointer-events: auto;
 }
 
-/* Livestream icon for livestream indicator */
-.indicator-tab.livestream-indicator::before {
-    content: '\f03d';
-    font-family: 'FontAwesome';
-    width: auto;
-    height: auto;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1;
+/* A subtle separator keeps submissions visually distinct from learning materials. */
+.indicator-tab + .indicator-tab.homework-indicator {
+    margin-left: 4px;
+    box-shadow: -5px 0 0 -4px rgba(255, 255, 255, 0.2);
 }
 
-.indicator-tab.livestream-indicator:hover::before {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.indicator-tab.livestream-indicator.active::before {
-    color: rgba(66, 132, 242, 1);
-}
-
-/* Concept cards: large solid dots */
-.indicator-tab.concept-indicator::before {
-    width: 12px;
-    height: 12px;
-    background: transparent;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    box-sizing: border-box;
-}
-
-.indicator-tab.concept-indicator:hover::before {
-    border-color: rgba(255, 255, 255, 0.7);
-}
-
-.indicator-tab.concept-indicator.active::before {
-    width: 32px;
-    height: 12px;
-    background: rgba(66, 132, 242, 0.7);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-/* Exercise cards: hollow circles with connector */
-.indicator-tab.exercise-indicator {
-    position: relative;
-}
-
-/* Exercise connector line */
-.indicator-tab.exercise-indicator::after {
-    content: '';
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    width: 12px;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-50%);
-    margin-right: 4px;
-}
-
-.indicator-tab.exercise-indicator::before {
-    width: 12px;
-    height: 12px;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    box-sizing: border-box;
-}
-
-.indicator-tab.exercise-indicator:hover::before {
-    border-color: rgba(255, 255, 255, 0.7);
-}
-
-.indicator-tab.exercise-indicator.active::before {
-    width: 32px;
-    height: 12px;
-    background: rgba(66, 132, 242, 0.7);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-
-/* Homework cards: solid squares */
-.indicator-tab.homework-indicator {
-    position: relative;
-}
-
-/* Add vertical separator line before homework */
-.indicator-tab + .indicator-tab.homework-indicator::after {
-    content: '';
-    position: absolute;
-    right: 100%;
-    top: 50%;
-    width: 2px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-50%);
-    margin-right: 9px;
-}
-
-.indicator-tab.homework-indicator::before {
-    width: 12px;
-    height: 12px;
-    background: transparent;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    box-sizing: border-box;
-}
-
-.indicator-tab.homework-indicator:hover::before {
-    border-color: rgba(255, 255, 255, 0.7);
-}
-
-.indicator-tab.homework-indicator.active::before {
-    width: 32px;
-    height: 12px;
-    background: rgba(66, 132, 242, 0.7);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-/* Remove SVG styles */
-.indicator-tab svg {
-    display: none;
-}
-
-/* Hide the old slider element, pill, and span text */
+/* Retire legacy indicator elements if older pages include them. */
 .indicator-slider,
 .indicator-pill {
-    display: none;
-}
-
-.indicator-tab span {
     display: none;
 }
 
@@ -637,13 +545,34 @@ img.placeholder-bg {
     }
     
     /* Removed font size reduction - keeping same size as desktop */
-    
-    /* Indicator scales automatically with font-size, no overrides needed */
 }
 
 /* True mobile styles */
 @media screen and (max-width: 650px) {
-    /* Indicator continues to scale automatically with font-size */
+    .carousel-indicator {
+        top: 27px;
+        width: calc(100% - 16px);
+    }
+
+    .indicator-track {
+        gap: 2px;
+        padding: 3px;
+    }
+
+    .indicator-tab {
+        min-width: 36px;
+        height: 32px;
+        padding: 0 10px;
+    }
+
+    .indicator-tab:not(.active) .indicator-label {
+        display: none;
+    }
+
+    .indicator-tab.livestream-indicator.revealed {
+        min-width: 36px;
+        padding: 0 10px;
+    }
 }
 
 /* Part 0 mini card - positioned right side */
@@ -697,4 +626,3 @@ img.placeholder-bg {
         border-radius: 13px 13px 0 0;
     }
 }
-

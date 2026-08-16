@@ -8,31 +8,60 @@ const EconApp = {
        CAROUSEL MODULE (from carousel.js)
        ------------------------------------------------------------------------- */
     carousel: {
-        // SVG icon definitions
-        icons: {
-            lightbulb: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/>
-    </svg>`,
-            dumbbell: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-    </svg>`,
-            checkbox: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-    </svg>`
-        },
-        
-        // Helper function to get icon based on card type
-        getIconForCard(card) {
-            if (card.classList.contains('concept-card')) {
-                return this.icons.lightbulb;
-            } else if (card.classList.contains('exercise-card')) {
-                return this.icons.dumbbell;
+        getCardMeta(card) {
+            const titleElement = card.querySelector('.card-title');
+            const titleForLabel = titleElement?.cloneNode(true);
+            titleForLabel?.querySelectorAll('a').forEach(link => link.remove());
+            const fullTitle = titleForLabel?.textContent
+                .replace(/\s+/g, ' ')
+                .trim() || 'Resource';
+            const normalizedTitle = fullTitle.toLowerCase();
+
+            let indicatorClass = 'resource-indicator';
+            let label = 'Resource';
+            let icon = 'fa-circle-o';
+
+            if (card.classList.contains('livestream-card')) {
+                indicatorClass = 'livestream-indicator';
+                label = 'Live';
+                icon = 'fa-video-camera';
             } else if (card.classList.contains('homework-card')) {
-                return this.icons.checkbox;
-            } else {
-                // Fallback to checkbox if no type specified
-                return this.icons.checkbox;
+                indicatorClass = 'homework-indicator';
+                label = 'Homework';
+                icon = 'fa-check-square-o';
+            } else if (card.classList.contains('exercise-card')) {
+                indicatorClass = 'exercise-indicator';
+                if (normalizedTitle.startsWith('vignette')) {
+                    label = 'Vignette';
+                    icon = 'fa-pencil-square-o';
+                } else if (normalizedTitle.startsWith('demo')) {
+                    label = 'Demo';
+                    icon = 'fa-line-chart';
+                } else {
+                    label = 'Exercise';
+                    icon = 'fa-pencil';
+                }
+            } else if (card.classList.contains('concept-card')) {
+                indicatorClass = 'concept-indicator';
+                if (normalizedTitle.startsWith('episode')) {
+                    label = 'Episode';
+                    icon = 'fa-play-circle-o';
+                } else if (normalizedTitle.startsWith('chapter') || normalizedTitle.startsWith('reading')) {
+                    label = 'Reading';
+                    icon = 'fa-book';
+                } else if (normalizedTitle.startsWith('lecture')) {
+                    label = 'Lecture';
+                    icon = 'fa-file-text-o';
+                } else if (card.dataset.videoId) {
+                    label = 'Video';
+                    icon = 'fa-play-circle-o';
+                } else {
+                    label = 'Concept';
+                    icon = 'fa-lightbulb-o';
+                }
             }
+
+            return { fullTitle, icon, indicatorClass, label };
         },
         
         init() {
@@ -51,36 +80,41 @@ const EconApp = {
                     // Find the index of the first non-livestream card (to start there)
                     const firstVisibleIndex = Array.from(cards).findIndex(card => !card.classList.contains('livestream-card'));
 
-                    // Generate indicator HTML if it's empty (new approach)
-                    // Include livestream cards but with special hidden class
-                    if (!indicator.querySelector('.indicator-track')) {
-                        const indicatorHTML = `
-                            <div class="indicator-track">
-                                ${Array.from(cards).map((card, index) => {
-                                    let indicatorClass = '';
-                                    if (card.classList.contains('livestream-card')) {
-                                        indicatorClass = 'livestream-indicator';
-                                    } else if (card.classList.contains('concept-card')) {
-                                        indicatorClass = 'concept-indicator';
-                                    } else if (card.classList.contains('exercise-card')) {
-                                        indicatorClass = 'exercise-indicator';
-                                    } else if (card.classList.contains('homework-card')) {
-                                        indicatorClass = 'homework-indicator';
-                                    }
-                                    // First visible (non-livestream) card starts active
-                                    const isFirstVisible = index === firstVisibleIndex;
-                                    return `
-                                        <button class="indicator-tab ${indicatorClass} ${isFirstVisible ? 'active' : ''}" data-index="${index}">
-                                        </button>
-                                    `;
-                                }).join('')}
-                            </div>
-                        `;
-                        indicator.innerHTML = indicatorHTML;
-                    }
+                    // Generate a consistent, labeled selector from the cards.
+                    // Rebuilding it also upgrades pages with older hand-written indicators.
+                    const generatedTrack = document.createElement('div');
+                    generatedTrack.className = 'indicator-track';
+                    generatedTrack.setAttribute('role', 'tablist');
+                    generatedTrack.setAttribute('aria-label', 'Choose a resource');
+
+                    Array.from(cards).forEach((card, index) => {
+                        const meta = this.getCardMeta(card);
+                        const tab = document.createElement('button');
+                        const icon = document.createElement('i');
+                        const label = document.createElement('span');
+                        const isFirstVisible = index === firstVisibleIndex;
+
+                        tab.type = 'button';
+                        tab.className = `indicator-tab ${meta.indicatorClass}${isFirstVisible ? ' active' : ''}`;
+                        tab.dataset.index = index;
+                        tab.setAttribute('role', 'tab');
+                        tab.setAttribute('aria-label', `Show ${meta.fullTitle}`);
+                        tab.setAttribute('aria-selected', isFirstVisible ? 'true' : 'false');
+                        tab.title = meta.fullTitle;
+                        tab.tabIndex = isFirstVisible ? 0 : -1;
+
+                        icon.className = `fa ${meta.icon} indicator-icon`;
+                        icon.setAttribute('aria-hidden', 'true');
+                        label.className = 'indicator-label';
+                        label.textContent = meta.label;
+
+                        tab.append(icon, label);
+                        generatedTrack.appendChild(tab);
+                    });
+
+                    indicator.replaceChildren(generatedTrack);
                     
                     const indicatorTabs = indicator.querySelectorAll('.indicator-tab');
-                    const indicatorTrack = indicator.querySelector('.indicator-track');
                     let isProgrammaticScroll = false; // Flag to prevent flickering
 
                     // Count how many livestream indicators exist in this carousel
@@ -99,10 +133,10 @@ const EconApp = {
                         // Update active states
                         indicatorTabs.forEach(tab => {
                             const tabIndex = parseInt(tab.getAttribute('data-index'));
-                            tab.classList.remove('active');
-                            if (tabIndex === cardIndex) {
-                                tab.classList.add('active');
-                            }
+                            const isActive = tabIndex === cardIndex;
+                            tab.classList.toggle('active', isActive);
+                            tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                            tab.tabIndex = isActive ? 0 : -1;
 
                             // Reveal livestream indicators
                             if (tab.classList.contains('livestream-indicator')) {
@@ -133,17 +167,18 @@ const EconApp = {
                     }
                     
                     // Indicator click handlers
-                    indicatorTabs.forEach((tab, index) => {
+                    indicatorTabs.forEach(tab => {
                         tab.addEventListener('click', () => {
-                            if (cards[index]) {
+                            const cardIndex = parseInt(tab.dataset.index, 10);
+                            if (cards[cardIndex]) {
                                 // Set flag to prevent scroll event from updating indicator
                                 isProgrammaticScroll = true;
                                 
                                 // Update indicator immediately
-                                updateActiveIndicator(index);
+                                updateActiveIndicator(cardIndex);
                                 
                                 const targetScrollLeft = Math.max(0, 
-                                    cards[index].offsetLeft - (track.clientWidth / 2) + (cards[index].offsetWidth / 2)
+                                    cards[cardIndex].offsetLeft - (track.clientWidth / 2) + (cards[cardIndex].offsetWidth / 2)
                                 );
                                 
                                 track.scrollTo({
@@ -156,6 +191,25 @@ const EconApp = {
                                     isProgrammaticScroll = false;
                                 }, 600); // Slightly longer than typical smooth scroll duration
                             }
+                        });
+
+                        tab.addEventListener('keydown', event => {
+                            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+                            event.preventDefault();
+
+                            const tabs = Array.from(indicatorTabs).filter(candidate =>
+                                !candidate.classList.contains('livestream-indicator') || candidate.classList.contains('revealed')
+                            );
+                            const currentIndex = tabs.indexOf(tab);
+                            let targetIndex = currentIndex;
+
+                            if (event.key === 'ArrowLeft') targetIndex = Math.max(0, currentIndex - 1);
+                            if (event.key === 'ArrowRight') targetIndex = Math.min(tabs.length - 1, currentIndex + 1);
+                            if (event.key === 'Home') targetIndex = 0;
+                            if (event.key === 'End') targetIndex = tabs.length - 1;
+
+                            tabs[targetIndex]?.focus();
+                            tabs[targetIndex]?.click();
                         });
                     });
                     
@@ -343,11 +397,12 @@ const EconApp = {
        ------------------------------------------------------------------------- */
     navigation: {
         init() {
-            // Force scroll to top on page load
-            window.scrollTo(0, 0);
-
             // Create scroll indicator for right sidebar
             const rightNavUl = document.querySelector('.right_div ul');
+            const rightNavLinks = Array.from(document.querySelectorAll('.right_div .nav-link-right[href^="#"]'));
+            const anchors = rightNavLinks
+                .map(link => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+                .filter(Boolean);
             let indicator = null;
             let currentActiveId = null;
             let lastActiveLink = null;
@@ -395,11 +450,11 @@ const EconApp = {
                 // Don't hide indicator if no active link - keep it at last position
             };
 
-            // Active navigation highlighting on scroll
-            window.addEventListener('scroll', () => {
+            const updateActiveNavigation = () => {
+                if (anchors.length === 0) return;
+
                 const scrollTop = document.documentElement.scrollTop;
                 const viewportMiddle = scrollTop + (window.innerHeight / 2);
-                const anchors = document.querySelectorAll('body div[id]');
                 let newActiveId = null;
                 let closestDistance = Infinity;
 
@@ -417,16 +472,8 @@ const EconApp = {
                 });
 
                 // Update active states
-                anchors.forEach(anchor => {
-                    if (anchor.id === newActiveId) {
-                        document.querySelectorAll(`nav a[href="#${anchor.id}"]`).forEach(link => {
-                            link.classList.add('active');
-                        });
-                    } else {
-                        document.querySelectorAll(`nav a[href="#${anchor.id}"]`).forEach(link => {
-                            link.classList.remove('active');
-                        });
-                    }
+                rightNavLinks.forEach(link => {
+                    link.classList.toggle('active', link.hash === `#${newActiveId}`);
                 });
 
                 // Only update indicator if active section changed
@@ -436,8 +483,15 @@ const EconApp = {
                         const activeLink = rightNavUl.querySelector('.nav-link-right.active');
                         updateIndicator(activeLink);
                     }
+                    document.dispatchEvent(new CustomEvent('econ:active-section-change', {
+                        detail: { id: newActiveId }
+                    }));
                 }
-            });
+            };
+
+            window.addEventListener('scroll', updateActiveNavigation, { passive: true });
+            window.addEventListener('resize', updateActiveNavigation);
+            requestAnimationFrame(updateActiveNavigation);
         }
     },
 
@@ -574,28 +628,92 @@ const EconApp = {
 
             if (currentIndex === -1) currentIndex = 0;
 
-            // Create navigation bar
-            const navBar = document.createElement('div');
+            const sectionItems = Array.from(document.querySelectorAll('.right_div .nav-link-right')).map(link => ({
+                href: link.href,
+                isActive: link.classList.contains('active'),
+                label: link.textContent.trim()
+            }));
+
+            // Create the compact bottom bar.
+            const navBar = document.createElement('nav');
             navBar.className = 'mobile-nav-bar';
+            navBar.setAttribute('aria-label', 'Course navigation');
 
             // Previous arrow (wraps around)
             const prevIndex = (currentIndex - 1 + navItems.length) % navItems.length;
             const prevLink = document.createElement('a');
             prevLink.innerHTML = '‹';
-            prevLink.setAttribute('aria-label', 'Previous');
+            prevLink.className = 'mobile-nav-step';
+            prevLink.setAttribute('aria-label', `Previous: ${navItems[prevIndex].label}`);
             prevLink.href = navItems[prevIndex].href;
 
-            // Current page label
-            const label = document.createElement('span');
+            // The current-page control opens the full course and page menu.
+            const label = document.createElement('button');
+            label.type = 'button';
             label.className = 'mobile-nav-label';
-            label.textContent = navItems[currentIndex].label;
+            label.setAttribute('aria-expanded', 'false');
+            label.setAttribute('aria-controls', 'mobile-course-menu');
+            label.innerHTML = `<span>${navItems[currentIndex].label}</span><i class="fa fa-chevron-up" aria-hidden="true"></i>`;
 
             // Next arrow (wraps around)
             const nextIndex = (currentIndex + 1) % navItems.length;
             const nextLink = document.createElement('a');
             nextLink.innerHTML = '›';
-            nextLink.setAttribute('aria-label', 'Next');
+            nextLink.className = 'mobile-nav-step';
+            nextLink.setAttribute('aria-label', `Next: ${navItems[nextIndex].label}`);
             nextLink.href = navItems[nextIndex].href;
+
+            const menu = document.createElement('div');
+            menu.id = 'mobile-course-menu';
+            menu.className = 'mobile-nav-menu';
+            menu.hidden = true;
+            const sectionMenuLinks = [];
+
+            const addMenuGroup = (heading, items) => {
+                if (items.length === 0) return;
+
+                const group = document.createElement('div');
+                const title = document.createElement('div');
+                const links = document.createElement('div');
+
+                group.className = 'mobile-nav-menu-group';
+                title.className = 'mobile-nav-menu-title';
+                title.textContent = heading;
+                links.className = 'mobile-nav-menu-links';
+
+                items.forEach(item => {
+                    const link = document.createElement('a');
+                    link.href = item.href;
+                    link.textContent = item.label;
+                    if (item.isActive) {
+                        link.classList.add('is-current');
+                        link.setAttribute('aria-current', heading === 'On this page' ? 'location' : 'page');
+                    }
+                    if (heading === 'On this page') {
+                        sectionMenuLinks.push(link);
+                    }
+                    links.appendChild(link);
+                });
+
+                group.append(title, links);
+                menu.appendChild(group);
+            };
+
+            addMenuGroup('Course', navItems);
+            addMenuGroup('On this page', sectionItems);
+
+            document.addEventListener('econ:active-section-change', event => {
+                const activeHash = event.detail?.id ? `#${event.detail.id}` : '';
+                sectionMenuLinks.forEach(link => {
+                    const isActive = link.hash === activeHash;
+                    link.classList.toggle('is-current', isActive);
+                    if (isActive) {
+                        link.setAttribute('aria-current', 'location');
+                    } else {
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            });
 
             // Create dividers
             const divider1 = document.createElement('span');
@@ -603,11 +721,38 @@ const EconApp = {
             const divider2 = document.createElement('span');
             divider2.className = 'mobile-nav-divider';
 
-            navBar.appendChild(prevLink);
-            navBar.appendChild(divider1);
-            navBar.appendChild(label);
-            navBar.appendChild(divider2);
-            navBar.appendChild(nextLink);
+            const closeMenu = () => {
+                menu.hidden = true;
+                label.setAttribute('aria-expanded', 'false');
+                label.querySelector('i')?.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            };
+
+            label.addEventListener('click', () => {
+                const willOpen = menu.hidden;
+                menu.hidden = !willOpen;
+                label.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+                label.querySelector('i')?.classList.replace(
+                    willOpen ? 'fa-chevron-up' : 'fa-chevron-down',
+                    willOpen ? 'fa-chevron-down' : 'fa-chevron-up'
+                );
+            });
+
+            menu.addEventListener('click', event => {
+                if (event.target.closest('a')) closeMenu();
+            });
+
+            document.addEventListener('click', event => {
+                if (!navBar.contains(event.target)) closeMenu();
+            });
+
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && !menu.hidden) {
+                    closeMenu();
+                    label.focus();
+                }
+            });
+
+            navBar.append(menu, prevLink, divider1, label, divider2, nextLink);
             document.body.appendChild(navBar);
         }
     },
