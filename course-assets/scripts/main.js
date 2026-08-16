@@ -27,12 +27,12 @@ const EconApp = {
                 icon = 'fa-video-camera';
             } else if (card.classList.contains('homework-card')) {
                 indicatorClass = 'homework-indicator';
-                label = 'Homework';
+                label = 'Submit';
                 icon = 'fa-check-square-o';
             } else if (card.classList.contains('exercise-card')) {
                 indicatorClass = 'exercise-indicator';
                 if (normalizedTitle.startsWith('vignette')) {
-                    label = 'Vignette';
+                    label = 'Practice';
                     icon = 'fa-pencil-square-o';
                 } else if (normalizedTitle.startsWith('demo')) {
                     label = 'Demo';

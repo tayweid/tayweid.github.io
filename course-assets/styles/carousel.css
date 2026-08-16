@@ -84,7 +84,7 @@
 /* Carousel Indicator */
 .carousel-indicator {
     position: absolute;
-    top: 32px;
+    top: 35px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -95,21 +95,18 @@
 }
 
 .indicator-track {
+    position: relative;
     display: flex;
-    gap: 4px;
+    gap: 20px;
     align-items: center;
     max-width: 100%;
-    padding: 4px;
+    padding: 4px 14px;
     overflow-x: auto;
     scrollbar-width: none;
     pointer-events: auto;
-    background: rgba(16, 16, 16, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 22px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    transition: background 0.2s ease, border-color 0.2s ease;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 20px;
+    transition: background 0.3s ease;
 }
 
 .indicator-track::-webkit-scrollbar {
@@ -117,34 +114,61 @@
 }
 
 .indicator-track:hover {
-    background: rgba(16, 16, 16, 0.92);
-    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.95);
 }
 
 .indicator-tab {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 40px;
+    width: 40px;
+    min-width: 40px;
+    height: 42px;
     background: transparent;
     border: none;
-    border-radius: 17px;
-    padding: 0 12px;
+    border-radius: 4px;
+    padding: 5px 0 0;
+    box-sizing: border-box;
     cursor: pointer;
-    min-width: 40px;
-    height: 34px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 7px;
+    justify-content: flex-start;
+    gap: 5px;
     color: rgba(255, 255, 255, 0.62);
     font-family: inherit;
     font-size: 13px;
     font-weight: 400;
     line-height: 1;
     white-space: nowrap;
-    transition: color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    overflow: visible;
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.indicator-tab:hover {
-    color: rgba(255, 255, 255, 0.92);
-    background: rgba(255, 255, 255, 0.08);
+/* Restore the original dot-to-pill indicator treatment. */
+.indicator-tab::before {
+    content: '';
+    display: block;
+    flex: 0 0 auto;
+    transition: all 0.3s ease;
+}
+
+.indicator-tab:not(.livestream-indicator)::before {
+    width: 12px;
+    height: 12px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.indicator-tab:not(.livestream-indicator):hover::before {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab:not(.livestream-indicator).active::before {
+    width: 32px;
+    background: rgba(66, 132, 242, 0.7);
 }
 
 .indicator-tab:focus-visible {
@@ -154,42 +178,85 @@
 
 .indicator-tab.active {
     color: white;
-    background: rgba(66, 132, 242, 0.7);
 }
 
 .indicator-icon {
-    width: 14px;
-    flex: 0 0 14px;
-    text-align: center;
-    font-size: 13px;
+    display: none;
 }
 
 .indicator-label {
-    display: inline;
+    display: block;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 10.5px;
+    line-height: 1;
+}
+
+.indicator-tab:hover .indicator-label,
+.indicator-tab.active .indicator-label {
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* The original horizontal connector leads into practice. */
+.indicator-tab.exercise-indicator::after {
+    content: '';
+    position: absolute;
+    right: calc(50% + 6px);
+    top: 10.5px;
+    width: 48px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* The original divider marks the handoff to individual submission. */
+.indicator-tab + .indicator-tab.homework-indicator::after {
+    content: '';
+    position: absolute;
+    right: calc(100% + 9px);
+    top: 2px;
+    width: 2px;
+    height: 18px;
+    background: rgba(255, 255, 255, 0.5);
 }
 
 /* Keep class recordings tucked to the left until the student scrolls to one. */
 .indicator-tab.livestream-indicator {
+    flex-basis: 0;
     min-width: 0;
     width: 0;
     padding: 0;
     opacity: 0;
     overflow: hidden;
+    margin-right: -20px;
     pointer-events: none;
 }
 
-.indicator-tab.livestream-indicator.revealed {
+.indicator-tab.livestream-indicator::before {
+    content: '\f03d';
+    font-family: 'FontAwesome';
     width: auto;
-    min-width: 40px;
-    padding: 0 12px;
-    opacity: 1;
-    pointer-events: auto;
+    height: auto;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1;
 }
 
-/* A subtle separator keeps submissions visually distinct from learning materials. */
-.indicator-tab + .indicator-tab.homework-indicator {
-    margin-left: 4px;
-    box-shadow: -5px 0 0 -4px rgba(255, 255, 255, 0.2);
+.indicator-tab.livestream-indicator:hover::before {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.indicator-tab.livestream-indicator.active::before {
+    color: rgba(66, 132, 242, 1);
+}
+
+.indicator-tab.livestream-indicator.revealed {
+    flex-basis: 40px;
+    width: 40px;
+    min-width: 40px;
+    padding: 5px 0 0;
+    opacity: 1;
+    margin-right: 0;
+    pointer-events: auto;
 }
 
 /* Retire legacy indicator elements if older pages include them. */
@@ -555,23 +622,8 @@ img.placeholder-bg {
     }
 
     .indicator-track {
-        gap: 2px;
-        padding: 3px;
-    }
-
-    .indicator-tab {
-        min-width: 36px;
-        height: 32px;
-        padding: 0 10px;
-    }
-
-    .indicator-tab:not(.active) .indicator-label {
-        display: none;
-    }
-
-    .indicator-tab.livestream-indicator.revealed {
-        min-width: 36px;
-        padding: 0 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }
 
