@@ -10,22 +10,6 @@
 <body>
 
 <div class="wrapper home">
-<!-- RIGHT NAVIGATION -->
-    
-<div  class="left_div">
-    <nav>
-        <ul>
-            <span>Taylor</span>
-            <span class="nameplate">Weidman</span>
-            <li><a href="#research">Research</a></li>
-            <li><a href="#teaching">Teaching</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <!--<li><a href="#else">Else</a></li>-->
-        </ul>
-        <!--<div class="vl"></div>-->
-    </nav>
-</div>
-
 <main class="content">
 
 <div id="header">
@@ -185,25 +169,12 @@
 
 <div class="footer">
     <hr>
-    <p>maintained with love, on earth, by taylor | <a href="https://github.com/tayweid/tayweid.github.io" target="_blank">source code</a></p>
+    <p>maintained with love, on earth, by taylor <a href="https://github.com/tayweid/tayweid.github.io" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> source code</a></p>
 </div>
 
 </main>
 </div>
 
-<script>
-// Highlight the nav link for the section currently in view.
-const links = document.querySelectorAll('nav a[href^="#"]');
-const sections = [...links].map(a => document.getElementById(a.hash.slice(1))).filter(Boolean);
-function highlight() {
-    const y = window.scrollY + 100;
-    let current = null;
-    for (const sec of sections) if (sec.offsetTop <= y) current = sec;
-    links.forEach(a => a.classList.toggle('active', current && a.hash === '#' + current.id));
-}
-addEventListener('scroll', highlight, { passive: true });
-highlight();
-</script>
 
 </body>
 </html>

@@ -681,9 +681,6 @@ img.placeholder-bg { display: none; }
 /* ---------- home page (tayweid.github.io) ---------- */
 
 .home .content { max-width: calc(var(--column) + 30px); }
-.home .left_div { width: 200px; }
-.home nav .nameplate { margin-left: 5px; padding: 5px 0 10px; border-bottom: 1px solid var(--fg); }
-.home nav li a.active { color: var(--cool-white); }
 
 /* header: portrait left, everything else beside it */
 #header { display: flex; gap: 28px; align-items: flex-start; margin-bottom: 36px; }
@@ -713,7 +710,9 @@ img.placeholder-bg { display: none; }
 .card h3 { margin: 0; font-size: 24px; line-height: 1.25; color: var(--white); }
 .card .subtitle-line { margin: 2px 0 0; font-size: 16px; color: #8a8a8a; }
 .card p { margin: 6px 0 0; font-size: 18px; line-height: 1.45; }
-.card .coauthors { font-size: 17px; }
+.card .coauthors { font-size: 16px; }
+.card .coauthors a { color: var(--fg); }
+.card .coauthors a:hover { color: var(--white); }
 .card .path-links { margin-top: 10px; }
 .meta {
     margin-left: 8px;
@@ -735,7 +734,9 @@ img.placeholder-bg { display: none; }
 .card-shot .shot { flex: 0 0 220px; height: 132px; object-fit: cover; border-radius: 8px; background: var(--mid); opacity: 0.85; }
 .card-shot .shot:not([src$=".png"]), .card-shot .shot[src=""] { display: none; }
 
-.home .footer p { font-size: 16px; margin-top: 20px; }
+.home .footer { margin-top: 60px; }
+.home .footer hr { margin-bottom: 12px; }
+.home .footer p { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 14px; color: #8a8a8a; }
 
 @media (max-width: 768px) {
     #header { flex-direction: column; }
