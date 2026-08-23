@@ -400,6 +400,93 @@ img.placeholder-bg { display: none; }
 }
 .indicator-tab.livestream-indicator.active::before { background: var(--blue); }
 
+
+/* ---------- block path: episode left, three practice steps right ---------- */
+
+.block { margin-bottom: 40px; }
+
+.path {
+    display: flex;
+    border: 1px solid var(--mid);
+    border-radius: 15px;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.path-episode {
+    width: 400px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--mid);
+}
+.path-episode .card-video { border-radius: 0; }
+.path-episode .card-video:has(img.placeholder-bg) { padding-bottom: 56%; }
+.path-episode > .path-name { margin: 10px 16px 0; }
+.path-episode > .path-links { margin: 8px 16px 12px; }
+
+.path-name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--white);
+}
+.path-desc { font-family: var(--font-body); font-size: 16px; font-style: italic; color: var(--fg); }
+.path-where {
+    margin-left: 6px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+}
+.path-note { margin: 2px 0 0; font-size: 15px; font-style: italic; }
+.path-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.path-steps {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 6px 20px;
+    list-style: none;
+}
+.path-step {
+    position: relative;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 9px 0;
+}
+/* dashed rail: each step draws the segment from its dot to the next one */
+.path-step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 22px;
+    bottom: -22px;
+    border-left: 2px dashed rgba(255, 255, 255, 0.28);
+}
+.path-step > div { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
+.path-dot {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    margin-top: 7px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: var(--bg);
+}
+/* set by course.js from data-date: where the student is this week */
+.path-step.past .path-dot { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
+.path-step.current .path-dot { background: rgba(66, 132, 242, 0.85); border-color: rgba(255, 255, 255, 0.6); }
+
 /* ---------- course home (part boxes, 0150) ---------- */
 
 .course-overview { margin-top: 1em; }
@@ -581,6 +668,9 @@ i.fa-video-camera      { --icon-file: var(--icon-video); }
 
 @media (max-width: 768px) {
     .info-columns { flex-direction: column; gap: 1em; }
+    .path { flex-direction: column; }
+    .path-episode { width: 100%; border-right: 0; border-bottom: 1px solid var(--mid); }
+    .path-steps { padding: 10px 20px; }
 }
 
 @media (max-width: 650px) {

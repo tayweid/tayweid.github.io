@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupActiveCardHighlighting();
   setupMobileNav();
   setupTopicToggles();
+  setupPathDates();
 });
 
 // Carousel: arrows page the track; dots are built from card type, clicking a
@@ -98,7 +99,8 @@ function setupVideoCards() {
   const selectors = [
     '.carousel .carousel-card[data-video-id]',
     '.carousel-card.standalone-card[data-video-id]',
-    '.part0-card[data-video-id]'
+    '.part0-card[data-video-id]',
+    '.path-episode[data-video-id]'
   ];
   selectors.forEach(selector => document.querySelectorAll(selector).forEach(card => {
     const videoId = card.getAttribute('data-video-id');
@@ -221,5 +223,22 @@ function setupTopicToggles() {
         btn.textContent = (cards.classList.contains('collapsed') ? '▶ ' : '▼ ') + label;
       }
     });
+  });
+}
+
+// Practice path: steps carry data-date (yyyy-mm-dd). The latest step whose date
+// has arrived is "current"; earlier ones are "past". Append ?today=2026-09-03
+// to the URL to preview another day.
+function setupPathDates() {
+  const steps = Array.from(document.querySelectorAll('.path-step[data-date]'));
+  if (!steps.length) return;
+  const override = new URLSearchParams(location.search).get('today');
+  const today = (override || new Date().toLocaleDateString('en-CA')).slice(0, 10); // en-CA gives yyyy-mm-dd
+  let current = null;
+  steps.forEach(step => { if (step.dataset.date <= today) current = step; });
+  if (!current) return;
+  steps.forEach(step => {
+    if (step === current) step.classList.add('current');
+    else if (step.dataset.date < current.dataset.date) step.classList.add('past');
   });
 }
