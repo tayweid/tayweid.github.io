@@ -499,15 +499,18 @@ img.placeholder-bg { display: none; }
     height: 622px;
     border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
-.path-checkpoint .path-step:first-child::after {                              /* Demo dot → into the video */
+.path-checkpoint .path-step:first-child::after {                              /* past the Demo dot, then bends into the video */
     content: "";
     position: absolute;
     left: -28px;
-    width: 34px;
+    width: 33px;
     top: 22px;
-    border-top: 2px dashed rgba(255, 255, 255, 0.28);
+    height: 30px;
+    border-right: 2px dashed rgba(255, 255, 255, 0.28);
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.28);
+    border-bottom-right-radius: 16px;
 }
-.path-step-checkpoint { margin-top: 44px; }
+.path-step-checkpoint { margin-top: 56px; }
 .path-step-checkpoint::before {                                               /* out of the video → down to the Checkpoint dot */
     content: "";
     position: absolute;
