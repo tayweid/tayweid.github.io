@@ -557,7 +557,19 @@ img.placeholder-bg { display: none; }
 .path-step-alt .path-name { color: #8a8a8a; }
 .path-step-alt .path-where { color: #666; }
 
-/* optional extra on a block: small thumbnail to the right of the text */
+/* optional extra on a block: sits on the drop-in segment above the episode bend,
+   small thumbnail to the right of the text */
+.path-step-extra {
+    position: absolute;
+    top: 4px;
+    left: 28px;
+    right: 20px;
+    padding: 9px 0;
+}
+.description + .block:has(.path-step-extra) .path-steps::before { display: block; }   /* first block: keep the segment the node sits on */
+.description + .block:has(.path-step-extra) .path-steps::after { top: 82px; }
+.description + .block:has(.path-step-extra) .path-steps { padding-top: 100px; }
+
 .path-thumb {
     flex-shrink: 0;
     width: 96px;
