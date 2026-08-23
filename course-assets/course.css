@@ -449,14 +449,15 @@ img.placeholder-bg { display: none; }
 .path-brief li { margin: 6px 0; }
 
 /* a text-only face (no video): the final project's prompts */
-.path-text { width: 50%; padding: 18px 20px 16px; gap: 10px; }
+.path-text { padding: 18px 20px 16px; gap: 10px; }
 .path-text .project-detail { margin: 0; padding: 0; font-size: 16px; line-height: 1.4; }
-.path-text .project-detail .project-label { display: block; margin: 0; }
+.path-text .project-detail .project-label { display: block; margin: 0; font-family: var(--font-heading); font-weight: 400; font-size: 18px; color: var(--white); }
 .path-text .project-detail i { color: var(--fg); }
 .path-text > .path-links { margin: 8px 0 0; }
 /* project rail: a single node; the line drops straight in and stops there */
 .path-project { justify-content: center; padding-top: 16px; }
 .path-project .path-step-checkpoint { margin-top: 0; }
+.path-project .path-links { margin-top: 12px; }
 .path-project .path-step:first-child::after { display: none; }
 .path-project .path-step-checkpoint::before { left: 5px; width: 0; top: -600px; height: 622px; border-top: 0; border-radius: 0; }
 .path-links { display: flex; flex-wrap: wrap; gap: 8px; }
