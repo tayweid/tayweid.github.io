@@ -491,16 +491,13 @@ img.placeholder-bg { display: none; }
 /* checkpoint: rail enters to the Demo node, swings into the video, swings back out
    to a big solid Checkpoint node, and hangs the optional Reattempt below it */
 .path-checkpoint::before { display: none; }
-.path-checkpoint .path-step:first-child::before {                             /* entry curve from the video edge to the Demo dot */
+.path-checkpoint .path-step:first-child::before {                             /* straight drop from the top to the Demo dot */
     content: "";
     position: absolute;
-    left: -28px;
-    width: 33px;
-    top: -22px;
-    height: 44px;
-    border-top: 2px dashed rgba(255, 255, 255, 0.28);
-    border-right: 2px dashed rgba(255, 255, 255, 0.28);
-    border-top-right-radius: 16px;
+    left: 5px;
+    top: -600px;
+    height: 622px;
+    border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
 .path-checkpoint .path-step:first-child::after {                              /* Demo dot → into the video */
     content: "";
@@ -525,16 +522,18 @@ img.placeholder-bg { display: none; }
 .path-dot-big { width: 16px; height: 16px; margin: 5px -2px 0; border: none; background: rgba(255, 255, 255, 0.85); }
 .path-step.current > .path-dot-big { background: var(--blue); }
 .path-step-alt { margin-top: 8px; }
-.path-step-alt::before {                                                      /* stub from the Checkpoint dot */
+.path-step-alt::before {                                                      /* faint, sparse stub from the Checkpoint dot */
     content: "";
     position: absolute;
     left: 5px;
+    width: 2px;
     top: -52px;
-    height: 74px;
-    border-left: 2px dashed rgba(255, 255, 255, 0.28);
+    height: 68px;
+    background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 4px, transparent 4px 12px);
 }
-.path-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.4); }
-.path-step-alt .path-name { color: var(--fg); }
+.path-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.25); }
+.path-step-alt .path-name { color: #8a8a8a; }
+.path-step-alt .path-where { color: #666; }
 
 /* set by course.js from data-date: where the student is this week */
 .path-step.past > .path-dot:first-child { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
