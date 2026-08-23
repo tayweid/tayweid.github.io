@@ -147,13 +147,13 @@ nav li a.active { color: var(--blue); }
     margin: 0 0 2%;
     color: var(--white);
 }
-.title.title-tight { margin-bottom: 0; }
+.title.title-tight { margin-bottom: 0; line-height: 1.1; }
 
 .subtitle-text {
     display: block;
     font-family: var(--font-heading);
     font-size: 20px;
-    margin-top: 2px;
+    margin: -4px 0 28px;   /* tucked under the title, then a clear gap before the text */
 }
 
 .subtitle {
