@@ -444,6 +444,9 @@ img.placeholder-bg { display: none; }
     color: #8a8a8a;
 }
 .path-due { margin: 0; font-size: 14px; font-style: italic; color: #8a8a8a; }
+.path-sub { margin: 0; font-size: 16px; font-style: italic; }                    /* a step's own title (0150 exercises) */
+.path-brief { font-size: 16px; line-height: 1.45; }                                  /* project brief; its list comes from the yml */
+.path-brief ul { margin: 4px 0 0; padding-left: 1.2em; }
 .path-links { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .path-steps {
