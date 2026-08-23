@@ -36,9 +36,9 @@
 @font-face { font-family: "CMU Serif"; src: url("fonts/CMUSerif-Roman.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "CMU Serif"; src: url("fonts/CMUSerif-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
 @font-face { font-family: "CMU Serif"; src: url("fonts/CMUSerif-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-Light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
 @font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-Semibold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-Italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Source Sans 3"; src: url("fonts/SourceSans3-LightItalic.woff2") format("woff2"); font-weight: 300; font-style: italic; font-display: swap; }
 
 /* ---------- base ---------- */
 
@@ -50,7 +50,7 @@ body {
     background: var(--bg);
     color: var(--fg);
     font-family: var(--font-body);
-    font-weight: 400;
+    font-weight: 300;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
