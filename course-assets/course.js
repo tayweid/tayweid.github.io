@@ -226,15 +226,15 @@ function setupTopicToggles() {
   });
 }
 
-// Practice path: steps carry data-date (yyyy-mm-dd). The latest step whose date
-// has arrived is "current"; earlier ones are "past". Append ?today=2026-09-03
+// Practice path: steps carry data-date (yyyy-mm-dd). From the day after its
+// date a step is "current"; earlier ones are "past". Append ?today=2026-09-03
 // to the URL to preview another day.
 function setupPathDates() {
   const steps = Array.from(document.querySelectorAll('.path-step[data-date]'));
   if (!steps.length) return;
   const override = new URLSearchParams(location.search).get('today');
   const today = (override || new Date().toLocaleDateString('en-CA')).slice(0, 10); // en-CA gives yyyy-mm-dd
-  const arrived = steps.map(s => s.dataset.date).filter(d => d <= today).sort();
+  const arrived = steps.map(s => s.dataset.date).filter(d => d < today).sort();   // a step is current from the day after
   if (!arrived.length) return;
   const latest = arrived[arrived.length - 1];   // blocks sharing a day are current together
   steps.forEach(step => {

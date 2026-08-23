@@ -153,8 +153,9 @@ nav li a.active { color: var(--blue); }
     display: block;
     font-family: var(--font-heading);
     font-size: 20px;
-    margin: -4px 0 28px;   /* tucked under the title, then a clear gap before the text */
+    margin: -4px 0 0;   /* tucked under the title */
 }
+.title-rule { width: 48px; margin: 16px 0 26px; border-top: 1px solid var(--fg); }
 
 .subtitle {
     font-size: clamp(22px, 2.8vw, 28px);
@@ -414,7 +415,7 @@ img.placeholder-bg { display: none; }
 }
 
 .path-episode {
-    width: 400px;
+    width: 430px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -441,7 +442,7 @@ img.placeholder-bg { display: none; }
     text-transform: uppercase;
     color: #8a8a8a;
 }
-.path-due { align-self: center; font-size: 14px; font-style: italic; color: #8a8a8a; white-space: nowrap; }
+.path-due { margin: 0; font-size: 14px; font-style: italic; color: #8a8a8a; }
 .path-links { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .path-steps {
@@ -452,7 +453,7 @@ img.placeholder-bg { display: none; }
     flex-direction: column;
     justify-content: center;
     margin: 0;
-    padding: 6px 20px;
+    padding: 6px 20px 6px 28px;
     list-style: none;
 }
 .path-step {
@@ -462,14 +463,17 @@ img.placeholder-bg { display: none; }
     align-items: flex-start;
     padding: 9px 0;
 }
-/* dashed rail: runs the full height of the column, as if continuing from the block before */
+/* dashed rail: comes in from the thumbnail's edge, curves down, and runs off the bottom */
 .path-steps::before {
     content: "";
     position: absolute;
-    left: 25px;
-    top: 0;
+    left: 0;
+    width: 33px;
+    top: 28px;
     bottom: 0;
-    border-left: 2px dashed rgba(255, 255, 255, 0.28);
+    border-top: 2px dashed rgba(255, 255, 255, 0.28);
+    border-right: 2px dashed rgba(255, 255, 255, 0.28);
+    border-top-right-radius: 22px;
 }
 .path-step > div { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
 .path-dot {
