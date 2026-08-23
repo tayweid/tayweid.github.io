@@ -445,14 +445,15 @@ img.placeholder-bg { display: none; }
 }
 .path-due { margin: 0; font-size: 14px; font-style: italic; color: #8a8a8a; }
 .path-sub { margin: 0; font-size: 16px; font-style: italic; }                    /* a step's own title (0150 exercises) */
-.path-brief { margin: 6px 0 0; padding-left: 1.3em; font-size: 16px; line-height: 1.45; }   /* project deliverables */
-.path-brief li { margin: 2px 0; }
+.path-brief { margin: 8px 0 0; padding-left: 1.3em; font-size: 16px; line-height: 1.45; }   /* project deliverables */
+.path-brief li { margin: 6px 0; }
 
 /* a text-only face (no video): the final project's prompts */
-.path-text { padding: 16px 18px 14px; gap: 4px; }
+.path-text { width: 50%; padding: 18px 20px 16px; gap: 10px; }
 .path-text .project-detail { margin: 0; padding: 0; font-size: 16px; line-height: 1.4; }
+.path-text .project-detail .project-label { display: block; margin: 0; }
 .path-text .project-detail i { color: var(--fg); }
-.path-text > .path-links { margin: 10px 0 0; }
+.path-text > .path-links { margin: 8px 0 0; }
 /* project rail: a single node; the line drops straight in and stops there */
 .path-project { justify-content: center; padding-top: 16px; }
 .path-project .path-step-checkpoint { margin-top: 0; }
