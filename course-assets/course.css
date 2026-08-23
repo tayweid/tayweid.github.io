@@ -680,7 +680,7 @@ img.placeholder-bg { display: none; }
 
 /* ---------- home page (tayweid.github.io) ---------- */
 
-.home .content { max-width: 1000px; }
+.home .content { max-width: calc(var(--column) + 30px); }
 .home .left_div { width: 200px; }
 .home nav .nameplate { margin-left: 5px; padding: 5px 0 10px; border-bottom: 1px solid var(--fg); }
 .home nav li a.active { color: var(--cool-white); }
@@ -708,7 +708,10 @@ img.placeholder-bg { display: none; }
     transition: background-color 0.2s;
 }
 .card:hover { background: var(--bg-hover); }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.card-head .path-links { margin: 0; flex-shrink: 0; }
 .card h3 { margin: 0; font-size: 24px; line-height: 1.25; color: var(--white); }
+.card .subtitle-line { margin: 2px 0 0; font-size: 16px; color: #8a8a8a; }
 .card p { margin: 6px 0 0; font-size: 18px; line-height: 1.45; }
 .card .coauthors { font-size: 17px; }
 .card .path-links { margin-top: 10px; }
@@ -726,11 +729,19 @@ img.placeholder-bg { display: none; }
 .card-list .meta { margin: 0 6px 0 4px; }
 .card-list .download-link { vertical-align: 1px; }
 
+/* project cards: text left, screenshot right (Images/projects/<name>.png) */
+.card-shot { display: flex; gap: 20px; align-items: flex-start; }
+.card-shot .card-text { flex: 1; min-width: 0; }
+.card-shot .shot { flex: 0 0 220px; height: 132px; object-fit: cover; border-radius: 8px; background: var(--mid); opacity: 0.85; }
+.card-shot .shot:not([src$=".png"]), .card-shot .shot[src=""] { display: none; }
+
 .home .footer p { font-size: 16px; margin-top: 20px; }
 
 @media (max-width: 768px) {
     #header { flex-direction: column; }
     #portrait { flex-basis: auto; width: 180px; }
+    .card-shot { flex-direction: column; }
+    .card-shot .shot { flex-basis: auto; width: 100%; height: auto; }
 }
 
 /* ---------- icons ---------- */
