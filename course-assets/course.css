@@ -415,16 +415,17 @@ img.placeholder-bg { display: none; }
 }
 
 .path-episode {
-    width: 430px;
+    width: 470px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
+    padding-bottom: 12px;
     border-right: 1px solid var(--mid);
 }
 .path-episode .card-video { border-radius: 0; }
 .path-episode .card-video:has(img.placeholder-bg) { padding-bottom: 56%; }
 .path-episode > .path-name { margin: 10px 16px 0; }
-.path-episode > .path-links { margin: 8px 16px 12px; }
+.path-episode > .path-links { margin: 8px 16px 0; }
 
 .path-name {
     margin: 0;
