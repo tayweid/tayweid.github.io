@@ -685,62 +685,52 @@ img.placeholder-bg { display: none; }
 .home nav .nameplate { margin-left: 5px; padding: 5px 0 10px; border-bottom: 1px solid var(--fg); }
 .home nav li a.active { color: var(--cool-white); }
 
-#header { display: flex; justify-content: space-between; padding-bottom: 10px; }
-#portrait { flex-basis: 30%; flex-grow: 0; }
-#portrait img { width: 100%; opacity: 0.9; border-radius: 10%; }
-#biograph { flex-basis: 65%; display: flex; flex-direction: column; justify-content: center; }
+/* header: portrait left, everything else beside it */
+#header { display: flex; gap: 28px; align-items: flex-start; margin-bottom: 36px; }
+#portrait { flex: 0 0 220px; }
+#portrait img { width: 100%; display: block; opacity: 0.9; border-radius: 12px; }
+#biograph { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.name_text { margin: 0; font-family: var(--font-heading); font-size: 34px; line-height: 1.1; color: var(--white); }
+.email { margin: 0; font-size: 18px; }
+.bio { margin: 10px 0 0; font-size: 19px; line-height: 1.45; }
 
-.name_text { font-family: var(--font-heading); font-size: 34px; margin-bottom: 5px; color: var(--white); }
-.name_box a { font-size: 20px; }
-.link_box { margin-top: 10px; line-height: 28px; }
-.link_box_line { margin: 0 5px 5px 0; padding: 3px 0 3px 5px; border-radius: 4px; background: var(--mid); font-size: 16px; }
-.link_box_line:hover { opacity: 0.7; }
-.link_tag { padding-right: 5px; color: var(--cool-white); font-size: 20px; font-variant: small-caps; }
-.icon { position: relative; top: 3px; left: -1px; height: 18px; padding-right: 5px; }
-.github { opacity: 0.7; }
+.home .section { margin: 0 0 36px; }
+.home hr { margin: 0 0 22px; }
+.home h2 { margin: 0; font-size: 32px; line-height: 1.1; color: var(--white); }
+.home .lead { margin: 4px 0 14px; font-size: 19px; }
 
-.home h2 { margin-bottom: 0; font-size: 32px; color: var(--white); }
-.home #output > p, .home .footer p { font-size: 20px; color: #f1f1f1; }
-
-.tag {
-    display: inline-block;
-    padding: 1px 8px;
-    border-radius: 4px;
-    background: var(--mid);
-    color: var(--fg);
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 400;
-    vertical-align: 0.2em;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-.tag:hover { background: var(--link); color: var(--white); }
-.paper-caret { padding: 0 4px 0 2px; }
-
-.box_container { display: flex; flex-wrap: wrap; justify-content: space-between; }
-.rounded_box {
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto 5px;
-    padding-bottom: 0.5em;
-    border: 2px solid var(--mid);
+.cards { display: flex; flex-direction: column; gap: 6px; }
+.card {
+    padding: 14px 18px 16px;
+    border: 1px solid var(--mid);
     border-radius: 15px;
     background: var(--bg);
-    color: var(--white);
-    overflow: hidden;
     transition: background-color 0.2s;
 }
-.rounded_box:hover { background: var(--bg-hover); }
-.rounded_box h3 { margin: 0.5em 0 0 1em; font-size: 24px; color: var(--white); }
-.rounded_box h4 { margin: 0.5em 1em 0; font-family: var(--font-body); font-size: 20px; font-style: italic; color: var(--fg); }
-.rounded_box a:hover { color: grey; }
-
-@media (max-width: 1000px) {
-    #header { padding-bottom: 0; }
-    .link_tag { font-size: 18px; }
+.card:hover { background: var(--bg-hover); }
+.card h3 { margin: 0; font-size: 24px; line-height: 1.25; color: var(--white); }
+.card p { margin: 6px 0 0; font-size: 18px; line-height: 1.45; }
+.card .coauthors { font-size: 17px; }
+.card .path-links { margin-top: 10px; }
+.meta {
+    margin-left: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    white-space: nowrap;
 }
+.card-list { margin: 8px 0 0; padding-left: 18px; font-size: 18px; line-height: 1.5; }
+.card-list li { margin: 4px 0; }
+.card-list .meta { margin: 0 6px 0 4px; }
+.card-list .download-link { vertical-align: 1px; }
+
+.home .footer p { font-size: 16px; margin-top: 20px; }
+
 @media (max-width: 768px) {
-    .rounded_box { padding: 0.5em; }
+    #header { flex-direction: column; }
+    #portrait { flex-basis: auto; width: 180px; }
 }
 
 /* ---------- icons ---------- */
