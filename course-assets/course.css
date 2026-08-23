@@ -502,6 +502,8 @@ img.placeholder-bg { display: none; }
 }
 /* checkpoint: rail enters to the Demo node, swings into the video, swings back out
    to a big solid Checkpoint node, and hangs the optional Reattempt below it */
+/* the first block of a part has nothing above it: no drop-in, the line starts at the episode */
+.description + .block .path-steps::before { display: none; }
 .path-checkpoint::before, .path-checkpoint::after { display: none; }
 .path-checkpoint { padding-top: 40px; }
 .path-checkpoint .path-step:first-child::before {                             /* straight drop from the top to the Demo dot */
