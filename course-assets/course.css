@@ -424,20 +424,8 @@ img.placeholder-bg { display: none; }
 }
 .path-episode .card-video { border-radius: 0; }
 .path-episode .card-video:has(img.placeholder-bg) { padding-bottom: 56%; }
-.path-episode > .path-name { margin: 10px 16px 0 44px; position: relative; }
-/* the caption is a node on the path too: same ring as the steps, where the line arrives */
-.path-episode > .path-name::before {
-    content: "";
-    position: absolute;
-    left: -28px;
-    top: 6px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.55);
-    box-sizing: border-box;
-}
-.path-episode > .path-links { margin: 8px 16px 0 44px; }
+.path-episode > .path-name { margin: 10px 16px 0; }
+.path-episode > .path-links { margin: 8px 16px 0; }
 
 .path-name {
     margin: 0;
