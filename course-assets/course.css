@@ -17,6 +17,8 @@
     --link: #4C72B0;
     --blue: #4284F2;
 
+    --column: 860px;   /* card width; the content column and arrows follow it */
+
     --font-serif: "CMU Serif", "Computer Modern Serif", Georgia, serif;
     --font-sans: "Source Sans 3", "Source Sans Pro", system-ui, sans-serif;
     --font-heading: var(--font-serif);
@@ -88,7 +90,7 @@ h3, h4 { color: var(--fg); }
 .left_div > nav { position: sticky; top: 50px; text-align: right; }
 .right_div > nav { position: sticky; top: 50px; text-align: left; }
 
-.content { flex: 1; min-width: 0; max-width: 830px; margin: 0 auto; padding: 50px 15px; }  /* 800px card + padding */
+.content { flex: 1; min-width: 0; max-width: calc(var(--column) + 30px); margin: 0 auto; padding: 50px 15px; }
 .content > div { margin: 0 0 40px 0; max-width: 100%; }
 
 /* ---------- nav ---------- */
@@ -191,7 +193,7 @@ nav li a.active { color: var(--blue); }
     display: flex;
     align-items: flex-start;
     gap: 40px;
-    padding: 15px calc(50% - min(400px, 45vw));
+    padding: 15px calc(50% - min(var(--column) / 2, 45vw));
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -202,7 +204,7 @@ nav li a.active { color: var(--blue); }
 
 .carousel-card {
     flex: 0 0 auto;
-    width: 800px;
+    width: var(--column);
     max-width: 100%;
     display: flex;
     flex-direction: column;
@@ -322,8 +324,8 @@ img.placeholder-bg { display: none; }
     transition: background 0.3s ease;
 }
 .carousel-arrow:hover { background: rgba(0, 0, 0, 0.7); }
-.carousel-arrow-left { left: calc(50% - 380px); }
-.carousel-arrow-right { right: calc(50% - 380px); }
+.carousel-arrow-left { left: calc(50% - var(--column) / 2 + 20px); }
+.carousel-arrow-right { right: calc(50% - var(--column) / 2 + 20px); }
 
 /* indicator dots (built by course.js) */
 .carousel-indicator {
