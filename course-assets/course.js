@@ -145,7 +145,7 @@ function setupNavScrollSpy() {
 }
 
 // Marks the carousel card nearest its track's center as .active while that
-// carousel is on screen; does the same for the mini-exam standalone cards.
+// carousel is on screen.
 function setupActiveCardHighlighting() {
   const options = { root: null, rootMargin: '-30% 0px -30% 0px', threshold: 0 };
   document.querySelectorAll('.carousel-container').forEach(container => {
@@ -170,13 +170,6 @@ function setupActiveCardHighlighting() {
       }
     }), options).observe(container);
   });
-  const miniexam = document.getElementById('miniexam');
-  const standaloneCards = miniexam && miniexam.querySelectorAll('.standalone-card');
-  if (standaloneCards && standaloneCards.length) {
-    new IntersectionObserver(entries => entries.forEach(entry => {
-      standaloneCards.forEach(card => card.classList.toggle('active', entry.isIntersecting));
-    }), options).observe(miniexam);
-  }
 }
 
 // Mobile bottom nav: Home (if there's an econ-0... link), each "Part ..."

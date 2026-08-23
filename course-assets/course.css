@@ -488,9 +488,31 @@ img.placeholder-bg { display: none; }
     border: 2px solid rgba(255, 255, 255, 0.55);
     background: var(--bg);
 }
+/* checkpoint: the rail ends at the last dot and branches right to the reattempt */
+.path-steps-end .path-step:last-child::after {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 22px;
+    bottom: -400px;
+    width: 8px;
+    background: var(--bg);   /* covers the rail below the last dot */
+}
+.path-steps-end .path-step:last-child > div { flex: 0 1 auto; }
+.path-steps-end .path-step:last-child .path-name { white-space: nowrap; }
+.path-steps-end .path-step:last-child .path-where { display: block; margin: 2px 0 0; }
+.path-branch {
+    flex: 1;
+    min-width: 28px;
+    margin-top: 13px;
+    border-top: 2px dashed rgba(255, 255, 255, 0.28);
+}
+.path-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.4); }
+.path-alt .path-name { color: var(--fg); }
+
 /* set by course.js from data-date: where the student is this week */
-.path-step.past .path-dot { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
-.path-step.current .path-dot { background: rgba(66, 132, 242, 0.85); border-color: rgba(255, 255, 255, 0.6); }
+.path-step.past > .path-dot:first-child { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
+.path-step.current > .path-dot:first-child { background: rgba(66, 132, 242, 0.85); border-color: rgba(255, 255, 255, 0.6); }
 
 /* ---------- course home (part boxes, 0150) ---------- */
 
@@ -675,7 +697,11 @@ i.fa-video-camera      { --icon-file: var(--icon-video); }
     .info-columns { flex-direction: column; gap: 1em; }
     .path { flex-direction: column; }
     .path-episode { width: 100%; border-right: 0; border-bottom: 1px solid var(--mid); }
-    .path-steps { padding: 10px 20px; }
+    .path-steps { padding: 10px 20px 10px 28px; }
+    .path-steps-end .path-step:last-child { flex-wrap: wrap; }
+    .path-steps-end .path-step:last-child > div { flex: 1 1 auto; }
+    .path-branch { display: none; }
+    .path-steps-end .path-step:last-child .path-dot-alt { margin-left: 0; }
 }
 
 @media (max-width: 650px) {
