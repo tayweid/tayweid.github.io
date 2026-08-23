@@ -527,8 +527,8 @@ img.placeholder-bg { display: none; }
     border-bottom: 2px dashed rgba(255, 255, 255, 0.28);
     border-bottom-right-radius: 16px;
 }
-.path-step-checkpoint { margin-top: 56px; }
-.path-step-checkpoint::before {                                               /* out of the video → down to the Checkpoint dot */
+.path-step-checkpoint, .path-checkpoint .path-step-bend { margin-top: 56px; }
+.path-step-checkpoint::before, .path-step-bend::before {                     /* out of the video → down to the next dot */
     content: "";
     position: absolute;
     left: -28px;
@@ -539,6 +539,9 @@ img.placeholder-bg { display: none; }
     border-right: 2px dashed rgba(255, 255, 255, 0.28);
     border-top-right-radius: 16px;
 }
+/* checkpoint preceded by extra demos: straight segment from the previous dot instead of the bend */
+.path-checkpoint .path-step-cont { margin-top: 0; }
+.path-step-cont::before { top: -22px; height: 44px; border-top: 0; border-radius: 0; }
 .path-dot-big { width: 16px; height: 16px; margin: 5px -2px 0; border: none; background: rgba(255, 255, 255, 0.85); }
 .path-step.current > .path-dot-big { background: var(--blue); }
 .path-step-alt { margin-top: 8px; }
@@ -552,6 +555,17 @@ img.placeholder-bg { display: none; }
     top: -52px;
     height: 68px;
     background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 4px, transparent 4px 12px);
+}
+/* an extra demo between the walkthrough and the Checkpoint rides the main rail, not the faint stub */
+.path-checkpoint .path-step-bend::before {
+    left: -28px;
+    width: 33px;
+    top: -30px;
+    height: 52px;
+    background: none;
+    border-top: 2px dashed rgba(255, 255, 255, 0.28);
+    border-right: 2px dashed rgba(255, 255, 255, 0.28);
+    border-top-right-radius: 16px;
 }
 .path-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.25); }
 .path-step-alt .path-name { color: #8a8a8a; }
