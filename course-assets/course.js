@@ -234,11 +234,11 @@ function setupPathDates() {
   if (!steps.length) return;
   const override = new URLSearchParams(location.search).get('today');
   const today = (override || new Date().toLocaleDateString('en-CA')).slice(0, 10); // en-CA gives yyyy-mm-dd
-  let current = null;
-  steps.forEach(step => { if (step.dataset.date <= today) current = step; });
-  if (!current) return;
+  const arrived = steps.map(s => s.dataset.date).filter(d => d <= today).sort();
+  if (!arrived.length) return;
+  const latest = arrived[arrived.length - 1];   // blocks sharing a day are current together
   steps.forEach(step => {
-    if (step === current) step.classList.add('current');
-    else if (step.dataset.date < current.dataset.date) step.classList.add('past');
+    if (step.dataset.date === latest) step.classList.add('current');
+    else if (step.dataset.date < latest) step.classList.add('past');
   });
 }

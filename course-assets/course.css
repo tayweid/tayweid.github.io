@@ -441,7 +441,7 @@ img.placeholder-bg { display: none; }
     text-transform: uppercase;
     color: #8a8a8a;
 }
-.path-note { margin: 2px 0 0; font-size: 15px; font-style: italic; }
+.path-due { align-self: center; font-size: 14px; font-style: italic; color: #8a8a8a; white-space: nowrap; }
 .path-links { display: flex; flex-wrap: wrap; gap: 8px; }
 
 .path-steps {
@@ -462,13 +462,13 @@ img.placeholder-bg { display: none; }
     align-items: flex-start;
     padding: 9px 0;
 }
-/* dashed rail: each step draws the segment from its dot to the next one */
-.path-step:not(:last-child)::before {
+/* dashed rail: runs the full height of the column, as if continuing from the block before */
+.path-steps::before {
     content: "";
     position: absolute;
-    left: 5px;
-    top: 22px;
-    bottom: -22px;
+    left: 25px;
+    top: 0;
+    bottom: 0;
     border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
 .path-step > div { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
