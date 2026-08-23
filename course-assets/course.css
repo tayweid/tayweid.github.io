@@ -424,8 +424,20 @@ img.placeholder-bg { display: none; }
 }
 .path-episode .card-video { border-radius: 0; }
 .path-episode .card-video:has(img.placeholder-bg) { padding-bottom: 56%; }
-.path-episode > .path-name { margin: 10px 16px 0; }
-.path-episode > .path-links { margin: 8px 16px 0; }
+.path-episode > .path-name { margin: 10px 16px 0 44px; position: relative; }
+/* the caption is a node on the path too: same ring as the steps, where the line arrives */
+.path-episode > .path-name::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    box-sizing: border-box;
+}
+.path-episode > .path-links { margin: 8px 16px 0 44px; }
 
 .path-name {
     margin: 0;
@@ -539,9 +551,17 @@ img.placeholder-bg { display: none; }
     border-right: 2px dashed rgba(255, 255, 255, 0.28);
     border-top-right-radius: 16px;
 }
-/* checkpoint preceded by extra demos: straight segment from the previous dot instead of the bend */
+/* checkpoint preceded by extra demos: the extra carries the line down to the next dot */
 .path-checkpoint .path-step-cont { margin-top: 0; }
-.path-step-cont::before { top: -22px; height: 44px; border-top: 0; border-radius: 0; }
+.path-step-cont::before { display: none; }
+.path-checkpoint .path-step-bend::after, .path-checkpoint .path-step-extra::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 22px;
+    bottom: -22px;
+    border-left: 2px dashed rgba(255, 255, 255, 0.28);
+}
 .path-dot-big { width: 16px; height: 16px; margin: 5px -2px 0; border: none; background: rgba(255, 255, 255, 0.85); }
 .path-step.current > .path-dot-big { background: var(--blue); }
 .path-step-alt { margin-top: 8px; }
