@@ -542,6 +542,8 @@ img.placeholder-bg { display: none; }
 .path-dot-big { width: 16px; height: 16px; margin: 5px -2px 0; border: none; background: rgba(255, 255, 255, 0.85); }
 .path-step.current > .path-dot-big { background: var(--blue); }
 .path-step-alt { margin-top: 8px; }
+.path-steps:not(.path-checkpoint) .path-step-alt { margin-top: 0; }
+.path-steps:not(.path-checkpoint) .path-step-alt::before { display: none; }
 .path-step-alt::before {                                                      /* faint, sparse stub from the Checkpoint dot */
     content: "";
     position: absolute;
@@ -554,6 +556,21 @@ img.placeholder-bg { display: none; }
 .path-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.25); }
 .path-step-alt .path-name { color: #8a8a8a; }
 .path-step-alt .path-where { color: #666; }
+
+/* optional extra on a block: small thumbnail to the right of the text */
+.path-thumb {
+    flex-shrink: 0;
+    width: 96px;
+    height: 54px;
+    margin-top: 2px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--mid);
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+}
+.path-thumb:hover { opacity: 1; }
+.path-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* set by course.js from data-date: where the student is this week */
 .path-step.past > .path-dot:first-child { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
