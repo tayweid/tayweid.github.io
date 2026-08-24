@@ -438,6 +438,7 @@ img.placeholder-bg { display: none; }
     color: var(--white);
 }
 .path-desc { font-family: var(--font-body); font-size: 16px; font-style: italic; color: var(--fg); }
+.path-desc i { font-style: normal; }   /* emphasis inside an italic line goes upright */
 .path-where {
     margin-left: 6px;
     font-family: var(--font-body);
