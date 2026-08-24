@@ -413,6 +413,9 @@ img.placeholder-bg { display: none; }
     background: var(--bg);
     overflow: hidden;
 }
+/* an intro block: just the episode, no rail */
+.path-solo { width: fit-content; }
+.path-solo .path-episode { border-right: 0; }
 
 .path-episode {
     width: 470px;
