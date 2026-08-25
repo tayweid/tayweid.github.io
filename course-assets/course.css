@@ -878,3 +878,9 @@ i.fa-github            { --icon-file: var(--icon-github); }
 @media (min-width: 651px) {
     .mobile-nav-bar { display: none; }
 }
+
+/* Embedded (e.g. Canvas iframe): pages add .embedded to <html> when framed.
+   Hide sidebars and let content fill the frame, regardless of width. */
+.embedded .left_div,
+.embedded .right_div { display: none; }
+.embedded .content { max-width: 100%; }
