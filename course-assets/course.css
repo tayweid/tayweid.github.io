@@ -843,6 +843,24 @@ i.fa-github            { --icon-file: var(--icon-github); }
     .path-steps { padding: 10px 20px 10px 28px; }
     .path-steps::before { display: none; }
     .path-steps::after { top: 0; border-top: 0; border-radius: 0; }
+
+    /* stacked layout: the rail is one straight line; the desktop bends and stubs go away */
+    .path-checkpoint { padding: 10px 20px 10px 28px; justify-content: flex-start; }
+    .path-checkpoint::after { display: block; top: 0; border-top: 0; border-radius: 0; }
+    .path-checkpoint .path-step:first-child::before,
+    .path-checkpoint .path-step:first-child::after,
+    .path-step-checkpoint::before,
+    .path-step-bend::before,
+    .path-checkpoint .path-step-bend::after,
+    .path-checkpoint .path-step-extra::after,
+    .path-checkpoint .path-step-checkpoint::after,
+    .path-step-alt::before { display: none; }
+    .path-step-checkpoint, .path-checkpoint .path-step-bend { margin-top: 0; }
+    .path-step-alt { margin-top: 0; }
+
+    /* extras flow as ordinary steps instead of sitting on the drop-in */
+    .path-step-extra { position: static; padding: 9px 0; }
+    .path-step-next { position: static; padding: 9px 0; }
 }
 
 @media (max-width: 650px) {
