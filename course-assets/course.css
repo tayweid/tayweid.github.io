@@ -910,3 +910,8 @@ i.fa-github            { --icon-file: var(--icon-github); }
 .embedded .right_div { display: block; }
 .embedded .content { max-width: calc(var(--column) + 30px); }
 .embedded .mobile-nav-bar { display: none; }
+
+/* Optional-resource chips (e.g. textbook chapters): visible but de-emphasized.
+   Full opacity on hover so they stay clearly clickable. */
+.chip-optional { opacity: 0.55; }
+.chip-optional:hover { opacity: 1; }
