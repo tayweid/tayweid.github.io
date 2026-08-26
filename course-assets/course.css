@@ -901,8 +901,12 @@ i.fa-github            { --icon-file: var(--icon-github); }
     .mobile-nav-bar { display: none; }
 }
 
-/* Embedded (e.g. Canvas iframe): pages add .embedded to <html> when framed.
-   Hide the left (part) nav and let content fill the frame; the right
-   (section) nav stays. */
-.embedded .left_div { display: none; }
-.embedded .content { max-width: 100%; }
+/* Embedded (e.g. Canvas iframe): pages add .embedded to <html> when framed
+   and zoom the page so the full desktop layout fits the frame (see the
+   inline head script in each course's pages). Media queries fire on the
+   frame's real width, so the narrow-width rules are overridden here to
+   keep the desktop layout while zoomed. */
+.embedded .left_div { display: block; }
+.embedded .right_div { display: block; }
+.embedded .content { max-width: calc(var(--column) + 30px); }
+.embedded .mobile-nav-bar { display: none; }
