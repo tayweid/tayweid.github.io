@@ -585,7 +585,7 @@ img.placeholder-bg { display: none; }
     border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
 .path-dot-big { width: 16px; height: 16px; margin: 5px -2px 0; border: none; background: rgba(255, 255, 255, 0.85); }
-.path-step.current > .path-dot-big { background: var(--blue); }
+.path-step.past > .path-dot-big { background: var(--link); }
 .path-step-alt { margin-top: 8px; }
 .path-steps:not(.path-checkpoint) .path-step-alt { margin-top: 0; }
 .path-steps:not(.path-checkpoint) .path-step-alt::before { display: none; }
@@ -664,9 +664,8 @@ img.placeholder-bg { display: none; }
     background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 4px, transparent 4px 12px);
 }
 
-/* set by course.js from data-date: where the student is this week */
-.path-step.past > .path-dot:first-child { background: rgba(255, 255, 255, 0.35); border-color: transparent; }
-.path-step.current > .path-dot:first-child { background: rgba(66, 132, 242, 0.85); border-color: rgba(255, 255, 255, 0.6); }
+/* set by course.js from data-date: a step whose date has passed fills its dot with the brand azure */
+.path-step.past > .path-dot:first-child { background: var(--link); border-color: rgba(255, 255, 255, 0.6); }
 
 /* ---------- course home (part boxes, 0150) ---------- */
 

@@ -90,7 +90,7 @@ Then the practice path, in one of two forms.
       links: [{label: Notebook, file: https://colab.research.google.com/...}]
       video: fWk7LBDcfY8           # optional small thumbnail
       due: Sunday, September 4     # optional display text
-      date: '2026-09-04'           # optional; the page marks the current step by date
+      date: '2026-09-04'           # optional; once it has passed the step's dot turns blue
       where: recitation            # optional; overrides the label the kind supplies
 ```
 
@@ -106,7 +106,7 @@ opt-in: `solutions: true` under `vignette:` or `homework:` shows `..._sols.pdf`,
 else does. Optional keys on the triad:
 
 ```yaml
-  dates: {class: '2026-08-31', recitation: '2026-09-04', homework: '2026-09-06'}   # orders the steps and marks the current one
+  dates: {class: '2026-08-31', recitation: '2026-09-04', homework: '2026-09-06'}   # orders the steps; a passed date turns its dot blue
   exercise: {links: [...], video: ...}            # only when the exercise has downloads or a video
   vignette: {description: ..., files: A1, solutions: true, video: ...}            # files: overrides the base name; files: false hides it
   homework: {due: ..., file: A1, solutions: true, links: [...]}                    # file: A1 asks for the conventional Homework_A1.pdf
