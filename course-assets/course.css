@@ -6,6 +6,10 @@
 
 /* ---------- tokens ---------- */
 
+/* Values are copies of Graphite's tokens.json (~/Projects/Graphite, github.com/tayweid/Graphite).
+   Change a color there first, run its checker, then carry the value here. The web
+   application of the system is Graphite/docs/web.md. */
+
 :root {
     --bg: #212121;
     --bg-hover: #181818;
@@ -14,8 +18,17 @@
     --rule: #444;
     --white: #fff;
     --cool-white: #D1D1D1;
-    --link: #4C72B0;
-    --blue: #4284F2;
+    --link: #4A8FF0;   /* the brand azure: one blue everywhere, reserved for the site's own voice */
+    --blue: var(--link);
+
+    /* The six marks, for figures embedded in pages. Same meanings as the videos:
+       demand teal, supply orange, government green, guide red, total purple, external pink. */
+    --mark-blue: #128A9B;
+    --mark-orange: #E2803A;
+    --mark-green: #34B57A;
+    --mark-red: #C63944;
+    --mark-purple: #A99CF2;
+    --mark-pink: #C95AC0;
 
     --column: 860px;   /* card width; the content column and arrows follow it */
 
