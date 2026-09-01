@@ -4,7 +4,11 @@
 
 // Tiny helper: create an element and set some properties on it in one line.
 function el(tag, props) { return Object.assign(document.createElement(tag), props); }
-document.addEventListener('DOMContentLoaded', () => {
+
+// Wire up whatever is on the page. Static pages load this in <head> and it waits for
+// DOMContentLoaded; the course-page.js renderer inserts it after it has built the page,
+// by which time the document is already parsed, so it runs at once. Either way, once.
+function courseInit() {
   setupCarousels();
   setupVideoCards();
   setupNavScrollSpy();
@@ -12,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMobileNav();
   setupTopicToggles();
   setupPathDates();
-});
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', courseInit);
+else courseInit();
 
 // Carousel: arrows page the track; dots are built from card type, clicking a
 // dot jumps to that card, and scrolling the track keeps the dots in sync.

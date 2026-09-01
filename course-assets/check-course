@@ -1,0 +1,117 @@
+#!/usr/bin/env node
+'use strict';
+
+// check-course — validates a course site's course-content.yaml.js and its part-*.html shells.
+//
+//   node check-course [site-root]        (default: the current directory)
+//
+// Nothing is generated: the pages read the YAML in the browser. This check exists so a typo,
+// a link to a file that is not there, or a shell that no longer matches the YAML is caught
+// before a commit rather than by a student. The format rules come from course-schema.js,
+// the same file the browser renderer validates with, so the two cannot disagree; this adds
+// the checks only a filesystem can make. Exit status 1 on any error.
+
+const fs = require('node:fs');
+const path = require('node:path');
+const yaml = require('./js-yaml.min.js');
+const schema = require('./course-schema.js');
+
+const CONTENT = 'course-content.yaml.js';
+
+// The YAML sits inside a JavaScript wrapper -- window.COURSE_CONTENT_YAML = String.raw`...`; --
+// so that a page opened by double-clicking can read it through a <script> tag. A backtick or
+// a ${ inside the YAML would end or interpolate the JS string, so both are refused.
+function readContent(root, errors) {
+    const file = path.join(root, CONTENT);
+    if (!fs.existsSync(file)) { errors.push(`${CONTENT}: missing`); return null; }
+    const text = fs.readFileSync(file, 'utf8');
+    const match = text.match(/^window\.COURSE_CONTENT_YAML = String\.raw`\n([\s\S]*)\n`;\n$/m);
+    if (!match) { errors.push(`${CONTENT}: must end with the YAML wrapped as window.COURSE_CONTENT_YAML = String.raw\`...\`;`); return null; }
+    if (match[1].includes('`')) errors.push(`${CONTENT}: contains a backtick inside the YAML`);
+    if (match[1].includes('${')) errors.push(`${CONTENT}: contains \${ inside the YAML`);
+    return match[1];
+}
+
+function checkFiles(root, course, errors) {
+    schema.localFiles(course).forEach(({ path: relative, at }) => {
+        if (relative.split('/').some(segment => segment === '..')) return; // schema already reported it
+        let decoded = relative;
+        try { decoded = decodeURIComponent(relative); } catch (error) { errors.push(`${at}: invalid URL encoding in ${relative}`); return; }
+        if (!fs.existsSync(path.join(root, decoded))) errors.push(`${at}: missing local file ${decoded}`);
+    });
+
+    const materials = course.course && course.course.materials;
+    Object.keys(course.parts || {}).forEach(partId => {
+        const part = course.parts[partId];
+        (Array.isArray(part.sections) ? part.sections : []).forEach((section, index) => {
+            if (!section || section.block === undefined) return;
+            const at = `parts.${partId}.sections[${index}]`;
+            const blockId = String(section.block);
+            if (!materials) return;
+            const materialsDir = path.join(root, materials);
+            const matches = fs.existsSync(materialsDir)
+                ? fs.readdirSync(materialsDir).filter(name => name.startsWith(`${blockId}_`) && fs.statSync(path.join(materialsDir, name)).isDirectory())
+                : [];
+            if (section.folder !== undefined) {
+                const declared = path.join(materials, String(section.folder));
+                if (!fs.existsSync(path.join(root, declared))) errors.push(`${at}.folder: no such directory ${declared}`);
+                else if (matches.length === 1 && matches[0] !== String(section.folder)) errors.push(`${at}.folder: ${section.folder} does not match the block folder ${matches[0]}`);
+            } else if (matches.length === 1) {
+                // folder: is how the page reaches the block's conventional PDFs. It is required
+                // as soon as the block has a directory on disk; a block with no material yet may omit it.
+                errors.push(`${at}: missing folder (${materials}/${matches[0]} exists, so the page cannot find its PDFs without it)`);
+            }
+        });
+    });
+}
+
+// A shell is a thin page that names its part and loads the shared renderer; everything
+// visible comes from the YAML, so the checker only confirms the shell is wired correctly.
+function checkShells(root, course, errors) {
+    if (!fs.existsSync(path.join(root, 'index.html'))) errors.push('index.html: missing');
+    Object.keys(course.parts || {}).forEach(partId => {
+        const name = `part-${partId.toLowerCase()}.html`;
+        const file = path.join(root, name);
+        if (!fs.existsSync(file)) { errors.push(`${name}: missing page for Part ${partId}`); return; }
+        const html = fs.readFileSync(file, 'utf8');
+        if (!html.includes(`data-course-part="${partId}"`)) errors.push(`${name}: must declare data-course-part="${partId}"`);
+        if (!html.includes(CONTENT)) errors.push(`${name}: must load ${CONTENT}`);
+        if (!html.includes('course-assets/')) errors.push(`${name}: must load the shared course-assets scripts`);
+        if (!html.includes('data-course-output')) errors.push(`${name}: must have a data-course-output slot`);
+        if (/data-course-block=/.test(html)) errors.push(`${name}: must not hard-code course blocks; they come from the YAML`);
+    });
+}
+
+function main() {
+    const root = path.resolve(process.argv[2] || '.');
+    const errors = [];
+    const text = readContent(root, errors);
+    let course = null;
+    if (text !== null) {
+        let data;
+        try {
+            data = yaml.load(text, { maxDepth: 100 });
+        } catch (error) {
+            errors.push(`${CONTENT}: invalid YAML: ${error.message.split('\n')[0]}`);
+        }
+        if (data !== undefined) {
+            const result = schema.validate(data);
+            errors.push(...result.errors);
+            if (result.course && result.course.parts) course = result.course;
+        }
+    }
+    if (course) {
+        checkFiles(root, course, errors);
+        checkShells(root, course, errors);
+    }
+    if (errors.length) {
+        errors.forEach(error => process.stderr.write(`Error: ${error}\n`));
+        process.stderr.write(`${errors.length} problem${errors.length === 1 ? '' : 's'} in ${path.relative(process.cwd(), root) || '.'}\n`);
+        process.exit(1);
+    }
+    const partIds = Object.keys(course.parts);
+    const blocks = partIds.reduce((count, id) => count + (course.parts[id].sections || []).filter(section => section.block !== undefined).length, 0);
+    process.stdout.write(`${course.course.code}: ${CONTENT} and ${partIds.map(id => `part-${id.toLowerCase()}.html`).join(', ')} are consistent (${blocks} blocks).\n`);
+}
+
+main();
