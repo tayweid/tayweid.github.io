@@ -423,6 +423,17 @@
         });
         list.append(element('hr', 'nav-hr'));
 
+        const notes = items(meta.nav).filter(item => item.lines !== undefined);
+        notes.forEach(item => {
+            const li = element('li', 'nav-note');
+            li.append(element('span', 'nav-note-label', item.label));
+            items(item.lines).forEach(line => {
+                const row = element('span', 'nav-note-line');
+                appendInlineText(row, line);
+                li.append(row);
+            });
+            list.append(li);
+        });
         const buttons = items(meta.nav).filter(item => item.button);
         buttons.forEach(item => {
             const li = element('li', 'nav-item-no-margin');
@@ -433,7 +444,7 @@
             li.append(link);
             list.append(li);
         });
-        if (buttons.length) list.append(element('hr', 'nav-hr-top'));
+        if (notes.length || buttons.length) list.append(element('hr', 'nav-hr-top'));
 
         Object.keys(course.parts).forEach(id => {
             const li = element('li');
@@ -443,7 +454,7 @@
             li.append(link);
             list.append(li);
         });
-        items(meta.nav).filter(item => !item.button).forEach(item => {
+        items(meta.nav).filter(item => !item.button && item.lines === undefined).forEach(item => {
             const li = element('li');
             const link = element('a', null, item.label);
             link.href = item.file;
@@ -549,12 +560,20 @@
         document.head.append(script);
     }
 
+    // Students see a calm maintenance note; the actual problem goes to the console, and is
+    // spelled out on the page only when it is being previewed from disk or a local server.
     function showError(error) {
         page.removeAttribute('aria-busy');
+        const loading = page.querySelector('[data-course-loading]');
+        if (loading) loading.hidden = true;
         const message = page.querySelector('[data-course-error]');
         if (message) {
+            const local = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+            const text = local
+                ? `The course content could not be loaded. ${error.message}`
+                : 'This page is being updated and will be back shortly. Please check again in a few minutes.';
             message.hidden = false;
-            message.replaceChildren(document.createTextNode(`The course content could not be loaded. ${error.message}`));
+            message.replaceChildren(document.createTextNode(text));
         }
         console.error(error);
     }

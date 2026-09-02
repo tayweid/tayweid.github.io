@@ -183,6 +183,11 @@ test('reports every problem at once, with paths', t => {
     failsWith(result, 'parts.A.sections[0].reading.chapter: missing local file Reading/Ch_09.pdf');
 });
 
+const NOTE = TRIAD.replace('  nav:\n', "  nav:\n    - label: Office Hours\n      lines: ['*Taylor* Wed 2:30-3:30, Posvar 4702', 'Zoe: Thu 11-12']\n");
+test('accepts a nav note made of text lines', t => passes(run(triadSite(t, NOTE))));
+test('rejects a nav note that also links', t => failsWith(run(triadSite(t, NOTE.replace("'Zoe: Thu 11-12']", "'Zoe: Thu 11-12']\n      file: Syllabus/Syllabus.pdf"))), 'neither file nor button'));
+test('rejects a nav note with no lines', t => failsWith(run(triadSite(t, NOTE.replace("['*Taylor* Wed 2:30-3:30, Posvar 4702', 'Zoe: Thu 11-12']", '[]'))), 'needs at least one line'));
+test('rejects a nav entry that neither links nor notes', t => failsWith(run(triadSite(t, TRIAD.replace('      file: Syllabus/Syllabus.pdf\n', ''))), 'course.nav[0].file: is required'));
 test('rejects a backtick inside the YAML', t => failsWith(run(triadSite(t, TRIAD.replace('better choices', 'better `choices`'))), 'contains a backtick'));
 test('rejects malformed YAML', t => failsWith(run(triadSite(t, "parts:\n  A: [\n")), 'invalid YAML'));
 test('rejects an unknown field', t => failsWith(run(triadSite(t, TRIAD.replace('nav: PPF', 'nav: PPF\n        colour: red'))), 'unknown field colour'));

@@ -205,10 +205,18 @@
             list(meta.nav, 'course.nav', { optional: true }).forEach((item, index) => {
                 const itemPath = `course.nav[${index}]`;
                 if (!record(item, itemPath)) return;
-                keys(item, itemPath, ['label', 'file'], ['button']);
+                keys(item, itemPath, ['label'], ['file', 'button', 'lines']);
                 text(item.label, `${itemPath}.label`);
-                url(item.file, `${itemPath}.file`);
-                boolean(item.button, `${itemPath}.button`);
+                if (item.lines !== undefined) {
+                    // A note: a labelled run of text lines above the buttons, nothing to click.
+                    if (item.file !== undefined || item.button !== undefined) fail(itemPath, 'a note with lines: takes neither file nor button');
+                    const lines = list(item.lines, `${itemPath}.lines`);
+                    if (!lines.length) fail(`${itemPath}.lines`, 'needs at least one line');
+                    lines.forEach((line, lineIndex) => text(line, `${itemPath}.lines[${lineIndex}]`));
+                } else {
+                    url(item.file, `${itemPath}.file`);
+                    boolean(item.button, `${itemPath}.button`);
+                }
             });
             text(meta.checkpoint, 'course.checkpoint', { optional: true });
             if (meta.reading !== undefined && (!text(meta.reading, 'course.reading') || !String(meta.reading).includes('{nn}'))) {

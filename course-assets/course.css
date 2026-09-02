@@ -140,6 +140,13 @@ nav li a.active { color: var(--blue); }
 .nav-hr-right { width: 40%; margin: 20px 0 10px 0; }
 .nav-item-no-margin { margin: 0; }
 
+/* a nav note: a course.nav entry with lines:, such as office hours above the Syllabus button */
+.nav-note { margin: 0 0 10px; padding: 4px; }
+.nav-note-label { display: block; font-family: var(--font-heading); font-size: 20px; color: var(--fg); }
+.nav-note-line { display: block; margin-top: 2px; font-family: var(--font-body); font-size: 14px; line-height: 1.25; color: #8a8a8a; }
+.nav-note-line i { color: var(--fg); }            /* *asterisks* mark a name, which reads as the group's heading */
+.nav-note-line:has(i) { margin-top: 8px; }
+
 /* right-nav scroll indicator (built by course.js) */
 .right_div ul { position: relative; overflow: visible; }
 .scroll-indicator {

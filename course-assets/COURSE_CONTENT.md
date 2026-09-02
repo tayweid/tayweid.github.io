@@ -44,6 +44,8 @@ course:
   brand: [MICRO, ECON]             # nameplate lines in the left nav
   home: econ-0150.html             # optional; the nameplate links here and the mobile nav gets Home
   nav:                             # optional extra left-nav entries
+    - label: Office Hours          # a note: text lines above the buttons, nothing to click
+      lines: ['*Taylor* Wed 2:30-3:30, Posvar 4702']   # quote a line that has a colon; *asterisks* italicise
     - label: Syllabus
       file: Syllabus/Syllabus.pdf
       button: true                 # a button above the parts (econ-0100); omit for an entry after them (econ-0150's Projects)
