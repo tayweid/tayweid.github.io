@@ -8,15 +8,18 @@ function el(tag, props) { return Object.assign(document.createElement(tag), prop
 // Wire up whatever is on the page. Static pages load this in <head> and it waits for
 // DOMContentLoaded; the course-page.js renderer inserts it after it has built the page,
 // by which time the document is already parsed, so it runs at once. Either way, once.
-function courseInit() {
+let courseContentCleanup = [];
+function courseRefreshContent() {
+  courseContentCleanup.forEach(cleanup => cleanup());
+  courseContentCleanup = [];
   setupCarousels();
   setupVideoCards();
   setupNavScrollSpy();
   setupActiveCardHighlighting();
-  setupMobileNav();
   setupTopicToggles();
   setupPathDates();
 }
+function courseInit() { courseRefreshContent(); setupMobileNav(); }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', courseInit);
 else courseInit();
 
@@ -133,7 +136,7 @@ function setupNavScrollSpy() {
   if (!rightNavUl || navLinks.length === 0) return;
   const indicator = el('div', { className: 'scroll-indicator' });
   rightNavUl.appendChild(indicator);
-  window.addEventListener('scroll', () => {
+  const updateScrollSpy = () => {
     const viewportMiddle = document.documentElement.scrollTop + window.innerHeight / 2;
     let activeId = null, closestDist = Infinity;
     document.querySelectorAll('div[id]').forEach(section => {
@@ -147,7 +150,9 @@ function setupNavScrollSpy() {
       indicator.style.height = `${activeLink.offsetHeight}px`;
       indicator.style.opacity = '1';
     }
-  });
+  };
+  window.addEventListener('scroll', updateScrollSpy, { passive: true });
+  courseContentCleanup.push(() => window.removeEventListener('scroll', updateScrollSpy));
 }
 
 // Marks the carousel card nearest its track's center as .active while that
@@ -166,7 +171,7 @@ function setupActiveCardHighlighting() {
         card.classList.toggle('active', centered && !card.classList.contains('placeholder'));
       });
     };
-    new IntersectionObserver(entries => entries.forEach(entry => {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
       if (entry.isIntersecting) {
         track.addEventListener('scroll', updateActiveCard);
         updateActiveCard();
@@ -174,13 +179,14 @@ function setupActiveCardHighlighting() {
         track.removeEventListener('scroll', updateActiveCard);
         cards.forEach(card => card.classList.remove('active'));
       }
-    }), options).observe(container);
+    }), options);
+    observer.observe(container);
+    courseContentCleanup.push(() => observer.disconnect());
   });
 }
 
-// Mobile part toolbar. Real links retain normal navigation, including opening a
-// new tab. A short departure animation and one-use arrival marker bridge pages
-// without replacing the renderer, browser history, or resource discovery.
+// Mobile part toolbar. Ordinary links preserve the browser’s normal page
+// loading, history, and new-tab behavior on both file URLs and hosted pages.
 function setupMobileNav() {
   const leftDiv = document.querySelector('.left_div');
   if (!leftDiv || document.querySelector('.mobile-nav-bar')) return;
@@ -188,7 +194,7 @@ function setupMobileNav() {
   const parts = links.filter(link => /^Part\s+\S+$/i.test(link.textContent.trim()));
   if (!parts.length) return;
   const samePage = href => new URL(href, location.href).pathname === location.pathname;
-  const current = parts.findIndex(link => samePage(link.href));
+  let current = parts.findIndex(link => samePage(link.href));
   const nav = el('nav', { className: 'mobile-nav-bar' });
   nav.setAttribute('aria-label', 'Course navigation');
   const extras = [];
@@ -199,11 +205,18 @@ function setupMobileNav() {
   if (extras.length) {
     const utilities = el('div', { className: 'mobile-nav-utilities' });
     extras.forEach(([label, href]) => {
-      const link = el('a', { href, textContent: label });
+      const link = el('a', { href, title: label });
+      link.setAttribute('aria-label', label);
+      const paths = label === 'Home'
+        ? '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>'
+        : '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>';
+      link.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
       if (samePage(href)) link.setAttribute('aria-current', 'page');
       utilities.append(link);
     });
-    nav.append(utilities);
+    const divider = el('span', { className: 'mobile-nav-divider', textContent: '|' });
+    divider.setAttribute('aria-hidden', 'true');
+    nav.append(utilities, divider);
     nav.classList.add('has-utilities');
   }
   const row = el('div', { className: 'mobile-nav-parts' });
@@ -211,9 +224,7 @@ function setupMobileNav() {
     const label = source.textContent.trim();
     const link = el('a', { className: 'mobile-nav-part', href: source.href });
     link.setAttribute('aria-label', label);
-    const prefix = el('span', { className: 'mobile-nav-prefix', textContent: 'Part ' });
-    prefix.setAttribute('aria-hidden', 'true');
-    link.append(prefix, el('span', { textContent: label.replace(/^Part\s+/i, '') }));
+    link.textContent = label.replace(/^Part\s+/i, '');
     row.append(link);
     return link;
   });
@@ -221,58 +232,14 @@ function setupMobileNav() {
     partLinks.forEach((link, i) => {
       if (i === index) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
-      link.classList.toggle('group-start', i !== index && (i === 0 || i === index + 1));
-      link.classList.toggle('group-end', i !== index && (i === parts.length - 1 || i === index - 1));
     });
   }
   select(current);
   nav.append(row);
   document.body.append(nav);
   document.body.classList.add('has-mobile-course-nav');
-  if (extras.length) document.body.classList.add('has-mobile-course-utilities');
 
-  const markerKey = 'course-mobile-navigation';
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const mobile = () => matchMedia('(max-width: 650px)').matches && !document.documentElement.classList.contains('embedded');
-  const content = document.querySelector('main.content, .content');
-  let leaving = false;
-  // Storage can be unavailable (notably when previewing file URLs).
-  try {
-    const arrival = JSON.parse(sessionStorage.getItem(markerKey) || 'null');
-    sessionStorage.removeItem(markerKey);
-    if (arrival && arrival.href === location.href && Date.now() - arrival.time < 15000 && mobile() && !reducedMotion.matches && content) {
-      content.animate([
-        { transform: `translateX(${arrival.direction * 14}px)`, opacity: 0.35 },
-        { transform: 'translateX(0)', opacity: 1 }
-      ], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)' });
-    }
-  } catch (_) { /* Plain navigation still works without storage. */ }
-  partLinks.forEach((link, index) => {
-    link.addEventListener('click', event => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || !mobile() || reducedMotion.matches) return;
-      if (index === current) { event.preventDefault(); return; }
-      event.preventDefault();
-      if (leaving) return;
-      leaving = true;
-      const direction = current < 0 ? 1 : Math.sign(index - current);
-      select(index);
-      try {
-        sessionStorage.setItem(markerKey, JSON.stringify({ href: link.href, direction, time: Date.now() }));
-      } catch (_) { /* The toolbar transition does not require storage. */ }
-      if (content) content.animate([
-        { transform: 'translateX(0)', opacity: 1 },
-        { transform: `translateX(${-direction * 14}px)`, opacity: 0.35 }
-      ], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'forwards' });
-      setTimeout(() => location.assign(link.href), 360);
-    });
-  });
-  // Back/forward cache restores the old DOM, including its departure state.
-  window.addEventListener('pageshow', event => {
-    if (!event.persisted) return;
-    leaving = false;
-    select(current);
-    if (content) content.getAnimations().forEach(animation => animation.cancel());
-  });
+
 }
 
 // Topic toggle: click collapses/expands the card list below it and flips
