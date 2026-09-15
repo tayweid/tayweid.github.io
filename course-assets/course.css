@@ -897,29 +897,63 @@ i.fa-github            { --icon-file: var(--icon-github); }
     .part0-card-container { top: 0; right: 0; bottom: auto; left: 0; width: auto; height: 120px; }
     .part0-card .card-video { border-radius: 13px 13px 0 0; }
 
-    /* bottom pill nav (built by course.js) */
+    /* Plass-shaped groups: 36px surfaces inside 48px touch targets. */
+    body.has-mobile-course-nav { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+    body.has-mobile-course-utilities { padding-bottom: calc(132px + env(safe-area-inset-bottom, 0px)); }
     .mobile-nav-bar {
         position: fixed;
-        bottom: 24px; left: 50%;
-        transform: translateX(-50%);
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        left: max(6px, env(safe-area-inset-left, 0px));
+        right: max(6px, env(safe-area-inset-right, 0px));
+        width: auto; max-width: 352px;
+        margin: 0 auto;
+        transform: none; display: block;
+        background: transparent; border: 0; border-radius: 0; box-shadow: none;
         z-index: 1000;
-        display: flex; align-items: center;
-        border-radius: 50px;
-        background: rgba(60, 60, 60, 0.9);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     }
-    .mobile-nav-bar a {
+    .mobile-nav-parts { display: flex; align-items: center; isolation: isolate; }
+    .mobile-nav-bar .mobile-nav-part {
+        position: relative; isolation: isolate;
+        flex: 1 1 0; min-width: 0; min-height: 48px;
         display: flex; align-items: center; justify-content: center;
-        padding: 10px 16px;
-        color: rgba(255, 255, 255, 0.7);
-        font-family: var(--font-heading);
-        font-size: 24px;
-        transition: color 0.2s ease;
+        padding: 0; margin: 0;
+        font: 400 18px/1 var(--font-heading);
+        color: var(--fg);
+        -webkit-tap-highlight-color: transparent;
+        transition: flex-grow 360ms cubic-bezier(.22,.8,.25,1), margin 360ms cubic-bezier(.22,.8,.25,1), color 180ms ease;
     }
-    .mobile-nav-bar a:hover { color: var(--white); }
-    .mobile-nav-bar a.disabled { opacity: 0.3; pointer-events: none; }
-    .mobile-nav-label { display: flex; align-items: center; padding: 10px 18px; color: rgba(255, 255, 255, 0.9); font-family: var(--font-heading); font-size: 18px; white-space: nowrap; }
-    .mobile-nav-divider { width: 1px; height: 18px; background: rgba(255, 255, 255, 0.25); }
+    .mobile-nav-bar .mobile-nav-part::before {
+        content: ''; position: absolute; inset: 6px 0; z-index: -1;
+        pointer-events: none; background: var(--bg-hover); border-radius: 0;
+        transition: border-radius 360ms ease, background 180ms ease;
+    }
+    .mobile-nav-bar .mobile-nav-part.group-start::before { border-top-left-radius: 7px; border-bottom-left-radius: 7px; }
+    .mobile-nav-bar .mobile-nav-part.group-end::before { border-top-right-radius: 7px; border-bottom-right-radius: 7px; }
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"] { flex-grow: 1.65; color: var(--link); }
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"]::before { border-radius: 7px; }
+    .mobile-nav-bar .mobile-nav-part:first-child::before { border-top-left-radius: 18px; border-bottom-left-radius: 18px; }
+    .mobile-nav-bar .mobile-nav-part:last-child::before { border-top-right-radius: 18px; border-bottom-right-radius: 18px; }
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"]:not(:first-child) { margin-left: 8px; }
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"]:not(:last-child) { margin-right: 8px; }
+    .mobile-nav-bar .mobile-nav-part:hover { color: var(--white); }
+    .mobile-nav-bar .mobile-nav-part:hover::before { background: var(--mid); }
+    .mobile-nav-bar .mobile-nav-part:focus-visible { z-index: 2; outline: 2px solid var(--link); outline-offset: 2px; }
+    .mobile-nav-prefix {
+        display: inline-block; flex-shrink: 0; width: 0; opacity: 0; overflow: hidden;
+        white-space: nowrap; text-align: left;
+        transition: width 360ms cubic-bezier(.22,.8,.25,1), opacity 360ms ease;
+    }
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"] .mobile-nav-prefix { width: 2.15em; opacity: 1; }
+    .mobile-nav-utilities { display: flex; justify-content: center; gap: 8px; }
+    .mobile-nav-utilities a {
+        display: flex; align-items: center; justify-content: center;
+        min-height: 44px; padding: 0 16px;
+        background: var(--bg-hover); color: var(--fg);
+        border-radius: 7px; font-size: 15px;
+    }
+    .mobile-nav-utilities a[aria-current="page"] { color: var(--link); }
+    .mobile-nav-utilities a:hover { color: var(--white); }
+
 }
 
 @media (min-width: 651px) {
@@ -935,6 +969,11 @@ i.fa-github            { --icon-file: var(--icon-github); }
 .embedded .right_div { display: block; }
 .embedded .content { max-width: calc(var(--column) + 30px); }
 .embedded .mobile-nav-bar { display: none; }
+.embedded body.has-mobile-course-nav { padding-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-nav-part, .mobile-nav-part::before, .mobile-nav-prefix { transition: none; }
+}
 
 /* Optional-resource chips (e.g. textbook chapters): visible but de-emphasized.
    Full opacity on hover so they stay clearly clickable. */

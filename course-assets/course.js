@@ -178,34 +178,101 @@ function setupActiveCardHighlighting() {
   });
 }
 
-// Mobile bottom nav: Home (if there's an econ-0... link), each "Part ..."
-// link, then Projects; prev/next arrows wrap around the ends.
+// Mobile part toolbar. Real links retain normal navigation, including opening a
+// new tab. A short departure animation and one-use arrival marker bridge pages
+// without replacing the renderer, browser history, or resource discovery.
 function setupMobileNav() {
   const leftDiv = document.querySelector('.left_div');
-  if (!leftDiv) return;
-  const navItems = [];
-  const homeLink = leftDiv.querySelector('nav ul a[href*="econ-0"]');
-  if (homeLink) navItems.push({ label: 'Home', href: homeLink.href });
-  leftDiv.querySelectorAll('nav ul li a').forEach(link => {
-    const text = link.textContent.trim();
-    if (text.toLowerCase().startsWith('part')) navItems.push({ label: text, href: link.href, isActive: link.classList.contains('active') });
+  if (!leftDiv || document.querySelector('.mobile-nav-bar')) return;
+  const links = Array.from(leftDiv.querySelectorAll('nav ul a'));
+  const parts = links.filter(link => /^Part\s+\S+$/i.test(link.textContent.trim()));
+  if (!parts.length) return;
+  const samePage = href => new URL(href, location.href).pathname === location.pathname;
+  const current = parts.findIndex(link => samePage(link.href));
+  const nav = el('nav', { className: 'mobile-nav-bar' });
+  nav.setAttribute('aria-label', 'Course navigation');
+  const extras = [];
+  const home = links.find(link => /\/econ-0\d+\.html$/.test(new URL(link.href).pathname));
+  const projects = links.find(link => link.textContent.trim() === 'Projects');
+  if (home) extras.push(['Home', home.href]);
+  if (projects) extras.push(['Projects', projects.href]);
+  if (extras.length) {
+    const utilities = el('div', { className: 'mobile-nav-utilities' });
+    extras.forEach(([label, href]) => {
+      const link = el('a', { href, textContent: label });
+      if (samePage(href)) link.setAttribute('aria-current', 'page');
+      utilities.append(link);
+    });
+    nav.append(utilities);
+    nav.classList.add('has-utilities');
+  }
+  const row = el('div', { className: 'mobile-nav-parts' });
+  const partLinks = parts.map(source => {
+    const label = source.textContent.trim();
+    const link = el('a', { className: 'mobile-nav-part', href: source.href });
+    link.setAttribute('aria-label', label);
+    const prefix = el('span', { className: 'mobile-nav-prefix', textContent: 'Part ' });
+    prefix.setAttribute('aria-hidden', 'true');
+    link.append(prefix, el('span', { textContent: label.replace(/^Part\s+/i, '') }));
+    row.append(link);
+    return link;
   });
-  const projectsLink = Array.from(leftDiv.querySelectorAll('nav ul li a')).find(link => link.textContent.trim().toLowerCase() === 'projects');
-  if (projectsLink) navItems.push({ label: 'Projects', href: projectsLink.href, isActive: projectsLink.classList.contains('active') });
-  if (navItems.length === 0) return;
-  let currentIndex = navItems.findIndex(item => item.isActive);
-  const path = window.location.pathname;
-  if (currentIndex === -1 && homeLink && (path.endsWith('econ-0150.html') || path.endsWith('econ-0100.html'))) currentIndex = 0;
-  if (currentIndex === -1) currentIndex = 0;
-  const prevItem = navItems[(currentIndex - 1 + navItems.length) % navItems.length];
-  const nextItem = navItems[(currentIndex + 1) % navItems.length];
-  const navArrow = (html, href, label) => { const a = el('a', { innerHTML: html, href }); a.setAttribute('aria-label', label); return a; };
-  const prevLink = navArrow('‹', prevItem.href, 'Previous');
-  const nextLink = navArrow('›', nextItem.href, 'Next');
-  const label = el('span', { className: 'mobile-nav-label', textContent: navItems[currentIndex].label });
-  const navBar = el('div', { className: 'mobile-nav-bar' });
-  navBar.append(prevLink, el('span', { className: 'mobile-nav-divider' }), label, el('span', { className: 'mobile-nav-divider' }), nextLink);
-  document.body.appendChild(navBar);
+  function select(index) {
+    partLinks.forEach((link, i) => {
+      if (i === index) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+      link.classList.toggle('group-start', i !== index && (i === 0 || i === index + 1));
+      link.classList.toggle('group-end', i !== index && (i === parts.length - 1 || i === index - 1));
+    });
+  }
+  select(current);
+  nav.append(row);
+  document.body.append(nav);
+  document.body.classList.add('has-mobile-course-nav');
+  if (extras.length) document.body.classList.add('has-mobile-course-utilities');
+
+  const markerKey = 'course-mobile-navigation';
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile = () => matchMedia('(max-width: 650px)').matches && !document.documentElement.classList.contains('embedded');
+  const content = document.querySelector('main.content, .content');
+  let leaving = false;
+  // Storage can be unavailable (notably when previewing file URLs).
+  try {
+    const arrival = JSON.parse(sessionStorage.getItem(markerKey) || 'null');
+    sessionStorage.removeItem(markerKey);
+    if (arrival && arrival.href === location.href && Date.now() - arrival.time < 15000 && mobile() && !reducedMotion.matches && content) {
+      content.animate([
+        { transform: `translateX(${arrival.direction * 14}px)`, opacity: 0.35 },
+        { transform: 'translateX(0)', opacity: 1 }
+      ], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)' });
+    }
+  } catch (_) { /* Plain navigation still works without storage. */ }
+  partLinks.forEach((link, index) => {
+    link.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || !mobile() || reducedMotion.matches) return;
+      if (index === current) { event.preventDefault(); return; }
+      event.preventDefault();
+      if (leaving) return;
+      leaving = true;
+      const direction = current < 0 ? 1 : Math.sign(index - current);
+      select(index);
+      try {
+        sessionStorage.setItem(markerKey, JSON.stringify({ href: link.href, direction, time: Date.now() }));
+      } catch (_) { /* The toolbar transition does not require storage. */ }
+      if (content) content.animate([
+        { transform: 'translateX(0)', opacity: 1 },
+        { transform: `translateX(${-direction * 14}px)`, opacity: 0.35 }
+      ], { duration: 360, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'forwards' });
+      setTimeout(() => location.assign(link.href), 360);
+    });
+  });
+  // Back/forward cache restores the old DOM, including its departure state.
+  window.addEventListener('pageshow', event => {
+    if (!event.persisted) return;
+    leaving = false;
+    select(current);
+    if (content) content.getAnimations().forEach(animation => animation.cancel());
+  });
 }
 
 // Topic toggle: click collapses/expands the card list below it and flips
