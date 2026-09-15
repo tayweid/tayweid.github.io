@@ -22,7 +22,7 @@
             <a href="https://github.com/tayweid" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> GitHub</a>
             <a href="https://youtube.com/@taylorjweidman?si=hR60wiwP5QPyIAup" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> YouTube</a>
         </div>
-        <p class="bio">Hi! I'm an economist at the University of Pittsburgh. These days I'm using voter panels to study information spillovers in residential networks and laboratory experiments to study coordination games. I'm also working on a few small open-source software projects.</p>
+        <p class="bio">Hi! I'm an economist at the University of Pittsburgh. These days I'm using voter panels to study information spillovers in residential networks and laboratory experiments to study coordination games. I also build tools for research and teaching through <a href="#claerbout-studio">Claerbout Studio</a>.</p>
     </div>
 </div>
 
@@ -115,14 +115,72 @@
 <div id="projects" class="section">
 <hr>
 <h2>Projects</h2>
-<p class="lead">... check out my <a href="https://github.com/tayweid" target="_blank">GitHub</a> for code relating to the papers aboves and the projects below.</p>
-<div class="cards">
+<p class="lead">... software and visual explanations for research and teaching.</p>
+
+<section id="claerbout-studio" class="project-group" aria-labelledby="studio-heading">
+    <h3 id="studio-heading" class="project-heading">Claerbout Studio</h3>
+    <p class="project-intro">A collection of tools I'm building for computation, writing, and animation.</p>
+    <div class="cards studio-projects">
+        <article id="knuth" class="card">
+            <div class="card-head">
+                <h4>Knuth</h4>
+                <div class="path-links">
+                    <a href="https://knuth.tayweid.io/" class="download-link" target="_blank" rel="noopener">Demo &amp; install</a>
+                    <a href="https://github.com/tayweid/knuth" class="download-link" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+            <p>A Python workbench for research, with a live session, a variable explorer, and results alongside the code. Analyses stay in plain Python files; named values and figures can flow into papers written in Plass.</p>
+        </article>
+        <article id="plass" class="card">
+            <div class="card-head">
+                <h4>Plass</h4>
+                <div class="path-links">
+                    <a href="https://plass.tayweid.io/" class="download-link" target="_blank" rel="noopener">Try the preview</a>
+                    <a href="https://github.com/tayweid/plass" class="download-link" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+            <p>A writing editor that typesets as you work. Write directly on the page with equations, citations, figures, and footnotes, then save as Typst or Markdown and export a PDF.</p>
+        </article>
+        <article id="maniml" class="card">
+            <div class="card-head">
+                <h4>ManimLive <span class="meta">maniml</span></h4>
+                <div class="path-links">
+                    <a href="https://maniml.tayweid.io/" class="download-link" target="_blank" rel="noopener">Overview &amp; install</a>
+                    <a href="https://github.com/tayweid/maniml" class="download-link" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+            <p>An environment for making and presenting Manim animations. Preview changes live, step through a scene at your own pace, and export videos or interactive presentations for the web.</p>
+        </article>
+    </div>
+    <div class="studio-supporting">
+        <article id="octavo" class="card">
+            <h4>Octavo</h4>
+            <p>A live viewer and visual editor for Quarto slide decks. Move and resize content while keeping the original Quarto file editable.</p>
+        </article>
+        <article id="nilson" class="card">
+            <h4>Nilson</h4>
+            <p>A grading tool in development: randomized exams, reading multiple-choice responses from scans, rubric-based grading, and feedback PDFs.</p>
+        </article>
+    </div>
+</section>
+
+<section id="economics-animations" class="project-group" aria-labelledby="animations-heading">
+    <h3 id="animations-heading" class="project-heading">Economics Animations</h3>
+    <p class="project-intro">Visual explanations from my introductory microeconomics course, made with ManimLive. Open an animation and use Next and Back to step through it at your own pace.</p>
+    <ul class="animation-links">
+        <li><a href="https://econ-0100.tayweid.io/Blocks/A1_The_PPF/media/EpisodeA1_present/" target="_blank" rel="noopener">Production possibilities</a><span>Scarcity, tradeoffs, and what's attainable.</span></li>
+        <li><a href="https://econ-0100.tayweid.io/Blocks/A2_Advantage/media/EpisodeA2_present/" target="_blank" rel="noopener">Comparative advantage</a><span>Opportunity cost and the gains from specialization.</span></li>
+        <li><a href="https://econ-0100.tayweid.io/Blocks/A3_Trade/media/EpisodeA3_present/" target="_blank" rel="noopener">Gains from trade</a><span>How exchange can make both parties better off.</span></li>
+    </ul>
+    <div class="path-links"><a href="https://econ-0100.tayweid.io/part-a.html#part-a1" class="download-link" target="_blank" rel="noopener">Lessons and course materials</a></div>
+</section>
+
+<div class="cards research-projects">
     <div class="card card-shot">
         <div class="card-text">
             <h3>Geographic Voter Panel <span class="meta">since 2019</span></h3>
             <p>I use voter data in some recent work. This data pipeline generates the main geographic panel used in many current and upcoming projects, and is the product of many problems solved. I'm immensely proud of this code and the number of technical solutions that make it possible.</p>
         </div>
-        <img class="shot" src="Images/projects/voter-panel.png" alt="">
     </div>
     <div class="card card-shot">
         <div class="card-text">
@@ -135,34 +193,6 @@
                 <li>Repeated Trust Game <span class="meta">2016</span> <a href="https://github.com/tayweid/Repeated_Trust_Game" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> GitHub</a></li>
             </ul>
         </div>
-        <img class="shot" src="Images/projects/otree.png" alt="">
-    </div>
-    <div class="card card-shot">
-        <div class="card-text">
-            <div class="card-head">
-                <h3>T+1 Presenter <span class="meta">since 2020</span></h3>
-                <div class="path-links"><a href="https://github.com/tayweid/T1_Presenter" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> GitHub</a></div>
-            </div>
-            <p>Some ideas are better understood when animated. I started using <a target="_blank" href="https://www.manim.community/">Manim</a> animations for my students during Covid but couldn't find open source software for presenting animations live. So I wrote a simple javascript apt I use for presenting visualizable research and course material.</p>
-        </div>
-        <img class="shot" src="Images/projects/t1-presenter.png" alt="">
-    </div>
-    <div class="card card-shot">
-        <div class="card-text">
-            <h3>Economics Animations <span class="meta">since 2020</span></h3>
-            <p>Some things are clearer when visualized. Animations can often go one step further. These notebooks generate animations I use regularly to present my research, as a classroom tool, and for my youtube channel.</p>
-        </div>
-        <img class="shot" src="Images/projects/animations.png" alt="">
-    </div>
-    <div class="card card-shot">
-        <div class="card-text">
-            <div class="card-head">
-                <h3>Open Grader <span class="meta">since 2022</span></h3>
-                <div class="path-links"><a href="https://github.com/tayweid/Open_Grader" class="download-link" target="_blank" rel="noopener"><i class="fa fa-external-link" aria-hidden="true"></i> GitHub</a></div>
-            </div>
-            <p>I created a simple program that lets students submit photos of their work through Dropbox and automatically receive graded PDFs with detailed feedback. Built with JupyterLab, it saves me hours of grading time while giving students easy access to assignments and comments on their phones.</p>
-        </div>
-        <img class="shot" src="Images/projects/open-grader.png" alt="">
     </div>
 </div>
 </div>

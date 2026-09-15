@@ -798,6 +798,30 @@ img.placeholder-bg { display: none; }
 .card-shot .shot { flex: 0 0 220px; height: 132px; object-fit: cover; border-radius: 8px; background: var(--mid); opacity: 0.85; }
 .card-shot .shot:not([src$=".png"]), .card-shot .shot[src=""] { display: none; }
 
+/* Current projects: studio tools first, with a compact supporting pair. */
+.home .project-group { margin-top: 24px; scroll-margin-top: 24px; }
+.home .project-heading { margin: 0; color: var(--white); font-size: 26px; line-height: 1.25; }
+.home .project-intro { margin: 6px 0 14px; font-size: 18px; line-height: 1.45; }
+.home #projects .card h4 { margin: 0; color: var(--white); font-size: 24px; line-height: 1.25; }
+.home #projects .card-head { flex-wrap: wrap; gap: 6px 16px; }
+.home #projects .card-head .path-links { margin: 0; flex-shrink: 1; }
+.home #projects article { scroll-margin-top: 24px; }
+.home .studio-supporting { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 6px; }
+.home #projects .studio-supporting h4 { font-size: 21px; }
+.home .studio-supporting p { font-size: 17px; }
+
+.home .animation-links { list-style: none; margin: 0; padding: 0; }
+.home .animation-links li { padding: 10px 0; border-top: 1px solid var(--mid); }
+.home .animation-links a { font-size: 19px; }
+.home .animation-links span { display: block; margin-top: 2px; font-size: 17px; line-height: 1.4; }
+.home .research-projects { margin-top: 28px; }
+.home #projects a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.home #projects a:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; border-radius: 2px; }
+
+@media (max-width: 650px) {
+    .home .studio-supporting { grid-template-columns: 1fr; }
+}
+
 .home .footer { margin-top: 60px; }
 .home .footer hr { margin-bottom: 12px; }
 .home .footer p { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 0; font-size: 13px; color: #8a8a8a; }
