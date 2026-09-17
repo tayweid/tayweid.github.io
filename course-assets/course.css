@@ -549,7 +549,7 @@ img.placeholder-bg { display: none; }
 .description + .block .path-steps { padding-top: 46px; }
 .path-checkpoint::before, .path-checkpoint::after { display: none; }
 .path-checkpoint { padding-top: 40px; }
-.path-checkpoint .path-step:first-child::before {                             /* straight drop from the top to the Demo dot */
+.path-checkpoint .path-step:first-child::before {                             /* straight drop from the top to the first dot */
     content: "";
     position: absolute;
     left: 5px;
@@ -557,7 +557,7 @@ img.placeholder-bg { display: none; }
     height: 622px;
     border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
-.path-checkpoint .path-step:first-child::after {                              /* past the Demo dot, then bends into the video */
+.path-checkpoint .path-step-demo::after {                                     /* past the Demo dot, then bends into the video */
     content: "";
     position: absolute;
     left: -28px;
@@ -567,6 +567,15 @@ img.placeholder-bg { display: none; }
     border-right: 2px dashed rgba(255, 255, 255, 0.28);
     border-bottom: 2px dashed rgba(255, 255, 255, 0.28);
     border-bottom-right-radius: 16px;
+}
+/* steps before the Demo (a wrap-up session) sit on the straight drop; each carries the line down to the next dot */
+.path-checkpoint .path-step-pre::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 22px;
+    bottom: -22px;
+    border-left: 2px dashed rgba(255, 255, 255, 0.28);
 }
 .path-step-checkpoint, .path-checkpoint .path-step-bend { margin-top: 56px; }
 .path-step-checkpoint::before, .path-step-bend::before {                     /* out of the video → down to the next dot */
@@ -897,7 +906,8 @@ i.fa-github            { --icon-file: var(--icon-github); }
     .path-checkpoint { padding: 10px 20px 10px 28px; justify-content: flex-start; }
     .path-checkpoint::after { display: block; top: 0; border-top: 0; border-radius: 0; }
     .path-checkpoint .path-step:first-child::before,
-    .path-checkpoint .path-step:first-child::after,
+    .path-checkpoint .path-step-demo::after,
+    .path-checkpoint .path-step-pre::after,
     .path-step-checkpoint::before,
     .path-step-bend::before,
     .path-checkpoint .path-step-bend::after,

@@ -122,6 +122,7 @@ else does. Optional keys on the triad:
 ```yaml
 - checkpoint:
     description: MiniExam 1 covers everything in Part 1.
+    steps: [...]                   # optional; steps as under a block (a wrap-up session), drawn before the demo
     demo:
       name: Demo 1 Walkthrough     # optional; default "Demo <part> Walkthrough"
       video: b4d8l4QMu8E

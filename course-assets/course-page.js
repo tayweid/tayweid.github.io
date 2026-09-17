@@ -154,7 +154,7 @@
 
     // A step written out in the YAML (steps:). Its kind supplies the label and, for a
     // livestream, the aside styling; where: overrides the label.
-    function explicitStep(step) {
+    function explicitStep(step, classes = '') {
         const livestream = step.kind === 'livestream';
         return pathStep({
             name: step.name,
@@ -164,7 +164,7 @@
             date: step.date,
             due: step.due ? (/^due\b/i.test(step.due) ? step.due : `Due ${step.due}`) : null,
             video: step.video,
-            classes: livestream ? 'path-step-alt' : '',
+            classes: [livestream ? 'path-step-alt' : '', classes].filter(Boolean).join(' '),
             dotClasses: livestream ? 'path-dot-alt' : ''
         });
     }
@@ -325,7 +325,9 @@
         path.append(episode);
 
         const steps = element('ol', 'path-steps path-checkpoint');
-        steps.append(pathStep({ name: `Demo ${partId}`, where: 'home', links: items(demo.links) }));
+        // Steps written under the checkpoint (a wrap-up session) come before the Demo.
+        items(config.steps).forEach(step => steps.append(explicitStep(step, 'path-step-pre')));
+        steps.append(pathStep({ name: `Demo ${partId}`, where: 'home', links: items(demo.links), classes: 'path-step-demo' }));
         const extras = items(config.extras);
         extras.forEach((extra, index) => steps.append(extraStep(extra, index === 0)));
         steps.append(pathStep({

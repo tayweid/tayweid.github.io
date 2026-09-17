@@ -176,6 +176,24 @@
                 icon(item.icon, `${itemPath}.icon`);
             });
         }
+        function steps(value, path) {
+            list(value, path, { optional: true }).forEach((step, index) => {
+                const stepPath = `${path}[${index}]`;
+                if (!record(step, stepPath)) return;
+                keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links']);
+                text(step.name, `${stepPath}.name`);
+                if (step.kind !== undefined && !(step.kind in STEP_KINDS)) {
+                    fail(`${stepPath}.kind`, `must be one of ${Object.keys(STEP_KINDS).join(', ')}`);
+                }
+                if (step.kind === undefined && step.where === undefined) fail(stepPath, 'needs a kind (exercise, homework, ...) or a where label');
+                text(step.where, `${stepPath}.where`, { optional: true });
+                text(step.sub, `${stepPath}.sub`, { optional: true });
+                text(step.due, `${stepPath}.due`, { optional: true });
+                date(step.date, `${stepPath}.date`);
+                video(step.video, `${stepPath}.video`, { optional: true });
+                links(step.links, `${stepPath}.links`);
+            });
+        }
         function extras(value, path) {
             list(value, path, { optional: true }).forEach((extra, index) => {
                 const extraPath = `${path}[${index}]`;
@@ -282,22 +300,7 @@
             }
 
             if (present(section.steps)) {
-                list(section.steps, `${path}.steps`).forEach((step, index) => {
-                    const stepPath = `${path}.steps[${index}]`;
-                    if (!record(step, stepPath)) return;
-                    keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links']);
-                    text(step.name, `${stepPath}.name`);
-                    if (step.kind !== undefined && !(step.kind in STEP_KINDS)) {
-                        fail(`${stepPath}.kind`, `must be one of ${Object.keys(STEP_KINDS).join(', ')}`);
-                    }
-                    if (step.kind === undefined && step.where === undefined) fail(stepPath, 'needs a kind (exercise, homework, ...) or a where label');
-                    text(step.where, `${stepPath}.where`, { optional: true });
-                    text(step.sub, `${stepPath}.sub`, { optional: true });
-                    text(step.due, `${stepPath}.due`, { optional: true });
-                    date(step.date, `${stepPath}.date`);
-                    video(step.video, `${stepPath}.video`, { optional: true });
-                    links(step.links, `${stepPath}.links`);
-                });
+                steps(section.steps, `${path}.steps`);
             } else if (section.practice !== false && !present(section.vignette)) {
                 fail(`${path}.vignette`, 'is required unless the block lists its own steps or sets practice: false');
             }
@@ -339,7 +342,8 @@
         function validateCheckpoint(value, path) {
             const checkpoint = record(value, path);
             if (!checkpoint) return;
-            keys(checkpoint, path, ['description', 'demo'], ['date', 'when', 'reattempt', 'next', 'extras']);
+            keys(checkpoint, path, ['description', 'demo'], ['steps', 'date', 'when', 'reattempt', 'next', 'extras']);
+            steps(checkpoint.steps, `${path}.steps`);
             text(checkpoint.description, `${path}.description`, { allowEmpty: true });
             const demo = record(checkpoint.demo, `${path}.demo`);
             if (demo) {
@@ -461,6 +465,7 @@
                     (Array.isArray(section.extras) ? section.extras : []).forEach((extra, extraIndex) => extra && addLinks(extra.links, `${sectionPath}.extras[${extraIndex}].links`));
                 } else if (section.checkpoint !== undefined) {
                     const checkpoint = section.checkpoint || {};
+                    (Array.isArray(checkpoint.steps) ? checkpoint.steps : []).forEach((step, stepIndex) => step && addLinks(step.links, `${sectionPath}.checkpoint.steps[${stepIndex}].links`));
                     addLinks((checkpoint.demo || {}).links, `${sectionPath}.checkpoint.demo.links`);
                     (Array.isArray(checkpoint.extras) ? checkpoint.extras : []).forEach((extra, extraIndex) => extra && addLinks(extra.links, `${sectionPath}.checkpoint.extras[${extraIndex}].links`));
                 } else if (section.project !== undefined) {
