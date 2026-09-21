@@ -333,6 +333,7 @@
         steps.append(pathStep({
             name: `${word} ${partId}`,
             where: 'in class',
+            links: items(config.links),
             date: config.date,
             due: config.when || (config.date ? shortDate(config.date) : null),
             classes: `path-step-checkpoint${extras.length ? ' path-step-cont' : ''}`,

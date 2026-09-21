@@ -342,7 +342,7 @@
         function validateCheckpoint(value, path) {
             const checkpoint = record(value, path);
             if (!checkpoint) return;
-            keys(checkpoint, path, ['description', 'demo'], ['steps', 'date', 'when', 'reattempt', 'next', 'extras']);
+            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'next', 'extras']);
             steps(checkpoint.steps, `${path}.steps`);
             text(checkpoint.description, `${path}.description`, { allowEmpty: true });
             const demo = record(checkpoint.demo, `${path}.demo`);
@@ -353,6 +353,7 @@
                 text(demo.description, `${path}.demo.description`, { optional: true, allowEmpty: true });
                 links(demo.links, `${path}.demo.links`);
             }
+            links(checkpoint.links, `${path}.links`);
             date(checkpoint.date, `${path}.date`);
             text(checkpoint.when, `${path}.when`, { optional: true });
             text(checkpoint.reattempt, `${path}.reattempt`, { optional: true });
@@ -467,6 +468,7 @@
                     const checkpoint = section.checkpoint || {};
                     (Array.isArray(checkpoint.steps) ? checkpoint.steps : []).forEach((step, stepIndex) => step && addLinks(step.links, `${sectionPath}.checkpoint.steps[${stepIndex}].links`));
                     addLinks((checkpoint.demo || {}).links, `${sectionPath}.checkpoint.demo.links`);
+                    addLinks(checkpoint.links, `${sectionPath}.checkpoint.links`);
                     (Array.isArray(checkpoint.extras) ? checkpoint.extras : []).forEach((extra, extraIndex) => extra && addLinks(extra.links, `${sectionPath}.checkpoint.extras[${extraIndex}].links`));
                 } else if (section.project !== undefined) {
                     addLinks((section.project || {}).links, `${sectionPath}.project.links`);

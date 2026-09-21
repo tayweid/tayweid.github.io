@@ -128,6 +128,7 @@ else does. Optional keys on the triad:
       video: b4d8l4QMu8E
       description: Practice exam.  # optional
       links: [{label: Demo, file: ME/ME_1/ME_1_Demo.pdf}, {label: Solutions, file: ME/ME_1/ME_1_Demo_sols.pdf}]
+    links: [{label: Solutions, file: ME/ME_1/ME_1_sols.pdf}]   # optional; chips on the checkpoint step itself
     date: '2026-09-09'             # optional; shown as the checkpoint's day
     when: Week 4                   # optional; overrides the date's label
     reattempt: TBA                 # optional; adds a Reattempt step with this label

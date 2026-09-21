@@ -110,6 +110,9 @@ parts:
             links:
               - label: Demo
                 file: ME/ME_1/ME_1_Demo.pdf
+          links:
+            - label: Solutions
+              file: ME/ME_1/ME_1_sols.pdf
           next: 2
   '2':
     title: Final
@@ -160,7 +163,7 @@ function triadSite(t, yamlText = TRIAD, extraFiles = []) {
 }
 
 function stepsSite(t, yamlText = STEPS) {
-    const root = makeSite(t, yamlText, ['econ-0150.html', 'projects.html', 'parts/part-1-1/concept_1_1.pdf', 'parts/part-1-wrapup/concept_wrapup_1.pdf', 'ME/ME_1/ME_1_Demo.pdf', 'projects/project_guidelines.pdf']);
+    const root = makeSite(t, yamlText, ['econ-0150.html', 'projects.html', 'parts/part-1-1/concept_1_1.pdf', 'parts/part-1-wrapup/concept_wrapup_1.pdf', 'ME/ME_1/ME_1_Demo.pdf', 'ME/ME_1/ME_1_sols.pdf', 'projects/project_guidelines.pdf']);
     fs.writeFileSync(path.join(root, 'part-1.html'), shell('1'));
     fs.writeFileSync(path.join(root, 'part-2.html'), shell('2'));
     return root;
@@ -204,6 +207,7 @@ test('rejects a step with neither kind nor where', t => failsWith(run(stepsSite(
 test('rejects an unknown step kind', t => failsWith(run(stepsSite(t, STEPS.replace('kind: exercise', 'kind: quiz'))), 'must be one of exercise'));
 test('rejects a checkpoint step with neither kind nor where', t => failsWith(run(stepsSite(t, STEPS.replace('            - name: Part 1 Wrap Up\n              kind: exercise\n', '            - name: Part 1 Wrap Up\n'))), 'checkpoint.steps[0]: needs a kind'));
 test('rejects a missing checkpoint step link target', t => failsWith(run(stepsSite(t, STEPS.replace('concept_wrapup_1.pdf', 'concept_wrapup_9.pdf'))), 'missing local file parts/part-1-wrapup/concept_wrapup_9.pdf'));
+test('rejects a missing checkpoint link target', t => failsWith(run(stepsSite(t, STEPS.replace('ME_1_sols.pdf', 'ME_9_sols.pdf'))), 'missing local file ME/ME_1/ME_9_sols.pdf'));
 test('rejects a checkpoint next that names a missing part', t => failsWith(run(stepsSite(t, STEPS.replace('next: 2', 'next: 7'))), 'names Part 7'));
 test('rejects a duplicate block across parts', t => {
     const dup = STEPS.replace("      - project:", "      - block: '1.1'\n        nav: Dup\n        title: Dup\n        description: Dup.\n        episode:\n          description: Dup\n        steps: []\n      - project:");
