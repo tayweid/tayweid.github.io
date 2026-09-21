@@ -342,7 +342,7 @@
         function validateCheckpoint(value, path) {
             const checkpoint = record(value, path);
             if (!checkpoint) return;
-            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'next', 'extras']);
+            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'reattempt_when', 'next', 'extras']);
             steps(checkpoint.steps, `${path}.steps`);
             text(checkpoint.description, `${path}.description`, { allowEmpty: true });
             const demo = record(checkpoint.demo, `${path}.demo`);
@@ -357,6 +357,8 @@
             date(checkpoint.date, `${path}.date`);
             text(checkpoint.when, `${path}.when`, { optional: true });
             text(checkpoint.reattempt, `${path}.reattempt`, { optional: true });
+            text(checkpoint.reattempt_when, `${path}.reattempt_when`, { optional: true });
+            if (checkpoint.reattempt_when !== undefined && checkpoint.reattempt === undefined) fail(`${path}.reattempt_when`, 'needs a reattempt');
             if (checkpoint.next !== undefined && !partIds.includes(String(checkpoint.next))) {
                 fail(`${path}.next`, `names Part ${checkpoint.next}, which is not in parts`);
             }

@@ -132,6 +132,7 @@ else does. Optional keys on the triad:
     date: '2026-09-09'             # optional; shown as the checkpoint's day
     when: Week 4                   # optional; overrides the date's label
     reattempt: TBA                 # optional; adds a Reattempt step with this label
+    reattempt_when: Thu Oct 8      # optional; the Reattempt step's day, drawn like the checkpoint's
     next: 2                        # optional; adds a faint "Part 2" step after the checkpoint
     extras: [...]                  # optional material between the demo and the checkpoint
 ```

@@ -340,7 +340,7 @@
             dotClasses: 'path-dot-big'
         }));
         if (config.reattempt !== undefined) {
-            steps.append(pathStep({ name: 'Reattempt', where: config.reattempt, classes: 'path-step-alt', dotClasses: 'path-dot-alt' }));
+            steps.append(pathStep({ name: 'Reattempt', where: config.reattempt, due: config.reattempt_when, classes: 'path-step-alt', dotClasses: 'path-dot-alt' }));
         }
         if (config.next !== undefined) {
             const next = element('li', 'path-step path-step-next');
