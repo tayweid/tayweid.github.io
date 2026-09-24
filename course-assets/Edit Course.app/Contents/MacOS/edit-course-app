@@ -1,0 +1,20 @@
+#!/bin/bash
+# Edit Course.app: starts course-assets/edit-course, the script beside this bundle, in the
+# background; it opens the editor in the default browser and stops itself a few minutes
+# after the last editor tab closes. Launching again while it runs just opens another tab.
+
+assets="$(cd "$(dirname "$0")/../../.." && pwd)"
+script="$assets/edit-course"
+log="$HOME/Library/Logs/Edit Course.log"
+
+if [ ! -f "$script" ]; then
+    osascript -e 'display alert "Edit Course cannot find edit-course" message "Keep Edit Course.app in tayweid.github.io/course-assets, next to the edit-course script. To put it in the Dock, drag it there from that folder rather than moving it."'
+    exit 1
+fi
+
+# Apps opened from Finder get a bare PATH, so look for Python where it usually lives.
+for python in /opt/homebrew/bin/python3 /usr/local/bin/python3 /opt/anaconda3/bin/python3 "$HOME/anaconda3/bin/python3" /usr/bin/python3; do
+    [ -x "$python" ] && break
+done
+
+nohup "$python" "$script" >> "$log" 2>&1 &

@@ -1,0 +1,376 @@
+#!/usr/bin/env python3
+"""edit-course — a local editor for a course site's course-content.yaml.js.
+
+    edit-course [site-folder]      start the editor (or reuse the running one) and open it
+    edit-course --no-browser       start it without opening a browser tab
+
+Serves editor/ at http://127.0.0.1:5170 and gives it a small API to read and save the
+YAML, list block folders, check which files exist, and run check-course. The page does
+the editing; this process only touches the filesystem. It binds to loopback, requires a
+per-run token on every API call, and stops itself a few minutes after the last editor tab
+closes, so Edit Course.app can start it and walk away.
+"""
+
+import glob
+import hashlib
+import http.server
+import json
+import mimetypes
+import os
+import re
+import secrets
+import shutil
+import subprocess
+import sys
+import threading
+import time
+import urllib.parse
+import urllib.request
+import webbrowser
+
+PORT = 5170
+ASSETS = os.path.dirname(os.path.abspath(__file__))
+EDITOR = os.path.join(ASSETS, 'editor')
+STATE = os.environ.get('EDIT_COURSE_STATE') or os.path.expanduser('~/Library/Application Support/Edit Course')
+RECENTS = os.path.join(STATE, 'recent.json')
+CONTENT = 'course-content.yaml.js'
+PUBLISHED = 'https://tayweid.github.io/course-assets/'
+IDLE_SECONDS = 180
+
+TOKEN = secrets.token_urlsafe(24)
+WRAPPER = re.compile(r'\A(?P<head>[\s\S]*?window\.COURSE_CONTENT_YAML = String\.raw`\n)(?P<yaml>[\s\S]*)\n`;\n\Z')
+
+last_seen = time.time()
+drafts = {}   # course id -> unsaved YAML the preview should show
+
+
+# ------------------------------------------------------------------ courses
+
+def course_id(path):
+    return hashlib.sha1(path.encode()).hexdigest()[:10]
+
+
+def load_recents():
+    try:
+        with open(RECENTS) as f:
+            return [r for r in json.load(f) if os.path.isfile(os.path.join(r['path'], CONTENT))]
+    except (OSError, ValueError):
+        return []
+
+
+def remember(path):
+    path = os.path.realpath(path)
+    if not os.path.isfile(os.path.join(path, CONTENT)):
+        raise ValueError(f'{path} has no {CONTENT}')
+    recents = [r for r in load_recents() if r['path'] != path]
+    recents.insert(0, {'path': path, 'opened': time.time()})
+    os.makedirs(STATE, exist_ok=True)
+    with open(RECENTS, 'w') as f:
+        json.dump(recents[:12], f, indent=2)
+    return course_id(path)
+
+
+def course_path(cid):
+    for r in load_recents():
+        if course_id(r['path']) == cid:
+            return r['path']
+    raise LookupError('unknown course')
+
+
+def read_content(root):
+    with open(os.path.join(root, CONTENT), encoding='utf-8') as f:
+        text = f.read()
+    match = WRAPPER.match(text)
+    if not match:
+        raise ValueError(f'{CONTENT} is not wrapped as window.COURSE_CONTENT_YAML = String.raw`...`;')
+    return match.group('head'), match.group('yaml') + '\n'
+
+
+def write_content(root, yaml):
+    if '`' in yaml or '${' in yaml:
+        raise ValueError('the YAML may not contain a backtick or ${')
+    head, _ = read_content(root)
+    target = os.path.join(root, CONTENT)
+    temp = target + '.saving'
+    with open(temp, 'w', encoding='utf-8') as f:
+        f.write(head + yaml.rstrip('\n') + '\n`;\n')
+    os.replace(temp, target)
+
+
+def mtime(root):
+    # A string: nanoseconds do not survive a round trip through a JavaScript number.
+    return str(os.stat(os.path.join(root, CONTENT)).st_mtime_ns)
+
+
+def inside(root, relative):
+    full = os.path.realpath(os.path.join(root, urllib.parse.unquote(relative)))
+    return full if full == root or full.startswith(root + os.sep) else None
+
+
+def course_summary(root):
+    head, yaml = read_content(root)
+    title = re.search(r'^  code: *(.+)$', yaml, re.M)
+    return {'id': course_id(root), 'path': root, 'name': os.path.basename(root),
+            'code': title.group(1).strip().strip('\'"') if title else ''}
+
+
+def folders(root, materials):
+    base = inside(root, materials or 'Blocks')
+    if not base or not os.path.isdir(base):
+        return []
+    return sorted(n for n in os.listdir(base) if os.path.isdir(os.path.join(base, n)) and not n.startswith('.'))
+
+
+# ------------------------------------------------------------------ check-course
+
+def find_node():
+    found = shutil.which('node')
+    if found:
+        return found
+    candidates = sorted(glob.glob(os.path.expanduser('~/.nvm/versions/node/*/bin/node')), reverse=True)
+    candidates += ['/opt/homebrew/bin/node', '/usr/local/bin/node']
+    for candidate in candidates:
+        if os.access(candidate, os.X_OK):
+            return candidate
+    try:
+        out = subprocess.run(['/bin/zsh', '-lic', 'command -v node'], capture_output=True, text=True, timeout=10)
+        line = out.stdout.strip().splitlines()[-1:]
+        return line[0] if line and os.access(line[0], os.X_OK) else None
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+NODE = find_node()
+
+
+def check(root):
+    if not NODE:
+        return {'ran': False, 'errors': [], 'summary': 'check-course was not run: Node was not found'}
+    out = subprocess.run([NODE, os.path.join(ASSETS, 'check-course'), root], capture_output=True, text=True, cwd=root, timeout=60)
+    errors = [line[len('Error: '):] for line in out.stderr.splitlines() if line.startswith('Error: ')]
+    summary = out.stdout.strip() or (out.stderr.strip().splitlines() or [''])[-1]
+    return {'ran': True, 'errors': errors, 'summary': summary}
+
+
+def git_diff(root):
+    try:
+        out = subprocess.run(['git', 'diff', '--no-color', '--', CONTENT], capture_output=True, text=True, cwd=root, timeout=20)
+        return out.stdout
+    except (OSError, subprocess.SubprocessError):
+        return ''
+
+
+def choose_folder():
+    script = 'POSIX path of (choose folder with prompt "Choose a course site folder (it holds course-content.yaml.js)")'
+    out = subprocess.run(['osascript', '-e', script], capture_output=True, text=True)
+    return out.stdout.strip() or None
+
+
+# ------------------------------------------------------------------ HTTP
+
+class Handler(http.server.BaseHTTPRequestHandler):
+    server_version = 'edit-course'
+
+    def log_message(self, *args):
+        pass
+
+    def send(self, status, body, kind='application/json; charset=utf-8', headers=None):
+        if not isinstance(body, bytes):
+            body = (json.dumps(body) if kind.startswith('application/json') else body).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type', kind)
+        self.send_header('Content-Length', str(len(body)))
+        self.send_header('Cache-Control', 'no-store')
+        for key, value in (headers or {}).items():
+            self.send_header(key, value)
+        self.end_headers()
+        if self.command != 'HEAD':
+            self.wfile.write(body)
+
+    def local_host(self):
+        # A page on another site that resolves its own name to 127.0.0.1 still sends its own Host.
+        return self.headers.get('Host', '') in (f'127.0.0.1:{PORT}', f'localhost:{PORT}')
+
+    def do_GET(self):
+        global last_seen
+        last_seen = time.time()
+        if not self.local_host():
+            return self.send(403, {'error': 'forbidden'})
+        url = urllib.parse.urlsplit(self.path)
+        query = urllib.parse.parse_qs(url.query)
+        parts = url.path.split('/', 3)
+        try:
+            if url.path in ('/', '/index.html'):
+                with open(os.path.join(EDITOR, 'index.html'), encoding='utf-8') as f:
+                    return self.send(200, f.read().replace('{{TOKEN}}', TOKEN), 'text/html; charset=utf-8')
+            if url.path == '/api/hello':
+                return self.send(200, {'app': 'edit-course'})
+            if url.path.startswith('/editor/'):
+                return self.static(EDITOR, url.path[len('/editor/'):])
+            if url.path.startswith('/assets/'):
+                return self.static(ASSETS, url.path[len('/assets/'):])
+            if parts[1] == 'site' and len(parts) >= 3:
+                return self.site(parts[2], parts[3] if len(parts) > 3 else 'index.html')
+            if url.path.startswith('/api/'):
+                if self.headers.get('X-Edit-Token') != TOKEN:
+                    return self.send(403, {'error': 'bad token'})
+                return self.api_get(url.path, {k: v[0] for k, v in query.items()})
+        except (LookupError, ValueError, OSError) as error:
+            return self.send(400, {'error': str(error)})
+        self.send(404, {'error': 'not found'})
+
+    # The course pages probe for conventional PDFs with HEAD before linking them.
+    def do_HEAD(self):
+        self.do_GET()
+
+    def do_POST(self):
+        global last_seen
+        last_seen = time.time()
+        if not self.local_host():
+            return self.send(403, {'error': 'forbidden'})
+        url = urllib.parse.urlsplit(self.path)
+        query = {k: v[0] for k, v in urllib.parse.parse_qs(url.query).items()}
+        # sendBeacon cannot set headers, so the goodbye carries its token in the query.
+        if self.headers.get('X-Edit-Token') != TOKEN and query.get('token') != TOKEN:
+            return self.send(403, {'error': 'bad token'})
+        length = int(self.headers.get('Content-Length') or 0)
+        try:
+            body = json.loads(self.rfile.read(length) or b'{}') if length else {}
+        except ValueError:
+            return self.send(400, {'error': 'bad JSON'})
+        try:
+            return self.api_post(url.path, body)
+        except (LookupError, ValueError, OSError, subprocess.SubprocessError) as error:
+            return self.send(400, {'error': str(error)})
+
+    def api_get(self, path, query):
+        if path == '/api/courses':
+            return self.send(200, {'courses': [course_summary(r['path']) for r in load_recents()]})
+        root = course_path(query.get('c', ''))
+        if path == '/api/course':
+            _, yaml = read_content(root)
+            materials = re.search(r'^  materials: *([^\s#]+)', yaml, re.M)
+            return self.send(200, {**course_summary(root), 'yaml': yaml, 'mtime': mtime(root),
+                                   'folders': folders(root, materials.group(1) if materials else None),
+                                   'checker': bool(NODE)})
+        if path == '/api/mtime':
+            return self.send(200, {'mtime': mtime(root)})
+        if path == '/api/diff':
+            return self.send(200, {'diff': git_diff(root)})
+        self.send(404, {'error': 'not found'})
+
+    def api_post(self, path, body):
+        global last_seen
+        if path == '/api/ping':
+            return self.send(200, {'ok': True})
+        if path == '/api/bye':
+            last_seen = time.time() - IDLE_SECONDS + 15   # gone in 15 s unless another tab speaks up
+            return self.send(200, {'ok': True})
+        if path == '/api/quit':
+            self.send(200, {'ok': True})
+            threading.Thread(target=self.server.shutdown).start()
+            return None
+        if path == '/api/choose':
+            folder = choose_folder()
+            return self.send(200, {'id': remember(folder)} if folder else {'cancelled': True})
+        if path == '/api/open':
+            return self.send(200, {'id': remember(os.path.expanduser(body.get('path', '')))})
+        root = course_path(body.get('c', ''))
+        cid = course_id(root)
+        if path == '/api/save':
+            if not body.get('force') and body.get('mtime') != mtime(root):
+                return self.send(409, {'error': 'changed on disk', 'mtime': mtime(root)})
+            write_content(root, body['yaml'])
+            drafts.pop(cid, None)
+            return self.send(200, {'mtime': mtime(root), 'check': check(root)})
+        if path == '/api/check':
+            return self.send(200, check(root))
+        if path == '/api/draft':
+            if body.get('yaml') is None:
+                drafts.pop(cid, None)
+            else:
+                drafts[cid] = body['yaml']
+            return self.send(200, {'ok': True})
+        if path == '/api/exists':
+            result = {}
+            for relative in body.get('paths', [])[:2000]:
+                full = inside(root, relative)
+                result[relative] = bool(full and os.path.exists(full))
+            return self.send(200, result)
+        if path == '/api/reveal':
+            full = inside(root, body.get('path') or CONTENT)
+            if full:
+                subprocess.run(['open', '-R', full])
+            return self.send(200, {'ok': True})
+        self.send(404, {'error': 'not found'})
+
+    def static(self, base, relative):
+        full = inside(base, relative)
+        if not full or not os.path.isfile(full):
+            return self.send(404, {'error': 'not found'})
+        kind = mimetypes.guess_type(full)[0] or 'application/octet-stream'
+        if full.endswith(('.js', '.mjs')):
+            kind = 'text/javascript'
+        with open(full, 'rb') as f:
+            return self.send(200, f.read(), kind)
+
+    # The course site itself, for the preview: its pages load the shared code from this
+    # checkout instead of the published copy, and read the unsaved YAML when there is one.
+    def site(self, cid, relative):
+        root = course_path(cid)
+        relative = relative.split('?', 1)[0] or 'index.html'
+        if relative == CONTENT and cid in drafts:
+            head, _ = read_content(root)
+            return self.send(200, head + drafts[cid].rstrip('\n') + '\n`;\n', 'text/javascript')
+        full = inside(root, relative)
+        if full and os.path.isdir(full):
+            full = os.path.join(full, 'index.html')
+        if not full or not os.path.isfile(full):
+            return self.send(404, 'not found', 'text/plain')
+        if full.endswith('.html'):
+            with open(full, encoding='utf-8') as f:
+                return self.send(200, f.read().replace(PUBLISHED, '/assets/'), 'text/html; charset=utf-8')
+        return self.static(root, relative)
+
+
+def watchdog(server):
+    while True:
+        time.sleep(5)
+        if time.time() - last_seen > IDLE_SECONDS:
+            server.shutdown()
+            return
+
+
+def running():
+    try:
+        with urllib.request.urlopen(f'http://127.0.0.1:{PORT}/api/hello', timeout=1) as r:
+            return json.load(r).get('app') == 'edit-course'
+    except (OSError, ValueError):
+        return False
+
+
+def main():
+    args = [a for a in sys.argv[1:] if a != '--no-browser']
+    browser = '--no-browser' not in sys.argv
+    folder = args[0] if args else None
+    url = f'http://127.0.0.1:{PORT}/'
+    if folder:
+        url += '?open=' + urllib.parse.quote(os.path.realpath(folder))
+    if running():
+        if browser:
+            webbrowser.open(url)
+        return
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', PORT), Handler)
+    threading.Thread(target=watchdog, args=(server,), daemon=True).start()
+    print(f'edit-course: {url} (stops {IDLE_SECONDS // 60} minutes after the last editor tab closes)', flush=True)
+    if browser:
+        webbrowser.open(url)
+    try:
+        server.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    server.server_close()
+
+
+if __name__ == '__main__':
+    main()

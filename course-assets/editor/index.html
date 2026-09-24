@@ -1,0 +1,61 @@
+<!doctype html>
+<!-- Edit Course: served by course-assets/edit-course, which fills in the token below. -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="token" content="{{TOKEN}}">
+    <title>Edit Course</title>
+    <link rel="icon" href="/editor/icon.svg">
+    <link rel="stylesheet" href="/editor/editor.css">
+    <script src="/assets/course-schema.js"></script>
+    <script type="module" src="/editor/editor.js"></script>
+</head>
+<body>
+<header class="bar">
+    <a class="brand" href="/" title="Courses">Edit Course</a>
+    <span class="course" data-course-name></span>
+    <span class="status" data-status role="status"></span>
+    <span class="spacer"></span>
+    <span class="tools" data-tools hidden>
+        <button type="button" data-do="undo" title="Undo (⌘Z)" disabled>Undo</button>
+        <button type="button" data-do="redo" title="Redo (⇧⌘Z)" disabled>Redo</button>
+        <button type="button" data-do="problems" class="problems" title="Problems">No problems</button>
+        <button type="button" data-do="diff" title="What changed since the last commit">Diff</button>
+        <button type="button" data-do="preview" aria-pressed="true" title="Show or hide the page preview">Preview</button>
+        <button type="button" data-do="save" class="primary" title="Save (⌘S)">Save</button>
+    </span>
+    <button type="button" data-do="quit" class="quiet" title="Stop the editor">Quit</button>
+</header>
+
+<div class="banner" data-banner hidden></div>
+
+<main class="launcher" data-launcher hidden>
+    <h1>Edit Course</h1>
+    <p class="lede">Pick a course site. It is any folder with a <code>course-content.yaml.js</code>.</p>
+    <ul class="recents" data-recents></ul>
+    <button type="button" class="primary" data-do="choose">Open a folder…</button>
+</main>
+
+<div class="workspace" data-workspace hidden>
+    <nav class="sidebar" data-sidebar aria-label="Course outline"></nav>
+    <section class="editor" data-editor aria-label="Editor"></section>
+    <section class="preview" data-preview-pane aria-label="Preview">
+        <iframe data-preview title="Page preview"></iframe>
+    </section>
+</div>
+
+<aside class="drawer" data-drawer hidden>
+    <div class="drawer-head"><strong>Problems</strong><button type="button" class="quiet" data-do="close-drawer">Close</button></div>
+    <ul data-problem-list></ul>
+</aside>
+
+<dialog data-dialog>
+    <div class="dialog-head"><strong data-dialog-title></strong><button type="button" class="quiet" data-do="close-dialog">Close</button></div>
+    <pre data-dialog-body></pre>
+</dialog>
+
+<div class="toasts" data-toasts aria-live="polite"></div>
+</body>
+</html>
