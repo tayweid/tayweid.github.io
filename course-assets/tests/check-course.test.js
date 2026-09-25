@@ -271,3 +271,20 @@ test('schema helpers agree with the page ids the sites already use', () => {
         ]
     );
 });
+
+test('the current part is the first whose last date has not passed', () => {
+    const block = (dates) => ({ block: 'X', dates });
+    const course = { parts: {
+        A: { sections: [block({ class: '2026-08-26' }), { checkpoint: { date: '2026-09-09' } }] },
+        B: { sections: [block({ class: '2026-09-11', homework: '2026-10-04' }), { checkpoint: { date: '2026-10-05' } }] },
+        X: { sections: [] },
+        C: { sections: [{ block: 'C1', steps: [{ name: 'Homework C1', kind: 'homework', date: '2026-10-18' }] }] }
+    } };
+    assert.equal(schema.currentPart(course, '2026-08-01'), 'A');   // before the term
+    assert.equal(schema.currentPart(course, '2026-09-09'), 'A');   // through the checkpoint day
+    assert.equal(schema.currentPart(course, '2026-09-10'), 'B');   // the gap before B's first class
+    assert.equal(schema.currentPart(course, '2026-10-05'), 'B');
+    assert.equal(schema.currentPart(course, '2026-10-06'), 'C');   // step dates count; X has none
+    assert.equal(schema.currentPart(course, '2027-01-10'), 'C');   // after the term
+    assert.equal(schema.currentPart({ parts: { A: { sections: [] }, B: { sections: [] } } }, '2026-10-06'), 'A');
+});

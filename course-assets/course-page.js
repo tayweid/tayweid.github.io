@@ -2,7 +2,9 @@
  *
  * Shared by every course site. A part page is a thin shell: an empty left-nav slot, a
  * <main data-course-part="A"> with a loading line, an output slot, and an empty right-nav
- * slot. Everything visible comes from the YAML, validated first by course-schema.js so the
+ * slot. A site's index.html declares data-course-part="current" and shows whichever part
+ * the schedule says is current (CourseSchema.currentPart), so the bare address is always
+ * up to date. Everything visible comes from the YAML, validated first by course-schema.js so the
  * page and the checker can never disagree. The format is documented in COURSE_CONTENT.md.
  *
  * Loaded by the shell's bootstrap after js-yaml.min.js and course-schema.js. When the page
@@ -16,7 +18,7 @@
     if (!page) return;
     page.setAttribute('aria-busy', 'true');
 
-    const partId = page.dataset.coursePart;
+    let partId = page.dataset.coursePart;   // 'current' is resolved once the YAML is read
     const SOURCE = 'course-content.yaml.js';
     const output = page.querySelector('[data-course-output]');
     const leftSlot = document.querySelector('[data-course-left-nav]');
@@ -607,6 +609,10 @@
             const { course: validated, errors } = schema.validate(data);
             if (errors.length) throw new Error(`${SOURCE} has ${errors.length} problem${errors.length === 1 ? '' : 's'}; the first is ${errors[0]}`);
             course = validated;
+            if (partId === 'current') {
+                partId = schema.currentPart(course, today());
+                page.dataset.coursePart = partId;
+            }
             const part = course.parts[partId];
             if (!part) throw new Error(`Part ${partId} is missing from ${SOURCE}.`);
 

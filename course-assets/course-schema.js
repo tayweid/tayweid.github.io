@@ -47,6 +47,36 @@
         return checkpointWord(course).toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
+    // Every yyyy-mm-dd date a part is scheduled on: its blocks' dates, their steps', and
+    // its checkpoint's (the checkpoint day and any checkpoint steps).
+    function partDates(part) {
+        const found = [];
+        const add = value => { if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) found.push(value); };
+        const steps = list => (Array.isArray(list) ? list : []).forEach(step => step && add(step.date));
+        (Array.isArray(part && part.sections) ? part.sections : []).forEach(section => {
+            if (!isRecord(section)) return;
+            if (isRecord(section.dates)) Object.values(section.dates).forEach(add);
+            steps(section.steps);
+            if (isRecord(section.checkpoint)) {
+                add(section.checkpoint.date);
+                steps(section.checkpoint.steps);
+            }
+        });
+        return found.sort();
+    }
+
+    // The part a student should see on `today` (yyyy-mm-dd): the first part whose last
+    // scheduled date has not passed, so a part stays current through its checkpoint day.
+    // Before the term that is the first part; after it, the last scheduled part. Parts with
+    // no dates are skipped; with no dates anywhere, the first part.
+    function currentPart(course, today) {
+        const ids = Object.keys((course && course.parts) || {});
+        const scheduled = ids.filter(id => partDates(course.parts[id]).length);
+        if (!scheduled.length) return ids[0];
+        const current = scheduled.find(id => partDates(course.parts[id]).pop() >= today);
+        return current || scheduled[scheduled.length - 1];
+    }
+
     function readingFile(course, chapter) {
         const pattern = course && course.course && course.course.reading;
         if (!pattern) return null;
@@ -512,6 +542,7 @@
         checkpointWord,
         checkpointElementId,
         readingFile,
+        currentPart,
         conventionalPath,
         solutionsMode,
         solutionsShown,

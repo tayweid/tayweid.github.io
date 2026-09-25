@@ -31,6 +31,7 @@ load a neighbouring `<script>` and nothing else.
 | `course-assets/icon.svg` | the course icon (the bumper's raster squares); every site page links it |
 | `<site>/course-content.yaml.js` | the content |
 | `<site>/part-<id>.html` | one shell per part, identical across sites except the part ID |
+| `<site>/index.html` | optional: the same shell with `data-course-part="current"`, which shows the part under way today (below) |
 
 A shell opened from disk loads the shared code from the sibling checkout,
 `../tayweid.github.io/course-assets/`, so an unpushed change to the renderer or the
@@ -192,6 +193,14 @@ they were. Keys the forms do not know are kept and listed under the form. An app
 `../tayweid.github.io/course-assets/editor/edit-course`, so leave it in its course folder and
 drag it to the Dock from there.
 Courses opened are remembered in `~/Library/Application Support/Edit Course/`.
+
+## The current part
+
+A shell that declares `data-course-part="current"` (a site's `index.html`) shows the part
+under way today, so the bare address needs no path. The current part is the first whose
+last scheduled date (any block, step or checkpoint date) has not passed: a part stays
+current through its checkpoint day, the next takes over the day after, and outside the
+term it is the first or the last scheduled part. Add `?today=2026-10-06` to preview a day.
 
 ## Checking
 
