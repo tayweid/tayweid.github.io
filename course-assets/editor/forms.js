@@ -54,12 +54,15 @@ export const BLOCK = [
         { key: 'links', type: 'links' }
     ] },
     { key: 'steps', type: 'records', fields: STEP, title: step => step.name, blank: { name: 'New step', kind: 'exercise' }, onlyIfPresent: true },
+    // Each card carries its own date; the dates live together under dates: in the file.
     { group: 'exercise', fields: [
+        { key: 'class', label: 'Class date', type: 'date', outside: ['dates', 'class'] },
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
         { key: 'links', type: 'links' }
     ] },
     { group: 'vignette', fields: [
+        { key: 'recitation', label: 'Recitation date', type: 'date', outside: ['dates', 'recitation'] },
         { key: 'description', type: 'long' },
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
@@ -69,18 +72,15 @@ export const BLOCK = [
         { key: 'links', type: 'links' }
     ] },
     { group: 'homework', fields: [
-        { key: 'due', type: 'text', placeholder: 'Sunday, September 6' },
+        { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
+        { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
         { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
         { key: 'solutions', type: 'bool', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' },
         { key: 'video', type: 'video' },
         { key: 'links', type: 'links' }
     ] },
-    { group: 'dates', hint: 'a step’s dot turns blue once its date has passed', fields: [
-        { key: 'class', type: 'date' },
-        { key: 'recitation', type: 'date' },
-        { key: 'homework', type: 'date' }
-    ] },
+    { key: 'dates', type: 'hidden' },   // shown on the exercise, vignette and homework cards
     { key: 'extras', type: 'records', fields: EXTRA, title: extra => extra.name, blank: { name: 'New extra' } }
 ];
 
@@ -171,12 +171,19 @@ function renderGroup(group, parent, path, ctx) {
     const value = parent && parent[group.group];
     const groupPath = [...path, group.group];
     const present = value !== undefined && value !== null;
+    // A field with outside: [...] lives elsewhere in the parent (dates.class on the exercise card).
+    const outside = field => getIn(parent, field.outside);
+    const inside = group.fields.filter(field => !field.outside);
+    const shown = present || group.fields.some(field => field.outside && outside(field) !== undefined);
     const legend = h('legend', {}, group.label || capitalise(group.group),
-        present ? h('button', { class: 'quiet', type: 'button', 'data-action': 'clear', 'data-path': key(groupPath), title: `Remove ${group.group}: and everything in it` }, 'clear') : h('span', { class: 'unset' }, 'not set'));
-    return h('fieldset', { class: present ? 'group' : 'group absent', 'data-at': key(groupPath) },
+        present ? h('button', { class: 'quiet', type: 'button', 'data-action': 'clear', 'data-path': key(groupPath), title: `Remove ${group.group}: and everything in it` }, 'clear')
+            : shown ? null : h('span', { class: 'unset' }, 'not set'));
+    return h('fieldset', { class: shown ? 'group' : 'group absent', 'data-at': key(groupPath) },
         legend,
         group.hint ? h('p', { class: 'hint' }, group.hint) : null,
-        ...renderFields(group.fields, present && typeof value === 'object' ? value : {}, groupPath, ctx),
+        ...group.fields.filter(field => field.outside).map(field =>
+            renderField(field, getIn(parent, field.outside.slice(0, -1)), [...path, ...field.outside.slice(0, -1)], ctx)),
+        ...renderFields(inside, present && typeof value === 'object' ? value : {}, groupPath, ctx),
         errorsFor(groupPath, ctx, true));
 }
 
@@ -323,6 +330,10 @@ export function localPath(value) {
 export function weekday(date) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '')) return '';
     return new Date(date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+function getIn(value, path) {
+    return path.reduce((node, part) => (node === undefined || node === null ? undefined : node[part]), value);
 }
 
 function capitalise(text) {

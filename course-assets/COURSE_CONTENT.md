@@ -164,10 +164,13 @@ root or an `https://` URL. Icons default by file type: PDF, notebook, data, page
 
 ## Editing with forms
 
-Double-click `course-assets/Edit Course.app` (or run `course-assets/edit-course [site]`).
+Double-click `Edit <code>.app` in a course folder (e.g. `econ-0100/Edit ECON 0100.app`) to
+open that course, or `course-assets/Edit Course.app` to pick one; `edit-course [site]` does
+the same from a terminal, and `edit-course --make-app <site>` writes a course its own app.
 It starts a small local server and opens the editor in the browser: an outline of the
 course on the left, a form for the selected block, part, checkpoint, project or the course
-header in the middle, and the real part page on the right, showing unsaved edits. Fields
+header in the middle (each exercise, vignette and homework card carries its own date),
+and the real part page on the right, showing unsaved edits. Fields
 are checked as you type with `course-schema.js`; each block shows which of its
 conventional PDFs are on disk. Save (⌘S) writes the file and runs `check-course`; Diff
 shows what changed since the last commit. It picks up edits made to the file elsewhere,
@@ -176,8 +179,8 @@ and it stops itself a few minutes after the last editor tab closes (or at Quit).
 Saving changes only what was edited. `editor/source.js` makes each edit as a small splice
 of the YAML text (one value, one key's lines, one list item's lines) and re-parses the
 result to confirm it; comments, quoting, alignment and indentation elsewhere are left as
-they were. Keys the forms do not know are kept and listed under the form. The app must stay
-in `course-assets/` (drag it to the Dock from there); it runs the `edit-course` beside it.
+they were. Keys the forms do not know are kept and listed under the form. The apps run the
+`edit-course` in `course-assets/`, so leave them where they are and drag them to the Dock.
 Courses opened are remembered in `~/Library/Application Support/Edit Course/`.
 
 ## Checking

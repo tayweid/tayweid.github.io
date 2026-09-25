@@ -3,6 +3,7 @@
 
     edit-course [site-folder]      start the editor (or reuse the running one) and open it
     edit-course --no-browser       start it without opening a browser tab
+    edit-course --make-app SITE    write SITE/Edit <code>.app, which opens that course directly
 
 Serves editor/ at http://127.0.0.1:5170 and gives it a small API to read and save the
 YAML, list block folders, check which files exist, and run check-course. The page does
@@ -17,6 +18,7 @@ import http.server
 import json
 import mimetypes
 import os
+import plistlib
 import re
 import secrets
 import shutil
@@ -349,7 +351,35 @@ def running():
         return False
 
 
+def make_app(site):
+    # A copy of the shared bundle, named for the course. Its launcher sees the course folder
+    # around it and opens that course. A custom icon already in place is kept.
+    site = os.path.realpath(site)
+    code = course_summary(site)['code'] or os.path.basename(site)
+    target = os.path.join(site, f'Edit {code}.app')
+    icon = os.path.join(target, 'Contents', 'Resources', 'AppIcon.icns')
+    kept = None
+    if os.path.exists(icon):
+        with open(icon, 'rb') as f:
+            kept = f.read()
+    shutil.rmtree(target, ignore_errors=True)
+    shutil.copytree(os.path.join(ASSETS, 'Edit Course.app'), target)
+    if kept:
+        with open(icon, 'wb') as f:
+            f.write(kept)
+    info = os.path.join(target, 'Contents', 'Info.plist')
+    with open(info, 'rb') as f:
+        plist = plistlib.load(f)
+    plist['CFBundleName'] = plist['CFBundleDisplayName'] = f'Edit {code}'
+    plist['CFBundleIdentifier'] = 'io.tayweid.edit-course.' + re.sub(r'[^a-z0-9]+', '-', code.lower()).strip('-')
+    with open(info, 'wb') as f:
+        plistlib.dump(plist, f)
+    print(f'Wrote {target}')
+
+
 def main():
+    if sys.argv[1:2] == ['--make-app']:
+        return make_app(sys.argv[2] if len(sys.argv) > 2 else '.')
     args = [a for a in sys.argv[1:] if a != '--no-browser']
     browser = '--no-browser' not in sys.argv
     folder = args[0] if args else None
