@@ -27,7 +27,8 @@ load a neighbouring `<script>` and nothing else.
 | `course-assets/course-page.js` | the renderer; a part page is a twenty-line shell that loads it |
 | `course-assets/check-course` | the checker: `node course-assets/check-course <site>`; a site's `scripts/check-course` runs it |
 | `course-assets/tests/` | the checker's and the editor's tests: `node --test course-assets/tests/*.test.js` |
-| `course-assets/Edit Course.app`, `edit-course`, `editor/` | a local form editor for the content file; see Editing with forms |
+| `course-assets/editor/` | a local form editor for the content file; see Editing with forms |
+| `course-assets/icon.svg` | the course icon (the bumper's raster squares); every site page links it |
 | `<site>/course-content.yaml.js` | the content |
 | `<site>/part-<id>.html` | one shell per part, identical across sites except the part ID |
 
@@ -170,10 +171,9 @@ root or an `https://` URL. Icons default by file type: PDF, notebook, data, page
 
 ## Editing with forms
 
-Double-click `Edit <code>.app` in a course folder (e.g. `econ-0100/Edit ECON 0100.app`) to
-open that course, or `course-assets/Edit Course.app` to pick one; `edit-course [site]` does
-the same from a terminal. The app opens whichever course folder it sits in, so a new course
-gets one by copying `Edit Course.app` into its folder (rename it as you like).
+Double-click `Edit <code>.app` in a course folder (e.g. `econ-0100/Edit ECON 0100.app`), or
+run `course-assets/editor/edit-course <site>`. The app opens whichever course folder it sits
+in, so a new course gets one by copying another course's app into its folder and renaming it.
 It starts a small local server and opens the editor in the browser: an outline of the
 course on the left, a form for the selected block, part, checkpoint, project or the course
 header in the middle (only fields in use are shown; the rest wait as chips, such as
@@ -188,8 +188,9 @@ and it stops itself a few minutes after the last editor tab closes (or at Quit).
 Saving changes only what was edited. `editor/source.js` makes each edit as a small splice
 of the YAML text (one value, one key's lines, one list item's lines) and re-parses the
 result to confirm it; comments, quoting, alignment and indentation elsewhere are left as
-they were. Keys the forms do not know are kept and listed under the form. The apps run the
-`edit-course` in `course-assets/`, so leave them where they are and drag them to the Dock.
+they were. Keys the forms do not know are kept and listed under the form. An app runs
+`../tayweid.github.io/course-assets/editor/edit-course`, so leave it in its course folder and
+drag it to the Dock from there.
 Courses opened are remembered in `~/Library/Application Support/Edit Course/`.
 
 ## Checking

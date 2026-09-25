@@ -8,7 +8,7 @@ Serves editor/ at http://127.0.0.1:5170 and gives it a small API to read and sav
 YAML, list block folders, check which files exist, and run check-course. The page does
 the editing; this process only touches the filesystem. It binds to loopback, requires a
 per-run token on every API call, and stops itself a few minutes after the last editor tab
-closes, so Edit Course.app can start it and walk away.
+closes, so a course's Edit <code>.app can start it and walk away.
 """
 
 import glob
@@ -29,8 +29,8 @@ import urllib.request
 import webbrowser
 
 PORT = int(os.environ.get('EDIT_COURSE_PORT') or 5170)
-ASSETS = os.path.dirname(os.path.abspath(__file__))
-EDITOR = os.path.join(ASSETS, 'editor')
+EDITOR = os.path.dirname(os.path.abspath(__file__))
+ASSETS = os.path.dirname(EDITOR)   # course-assets: the schema, checker, renderer and fonts
 STATE = os.environ.get('EDIT_COURSE_STATE') or os.path.expanduser('~/Library/Application Support/Edit Course')
 RECENTS = os.path.join(STATE, 'recent.json')
 CONTENT = 'course-content.yaml.js'
