@@ -39,14 +39,61 @@ async function api(path, body) {
         options.headers['Content-Type'] = 'application/json';
         options.body = JSON.stringify(body);
     }
-    const response = await fetch(path, options);
+    let response;
+    try {
+        response = await fetch(path, options);
+    } catch (error) {
+        lostContact();
+        throw new Error('Edit Course is not running');
+    }
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
+        // A restarted server has a new token, and forgets a course dropped from its list.
+        if (response.status === 403 || data.error === 'unknown course') lostContact();
         const error = new Error(data.error || response.statusText);
         error.status = response.status;
         throw error;
     }
     return data;
+}
+
+// The server stopped (the Mac slept, or Quit) or restarted. Reconnecting reloads the page
+// through a fresh server and puts any unsaved edits back, kept meanwhile in localStorage.
+function lostContact() {
+    if (!state.course || state.banner === 'lost') return;
+    const banner = $('[data-banner]');
+    banner.replaceChildren(
+        h('span', {}, 'This tab lost contact with Edit Course, so it cannot save. If the editor stopped, open the app again; then reconnect. Unsaved edits come with you.'),
+        h('button', { type: 'button', 'data-do': 'reconnect' }, 'Reconnect'));
+    banner.hidden = false;
+    state.banner = 'lost';
+}
+
+async function reconnect() {
+    const alive = await fetch('/api/hello').then(r => r.ok).catch(() => false);
+    if (!alive) {
+        toast('Edit Course is not running. Open the app again, then click Reconnect.', 'warn');
+        return;
+    }
+    const { path } = state.course;
+    try {
+        localStorage.setItem(`edit-course:stash:${path}`, JSON.stringify({
+            text: state.source.text, savedText: state.savedText, mtime: state.mtime, selected: state.selected
+        }));
+    } catch (error) { /* storage unavailable: reconnecting still works, without the edits */ }
+    state.savedText = state.source.text;   // no leave-page prompt; the edits are stashed
+    location.href = `/?open=${encodeURIComponent(path)}`;
+}
+
+function takeStash(path) {
+    try {
+        const key = `edit-course:stash:${path}`;
+        const stash = JSON.parse(localStorage.getItem(key));
+        localStorage.removeItem(key);
+        return stash;
+    } catch (error) {
+        return null;
+    }
 }
 
 // ---------------------------------------------------------------- start
@@ -95,6 +142,16 @@ async function openCourse(id) {
     state.check = null;
     state.checkErrors = [];
     state.selected = remembered(id) || firstSelection();
+    const stash = takeStash(course.path);
+    if (stash && stash.text !== stash.savedText) {
+        // Back from a reconnect with unsaved edits. Keeping the old mtime means a save
+        // still asks first if the file changed on disk in between.
+        state.source = new Source(stash.text);
+        state.mtime = stash.mtime;
+        state.selected = stash.selected || state.selected;
+        toast('Reconnected. Your unsaved edits are back.');
+        setTimeout(pushDraft, 0);
+    }
     if (!sectionExists(state.selected)) state.selected = firstSelection();
 
     $('[data-launcher]').hidden = true;
@@ -638,7 +695,7 @@ function hideBanner() {
 }
 
 async function poll() {
-    if (!state.course || saving || document.hidden) return;
+    if (!state.course || saving || document.hidden || state.banner === 'lost') return;
     try {
         const { mtime } = await api(`/api/mtime?c=${encodeURIComponent(state.course.id)}`);
         if (mtime === state.mtime || state.banner) return;
@@ -733,7 +790,8 @@ function command(name) {
         if (state.preview) showPreview(true);
     } else if (name === 'choose') {
         api('/api/choose', {}).then(result => { if (result.id) location.href = `/?c=${result.id}`; }).catch(error => toast(error.message, 'error'));
-    } else if (name === 'load-disk') reloadFromDisk('Loaded the version on disk.');
+    } else if (name === 'reconnect') reconnect();
+    else if (name === 'load-disk') reloadFromDisk('Loaded the version on disk.');
     else if (name === 'keep-mine') {
         hideBanner();
         state.banner = 'kept';
