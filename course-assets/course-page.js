@@ -172,12 +172,20 @@
         });
     }
 
-    function vignetteLinks(vignette, blockFiles) {
+    // Today as yyyy-mm-dd, the way course.js dates the dots; ?today=2026-09-03 previews another day.
+    function today() {
+        const override = new URLSearchParams(location.search).get('today');
+        return (override || new Date().toLocaleDateString('en-CA')).slice(0, 10);
+    }
+
+    function vignetteLinks(vignette, blockFiles, date) {
         if (vignette.links) return items(vignette.links);
         if (vignette.files === false) return [];
         const found = [];
         if (blockFiles.vignette) found.push({ label: 'Vignette', file: blockFiles.vignette });
-        if (vignette.solutions === true && blockFiles.vignette_sols) found.push({ label: 'Solutions', file: blockFiles.vignette_sols });
+        if (schema.solutionsShown(schema.solutionsMode(course, vignette), date, today())) {
+            if (blockFiles.vignette_sols) found.push({ label: 'Solutions', file: blockFiles.vignette_sols });
+        }
         return found;
     }
 
@@ -197,7 +205,7 @@
         } else {
             const file = schema.explicitPath(homework.file) ? homework.file : blockFiles.homework;
             if (homework.file && file) homeworkLinks.push({ label: 'Homework', file });
-            if (homework.solutions === true) {
+            if (schema.solutionsShown(schema.solutionsMode(course, homework), dates.homework, today())) {
                 const sols = schema.explicitPath(homework.solution_file) ? homework.solution_file : blockFiles.homework_sols;
                 if (sols) homeworkLinks.push({ label: 'Solutions', file: sols });
             }
@@ -215,7 +223,7 @@
             { date: dates.recitation, index: 1, node: pathStep({
                 name: vignette.name || `Vignette ${blockId}`,
                 where: 'recitation',
-                links: vignetteLinks(vignette, blockFiles),
+                links: vignetteLinks(vignette, blockFiles, dates.recitation),
                 date: dates.recitation,
                 video: vignette.video
             }) },

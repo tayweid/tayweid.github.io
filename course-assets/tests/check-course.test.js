@@ -235,6 +235,26 @@ test('a solutions file is only checked when solutions are switched on', t => {
     failsWith(run(triadSite(t, on)), 'missing local file Vignettes/nope.pdf');
 });
 
+test('solutions: after_due waits for the step date and is accepted everywhere solutions are', t => {
+    const course = { course: { materials: 'Blocks', solutions: 'after_due' } };
+    assert.equal(schema.solutionsMode(course, {}), 'after_due');
+    assert.equal(schema.solutionsMode(course, { solutions: false }), false);
+    assert.equal(schema.solutionsMode(course, { solutions: true }), true);
+    assert.equal(schema.solutionsMode({ course: {} }, {}), false);
+    assert.equal(schema.solutionsMode({ course: {} }, {}, { solutions: 'after_due' }), 'after_due');
+    assert.equal(schema.solutionsShown('after_due', '2026-09-27', '2026-09-27'), false);
+    assert.equal(schema.solutionsShown('after_due', '2026-09-27', '2026-09-28'), true);
+    assert.equal(schema.solutionsShown('after_due', undefined, '2026-09-28'), false);
+    assert.equal(schema.solutionsShown(true, undefined, '2026-09-28'), true);
+    assert.equal(schema.solutionsShown(false, '2026-09-01', '2026-09-28'), false);
+    assert.deepEqual(
+        schema.blockCandidates(course, { block: 'A1', folder: 'A1_The_PPF', homework: { file: 'A1' } }).map(([key]) => key),
+        ['exercise', 'homework', 'homework_sols', 'vignette', 'vignette_sols']
+    );
+    passes(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: after_due\n'))));
+    failsWith(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: later\n'))), 'must be true, false, or after_due');
+});
+
 test('schema helpers agree with the page ids the sites already use', () => {
     assert.equal(schema.blockElementId('A1'), 'part-a1');
     assert.equal(schema.blockElementId('1.1'), 'part-11');

@@ -53,6 +53,7 @@ course:
   checkpoint: MiniExam             # the word for the end-of-part assessment; default Checkpoint
   reading: Reading/Ch_{nn}.pdf     # optional; lets a block say reading.chapter: 3
   materials: Blocks                # optional; enables conventional PDF discovery under Blocks/<folder>/
+  solutions: after_due             # optional; every block's solutions appear the day after they are due
 ```
 
 ## Parts
@@ -106,12 +107,17 @@ with PDFs found on disk by the block's `folder`:
 
 Drop a conventionally named PDF in and its chip appears on the next load. Solutions are
 opt-in: `solutions: true` under `vignette:` or `homework:` shows `..._sols.pdf`, and nothing
-else does. Optional keys on the triad:
+else does. `solutions: after_due` shows it only from the day after the step's date (the
+recitation date for a vignette, the homework date for homework), the day its dot turns
+blue, so a guide can be pushed early and appear on its own once the work is due. Set
+`solutions: after_due` under `course:` to make that the default for every block; a block's
+own `solutions:` (or a part's `homework_defaults`) still wins, and `false` keeps one hidden.
+Append `?today=2026-09-28` to a page's URL to preview another day. Optional keys on the triad:
 
 ```yaml
   dates: {class: '2026-08-31', recitation: '2026-09-04', homework: '2026-09-06'}   # orders the steps; a passed date turns its dot blue
   exercise: {links: [...], video: ...}            # only when the exercise has downloads or a video
-  vignette: {description: ..., files: A1, solutions: true, video: ...}            # files: overrides the base name; files: false hides it
+  vignette: {description: ..., files: A1, solutions: after_due, video: ...}       # files: overrides the base name; files: false hides it
   homework: {due: ..., file: A1, solutions: true, links: [...]}                    # file: A1 asks for the conventional Homework_A1.pdf
   practice: false                                 # no path at all
   extras: [{name: Simulating a Market, video: ...}]   # optional material above the episode; an extra with

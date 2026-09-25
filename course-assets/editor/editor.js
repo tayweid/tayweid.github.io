@@ -288,6 +288,7 @@ function commitField(input) {
     const type = input.dataset.type;
     let value;
     if (type === 'bool') value = input.checked ? true : undefined;
+    else if (type === 'solutions') value = { true: true, false: false, after_due: 'after_due' }[input.value];
     else if (type === 'int') value = input.value === '' ? undefined : Number(input.value);
     else {
         value = input.value;

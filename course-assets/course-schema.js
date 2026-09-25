@@ -59,9 +59,26 @@
         return `${materials}/${folder}/${type}/${name}.pdf`;
     }
 
+    // Solutions: true shows them, false hides them, and after_due shows them from the day
+    // after the step's date (the recitation for a vignette, the due date for homework), the
+    // same day its dot turns blue. A block's own setting wins, then the part's homework
+    // defaults, then course.solutions; with none of these, solutions stay hidden.
+    const SOLUTIONS_AFTER_DUE = 'after_due';
+    function solutionsMode(course, node, defaults) {
+        const pick = [node && node.solutions, defaults && defaults.solutions, course && course.course && course.course.solutions]
+            .find(value => value !== undefined && value !== null);
+        return pick === true || pick === SOLUTIONS_AFTER_DUE ? pick : false;
+    }
+    // today is yyyy-mm-dd, as course.js computes it for the dots.
+    function solutionsShown(mode, date, today) {
+        if (mode === true) return true;
+        return mode === SOLUTIONS_AFTER_DUE && typeof date === 'string' && date !== '' && date < today;
+    }
+
     // The conventional files a block may have on disk, as [key, path] pairs. Exercise and
     // vignette are always candidates; homework and every solutions file only when the YAML
-    // asks (solutions are opt-in, so an answer key on disk never surfaces by itself).
+    // asks (solutions are opt-in, so an answer key on disk never surfaces by itself; with
+    // after_due the page also waits for the date).
     function blockCandidates(course, section) {
         const materials = course && course.course && course.course.materials;
         const blockId = section.block;
@@ -75,7 +92,7 @@
             if (homework.file && !explicitPath(homework.file)) {
                 wanted.push(['homework', conventionalPath(materials, folder, 'Homework', blockId)]);
             }
-            if (homework.solutions === true && !explicitPath(homework.solution_file)) {
+            if (solutionsMode(course, homework) && !explicitPath(homework.solution_file)) {
                 wanted.push(['homework_sols', conventionalPath(materials, folder, 'Homework', blockId, 'sols')]);
             }
         }
@@ -84,7 +101,7 @@
             const base = typeof vignette.files === 'string' ? vignette.files : blockId;
             if (!explicitPath(base)) {
                 wanted.push(['vignette', conventionalPath(materials, folder, 'Vignette', base)]);
-                if (vignette.solutions === true && !explicitPath(vignette.solution_file)) {
+                if (solutionsMode(course, vignette) && !explicitPath(vignette.solution_file)) {
                     wanted.push(['vignette_sols', conventionalPath(materials, folder, 'Vignette', base, 'sols')]);
                 }
             }
@@ -128,6 +145,9 @@
         }
         function boolean(value, path) {
             if (value !== undefined && typeof value !== 'boolean') fail(path, 'must be true or false');
+        }
+        function solutions(value, path) {
+            if (value !== undefined && typeof value !== 'boolean' && value !== SOLUTIONS_AFTER_DUE) fail(path, `must be true, false, or ${SOLUTIONS_AFTER_DUE}`);
         }
         function video(value, path, options = {}) {
             if (value === undefined || value === null) {
@@ -213,7 +233,7 @@
 
         const meta = record(top.course, 'course');
         if (meta) {
-            keys(meta, 'course', ['code', 'title', 'brand'], ['home', 'nav', 'checkpoint', 'reading', 'materials']);
+            keys(meta, 'course', ['code', 'title', 'brand'], ['home', 'nav', 'checkpoint', 'reading', 'materials', 'solutions']);
             text(meta.code, 'course.code');
             text(meta.title, 'course.title');
             const brand = list(meta.brand, 'course.brand');
@@ -241,6 +261,7 @@
                 fail('course.reading', 'must be a path pattern containing {nn}, such as Reading/Ch_{nn}.pdf');
             }
             text(meta.materials, 'course.materials', { optional: true });
+            solutions(meta.solutions, 'course.solutions');
         }
         const settings = meta || {};
 
@@ -318,7 +339,7 @@
                 text(vignette.description, `${path}.vignette.description`, { optional: true, allowEmpty: true });
                 video(vignette.video, `${path}.vignette.video`, { optional: true });
                 fileOrBase(vignette.files, `${path}.vignette.files`);
-                boolean(vignette.solutions, `${path}.vignette.solutions`);
+                solutions(vignette.solutions, `${path}.vignette.solutions`);
                 if (vignette.solution_file !== undefined) url(vignette.solution_file, `${path}.vignette.solution_file`);
                 links(vignette.links, `${path}.vignette.links`);
             }
@@ -327,7 +348,7 @@
                 keys(homework, `${path}.homework`, [], ['due', 'file', 'links', 'solutions', 'solution_file', 'practice', 'video']);
                 text(homework.due, `${path}.homework.due`, { optional: true });
                 fileOrBase(homework.file, `${path}.homework.file`);
-                boolean(homework.solutions, `${path}.homework.solutions`);
+                solutions(homework.solutions, `${path}.homework.solutions`);
                 if (homework.solution_file !== undefined) url(homework.solution_file, `${path}.homework.solution_file`);
                 video(homework.video, `${path}.homework.video`, { optional: true });
                 links(homework.links, `${path}.homework.links`);
@@ -401,6 +422,7 @@
             links(part.links, `${path}.links`);
             if (present(part.homework_defaults) && record(part.homework_defaults, `${path}.homework_defaults`)) {
                 keys(part.homework_defaults, `${path}.homework_defaults`, [], ['due', 'file', 'solutions', 'solution_file', 'practice']);
+                solutions(part.homework_defaults.solutions, `${path}.homework_defaults.solutions`);
             }
             let checkpoints = 0;
             let projects = 0;
@@ -491,6 +513,8 @@
         checkpointElementId,
         readingFile,
         conventionalPath,
+        solutionsMode,
+        solutionsShown,
         explicitPath,
         externalUrl
     };

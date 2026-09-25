@@ -67,7 +67,7 @@ export const BLOCK = [
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
         { key: 'files', type: 'base', hint: 'another block’s PDFs (F2), a path, or false for none' },
-        { key: 'solutions', type: 'bool', label: 'Show solutions' },
+        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' },
         { key: 'links', type: 'links' }
     ] },
@@ -75,7 +75,7 @@ export const BLOCK = [
         { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
         { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
         { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
-        { key: 'solutions', type: 'bool', label: 'Show solutions' },
+        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' },
         { key: 'video', type: 'video' },
         { key: 'links', type: 'links' }
@@ -92,7 +92,7 @@ export const PART = [
     { group: 'homework_defaults', label: 'Homework defaults', fields: [
         { key: 'due', type: 'text' },
         { key: 'file', type: 'base' },
-        { key: 'solutions', type: 'bool', label: 'Show solutions' },
+        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' }
     ] },
     { key: 'sections', type: 'hidden' }   // edited through the outline
@@ -139,6 +139,7 @@ export const COURSE = [
     { key: 'checkpoint', type: 'text', hint: 'what the site calls a checkpoint' },
     { key: 'reading', type: 'text', hint: 'path pattern with {nn}, e.g. Reading/Ch_{nn}.pdf' },
     { key: 'materials', type: 'text', hint: 'directory holding the block folders' },
+    { key: 'solutions', type: 'solutions', label: 'Show solutions', hint: 'the default for every vignette and homework; a block’s own setting wins' },
     { key: 'nav', label: 'Navigation', type: 'records', title: item => item.label, blank: { label: 'New link', file: '' }, fields: [
         { key: 'label', type: 'text', required: true },
         { key: 'file', type: 'file' },
@@ -262,6 +263,10 @@ function widget(field, value, path, ctx, parent = {}) {
             return h('span', { class: 'inline' }, h('input', { ...common, type: 'date', value: text }), h('span', { class: 'weekday' }, weekday(text)));
         case 'select':
             return select(common, text, field.options);
+        case 'solutions':   // true, after_due, or false; blank leaves it to the part or course
+            return h('select', common, h('option', { value: '' }, '—'),
+                ...[['true', 'Always'], ['after_due', 'After the due date'], ['false', 'Never']]
+                    .map(([option, name]) => h('option', { value: option, selected: option === text }, name)));
         case 'part':
             return select(common, text, ctx.partIds);
         case 'folder': {
