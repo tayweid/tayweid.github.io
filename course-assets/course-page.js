@@ -156,13 +156,16 @@
     // livestream, the aside styling; where: overrides the label.
     function explicitStep(step, classes = '') {
         const livestream = step.kind === 'livestream';
+        // Work done at home is due on its date; due: replaces that wording (e.g. "... at 5PM").
+        const atHome = step.kind === 'homework' || (!step.kind && /\bhome\b/i.test(step.where || ''));
+        const due = step.due || (atHome && step.date ? shortDate(step.date) : null);
         return pathStep({
             name: step.name,
             where: step.where || schema.STEP_KINDS[step.kind] || '',
             sub: step.sub,
             links: items(step.links),
             date: step.date,
-            due: step.due ? (/^due\b/i.test(step.due) ? step.due : `Due ${step.due}`) : null,
+            due: due ? (/^due\b/i.test(due) ? due : `Due ${due}`) : null,
             video: step.video,
             classes: [livestream ? 'path-step-alt' : '', classes].filter(Boolean).join(' '),
             dotClasses: livestream ? 'path-dot-alt' : ''

@@ -16,8 +16,8 @@ const STEP = [
     { key: 'kind', type: 'select', options: ['exercise', 'vignette', 'homework', 'livestream'] },
     { key: 'where', type: 'text', hint: 'label under the dot; the kind supplies one' },
     { key: 'sub', type: 'text' },
-    { key: 'due', type: 'text' },
-    { key: 'date', type: 'date' },
+    { key: 'date', type: 'date', hint: 'homework shows it as the due date' },
+    { key: 'due', label: 'Due text', type: 'text', collapsed: true, hint: 'replaces the date’s wording, e.g. Friday, Sept. 4 at 5PM' },
     { key: 'video', type: 'video' },
     { key: 'links', type: 'links' }
 ];
@@ -55,13 +55,13 @@ export const BLOCK = [
     ] },
     { key: 'steps', type: 'records', fields: STEP, title: step => step.name, blank: { name: 'New step', kind: 'exercise' }, onlyIfPresent: true },
     // Each card carries its own date; the dates live together under dates: in the file.
-    { group: 'exercise', fields: [
+    { group: 'exercise', unlessSteps: true, fields: [
         { key: 'class', label: 'Class date', type: 'date', outside: ['dates', 'class'] },
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
         { key: 'links', type: 'links' }
     ] },
-    { group: 'vignette', fields: [
+    { group: 'vignette', unlessSteps: true, fields: [
         { key: 'recitation', label: 'Recitation date', type: 'date', outside: ['dates', 'recitation'] },
         { key: 'description', type: 'long' },
         { key: 'name', type: 'text' },
@@ -71,9 +71,9 @@ export const BLOCK = [
         { key: 'solution_file', type: 'file' },
         { key: 'links', type: 'links' }
     ] },
-    { group: 'homework', fields: [
+    { group: 'homework', unlessSteps: true, fields: [
         { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
-        { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
+        { key: 'due', label: 'Due text', type: 'text', collapsed: true, placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
         { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
         { key: 'solutions', type: 'bool', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' },
@@ -171,6 +171,8 @@ function renderGroup(group, parent, path, ctx) {
     const value = parent && parent[group.group];
     const groupPath = [...path, group.group];
     const present = value !== undefined && value !== null;
+    // A block that lists its own steps has no use for the exercise / vignette / homework cards.
+    if (group.unlessSteps && parent && parent.steps && !present) return null;
     // A field with outside: [...] lives elsewhere in the parent (dates.class on the exercise card).
     const outside = field => getIn(parent, field.outside);
     const inside = group.fields.filter(field => !field.outside);
@@ -198,6 +200,12 @@ function renderField(field, parent, path, ctx) {
     }
     if (field.type === 'links') return renderLinks(value, fieldPath, label, ctx);
     if (field.type === 'lines') return renderLines(value, fieldPath, label, field, ctx);
+    // A rarely needed field stays out of the way until it has a value or is asked for.
+    const folded = field.collapsed && (value === undefined || value === null || value === '') && !ctx.errors.has(key(fieldPath));
+    if (folded) {
+        return h('div', { class: 'row' }, h('span', {}),
+            h('div', { class: 'control' }, h('button', { type: 'button', class: 'add', 'data-unfold': key(fieldPath), 'data-label': label }, `+ ${label.toLowerCase()}`)));
+    }
     return h('div', { class: 'row', 'data-at': key(fieldPath) },
         h('label', { for: id(fieldPath) }, label, field.required ? h('span', { class: 'req', title: 'required' }, '*') : null),
         h('div', { class: 'control' }, widget(field, value, fieldPath, ctx, parent),

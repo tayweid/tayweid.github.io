@@ -755,7 +755,13 @@ document.addEventListener('change', event => {
 document.addEventListener('click', event => {
     const target = event.target.closest('button, a, li[data-goto]');
     if (!target) return;
-    if (target.dataset.select) {
+    if (target.dataset.unfold) {
+        // Swap the button for the field it stands for; the YAML changes once something is typed.
+        const input = h('input', { type: 'text', 'data-path': target.dataset.unfold, 'data-type': 'text' });
+        target.closest('.row').replaceWith(h('div', { class: 'row', 'data-at': target.dataset.unfold },
+            h('label', {}, target.dataset.label), h('div', { class: 'control' }, input)));
+        input.focus();
+    } else if (target.dataset.select) {
         event.preventDefault();
         select(JSON.parse(target.dataset.select));
     } else if (target.dataset.addBlock) {
