@@ -166,7 +166,8 @@ root or an `https://` URL. Icons default by file type: PDF, notebook, data, page
 
 Double-click `Edit <code>.app` in a course folder (e.g. `econ-0100/Edit ECON 0100.app`) to
 open that course, or `course-assets/Edit Course.app` to pick one; `edit-course [site]` does
-the same from a terminal, and `edit-course --make-app <site>` writes a course its own app.
+the same from a terminal. The app opens whichever course folder it sits in, so a new course
+gets one by copying `Edit Course.app` into its folder (rename it as you like).
 It starts a small local server and opens the editor in the browser: an outline of the
 course on the left, a form for the selected block, part, checkpoint, project or the course
 header in the middle (each exercise, vignette and homework card carries its own date),
