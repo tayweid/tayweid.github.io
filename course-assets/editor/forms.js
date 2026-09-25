@@ -17,7 +17,7 @@ const STEP = [
     { key: 'where', type: 'text', hint: 'label under the dot; the kind supplies one' },
     { key: 'sub', type: 'text' },
     { key: 'date', type: 'date', hint: 'homework shows it as the due date' },
-    { key: 'due', label: 'Due text', type: 'text', collapsed: true, hint: 'replaces the date’s wording, e.g. Friday, Sept. 4 at 5PM' },
+    { key: 'due', label: 'Due text', type: 'text', hint: 'replaces the date’s wording, e.g. Friday, Sept. 4 at 5PM' },
     { key: 'video', type: 'video' },
     { key: 'links', type: 'links' }
 ];
@@ -34,7 +34,7 @@ const EXTRA = [
 
 export const BLOCK = [
     { key: 'block', label: 'Block ID', type: 'text', required: true, size: 'sm' },
-    { key: 'folder', type: 'folder' },
+    { key: 'folder', type: 'folder', always: true },
     { key: 'nav', label: 'Nav label', type: 'text', required: true },
     { key: 'title', type: 'text', required: true },
     { key: 'description', type: 'long', required: true },
@@ -73,7 +73,7 @@ export const BLOCK = [
     ] },
     { group: 'homework', unlessSteps: true, fields: [
         { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
-        { key: 'due', label: 'Due text', type: 'text', collapsed: true, placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
+        { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
         { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
         { key: 'solutions', type: 'bool', label: 'Show solutions' },
         { key: 'solution_file', type: 'file' },
@@ -149,63 +149,98 @@ export const COURSE = [
 
 // ---------------------------------------------------------------- rendering
 
-// ctx: { data (whole course), errors: Map(pathKey -> [message]), folders, partIds, weekday }
+// ctx: { data (whole course), errors: Map(pathKey -> [message]), open: Set(pathKey),
+//        folders, partIds, materials }
+//
+// Only what is in use is drawn as a field: a value, a required key, or an error. Everything
+// else waits as a chip ("+ Video") in a row under its card; clicking one adds its path to
+// ctx.open and the field appears. A card opened that way shows all its fields at once.
 export function renderFields(spec, value, path, ctx) {
     const known = new Set();
-    const nodes = spec.map(field => {
-        if (field.group) {
-            known.add(field.group);
-            return renderGroup(field, value, path, ctx);
-        }
-        known.add(field.key);
-        return renderField(field, value, path, ctx);
-    }).filter(Boolean);
-    const other = Object.keys(value || {}).filter(key => !known.has(key));
-    if (other.length) {
-        nodes.push(h('p', { class: 'other' }, `Also in the file, edited there: ${other.join(', ')}`));
-    }
+    const nodes = [];
+    const chips = [];
+    spec.forEach(field => {
+        known.add(field.group || field.key);
+        const entry = field.group ? groupEntry(field, value, path, ctx) : fieldEntry(field, value, path, ctx);
+        if (!entry) return;
+        if (entry.chip) chips.push(entry.chip);
+        else nodes.push(entry.node);
+    });
+    const other = Object.keys(value || {}).filter(name => !known.has(name));
+    if (other.length) nodes.push(h('p', { class: 'other' }, `Also in the file, edited there: ${other.join(', ')}`));
+    if (chips.length) nodes.push(h('div', { class: 'chips' }, ...chips));
     return nodes;
 }
 
-function renderGroup(group, parent, path, ctx) {
+// A chip for a list adds its first item straight away, a yes/no chip turns it on, and any
+// other chip opens the field.
+function chip(label, path, field = {}) {
+    const first = firstItem(field);
+    return h('button', { type: 'button', class: 'chip-add', 'data-open': key(path),
+        'data-new': first === undefined ? null : JSON.stringify(first),
+        'data-turn-on': field.type === 'bool' ? '1' : null }, `+ ${label}`);
+}
+
+function firstItem(field) {
+    if (field.type === 'links') return { label: 'Link', file: '' };
+    if (field.type === 'lines') return '';
+    if (field.type === 'records') return field.blank;
+    return undefined;
+}
+
+function inUse(path, ctx) {
+    const k = key(path);
+    const prefix = k.slice(0, -1) + ',';
+    return ctx.all || ctx.open.has(k) || [...ctx.errors.keys()].some(e => e === k || e.startsWith(prefix));
+}
+
+function empty(value) {
+    return value === undefined || value === null || value === '' || value === false || (Array.isArray(value) && !value.length);
+}
+
+function fieldEntry(field, parent, path, ctx) {
+    if (field.type === 'hidden') return null;
+    const value = parent ? parent[field.key] : undefined;
+    const fieldPath = [...path, field.key];
+    const label = field.label || capitalise(field.key.replace(/_/g, ' '));
+    if (field.type === 'records' && field.onlyIfPresent && value === undefined) return null;
+    if (!field.required && !field.always && empty(value) && !inUse(fieldPath, ctx)) return { chip: chip(label, fieldPath, field) };
+    return { node: renderField(field, value, fieldPath, label, parent, ctx) };
+}
+
+function groupEntry(group, parent, path, ctx) {
     const value = parent && parent[group.group];
     const groupPath = [...path, group.group];
     const present = value !== undefined && value !== null;
     // A block that lists its own steps has no use for the exercise / vignette / homework cards.
     if (group.unlessSteps && parent && parent.steps && !present) return null;
     // A field with outside: [...] lives elsewhere in the parent (dates.class on the exercise card).
-    const outside = field => getIn(parent, field.outside);
-    const inside = group.fields.filter(field => !field.outside);
-    const shown = present || group.fields.some(field => field.outside && outside(field) !== undefined);
-    const legend = h('legend', {}, group.label || capitalise(group.group),
-        present ? h('button', { class: 'quiet', type: 'button', 'data-action': 'clear', 'data-path': key(groupPath), title: `Remove ${group.group}: and everything in it` }, 'clear')
-            : shown ? null : h('span', { class: 'unset' }, 'not set'));
-    return h('fieldset', { class: shown ? 'group' : 'group absent', 'data-at': key(groupPath) },
-        legend,
+    const outsideSet = group.fields.some(field => field.outside && !empty(getIn(parent, field.outside)));
+    const label = group.label || capitalise(group.group);
+    if (!present && !outsideSet && !inUse(groupPath, ctx)) return { chip: chip(label, groupPath) };
+    const inner = present || outsideSet ? ctx : { ...ctx, all: true };
+    const own = present && typeof value === 'object' ? value : {};
+    const outside = group.fields.filter(field => field.outside).map(field => {
+        const at = [...path, ...field.outside.slice(0, -1)];
+        return fieldEntry({ ...field, key: field.outside[field.outside.length - 1] }, getIn(parent, field.outside.slice(0, -1)), at, inner);
+    }).filter(Boolean);
+    const rest = renderFields(group.fields.filter(field => !field.outside), own, groupPath, inner);
+    const chipRow = rest.length && rest[rest.length - 1].classList.contains('chips') ? rest.pop() : h('div', { class: 'chips' });
+    outside.filter(entry => entry.chip).reverse().forEach(entry => chipRow.prepend(entry.chip));
+    return { node: h('fieldset', { class: present || outsideSet ? 'group' : 'group absent', 'data-at': key(groupPath) },
+        h('legend', {}, label,
+            present ? h('button', { class: 'quiet', type: 'button', 'data-action': 'clear', 'data-path': key(groupPath), title: `Remove ${group.group}: and everything in it` }, 'clear') : null),
         group.hint ? h('p', { class: 'hint' }, group.hint) : null,
-        ...group.fields.filter(field => field.outside).map(field =>
-            renderField(field, getIn(parent, field.outside.slice(0, -1)), [...path, ...field.outside.slice(0, -1)], ctx)),
-        ...renderFields(inside, present && typeof value === 'object' ? value : {}, groupPath, ctx),
-        errorsFor(groupPath, ctx, true));
+        ...outside.filter(entry => entry.node).map(entry => entry.node),
+        ...rest,
+        chipRow.children.length ? chipRow : null,
+        errorsFor(groupPath, ctx, true)) };
 }
 
-function renderField(field, parent, path, ctx) {
-    const value = parent ? parent[field.key] : undefined;
-    if (field.type === 'hidden') return null;
-    const fieldPath = [...path, field.key];
-    const label = field.label || capitalise(field.key.replace(/_/g, ' '));
-    if (field.type === 'records') {
-        if (field.onlyIfPresent && value === undefined) return null;
-        return renderRecords(field, value, fieldPath, label, ctx);
-    }
+function renderField(field, value, fieldPath, label, parent, ctx) {
+    if (field.type === 'records') return renderRecords(field, value, fieldPath, label, ctx);
     if (field.type === 'links') return renderLinks(value, fieldPath, label, ctx);
     if (field.type === 'lines') return renderLines(value, fieldPath, label, field, ctx);
-    // A rarely needed field stays out of the way until it has a value or is asked for.
-    const folded = field.collapsed && (value === undefined || value === null || value === '') && !ctx.errors.has(key(fieldPath));
-    if (folded) {
-        return h('div', { class: 'row' }, h('span', {}),
-            h('div', { class: 'control' }, h('button', { type: 'button', class: 'add', 'data-unfold': key(fieldPath), 'data-label': label }, `+ ${label.toLowerCase()}`)));
-    }
     return h('div', { class: 'row', 'data-at': key(fieldPath) },
         h('label', { for: id(fieldPath) }, label, field.required ? h('span', { class: 'req', title: 'required' }, '*') : null),
         h('div', { class: 'control' }, widget(field, value, fieldPath, ctx, parent),

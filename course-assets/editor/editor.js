@@ -26,6 +26,7 @@ const state = {
     undo: [],
     redo: [],
     lastEdit: null,
+    open: new Set(),     // paths of empty fields opened from their chips, until the selection changes
     preview: true,
     banner: null
 };
@@ -194,6 +195,7 @@ function sectionExists(sel) {
 
 function select(sel) {
     state.selected = sel;
+    state.open.clear();
     try { localStorage.setItem(`edit-course:${state.course.id}`, JSON.stringify(sel)); } catch (error) { /* private window */ }
     render();
     $('[data-editor]').scrollTop = 0;
@@ -429,7 +431,7 @@ function renderForm() {
     const pane = $('[data-editor]');
     const focus = captureFocus();
     const scroll = pane.scrollTop;
-    const ctx = { data: data(), errors: errorMap(), folders: state.course.folders, partIds: partIds(), materials: (data().course || {}).materials || 'Blocks' };
+    const ctx = { data: data(), errors: errorMap(), open: state.open, folders: state.course.folders, partIds: partIds(), materials: (data().course || {}).materials || 'Blocks' };
     const sel = state.selected;
     const path = selectedPath();
     const value = getIn(data(), path) || {};
@@ -755,12 +757,17 @@ document.addEventListener('change', event => {
 document.addEventListener('click', event => {
     const target = event.target.closest('button, a, li[data-goto]');
     if (!target) return;
-    if (target.dataset.unfold) {
-        // Swap the button for the field it stands for; the YAML changes once something is typed.
-        const input = h('input', { type: 'text', 'data-path': target.dataset.unfold, 'data-type': 'text' });
-        target.closest('.row').replaceWith(h('div', { class: 'row', 'data-at': target.dataset.unfold },
-            h('label', {}, target.dataset.label), h('div', { class: 'control' }, input)));
-        input.focus();
+    if (target.dataset.open) {
+        const path = JSON.parse(target.dataset.open);
+        if (target.dataset.new !== undefined) {
+            listAction('add', path, target);
+        } else if (target.dataset.turnOn) {
+            if (edit(() => state.source.set(path, true))) render();
+        } else {
+            state.open.add(target.dataset.open);
+            render();
+            focusIn(target.dataset.open);
+        }
     } else if (target.dataset.select) {
         event.preventDefault();
         select(JSON.parse(target.dataset.select));

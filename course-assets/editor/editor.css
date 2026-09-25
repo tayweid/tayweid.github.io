@@ -230,3 +230,12 @@ dialog .hunk { color: var(--link); }
     .workspace { grid-template-columns: 200px 1fr; }
     .workspace .preview { display: none; }
 }
+
+/* ---------- chips for fields not in use yet */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.chip-add {
+    background: none; border: 1px dashed var(--rule); border-radius: 999px;
+    padding: 2px 10px; font-size: 13px; color: var(--dim);
+}
+.chip-add:hover:not(:disabled) { border-style: solid; border-color: var(--link); color: var(--white); }
+.group.absent { border-style: dashed; }

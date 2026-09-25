@@ -170,7 +170,9 @@ the same from a terminal. The app opens whichever course folder it sits in, so a
 gets one by copying `Edit Course.app` into its folder (rename it as you like).
 It starts a small local server and opens the editor in the browser: an outline of the
 course on the left, a form for the selected block, part, checkpoint, project or the course
-header in the middle (each exercise, vignette and homework card carries its own date),
+header in the middle (only fields in use are shown; the rest wait as chips, such as
+"+ Video", that open the field when clicked; each exercise, vignette and homework card
+carries its own date),
 and the real part page on the right, showing unsaved edits. Fields
 are checked as you type with `course-schema.js`; each block shows which of its
 conventional PDFs are on disk. Save (⌘S) writes the file and runs `check-course`; Diff
