@@ -60,7 +60,9 @@
         return `https://img.youtube.com/vi/${video}/maxresdefault.jpg`;
     }
 
+    // One date as "Thu Oct 8"; a two-day list as "Thu Oct 8 & Fri Oct 9".
     function shortDate(iso) {
+        if (Array.isArray(iso)) return iso.map(shortDate).join(' & ');
         const date = new Date(`${iso}T00:00:00Z`);
         if (Number.isNaN(date.getTime())) return String(iso);
         return new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' })
@@ -122,7 +124,9 @@
 
     function pathStep({ name, where, sub, links: stepLinks = [], date, due, video, image, classes = '', dotClasses = '' }) {
         const step = element('li', `path-step${classes ? ` ${classes}` : ''}`);
-        if (date) step.dataset.date = date;
+        // The dot turns blue the day after the (last) date.
+        const last = schema.lastDate(date);
+        if (last) step.dataset.date = last;
         const dot = element('span', `path-dot${dotClasses ? ` ${dotClasses}` : ''}`);
         dot.setAttribute('aria-hidden', 'true');
         const body = element('div');
@@ -161,11 +165,13 @@
         // Work done at home is due on its date; due: replaces that wording (e.g. "... at 5PM").
         const atHome = step.kind === 'homework' || (!step.kind && /\bhome\b/i.test(step.where || ''));
         const due = step.due || (atHome && step.date ? shortDate(step.date) : null);
+        // post: on the step, or the course's default for its kind, holds its links back until the date.
+        const posted = schema.released(schema.releaseMode(course, 'post', step.kind, step), step.date, today());
         return pathStep({
             name: step.name,
             where: step.where || schema.STEP_KINDS[step.kind] || '',
             sub: step.sub,
-            links: items(step.links),
+            links: posted ? items(step.links) : [],
             date: step.date,
             due: due ? (/^due\b/i.test(due) ? due : `Due ${due}`) : null,
             video: step.video,
@@ -180,15 +186,25 @@
         return (override || new Date().toLocaleDateString('en-CA')).slice(0, 10);
     }
 
-    function vignetteLinks(vignette, blockFiles, date) {
-        if (vignette.links) return items(vignette.links);
-        if (vignette.files === false) return [];
+    // Whether a step's file (key: post) or answer key (key: solutions) is out today.
+    function shown(key, kind, node, date, defaults) {
+        return schema.released(schema.releaseMode(course, key, kind, node, defaults), date, today());
+    }
+
+    // A conventional step's chips: its PDF once posted, its solutions once released. links:
+    // in the YAML replaces both (and is held back with the file).
+    function stepLinks(kind, label, node, date, file, sols, defaults) {
+        if (node.links) return shown('post', kind, node, date, defaults) ? items(node.links) : [];
         const found = [];
-        if (blockFiles.vignette) found.push({ label: 'Vignette', file: blockFiles.vignette });
-        if (schema.solutionsShown(schema.solutionsMode(course, vignette), date, today())) {
-            if (blockFiles.vignette_sols) found.push({ label: 'Solutions', file: blockFiles.vignette_sols });
-        }
+        if (file && shown('post', kind, node, date, defaults)) found.push({ label, file });
+        if (sols && shown('solutions', kind, node, date, defaults)) found.push({ label: 'Solutions', file: sols });
         return found;
+    }
+
+    function vignetteLinks(vignette, blockFiles, date) {
+        if (vignette.files === false) return [];
+        const sols = schema.explicitPath(vignette.solution_file) ? vignette.solution_file : blockFiles.vignette_sols;
+        return stepLinks('vignette', 'Vignette', vignette, date, blockFiles.vignette, sols);
     }
 
     // The conventional exercise / vignette / homework triad, with the block's dates
@@ -201,24 +217,18 @@
         const homework = { ...(part.homework_defaults || {}), ...(block.homework || {}) };
         const blockFiles = discoveredFiles[blockId] || {};
 
-        const homeworkLinks = [];
-        if (homework.links) {
-            homeworkLinks.push(...items(homework.links));
-        } else {
-            const file = schema.explicitPath(homework.file) ? homework.file : blockFiles.homework;
-            if (homework.file && file) homeworkLinks.push({ label: 'Homework', file });
-            if (schema.solutionsShown(schema.solutionsMode(course, homework), dates.homework, today())) {
-                const sols = schema.explicitPath(homework.solution_file) ? homework.solution_file : blockFiles.homework_sols;
-                if (sols) homeworkLinks.push({ label: 'Solutions', file: sols });
-            }
-        }
+        const homeworkFile = homework.file ? (schema.explicitPath(homework.file) ? homework.file : blockFiles.homework) : null;
+        const homeworkSols = schema.explicitPath(homework.solution_file) ? homework.solution_file : blockFiles.homework_sols;
+        const homeworkLinks = stepLinks('homework', 'Homework', homework, dates.homework, homeworkFile, homeworkSols);
+        const exerciseSols = schema.explicitPath(exercise.solution_file) ? exercise.solution_file : blockFiles.exercise_sols;
+        const exerciseLinks = stepLinks('exercise', 'Exercise', exercise, dates.class, blockFiles.exercise, exerciseSols);
         const due = dates.homework ? shortDate(dates.homework) : homework.due;
 
         const standard = [
             { date: dates.class, index: 0, node: pathStep({
                 name: exercise.name || `Exercise ${blockId}`,
                 where: 'in class',
-                links: exercise.links ? items(exercise.links) : (blockFiles.exercise ? [{ label: 'Exercise', file: blockFiles.exercise }] : []),
+                links: exerciseLinks,
                 date: dates.class,
                 video: exercise.video
             }) },
@@ -238,8 +248,8 @@
                 video: homework.video
             }) }
         ];
-        if (standard.every(step => step.date)) {
-            standard.sort((left, right) => left.date.localeCompare(right.date) || left.index - right.index);
+        if (standard.every(step => schema.firstDate(step.date))) {
+            standard.sort((left, right) => schema.firstDate(left.date).localeCompare(schema.firstDate(right.date)) || left.index - right.index);
         }
         return standard.map(step => step.node);
     }
@@ -353,7 +363,16 @@
             dotClasses: 'path-dot-big'
         }));
         if (config.reattempt !== undefined) {
-            steps.append(pathStep({ name: 'Reattempt', where: config.reattempt, due: config.reattempt_when, classes: 'path-step-alt', dotClasses: 'path-dot-alt' }));
+            // Like the checkpoint's own date and when: the date is shown as its day, and
+            // reattempt_when replaces that wording.
+            steps.append(pathStep({
+                name: 'Reattempt',
+                where: config.reattempt,
+                date: config.reattempt_date,
+                due: config.reattempt_when || (config.reattempt_date ? shortDate(config.reattempt_date) : null),
+                classes: 'path-step-alt',
+                dotClasses: 'path-dot-alt'
+            }));
         }
         if (config.next !== undefined) {
             const next = element('li', 'path-step path-step-next');

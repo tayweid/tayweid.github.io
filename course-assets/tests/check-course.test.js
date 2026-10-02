@@ -237,22 +237,88 @@ test('a solutions file is only checked when solutions are switched on', t => {
 
 test('solutions: after_due waits for the step date and is accepted everywhere solutions are', t => {
     const course = { course: { materials: 'Blocks', solutions: 'after_due' } };
-    assert.equal(schema.solutionsMode(course, {}), 'after_due');
-    assert.equal(schema.solutionsMode(course, { solutions: false }), false);
-    assert.equal(schema.solutionsMode(course, { solutions: true }), true);
-    assert.equal(schema.solutionsMode({ course: {} }, {}), false);
-    assert.equal(schema.solutionsMode({ course: {} }, {}, { solutions: 'after_due' }), 'after_due');
-    assert.equal(schema.solutionsShown('after_due', '2026-09-27', '2026-09-27'), false);
-    assert.equal(schema.solutionsShown('after_due', '2026-09-27', '2026-09-28'), true);
-    assert.equal(schema.solutionsShown('after_due', undefined, '2026-09-28'), false);
-    assert.equal(schema.solutionsShown(true, undefined, '2026-09-28'), true);
-    assert.equal(schema.solutionsShown(false, '2026-09-01', '2026-09-28'), false);
+    assert.equal(schema.solutionsMode(course, {}), 'after_date');
+    assert.equal(schema.solutionsMode(course, { solutions: false }), 'never');
+    assert.equal(schema.solutionsMode(course, { solutions: true }), 'now');
+    assert.equal(schema.solutionsMode({ course: {} }, {}), 'never');
+    assert.equal(schema.solutionsMode({ course: {} }, {}, { solutions: 'after_due' }), 'after_date');
+    assert.equal(schema.solutionsShown('after_date', '2026-09-27', '2026-09-27'), false);
+    assert.equal(schema.solutionsShown('after_date', '2026-09-27', '2026-09-28'), true);
+    assert.equal(schema.solutionsShown('after_date', undefined, '2026-09-28'), false);
+    assert.equal(schema.solutionsShown('now', undefined, '2026-09-28'), true);
+    assert.equal(schema.solutionsShown('never', '2026-09-01', '2026-09-28'), false);
     assert.deepEqual(
         schema.blockCandidates(course, { block: 'A1', folder: 'A1_The_PPF', homework: { file: 'A1' } }).map(([key]) => key),
-        ['exercise', 'homework', 'homework_sols', 'vignette', 'vignette_sols']
+        ['exercise', 'exercise_sols', 'homework', 'homework_sols', 'vignette', 'vignette_sols']
     );
     passes(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: after_due\n'))));
-    failsWith(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: later\n'))), 'must be true, false, or after_due');
+    failsWith(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: later\n'))), 'must be one of now, on_date, after_date, never (or true, false, or after_due)');
+});
+
+test('post: and solutions: take the same words, per step, per kind, or course-wide', t => {
+    // Defaults: a file posts now, solutions never.
+    assert.equal(schema.releaseMode({ course: {} }, 'post', 'vignette', {}), 'now');
+    assert.equal(schema.releaseMode({ course: {} }, 'solutions', 'vignette', {}), 'never');
+    // One word for every kind, or a mapping by kind; a step's own word wins.
+    const scalar = { course: { post: 'on_date', solutions: 'after_date' } };
+    assert.equal(schema.releaseMode(scalar, 'post', 'exercise', {}), 'on_date');
+    assert.equal(schema.releaseMode(scalar, 'solutions', 'homework', {}), 'after_date');
+    const byKind = { course: { post: { exercise: 'on_date', vignette: 'after_date' } } };
+    assert.equal(schema.releaseMode(byKind, 'post', 'exercise', {}), 'on_date');
+    assert.equal(schema.releaseMode(byKind, 'post', 'vignette', {}), 'after_date');
+    assert.equal(schema.releaseMode(byKind, 'post', 'homework', {}), 'now');
+    assert.equal(schema.releaseMode(byKind, 'post', 'vignette', { post: 'never' }), 'never');
+    assert.equal(schema.releaseMode(byKind, 'post', 'homework', {}, { post: 'on_date' }), 'on_date');
+    // on_date includes the date itself; after_date starts the next day; no date holds the file back.
+    assert.equal(schema.released('on_date', '2026-10-02', '2026-10-01'), false);
+    assert.equal(schema.released('on_date', '2026-10-02', '2026-10-02'), true);
+    assert.equal(schema.released('after_date', '2026-10-02', '2026-10-02'), false);
+    assert.equal(schema.released('after_date', '2026-10-02', '2026-10-03'), true);
+    assert.equal(schema.released('on_date', undefined, '2026-10-03'), false);
+    assert.equal(schema.released('now', undefined, '2026-10-03'), true);
+    // Exercise solutions are a candidate only when switched on.
+    assert.deepEqual(
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', exercise: { solutions: 'after_date' } }),
+        [
+            ['exercise', 'Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf'],
+            ['exercise_sols', 'Blocks/A1_The_PPF/Exercise/Exercise_A1_sols.pdf'],
+            ['vignette', 'Blocks/A1_The_PPF/Vignette/Vignette_A1.pdf']
+        ]
+    );
+    // The checker accepts the words everywhere and rejects anything else.
+    const courseWide = TRIAD.replace('  materials: Blocks\n', '  materials: Blocks\n  post: now\n  solutions: after_date\n');
+    passes(run(triadSite(t, courseWide)));
+    passes(run(triadSite(t, TRIAD.replace('  materials: Blocks\n', '  materials: Blocks\n  post: {exercise: on_date, vignette: after_date}\n'))));
+    passes(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          post: on_date\n'))));
+    passes(run(triadSite(t, TRIAD.replace('        vignette:\n', '        exercise:\n          post: on_date\n          solutions: after_date\n        vignette:\n'))));
+    failsWith(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          post: true\n'))), 'must be one of now, on_date, after_date, never');
+    failsWith(run(triadSite(t, TRIAD.replace('  materials: Blocks\n', '  materials: Blocks\n  post: {lecture: now}\n'))), 'unknown field lecture');
+    passes(run(stepsSite(t, STEPS.replace('            kind: exercise\n', '            kind: exercise\n            post: on_date\n'))));
+});
+
+test('a reattempt may carry a date, which needs a reattempt like reattempt_when does', t => {
+    const withDate = TRIAD.replace('          reattempt: in recitation\n', "          reattempt: in recitation\n          reattempt_date: '2026-10-08'\n");
+    passes(run(triadSite(t, withDate)));
+    failsWith(run(triadSite(t, withDate.replace("reattempt_date: '2026-10-08'", 'reattempt_date: Oct 8'))), 'must be a quoted yyyy-mm-dd date');
+    failsWith(run(triadSite(t, withDate.replace('          reattempt: in recitation\n', '').replace('          reattempt_when: Thu Oct 8 and Fri Oct 9\n', ''))), 'reattempt_date: needs a reattempt');
+});
+
+test('a date may be a list of two days: on_date is the first, after_date and the dot the second', t => {
+    assert.equal(schema.firstDate(['2026-10-01', '2026-10-02']), '2026-10-01');
+    assert.equal(schema.lastDate(['2026-10-01', '2026-10-02']), '2026-10-02');
+    assert.equal(schema.lastDate('2026-10-01'), '2026-10-01');
+    assert.equal(schema.firstDate(undefined), undefined);
+    assert.equal(schema.released('on_date', ['2026-10-01', '2026-10-02'], '2026-10-01'), true);
+    assert.equal(schema.released('after_date', ['2026-10-01', '2026-10-02'], '2026-10-02'), false);
+    assert.equal(schema.released('after_date', ['2026-10-01', '2026-10-02'], '2026-10-03'), true);
+    const course = { parts: { A: { sections: [{ block: 'A1', dates: { recitation: ['2026-10-01', '2026-10-02'] } }] }, B: { sections: [{ checkpoint: { date: '2026-10-05' } }] } } };
+    assert.equal(schema.currentPart(course, '2026-10-02'), 'A');
+    assert.equal(schema.currentPart(course, '2026-10-03'), 'B');
+    const two = TRIAD.replace('          due: Sunday\n', "          due: Sunday\n        dates: {class: '2026-09-01', recitation: ['2026-09-03', '2026-09-04'], homework: '2026-09-06'}\n");
+    passes(run(triadSite(t, two)));
+    failsWith(run(triadSite(t, two.replace("['2026-09-03', '2026-09-04']", "['2026-09-04', '2026-09-03']"))), 'the second date must come after the first');
+    failsWith(run(triadSite(t, two.replace("['2026-09-03', '2026-09-04']", "['2026-09-03', '2026-09-04', '2026-09-05']"))), 'or a list of two');
+    passes(run(triadSite(t, TRIAD.replace('          reattempt: in recitation\n', "          reattempt: in recitation\n          reattempt_date: ['2026-10-08', '2026-10-09']\n"))));
 });
 
 test('schema helpers agree with the page ids the sites already use', () => {

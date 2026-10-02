@@ -55,7 +55,8 @@ course:
   checkpoint: MiniExam             # the word for the end-of-part assessment; default Checkpoint
   reading: Reading/Ch_{nn}.pdf     # optional; lets a block say reading.chapter: 3
   materials: Blocks                # optional; enables conventional PDF discovery under Blocks/<folder>/
-  solutions: after_due             # optional; every block's solutions appear the day after they are due
+  post: now                        # optional; when every exercise, vignette, and homework PDF appears (default now)
+  solutions: after_date            # optional; when every ..._sols.pdf appears (default never)
 ```
 
 ## Parts
@@ -96,8 +97,9 @@ Then the practice path, in one of two forms.
       links: [{label: Notebook, file: https://colab.research.google.com/...}]
       video: fWk7LBDcfY8           # optional small thumbnail
       due: Sunday, September 4     # optional display text
-      date: '2026-09-04'           # optional; once it has passed the step's dot turns blue
+      date: '2026-09-04'           # optional; once it has passed the step's dot turns blue. Two days: ['2026-09-03', '2026-09-04']
       where: recitation            # optional; overrides the label the kind supplies
+      post: on_date                # optional; holds the links back until the date (see Posting)
 ```
 
 **The conventional triad** writes nothing and gets Exercise, Vignette, and Homework steps,
@@ -107,24 +109,52 @@ with PDFs found on disk by the block's `folder`:
     Blocks/<folder>/Vignette/Vignette_<BLOCK>.pdf
     Blocks/<folder>/Homework/Homework_<BLOCK>.pdf
 
-Drop a conventionally named PDF in and its chip appears on the next load. Solutions are
-opt-in: `solutions: true` under `vignette:` or `homework:` shows `..._sols.pdf`, and nothing
-else does. `solutions: after_due` shows it only from the day after the step's date (the
-recitation date for a vignette, the homework date for homework), the day its dot turns
-blue, so a guide can be pushed early and appear on its own once the work is due. Set
-`solutions: after_due` under `course:` to make that the default for every block; a block's
-own `solutions:` (or a part's `homework_defaults`) still wins, and `false` keeps one hidden.
-Append `?today=2026-09-28` to a page's URL to preview another day. Optional keys on the triad:
+Drop a conventionally named PDF in and its chip appears on the next load. Each has a
+solutions file beside it, `Exercise_<BLOCK>_sols.pdf` and so on, which is opt-in (see
+Posting). Optional keys on the triad:
 
 ```yaml
   dates: {class: '2026-08-31', recitation: '2026-09-04', homework: '2026-09-06'}   # orders the steps; a passed date turns its dot blue
-  exercise: {links: [...], video: ...}            # only when the exercise has downloads or a video
-  vignette: {description: ..., files: A1, solutions: after_due, video: ...}       # files: overrides the base name; files: false hides it
-  homework: {due: ..., file: A1, solutions: true, links: [...]}                    # file: A1 asks for the conventional Homework_A1.pdf
+  dates: {class: '2026-08-31', recitation: ['2026-09-03', '2026-09-04'], homework: '2026-09-06'}   # a recitation across two days
+  exercise: {links: [...], video: ..., post: on_date, solutions: after_date}       # only when the exercise has downloads, a video, or its own posting rule
+  vignette: {description: ..., files: A1, solutions: after_date, video: ...}      # files: overrides the base name; files: false hides it
+  homework: {due: ..., file: A1, solutions: now, links: [...]}                     # file: A1 asks for the conventional Homework_A1.pdf
   practice: false                                 # no path at all
   extras: [{name: Simulating a Market, video: ...}]   # optional material above the episode; an extra with
                                                   # no video may carry an image (URL or local path) as its thumbnail, opening its first link
 ```
+
+### Posting
+
+Two keys say when a step's files appear, and both take the same words:
+
+| word | the file appears |
+|---|---|
+| `now` | as soon as it exists (pushed, or dropped in the folder) |
+| `on_date` | from the step's date |
+| `after_date` | from the day after the step's date, when its dot turns blue |
+| `never` | not at all |
+
+`post:` governs the step's own PDF (an exercise's, vignette's, or homework's; an explicit
+step's `links:`), and `solutions:` its `..._sols.pdf` (or `solution_file:`). The date is the
+class date for an exercise, the recitation date for a vignette, the due date for homework,
+and `date:` on an explicit step; a step with no date is held back by `on_date` and
+`after_date`. Any date may be a list of two for something across two days, say a
+recitation held Thursday and Friday: the page shows "Thu Oct 1 & Fri Oct 2", `on_date`
+means the first day, and `after_date` and the blue dot wait for the day after the second. A step's own setting wins, then a part's `homework_defaults`, then the course:
+
+```yaml
+course:
+  post: now                        # files post as soon as they exist (the default)
+  solutions: after_date            # answer keys post the day after; the default is never
+```
+
+Either course setting may instead be a mapping by kind, `{exercise: on_date, vignette:
+after_date, homework: now}`. `solutions:` also still reads the older `true`, `false`, and
+`after_due` as `now`, `never`, and `after_date`. So a guide can be pushed early and appear
+on its own once the work is due, and `post: on_date` on a vignette keeps a PDF that is in
+the folder off the page until recitation. Append `?today=2026-09-28` to a page's URL to
+preview another day.
 
 ## A checkpoint
 
@@ -141,7 +171,8 @@ Append `?today=2026-09-28` to a page's URL to preview another day. Optional keys
     date: '2026-09-09'             # optional; shown as the checkpoint's day
     when: Week 4                   # optional; overrides the date's label
     reattempt: TBA                 # optional; adds a Reattempt step with this label
-    reattempt_when: Thu Oct 8      # optional; the Reattempt step's day, drawn like the checkpoint's
+    reattempt_date: '2026-10-08'   # optional; shown as the Reattempt step's day, and its dot turns blue once it has passed; two days: ['2026-10-08', '2026-10-09']
+    reattempt_when: Thu Oct 8 and Fri Oct 9   # optional; overrides the date's label, as when: does for the checkpoint
     next: 2                        # optional; adds a faint "Part 2" step after the checkpoint
     extras: [...]                  # optional material between the demo and the checkpoint
 ```

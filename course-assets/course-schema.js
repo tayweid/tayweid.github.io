@@ -47,11 +47,22 @@
         return checkpointWord(course).toLowerCase().replace(/[^a-z0-9]/g, '');
     }
 
+    // A date in the YAML is one yyyy-mm-dd string, or a list of two for something that
+    // runs across two days (a recitation on Thursday and Friday). firstDate and lastDate
+    // give the ends; a single date is both.
+    const DATE = /^\d{4}-\d{2}-\d{2}$/;
+    function dateList(value) {
+        const list = Array.isArray(value) ? value : [value];
+        return list.filter(item => typeof item === 'string' && DATE.test(item));
+    }
+    function firstDate(value) { return dateList(value)[0]; }
+    function lastDate(value) { const list = dateList(value); return list[list.length - 1]; }
+
     // Every yyyy-mm-dd date a part is scheduled on: its blocks' dates, their steps', and
     // its checkpoint's (the checkpoint day and any checkpoint steps).
     function partDates(part) {
         const found = [];
-        const add = value => { if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) found.push(value); };
+        const add = value => dateList(value).forEach(item => found.push(item));
         const steps = list => (Array.isArray(list) ? list : []).forEach(step => step && add(step.date));
         (Array.isArray(part && part.sections) ? part.sections : []).forEach(section => {
             if (!isRecord(section)) return;
@@ -89,26 +100,50 @@
         return `${materials}/${folder}/${type}/${name}.pdf`;
     }
 
-    // Solutions: true shows them, false hides them, and after_due shows them from the day
-    // after the step's date (the recitation for a vignette, the due date for homework), the
-    // same day its dot turns blue. A block's own setting wins, then the part's homework
-    // defaults, then course.solutions; with none of these, solutions stay hidden.
+    // When a step's files appear. post: governs the step's own PDF (or an explicit step's
+    // links), solutions: its answer key. Both take one of RELEASE: now (as soon as the file
+    // exists), on_date (from the step's date: the class for an exercise, the recitation for
+    // a vignette, the due date for homework), after_date (from the day after, when the dot
+    // turns blue), or never. solutions: also accepts the older true, false, and after_due,
+    // read as now, never, and after_date. A step's own setting wins, then the part's
+    // homework defaults, then the course setting, which may be one word for every kind or a
+    // mapping by kind ({exercise: on_date, vignette: after_date}). With none of these a
+    // file posts now and solutions never.
+    const RELEASE = ['now', 'on_date', 'after_date', 'never'];
+    const RELEASE_KINDS = ['exercise', 'vignette', 'homework'];
     const SOLUTIONS_AFTER_DUE = 'after_due';
-    function solutionsMode(course, node, defaults) {
-        const pick = [node && node.solutions, defaults && defaults.solutions, course && course.course && course.course.solutions]
-            .find(value => value !== undefined && value !== null);
-        return pick === true || pick === SOLUTIONS_AFTER_DUE ? pick : false;
+    function releaseWord(value) {
+        if (value === true) return 'now';
+        if (value === false) return 'never';
+        if (value === SOLUTIONS_AFTER_DUE) return 'after_date';
+        return RELEASE.includes(value) ? value : undefined;
     }
-    // today is yyyy-mm-dd, as course.js computes it for the dots.
-    function solutionsShown(mode, date, today) {
-        if (mode === true) return true;
-        return mode === SOLUTIONS_AFTER_DUE && typeof date === 'string' && date !== '' && date < today;
+    function courseRelease(course, key, kind) {
+        const value = course && course.course && course.course[key];
+        return isRecord(value) ? value[kind] : value;
     }
+    function releaseMode(course, key, kind, node, defaults) {
+        const pick = [node && node[key], defaults && defaults[key], courseRelease(course, key, kind)]
+            .map(releaseWord).find(word => word !== undefined);
+        return pick || (key === 'post' ? 'now' : 'never');
+    }
+    // today is yyyy-mm-dd, as course.js computes it for the dots. A step with no date is
+    // never on or after it, so on_date and after_date keep its file back until it has one.
+    // Across two days, on_date means the first and after_date the day after the second.
+    function released(mode, date, today) {
+        if (mode === 'now') return true;
+        if (mode !== 'on_date' && mode !== 'after_date') return false;
+        const first = firstDate(date);
+        if (!first) return false;
+        return mode === 'on_date' ? first <= today : lastDate(date) < today;
+    }
+    const solutionsMode = (course, node, defaults, kind) => releaseMode(course, 'solutions', kind, node, defaults);
+    const solutionsShown = released;
 
     // The conventional files a block may have on disk, as [key, path] pairs. Exercise and
     // vignette are always candidates; homework and every solutions file only when the YAML
-    // asks (solutions are opt-in, so an answer key on disk never surfaces by itself; with
-    // after_due the page also waits for the date).
+    // asks (solutions are opt-in, so an answer key on disk never surfaces by itself). When
+    // a file is shown is the page's business, through post: and solutions:.
     function blockCandidates(course, section) {
         const materials = course && course.course && course.course.materials;
         const blockId = section.block;
@@ -116,13 +151,18 @@
         if (!materials || !blockId || !folder || section.steps) return [];
         const wanted = [];
         const exercise = section.exercise || {};
-        if (!exercise.links) wanted.push(['exercise', conventionalPath(materials, folder, 'Exercise', blockId)]);
+        if (!exercise.links) {
+            wanted.push(['exercise', conventionalPath(materials, folder, 'Exercise', blockId)]);
+            if (solutionsMode(course, exercise, undefined, 'exercise') !== 'never' && !explicitPath(exercise.solution_file)) {
+                wanted.push(['exercise_sols', conventionalPath(materials, folder, 'Exercise', blockId, 'sols')]);
+            }
+        }
         const homework = section.homework || {};
         if (!homework.links) {
             if (homework.file && !explicitPath(homework.file)) {
                 wanted.push(['homework', conventionalPath(materials, folder, 'Homework', blockId)]);
             }
-            if (solutionsMode(course, homework) && !explicitPath(homework.solution_file)) {
+            if (solutionsMode(course, homework, undefined, 'homework') !== 'never' && !explicitPath(homework.solution_file)) {
                 wanted.push(['homework_sols', conventionalPath(materials, folder, 'Homework', blockId, 'sols')]);
             }
         }
@@ -131,7 +171,7 @@
             const base = typeof vignette.files === 'string' ? vignette.files : blockId;
             if (!explicitPath(base)) {
                 wanted.push(['vignette', conventionalPath(materials, folder, 'Vignette', base)]);
-                if (solutionsMode(course, vignette) && !explicitPath(vignette.solution_file)) {
+                if (solutionsMode(course, vignette, undefined, 'vignette') !== 'never' && !explicitPath(vignette.solution_file)) {
                     wanted.push(['vignette_sols', conventionalPath(materials, folder, 'Vignette', base, 'sols')]);
                 }
             }
@@ -176,8 +216,22 @@
         function boolean(value, path) {
             if (value !== undefined && typeof value !== 'boolean') fail(path, 'must be true or false');
         }
-        function solutions(value, path) {
-            if (value !== undefined && typeof value !== 'boolean' && value !== SOLUTIONS_AFTER_DUE) fail(path, `must be true, false, or ${SOLUTIONS_AFTER_DUE}`);
+        function release(value, path, key) {
+            if (value === undefined || value === null) return;
+            const legacy = key === 'solutions' ? ' (or true, false, or after_due)' : '';
+            if (releaseWord(value) === undefined || (key === 'post' && typeof value !== 'string')) fail(path, `must be one of ${RELEASE.join(', ')}${legacy}`);
+        }
+        function solutions(value, path) { release(value, path, 'solutions'); }
+        function post(value, path) { release(value, path, 'post'); }
+        // At course level, one word for every kind or a mapping by kind.
+        function courseReleaseField(value, path, key) {
+            if (value === undefined || value === null) return;
+            if (isRecord(value)) {
+                keys(value, path, [], RELEASE_KINDS);
+                RELEASE_KINDS.forEach(kind => release(value[kind], `${path}.${kind}`, key));
+            } else {
+                release(value, path, key);
+            }
         }
         function video(value, path, options = {}) {
             if (value === undefined || value === null) {
@@ -190,7 +244,13 @@
         }
         function date(value, path) {
             if (value === undefined) return;
-            if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) fail(path, "must be a quoted yyyy-mm-dd date, such as '2026-09-04'");
+            const one = item => typeof item === 'string' && DATE.test(item);
+            if (Array.isArray(value)) {
+                if (value.length < 1 || value.length > 2 || !value.every(one)) fail(path, "must be a quoted yyyy-mm-dd date, such as '2026-09-04', or a list of two for something across two days");
+                else if (value[1] !== undefined && value[1] <= value[0]) fail(path, 'the second date must come after the first');
+                return;
+            }
+            if (!one(value)) fail(path, "must be a quoted yyyy-mm-dd date, such as '2026-09-04'");
         }
         function icon(value, path) {
             if (value === undefined) return;
@@ -230,7 +290,8 @@
             list(value, path, { optional: true }).forEach((step, index) => {
                 const stepPath = `${path}[${index}]`;
                 if (!record(step, stepPath)) return;
-                keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links']);
+                keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links', 'post']);
+                post(step.post, `${stepPath}.post`);
                 text(step.name, `${stepPath}.name`);
                 if (step.kind !== undefined && !(step.kind in STEP_KINDS)) {
                     fail(`${stepPath}.kind`, `must be one of ${Object.keys(STEP_KINDS).join(', ')}`);
@@ -263,7 +324,9 @@
 
         const meta = record(top.course, 'course');
         if (meta) {
-            keys(meta, 'course', ['code', 'title', 'brand'], ['home', 'nav', 'checkpoint', 'reading', 'materials', 'solutions']);
+            keys(meta, 'course', ['code', 'title', 'brand'], ['home', 'nav', 'checkpoint', 'reading', 'materials', 'post', 'solutions']);
+            courseReleaseField(meta.post, 'course.post', 'post');
+            courseReleaseField(meta.solutions, 'course.solutions', 'solutions');
             text(meta.code, 'course.code');
             text(meta.title, 'course.title');
             const brand = list(meta.brand, 'course.brand');
@@ -357,14 +420,18 @@
             }
 
             if (present(section.exercise) && record(section.exercise, `${path}.exercise`)) {
-                keys(section.exercise, `${path}.exercise`, [], ['name', 'links', 'video']);
+                keys(section.exercise, `${path}.exercise`, [], ['name', 'links', 'video', 'post', 'solutions', 'solution_file']);
                 text(section.exercise.name, `${path}.exercise.name`, { optional: true });
+                post(section.exercise.post, `${path}.exercise.post`);
+                solutions(section.exercise.solutions, `${path}.exercise.solutions`);
+                if (section.exercise.solution_file !== undefined) url(section.exercise.solution_file, `${path}.exercise.solution_file`);
                 video(section.exercise.video, `${path}.exercise.video`, { optional: true });
                 links(section.exercise.links, `${path}.exercise.links`);
             }
             if (present(section.vignette) && record(section.vignette, `${path}.vignette`)) {
                 const vignette = section.vignette;
-                keys(vignette, `${path}.vignette`, [], ['name', 'description', 'video', 'links', 'files', 'solutions', 'solution_file', 'empty']);
+                keys(vignette, `${path}.vignette`, [], ['name', 'description', 'video', 'links', 'files', 'post', 'solutions', 'solution_file', 'empty']);
+                post(vignette.post, `${path}.vignette.post`);
                 text(vignette.name, `${path}.vignette.name`, { optional: true });
                 text(vignette.description, `${path}.vignette.description`, { optional: true, allowEmpty: true });
                 video(vignette.video, `${path}.vignette.video`, { optional: true });
@@ -375,7 +442,8 @@
             }
             if (present(section.homework) && record(section.homework, `${path}.homework`)) {
                 const homework = section.homework;
-                keys(homework, `${path}.homework`, [], ['due', 'file', 'links', 'solutions', 'solution_file', 'practice', 'video']);
+                keys(homework, `${path}.homework`, [], ['due', 'file', 'links', 'post', 'solutions', 'solution_file', 'practice', 'video']);
+                post(homework.post, `${path}.homework.post`);
                 text(homework.due, `${path}.homework.due`, { optional: true });
                 fileOrBase(homework.file, `${path}.homework.file`);
                 solutions(homework.solutions, `${path}.homework.solutions`);
@@ -393,7 +461,7 @@
         function validateCheckpoint(value, path) {
             const checkpoint = record(value, path);
             if (!checkpoint) return;
-            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'reattempt_when', 'next', 'extras']);
+            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'reattempt_date', 'reattempt_when', 'next', 'extras']);
             steps(checkpoint.steps, `${path}.steps`);
             text(checkpoint.description, `${path}.description`, { allowEmpty: true });
             const demo = record(checkpoint.demo, `${path}.demo`);
@@ -408,8 +476,11 @@
             date(checkpoint.date, `${path}.date`);
             text(checkpoint.when, `${path}.when`, { optional: true });
             text(checkpoint.reattempt, `${path}.reattempt`, { optional: true });
+            date(checkpoint.reattempt_date, `${path}.reattempt_date`);
             text(checkpoint.reattempt_when, `${path}.reattempt_when`, { optional: true });
-            if (checkpoint.reattempt_when !== undefined && checkpoint.reattempt === undefined) fail(`${path}.reattempt_when`, 'needs a reattempt');
+            ['reattempt_date', 'reattempt_when'].forEach(key => {
+                if (checkpoint[key] !== undefined && checkpoint.reattempt === undefined) fail(`${path}.${key}`, 'needs a reattempt');
+            });
             if (checkpoint.next !== undefined && !partIds.includes(String(checkpoint.next))) {
                 fail(`${path}.next`, `names Part ${checkpoint.next}, which is not in parts`);
             }
@@ -451,7 +522,8 @@
             text(part.introduction, `${path}.introduction`);
             links(part.links, `${path}.links`);
             if (present(part.homework_defaults) && record(part.homework_defaults, `${path}.homework_defaults`)) {
-                keys(part.homework_defaults, `${path}.homework_defaults`, [], ['due', 'file', 'solutions', 'solution_file', 'practice']);
+                keys(part.homework_defaults, `${path}.homework_defaults`, [], ['due', 'file', 'post', 'solutions', 'solution_file', 'practice']);
+                post(part.homework_defaults.post, `${path}.homework_defaults.post`);
                 solutions(part.homework_defaults.solutions, `${path}.homework_defaults.solutions`);
             }
             let checkpoints = 0;
@@ -513,7 +585,7 @@
                     ['exercise', 'vignette', 'homework'].forEach(key => {
                         const node = section[key] || {};
                         addLinks(node.links, `${sectionPath}.${key}.links`);
-                        if (node.solutions === true) add(node.solution_file, `${sectionPath}.${key}.solution_file`);
+                        if (releaseWord(node.solutions) === 'now') add(node.solution_file, `${sectionPath}.${key}.solution_file`);
                     });
                     if (section.homework && section.homework.file) add(section.homework.file, `${sectionPath}.homework.file`);
                     if (section.vignette && section.vignette.files) add(section.vignette.files, `${sectionPath}.vignette.files`);
@@ -544,6 +616,13 @@
         readingFile,
         currentPart,
         conventionalPath,
+        firstDate,
+        lastDate,
+        RELEASE,
+        RELEASE_KINDS,
+        releaseWord,
+        releaseMode,
+        released,
         solutionsMode,
         solutionsShown,
         explicitPath,

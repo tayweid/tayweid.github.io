@@ -239,3 +239,11 @@ dialog .hunk { color: var(--link); }
 }
 .chip-add:hover:not(:disabled) { border-style: solid; border-color: var(--link); color: var(--white); }
 .group.absent { border-style: dashed; }
+
+/* The course-wide posting defaults: one select per kind of file. */
+.by-kind { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; }
+.by-kind .kind { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.85em; color: var(--muted, #999); }
+
+/* Two-day dates: the second picker sits after an ampersand. */
+.inline.dates { flex-wrap: wrap; row-gap: 0.25rem; }
+.inline.dates .and { color: var(--muted, #999); padding: 0 0.25rem; }

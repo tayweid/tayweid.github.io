@@ -288,7 +288,21 @@ function commitField(input) {
     const type = input.dataset.type;
     let value;
     if (type === 'bool') value = input.checked ? true : undefined;
-    else if (type === 'solutions') value = { true: true, false: false, after_due: 'after_due' }[input.value];
+    else if (type === 'dates') {   // the two inputs share a path: none, one, or both filled
+        const filled = [...input.closest('.dates').querySelectorAll('input[type=date]')].map(box => box.value).filter(Boolean).sort();
+        value = filled.length === 0 ? undefined : filled.length === 1 ? filled[0] : filled;
+    } else if (type === 'release') {
+        value = input.value || undefined;
+        // A course-wide word (post: now) becomes a mapping by kind when one kind is changed.
+        const parentPath = path.slice(0, -1);
+        const parent = getIn(data(), parentPath);
+        if (parentPath.length === 2 && parentPath[0] === 'course' && (typeof parent === 'string' || typeof parent === 'boolean')) {
+            const word = { true: 'now', false: 'never', after_due: 'after_date' }[parent] || parent;
+            const mapping = Object.fromEntries(['exercise', 'vignette', 'homework'].map(kind => [kind, kind === path[2] ? value : word]));
+            edit(() => state.source.set(parentPath, mapping), parentPath);
+            return;
+        }
+    }
     else if (type === 'int') value = input.value === '' ? undefined : Number(input.value);
     else {
         value = input.value;

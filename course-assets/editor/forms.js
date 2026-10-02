@@ -16,10 +16,11 @@ const STEP = [
     { key: 'kind', type: 'select', options: ['exercise', 'vignette', 'homework', 'livestream'] },
     { key: 'where', type: 'text', hint: 'label under the dot; the kind supplies one' },
     { key: 'sub', type: 'text' },
-    { key: 'date', type: 'date', hint: 'homework shows it as the due date' },
+    { key: 'date', type: 'dates', hint: 'homework shows it as the due date; add a second date for a step across two days' },
     { key: 'due', label: 'Due text', type: 'text', hint: 'replaces the date’s wording, e.g. Friday, Sept. 4 at 5PM' },
     { key: 'video', type: 'video' },
-    { key: 'links', type: 'links' }
+    { key: 'links', type: 'links' },
+    { key: 'post', type: 'release', label: 'Post links', hint: 'when the links appear; blank leaves it to the course' }
 ];
 
 const EXTRA = [
@@ -59,15 +60,19 @@ export const BLOCK = [
         { key: 'class', label: 'Class date', type: 'date', outside: ['dates', 'class'] },
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
+        { key: 'post', type: 'release', label: 'Post the file', always: true, kind: 'exercise' },
+        { key: 'solutions', type: 'release', label: 'Post solutions', always: true, kind: 'exercise' },
+        { key: 'solution_file', type: 'file' },
         { key: 'links', type: 'links' }
     ] },
     { group: 'vignette', unlessSteps: true, fields: [
-        { key: 'recitation', label: 'Recitation date', type: 'date', outside: ['dates', 'recitation'] },
+        { key: 'recitation', label: 'Recitation date', type: 'dates', outside: ['dates', 'recitation'], hint: 'a second date for recitations across two days' },
         { key: 'description', type: 'long' },
         { key: 'name', type: 'text' },
         { key: 'video', type: 'video' },
         { key: 'files', type: 'base', hint: 'another block’s PDFs (F2), a path, or false for none' },
-        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
+        { key: 'post', type: 'release', label: 'Post the file', always: true, kind: 'vignette' },
+        { key: 'solutions', type: 'release', label: 'Post solutions', always: true, kind: 'vignette' },
         { key: 'solution_file', type: 'file' },
         { key: 'links', type: 'links' }
     ] },
@@ -75,7 +80,8 @@ export const BLOCK = [
         { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
         { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
         { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
-        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
+        { key: 'post', type: 'release', label: 'Post the file', always: true, kind: 'homework' },
+        { key: 'solutions', type: 'release', label: 'Post solutions', always: true, kind: 'homework' },
         { key: 'solution_file', type: 'file' },
         { key: 'video', type: 'video' },
         { key: 'links', type: 'links' }
@@ -92,7 +98,8 @@ export const PART = [
     { group: 'homework_defaults', label: 'Homework defaults', fields: [
         { key: 'due', type: 'text' },
         { key: 'file', type: 'base' },
-        { key: 'solutions', type: 'solutions', label: 'Show solutions' },
+        { key: 'post', type: 'release', label: 'Post the file', kind: 'homework' },
+        { key: 'solutions', type: 'release', label: 'Post solutions', kind: 'homework' },
         { key: 'solution_file', type: 'file' }
     ] },
     { key: 'sections', type: 'hidden' }   // edited through the outline
@@ -102,8 +109,9 @@ export const CHECKPOINT = [
     { key: 'description', type: 'long', required: true },
     { key: 'when', type: 'text', placeholder: 'Final Exam Period' },
     { key: 'date', type: 'date' },
-    { key: 'reattempt', type: 'text' },
-    { key: 'reattempt_when', label: 'Reattempt when', type: 'text' },
+    { key: 'reattempt', type: 'text', hint: 'the label under the Reattempt step, e.g. in recitation or TBA' },
+    { key: 'reattempt_date', label: 'Reattempt date', type: 'dates', hint: 'a second date for a reattempt across two days' },
+    { key: 'reattempt_when', label: 'Reattempt when', type: 'text', hint: 'replaces the date’s wording, e.g. Thu Oct 8 and Fri Oct 9' },
     { key: 'next', type: 'part' },
     { group: 'demo', fields: [
         { key: 'name', type: 'text' },
@@ -139,7 +147,8 @@ export const COURSE = [
     { key: 'checkpoint', type: 'text', hint: 'what the site calls a checkpoint' },
     { key: 'reading', type: 'text', hint: 'path pattern with {nn}, e.g. Reading/Ch_{nn}.pdf' },
     { key: 'materials', type: 'text', hint: 'directory holding the block folders' },
-    { key: 'solutions', type: 'solutions', label: 'Show solutions', hint: 'the default for every vignette and homework; a block’s own setting wins' },
+    { key: 'post', type: 'release_by_kind', label: 'Post files', hint: 'when each kind of PDF appears, unless a block says otherwise; blank means as soon as the file exists' },
+    { key: 'solutions', type: 'release_by_kind', label: 'Post solutions', hint: 'when each kind’s ..._sols.pdf appears, unless a block says otherwise; blank means never' },
     { key: 'nav', label: 'Navigation', type: 'records', title: item => item.label, blank: { label: 'New link', file: '' }, fields: [
         { key: 'label', type: 'text', required: true },
         { key: 'file', type: 'file' },
@@ -261,12 +270,29 @@ function widget(field, value, path, ctx, parent = {}) {
             return h('input', { ...common, type: 'checkbox', checked: value === true });
         case 'date':
             return h('span', { class: 'inline' }, h('input', { ...common, type: 'date', value: text }), h('span', { class: 'weekday' }, weekday(text)));
+        case 'dates': {   // one date, or two for something across two days; the file holds a string or a list
+            const list = Array.isArray(value) ? value.map(String) : (text ? [text] : []);
+            const second = list[1] || '';
+            return h('span', { class: 'inline dates' },
+                h('input', { ...common, type: 'date', value: list[0] || '' }), h('span', { class: 'weekday' }, weekday(list[0] || '')),
+                h('span', { class: 'and' }, '&'),
+                h('input', { ...common, id: `${common.id}-2`, type: 'date', value: second, title: 'second day, if any' }), h('span', { class: 'weekday' }, weekday(second)));
+        }
         case 'select':
             return select(common, text, field.options);
-        case 'solutions':   // true, after_due, or false; blank leaves it to the part or course
-            return h('select', common, h('option', { value: '' }, '—'),
-                ...[['true', 'Always'], ['after_due', 'After the due date'], ['false', 'Never']]
-                    .map(([option, name]) => h('option', { value: option, selected: option === text }, name)));
+        case 'release':   // now, on_date, after_date, or never; blank leaves it to the part or course
+            return releaseSelect(common, text, inheritedRelease(field, path, parent, ctx));
+        case 'release_by_kind': {   // the course default: one select per kind. A single word in the
+            // file (post: now) shows in all three; changing one turns it into a mapping by kind.
+            const word = typeof value === 'string' || typeof value === 'boolean' ? value : null;
+            return h('div', { class: 'by-kind' }, ...['exercise', 'vignette', 'homework'].map(kind => {
+                const kindPath = [...path, kind];
+                const current = word !== null ? word : (value && typeof value === 'object' ? value[kind] : undefined);
+                const kindText = current === undefined || current === null ? '' : String(current);
+                return h('label', { class: 'kind' }, capitalise(kind),
+                    releaseSelect({ id: id(kindPath), 'data-path': key(kindPath), 'data-type': 'release', 'data-required': '' }, kindText));
+            }));
+        }
         case 'part':
             return select(common, text, ctx.partIds);
         case 'folder': {
@@ -290,6 +316,32 @@ function widget(field, value, path, ctx, parent = {}) {
         default:
             return h('input', { ...common, type: 'text', value: text, class: field.size || '', placeholder: field.placeholder || '' });
     }
+}
+
+const RELEASE_NAMES = { now: 'As soon as the file exists', on_date: 'On the date', after_date: 'The day after the date', never: 'Never' };
+const RELEASE_WORD = value => ({ true: 'now', false: 'never', after_due: 'after_date' })[value] || value;
+
+function releaseSelect(common, text, inherited = null) {
+    const word = RELEASE_WORD(text);
+    return h('select', common, h('option', { value: '' }, inherited ? `${inherited.from}: ${RELEASE_NAMES[inherited.word] || inherited.word}` : '—'),
+        ...Object.entries(RELEASE_NAMES).map(([option, name]) => h('option', { value: option, selected: option === word }, name)));
+}
+
+// What a blank post: / solutions: on a step falls back to: the part's homework defaults
+// for homework, else the course setting (one word, or a mapping by kind), else the
+// built-in default (files post now, solutions never). Shown as the blank option's label.
+function inheritedRelease(field, path, parent, ctx) {
+    const key = field.key;
+    const kind = field.kind || (parent && parent.kind);
+    if (!kind || !ctx.data) return null;
+    const partId = path[0] === 'parts' ? path[1] : null;
+    const part = partId !== null ? (ctx.data.parts || {})[partId] : null;
+    const defaults = kind === 'homework' && part && part.homework_defaults ? part.homework_defaults[key] : undefined;
+    if (defaults !== undefined && defaults !== null && path[2] !== 'homework_defaults') return { from: 'Part default', word: RELEASE_WORD(defaults) };
+    const course = (ctx.data.course || {})[key];
+    const word = course && typeof course === 'object' ? course[kind] : course;
+    if (word !== undefined && word !== null) return { from: 'Course default', word: RELEASE_WORD(word) };
+    return { from: 'Default', word: key === 'post' ? 'now' : 'never' };
 }
 
 function select(common, text, options) {
