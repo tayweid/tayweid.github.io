@@ -79,11 +79,16 @@ A section is exactly one of a **block**, a **checkpoint**, or a **project**.
     name: Episode A2               # optional; default "Episode <block>"
     video: po4kip5m_QY             # the eleven-character YouTube ID; the thumbnail is automatic
     description: The landscape of what's possible
-    links: [{label: Animations, file: Blocks/A2_Advantage/media/, icon: fa-desktop}]
+    links: [{label: Videos, file: https://..., icon: fa-desktop}]   # optional chips under the episode
+    animations: false              # optional; hides the animation deck found on disk (see below)
   reading:                         # optional
     chapter: 2                     # links course.reading with {nn} filled in, as an optional chip
     topic: Thinking like an economist
 ```
+
+An animation deck needs no link: with `folder` set, `<materials>/<folder>/media/<BLOCK>_present/`
+(or the older `Episode<BLOCK>_present/`) gets an Animations chip on the episode as soon as its
+`index.html` is there. A link the YAML already gives to the same folder is not doubled.
 
 Then the practice path, in one of two forms.
 

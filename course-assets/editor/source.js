@@ -24,7 +24,7 @@ const KEY_ORDER = [
     'nav', 'title', 'brand', 'home', 'tagline', 'introduction', 'text', 'description', 'requirements', 'prompts',
     'file', 'files', 'image', 'button', 'lines', 'optional', 'icon',
     'date', 'when', 'due', 'reattempt', 'reattempt_date', 'reattempt_when', 'next', 'practice', 'steps',
-    'episode', 'reading', 'chapter', 'topic', 'video', 'links', 'materials',
+    'episode', 'reading', 'chapter', 'topic', 'video', 'links', 'animations', 'materials',
     'exercise', 'vignette', 'homework', 'post', 'solutions', 'solution_file', 'empty', 'demo',
     'homework_defaults', 'sections', 'dates', 'class', 'recitation', 'extras'
 ];

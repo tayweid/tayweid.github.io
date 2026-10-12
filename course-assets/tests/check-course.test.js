@@ -248,7 +248,7 @@ test('solutions: after_due waits for the step date and is accepted everywhere so
     assert.equal(schema.solutionsShown('now', undefined, '2026-09-28'), true);
     assert.equal(schema.solutionsShown('never', '2026-09-01', '2026-09-28'), false);
     assert.deepEqual(
-        schema.blockCandidates(course, { block: 'A1', folder: 'A1_The_PPF', homework: { file: 'A1' } }).map(([key]) => key),
+        schema.blockCandidates(course, { block: 'A1', folder: 'A1_The_PPF', episode: { animations: false }, homework: { file: 'A1' } }).map(([key]) => key),
         ['exercise', 'exercise_sols', 'homework', 'homework_sols', 'vignette', 'vignette_sols']
     );
     passes(run(triadSite(t, TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          solutions: after_due\n'))));
@@ -278,7 +278,7 @@ test('post: and solutions: take the same words, per step, per kind, or course-wi
     assert.equal(schema.released('now', undefined, '2026-10-03'), true);
     // Exercise solutions are a candidate only when switched on.
     assert.deepEqual(
-        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', exercise: { solutions: 'after_date' } }),
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', episode: { animations: false }, exercise: { solutions: 'after_date' } }),
         [
             ['exercise', 'Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf'],
             ['exercise_sols', 'Blocks/A1_The_PPF/Exercise/Exercise_A1_sols.pdf'],
@@ -322,23 +322,33 @@ test('a date may be a list of two days: on_date is the first, after_date and the
     passes(run(triadSite(t, TRIAD.replace('          reattempt: in recitation\n', "          reattempt: in recitation\n          reattempt_date: ['2026-10-08', '2026-10-09']\n"))));
 });
 
-test('schema helpers agree with the page ids the sites already use', () => {
+test('schema helpers agree with the page ids the sites already use', t => {
     assert.equal(schema.blockElementId('A1'), 'part-a1');
     assert.equal(schema.blockElementId('1.1'), 'part-11');
     assert.equal(schema.checkpointElementId({ course: { checkpoint: 'MiniExam' } }), 'miniexam');
     assert.equal(schema.checkpointElementId({ course: {} }), 'checkpoint');
     assert.equal(schema.readingFile({ course: { reading: 'Reading/Ch_{nn}.pdf' } }, 3), 'Reading/Ch_03.pdf');
     // Homework is a candidate like the others, file: false opts out, and file: renames the base.
+    // An animation deck is probed under both names, also for a block with explicit steps.
     assert.deepEqual(
-        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', homework: { file: false } }).map(([key]) => key),
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'C1', folder: 'C1_Externalities', steps: [] }),
+        [
+            ['animations', 'Blocks/C1_Externalities/media/C1_present/index.html'],
+            ['animations_episode', 'Blocks/C1_Externalities/media/EpisodeC1_present/index.html']
+        ]
+    );
+    passes(run(triadSite(t, TRIAD.replace('        episode:\n', '        episode:\n          animations: false\n'))));
+    failsWith(run(triadSite(t, TRIAD.replace('        episode:\n', '        episode:\n          animations: true\n'))), 'takes only false');
+    assert.deepEqual(
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', episode: { animations: false }, homework: { file: false } }).map(([key]) => key),
         ['exercise', 'vignette']
     );
     assert.deepEqual(
-        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', homework: { file: 'A0' } })[1],
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', episode: { animations: false }, homework: { file: 'A0' } })[1],
         ['homework', 'Blocks/A1_The_PPF/Homework/Homework_A0.pdf']
     );
     assert.deepEqual(
-        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', vignette: { solutions: true } }),
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', episode: { animations: false }, vignette: { solutions: true } }),
         [
             ['exercise', 'Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf'],
             ['homework', 'Blocks/A1_The_PPF/Homework/Homework_A1.pdf'],

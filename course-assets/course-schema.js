@@ -94,6 +94,9 @@
         return pattern.replace('{nn}', String(chapter).padStart(2, '0'));
     }
 
+    // Animation decks: media/<BLOCK>_present/, or the older media/Episode<BLOCK>_present/.
+    const ANIMATION_DECKS = [['animations', id => `${id}_present`], ['animations_episode', id => `Episode${id}_present`]];
+
     // <materials>/<folder>/<Type>/<Type>_<base>[_sols].pdf, e.g. Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf
     function conventionalPath(materials, folder, type, base, suffix) {
         const name = [type, base, suffix].filter(Boolean).join('_');
@@ -144,13 +147,19 @@
     // vignette and homework are always candidates (file: false or files: false opts one
     // out); every solutions file only when the YAML asks (solutions are opt-in, so an
     // answer key on disk never surfaces by itself). When
-    // a file is shown is the page's business, through post: and solutions:.
+    // a file is shown is the page's business, through post: and solutions:. An episode's
+    // animation deck is a candidate too, probed by its index.html under either name the
+    // decks have had (episode: {animations: false} opts out); it shows as soon as it exists.
     function blockCandidates(course, section) {
         const materials = course && course.course && course.course.materials;
         const blockId = section.block;
         const folder = section.folder;
-        if (!materials || !blockId || !folder || section.steps) return [];
+        if (!materials || !blockId || !folder) return [];
         const wanted = [];
+        if (!(section.episode && section.episode.animations === false)) {
+            ANIMATION_DECKS.forEach(([key, name]) => wanted.push([key, `${materials}/${folder}/media/${name(blockId)}/index.html`]));
+        }
+        if (section.steps) return wanted;
         const exercise = section.exercise || {};
         if (!exercise.links) {
             wanted.push(['exercise', conventionalPath(materials, folder, 'Exercise', blockId)]);
@@ -390,7 +399,8 @@
 
             const episode = record(section.episode, `${path}.episode`);
             if (episode) {
-                keys(episode, `${path}.episode`, ['description'], ['name', 'video', 'links', 'empty']);
+                keys(episode, `${path}.episode`, ['description'], ['name', 'video', 'links', 'animations', 'empty']);
+                if (episode.animations !== undefined && episode.animations !== false) fail(`${path}.episode.animations`, 'takes only false, to hide a deck found on disk');
                 text(episode.name, `${path}.episode.name`, { optional: true });
                 text(episode.description, `${path}.episode.description`, { allowEmpty: true });
                 video(episode.video, `${path}.episode.video`, { optional: true });

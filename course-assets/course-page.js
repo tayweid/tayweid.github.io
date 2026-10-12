@@ -293,6 +293,12 @@
         panel.append(title);
 
         const episodeLinks = items(episode.links).slice();
+        const blockFiles = discoveredFiles[blockId] || {};
+        const deck = (blockFiles.animations || blockFiles.animations_episode || '').replace(/index\.html$/, '');
+        const folderOf = file => String(file).replace(/^\.\//, '').replace(/(index\.html)?$/, '').replace(/\/?$/, '/');
+        if (deck && !episodeLinks.some(item => folderOf(item.file) === deck)) {
+            episodeLinks.unshift({ label: 'Animations', file: deck, icon: 'fa fa-desktop' });
+        }
         if (reading.chapter !== undefined && reading.file !== false) {
             const file = typeof reading.file === 'string' ? reading.file : schema.readingFile(course, reading.chapter);
             if (file) episodeLinks.push({ label: `Ch. ${reading.chapter}`, file, optional: true });
