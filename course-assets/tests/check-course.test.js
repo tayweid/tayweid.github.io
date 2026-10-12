@@ -282,6 +282,7 @@ test('post: and solutions: take the same words, per step, per kind, or course-wi
         [
             ['exercise', 'Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf'],
             ['exercise_sols', 'Blocks/A1_The_PPF/Exercise/Exercise_A1_sols.pdf'],
+            ['homework', 'Blocks/A1_The_PPF/Homework/Homework_A1.pdf'],
             ['vignette', 'Blocks/A1_The_PPF/Vignette/Vignette_A1.pdf']
         ]
     );
@@ -327,8 +328,17 @@ test('schema helpers agree with the page ids the sites already use', () => {
     assert.equal(schema.checkpointElementId({ course: { checkpoint: 'MiniExam' } }), 'miniexam');
     assert.equal(schema.checkpointElementId({ course: {} }), 'checkpoint');
     assert.equal(schema.readingFile({ course: { reading: 'Reading/Ch_{nn}.pdf' } }, 3), 'Reading/Ch_03.pdf');
+    // Homework is a candidate like the others, file: false opts out, and file: renames the base.
     assert.deepEqual(
-        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', vignette: { solutions: true }, homework: { file: 'A1' } }),
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', homework: { file: false } }).map(([key]) => key),
+        ['exercise', 'vignette']
+    );
+    assert.deepEqual(
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', homework: { file: 'A0' } })[1],
+        ['homework', 'Blocks/A1_The_PPF/Homework/Homework_A0.pdf']
+    );
+    assert.deepEqual(
+        schema.blockCandidates({ course: { materials: 'Blocks' } }, { block: 'A1', folder: 'A1_The_PPF', vignette: { solutions: true } }),
         [
             ['exercise', 'Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf'],
             ['homework', 'Blocks/A1_The_PPF/Homework/Homework_A1.pdf'],

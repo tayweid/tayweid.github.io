@@ -79,7 +79,7 @@ export const BLOCK = [
     { group: 'homework', unlessSteps: true, fields: [
         { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
         { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
-        { key: 'file', type: 'base', hint: 'the block ID (A1) links the conventional PDF' },
+        { key: 'file', type: 'base', hint: 'another block’s PDF (F2), a path, or false for none' },
         { key: 'post', type: 'release', label: 'Post the file', always: true, kind: 'homework' },
         { key: 'solutions', type: 'release', label: 'Post solutions', always: true, kind: 'homework' },
         { key: 'solution_file', type: 'file' },

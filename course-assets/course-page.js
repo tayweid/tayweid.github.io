@@ -217,8 +217,8 @@
         const homework = { ...(part.homework_defaults || {}), ...(block.homework || {}) };
         const blockFiles = discoveredFiles[blockId] || {};
 
-        const homeworkFile = homework.file ? (schema.explicitPath(homework.file) ? homework.file : blockFiles.homework) : null;
-        const homeworkSols = schema.explicitPath(homework.solution_file) ? homework.solution_file : blockFiles.homework_sols;
+        const homeworkFile = homework.file === false ? null : schema.explicitPath(homework.file) ? homework.file : blockFiles.homework;
+        const homeworkSols = homework.file === false ? null : schema.explicitPath(homework.solution_file) ? homework.solution_file : blockFiles.homework_sols;
         const homeworkLinks = stepLinks('homework', 'Homework', homework, dates.homework, homeworkFile, homeworkSols);
         const exerciseSols = schema.explicitPath(exercise.solution_file) ? exercise.solution_file : blockFiles.exercise_sols;
         const exerciseLinks = stepLinks('exercise', 'Exercise', exercise, dates.class, blockFiles.exercise, exerciseSols);

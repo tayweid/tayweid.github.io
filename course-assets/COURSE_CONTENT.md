@@ -118,7 +118,7 @@ Posting). Optional keys on the triad:
   dates: {class: '2026-08-31', recitation: ['2026-09-03', '2026-09-04'], homework: '2026-09-06'}   # a recitation across two days
   exercise: {links: [...], video: ..., post: on_date, solutions: after_date}       # only when the exercise has downloads, a video, or its own posting rule
   vignette: {description: ..., files: A1, solutions: after_date, video: ...}      # files: overrides the base name; files: false hides it
-  homework: {due: ..., file: A1, solutions: now, links: [...]}                     # file: A1 asks for the conventional Homework_A1.pdf
+  homework: {due: ..., file: A1, solutions: now, links: [...]}                     # file: overrides the base name; file: false hides it
   practice: false                                 # no path at all
   extras: [{name: Simulating a Market, video: ...}]   # optional material above the episode; an extra with
                                                   # no video may carry an image (URL or local path) as its thumbnail, opening its first link

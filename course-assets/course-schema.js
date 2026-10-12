@@ -140,9 +140,10 @@
     const solutionsMode = (course, node, defaults, kind) => releaseMode(course, 'solutions', kind, node, defaults);
     const solutionsShown = released;
 
-    // The conventional files a block may have on disk, as [key, path] pairs. Exercise and
-    // vignette are always candidates; homework and every solutions file only when the YAML
-    // asks (solutions are opt-in, so an answer key on disk never surfaces by itself). When
+    // The conventional files a block may have on disk, as [key, path] pairs. Exercise,
+    // vignette and homework are always candidates (file: false or files: false opts one
+    // out); every solutions file only when the YAML asks (solutions are opt-in, so an
+    // answer key on disk never surfaces by itself). When
     // a file is shown is the page's business, through post: and solutions:.
     function blockCandidates(course, section) {
         const materials = course && course.course && course.course.materials;
@@ -158,12 +159,13 @@
             }
         }
         const homework = section.homework || {};
-        if (!homework.links) {
-            if (homework.file && !explicitPath(homework.file)) {
-                wanted.push(['homework', conventionalPath(materials, folder, 'Homework', blockId)]);
+        if (!homework.links && homework.file !== false) {
+            const base = typeof homework.file === 'string' ? homework.file : blockId;
+            if (!explicitPath(base)) {
+                wanted.push(['homework', conventionalPath(materials, folder, 'Homework', base)]);
             }
             if (solutionsMode(course, homework, undefined, 'homework') !== 'never' && !explicitPath(homework.solution_file)) {
-                wanted.push(['homework_sols', conventionalPath(materials, folder, 'Homework', blockId, 'sols')]);
+                wanted.push(['homework_sols', conventionalPath(materials, folder, 'Homework', explicitPath(base) ? blockId : base, 'sols')]);
             }
         }
         const vignette = section.vignette || {};
