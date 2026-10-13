@@ -77,8 +77,8 @@ export const BLOCK = [
         { key: 'links', type: 'links' }
     ] },
     { group: 'homework', unlessSteps: true, fields: [
-        { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'the page shows this as the due date' },
-        { key: 'due', label: 'Due text', type: 'text', placeholder: 'Sunday, September 6', hint: 'used only when there is no due date' },
+        { key: 'homework', label: 'Due date', type: 'date', outside: ['dates', 'homework'], hint: 'shown as the due date unless there is due text' },
+        { key: 'due', label: 'Due text', type: 'text', placeholder: 'Friday, Oct. 16 at 5PM', hint: 'replaces the date’s wording, e.g. to add a time' },
         { key: 'file', type: 'base', hint: 'another block’s PDF (F2), a path, or false for none' },
         { key: 'post', type: 'release', label: 'Post the file', always: true, kind: 'homework' },
         { key: 'solutions', type: 'release', label: 'Post solutions', always: true, kind: 'homework' },

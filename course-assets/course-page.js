@@ -222,7 +222,8 @@
         const homeworkLinks = stepLinks('homework', 'Homework', homework, dates.homework, homeworkFile, homeworkSols);
         const exerciseSols = schema.explicitPath(exercise.solution_file) ? exercise.solution_file : blockFiles.exercise_sols;
         const exerciseLinks = stepLinks('exercise', 'Exercise', exercise, dates.class, blockFiles.exercise, exerciseSols);
-        const due = dates.homework ? shortDate(dates.homework) : homework.due;
+        // Due on its date; due: replaces that wording (e.g. "Friday, Oct. 16 at 5PM"), as on a step.
+        const due = homework.due || (dates.homework ? shortDate(dates.homework) : null);
 
         const standard = [
             { date: dates.class, index: 0, node: pathStep({
