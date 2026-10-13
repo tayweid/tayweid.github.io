@@ -97,7 +97,7 @@
     // Animation decks: media/<BLOCK>_present/, or the older media/Episode<BLOCK>_present/.
     const ANIMATION_DECKS = [['animations', id => `${id}_present`], ['animations_episode', id => `Episode${id}_present`]];
 
-    // <materials>/<folder>/<Type>/<Type>_<base>[_sols].pdf, e.g. Blocks/A1_The_PPF/Exercise/Exercise_A1.pdf
+    // <materials>/<folder>/<Type>/<Type>_<base>[_sols].pdf, e.g. ./Part_A/A1_The_PPF/Exercise/Exercise_A1.pdf
     function conventionalPath(materials, folder, type, base, suffix) {
         const name = [type, base, suffix].filter(Boolean).join('_');
         return `${materials}/${folder}/${type}/${name}.pdf`;
@@ -394,7 +394,6 @@
 
             if (section.folder !== undefined && text(section.folder, `${path}.folder`)) {
                 if (!settings.materials) fail(`${path}.folder`, 'needs course.materials to say which directory holds the block folders');
-                if (String(section.folder).includes('/')) fail(`${path}.folder`, 'is a directory name, not a path');
             }
 
             const episode = record(section.episode, `${path}.episode`);
