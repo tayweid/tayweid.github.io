@@ -297,7 +297,7 @@
         const blockFiles = discoveredFiles[blockId] || {};
         const deck = (blockFiles.animations || blockFiles.animations_episode || '').replace(/index\.html$/, '');
         const folderOf = file => String(file).replace(/^\.\//, '').replace(/(index\.html)?$/, '').replace(/\/?$/, '/');
-        if (deck && !episodeLinks.some(item => folderOf(item.file) === deck)) {
+        if (deck && !episodeLinks.some(item => folderOf(item.file) === folderOf(deck))) {
             episodeLinks.unshift({ label: 'Animations', file: deck, icon: 'fa fa-desktop' });
         }
         if (reading.chapter !== undefined && reading.file !== false) {
