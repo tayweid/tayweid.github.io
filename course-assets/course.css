@@ -931,57 +931,132 @@ i.fa-github            { --icon-file: var(--icon-github); }
     .part0-card-container { top: 0; right: 0; bottom: auto; left: 0; width: auto; height: 120px; }
     .part0-card .card-video { border-radius: 13px 13px 0 0; }
 
-    /* One quiet toolbar; selection changes color without moving the links. */
-    body.has-mobile-course-nav { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+    /* Phone toolbar (built by course.js): a glass pill of part letters and a round button
+       naming the block in view, which opens the contents sheet. Glass = a translucent ground
+       over a blur of the page, a hairline edge, and a faint lit top edge. */
+    :root {
+        --glass-bg: rgba(44, 44, 44, 0.58);
+        --glass-edge: rgba(255, 255, 255, 0.15);
+        --glass-blur: blur(22px) saturate(1.7);
+        --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
+        --glass-lift: rgba(255, 255, 255, 0.13);   /* the selected part's capsule */
+        --dock-height: 64px;
+        --dock-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    }
+    body.has-mobile-course-nav { padding-bottom: calc(var(--dock-height) + 34px + env(safe-area-inset-bottom, 0px)); }
+
+    .mobile-dock {
+        position: fixed; z-index: 1000;
+        bottom: var(--dock-bottom);
+        left: max(14px, env(safe-area-inset-left, 0px));
+        right: max(14px, env(safe-area-inset-right, 0px));
+        max-width: 400px; margin: 0 auto;
+        display: flex; gap: 10px;
+    }
+    .mobile-nav-bar, .mobile-nav-more, .mobile-sheet {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur);
+        border: 0.5px solid var(--glass-edge);
+        box-shadow: var(--glass-shadow);
+    }
     .mobile-nav-bar {
-        --nav-button: clamp(24px, calc((100vw - 40px) / 8), 44px);
-        position: fixed; isolation: isolate;
-        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-        left: max(6px, env(safe-area-inset-left, 0px));
-        right: max(6px, env(safe-area-inset-right, 0px));
-        width: auto; max-width: 288px;
-        margin: 0 auto; padding: 0 4px;
-        transform: none; display: flex; align-items: center;
-        background: transparent; border: 0; border-radius: 0; box-shadow: none;
-        filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.25));
-        z-index: 1000;
+        flex: 1; min-width: 0; height: var(--dock-height);
+        display: flex; align-items: center;
+        padding: 6px; border-radius: calc(var(--dock-height) / 2);
     }
-    .mobile-nav-bar::before {
-        content: ''; position: absolute; inset: 6px 0; z-index: -1;
-        pointer-events: none; border-radius: 18px;
-        background: color-mix(in srgb, var(--bg) 45%, var(--mid));
-    }
-    .mobile-nav-bar.has-utilities { max-width: 376px; }
-    .mobile-nav-parts { display: flex; align-items: center; min-width: 0; flex: 1; }
     .mobile-nav-bar .mobile-nav-part {
-        flex: 1 1 0; min-width: 0; min-height: 48px;
+        flex: 1 1 0; min-width: 0; align-self: stretch;
         display: flex; align-items: center; justify-content: center;
-        padding: 0; margin: 0;
-        font: 400 18px/1 var(--font-heading);
-        color: var(--fg); background: transparent;
+        border-radius: 26px;
+        font: 400 23px/1 var(--font-heading);
+        color: rgba(255, 255, 255, 0.78);
         -webkit-tap-highlight-color: transparent;
-        transition: none;
     }
-    .mobile-nav-bar .mobile-nav-part:hover { color: var(--white); }
-    .mobile-nav-bar .mobile-nav-part[aria-current="page"] { color: var(--link); }
-    .mobile-nav-bar a:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; border-radius: 7px; }
-    .mobile-nav-utilities { display: flex; flex: 0 0 calc(2 * var(--nav-button)); }
-    .mobile-nav-bar .mobile-nav-utilities a {
+    .mobile-nav-bar .mobile-nav-part[aria-current="page"] { background: var(--glass-lift); color: var(--link); }
+
+    .mobile-nav-more {
+        flex: 0 0 var(--dock-height); height: var(--dock-height);
         display: flex; align-items: center; justify-content: center;
-        width: var(--nav-button); min-height: 48px; padding: 0;
-        color: var(--fg); background: transparent;
+        padding: 0; border-radius: 50%; cursor: pointer;
+        color: rgba(255, 255, 255, 0.85);
+        font: 400 20px/1 var(--font-heading);
+        -webkit-tap-highlight-color: transparent;
     }
-    .mobile-nav-bar .mobile-nav-utilities a:hover { color: var(--white); }
-    .mobile-nav-bar .mobile-nav-utilities a[aria-current="page"] { color: var(--link); }
-    .mobile-nav-bar .mobile-nav-divider {
-        flex: 0 0 12px; width: auto; height: auto; text-align: center;
-        background: transparent; color: var(--fg); opacity: 0.45;
-        font: 300 18px/1 var(--font-sans);
+    .mobile-nav-more > span { display: none; }
+    .mobile-nav-more:not(.has-label) .mobile-nav-more-icon,
+    .mobile-nav-more.has-label .mobile-nav-more-label { display: block; }
+    .mobile-nav-more[aria-expanded="true"] > span:not(.mobile-nav-more-close) { display: none; }
+    .mobile-nav-more[aria-expanded="true"] .mobile-nav-more-close { display: block; }
+    .mobile-nav-more svg { display: block; }
+
+    .mobile-dock a:focus-visible, .mobile-nav-more:focus-visible,
+    .mobile-sheet a:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; }
+
+    .mobile-scrim { position: fixed; inset: 0; z-index: 998; background: rgba(0, 0, 0, 0.3); }
+    .mobile-scrim[hidden], .mobile-sheet[hidden] { display: none; }
+
+    .mobile-sheet {
+        position: fixed; z-index: 999;
+        left: max(10px, env(safe-area-inset-left, 0px));
+        right: max(10px, env(safe-area-inset-right, 0px));
+        bottom: calc(var(--dock-bottom) + var(--dock-height) + 12px);
+        max-width: 420px; max-height: calc(100dvh - var(--dock-height) - 60px); margin: 0 auto;
+        overflow-y: auto; overscroll-behavior: contain;
+        padding: 6px 20px 16px; border-radius: 28px;
+        background: rgba(38, 38, 38, 0.76);
+        font-family: var(--font-body); color: var(--fg);
+        animation: mobile-sheet-in 0.18s ease-out;
     }
+    .mobile-sheet:focus { outline: none; }
+    @keyframes mobile-sheet-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
+    .mobile-sheet-heading {
+        margin: 14px 0 4px;
+        font: 600 12px/1.2 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase;
+        color: #8a8a8a;
+    }
+    .mobile-sheet-row {
+        display: grid; grid-template-columns: 2.4em 1fr; align-items: baseline;
+        padding: 10px 0;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+        font: 400 19px/1.2 var(--font-heading); color: var(--white);
+    }
+    .mobile-sheet-heading + .mobile-sheet-row { border-top: 0; }
+    .mobile-sheet-id { color: #9E9E9E; }
+    .mobile-sheet-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .mobile-sheet-row.current .mobile-sheet-id,
+    .mobile-sheet-row.current .mobile-sheet-name { color: var(--link); }
+    .mobile-sheet-date { font: 300 14px/1.25 var(--font-body); color: #9E9E9E; }
+    .mobile-sheet-note { margin: 0; font-size: 15px; line-height: 1.45; color: #9E9E9E; }
+    .mobile-sheet-note .nav-note-line { font-size: 15px; color: #9E9E9E; }
+    .mobile-sheet-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .mobile-sheet-button {
+        padding: 8px 16px; border-radius: 999px;
+        background: var(--glass-lift); color: var(--white);
+        font: 400 16px/1.2 var(--font-heading);
+    }
+    .mobile-sheet-button[aria-current="page"] { color: var(--link); }
+}
+
+/* Narrow desktop windows get the same toolbar; a mouse also gets hover states. */
+@media (max-width: 650px) and (hover: hover) {
+    .mobile-nav-bar .mobile-nav-part:not([aria-current]):hover,
+    .mobile-nav-more:hover { color: var(--white); }
+    .mobile-nav-more:hover, .mobile-sheet-button:hover { background: rgba(70, 70, 70, 0.62); }
+    .mobile-sheet-row:hover .mobile-sheet-name { color: var(--cool-white); }
+}
+
+/* Without backdrop blur (older browsers), make the glass nearly solid so text stays legible. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .mobile-nav-bar, .mobile-nav-more { background: rgba(44, 44, 44, 0.96); }
+    .mobile-sheet { background: rgba(38, 38, 38, 0.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-sheet { animation: none; }
 }
 
 @media (min-width: 651px) {
-    .mobile-nav-bar { display: none; }
+    .mobile-dock, .mobile-sheet, .mobile-scrim { display: none !important; }
 }
 
 /* Embedded (e.g. Canvas iframe): pages add .embedded to <html> when framed
@@ -992,7 +1067,7 @@ i.fa-github            { --icon-file: var(--icon-github); }
 .embedded .left_div { display: block; }
 .embedded .right_div { display: block; }
 .embedded .content { max-width: calc(var(--column) + 30px); }
-.embedded .mobile-nav-bar { display: none; }
+.embedded .mobile-dock, .embedded .mobile-sheet, .embedded .mobile-scrim { display: none !important; }
 .embedded body.has-mobile-course-nav { padding-bottom: 0; }
 
 /* Optional-resource chips (e.g. textbook chapters): visible but de-emphasized.

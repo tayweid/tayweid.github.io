@@ -509,11 +509,25 @@
 
     function renderRightNavigation(part) {
         if (!rightSlot) return;
+        // short, name and date also ride along as data attributes for the phone toolbar's
+        // contents sheet (course.js), which has room for a block's full title. Its date is the
+        // class day; without one, the first dated step's, read as a due date when it is homework
+        // or carries due: (econ-0150 dates only its homework). A checkpoint shows its own day.
+        const day = value => shortDate(schema.firstDate(value));
         const entries = [];
         items(part.sections).forEach(section => {
-            if (section.block !== undefined) entries.push({ href: `#${schema.blockElementId(section.block)}`, label: `${section.block} | ${section.nav}` });
-            else if (section.checkpoint !== undefined) entries.push({ href: `#${schema.checkpointElementId(course)}`, label: schema.checkpointWord(course) });
-            else if (section.project !== undefined) entries.push({ href: `#${section.project.id}`, label: section.project.nav });
+            if (section.block !== undefined) {
+                const step = items(section.steps).find(candidate => candidate && candidate.date);
+                const date = section.dates && section.dates.class ? day(section.dates.class)
+                    : step ? `${step.kind === 'homework' || step.due ? 'Due ' : ''}${day(step.date)}` : '';
+                entries.push({ href: `#${schema.blockElementId(section.block)}`, label: `${section.block} | ${section.nav}`, short: String(section.block), name: section.title || section.nav, date });
+            } else if (section.checkpoint !== undefined) {
+                const word = schema.checkpointWord(course);
+                const date = (section.checkpoint || {}).date;
+                entries.push({ href: `#${schema.checkpointElementId(course)}`, label: word, name: `${word} ${partId}`, date: date ? day(date) : '' });
+            } else if (section.project !== undefined) {
+                entries.push({ href: `#${section.project.id}`, label: section.project.nav, name: section.project.nav });
+            }
         });
         const nav = element('nav');
         nav.setAttribute('aria-label', 'On this page');
@@ -523,6 +537,9 @@
             const li = element('li', index === 0 ? 'nav-item-no-margin' : null);
             const link = element('a', `nav-link-right${index === 0 ? ' active' : ''}`, entry.label);
             link.href = entry.href;
+            if (entry.short) link.dataset.short = entry.short;
+            link.dataset.name = entry.name;
+            if (entry.date) link.dataset.date = entry.date;
             li.append(link);
             list.append(li);
         });

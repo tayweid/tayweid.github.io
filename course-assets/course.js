@@ -185,61 +185,121 @@ function setupActiveCardHighlighting() {
   });
 }
 
-// Mobile part toolbar. Ordinary links preserve the browser’s normal page
-// loading, history, and new-tab behavior on both file URLs and hosted pages.
+// Phone toolbar: a glass pill of part letters and, beside it, a round button that names
+// the block in view and opens a sheet with this part's contents and the course notes
+// (office hours, the syllabus) that the hidden side navs carry on wider screens. Ordinary
+// links preserve the browser's normal page loading, history, and new-tab behavior on both
+// file URLs and hosted pages. Everything is read from the rendered navs, so a page needs
+// only a left nav with Part links; the contents section comes from the right nav when present.
 function setupMobileNav() {
   const leftDiv = document.querySelector('.left_div');
-  if (!leftDiv || document.querySelector('.mobile-nav-bar')) return;
+  if (!leftDiv || document.querySelector('.mobile-dock')) return;
   const links = Array.from(leftDiv.querySelectorAll('nav ul a'));
   const parts = links.filter(link => /^Part\s+\S+$/i.test(link.textContent.trim()));
   if (!parts.length) return;
   const samePage = href => new URL(href, location.href).pathname === location.pathname;
-  let current = parts.findIndex(link => samePage(link.href));
-  const nav = el('nav', { className: 'mobile-nav-bar' });
-  nav.setAttribute('aria-label', 'Course navigation');
-  const extras = [];
-  const home = links.find(link => /\/econ-0\d+\.html$/.test(new URL(link.href).pathname));
-  const projects = links.find(link => link.textContent.trim() === 'Projects');
-  if (home) extras.push(['Home', home.href]);
-  if (projects) extras.push(['Projects', projects.href]);
-  if (extras.length) {
-    const utilities = el('div', { className: 'mobile-nav-utilities' });
-    extras.forEach(([label, href]) => {
-      const link = el('a', { href, title: label });
-      link.setAttribute('aria-label', label);
-      const paths = label === 'Home'
-        ? '<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>'
-        : '<path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>';
-      link.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
-      if (samePage(href)) link.setAttribute('aria-current', 'page');
-      utilities.append(link);
-    });
-    const divider = el('span', { className: 'mobile-nav-divider', textContent: '|' });
-    divider.setAttribute('aria-hidden', 'true');
-    nav.append(utilities, divider);
-    nav.classList.add('has-utilities');
-  }
-  const row = el('div', { className: 'mobile-nav-parts' });
-  const partLinks = parts.map(source => {
+  const svg = paths => `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+
+  const dock = el('div', { className: 'mobile-dock' });
+  const bar = el('nav', { className: 'mobile-nav-bar' });
+  bar.setAttribute('aria-label', 'Course parts');
+  parts.forEach(source => {
     const label = source.textContent.trim();
-    const link = el('a', { className: 'mobile-nav-part', href: source.href });
+    const link = el('a', { className: 'mobile-nav-part', href: source.href, textContent: label.replace(/^Part\s+/i, '') });
     link.setAttribute('aria-label', label);
-    link.textContent = label.replace(/^Part\s+/i, '');
-    row.append(link);
-    return link;
+    if (samePage(source.href)) link.setAttribute('aria-current', 'page');
+    bar.append(link);
   });
-  function select(index) {
-    partLinks.forEach((link, i) => {
-      if (i === index) link.setAttribute('aria-current', 'page');
-      else link.removeAttribute('aria-current');
-    });
+
+  // The sheet: this part's sections, then the course notes and buttons.
+  const sheet = el('div', { className: 'mobile-sheet', id: 'mobile-sheet', hidden: true });
+  sheet.setAttribute('role', 'dialog');
+  sheet.setAttribute('aria-label', 'Contents and course information');
+  const sections = Array.from(document.querySelectorAll('.right_div .nav-link-right')).map(source => {
+    const row = el('a', { className: 'mobile-sheet-row', href: source.getAttribute('href') });
+    // Table-of-contents row: the block number in its own column, so a long title wraps
+    // under itself, and the date on a quiet line below the title.
+    const text = el('span', { className: 'mobile-sheet-text' });
+    text.append(el('span', { className: 'mobile-sheet-name', textContent: source.dataset.name || source.textContent.trim() }));
+    if (source.dataset.date) text.append(el('span', { className: 'mobile-sheet-date', textContent: source.dataset.date }));
+    row.append(el('span', { className: 'mobile-sheet-id', textContent: source.dataset.short || '' }), text);
+    return { row, id: source.getAttribute('href').slice(1), short: source.dataset.short || '' };
+  });
+  const current = parts.find(link => samePage(link.href));
+  if (sections.length) {
+    sheet.append(el('div', { className: 'mobile-sheet-heading', textContent: current ? `In ${current.textContent.trim()}` : 'Contents' }));
+    sections.forEach(section => sheet.append(section.row));
   }
-  select(current);
-  nav.append(row);
-  document.body.append(nav);
+  leftDiv.querySelectorAll('.nav-note').forEach(note => {
+    const label = note.querySelector('.nav-note-label');
+    sheet.append(el('div', { className: 'mobile-sheet-heading', textContent: label ? label.textContent : '' }));
+    const lines = el('div', { className: 'mobile-sheet-note' });
+    note.querySelectorAll('.nav-note-line').forEach(line => lines.append(line.cloneNode(true)));
+    sheet.append(lines);
+  });
+  // Buttons: the brand's home link, then every other non-part link (Syllabus, Projects).
+  const buttons = el('div', { className: 'mobile-sheet-buttons' });
+  const brand = leftDiv.querySelector('nav ul > a.brand');
+  if (brand) buttons.append(el('a', { className: 'mobile-sheet-button', href: brand.href, textContent: 'Home' }));
+  links.filter(link => !parts.includes(link) && !link.classList.contains('brand')).forEach(source => {
+    const link = el('a', { className: 'mobile-sheet-button', href: source.href, textContent: source.textContent.trim() });
+    if (source.target) { link.target = source.target; link.rel = 'noopener'; }
+    if (samePage(source.href)) link.setAttribute('aria-current', 'page');
+    buttons.append(link);
+  });
+  if (buttons.children.length) sheet.append(buttons);
+
+  // The round button: the block in view (C1, 1.2), or a list glyph above the first block
+  // and on a checkpoint or project; an X while the sheet is open.
+  const more = el('button', { className: 'mobile-nav-more', type: 'button' });
+  more.setAttribute('aria-controls', sheet.id);
+  more.setAttribute('aria-expanded', 'false');
+  more.setAttribute('aria-label', 'Contents and course information');
+  const moreLabel = el('span', { className: 'mobile-nav-more-label' });
+  const moreIcon = el('span', { className: 'mobile-nav-more-icon' });
+  moreIcon.innerHTML = svg('<path d="M4 7h16M4 12h16M4 17h10"/>');
+  const closeIcon = el('span', { className: 'mobile-nav-more-close' });
+  closeIcon.innerHTML = svg('<path d="M6 6l12 12M18 6 6 18"/>');
+  more.append(moreLabel, moreIcon, closeIcon);
+
+  const scrim = el('div', { className: 'mobile-scrim', hidden: true });
+  dock.append(bar, more);
+  document.body.append(scrim, sheet, dock);
   document.body.classList.add('has-mobile-course-nav');
 
+  // Which section is in view: the last one whose top has passed 40% of the window.
+  const updateSection = () => {
+    const line = window.innerHeight * 0.4;
+    let active = null;
+    sections.forEach(section => {
+      const target = document.getElementById(section.id);
+      if (target && target.getBoundingClientRect().top <= line) active = section;
+    });
+    sections.forEach(section => section.row.classList.toggle('current', section === active));
+    const short = active ? active.short : '';
+    if (moreLabel.textContent !== short) moreLabel.textContent = short;
+    more.classList.toggle('has-label', Boolean(short));
+  };
+  updateSection();
+  window.addEventListener('scroll', updateSection, { passive: true });
+  window.addEventListener('resize', updateSection, { passive: true });
+  window.addEventListener('load', updateSection);   // thumbnails arriving move the sections
 
+  const setOpen = open => {
+    sheet.hidden = !open;
+    scrim.hidden = !open;
+    more.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('mobile-sheet-open', open);
+    if (open) (sheet.querySelector('.mobile-sheet-row.current') || sheet.querySelector('a') || sheet).focus({ preventScroll: true });
+  };
+  more.addEventListener('click', () => setOpen(sheet.hidden));
+  scrim.addEventListener('click', () => setOpen(false));
+  sheet.addEventListener('click', event => { if (event.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !sheet.hidden) { setOpen(false); more.focus(); }
+  });
+  // Leaving phone width with the sheet open would strand it.
+  window.matchMedia('(min-width: 651px)').addEventListener('change', event => { if (event.matches) setOpen(false); });
 }
 
 // Topic toggle: click collapses/expands the card list below it and flips
