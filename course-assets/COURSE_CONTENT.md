@@ -105,7 +105,14 @@ Then the practice path, in one of two forms.
       date: '2026-09-04'           # optional; once it has passed the step's dot turns blue. Two days: ['2026-09-03', '2026-09-04']
       where: recitation            # optional; overrides the label the kind supplies
       post: on_date                # optional; holds the links back until the date (see Posting)
+      solutions: after_date        # optional; overrides the course's answer-key release rule
+      # solution_file: custom/answers.pdf  # optional; overrides the conventional answer-key path
 ```
+
+For explicit exercise, vignette, and homework steps in a block with `folder` and
+`course.materials`, solution PDFs are discovered using the same conventional paths
+below. They follow `solutions:` and the step's own `date:`, independently of `post:`
+and `links:`. Missing PDFs produce no link. `solutions: never` opts a step out.
 
 **The conventional triad** writes nothing and gets Exercise, Vignette, and Homework steps,
 with PDFs found on disk by the block's `folder`:

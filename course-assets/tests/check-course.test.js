@@ -374,3 +374,42 @@ test('the current part is the first whose last date has not passed', () => {
     assert.equal(schema.currentPart(course, '2027-01-10'), 'C');   // after the term
     assert.equal(schema.currentPart({ parts: { A: { sections: [] }, B: { sections: [] } } }, '2026-10-06'), 'A');
 });
+
+test('explicit practice steps discover answer keys without replacing their custom links', () => {
+    const course = { course: { materials: '.', solutions: 'after_date' } };
+    const section = {
+        block: 'D1', folder: 'Part_D/D1_Games', episode: { animations: false },
+        steps: [
+            { kind: 'exercise', date: '2026-10-21', links: [{ label: 'Exercise', file: 'custom.pdf' }] },
+            { kind: 'vignette', where: 'home', date: '2026-10-25', post: 'now' },
+            { kind: 'homework', date: '2026-10-25' },
+            { kind: 'livestream' }
+        ]
+    };
+    assert.deepEqual(schema.blockCandidates(course, section), [
+        ['step_0_sols', './Part_D/D1_Games/Exercise/Exercise_D1_sols.pdf'],
+        ['step_1_sols', './Part_D/D1_Games/Vignette/Vignette_D1_sols.pdf'],
+        ['step_2_sols', './Part_D/D1_Games/Homework/Homework_D1_sols.pdf']
+    ]);
+    // Explicit links and early posting do not change the separate answer-key schedule.
+    for (const [index, date] of [[0, '2026-10-21'], [1, '2026-10-25']]) {
+        const step = section.steps[index];
+        const mode = schema.solutionsMode(course, step, undefined, step.kind);
+        assert.equal(schema.released(mode, step.date, date), false);
+        assert.equal(schema.released(mode, step.date, '2026-10-26'), true);
+    }
+    section.steps[0].solutions = 'never';
+    section.steps[1].solution_file = 'custom/vignette-answers.pdf';
+    assert.deepEqual(schema.blockCandidates(course, section), [
+        ['step_1_sols', 'custom/vignette-answers.pdf'],
+        ['step_2_sols', './Part_D/D1_Games/Homework/Homework_D1_sols.pdf']
+    ]);
+    assert.deepEqual(schema.blockCandidates({ course: { materials: '.' } }, section), []);
+});
+
+test('explicit steps validate answer-key release rules and custom paths', t => {
+    const withRule = STEPS.replace('            kind: exercise\n', '            kind: exercise\n            solutions: after_date\n            solution_file: custom/answers.pdf\n');
+    passes(run(stepsSite(t, withRule)));
+    failsWith(run(stepsSite(t, withRule.replace('solutions: after_date', 'solutions: tomorrow'))), 'must be one of now, on_date, after_date, never');
+    failsWith(run(stepsSite(t, withRule.replace('custom/answers.pdf', 'javascript:alert(1)'))), 'solution_file');
+});

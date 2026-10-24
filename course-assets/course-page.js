@@ -160,18 +160,23 @@
 
     // A step written out in the YAML (steps:). Its kind supplies the label and, for a
     // livestream, the aside styling; where: overrides the label.
-    function explicitStep(step, classes = '') {
+    function explicitStep(step, classes = '', solutionFile) {
         const livestream = step.kind === 'livestream';
         // Work done at home is due on its date; due: replaces that wording (e.g. "... at 5PM").
         const atHome = step.kind === 'homework' || (!step.kind && /\bhome\b/i.test(step.where || ''));
         const due = step.due || (atHome && step.date ? shortDate(step.date) : null);
         // post: on the step, or the course's default for its kind, holds its links back until the date.
         const posted = schema.released(schema.releaseMode(course, 'post', step.kind, step), step.date, today());
+        const stepLinks = posted ? [...items(step.links)] : [];
+        if (solutionFile && shown('solutions', step.kind, step, step.date) &&
+            !stepLinks.some(link => link.file.replace(/^\.\//, '') === solutionFile.replace(/^\.\//, ''))) {
+            stepLinks.push({ label: 'Solutions', file: solutionFile });
+        }
         return pathStep({
             name: step.name,
             where: step.where || schema.STEP_KINDS[step.kind] || '',
             sub: step.sub,
-            links: posted ? items(step.links) : [],
+            links: stepLinks,
             date: step.date,
             due: due ? (/^due\b/i.test(due) ? due : `Due ${due}`) : null,
             video: step.video,
@@ -257,7 +262,10 @@
 
     function blockSteps(part, block) {
         const extras = items(block.extras).map(extra => extraStep(extra, false));
-        const steps = block.steps ? items(block.steps).map(explicitStep) : conventionalSteps(part, block);
+        const blockFiles = discoveredFiles[block.block] || {};
+        const steps = block.steps
+            ? items(block.steps).map((step, index) => explicitStep(step, '', blockFiles[`step_${index}_sols`]))
+            : conventionalSteps(part, block);
         return extras.concat(steps);
     }
 

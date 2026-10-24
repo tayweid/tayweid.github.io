@@ -159,7 +159,14 @@
         if (!(section.episode && section.episode.animations === false)) {
             ANIMATION_DECKS.forEach(([key, name]) => wanted.push([key, `${materials}/${folder}/media/${name(blockId)}/index.html`]));
         }
-        if (section.steps) return wanted;
+        if (section.steps) {
+            section.steps.forEach((step, index) => {
+                if (!RELEASE_KINDS.includes(step.kind) || solutionsMode(course, step, undefined, step.kind) === 'never') return;
+                const type = step.kind[0].toUpperCase() + step.kind.slice(1);
+                wanted.push([`step_${index}_sols`, step.solution_file || conventionalPath(materials, folder, type, blockId, 'sols')]);
+            });
+            return wanted;
+        }
         const exercise = section.exercise || {};
         if (!exercise.links) {
             wanted.push(['exercise', conventionalPath(materials, folder, 'Exercise', blockId)]);
@@ -301,8 +308,10 @@
             list(value, path, { optional: true }).forEach((step, index) => {
                 const stepPath = `${path}[${index}]`;
                 if (!record(step, stepPath)) return;
-                keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links', 'post']);
+                keys(step, stepPath, ['name'], ['kind', 'where', 'sub', 'due', 'date', 'video', 'links', 'post', 'solutions', 'solution_file']);
                 post(step.post, `${stepPath}.post`);
+                solutions(step.solutions, `${stepPath}.solutions`);
+                if (step.solution_file !== undefined) url(step.solution_file, `${stepPath}.solution_file`);
                 text(step.name, `${stepPath}.name`);
                 if (step.kind !== undefined && !(step.kind in STEP_KINDS)) {
                     fail(`${stepPath}.kind`, `must be one of ${Object.keys(STEP_KINDS).join(', ')}`);
