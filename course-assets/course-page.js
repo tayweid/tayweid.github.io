@@ -229,6 +229,8 @@
         const exerciseLinks = stepLinks('exercise', 'Exercise', exercise, dates.class, blockFiles.exercise, exerciseSols);
         // Due on its date; due: replaces that wording (e.g. "Friday, Oct. 16 at 5PM"), as on a step.
         const due = homework.due || (dates.homework ? shortDate(dates.homework) : null);
+        const vignetteDue = /\bhome\b/i.test(vignette.where || '') && dates.recitation
+            ? `Due ${shortDate(dates.recitation)}` : null;
 
         const standard = [
             { date: dates.class, index: 0, node: pathStep({
@@ -240,7 +242,8 @@
             }) },
             { date: dates.recitation, index: 1, node: pathStep({
                 name: vignette.name || `Vignette ${blockId}`,
-                where: 'recitation',
+                where: vignette.where || 'recitation',
+                due: vignetteDue,
                 links: vignetteLinks(vignette, blockFiles, dates.recitation),
                 date: dates.recitation,
                 video: vignette.video

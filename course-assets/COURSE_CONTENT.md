@@ -136,6 +136,11 @@ Posting). Optional keys on the triad:
                                                   # no video may carry an image (URL or local path) as its thumbnail, opening its first link
 ```
 
+A conventional vignette may set `where: home` to show an at-home assignment. Its
+`dates.recitation` value then represents the vignette deadline: it supplies the due
+label and governs posting and solution release. Without `where`, the location remains
+recitation and no due label is added.
+
 ### Posting
 
 Two keys say when a step's files appear, and both take the same words:

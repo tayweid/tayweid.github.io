@@ -413,3 +413,10 @@ test('explicit steps validate answer-key release rules and custom paths', t => {
     failsWith(run(stepsSite(t, withRule.replace('solutions: after_date', 'solutions: tomorrow'))), 'must be one of now, on_date, after_date, never');
     failsWith(run(stepsSite(t, withRule.replace('custom/answers.pdf', 'javascript:alert(1)'))), 'solution_file');
 });
+
+
+test('a conventional vignette may be assigned at home without explicit steps', t => {
+    const atHome = TRIAD.replace('          description: PPF practice\n', '          description: PPF practice\n          where: home\n');
+    passes(run(triadSite(t, atHome)));
+    failsWith(run(triadSite(t, atHome.replace('where: home', 'where: [home]'))), 'vignette.where');
+});

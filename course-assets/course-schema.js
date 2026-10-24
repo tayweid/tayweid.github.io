@@ -450,9 +450,10 @@
             }
             if (present(section.vignette) && record(section.vignette, `${path}.vignette`)) {
                 const vignette = section.vignette;
-                keys(vignette, `${path}.vignette`, [], ['name', 'description', 'video', 'links', 'files', 'post', 'solutions', 'solution_file', 'empty']);
+                keys(vignette, `${path}.vignette`, [], ['name', 'description', 'video', 'links', 'files', 'post', 'solutions', 'solution_file', 'empty', 'where']);
                 post(vignette.post, `${path}.vignette.post`);
                 text(vignette.name, `${path}.vignette.name`, { optional: true });
+                text(vignette.where, `${path}.vignette.where`, { optional: true });
                 text(vignette.description, `${path}.vignette.description`, { optional: true, allowEmpty: true });
                 video(vignette.video, `${path}.vignette.video`, { optional: true });
                 fileOrBase(vignette.files, `${path}.vignette.files`);
