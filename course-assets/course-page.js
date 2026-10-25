@@ -322,9 +322,359 @@
         return panel;
     }
 
+    // ---------- the row card (courses built on the exercise / vignette / homework triad) ----------
+    //
+    // A course whose blocks use the conventional triad (ECON 0100) gets this card for its blocks
+    // and checkpoints; a course built only from explicit steps (ECON 0150, whose steps carry many
+    // named files) keeps the path card above. The episode is on the left, its video always 16:9;
+    // the practice is a column of rows on the right: where it happens, a dot on a dashed line, the
+    // name, its files as small buttons (solutions drawn in red), and a walkthrough's thumbnail.
+    // The card stays side by side at every width: course.css trims the rows as the card narrows
+    // (container queries on .bc-wrap), down to a phone, where it runs edge to edge.
+    let rowCards = false;
+
+    function usesRowCards() {
+        return Object.values(course.parts || {}).some(part =>
+            items(part.sections).some(section => section.block !== undefined && !section.steps));
+    }
+
+    const SOLUTIONS_LABEL = /^solutions?\b/i;
+
+    function hiddenIcon(className) {
+        const icon = element('i', className);
+        icon.setAttribute('aria-hidden', 'true');
+        return icon;
+    }
+
+    // One file or link as a small icon button; its label is the tooltip.
+    function rowButton(item, owner) {
+        const label = String(item.label);
+        const solutions = SOLUTIONS_LABEL.test(label);
+        const link = element('a', `bc-ib${solutions ? ' bc-sol' : ''}${item.optional ? ' bc-optional' : ''}`);
+        link.href = String(item.file);
+        link.target = '_blank';
+        link.rel = 'noopener';
+        const title = item.optional ? `${label} (optional)` : label;
+        link.title = title;
+        link.setAttribute('aria-label', owner ? `${owner}: ${title}` : title);
+        link.append(hiddenIcon(solutions ? 'fa fa-file-text-o' : iconFor(item)));
+        return link;
+    }
+
+    // A file that is on disk but held back until its day: a faint button that says when.
+    function waitButton(label, day, owner) {
+        const solutions = SOLUTIONS_LABEL.test(label);
+        const text = `${label} ${solutions ? 'post' : 'posts'} ${shortDate(day)}`;
+        const span = element('span', `bc-ib bc-wait${solutions ? ' bc-sol' : ''}`);
+        span.title = text;
+        span.setAttribute('role', 'img');
+        span.setAttribute('aria-label', owner ? `${owner}: ${text}` : text);
+        span.append(hiddenIcon('fa fa-file-text-o'));
+        return span;
+    }
+
+    // The walkthrough as a ▶ button, for the widths where its thumbnail gives way.
+    function videoButton(video, owner) {
+        const link = element('a', 'bc-ib bc-vid');
+        link.href = `https://www.youtube.com/watch?v=${video}`;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.title = 'Walkthrough video';
+        link.setAttribute('aria-label', `${owner}: walkthrough video`);
+        link.append(hiddenIcon('fa fa-play'));
+        return link;
+    }
+
+    // The day a held-back file appears: on_date its (first) day, after_date the day after the last.
+    function releaseDay(mode, date) {
+        if (mode === 'on_date') return schema.firstDate(date) || null;
+        if (mode !== 'after_date') return null;
+        const last = schema.lastDate(date);
+        if (!last) return null;
+        const day = new Date(`${last}T00:00:00Z`);
+        day.setUTCDate(day.getUTCDate() + 1);
+        return day.toISOString().slice(0, 10);
+    }
+
+    // A conventional file and its solutions as buttons: posted ones as links, held-back ones
+    // (on disk, waiting for their day) as faint buttons; links: in the YAML replaces both.
+    function rowFiles(kind, label, node, date, file, sols, owner, defaults) {
+        if (node.links) return shown('post', kind, node, date, defaults) ? items(node.links).map(item => rowButton(item, owner)) : [];
+        const buttons = [];
+        [['post', label, file], ['solutions', 'Solutions', sols]].forEach(([key, name, path]) => {
+            if (!path) return;
+            if (shown(key, kind, node, date, defaults)) buttons.push(rowButton({ label: name, file: path }, owner));
+            else {
+                const day = releaseDay(schema.releaseMode(course, key, kind, node, defaults), date);
+                if (day) buttons.push(waitButton(name, day, owner));
+            }
+        });
+        return buttons;
+    }
+
+    function rowStep({ name, letter, owner, where, buttons = [], due, sub, date, video, image, href, classes = '', dotClasses = '' }) {
+        const step = element('li', `bc-step${classes ? ` ${classes}` : ''}`);
+        const last = schema.lastDate(date);
+        if (last) step.dataset.date = last;
+        step.append(element('span', 'bc-where', where || ''));
+        const dot = element('span', `bc-dot${dotClasses ? ` ${dotClasses}` : ''}`);
+        dot.setAttribute('aria-hidden', 'true');
+        step.append(dot);
+        const head = element('div', 'bc-head');
+        const title = element('p', 'bc-name');
+        const nm = element('span', 'bc-nm');
+        const short = element('span', 'bc-letter', letter || name);
+        short.setAttribute('aria-hidden', 'true');
+        short.title = name;
+        nm.append(element('span', 'bc-full', name), short);
+        title.append(nm);
+        const icons = element('span', 'bc-ico');
+        buttons.forEach(button => icons.append(button));
+        if (video) icons.append(videoButton(video, owner || name));
+        if (icons.childNodes.length) title.append(icons);
+        head.append(title);
+        if (sub) head.append(element('p', 'bc-due bc-sub', sub));
+        if (due) head.append(element('p', 'bc-due', due));
+        step.append(head);
+        const target = video ? `https://www.youtube.com/watch?v=${video}` : (image && href ? String(href) : null);
+        if (target) {
+            const thumb = element('a', 'bc-thumb');
+            thumb.href = target;
+            thumb.target = '_blank';
+            thumb.rel = 'noopener';
+            thumb.setAttribute('aria-label', video ? `${owner || name}: walkthrough video` : String(name));
+            const img = element('img');
+            img.src = video ? `https://img.youtube.com/vi/${video}/mqdefault.jpg` : String(image);
+            img.alt = '';
+            img.loading = 'lazy';
+            thumb.append(img);
+            step.append(thumb);
+        } else {
+            step.classList.add('bc-novid');
+        }
+        return step;
+    }
+
+    // The dashed line runs from each dot to the next; into an optional or alternative row it
+    // is fainter, and into a block's optional extras it goes when they do (course.css).
+    function linkRows(rows) {
+        rows.forEach((row, index) => {
+            const next = rows[index + 1];
+            if (!next) return;
+            row.classList.add(next.classList.contains('bc-extra') ? 'bc-to-extra'
+                : next.classList.contains('bc-alt') ? 'bc-to-alt' : 'bc-to-next');
+        });
+        return rows;
+    }
+
+    function practiceRows(part, block) {
+        const blockId = block.block;
+        const dates = block.dates || {};
+        const exercise = block.exercise || {};
+        const vignette = block.vignette || {};
+        const homework = { ...(part.homework_defaults || {}), ...(block.homework || {}) };
+        const blockFiles = discoveredFiles[blockId] || {};
+        const solutionPath = (node, found) => schema.explicitPath(node.solution_file) ? node.solution_file : found;
+
+        const exerciseOwner = `Exercise ${blockId}`;
+        const vignetteOwner = `Vignette ${blockId}`;
+        const homeworkOwner = `Homework ${blockId}`;
+        const homeworkFile = homework.file === false ? null : schema.explicitPath(homework.file) ? homework.file : blockFiles.homework;
+        const homeworkSols = homework.file === false ? null : solutionPath(homework, blockFiles.homework_sols);
+        const due = homework.due || (dates.homework ? shortDate(dates.homework) : null);
+
+        const standard = [
+            { date: dates.class, index: 0, node: rowStep({
+                name: exercise.name || 'Exercise', letter: 'E', owner: exerciseOwner, where: 'in class',
+                buttons: rowFiles('exercise', 'Exercise', exercise, dates.class, blockFiles.exercise, solutionPath(exercise, blockFiles.exercise_sols), exerciseOwner),
+                date: dates.class, video: exercise.video, classes: 'bc-prac'
+            }) },
+            { date: dates.recitation, index: 1, node: rowStep({
+                name: vignette.name || 'Vignette', letter: 'V', owner: vignetteOwner, where: vignette.where || 'recitation',
+                buttons: vignette.files === false ? [] : rowFiles('vignette', 'Vignette', vignette, dates.recitation, blockFiles.vignette, solutionPath(vignette, blockFiles.vignette_sols), vignetteOwner),
+                date: dates.recitation, video: vignette.video, classes: 'bc-prac'
+            }) },
+            { date: dates.homework, index: 2, node: rowStep({
+                name: 'Homework', letter: 'H', owner: homeworkOwner, where: 'home',
+                buttons: rowFiles('homework', 'Homework', homework, dates.homework, homeworkFile, homeworkSols, homeworkOwner),
+                date: dates.homework, due: due ? `Due ${due}` : null, video: homework.video, classes: 'bc-prac'
+            }) }
+        ];
+        if (standard.every(step => schema.firstDate(step.date))) {
+            standard.sort((left, right) => schema.firstDate(left.date).localeCompare(schema.firstDate(right.date)) || left.index - right.index);
+        }
+        return standard.map(step => step.node);
+    }
+
+    // A step written out in the YAML (steps:), as a row: its name stays a name at every width.
+    function explicitRow(step, solutionFile, classes = '') {
+        const atHome = step.kind === 'homework' || (!step.kind && /\bhome\b/i.test(step.where || ''));
+        const due = step.due || (atHome && step.date ? shortDate(step.date) : null);
+        const posted = schema.released(schema.releaseMode(course, 'post', step.kind, step), step.date, today());
+        const buttons = posted ? items(step.links).map(item => rowButton(item, step.name)) : [];
+        if (solutionFile && !items(step.links).some(link => link.file.replace(/^\.\//, '') === solutionFile.replace(/^\.\//, ''))) {
+            if (shown('solutions', step.kind, step, step.date)) buttons.push(rowButton({ label: 'Solutions', file: solutionFile }, step.name));
+        }
+        return rowStep({
+            name: step.name, owner: step.name, where: step.where || schema.STEP_KINDS[step.kind] || '',
+            buttons, sub: step.sub, date: step.date, video: step.video,
+            due: due ? (/^due\b/i.test(due) ? due : `Due ${due}`) : null, classes
+        });
+    }
+
+    function extraRow(extra, classes) {
+        const links = items(extra.links);
+        return rowStep({
+            name: extra.name, owner: extra.name, where: 'optional',
+            buttons: links.map(item => rowButton(item, extra.name)),
+            video: extra.video, image: extra.image, href: links.length ? links[0].file : null,
+            classes, dotClasses: 'bc-dot-alt'
+        });
+    }
+
+    // The episode side: the video (with the episode's buttons riding on it, shown on a phone),
+    // then one line: its name, a short description, and the same buttons.
+    function rowEpisode({ name, description, video, buttons, classes = '' }) {
+        const panel = element('div', `bc-episode${classes ? ` ${classes}` : ''}`);
+        const media = element('div', 'bc-media');
+        let still;
+        if (video) {
+            still = element('a', 'bc-still');
+            still.href = `https://www.youtube.com/watch?v=${video}`;
+            still.target = '_blank';
+            still.rel = 'noopener';
+            still.setAttribute('aria-label', `Play ${name}`);
+            const img = element('img');
+            img.src = `https://img.youtube.com/vi/${video}/maxresdefault.jpg`;
+            img.alt = '';
+            img.onerror = () => { img.onerror = null; img.src = `https://img.youtube.com/vi/${video}/hqdefault.jpg`; };
+            const play = element('span', 'bc-play');
+            play.setAttribute('aria-hidden', 'true');
+            still.append(img, play);
+        } else {
+            still = element('div', 'bc-still bc-none', 'Video not yet available');
+        }
+        const over = element('span', 'bc-ico bc-over');
+        buttons().forEach(button => over.append(button));
+        media.append(still, over);
+        const head = element('div', 'bc-ephead');
+        const title = element('p', 'bc-epname');
+        title.append(element('span', 'bc-eptitle', name));
+        if (description) {
+            const desc = element('span', 'bc-epdesc');
+            appendInlineText(desc, description, true);
+            title.append(document.createTextNode(' '), desc);
+        }
+        const icons = element('span', 'bc-ico bc-epico');
+        buttons().forEach(button => icons.append(button));
+        head.append(title);
+        if (icons.childNodes.length) head.append(icons);
+        panel.append(media, head);
+        return panel;
+    }
+
+    // The episode's own links: its animation deck (found on disk), anything listed, and the reading.
+    function episodeButtons(blockId, block) {
+        const episode = block.episode || {};
+        const reading = block.reading || {};
+        const list = items(episode.links).slice();
+        const blockFiles = discoveredFiles[blockId] || {};
+        const deck = (blockFiles.animations || blockFiles.animations_episode || '').replace(/index\.html$/, '');
+        const folderOf = file => String(file).replace(/^\.\//, '').replace(/(index\.html)?$/, '').replace(/\/?$/, '/');
+        if (deck && !list.some(item => folderOf(item.file) === folderOf(deck))) {
+            list.unshift({ label: 'Animations', file: deck, icon: 'fa fa-desktop' });
+        }
+        if (reading.chapter !== undefined && reading.file !== false) {
+            const file = typeof reading.file === 'string' ? reading.file : schema.readingFile(course, reading.chapter);
+            if (file) list.push({ label: `Ch. ${reading.chapter}`, file, optional: true, icon: 'fa fa-book' });
+        } else if (reading.name) {
+            list.push(...items(reading.links).map(item => ({ icon: 'fa fa-book', ...item })));
+        }
+        return () => list.map(item => rowButton(item, `Episode ${blockId}`));
+    }
+
+    function renderBlockRows(part, block) {
+        const section = element('div', 'block');
+        section.id = schema.blockElementId(block.block);
+        section.append(element('h1', 'subtitle', `Block ${block.block} | ${block.title}`));
+        const description = element('p', 'block-description');
+        appendInlineText(description, block.description);
+        section.append(description);
+
+        const episode = block.episode || {};
+        const wrap = element('div', 'bc-wrap');
+        const card = element('div', `bc bc-block${block.practice === false ? ' bc-solo' : ''}${block.steps ? ' bc-named' : ''}`);
+        card.append(rowEpisode({
+            name: episode.name || `Episode ${block.block}`,
+            description: episode.description,
+            video: episode.video,
+            buttons: episodeButtons(block.block, block)
+        }));
+        if (block.practice !== false) {
+            const list = element('ol', 'bc-steps');
+            list.append(element('li', 'bc-label', 'Practice'));
+            const blockFiles = discoveredFiles[block.block] || {};
+            const steps = block.steps
+                ? items(block.steps).map((step, index) => explicitRow(step, blockFiles[`step_${index}_sols`]))
+                : practiceRows(part, block);
+            const extras = items(block.extras).map(extra => extraRow(extra, 'bc-alt bc-extra'));
+            linkRows(steps.concat(extras)).forEach(row => list.append(row));
+            card.append(list);
+        }
+        wrap.append(card);
+        section.append(wrap);
+        return section;
+    }
+
+    function renderCheckpointRows(config) {
+        const word = schema.checkpointWord(course);
+        const demo = config.demo || {};
+        const section = element('div', 'block checkpoint');
+        section.id = schema.checkpointElementId(course);
+        section.append(element('h1', 'subtitle', `${word} ${partId}`));
+        const description = element('p', 'block-description');
+        appendInlineText(description, config.description || '');
+        section.append(description);
+
+        const wrap = element('div', 'bc-wrap');
+        const card = element('div', 'bc bc-checkpoint');
+        card.append(rowEpisode({
+            name: demo.name || `Demo ${partId} Walkthrough`,
+            description: demo.description || `Attempt Demo ${partId} first, then walk through with me.`,
+            video: demo.video,
+            buttons: () => []
+        }));
+        const list = element('ol', 'bc-steps');
+        const rows = items(config.steps).map(step => explicitRow(step));
+        const demoName = `Demo ${partId}`;
+        rows.push(rowStep({ name: demoName, owner: demoName, where: 'home', buttons: items(demo.links).map(item => rowButton(item, demoName)) }));
+        items(config.extras).forEach(extra => rows.push(extraRow(extra, 'bc-alt')));
+        const checkpointName = `${word} ${partId}`;
+        rows.push(rowStep({
+            name: checkpointName, owner: checkpointName, where: 'in class',
+            buttons: items(config.links).map(item => rowButton(item, checkpointName)),
+            date: config.date, due: config.when || (config.date ? shortDate(config.date) : null),
+            dotClasses: 'bc-dot-big'
+        }));
+        if (config.reattempt !== undefined) {
+            rows.push(rowStep({
+                name: 'Reattempt', owner: `Reattempt ${partId}`, where: config.reattempt,
+                date: config.reattempt_date,
+                due: config.reattempt_when || (config.reattempt_date ? shortDate(config.reattempt_date) : null),
+                classes: 'bc-alt', dotClasses: 'bc-dot-alt'
+            }));
+        }
+        linkRows(rows).forEach(row => list.append(row));
+        card.append(list);
+        wrap.append(card);
+        section.append(wrap);
+        return section;
+    }
+
     // ---------- sections ----------
 
     function renderBlock(part, block) {
+        if (rowCards) return renderBlockRows(part, block);
         const section = element('div', 'block');
         section.id = schema.blockElementId(block.block);
         section.append(element('h1', 'subtitle', `Block ${block.block} | ${block.title}`));
@@ -344,6 +694,7 @@
     }
 
     function renderCheckpoint(config) {
+        if (rowCards) return renderCheckpointRows(config);
         const word = schema.checkpointWord(course);
         const demo = config.demo || {};
         const section = element('div', 'block checkpoint');
@@ -663,6 +1014,7 @@
             const { course: validated, errors } = schema.validate(data);
             if (errors.length) throw new Error(`${SOURCE} has ${errors.length} problem${errors.length === 1 ? '' : 's'}; the first is ${errors[0]}`);
             course = validated;
+            rowCards = usesRowCards();
             if (partId === 'current') {
                 partId = schema.currentPart(course, today());
                 page.dataset.coursePart = partId;

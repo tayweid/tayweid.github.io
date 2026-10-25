@@ -137,9 +137,20 @@ Posting). Optional keys on the triad:
 ```
 
 A conventional vignette may set `where: home` to show an at-home assignment. Its
-`dates.recitation` value then represents the vignette deadline: it supplies the due
-label and governs posting and solution release. Without `where`, the location remains
-recitation and no due label is added.
+`dates.recitation` value then represents the vignette deadline: it governs posting and
+solution release, and the path card shows it as a due label (the row card, below, shows a
+due line only on homework). Without `where`, the location remains recitation and no due
+label is added.
+
+**Which card a course gets.** A course with any block on the conventional triad (ECON 0100)
+draws all its blocks and checkpoints as row cards: the episode on the left, its video
+always 16:9, its animation deck and reading as small buttons on its title line; the
+practice on the right as rows, each with where it happens, a dot on the dashed line, the
+name, its files as small buttons (solutions in a dashed red frame), and a walkthrough's
+thumbnail. A file already on disk but held back by `post:` or `solutions:` shows as a faint
+button that says the day it posts. The card stays side by side at every width and trims
+its rows as it narrows (the steps are described in course.css). A course built only from
+explicit steps (ECON 0150, whose steps carry many named files) keeps the path card.
 
 ### Posting
 

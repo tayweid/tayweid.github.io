@@ -325,7 +325,7 @@ function setupTopicToggles() {
 function setupPathDates() {
   const override = new URLSearchParams(location.search).get('today');
   const today = (override || new Date().toLocaleDateString('en-CA')).slice(0, 10); // en-CA gives yyyy-mm-dd
-  document.querySelectorAll('.path-step[data-date]').forEach(step => {
+  document.querySelectorAll('.path-step[data-date], .bc-step[data-date]').forEach(step => {
     if (step.dataset.date < today) step.classList.add('past');
   });
 }
