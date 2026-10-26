@@ -860,6 +860,7 @@ img.placeholder-bg { display: none; }
    floating, the card's place. This page's stretch of the column is tinted blue, with a frame
    round what the window shows. */
 html.has-course-column .right_div { display: none; }
+html.has-course-column { --column: 780px; }   /* a calmer line for the text and the cards beside the column */
 html.has-course-column .wrapper { gap: 0; }
 /* below a wide window the column (and its frame for what is in view) does the scrollbar's job; the
    page scrolls as before, and the bar's width goes to the page */
@@ -928,7 +929,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* a wide window: the column is the left sidebar, beside the page and centered with it as a pair;
    the wordmark sits on top with the house beside its foot, underlined by the opening dash */
 @media (min-width: 1001px) {
-    html.has-course-column .wrapper { justify-content: center; }
+    /* a little room between the sidebar's rail and the page: none at 1000 px, growing to 28 px by 1224 px */
+    html.has-course-column .wrapper { justify-content: center; gap: clamp(0px, calc((100vw - 1000px) / 8), 28px); }
     html.has-course-column .left_div { width: 272px; }
     html.has-course-column .content { margin-left: 0; margin-right: 0; }
     html.has-course-column .cc { position: sticky; top: 46px; }
