@@ -346,16 +346,17 @@ function setupCourseColumn() {
   document.body.append(scrim, tip, bubble);
 
   // Each row has a height when the column is closed and one when it is open (a wide window's is open).
-  // Home and the part letters space alike and the long dashes like the faint ones, so every step down
-  // the column is the same. The wordmark shows only on a wide window, a little shorter than itself so
-  // the house sits beside the foot of it.
+  // The part letters space alike and the long dash like the faint ones, so every step down the column
+  // is the same; home's row is a letter's and 5 px more, the house standing at its foot (the start row
+  // under it has no height left, and only carries the wordmark's line). The wordmark shows only on a
+  // wide window, a little shorter than itself so the house sits beside the foot of it.
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
   const CLUMP = 20;    // a wide sidebar's rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
   const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
-  const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
-  const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
-  const SHUT_PHONE = { wordmark: 0, home: 24, start: 5, part: 24, block: 18, cp: 18, faint: 5, end: 24 };
+  const OPEN = { wordmark: 0, home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
+  const SHUT = { wordmark: 0, home: 27, start: 0, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
+  const SHUT_PHONE = { wordmark: 0, home: 29, start: 0, part: 24, block: 18, cp: 18, faint: 5, end: 24 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;

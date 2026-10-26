@@ -908,11 +908,12 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-r:hover .cc-t, .cc-r.hot .cc-t { color: var(--white); }
 .cc-cur:hover .cc-t { color: var(--link); }
 .cc-brand { display: flex; gap: 0.32em; font: 400 17px/1 var(--font-heading); letter-spacing: 0.05em; color: var(--white); }
-/* the house stands on its row's floor, its base 3.5 px below it, where a dash in the short row under it
-   would run (on a wide window, level with the line under the wordmark); its name stays level with it */
-.cc-home .cc-g { top: auto; bottom: -3.5px; height: 18px; transform: none; align-items: flex-end; }
-.cc-home .cc-l { top: calc(100% - 15.5px); bottom: auto; height: 20px; }
-.cc-wordmark .cc-g, .cc-sep { display: none; }
+/* the house stands at the foot of its row, its base 1.5 px above the row's floor (on a wide window,
+   level with the line under the wordmark), so the row it answers the pointer in is where it is drawn;
+   its name stays level with it */
+.cc-home .cc-g { top: auto; bottom: 1.5px; height: 18px; transform: none; align-items: flex-end; }
+.cc-home .cc-l { top: calc(100% - 20.5px); bottom: auto; height: 20px; }
+.cc-wordmark .cc-g, .cc-start .cc-g, .cc-sep { display: none; }
 
 /* this page's stretch of the column, tinted */
 .cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.15); box-shadow: inset 0 0 0 0.5px rgba(74, 143, 240, 0.35); }
@@ -951,7 +952,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-home.cc-here .cc-g { color: var(--link); }
     .cc-wordmark .cc-l { justify-content: flex-start; overflow: visible; }   /* taller than its row */
     .cc-wordmark .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
-    .cc-sep { display: block; width: 118px; height: 1px; background: #8f8f8f; }
+    .cc-start .cc-l { overflow: visible; }
+    .cc-sep { display: block; flex-shrink: 0; position: relative; top: -2.5px; width: 118px; height: 1px; background: #8f8f8f; }   /* level with the house's base */
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
     .cc-end .cc-line .cc-t { color: #6c6c6c; }
