@@ -537,13 +537,14 @@
         });
     }
 
+    // An optional extra (bc-opt): a smaller card leaves these out (course.css).
     function extraRow(extra, classes) {
         const links = items(extra.links);
         return rowStep({
             name: extra.name, owner: extra.name, where: 'optional',
             buttons: links.map(item => rowButton(item, extra.name)),
             video: extra.video, image: extra.image, href: links.length ? links[0].file : null,
-            classes, dotClasses: 'bc-dot-alt'
+            classes: `bc-opt ${classes}`, dotClasses: 'bc-dot-alt'
         });
     }
 

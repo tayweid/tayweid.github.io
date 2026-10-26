@@ -689,7 +689,9 @@ img.placeholder-bg { display: none; }
    buttons; PRACTICE; each practice row's name with where it happens after it (Exercise IN CLASS),
    its file buttons and its day on a line below, and its walkthrough's thumbnail. The pieces scale
    with the card's own width (container units, between their sizes on an 890 px card and a 440 px
-   one) instead of changing layout. On a phone (under 440) the card runs edge to edge and the
+   one) instead of changing layout. A smaller card (under 600) drops the optional extras and the
+   place labels and brings the file buttons up beside the names, so the practice stays about as
+   tall as the video beside it. On a phone (under 440) the card runs edge to edge and the
    episode's buttons ride on its video; on the smallest phones (under 310) the names become
    E V H and the thumbnails ▶ buttons. Rows of the same kind are the same height, so the dots
    along the dashed line are evenly spaced. */
@@ -773,6 +775,20 @@ img.placeholder-bg { display: none; }
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+/* a smaller card (a narrow window, a phone): the practice would grow taller than the video beside it,
+   so it sheds what makes it tall. The optional extras go, and the place labels; the file buttons
+   move up beside the name, and a day stays under it. Where an extra sat between two rows, the
+   dashed line joins them. */
+@container (max-width: 599px) {
+    .bc-opt { display: none; }
+    .bc-to-extra::after { display: none; }
+    .bc-step:has(+ .bc-opt):not(.bc-to-extra)::after { width: auto; background: none; border-left: 2px dashed rgba(255, 255, 255, 0.24); }
+    .bc-where { display: none; }
+    .bc-head { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; }
+    .bc-chips { display: contents; }
+    .bc-chips .bc-due { flex-basis: 100%; margin-top: 1px; }
+    .bc-step { min-height: calc(var(--nf) * 1.3 + 26px); }   /* rows with and without a day line keep the dots evenly spaced */
+}
 /* a phone: the card runs edge to edge, at its smallest sizes, and the episode's buttons ride on its video */
 @container (max-width: 439px) {
     .bc {
