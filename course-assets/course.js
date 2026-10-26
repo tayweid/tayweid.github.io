@@ -350,6 +350,7 @@ function setupCourseColumn() {
   // the column is the same. The wordmark shows only on a wide window, a little shorter than itself so
   // the house sits beside the foot of it.
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
+  const CLUMP = 20;    // a wide sidebar's rows for this page's blocks: close together, one group under the part's name
   const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
@@ -361,6 +362,7 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'wordmark') return WORDMARK;
+    if (mode === 'wide' && (row.kind === 'block' || row.kind === 'cp')) return CLUMP;
     const shut = (mode === 'phone' ? SHUT_PHONE : SHUT)[row.kind];
     return shut + (OPEN[row.kind] - shut) * q;
   };
@@ -370,12 +372,12 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // This page's stretch of the column, a little above its letter (or the house) to a little below its
-  // last block, tinted.
+  // This page's stretch of the column, from a little above its first block to a little below its last,
+  // tinted; the part's letter (or the house) sits above it.
   function placeMarks(o) {
-    const first = rows.indexOf(headRow);
-    let last = first;
-    rows.forEach((row, i) => { if (row.mine) last = Math.max(last, i); });
+    const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
+    const first = own.length ? own[0] : rows.indexOf(headRow);
+    const last = own.length ? own[own.length - 1] : first;
     const padTop = Math.min(13, o[first].h / 2 + 1);
     const padBottom = Math.min(13, o[last].h / 2 + 1);
     pageMark.style.top = `${o[first].mid - padTop}px`;

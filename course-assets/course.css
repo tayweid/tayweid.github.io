@@ -949,6 +949,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-wordmark .cc-l { justify-content: flex-start; overflow: visible; }   /* taller than its row */
     .cc-wordmark .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
     .cc-sep { display: block; width: 118px; height: 1px; background: #8f8f8f; }
+    /* the other parts' names step back, so this page's blocks read as the page's contents */
+    .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
 }
 /* narrower: the closed column floats (course.js places it), and opens into a card */
 @media (max-width: 1333px) {
@@ -958,6 +960,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
         background: rgba(36, 36, 36, var(--bg)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
     }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
+    .cc-cp .cc-g i { width: 16px; }   /* inside the narrower tint of a closed column */
+    .cc-cp.cc-cur .cc-g i { width: 18px; }
     .cc-wordmark { display: none; }
 }
 @media (min-width: 651px) and (max-width: 1333px) {
