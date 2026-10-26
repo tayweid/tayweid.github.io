@@ -362,6 +362,16 @@ function setupCourseColumn() {
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
   let cur = null, hot = null, down = null, pending = null, swallowClick = false;
 
+  // The window's height the closed column is placed against. On a touch screen it is the height the
+  // page was laid out at, kept until the width changes (the phone turns): Safari and Brave on a phone
+  // grow and shrink their toolbars as you scroll, and following them would move the rail.
+  const touch = window.matchMedia('(pointer: coarse)');
+  let tall = innerHeight, tallAt = innerWidth;
+  const windowHeight = () => {
+    if (!touch.matches || innerWidth !== tallAt) { tall = innerHeight; tallAt = innerWidth; }
+    return tall;
+  };
+
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'wordmark') return WORDMARK;
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
@@ -422,11 +432,11 @@ function setupCourseColumn() {
       // closed, it sits where a wide window's sidebar does, at the top; on a phone a little below the
       // middle, where a thumb reaches it
       const closed = offsets(0);
-      const top0 = mode === 'phone' ? innerHeight * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
+      const top0 = mode === 'phone' ? windowHeight() * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
       anchorY = top0 + PADV + closed[anchorRow].mid;
     }
     const top = anchorY - PADV - o[anchorRow].mid;
-    card.style.top = `${Math.max(8, Math.min(innerHeight - total - 8, top))}px`;
+    card.style.top = `${Math.max(8, Math.min(windowHeight() - total - 8, top))}px`;
     card.classList.toggle('opening', p > 0);
   }
 
