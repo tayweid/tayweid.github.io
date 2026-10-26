@@ -309,8 +309,8 @@ function setupMobileNav() {
 // rows spread, the names fade in, and the row the card opened around stays put. A mouse goes straight
 // to what the closed column shows by name (the house, a letter, this part's ticks); a click on another
 // part's faint dashes opens the card like a tap. It marks
-// the block on screen, tints the stretch of the column this page covers with a frame round what is
-// in view, names any dash at once under a pointer, and a finger sliding along the closed column moves
+// the block on screen, tints the stretch of the column this page covers, names any dash at once
+// under a pointer, and a finger sliding along the closed column moves
 // through the page, or, onto another part, opens that part on release.
 function setupCourseColumn() {
   const card = document.querySelector('.cc');
@@ -342,14 +342,14 @@ function setupCourseColumn() {
   const bubbleSub = el('span');
   bubble.append(bubbleTitle, bubbleSub);
   const pageMark = el('span', { className: 'cc-mark' });
-  const viewMark = el('span', { className: 'cc-mark cc-view' });
-  list.prepend(pageMark, viewMark);
+  list.prepend(pageMark);
   document.body.append(scrim, tip, bubble);
 
   // Each row has a height when the column is closed and one when it is open (a wide window's is open).
   // Home and the part letters space alike and the long dashes like the faint ones, so every step down
   // the column is the same. The wordmark shows only on a wide window, a little shorter than itself so
   // the house sits beside the foot of it.
+  const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
   const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
@@ -371,27 +371,15 @@ function setupCourseColumn() {
   }
 
   // This page's stretch of the column, a little above its letter (or the house) to a little below its
-  // last block, tinted; and inside it a frame round the rows the window shows, which never pokes out.
+  // last block, tinted.
   function placeMarks(o) {
     const first = rows.indexOf(headRow);
     let last = first;
     rows.forEach((row, i) => { if (row.mine) last = Math.max(last, i); });
     const padTop = Math.min(13, o[first].h / 2 + 1);
     const padBottom = Math.min(13, o[last].h / 2 + 1);
-    const span = [o[first].mid - padTop, o[last].mid + padBottom];
-    const at = docY => {
-      const measured = mineRows.filter(row => row.yd !== undefined);
-      let k = 0;
-      while (k + 1 < measured.length && measured[k + 1].yd <= docY) k += 1;
-      const from = measured[k], next = measured[k + 1];
-      const a = o[rows.indexOf(from)], b = next ? o[rows.indexOf(next)] : null;
-      const end = next ? next.yd : Math.max(from.yd + 1, root.scrollHeight);
-      const t = Math.min(1, Math.max(0, (docY - from.yd) / Math.max(1, end - from.yd)));
-      return b ? a.mid + t * (b.mid - a.mid) : a.mid + t * (a.h / 2 + 4);
-    };
-    const put = (node, top, bottom) => { node.style.top = `${top}px`; node.style.height = `${Math.max(4, bottom - top)}px`; };
-    put(pageMark, span[0], span[1]);
-    put(viewMark, Math.max(span[0], at(scrollY) - padTop), Math.min(span[1], at(scrollY + innerHeight) + padBottom));
+    pageMark.style.top = `${o[first].mid - padTop}px`;
+    pageMark.style.height = `${Math.max(4, o[last].mid + padBottom - (o[first].mid - padTop))}px`;
   }
 
   function layout() {
@@ -455,7 +443,7 @@ function setupCourseColumn() {
 
   function measure() {
     const previous = mode;
-    mode = innerWidth > 1000 ? 'wide' : innerWidth > 650 ? 'narrow' : 'phone';
+    mode = innerWidth >= WIDE ? 'wide' : innerWidth > 650 ? 'narrow' : 'phone';
     ['wide', 'narrow', 'phone'].forEach(name => root.classList.toggle(`cc-${name}`, name === mode));
     if (previous !== mode) { p = 0; target = 0; scrim.hidden = true; card.classList.remove('is-open'); anchorY = null; }
     mineRows.forEach(row => { row.yd = row === headRow ? 0 : row.el ? row.el.getBoundingClientRect().top + scrollY : undefined; });

@@ -853,18 +853,17 @@ img.placeholder-bg { display: none; }
    long dash opening the semester, a letter for each part (its name in small capitals), a tick for
    each block of the part on screen, faint dashes for the other parts' blocks, and a long dash
    closing the semester, named for the last checkpoint. A wide window shows it as the sidebar,
-   names right-aligned beside the ticks, and the sidebar and the page are centered as one pair.
+   names right-aligned beside the ticks; the page stays centered on the window, the sidebar beside it.
    A narrow window keeps only the ticks and letters, just left of the page's text; a phone keeps
    them in a gutter. Opened, it becomes a card with the names to the right of the ticks. course.js
    sets each row's height (--gy is the middle of it), the open state (--p, --q, --bg) and, when
-   floating, the card's place. This page's stretch of the column is tinted blue, with a frame
-   round what the window shows. */
+   floating, the card's place. This page's stretch of the column is tinted blue. */
 html.has-course-column .right_div { display: none; }
 html.has-course-column { --column: 780px; }   /* a calmer line for the text and the cards beside the column */
 html.has-course-column .wrapper { gap: 0; }
-/* below a wide window the column (and its frame for what is in view) does the scrollbar's job; the
-   page scrolls as before, and the bar's width goes to the page */
-@media (max-width: 1000px) {
+/* below a wide window the column does the scrollbar's job; the page scrolls as before, and the
+   bar's width goes to the page */
+@media (max-width: 1333px) {
     html.has-course-column { scrollbar-width: none; }
     html.has-course-column::-webkit-scrollbar { display: none; }
 }   /* the column's slot sits in the row; no gap beside it */
@@ -883,11 +882,11 @@ span.cc-r { cursor: default; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i { width: 12px; background: #9a9a9a; }
-.cc-cp .cc-g i { width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+.cc-cp .cc-g i { width: 20px; background: #9a9a9a; }   /* a checkpoint: a long dash, like the semester's last */
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
 .cc-start .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
 .cc-cur .cc-g i { width: 16px; background: var(--white); }
-.cc-cp.cc-cur .cc-g i { width: 7px; height: 7px; }
+.cc-cp.cc-cur .cc-g i { width: 22px; }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home .cc-g svg { width: 11px; height: 11px; }
 .cc-home.cc-here .cc-g { color: var(--link); }
@@ -911,9 +910,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-home .cc-l { top: calc(var(--gy, 50%) - 10px); bottom: auto; height: 20px; }
 .cc-wordmark .cc-g, .cc-sep { display: none; }
 
-/* this page's stretch of the column, tinted, with a frame round the rows the window shows */
+/* this page's stretch of the column, tinted */
 .cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.15); box-shadow: inset 0 0 0 0.5px rgba(74, 143, 240, 0.35); }
-.cc-mark.cc-view { background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
 
 /* a name at once under the pointer, and the bubble that follows a finger along the closed column */
 .cc-tip, .cc-bubble { position: fixed; z-index: 1005; display: none; transform: translateY(-50%); border: 0.5px solid rgba(255, 255, 255, 0.16); background: rgba(38, 38, 38, 0.96); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); white-space: pre; pointer-events: none; }
@@ -926,17 +924,23 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-scrim { position: fixed; inset: 0; z-index: 1001; background: rgba(0, 0, 0, 0.35); }
 .cc-scrim[hidden] { display: none; }
 
-/* a wide window: the column is the left sidebar, beside the page and centered with it as a pair;
-   the wordmark sits on top with the house beside its foot, underlined by the opening dash */
-@media (min-width: 1001px) {
-    /* a little room between the sidebar's rail and the page: none at 1000 px, growing to 28 px by 1224 px */
-    html.has-course-column .wrapper { justify-content: center; gap: clamp(0px, calc((100vw - 1000px) / 8), 28px); }
-    html.has-course-column .left_div { width: 272px; }
+/* a wide window: the column is the left sidebar beside the page, which stays centered on the window
+   (the wrapper's right padding mirrors the sidebar); the wordmark sits on top with the house beside
+   its foot, underlined by the opening dash. It starts where a 250 px sidebar and a 12 px gap fit beside
+   a centered 810 px page: 810 + 2 × (250 + 12) = 1334 px (course.js knows it). From there the gap grows
+   to 28 px and the sidebar to 272 px. */
+@media (min-width: 1334px) {
+    html.has-course-column {
+        --rail-gap: clamp(12px, calc((100vw - 1334px) / 3 + 12px), 28px);
+        --side: clamp(250px, calc((100vw - var(--column) - 30px) / 2 - var(--rail-gap)), 272px);
+    }
+    html.has-course-column .wrapper { justify-content: center; gap: var(--rail-gap); padding-right: calc(var(--side) + var(--rail-gap)); }
+    html.has-course-column .left_div { width: var(--side); }
     html.has-course-column .content { margin-left: 0; margin-right: 0; }
     html.has-course-column .cc { position: sticky; top: 46px; }
     .cc-g { left: auto; right: 0; }
     .cc-mark { left: auto; right: 3px; }
-    .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
+    .cc-l { left: 12px; right: 34px; align-items: flex-end; text-align: right; }   /* never to the window's edge */
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
     .cc-home .cc-l { display: none; }   /* the wordmark above names it */
     .cc-home .cc-g { color: var(--fg); }
@@ -947,7 +951,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-sep { display: block; width: 118px; height: 1px; background: #8f8f8f; }
 }
 /* narrower: the closed column floats (course.js places it), and opens into a card */
-@media (max-width: 1000px) {
+@media (max-width: 1333px) {
     html.has-course-column .cc {
         position: fixed; z-index: 1003; left: 6px; top: 0; width: 36px; padding: 8px 4px; overflow: hidden; touch-action: none;
         border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(var(--p) * 0.15));
@@ -956,10 +960,13 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
     .cc-wordmark { display: none; }
 }
-@media (min-width: 651px) and (max-width: 1000px) {
-    /* room beside the page for the column, and the page's own margins trimmed so the cards keep their width */
-    html.has-course-column .wrapper { padding-left: 64px; padding-right: 14px; }
+@media (min-width: 651px) and (max-width: 1333px) {
+    /* room beside the page for the column, matched on the right when the window allows so the page is
+       centered; the page's own margins trimmed so the cards keep their width */
+    html.has-course-column .wrapper { padding-left: 64px; padding-right: clamp(14px, calc(100vw - 704px), 64px); }
     html.has-course-column .content { padding-left: 16px; padding-right: 16px; }
+}
+@media (min-width: 651px) and (max-width: 1000px) {
     html.has-course-column main[data-course-part] { max-width: 640px; }   /* a part page; the course page keeps its own width */
 }
 /* a phone: the column has a gutter of its own, so it never covers the start of a line */
