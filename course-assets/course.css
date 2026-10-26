@@ -850,7 +850,7 @@ img.placeholder-bg { display: none; }
 
 /* ---------- course column (course-page.js draws it, course.js lays it out) ----------
    All of a row-card course's navigation in one column, in the left slot: MICRO ECON and home, a
-   long dash opening the semester, a letter for each part (its name in small capitals), a tick for
+   letter for each part (its name in small capitals), a tick for
    each block of the part on screen, faint dashes for the other parts' blocks, and a long dash
    closing the semester, named for the last checkpoint. A wide window shows it as the sidebar,
    names right-aligned beside the ticks; the page stays centered on the window, the sidebar beside it.
@@ -883,7 +883,7 @@ span.cc-r { cursor: default; }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
-.cc-start .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
+.cc-end .cc-g i { width: 20px; background: #8f8f8f; }
 .cc-cur .cc-g i { width: 16px; background: var(--link); }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home .cc-g svg { width: 20px; height: 18px; overflow: visible; }   /* as wide as the long dash under it */
@@ -908,7 +908,10 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-r:hover .cc-t, .cc-r.hot .cc-t { color: var(--white); }
 .cc-cur:hover .cc-t { color: var(--link); }
 .cc-brand { display: flex; gap: 0.32em; font: 400 17px/1 var(--font-heading); letter-spacing: 0.05em; color: var(--white); }
-.cc-home .cc-l { top: calc(var(--gy, 50%) - 10px); bottom: auto; height: 20px; }
+/* the house stands on its row's floor, its base 3.5 px below it, where a dash in the short row under it
+   would run (on a wide window, level with the line under the wordmark); its name stays level with it */
+.cc-home .cc-g { top: auto; bottom: -3.5px; height: 18px; transform: none; align-items: flex-end; }
+.cc-home .cc-l { top: calc(100% - 15.5px); bottom: auto; height: 20px; }
 .cc-wordmark .cc-g, .cc-sep { display: none; }
 
 /* this page's stretch of the column, tinted */
@@ -927,7 +930,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 
 /* a wide window: the column is the left sidebar beside the page, which stays centered on the window
    (the wrapper's right padding mirrors the sidebar); the wordmark sits on top with the house beside
-   its foot, underlined by the opening dash. It starts where a 250 px sidebar and a 12 px gap fit beside
+   its foot, standing on the line under it. It starts where a 250 px sidebar and a 12 px gap fit beside
    a centered 810 px page: 810 + 2 × (250 + 12) = 1334 px (course.js knows it). From there the gap grows
    to 28 px and the sidebar to 272 px. */
 @media (min-width: 1334px) {

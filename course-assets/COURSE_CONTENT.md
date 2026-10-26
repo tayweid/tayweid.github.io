@@ -155,18 +155,17 @@ pieces at every width and scales them with its own width, running edge to edge o
 steps carry many named files) keeps the path card.
 
 **The course column.** A row-card course also trades both side navs, and the phone's bottom
-bar, for one column: the `brand` nameplate and a house for `home`, a long dash opening the
-semester, a letter for each part with its title in small capitals, a tick for each block of
-the part on screen, faint dashes for the other parts' blocks
-(each links to its block), and
-a long dash closing the semester, named for the last part's checkpoint. A wide window shows
-it as the sidebar with the names beside it, the page centered on the window; narrower, it
-keeps to the ticks and letters and opens into a card when tapped. It has no place for `nav:` entries, so a row-card course leaves
-`nav:` out. The course's home page (`home:`) can show the same column: give its `<main>` the
-attribute `data-course-home`, put an empty `<div class="left_div" data-course-left-nav>`
-before it, load `js-yaml.min.js`, `course-schema.js` and `course-page.js` as a part shell
-does, and mark each heading the column should list with `data-course-nav` (the heading's text
-names it, or the attribute's value).
+bar, for one column: the `brand` nameplate and a house for `home`, a letter for each part with
+its title in small capitals, a tick for each block of the part on screen, faint dashes for the
+other parts' blocks (each links to its block), and a long dash closing the semester, named for
+the last part's checkpoint. A wide window shows it as the sidebar with the names beside it,
+the page centered on the window; narrower, it keeps to the ticks and letters and opens into a
+card when tapped. It has no place for `nav:` entries, so a row-card course leaves `nav:` out.
+The course's home page (`home:`) can show the same column: give its `<main>` the attribute
+`data-course-home`, put an empty `<div class="left_div" data-course-left-nav>` before it, load
+`js-yaml.min.js`, `course-schema.js` and `course-page.js` as a part shell does, and mark each
+heading the column should list with `data-course-nav` (the heading's text names it, or the
+attribute's value).
 
 ### Posting
 

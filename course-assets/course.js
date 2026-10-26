@@ -370,7 +370,10 @@ function setupCourseColumn() {
   // this page's own rows (not its letter or the house): the group the tint marks
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
-  const roomBefore = i => mode === 'wide' && (i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1))) ? ROOM : 0;
+  const roomBefore = i => {
+    if (mode === 'wide') return i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
+    return headRow.kind === 'home' && i === own[0] ? 5 : 0;   // the course page: the house clears the tint below it
+  };
   function offsets(q) {
     let y = 0;
     return rows.map((row, i) => { y += roomBefore(i); const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
