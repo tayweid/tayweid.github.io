@@ -896,7 +896,10 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* the names: parts in small capitals, blocks in the serif with their number beside the tick,
    the block on screen in blue and a touch larger (rows have set heights, so nothing moves) */
 .cc-part .cc-t { font: 600 11.5px/1.2 var(--font-body); letter-spacing: 0.13em; text-transform: uppercase; color: #8f8f8f; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-.cc-part.cc-here .cc-t { color: var(--link); }
+.cc-part.cc-here .cc-t { font-size: 13px; color: var(--link); }
+/* the semester's closing dash is no part of the page: its name stays as quiet as the other parts' */
+.cc-end .cc-line .cc-t { color: #8f8f8f; }
+.cc-end:hover .cc-line .cc-t, .cc-end.hot .cc-line .cc-t { color: var(--white); }
 .cc-line { display: flex; align-items: baseline; gap: 7px; max-width: 100%; font: 400 15.5px/20px var(--font-heading); }
 .cc-id { color: #8a8a8a; }
 .cc-line .cc-t { color: #D6D6D6; overflow: hidden; text-overflow: ellipsis; }
@@ -948,6 +951,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-sep { display: block; width: 118px; height: 1px; background: #8f8f8f; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
+    .cc-end .cc-line .cc-t { color: #6c6c6c; }
 }
 /* narrower: the closed column floats (course.js places it), and opens into a card */
 @media (max-width: 1333px) {
