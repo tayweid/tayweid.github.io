@@ -685,18 +685,21 @@ img.placeholder-bg { display: none; }
 
 /* ---------- row card: episode left, practice rows right (course-page.js, courses on the
    exercise / vignette / homework triad) ----------
-   The card stays side by side at every width. The practice keeps the width it needs (--prac)
-   and the episode takes the rest, up to 420 px, its video always 16:9. As the card narrows the
-   practice sheds parts so its height stays close to the video's: under 760 the names become
-   E V H and the optional extras go; under 640 the episode's description goes; under 600 the
-   header goes, the place labels shrink and each walkthrough's thumbnail becomes a ▶ button;
-   on a phone (under 440) the place labels go, the names come back, the thumbnails return
-   small, the episode's buttons ride on its video, and the card runs edge to edge; on the
-   smallest phones (under 310) E V H and ▶ come back. Each row is the same height, so the dots
+   The card stays side by side, with the same pieces, at every width: the video with its name and
+   buttons; PRACTICE; each practice row's name with where it happens after it (Exercise IN CLASS),
+   its file buttons and its day on a line below, and its walkthrough's thumbnail. The pieces scale
+   with the card's own width (container units, between their sizes on an 890 px card and a 440 px
+   one) instead of changing layout. On a phone (under 440) the card runs edge to edge and the
+   episode's buttons ride on its video; on the smallest phones (under 310) the names become
+   E V H and the thumbnails ▶ buttons. Rows of the same kind are the same height, so the dots
    along the dashed line are evenly spaced. */
 .bc-wrap { container-type: inline-size; }
 .bc {
-    --prac: 436px; --wl: 88px; --wlfs: 12px; --gap: 12px; --tw: 80px; --th: 45px;
+    --prac: clamp(236px, 49cqi, 436px);                  /* the practice column; the episode takes the rest, up to 420 px */
+    --tw: clamp(46px, 9cqi, 80px); --th: calc(var(--tw) * 0.5625);   /* a walkthrough's thumbnail, 16:9 */
+    --gap: clamp(6px, 1.35cqi, 12px);                    /* dot to name */
+    --nf: clamp(17px, calc(15px + 0.45cqi), 19px);       /* practice names */
+    --pb: clamp(34px, 6cqi, 52px);                       /* the play button */
     display: grid;
     grid-template-columns: min(420px, calc(100% - var(--prac))) minmax(0, 1fr);
     border: 1px solid var(--mid);
@@ -704,6 +707,7 @@ img.placeholder-bg { display: none; }
     background: var(--bg);
     overflow: hidden;
 }
+.bc-checkpoint, .bc-named { --prac: clamp(262px, 49cqi, 436px); }   /* longer names than Exercise, Vignette, Homework */
 .bc-solo { grid-template-columns: minmax(0, 1fr); max-width: 420px; }
 .bc-episode { position: relative; display: flex; flex-direction: column; min-width: 0; padding-bottom: 12px; border-right: 1px solid var(--mid); }
 .bc-solo .bc-episode { border-right: 0; }
@@ -711,14 +715,14 @@ img.placeholder-bg { display: none; }
 .bc-still { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
 .bc-still img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 .bc-none { display: flex; align-items: center; justify-content: center; padding: 0 12px; background: var(--mid); text-align: center; font: 600 16px/1.3 var(--font-body); color: var(--white); }
-.bc-play { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: rgba(0, 0, 0, 0.6); transition: background 0.2s ease; }
-.bc-play::before { content: ""; position: absolute; left: 21px; top: 16px; border-style: solid; border-width: 10px 0 10px 16px; border-color: transparent transparent transparent var(--white); }
+.bc-play { position: absolute; left: 50%; top: 50%; width: var(--pb); height: var(--pb); margin: calc(var(--pb) / -2) 0 0 calc(var(--pb) / -2); border-radius: 50%; background: rgba(0, 0, 0, 0.6); transition: background 0.2s ease; }
+.bc-play::before { content: ""; position: absolute; left: 41%; top: 31%; border-style: solid; border-width: calc(var(--pb) * 0.19) 0 calc(var(--pb) * 0.19) calc(var(--pb) * 0.3); border-color: transparent transparent transparent var(--white); }
 .bc-still:hover .bc-play { background: rgba(0, 0, 0, 0.85); }
-.bc-ephead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 10px 14px 0; }
-.bc-epname { margin: 0; min-width: 0; font: 400 19px/1.3 var(--font-heading); color: var(--white); }
-.bc-epdesc { font: italic 300 16px var(--font-body); color: var(--fg); }
+.bc-ephead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: clamp(8px, 1.2cqi, 10px) clamp(10px, 1.6cqi, 14px) 0; }
+.bc-epname { margin: 0; min-width: 0; font: 400 clamp(17px, calc(15px + 0.45cqi), 19px)/1.3 var(--font-heading); color: var(--white); }
+.bc-epdesc { font: italic 300 clamp(14px, calc(12px + 0.45cqi), 16px) var(--font-body); color: var(--fg); }
 .bc-epdesc i { font-style: normal; }
-.bc-checkpoint .bc-epdesc { display: block; margin-top: 4px; font-size: 15px; line-height: 1.4; }
+.bc-checkpoint .bc-epdesc { display: block; margin-top: 4px; font-size: clamp(13.5px, calc(11.5px + 0.4cqi), 15px); line-height: 1.4; }
 .bc-epico { flex-shrink: 0; margin-top: 1px; }
 .bc-episode .bc-over { display: none; }
 
@@ -735,83 +739,56 @@ img.placeholder-bg { display: none; }
 .bc-ib.bc-wait, .bc-ib.bc-wait:hover { background: none; border: 1px dashed rgba(255, 255, 255, 0.26); color: #777; cursor: default; }
 .bc-ib.bc-sol.bc-wait, .bc-ib.bc-sol.bc-wait:hover { border-color: transparent; color: rgba(226, 92, 103, 0.4); }
 
-.bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: 14px 18px 12px; list-style: none; }
-.bc-label { padding: 4px 0 8px calc(var(--wl) + var(--gap)); font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
+/* the practice rows: a dot, then the name and where it happens, then the buttons and day under it */
+.bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: clamp(10px, 1.6cqi, 14px) clamp(12px, 2cqi, 18px) 12px calc(clamp(12px, 2cqi, 18px) + var(--gap)); list-style: none; }
+.bc-label { padding: 4px 0 clamp(6px, 1.2cqi, 8px); font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
 .bc-step {
-    --row: 56px; --dot: 18px;
+    --dot: calc(5px + var(--nf) * 0.65);   /* the middle of the name's line */
     position: relative;
     display: grid;
-    grid-template-columns: var(--wl) 12px minmax(0, 1fr) var(--tw);
+    grid-template-columns: 12px minmax(0, 1fr) var(--tw);
     column-gap: var(--gap);
     align-items: start;
-    min-height: var(--row);
     padding: 5px 0;
 }
-.bc-where { grid-column: 1; grid-row: 1; margin-top: calc(var(--dot) - 5px - 0.65 * var(--wlfs)); text-align: right; overflow-wrap: anywhere; font: 300 var(--wlfs)/1.3 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; color: #8a8a8a; }
-.bc-step > .bc-dot { grid-column: 2; grid-row: 1; }
-.bc-head { grid-column: 3; grid-row: 1; min-width: 0; }
-.bc-step.bc-novid .bc-head { grid-column: 3 / -1; }
-.bc-step > .bc-thumb { grid-column: 4; grid-row: 1; }
-.bc-name { margin: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; font: 400 19px/1.3 var(--font-heading); color: var(--white); }
+.bc-step > .bc-dot { grid-column: 1; grid-row: 1; }
+.bc-head { grid-column: 2; grid-row: 1; min-width: 0; }
+.bc-step.bc-novid .bc-head { grid-column: 2 / -1; }
+.bc-step > .bc-thumb { grid-column: 3; grid-row: 1; }
+.bc-name { margin: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; font: 400 var(--nf)/1.3 var(--font-heading); color: var(--white); }
 .bc-letter { display: none; }
-.bc-due { margin: 2px 0 0; font: italic 300 14px/1.3 var(--font-body); color: #8a8a8a; }
+.bc-where { position: relative; top: 1px; font: 300 clamp(9.5px, calc(7.5px + 0.4cqi), 11px)/1.3 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; }
+.bc-chips { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 2px; margin: 5px 0 0 6px; }
+.bc-due { font: italic 300 14px/1.3 var(--font-body); color: #8a8a8a; }
 .bc-dot { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: calc(var(--dot) - 11px); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.55); background: var(--bg); }
 .bc-step.past > .bc-dot { background: var(--link); border-color: rgba(255, 255, 255, 0.6); }
 .bc-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.3); }
 .bc-dot-big { width: 16px; height: 16px; margin-left: -2px; margin-top: calc(var(--dot) - 13px); border: 0; background: rgba(255, 255, 255, 0.85); }
 .bc-step.past > .bc-dot-big { background: var(--link); }
 .bc-alt .bc-name { color: #9E9E9E; }
-.bc-to-next::after, .bc-to-alt::after, .bc-to-extra::after { content: ""; position: absolute; left: calc(var(--wl) + var(--gap) + 5px); top: var(--dot); bottom: calc(0px - var(--dot)); }
+.bc-to-next::after, .bc-to-alt::after, .bc-to-extra::after { content: ""; position: absolute; left: 5px; top: var(--dot); bottom: calc(0px - var(--dot)); }
 .bc-to-next::after { border-left: 2px dashed rgba(255, 255, 255, 0.24); }
 .bc-to-alt::after, .bc-to-extra::after { width: 2px; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 3px, transparent 3px 9px); }
 .bc-thumb { position: relative; display: block; width: var(--tw); height: var(--th); border-radius: 6px; overflow: hidden; background: var(--mid); opacity: 0.8; transition: opacity 0.2s ease; }
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* names kept off screen but readable: a letter stands in for a practice name */
-@container (max-width: 759px) {
-    .bc { --prac: 330px; }
-    .bc-prac .bc-full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-    .bc-prac .bc-letter { display: inline; }
-    .bc-extra { display: none; }
-    .bc-to-extra::after { display: none; }
-}
-@container (max-width: 639px) {
-    .bc-block .bc-epdesc { display: none; }
-}
-@container (max-width: 599px) {
-    .bc { --prac: 236px; --wl: 62px; --wlfs: 10.5px; --gap: 10px; }
-    .bc-checkpoint, .bc-named { --prac: 262px; }   /* their rows keep their names, so a little more room */
-    .bc-where { letter-spacing: 0.04em; }
-    .bc-label { display: none; }
-    .bc-steps { padding: 10px 14px; }
-    .bc-step { --row: 48px; --dot: 17px; }
-    .bc-step > .bc-thumb { display: none; }
-    .bc-step .bc-head { grid-column: 3 / -1; }
-    .bc-ib.bc-vid { display: inline-flex; }
-    .bc-ephead { align-items: center; margin: 8px 12px 0; }
-    .bc-play { width: 40px; height: 40px; margin: -20px 0 0 -20px; }
-    .bc-play::before { left: 16px; top: 12px; border-width: 8px 0 8px 13px; }
-}
+/* a phone: the card runs edge to edge, at its smallest sizes, and the episode's buttons ride on its video */
 @container (max-width: 439px) {
     .bc {
-        --prac: 236px; --wl: 0px; --gap: 6px; --tw: 46px; --th: 26px;
+        --prac: 236px; --gap: 6px; --tw: 46px; --th: 26px; --nf: 17px; --pb: 30px;
         margin: 0 calc(-1 * var(--page-gutter, 0px));
         border-left: 0; border-right: 0; border-radius: 0;
     }
-    .bc-where { display: none; }
-    .bc-prac .bc-full { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
-    .bc-prac .bc-letter { display: none; }
-    .bc-steps { padding: 8px; }
-    .bc-step { --row: 40px; --dot: 17px; }
-    .bc-name { font-size: 17px; column-gap: 6px; }
+    .bc-checkpoint, .bc-named { --prac: 236px; }
+    .bc-steps { padding: 8px 8px 8px calc(8px + var(--gap)); }
+    .bc-label { font-size: 10px; }
+    .bc-name { column-gap: 6px; }
+    .bc-chips { margin-top: 3px; column-gap: 8px; }
     .bc-ico { gap: 3px; }
     .bc-ib { width: 24px; }
-    .bc-step > .bc-thumb { display: block; border-radius: 4px; }
-    .bc-step .bc-head { grid-column: 3; }
-    .bc-step.bc-novid .bc-head { grid-column: 3 / -1; }
-    .bc-ib.bc-vid { display: none; }
-    .bc-due { margin-top: 0; font-size: 11.5px; line-height: 1.25; }
+    .bc-step > .bc-thumb { border-radius: 4px; }
+    .bc-due { font-size: 11.5px; line-height: 1.25; }
     .bc-episode { padding-bottom: 8px; }
     .bc-episode .bc-epico { display: none; }
     .bc-episode .bc-over { display: flex; position: absolute; right: 6px; bottom: 6px; gap: 4px; }
@@ -821,16 +798,126 @@ img.placeholder-bg { display: none; }
     .bc-epname { font-size: 18px; }
     .bc-block .bc-epdesc { display: block; font-size: 14.5px; line-height: 1.25; }
     .bc-checkpoint .bc-epdesc { font-size: 13.5px; }
-    .bc-play { width: 30px; height: 30px; margin: -15px 0 0 -15px; }
-    .bc-play::before { left: 12px; top: 9px; border-width: 6px 0 6px 10px; }
 }
+/* the smallest phones: E V H for the names, a ▶ button for each walkthrough */
 @container (max-width: 309px) {
     .bc { --prac: 150px; }
     .bc-prac .bc-full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .bc-prac .bc-letter { display: inline; }
+    .bc-where { display: none; }
     .bc-step > .bc-thumb { display: none; }
-    .bc-step .bc-head { grid-column: 3 / -1; }
+    .bc-step .bc-head { grid-column: 2 / -1; }
     .bc-ib.bc-vid { display: inline-flex; }
+}
+
+/* ---------- course column (course-page.js draws it, course.js lays it out) ----------
+   All of a row-card course's navigation in one column, in the left slot: MICRO ECON and home, a
+   long dash opening the semester, a letter for each part (its name in small capitals), a tick for
+   each block of the part on screen, faint dashes for the other parts' blocks, and a long dash
+   closing the semester, named for the last checkpoint. A wide window shows it as the sidebar,
+   names right-aligned beside the ticks, and the sidebar and the page are centered as one pair.
+   A narrow window keeps only the ticks and letters, just left of the page's text; a phone keeps
+   them in a gutter. Opened, it becomes a card with the names to the right of the ticks. course.js
+   sets each row's height (--gy is the middle of it), the open state (--p, --q, --bg) and, when
+   floating, the card's place. This page's stretch of the column is tinted blue, with a frame
+   round what the window shows. */
+html.has-course-column .right_div { display: none; }
+html.has-course-column .left_div { display: block; width: 0; margin-left: 0; }
+html.has-course-column .left_div > nav.cc { text-align: left; }
+.cc { --p: 0; --q: 1; --bg: 0; user-select: none; -webkit-user-select: none; }
+.cc-rows { position: relative; }
+.cc-r { position: relative; z-index: 1; display: block; color: inherit; text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.cc-r:focus-visible { outline: 2px solid var(--link); outline-offset: -2px; border-radius: 4px; }
+span.cc-r { cursor: default; }
+.cc-g { position: absolute; left: 0; top: var(--gy, 50%); width: 28px; height: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-50%); }
+.cc-l { position: absolute; left: 36px; right: 4px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; opacity: var(--q); overflow: hidden; white-space: nowrap; }
+
+/* the glyphs: letters, ticks, faint dashes, the house, the two long dashes */
+.cc-part .cc-g { font: 400 15px/1 var(--font-heading); color: #8f8f8f; }
+.cc-part.cc-here .cc-g { color: var(--link); }
+.cc-g i { display: block; height: 2px; border-radius: 1px; }
+.cc-block .cc-g i { width: 12px; background: #9a9a9a; }
+.cc-cp .cc-g i { width: 6px; height: 6px; border-radius: 50%; background: var(--fg); }
+.cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
+.cc-start .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
+.cc-cur .cc-g i { width: 16px; background: var(--white); }
+.cc-cp.cc-cur .cc-g i { width: 7px; height: 7px; }
+.cc-home .cc-g { color: #8a8a8a; }
+.cc-home .cc-g svg { width: 11px; height: 11px; }
+.cc-home.cc-here .cc-g { color: var(--link); }
+.cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
+.cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
+.cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
+span.cc-r:hover .cc-g i { background: #8f8f8f; }
+
+/* the names: parts in small capitals, blocks in the serif with their number beside the tick,
+   the block on screen in blue and a touch larger (rows have set heights, so nothing moves) */
+.cc-part .cc-t { font: 600 11.5px/1.2 var(--font-body); letter-spacing: 0.13em; text-transform: uppercase; color: #8f8f8f; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.cc-part.cc-here .cc-t { color: var(--white); }
+.cc-line { display: flex; align-items: baseline; gap: 7px; max-width: 100%; font: 400 15.5px/20px var(--font-heading); }
+.cc-id { color: #8a8a8a; }
+.cc-line .cc-t { color: #D6D6D6; overflow: hidden; text-overflow: ellipsis; }
+.cc-cur .cc-id, .cc-cur .cc-line .cc-t { color: var(--link); }
+.cc-cur .cc-line { font-size: 17px; }
+.cc-r:hover .cc-t, .cc-r.hot .cc-t { color: var(--white); }
+.cc-cur:hover .cc-t { color: var(--link); }
+.cc-brand { display: flex; gap: 0.32em; font: 400 17px/1 var(--font-heading); letter-spacing: 0.05em; color: var(--white); }
+.cc-home .cc-l { top: calc(var(--gy, 50%) - 10px); bottom: auto; height: 20px; }
+.cc-wordmark .cc-g, .cc-sep { display: none; }
+
+/* this page's stretch of the column, tinted, with a frame round the rows the window shows */
+.cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.15); box-shadow: inset 0 0 0 0.5px rgba(74, 143, 240, 0.35); }
+.cc-mark.cc-view { background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
+
+/* a name at once under the pointer, and the bubble that follows a finger along the closed column */
+.cc-tip, .cc-bubble { position: fixed; z-index: 1005; display: none; transform: translateY(-50%); border: 0.5px solid rgba(255, 255, 255, 0.16); background: rgba(38, 38, 38, 0.96); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); white-space: pre; pointer-events: none; }
+.cc-tip { padding: 5px 10px; border-radius: 8px; font: 400 14.5px/1.25 var(--font-heading); color: #E6E6E6; }
+.cc-bubble { padding: 8px 13px; border-radius: 11px; -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.cc-tip.vis, .cc-bubble.vis { display: block; }
+.cc-bubble b { display: block; font: 400 17px/1.25 var(--font-heading); color: var(--white); }
+.cc-bubble span { font: 300 13.5px/1.3 var(--font-body); color: #9E9E9E; }
+.cc-bubble.opens span { color: #8fb3ea; }
+.cc-scrim { position: fixed; inset: 0; z-index: 1001; background: rgba(0, 0, 0, 0.35); }
+.cc-scrim[hidden] { display: none; }
+
+/* a wide window: the column is the left sidebar, beside the page and centered with it as a pair;
+   the wordmark sits on top with the house beside its foot, underlined by the opening dash */
+@media (min-width: 1001px) {
+    html.has-course-column .wrapper { justify-content: center; gap: 0; }
+    html.has-course-column .left_div { width: 272px; }
+    html.has-course-column .content { margin-left: 0; margin-right: 0; }
+    html.has-course-column .cc { position: sticky; top: 46px; }
+    .cc-g { left: auto; right: 0; }
+    .cc-mark { left: auto; right: 3px; }
+    .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
+    .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
+    .cc-home .cc-l { display: none; }   /* the wordmark above names it */
+    .cc-home .cc-g { color: var(--fg); }
+    .cc-home .cc-g svg { width: 13px; height: 13px; }
+    .cc-home.cc-here .cc-g { color: var(--link); }
+    .cc-wordmark .cc-l { justify-content: flex-start; overflow: visible; }   /* taller than its row */
+    .cc-wordmark .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
+    .cc-sep { display: block; width: 118px; height: 1px; background: #8f8f8f; }
+}
+/* narrower: the closed column floats (course.js places it), and opens into a card */
+@media (max-width: 1000px) {
+    html.has-course-column .cc {
+        position: fixed; z-index: 1003; left: 6px; top: 0; width: 36px; padding: 8px 4px; overflow: hidden; touch-action: none;
+        border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(var(--p) * 0.15));
+        background: rgba(36, 36, 36, var(--bg)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
+    }
+    html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
+    .cc-wordmark { display: none; }
+}
+@media (min-width: 651px) and (max-width: 1000px) {
+    html.has-course-column .wrapper { padding-left: 70px; padding-right: 20px; }   /* room beside the page for the column */
+}
+/* a phone: the column has a gutter of its own, so it never covers the start of a line */
+@media (max-width: 650px) {
+    html.has-course-column .content { padding-left: 38px; }
+    html.has-course-column .bc { margin-left: -8px; }
+    html.has-course-column .cc { left: 5px; }
+    .cc-part .cc-g { font-size: 15.5px; }
 }
 
 /* ---------- course home (part boxes, 0150) ---------- */

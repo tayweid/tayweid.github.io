@@ -44,9 +44,9 @@ is served, it uses the published copy.
 course:
   code: ECON 0100                  # page titles, and the wrapper class course-econ-0100
   title: Microeconomics
-  brand: [MICRO, ECON]             # nameplate lines in the left nav
-  home: econ-0150.html             # optional; the nameplate links here and the mobile nav gets Home
-  nav:                             # optional extra left-nav entries
+  brand: [MICRO, ECON]             # nameplate lines in the left nav (atop the course column on a row-card course)
+  home: econ-0150.html             # optional; the nameplate links here, and the mobile nav or the course column's house
+  nav:                             # optional extra left-nav entries (path-card courses; the course column has no place for them)
     - label: Office Hours          # a note: text lines above the buttons, nothing to click
       lines: ['*Taylor* Wed 2:30-3:30, Posvar 4702']   # quote a line that has a colon; *asterisks* italicise
     - label: Syllabus
@@ -72,7 +72,7 @@ A section is exactly one of a **block**, a **checkpoint**, or a **project**.
 ```yaml
 - block: A2
   folder: A2_Advantage             # with course.materials: the block's directory under Blocks/
-  nav: Advantage                   # right-nav label, shown as "A2 | Advantage"
+  nav: Advantage                   # right-nav label, shown as "A2 | Advantage" (the course column uses the title)
   title: Comparative advantage
   description: Why we specialize.  # *asterisks* italicize; no HTML anywhere
   episode:
@@ -145,12 +145,27 @@ label is added.
 **Which card a course gets.** A course with any block on the conventional triad (ECON 0100)
 draws all its blocks and checkpoints as row cards: the episode on the left, its video
 always 16:9, its animation deck and reading as small buttons on its title line; the
-practice on the right as rows, each with where it happens, a dot on the dashed line, the
-name, its files as small buttons (solutions in a dashed red frame), and a walkthrough's
-thumbnail. A file already on disk but held back by `post:` or `solutions:` shows as a faint
-button that says the day it posts. The card stays side by side at every width and trims
-its rows as it narrows (the steps are described in course.css). A course built only from
-explicit steps (ECON 0150, whose steps carry many named files) keeps the path card.
+practice on the right as rows, each a dot on the dashed line, the name with where it
+happens after it (Exercise IN CLASS), a line below with its files as small buttons
+(solutions in a dashed red frame) and, for homework, its day (just the day: no "Due", no
+time), and a walkthrough's thumbnail. A file already on disk but held back by `post:` or
+`solutions:` shows as a faint button that says the day it posts. The card keeps the same
+pieces at every width and scales them with its own width, running edge to edge on a phone
+(course.css has the details). A course built only from explicit steps (ECON 0150, whose
+steps carry many named files) keeps the path card.
+
+**The course column.** A row-card course also trades both side navs, and the phone's bottom
+bar, for one column: the `brand` nameplate and a house for `home`, a long dash opening the
+semester, a letter for each part with its title in small capitals, a tick for each block of
+the part on screen, faint dashes for the other parts' blocks (each links to its block), and
+a long dash closing the semester, named for the last part's checkpoint. A wide window shows
+it as the sidebar with the names beside it; narrower, it keeps to the ticks and letters and
+opens into a card when tapped. It has no place for `nav:` entries, so a row-card course leaves
+`nav:` out. The course's home page (`home:`) can show the same column: give its `<main>` the
+attribute `data-course-home`, put an empty `<div class="left_div" data-course-left-nav>`
+before it, load `js-yaml.min.js`, `course-schema.js` and `course-page.js` as a part shell
+does, and mark each heading the column should list with `data-course-nav` (the heading's text
+names it, or the attribute's value).
 
 ### Posting
 

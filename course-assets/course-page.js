@@ -9,14 +9,18 @@
  *
  * Loaded by the shell's bootstrap after js-yaml.min.js and course-schema.js. When the page
  * is done it inserts course.js (from the same base) to wire up video cards, the scroll spy,
- * and the mobile nav.
+ * and the navigation.
+ *
+ * A course's own home page (course.html) is written by hand; marked data-course-home, it gets
+ * only the course column from this file (courses on the row card; see renderCourseColumn).
  */
 (function () {
     'use strict';
 
-    const page = document.querySelector('[data-course-part]');
+    const page = document.querySelector('[data-course-part]') || document.querySelector('[data-course-home]');
     if (!page) return;
-    page.setAttribute('aria-busy', 'true');
+    const homePage = !page.hasAttribute('data-course-part');
+    if (!homePage) page.setAttribute('aria-busy', 'true');
 
     let partId = page.dataset.coursePart;   // 'current' is resolved once the YAML is read
     const SOURCE = 'course-content.yaml.js';
@@ -327,10 +331,10 @@
     // A course whose blocks use the conventional triad (ECON 0100) gets this card for its blocks
     // and checkpoints; a course built only from explicit steps (ECON 0150, whose steps carry many
     // named files) keeps the path card above. The episode is on the left, its video always 16:9;
-    // the practice is a column of rows on the right: where it happens, a dot on a dashed line, the
-    // name, its files as small buttons (solutions drawn in red), and a walkthrough's thumbnail.
-    // The card stays side by side at every width: course.css trims the rows as the card narrows
-    // (container queries on .bc-wrap), down to a phone, where it runs edge to edge.
+    // the practice is a column of rows on the right: a dot on a dashed line, the name and where it
+    // happens, its files as small buttons under it (solutions drawn in red) with the day, and a
+    // walkthrough's thumbnail. The card keeps the same pieces at every width and scales them with
+    // its own width (container queries on .bc-wrap), down to a phone, where it runs edge to edge.
     let rowCards = false;
 
     function usesRowCards() {
@@ -412,11 +416,18 @@
         return buttons;
     }
 
+    // A row's date line is just the day ("Sun Oct 18"): no "Due" in front and no time of day.
+    function dayOnly(text) {
+        if (!text) return null;
+        return String(text).replace(/^\s*due\s+/i, '').replace(/,?\s*(at\s+)?\d{1,2}(:\d{2})?\s*(am|pm)\b.*$/i, '').trim() || null;
+    }
+
+    // A row: a dot on the dashed line, the name with where it happens after it (Exercise IN CLASS),
+    // then a line of its own with the file buttons and the day, under the name and a little in.
     function rowStep({ name, letter, owner, where, buttons = [], due, sub, date, video, image, href, classes = '', dotClasses = '' }) {
         const step = element('li', `bc-step${classes ? ` ${classes}` : ''}`);
         const last = schema.lastDate(date);
         if (last) step.dataset.date = last;
-        step.append(element('span', 'bc-where', where || ''));
         const dot = element('span', `bc-dot${dotClasses ? ` ${dotClasses}` : ''}`);
         dot.setAttribute('aria-hidden', 'true');
         step.append(dot);
@@ -428,13 +439,17 @@
         short.title = name;
         nm.append(element('span', 'bc-full', name), short);
         title.append(nm);
+        if (where) title.append(element('span', 'bc-where', where));
+        head.append(title);
+        const chips = element('div', 'bc-chips');
         const icons = element('span', 'bc-ico');
         buttons.forEach(button => icons.append(button));
         if (video) icons.append(videoButton(video, owner || name));
-        if (icons.childNodes.length) title.append(icons);
-        head.append(title);
-        if (sub) head.append(element('p', 'bc-due bc-sub', sub));
-        if (due) head.append(element('p', 'bc-due', due));
+        if (icons.childNodes.length) chips.append(icons);
+        if (sub) chips.append(element('span', 'bc-due bc-sub', sub));
+        const day = dayOnly(due);
+        if (day) chips.append(element('span', 'bc-due', day));
+        if (chips.childNodes.length) head.append(chips);
         step.append(head);
         const target = video ? `https://www.youtube.com/watch?v=${video}` : (image && href ? String(href) : null);
         if (target) {
@@ -909,6 +924,128 @@
         rightSlot.replaceChildren(nav);
     }
 
+    // ---------- the course column ----------
+
+    // A course on the row card gets all its navigation in one column, in the left slot: the
+    // wordmark, home, a long dash opening the semester, a letter for each part, a dash for each
+    // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
+    // and a long dash closing the semester, named for the last checkpoint. On a wide window the
+    // names sit beside it; course.js sizes it, follows the reader down the page, and on narrow
+    // windows and phones keeps it to the dashes and letters until it is opened into a card.
+    const HOUSE = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.2 4.6L5 1.4l3.8 3.2V8.6H1.2z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+
+    // What a section adds to the column: a block, the checkpoint, or a project.
+    function columnEntry(id, section) {
+        if (section.block !== undefined) {
+            return { kind: 'block', id: String(section.block), title: section.title || section.nav, anchor: schema.blockElementId(section.block) };
+        }
+        if (section.checkpoint !== undefined) {
+            return { kind: 'cp', id: '', title: `${schema.checkpointWord(course)} ${id}`, anchor: schema.checkpointElementId(course) };
+        }
+        if (section.project !== undefined) return { kind: 'block', id: '', title: section.project.nav, anchor: section.project.id };
+        return null;
+    }
+
+    // One row: a glyph on the column, a name beside it. A row for this page scrolls to its
+    // section (data-target); any other row is an ordinary link.
+    function columnRow(kind, { href, target, here = false, mine = false, tip = '' } = {}) {
+        const linked = href !== undefined || target !== undefined;
+        const row = element(linked ? 'a' : 'span', `cc-r cc-${kind}${here ? ' cc-here' : ''}`);
+        if (linked) row.href = target !== undefined ? `#${target}` : href;
+        if (target !== undefined) row.dataset.target = target;
+        if (mine) row.dataset.mine = '';
+        if (here) row.setAttribute('aria-current', 'page');
+        if (tip) row.dataset.tip = tip;
+        const glyph = element('span', 'cc-g');
+        glyph.setAttribute('aria-hidden', 'true');
+        row.append(glyph, element('span', 'cc-l'));
+        return row;
+    }
+
+    function columnLine(row, id, title) {
+        const line = element('span', 'cc-line');
+        if (id) line.append(element('span', 'cc-id', id));
+        line.append(element('span', 'cc-t', title));
+        row.querySelector('.cc-l').append(line);
+        row.querySelector('.cc-g').append(element('i'));
+        return row;
+    }
+
+    // currentId is the part on screen, or null on the course's home page, whose own sections
+    // (headings marked data-course-nav) then take the place of a part's blocks.
+    function renderCourseColumn(currentId) {
+        if (!leftSlot) return;
+        const meta = course.course;
+        const onHome = currentId === null;
+        const home = meta.home || '';
+        const brand = () => {
+            const mark = element('span', 'cc-brand');
+            items(meta.brand).forEach(line => mark.append(element('span', null, line)));
+            return mark;
+        };
+        const nav = element('nav', 'cc');
+        nav.setAttribute('aria-label', 'Course');
+        const list = element('div', 'cc-rows');
+        const homeLink = onHome ? { href: '#' } : home ? { href: home } : {};   // '#': the top of this page
+        const brandText = items(meta.brand).join(' ');
+
+        const wordmark = columnRow('wordmark', onHome ? {} : homeLink);
+        wordmark.querySelector('.cc-l').append(brand());
+        const homeRow = columnRow('home', { ...homeLink, here: onHome, mine: onHome, tip: `${brandText} · course page` });
+        homeRow.querySelector('.cc-g').innerHTML = HOUSE;
+        homeRow.querySelector('.cc-l').append(brand());
+        const start = columnRow('start');
+        start.querySelector('.cc-g').append(element('i'));
+        start.querySelector('.cc-l').append(element('span', 'cc-sep'));
+        list.append(wordmark, homeRow, start);
+
+        if (onHome) {
+            document.querySelectorAll('main [data-course-nav]').forEach(heading => {
+                const holder = heading.id ? heading : heading.closest('[id]');
+                if (!holder) return;
+                const title = heading.dataset.courseNav || heading.textContent.trim();
+                list.append(columnLine(columnRow('block', { target: holder.id, mine: true, tip: title }), '', title));
+            });
+        }
+
+        const ids = Object.keys(course.parts);
+        ids.forEach(id => {
+            const part = course.parts[id];
+            const here = id === currentId;
+            const letter = columnRow('part', here ? { href: '#', here: true, mine: true } : { href: partPage(id) });
+            letter.dataset.tip = `Part ${id}  ${part.title}`;
+            letter.querySelector('.cc-g').textContent = id;
+            letter.querySelector('.cc-l').append(element('span', 'cc-t', part.title));
+            list.append(letter);
+            items(part.sections).forEach(section => {
+                const entry = columnEntry(id, section);
+                if (!entry) return;
+                const tip = entry.id ? `${entry.id}  ${entry.title}` : entry.title;
+                if (here) list.append(columnLine(columnRow(entry.kind, { target: entry.anchor, mine: true, tip }), entry.id, entry.title));
+                else {
+                    const faint = columnRow('faint', { href: `${partPage(id)}#${entry.anchor}`, tip });
+                    faint.querySelector('.cc-g').append(element('i'));
+                    faint.setAttribute('aria-label', `Part ${id}: ${tip}`);
+                    list.append(faint);
+                }
+            });
+        });
+
+        // the closing dash: the last checkpoint, when the last part has one
+        const lastId = ids[ids.length - 1];
+        const closing = lastId !== undefined && items(course.parts[lastId].sections).some(section => section.checkpoint !== undefined);
+        const anchor = schema.checkpointElementId(course);
+        const endTitle = closing ? `${schema.checkpointWord(course)} ${lastId}` : '';
+        const end = columnRow('end', !closing ? {} : lastId === currentId ? { target: anchor } : { href: `${partPage(lastId)}#${anchor}` });
+        if (endTitle) end.dataset.tip = endTitle;
+        columnLine(end, '', endTitle);
+        list.append(end);
+
+        nav.append(list);
+        leftSlot.replaceChildren(nav);
+        document.documentElement.classList.add('has-course-column');
+    }
+
     // ---------- conventional files ----------
 
     // A page opened from disk has an opaque origin where every fetch is refused, but the
@@ -965,8 +1102,13 @@
         });
         fragment.append(element('div', 'bottom-spacer'));
         output.replaceChildren(fragment);
-        renderLeftNavigation();
-        renderRightNavigation(part);
+        if (rowCards && leftSlot) {
+            renderCourseColumn(partId);
+            if (rightSlot) rightSlot.replaceChildren();
+        } else {
+            renderLeftNavigation();
+            renderRightNavigation(part);
+        }
         document.title = `${course.course.code} | Part ${partId}`;
         const wrapper = document.querySelector('.wrapper');
         if (wrapper) wrapper.classList.add(`course-${course.course.code.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`);
@@ -1004,6 +1146,28 @@
         return window.COURSE_CONTENT_YAML;
     }
 
+    // The course's home page: once its deferred scripts (the course content among them) have run,
+    // read the YAML and draw the course column, if the course uses one.
+    async function loadHome() {
+        if (document.readyState === 'loading') await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }));
+        try {
+            if (!window.jsyaml || typeof window.jsyaml.load !== 'function') throw new Error('The YAML reader did not load.');
+            schema = window.CourseSchema;
+            if (!schema) throw new Error('course-schema.js did not load.');
+            const { course: validated, errors } = schema.validate(window.jsyaml.load(readSource(), { maxDepth: 100 }));
+            if (errors.length) throw new Error(`${SOURCE} has ${errors.length} problem${errors.length === 1 ? '' : 's'}; the first is ${errors[0]}`);
+            course = validated;
+            rowCards = usesRowCards();
+            if (!rowCards) return;
+            renderCourseColumn(null);
+            page.dataset.courseReady = 'true';
+            enhance();
+            document.dispatchEvent(new CustomEvent('course-content-ready', { detail: { part: null } }));
+        } catch (error) {
+            console.error(error);   // the page itself is written by hand and still reads fine without the column
+        }
+    }
+
     async function load() {
         try {
             if (!output) throw new Error('The page shell has no data-course-output slot.');
@@ -1039,5 +1203,5 @@
         }
     }
 
-    load();
+    if (homePage) loadHome(); else load();
 }());

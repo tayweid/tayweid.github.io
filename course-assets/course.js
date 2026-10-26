@@ -19,7 +19,8 @@ function courseRefreshContent() {
   setupTopicToggles();
   setupPathDates();
 }
-function courseInit() { courseRefreshContent(); setupMobileNav(); }
+// A course with the course column has no bottom bar on a phone: the column is its navigation there too.
+function courseInit() { courseRefreshContent(); if (!setupCourseColumn()) setupMobileNav(); }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', courseInit);
 else courseInit();
 
@@ -300,6 +301,279 @@ function setupMobileNav() {
   });
   // Leaving phone width with the sheet open would strand it.
   window.matchMedia('(min-width: 651px)').addEventListener('change', event => { if (event.matches) setOpen(false); });
+}
+
+// The course column (course-page.js draws it for courses on the row card). On a wide window it is
+// the left sidebar, names beside its dashes and letters. Narrower, only the dashes and letters show,
+// beside the page (a narrow window) or in a gutter (a phone), and a tap or click opens them into a
+// card: the rows spread, the names fade in, and the row the card opened around stays put. It marks
+// the block on screen, tints the stretch of the column this page covers with a frame round what is
+// in view, names any dash at once under a pointer, and a finger sliding along the closed column moves
+// through the page, or, onto another part, opens that part on release.
+function setupCourseColumn() {
+  const card = document.querySelector('.cc');
+  if (!card) return false;
+  if (card.dataset.ready) return true;
+  card.dataset.ready = 'true';
+  const root = document.documentElement;
+  const list = card.querySelector('.cc-rows');
+  const content = document.querySelector('main.content') || document.querySelector('.content');
+  const KINDS = ['wordmark', 'home', 'start', 'part', 'block', 'cp', 'faint', 'end'];
+  const rows = Array.from(list.querySelectorAll('.cc-r')).map(node => {
+    const target = node.dataset.target;
+    const href = node.getAttribute('href');
+    return {
+      node, kind: KINDS.find(kind => node.classList.contains(`cc-${kind}`)) || 'block',
+      here: node.classList.contains('cc-here'), mine: node.hasAttribute('data-mine'),
+      el: target ? document.getElementById(target) : null,
+      href: !target && href && href !== '#' ? node.href : null,
+      tip: node.dataset.tip || ''
+    };
+  });
+  const headRow = rows.find(row => row.here) || rows[0];
+  const mineRows = rows.filter(row => row.mine);
+
+  const scrim = el('div', { className: 'cc-scrim', hidden: true });
+  const tip = el('div', { className: 'cc-tip' });
+  const bubble = el('div', { className: 'cc-bubble' });
+  const bubbleTitle = el('b');
+  const bubbleSub = el('span');
+  bubble.append(bubbleTitle, bubbleSub);
+  const pageMark = el('span', { className: 'cc-mark' });
+  const viewMark = el('span', { className: 'cc-mark cc-view' });
+  list.prepend(pageMark, viewMark);
+  document.body.append(scrim, tip, bubble);
+
+  // Each row has a height when the column is closed and one when it is open (a wide window's is open).
+  // Home and the part letters space alike and the long dashes like the faint ones, so every step down
+  // the column is the same. The wordmark shows only on a wide window, a little shorter than itself so
+  // the house sits beside the foot of it.
+  const G = 28, PAD = 4, PADV = 8, WORDMARK = 44;
+  const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
+  const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
+  const SHUT_PHONE = { wordmark: 0, home: 24, start: 5, part: 24, block: 18, cp: 18, faint: 5, end: 24 };
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const ease = k => 1 - Math.pow(1 - k, 3);
+  let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
+  let cur = null, hot = null, down = null, pending = null, swallowClick = false;
+
+  const heightAt = (row, q) => {
+    if (mode === 'wide' && row.kind === 'wordmark') return WORDMARK;
+    const shut = (mode === 'phone' ? SHUT_PHONE : SHUT)[row.kind];
+    return shut + (OPEN[row.kind] - shut) * q;
+  };
+  function offsets(q) {
+    let y = 0;
+    return rows.map(row => { const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
+      .concat([{ top: y }]);
+  }
+
+  // This page's stretch of the column, a little above its letter (or the house) to a little below its
+  // last block, tinted; and inside it a frame round the rows the window shows, which never pokes out.
+  function placeMarks(o) {
+    const first = rows.indexOf(headRow);
+    let last = first;
+    rows.forEach((row, i) => { if (row.mine) last = Math.max(last, i); });
+    const padTop = Math.min(13, o[first].h / 2 + 1);
+    const padBottom = Math.min(13, o[last].h / 2 + 1);
+    const span = [o[first].mid - padTop, o[last].mid + padBottom];
+    const at = docY => {
+      const measured = mineRows.filter(row => row.yd !== undefined);
+      let k = 0;
+      while (k + 1 < measured.length && measured[k + 1].yd <= docY) k += 1;
+      const from = measured[k], next = measured[k + 1];
+      const a = o[rows.indexOf(from)], b = next ? o[rows.indexOf(next)] : null;
+      const end = next ? next.yd : Math.max(from.yd + 1, root.scrollHeight);
+      const t = Math.min(1, Math.max(0, (docY - from.yd) / Math.max(1, end - from.yd)));
+      return b ? a.mid + t * (b.mid - a.mid) : a.mid + t * (a.h / 2 + 4);
+    };
+    const put = (node, top, bottom) => { node.style.top = `${top}px`; node.style.height = `${Math.max(4, bottom - top)}px`; };
+    put(pageMark, span[0], span[1]);
+    put(viewMark, Math.max(span[0], at(scrollY) - padTop), Math.min(span[1], at(scrollY + innerHeight) + padBottom));
+  }
+
+  function layout() {
+    const q = mode === 'wide' ? 1 : p;
+    const o = offsets(q);
+    rows.forEach((row, i) => {
+      row.node.style.height = `${o[i].h}px`;
+      row.node.style.setProperty('--gy', `${o[i].h / 2}px`);
+    });
+    card.style.setProperty('--q', mode === 'wide' ? 1 : Math.max(0, Math.min(1, (p - 0.35) / 0.65)));
+    card.style.setProperty('--p', mode === 'wide' ? 0 : p);
+    placeMarks(o);
+    if (mode === 'wide') {
+      ['width', 'top', 'left'].forEach(prop => { card.style[prop] = ''; });
+      card.classList.remove('opening');
+      return;
+    }
+    // a narrow window: the closed column sits just left of the page's text; a phone: in its gutter
+    const shut = G + 2 * PAD;
+    let left = 5;
+    if (mode === 'narrow' && content) {
+      const box = content.getBoundingClientRect();
+      left = Math.max(6, box.left + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
+    }
+    card.style.left = `${left}px`;
+    const wide = Math.min(310, innerWidth - left - 10);
+    card.style.width = `${shut + (wide - shut) * ease(p)}px`;
+    // The row the card opens around is chosen while it is closed and then held, so scrolling with the
+    // card open changes what is marked on it, never where it sits.
+    const total = o[o.length - 1].top + 2 * PADV;
+    if (p === 0 || anchorY === null) {
+      anchorRow = Math.max(0, rows.indexOf(cur || headRow));
+      const closed = offsets(0);
+      const top0 = innerHeight * (mode === 'phone' ? 0.55 : 0.5) - (closed[closed.length - 1].top + 2 * PADV) / 2;
+      anchorY = top0 + PADV + closed[anchorRow].mid;
+    }
+    const top = anchorY - PADV - o[anchorRow].mid;
+    card.style.top = `${Math.max(8, Math.min(innerHeight - total - 8, top))}px`;
+    card.classList.toggle('opening', p > 0);
+  }
+
+  function animate(to) {
+    target = to;
+    hideTip();
+    cancelAnimationFrame(anim);
+    scrim.hidden = to === 0;
+    card.classList.toggle('is-open', to === 1);
+    if (reduceMotion.matches) { p = to; layout(); return; }
+    const from = p, start = performance.now(), duration = 300;
+    const step = now => {
+      const k = Math.min(1, (now - start) / duration);
+      p = from + (to - from) * ease(k);
+      layout();
+      if (k < 1) anim = requestAnimationFrame(step);
+    };
+    anim = requestAnimationFrame(step);
+  }
+  const close = () => { if (target === 1) animate(0); };
+
+  function measure() {
+    const previous = mode;
+    mode = innerWidth > 1000 ? 'wide' : innerWidth > 650 ? 'narrow' : 'phone';
+    ['wide', 'narrow', 'phone'].forEach(name => root.classList.toggle(`cc-${name}`, name === mode));
+    if (previous !== mode) { p = 0; target = 0; scrim.hidden = true; card.classList.remove('is-open'); anchorY = null; }
+    mineRows.forEach(row => { row.yd = row === headRow ? 0 : row.el ? row.el.getBoundingClientRect().top + scrollY : undefined; });
+    paint();
+  }
+  // The block on screen is the last of this page's sections to have passed 30% of the way down.
+  function paint() {
+    frame = 0;
+    const line = scrollY + innerHeight * 0.3;
+    cur = null;
+    mineRows.forEach(row => { if (row !== headRow && row.yd !== undefined && row.yd <= line) cur = row; });
+    rows.forEach(row => {
+      row.node.classList.toggle('cc-cur', row === cur);
+      row.node.classList.toggle('hot', row === hot);
+    });
+    layout();
+  }
+  const schedule = () => { if (!frame) frame = requestAnimationFrame(paint); };
+
+  // Names at once under a pointer (a title attribute waits too long): every row of a closed column,
+  // toward the page; open or wide, the faint dashes, which have no names of their own showing.
+  function showTip(row) {
+    const closed = mode !== 'wide' && target === 0;
+    if (!row.tip || down || (!closed && row.kind !== 'faint')) return;
+    const glyph = row.node.querySelector('.cc-g').getBoundingClientRect();
+    const box = card.getBoundingClientRect();
+    tip.textContent = row.tip;
+    tip.classList.add('vis');
+    tip.style.top = `${glyph.top + glyph.height / 2}px`;
+    const toLeft = !closed && mode === 'wide';   // a wide window's names sit left of the column
+    if (toLeft) { tip.style.left = 'auto'; tip.style.right = `${innerWidth - glyph.left + 6}px`; }
+    else { tip.style.right = 'auto'; tip.style.left = `${(closed ? box.right : glyph.right) + 6}px`; }
+  }
+  function hideTip() { tip.classList.remove('vis'); }
+  rows.forEach(row => {
+    row.node.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') showTip(row); });
+    row.node.addEventListener('pointerleave', hideTip);
+    row.node.addEventListener('click', event => {
+      if (swallowClick) { event.preventDefault(); return; }
+      // a closed column opens on release (a key press still follows the link)
+      if (mode !== 'wide' && target === 0 && event.detail !== 0) { event.preventDefault(); return; }
+      if (row.kind === 'start' || (row.kind === 'end' && !row.href && !row.el)) { event.preventDefault(); return; }
+      if (row.href) return;   // another part, its blocks, or the course page: an ordinary link
+      event.preventDefault();
+      const top = row === headRow || !row.el ? 0 : Math.max(0, row.el.getBoundingClientRect().top + scrollY - 24);
+      window.scrollTo({ top, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      close();
+    });
+  });
+  scrim.addEventListener('click', close);
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
+
+  // A press on the closed column: a tap opens it; a slide moves through this page, and onto another
+  // part (or one of its blocks) offers to open it on release.
+  const rowAt = y => { const o = offsets(p); let best = rows[0]; rows.forEach((row, i) => { if (y >= o[i].top) best = row; }); return best; };
+  const midOf = row => offsets(p)[rows.indexOf(row)].mid;
+  const localY = event => event.clientY - card.getBoundingClientRect().top - PADV;
+  function showBubble(row, title, sub, opens) {
+    const box = card.getBoundingClientRect();
+    bubble.classList.add('vis');
+    bubble.classList.toggle('opens', opens);
+    bubble.style.top = `${box.top + PADV + midOf(row)}px`;
+    bubble.style.left = `${box.right + 8}px`;
+    bubbleTitle.textContent = title;
+    bubbleSub.textContent = sub;
+  }
+  card.addEventListener('pointerdown', event => {
+    if (mode === 'wide' || target === 1) return;
+    try { card.setPointerCapture(event.pointerId); } catch (error) { /* already released */ }
+    down = { y: localY(event), moved: false };
+    hot = rowAt(down.y);
+    hideTip();
+    schedule();
+  });
+  card.addEventListener('pointermove', event => {
+    if (mode === 'wide' || target === 1) return;
+    const y = localY(event);
+    if (!down) { const row = rowAt(y); if (row !== hot) { hot = row; schedule(); } return; }
+    if (Math.abs(y - down.y) > 6) down.moved = true;
+    if (!down.moved) return;
+    const row = rowAt(y);
+    hot = row;
+    if (row.mine) {
+      pending = null;
+      let k = 0;
+      while (k + 1 < mineRows.length && midOf(mineRows[k + 1]) <= y) k += 1;
+      const from = mineRows[k], next = mineRows[k + 1];
+      const fromY = from.yd || 0;
+      const nextY = next && next.yd !== undefined ? next.yd : Math.max(fromY + 1, root.scrollHeight - innerHeight);
+      const t = Math.min(1, Math.max(0, (y - midOf(from)) / (next ? midOf(next) - midOf(from) : 12)));
+      window.scrollTo({ top: Math.max(0, fromY + t * (nextY - fromY) - innerHeight * 0.3 + 1), behavior: 'auto' });
+      const shown = mineRows[t > 0.5 && next ? k + 1 : k];
+      showBubble(row, shown === headRow ? (headRow.kind === 'home' ? headRow.tip : headRow.node.dataset.tip || '') : shown.tip, shown === headRow ? 'top of the page' : '', false);
+    } else if (row.href) {
+      pending = row.href;
+      showBubble(row, row.tip, 'let go to open →', true);
+    } else {
+      pending = null;
+      bubble.classList.remove('vis');
+    }
+    schedule();
+  });
+  const release = () => {
+    const pressed = down;
+    down = null;
+    bubble.classList.remove('vis');
+    if (!pressed) return;
+    if (pressed.moved && pending) { location.href = pending; return; }
+    if (!pressed.moved) { animate(1); swallowClick = true; setTimeout(() => { swallowClick = false; }, 60); }
+    pending = null;
+    hot = null;
+    schedule();
+  };
+  card.addEventListener('pointerup', release);
+  card.addEventListener('pointercancel', release);
+  card.addEventListener('pointerleave', () => { if (!down && hot) { hot = null; schedule(); } });
+
+  window.addEventListener('scroll', () => { hideTip(); schedule(); }, { passive: true });
+  window.addEventListener('resize', measure);
+  if (window.ResizeObserver) new ResizeObserver(() => measure()).observe(document.body);
+  measure();
+  return true;
 }
 
 // Topic toggle: click collapses/expands the card list below it and flips
