@@ -775,6 +775,12 @@ img.placeholder-bg { display: none; }
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+/* a wide card's practice sits in from the panel's edge, about where the old place-label column put it;
+   the indent shrinks with the card and is gone by the time the card turns compact */
+@container (min-width: 600px) {
+    .bc-steps { padding-left: calc(clamp(12px, 2cqi, 18px) + var(--gap) + clamp(0px, 14cqi - 56px, 64px)); }
+}
+
 /* a smaller card (a narrow window, a phone): the practice would grow taller than the video beside it,
    so it sheds what makes it tall. The optional extras go, and the place labels; the file buttons
    move up beside the name, and a day stays under it. Where an extra sat between two rows, the
