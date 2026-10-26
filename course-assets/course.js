@@ -305,8 +305,10 @@ function setupMobileNav() {
 
 // The course column (course-page.js draws it for courses on the row card). On a wide window it is
 // the left sidebar, names beside its dashes and letters. Narrower, only the dashes and letters show,
-// beside the page (a narrow window) or in a gutter (a phone), and a tap or click opens them into a
-// card: the rows spread, the names fade in, and the row the card opened around stays put. It marks
+// beside the page (a narrow window) or in a gutter (a phone), and a tap opens them into a card: the
+// rows spread, the names fade in, and the row the card opened around stays put. A mouse goes straight
+// to what the closed column shows by name (the house, a letter, this part's ticks); a click on another
+// part's faint dashes opens the card like a tap. It marks
 // the block on screen, tints the stretch of the column this page covers with a frame round what is
 // in view, names any dash at once under a pointer, and a finger sliding along the closed column moves
 // through the page, or, onto another part, opens that part on release.
@@ -348,7 +350,7 @@ function setupCourseColumn() {
   // Home and the part letters space alike and the long dashes like the faint ones, so every step down
   // the column is the same. The wordmark shows only on a wide window, a little shorter than itself so
   // the house sits beside the foot of it.
-  const G = 28, PAD = 4, PADV = 8, WORDMARK = 44;
+  const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
   const SHUT_PHONE = { wordmark: 0, home: 24, start: 5, part: 24, block: 18, cp: 18, faint: 5, end: 24 };
@@ -408,8 +410,8 @@ function setupCourseColumn() {
       return;
     }
     // a narrow window: the closed column sits just left of the page's text; a phone: in its gutter
-    const shut = G + 2 * PAD;
-    let left = 5;
+    const shut = mode === 'phone' ? 26 : G + 2 * PAD;   // a phone's closed column is a little slimmer (course.css)
+    let left = mode === 'phone' ? 2 : 4;
     if (mode === 'narrow' && content) {
       const box = content.getBoundingClientRect();
       left = Math.max(6, box.left + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
@@ -422,8 +424,10 @@ function setupCourseColumn() {
     const total = o[o.length - 1].top + 2 * PADV;
     if (p === 0 || anchorY === null) {
       anchorRow = Math.max(0, rows.indexOf(cur || headRow));
+      // closed, it sits where a wide window's sidebar does, at the top; on a phone a little below the
+      // middle, where a thumb reaches it
       const closed = offsets(0);
-      const top0 = innerHeight * (mode === 'phone' ? 0.55 : 0.5) - (closed[closed.length - 1].top + 2 * PADV) / 2;
+      const top0 = mode === 'phone' ? innerHeight * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
       anchorY = top0 + PADV + closed[anchorRow].mid;
     }
     const top = anchorY - PADV - o[anchorRow].mid;
@@ -491,16 +495,21 @@ function setupCourseColumn() {
     row.node.addEventListener('pointerleave', hideTip);
     row.node.addEventListener('click', event => {
       if (swallowClick) { event.preventDefault(); return; }
-      // a closed column opens on release (a key press still follows the link)
+      // a closed column acts on release (a key press still follows the link)
       if (mode !== 'wide' && target === 0 && event.detail !== 0) { event.preventDefault(); return; }
       if (row.kind === 'start' || (row.kind === 'end' && !row.href && !row.el)) { event.preventDefault(); return; }
       if (row.href) return;   // another part, its blocks, or the course page: an ordinary link
       event.preventDefault();
-      const top = row === headRow || !row.el ? 0 : Math.max(0, row.el.getBoundingClientRect().top + scrollY - 24);
-      window.scrollTo({ top, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-      close();
+      scrollToRow(row);
     });
   });
+  function scrollToRow(row) {
+    const top = row === headRow || !row.el ? 0 : Math.max(0, row.el.getBoundingClientRect().top + scrollY - 24);
+    window.scrollTo({ top, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    close();
+  }
+  // what a mouse click on the closed column follows without opening it: the rows it names on sight
+  const direct = row => row.kind === 'home' || row.kind === 'part' || (row.mine && (row.kind === 'block' || row.kind === 'cp'));
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
 
@@ -521,7 +530,7 @@ function setupCourseColumn() {
   card.addEventListener('pointerdown', event => {
     if (mode === 'wide' || target === 1) return;
     try { card.setPointerCapture(event.pointerId); } catch (error) { /* already released */ }
-    down = { y: localY(event), moved: false };
+    down = { y: localY(event), moved: false, mouse: event.pointerType === 'mouse' };
     hot = rowAt(down.y);
     hideTip();
     schedule();
@@ -554,13 +563,22 @@ function setupCourseColumn() {
     }
     schedule();
   });
-  const release = () => {
+  const release = event => {
     const pressed = down;
     down = null;
     bubble.classList.remove('vis');
     if (!pressed) return;
     if (pressed.moved && pending) { location.href = pending; return; }
-    if (!pressed.moved) { animate(1); swallowClick = true; setTimeout(() => { swallowClick = false; }, 60); }
+    if (!pressed.moved) {
+      swallowClick = true;
+      setTimeout(() => { swallowClick = false; }, 60);
+      const row = rowAt(pressed.y);
+      if (pressed.mouse && event.type === 'pointerup' && direct(row)) {
+        if (!row.href) scrollToRow(row);
+        else if (event.metaKey || event.ctrlKey) window.open(row.href, '_blank', 'noopener');
+        else location.href = row.href;
+      } else animate(1);
+    }
     pending = null;
     hot = null;
     schedule();

@@ -780,24 +780,39 @@ img.placeholder-bg { display: none; }
    move up beside the name, and a day stays under it. Where an extra sat between two rows, the
    dashed line joins them. */
 @container (max-width: 599px) {
+    /* short rows need less room and the episode takes it; enough stays for Homework and its two buttons on one line */
+    .bc { --prac: clamp(250px, 44cqi, 300px); }
+    .bc-checkpoint, .bc-named { --prac: clamp(270px, 48cqi, 320px); }
     .bc-opt { display: none; }
     .bc-to-extra::after { display: none; }
     .bc-step:has(+ .bc-opt):not(.bc-to-extra)::after { width: auto; background: none; border-left: 2px dashed rgba(255, 255, 255, 0.24); }
     .bc-where { display: none; }
-    .bc-head { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; }
-    .bc-chips { display: contents; }
-    .bc-chips .bc-due { flex-basis: 100%; margin-top: 1px; }
-    .bc-step { min-height: calc(var(--nf) * 1.3 + 26px); }   /* rows with and without a day line keep the dots evenly spaced */
+    .bc-chips .bc-due { margin-top: 0; font-size: 12px; line-height: 1.1; }
+    /* closer rows; one with a day line is no taller than one without, so the dots stay evenly spaced */
+    .bc-step { --dot: calc(2px + var(--nf) * 0.65); padding: 2px 0; min-height: calc(var(--nf) * 1.3 + 18px); }
+    /* the rows share one grid, so the file buttons line up in a column just past the longest name, the
+       way the thumbnails line up at the right; a row without files (Checkpoint D) doesn't push it out */
+    .bc-steps { display: grid; grid-template-columns: 12px auto minmax(max-content, 1fr) var(--tw); column-gap: var(--gap); align-content: start; }
+    .bc-steps > * { grid-column: 1 / -1; }
+    .bc-step { grid-template-columns: subgrid; align-content: start; }
+    .bc-head, .bc-chips { display: contents; }
+    .bc-name { grid-column: 2; grid-row: 1; }
+    .bc-step:not(:has(.bc-ib:not(.bc-vid))) .bc-name { grid-column: 2 / 4; }
+    .bc-ico { grid-column: 3; grid-row: 1; justify-self: start; margin: calc((var(--nf) * 1.3 - 22px) / 2) 0 0 max(0px, calc(8px - var(--gap))); }
+    .bc-chips .bc-due { grid-column: 2 / 4; grid-row: 2; }
+    .bc-step > .bc-thumb { grid-column: 4; grid-row: 1 / span 2; }
+    /* no walkthroughs in the card: the button column moves over a little into the room they'd take */
+    .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) .bc-ico { margin-left: calc(var(--tw) / 2); }
 }
 /* a phone: the card runs edge to edge, at its smallest sizes, and the episode's buttons ride on its video */
 @container (max-width: 439px) {
     .bc {
-        --prac: 236px; --gap: 6px; --tw: 46px; --th: 26px; --nf: 17px; --pb: 30px;
+        --prac: 216px; --gap: 5px; --tw: 42px; --th: 24px; --nf: 16px; --pb: 30px;
         margin: 0 calc(-1 * var(--page-gutter, 0px));
         border-left: 0; border-right: 0; border-radius: 0;
     }
-    .bc-checkpoint, .bc-named { --prac: 236px; }
-    .bc-steps { padding: 8px 8px 8px calc(8px + var(--gap)); }
+    .bc-checkpoint, .bc-named { --prac: 226px; }
+    .bc-steps { padding: 6px 6px 6px calc(6px + var(--gap)); }
     .bc-label { font-size: 10px; }
     .bc-name { column-gap: 6px; }
     .bc-chips { margin-top: 3px; column-gap: 8px; }
@@ -822,8 +837,9 @@ img.placeholder-bg { display: none; }
     .bc-prac .bc-letter { display: inline; }
     .bc-where { display: none; }
     .bc-step > .bc-thumb { display: none; }
-    .bc-step .bc-head { grid-column: 2 / -1; }
+    .bc-steps { grid-template-columns: 12px auto minmax(max-content, 1fr); }   /* no thumbnail column */
     .bc-ib.bc-vid { display: inline-flex; }
+    .bc-step:has(.bc-vid) .bc-name { grid-column: 2; }   /* its video button joins the column */
 }
 
 /* ---------- course column (course-page.js draws it, course.js lays it out) ----------
@@ -838,6 +854,13 @@ img.placeholder-bg { display: none; }
    floating, the card's place. This page's stretch of the column is tinted blue, with a frame
    round what the window shows. */
 html.has-course-column .right_div { display: none; }
+html.has-course-column .wrapper { gap: 0; }
+/* below a wide window the column (and its frame for what is in view) does the scrollbar's job; the
+   page scrolls as before, and the bar's width goes to the page */
+@media (max-width: 1000px) {
+    html.has-course-column { scrollbar-width: none; }
+    html.has-course-column::-webkit-scrollbar { display: none; }
+}   /* the column's slot sits in the row; no gap beside it */
 html.has-course-column .left_div { display: block; width: 0; margin-left: 0; }
 html.has-course-column .left_div > nav.cc { text-align: left; }
 .cc { --p: 0; --q: 1; --bg: 0; user-select: none; -webkit-user-select: none; }
@@ -899,7 +922,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* a wide window: the column is the left sidebar, beside the page and centered with it as a pair;
    the wordmark sits on top with the house beside its foot, underlined by the opening dash */
 @media (min-width: 1001px) {
-    html.has-course-column .wrapper { justify-content: center; gap: 0; }
+    html.has-course-column .wrapper { justify-content: center; }
     html.has-course-column .left_div { width: 272px; }
     html.has-course-column .content { margin-left: 0; margin-right: 0; }
     html.has-course-column .cc { position: sticky; top: 46px; }
@@ -926,14 +949,24 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-wordmark { display: none; }
 }
 @media (min-width: 651px) and (max-width: 1000px) {
-    html.has-course-column .wrapper { padding-left: 70px; padding-right: 20px; }   /* room beside the page for the column */
+    /* room beside the page for the column, and the page's own margins trimmed so the cards keep their width */
+    html.has-course-column .wrapper { padding-left: 64px; padding-right: 14px; }
+    html.has-course-column .content { padding-left: 16px; padding-right: 16px; }
+    html.has-course-column main[data-course-part] { max-width: 640px; }   /* a part page; the course page keeps its own width */
 }
 /* a phone: the column has a gutter of its own, so it never covers the start of a line */
 @media (max-width: 650px) {
-    html.has-course-column .content { padding-left: 38px; }
-    html.has-course-column .bc { margin-left: -8px; }
-    html.has-course-column .cc { left: 5px; }
-    .cc-part .cc-g { font-size: 15.5px; }
+    /* a slim closed column, 2 px from the screen's edge (2 + 2 + 22 + 2 = 28 px; course.js knows it), the page
+       4 px past it and 6 px from the right edge; with a gutter on the left, the cards keep their border
+       and corners instead of running edge to edge */
+    html.has-course-column .wrapper { padding-left: 0; padding-right: 6px; }
+    html.has-course-column .content { padding-left: 32px; padding-right: 0; }
+    html.has-course-column .bc { margin: 0; border: 1px solid var(--mid); border-radius: 12px; }
+    html.has-course-column .cc { left: 2px; padding-left: 2px; padding-right: 2px; }
+    .cc-g { width: 22px; }
+    .cc-l { left: 28px; }
+    .cc-mark { left: 1px; width: 20px; }
+    .cc-part .cc-g { font-size: 15px; }
 }
 
 /* ---------- course home (part boxes, 0150) ---------- */
