@@ -381,9 +381,14 @@ function setupCourseColumn() {
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
   const roomBefore = i => i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
+  // A window too short for the rail (a phone turned sideways) squeezes its spacing to fit, to half at
+  // most; the letters, ticks and house keep their size. A wide sidebar never squeezes: its names need
+  // their rows.
   function offsets(q) {
-    let y = 0;
-    return rows.map((row, i) => { y += roomBefore(i); const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
+    let y = 0, full = 0;
+    rows.forEach((row, i) => { full += roomBefore(i) + heightAt(row, q); });
+    const k = mode === 'wide' ? 1 : Math.max(0.5, Math.min(1, (windowHeight() - 16 - 2 * PADV) / full));
+    return rows.map((row, i) => { const room = roomBefore(i) * k; y += room; const h = heightAt(row, q) * k; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
       .concat([{ top: y }]);
   }
 
@@ -403,7 +408,7 @@ function setupCourseColumn() {
     const o = offsets(q);
     rows.forEach((row, i) => {
       row.node.style.height = `${o[i].h}px`;
-      row.node.style.marginTop = `${roomBefore(i)}px`;
+      row.node.style.marginTop = `${o[i].room}px`;
       row.node.style.setProperty('--gy', `${o[i].h / 2}px`);
     });
     card.style.setProperty('--q', mode === 'wide' ? 1 : Math.max(0, Math.min(1, (p - 0.35) / 0.65)));
