@@ -157,7 +157,7 @@ steps carry many named files) keeps the path card.
 **The course column.** A row-card course also trades both side navs, and the phone's bottom
 bar, for one column: the `brand` nameplate and a house for `home`, a long dash opening the
 semester, a letter for each part with its title in small capitals, a tick for each block of
-the part on screen (a long dash for its checkpoint), faint dashes for the other parts' blocks
+the part on screen, faint dashes for the other parts' blocks
 (each links to its block), and
 a long dash closing the semester, named for the last part's checkpoint. A wide window shows
 it as the sidebar with the names beside it, the page centered on the window; narrower, it

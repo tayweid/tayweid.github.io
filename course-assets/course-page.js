@@ -933,7 +933,8 @@
     // and a long dash closing the semester, named for the last checkpoint. On a wide window the
     // names sit beside it; course.js sizes it, follows the reader down the page, and on narrow
     // windows and phones keeps it to the dashes and letters until it is opened into a card.
-    const HOUSE = '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.2 4.6L5 1.4l3.8 3.2V8.6H1.2z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+    // the house is drawn to the width of the long dash under it (20 px) in the ticks' 2 px stroke
+    const HOUSE = '<svg viewBox="0 0 20 18" aria-hidden="true"><path d="M1 8.2L10 1l9 7.2V17H1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 
     // What a section adds to the column: a block, the checkpoint, or a project.
     function columnEntry(id, section) {

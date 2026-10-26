@@ -351,6 +351,7 @@ function setupCourseColumn() {
   // the house sits beside the foot of it.
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
   const CLUMP = 20;    // a wide sidebar's rows for this page's blocks: close together, one group under the part's name
+  const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
   const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 30, start: 5, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const SHUT = { wordmark: 0, home: 22, start: 5, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
@@ -366,16 +367,19 @@ function setupCourseColumn() {
     const shut = (mode === 'phone' ? SHUT_PHONE : SHUT)[row.kind];
     return shut + (OPEN[row.kind] - shut) * q;
   };
+  // this page's own rows (not its letter or the house): the group the tint marks
+  const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
+  const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
+  const roomBefore = i => mode === 'wide' && (i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1))) ? ROOM : 0;
   function offsets(q) {
     let y = 0;
-    return rows.map(row => { const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
+    return rows.map((row, i) => { y += roomBefore(i); const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
       .concat([{ top: y }]);
   }
 
   // This page's stretch of the column, from a little above its first block to a little below its last,
   // tinted; the part's letter (or the house) sits above it.
   function placeMarks(o) {
-    const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
     const first = own.length ? own[0] : rows.indexOf(headRow);
     const last = own.length ? own[own.length - 1] : first;
     const padTop = Math.min(13, o[first].h / 2 + 1);
@@ -389,6 +393,7 @@ function setupCourseColumn() {
     const o = offsets(q);
     rows.forEach((row, i) => {
       row.node.style.height = `${o[i].h}px`;
+      row.node.style.marginTop = `${roomBefore(i)}px`;
       row.node.style.setProperty('--gy', `${o[i].h / 2}px`);
     });
     card.style.setProperty('--q', mode === 'wide' ? 1 : Math.max(0, Math.min(1, (p - 0.35) / 0.65)));

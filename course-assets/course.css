@@ -881,14 +881,12 @@ span.cc-r { cursor: default; }
 .cc-part .cc-g { font: 400 15px/1 var(--font-heading); color: #8f8f8f; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
-.cc-block .cc-g i { width: 12px; background: #9a9a9a; }
-.cc-cp .cc-g i { width: 20px; background: #9a9a9a; }   /* a checkpoint: a long dash, like the semester's last */
+.cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
 .cc-start .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
-.cc-cur .cc-g i { width: 16px; background: var(--white); }
-.cc-cp.cc-cur .cc-g i { width: 22px; }
+.cc-cur .cc-g i { width: 16px; background: var(--link); }
 .cc-home .cc-g { color: #8a8a8a; }
-.cc-home .cc-g svg { width: 11px; height: 11px; }
+.cc-home .cc-g svg { width: 20px; height: 18px; overflow: visible; }   /* as wide as the long dash under it */
 .cc-home.cc-here .cc-g { color: var(--link); }
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
@@ -898,7 +896,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* the names: parts in small capitals, blocks in the serif with their number beside the tick,
    the block on screen in blue and a touch larger (rows have set heights, so nothing moves) */
 .cc-part .cc-t { font: 600 11.5px/1.2 var(--font-body); letter-spacing: 0.13em; text-transform: uppercase; color: #8f8f8f; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-.cc-part.cc-here .cc-t { color: var(--white); }
+.cc-part.cc-here .cc-t { color: var(--link); }
 .cc-line { display: flex; align-items: baseline; gap: 7px; max-width: 100%; font: 400 15.5px/20px var(--font-heading); }
 .cc-id { color: #8a8a8a; }
 .cc-line .cc-t { color: #D6D6D6; overflow: hidden; text-overflow: ellipsis; }
@@ -944,7 +942,6 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
     .cc-home .cc-l { display: none; }   /* the wordmark above names it */
     .cc-home .cc-g { color: var(--fg); }
-    .cc-home .cc-g svg { width: 13px; height: 13px; }
     .cc-home.cc-here .cc-g { color: var(--link); }
     .cc-wordmark .cc-l { justify-content: flex-start; overflow: visible; }   /* taller than its row */
     .cc-wordmark .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
@@ -960,8 +957,6 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
         background: rgba(36, 36, 36, var(--bg)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
     }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
-    .cc-cp .cc-g i { width: 16px; }   /* inside the narrower tint of a closed column */
-    .cc-cp.cc-cur .cc-g i { width: 18px; }
     .cc-wordmark { display: none; }
 }
 @media (min-width: 651px) and (max-width: 1333px) {
