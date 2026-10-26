@@ -372,7 +372,7 @@ function setupCourseColumn() {
   const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
   const roomBefore = i => {
     if (mode === 'wide') return i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
-    return headRow.kind === 'home' && i === own[0] ? 5 : 0;   // the course page: the house clears the tint below it
+    return headRow.kind === 'home' && i === own[0] ? 8 : 0;   // the course page: the house clears the tint below it
   };
   function offsets(q) {
     let y = 0;
