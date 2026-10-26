@@ -345,18 +345,18 @@ function setupCourseColumn() {
   list.prepend(pageMark);
   document.body.append(scrim, tip, bubble);
 
-  // Each row has a height when the column is closed and one when it is open (a wide window's is open).
-  // The part letters space alike and the long dash like the faint ones, so every step down the column
-  // is the same; home's row is a letter's and 5 px more, the house standing at its foot (the start row
-  // under it has no height left, and only carries the wordmark's line). The wordmark shows only on a
-  // wide window, a little shorter than itself so the house sits beside the foot of it.
+  // The rail is the same at every width: a wide sidebar, a narrow window's closed column and a phone's
+  // all space their rows alike, so it keeps its length when the names go. The part letters space alike
+  // and the long dash like the faint ones; home's row is a letter's and 5 px more, the house standing
+  // at its foot (the start row under it has no height left, and only carries the wordmark's line);
+  // this page's blocks sit close together, set apart by a little room. Opened into a card, the blocks
+  // spread to OPEN's height, room for a finger. The wordmark shows only on a wide window, a little
+  // shorter than itself so the house sits beside the foot of it.
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
-  const CLUMP = 20;    // a wide sidebar's rows for this page's blocks: close together, one group under the part's name
+  const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
   const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
-  const SHUT = { wordmark: 0, home: 27, start: 0, part: 22, block: 15, cp: 15, faint: 5, end: 22 };
-  const SHUT_PHONE = { wordmark: 0, home: 29, start: 0, part: 24, block: 18, cp: 18, faint: 5, end: 24 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
@@ -364,17 +364,13 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'wordmark') return WORDMARK;
-    if (mode === 'wide' && (row.kind === 'block' || row.kind === 'cp')) return CLUMP;
-    const shut = (mode === 'phone' ? SHUT_PHONE : SHUT)[row.kind];
-    return shut + (OPEN[row.kind] - shut) * q;
+    const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
+    return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
   // this page's own rows (not its letter or the house): the group the tint marks
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
-  const roomBefore = i => {
-    if (mode === 'wide') return i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
-    return headRow.kind === 'home' && i === own[0] ? 8 : 0;   // the course page: the house clears the tint below it
-  };
+  const roomBefore = i => i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
   function offsets(q) {
     let y = 0;
     return rows.map((row, i) => { y += roomBefore(i); const h = heightAt(row, q); const top = y; y += h; return { top, h, mid: top + h / 2 }; })
