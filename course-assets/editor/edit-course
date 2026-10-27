@@ -118,7 +118,21 @@ def folders(root, materials):
     base = inside(root, materials or 'Blocks')
     if not base or not os.path.isdir(base):
         return []
-    return sorted(n for n in os.listdir(base) if os.path.isdir(os.path.join(base, n)) and not n.startswith('.'))
+    result = []
+    for name in os.listdir(base):
+        directory = inside(root, os.path.relpath(os.path.join(base, name), root))
+        if name.startswith('.') or not directory or not os.path.isdir(directory):
+            continue
+        result.append(name)
+        # Courses may group their block directories under Part_A, Part_B, etc.
+        # Keep paths relative to materials, just like the existing flat layout.
+        if re.fullmatch(r'Part_[A-Z]', name):
+            for child in os.listdir(directory):
+                relative = os.path.join(name, child)
+                full = inside(root, os.path.relpath(os.path.join(base, relative), root))
+                if not child.startswith('.') and full and os.path.isdir(full):
+                    result.append(relative)
+    return sorted(result)
 
 
 # ------------------------------------------------------------------ check-course

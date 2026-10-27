@@ -298,7 +298,7 @@ function widget(field, value, path, ctx, parent = {}) {
         case 'folder': {
             const options = [...ctx.folders];
             if (text && !options.includes(text)) options.unshift(text);
-            const match = !text && parent && parent.block ? ctx.folders.find(name => name.startsWith(`${parent.block}_`)) : null;
+            const match = !text && parent && parent.block ? ctx.folders.find(name => name.split('/').pop().startsWith(`${parent.block}_`)) : null;
             return h('span', { class: 'inline' }, select(common, text, options),
                 text ? h('button', { class: 'quiet', type: 'button', 'data-action': 'reveal', 'data-file': `${ctx.materials}/${text}`, title: 'Show in Finder' }, 'show') : null,
                 match ? h('button', { class: 'quiet', type: 'button', 'data-action': 'set', 'data-path': key(path), 'data-value': JSON.stringify(match) }, `use ${match}`) : null);
