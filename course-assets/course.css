@@ -685,23 +685,31 @@ img.placeholder-bg { display: none; }
 
 /* ---------- row card: episode left, practice rows right (course-page.js, courses on the
    exercise / vignette / homework triad) ----------
-   The card stays side by side, with the same pieces, at every width: the video with its name and
-   buttons; PRACTICE; each practice row's name with where it happens after it (Exercise IN CLASS),
-   its file buttons and its day on a line below, and its walkthrough's thumbnail. The pieces scale
-   with the card's own width (container units, between their sizes on an 890 px card and a 440 px
-   one) instead of changing layout. A smaller card (under 600) drops the optional extras and the
-   place labels and brings the file buttons up beside the names, so the practice stays about as
-   tall as the video beside it. On a phone (under 440) the card runs edge to edge and the
-   episode's buttons ride on its video; on the smallest phones (under 310) the names become
-   E V H and the thumbnails ▶ buttons. Rows of the same kind are the same height, so the dots
-   along the dashed line are evenly spaced. */
+   The card stays side by side, with the same pieces, at every width: the video with its buttons
+   riding on it, its name and a description under it; PRACTICE; each practice row's name with where
+   it happens after it (Exercise IN CLASS), its file buttons and its day on a line below, and its
+   walkthrough's thumbnail. The pieces scale with the card's own width by one set of tokens (four
+   type sizes and one inner margin, container units between a 282 px card and a 780 px one) rather
+   than by per-size overrides. A smaller card (under 600) drops the optional extras and the place
+   labels and brings the file buttons up beside the names, so the practice stays about as tall as
+   the video beside it, and holds a long description to three lines with a More button. On the
+   smallest phones (under 310) the names become E V H and the thumbnails ▶ buttons. Rows of the
+   same kind are the same height, so the dots along the dashed line are evenly spaced. */
 .bc-wrap { container-type: inline-size; }
 .bc {
     --prac: clamp(236px, 49cqi, 436px);                  /* the practice column; the episode takes the rest, up to 420 px */
     --tw: clamp(46px, 9cqi, 80px); --th: calc(var(--tw) * 0.5625);   /* a walkthrough's thumbnail, 16:9 */
     --gap: clamp(6px, 1.35cqi, 12px);                    /* dot to name */
-    --nf: clamp(17px, calc(15px + 0.45cqi), 19px);       /* practice names */
-    --pb: clamp(34px, 6cqi, 52px);                       /* the play button */
+    /* the type, one size per role at every width: names (the episode's and the practice's alike), the
+       episode's description, the days, and the small capitals (PRACTICE, IN CLASS) */
+    --t-title: clamp(16px, calc(14.5px + 0.58cqi), 19px);
+    --t-desc: clamp(13px, calc(11.5px + 0.55cqi), 16px);
+    --t-meta: clamp(11px, calc(10px + 0.45cqi), 14px);
+    --t-label: clamp(9.5px, calc(8.6px + 0.3cqi), 11px);
+    --pad: clamp(8px, 2cqi, 16px);                       /* the panels' inner margin */
+    --ibw: 26px; --ibgap: 4px;                           /* a file button, and the space between two */
+    --nf: var(--t-title);
+    --pb: clamp(30px, 6cqi, 52px);                       /* the play button */
     display: grid;
     grid-template-columns: min(420px, calc(100% - var(--prac))) minmax(0, 1fr);
     border: 1px solid var(--mid);
@@ -709,29 +717,35 @@ img.placeholder-bg { display: none; }
     background: var(--bg);
     overflow: hidden;
 }
-.bc-checkpoint, .bc-named { --prac: clamp(262px, 49cqi, 436px); }   /* longer names than Exercise, Vignette, Homework */
 .bc-solo { grid-template-columns: minmax(0, 1fr); max-width: 420px; }
-.bc-episode { position: relative; display: flex; flex-direction: column; min-width: 0; padding-bottom: 12px; border-right: 1px solid var(--mid); }
+.bc-episode { position: relative; display: flex; flex-direction: column; min-width: 0; padding-bottom: var(--pad); border-right: 1px solid var(--mid); }
 .bc-solo .bc-episode { border-right: 0; }
 .bc-media { position: relative; flex: none; }
 .bc-still { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #000; }
 .bc-still img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
-.bc-none { display: flex; align-items: center; justify-content: center; padding: 0 12px; background: var(--mid); text-align: center; font: 600 16px/1.3 var(--font-body); color: var(--white); }
+/* no video yet: a quiet frame of the same shape, its note in the days' type */
+.bc-none { display: flex; align-items: center; justify-content: center; padding: 0 var(--pad); background: #2a2a2a; text-align: center; font: italic 300 var(--t-meta)/1.3 var(--font-body); color: #8a8a8a; overflow-wrap: break-word; }
 .bc-play { position: absolute; left: 50%; top: 50%; width: var(--pb); height: var(--pb); margin: calc(var(--pb) / -2) 0 0 calc(var(--pb) / -2); border-radius: 50%; background: rgba(0, 0, 0, 0.6); transition: background 0.2s ease; }
 .bc-play::before { content: ""; position: absolute; left: 41%; top: 31%; border-style: solid; border-width: calc(var(--pb) * 0.19) 0 calc(var(--pb) * 0.19) calc(var(--pb) * 0.3); border-color: transparent transparent transparent var(--white); }
 .bc-still:hover .bc-play { background: rgba(0, 0, 0, 0.85); }
-.bc-ephead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: clamp(8px, 1.2cqi, 10px) clamp(10px, 1.6cqi, 14px) 0; }
-.bc-epname { margin: 0; min-width: 0; font: 400 clamp(17px, calc(15px + 0.45cqi), 19px)/1.3 var(--font-heading); color: var(--white); }
-.bc-epdesc { font: italic 300 clamp(14px, calc(12px + 0.45cqi), 16px) var(--font-body); color: var(--fg); }
+/* under the video: its name, then its description on a line of its own (a long one is held to a few
+   lines, with a More button course.js adds); the episode's buttons ride on the video at every width */
+.bc-ephead { margin: calc(var(--pad) * 0.75) var(--pad) 0; }
+.bc-epname { margin: 0; min-width: 0; font: 400 var(--t-title)/1.3 var(--font-heading); color: var(--white); overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
+.bc-epdesc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: var(--desc-lines, 5); overflow: hidden; margin-top: 2px; font: italic 300 var(--t-desc)/1.4 var(--font-body); color: var(--fg); }
+.bc-episode.bc-open .bc-epdesc { display: block; }
 .bc-epdesc i { font-style: normal; }
-.bc-checkpoint .bc-epdesc { display: block; margin-top: 4px; font-size: clamp(13.5px, calc(11.5px + 0.4cqi), 15px); line-height: 1.4; }
-.bc-epico { flex-shrink: 0; margin-top: 1px; }
-.bc-episode .bc-over { display: none; }
+.bc-more { margin: 2px 0 0; padding: 0; border: 0; background: none; font: 400 var(--t-meta)/1.3 var(--font-body); color: var(--link); cursor: pointer; }
+.bc-more:hover { text-decoration: underline; }
+.bc-episode .bc-epico { display: none; }
+.bc-episode .bc-over { position: absolute; right: 6px; bottom: 6px; display: flex; gap: 4px; }
+.bc-over .bc-ib { background: rgba(20, 20, 20, 0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.bc-over .bc-ib:hover { background: var(--link); }
 
 /* the small file buttons: a sheet in grey, solutions in a dashed red frame with a trace of red;
    held back until their day, a sheet is a dashed outline and solutions just a faint red icon */
-.bc-ico { display: inline-flex; gap: 4px; }
-.bc-ib { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 22px; border-radius: 5px; background: var(--mid); color: var(--fg); font-size: 14px; line-height: 1; transition: background 0.2s ease, color 0.2s ease; }
+.bc-ico { display: inline-flex; gap: var(--ibgap); }
+.bc-ib { display: inline-flex; align-items: center; justify-content: center; width: var(--ibw); height: 22px; border-radius: 5px; background: var(--mid); color: var(--fg); font-size: 14px; line-height: 1; transition: background 0.2s ease, color 0.2s ease; }
 .bc-ib:hover { background: var(--link); color: var(--white); }
 .bc-ib.bc-optional { opacity: 0.55; }
 .bc-ib.bc-optional:hover { opacity: 1; }
@@ -742,8 +756,8 @@ img.placeholder-bg { display: none; }
 .bc-ib.bc-sol.bc-wait, .bc-ib.bc-sol.bc-wait:hover { border-color: transparent; color: rgba(226, 92, 103, 0.4); }
 
 /* the practice rows: a dot, then the name and where it happens, then the buttons and day under it */
-.bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: clamp(10px, 1.6cqi, 14px) clamp(12px, 2cqi, 18px) 12px calc(clamp(12px, 2cqi, 18px) + var(--gap)); list-style: none; }
-.bc-label { padding: 4px 0 clamp(6px, 1.2cqi, 8px); font: 600 11px/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
+.bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--gap)); list-style: none; }
+.bc-label { padding: 4px 0 calc(var(--pad) * 0.5); font: 600 var(--t-label)/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
 .bc-step {
     --dot: calc(5px + var(--nf) * 0.65);   /* the middle of the name's line */
     position: relative;
@@ -757,11 +771,13 @@ img.placeholder-bg { display: none; }
 .bc-head { grid-column: 2; grid-row: 1; min-width: 0; }
 .bc-step.bc-novid .bc-head { grid-column: 2 / -1; }
 .bc-step > .bc-thumb { grid-column: 3; grid-row: 1; }
-.bc-name { margin: 0; display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; font: 400 var(--nf)/1.3 var(--font-heading); color: var(--white); }
+/* the name and its place run as one line of text, so a long name wraps with its place at the end of
+   it rather than on a line of its own */
+.bc-name { margin: 0; font: 400 var(--t-title)/1.3 var(--font-heading); color: var(--white); }
 .bc-letter { display: none; }
-.bc-where { position: relative; top: 1px; font: 300 clamp(9.5px, calc(7.5px + 0.4cqi), 11px)/1.3 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; color: #8a8a8a; }
+.bc-where { margin-left: 0.5em; font: 300 var(--t-label)/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: #8a8a8a; }
 .bc-chips { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 2px; margin: 5px 0 0 6px; }
-.bc-due { font: italic 300 14px/1.3 var(--font-body); color: #8a8a8a; }
+.bc-due { font: italic 300 var(--t-meta)/1.3 var(--font-body); color: #8a8a8a; }
 .bc-dot { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: calc(var(--dot) - 11px); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.55); background: var(--bg); }
 .bc-step.past > .bc-dot { background: var(--link); border-color: rgba(255, 255, 255, 0.6); }
 .bc-dot-alt { border-style: dashed; border-color: rgba(255, 255, 255, 0.3); }
@@ -788,17 +804,20 @@ img.placeholder-bg { display: none; }
 @container (max-width: 599px) {
     /* short rows need less room and the episode takes it; enough stays for Homework and its two buttons on one line */
     .bc { --prac: clamp(250px, 44cqi, 300px); }
-    .bc-checkpoint, .bc-named { --prac: clamp(270px, 48cqi, 320px); }
     .bc-opt { display: none; }
     .bc-to-extra::after { display: none; }
     .bc-step:has(+ .bc-opt):not(.bc-to-extra)::after { width: auto; background: none; border-left: 2px dashed rgba(255, 255, 255, 0.24); }
     .bc-where { display: none; }
-    .bc-chips .bc-due { margin-top: 0; font-size: 12px; line-height: 1.1; }
+    .bc-chips .bc-due { margin-top: 0; line-height: 1.15; }
+    .bc { --desc-lines: 3; }
     /* closer rows; one with a day line is no taller than one without, so the dots stay evenly spaced */
     .bc-step { --dot: calc(2px + var(--nf) * 0.65); padding: 2px 0; min-height: calc(var(--nf) * 1.3 + 18px); }
     /* the rows share one grid, so the file buttons line up in a column just past the longest name, the
        way the thumbnails line up at the right; a row without files (Checkpoint D) doesn't push it out */
-    .bc-steps { display: grid; grid-template-columns: 12px auto minmax(max-content, 1fr) var(--tw); column-gap: var(--gap); align-content: start; }
+    /* the button column takes what the names leave (a row with more files than fit puts them under its
+       name, below); a card with no walkthroughs keeps no column for them */
+    .bc-steps { display: grid; grid-template-columns: 12px auto minmax(min-content, 1fr) var(--tw); column-gap: var(--gap); align-content: start; }
+    .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) { grid-template-columns: 12px auto minmax(min-content, 1fr); }
     .bc-steps > * { grid-column: 1 / -1; }
     .bc-step { grid-template-columns: subgrid; align-content: start; }
     .bc-head, .bc-chips { display: contents; }
@@ -807,43 +826,34 @@ img.placeholder-bg { display: none; }
     .bc-ico { grid-column: 3; grid-row: 1; justify-self: start; margin: calc((var(--nf) * 1.3 - 22px) / 2) 0 0 max(0px, calc(8px - var(--gap))); }
     .bc-chips .bc-due { grid-column: 2 / 4; grid-row: 2; }
     .bc-step > .bc-thumb { grid-column: 4; grid-row: 1 / span 2; }
-    /* no walkthroughs in the card: the button column moves over a little into the room they'd take */
-    .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) .bc-ico { margin-left: calc(var(--tw) / 2); }
+    /* no walkthroughs in the card: the button column moves over a little into the room they'd take, as
+       far as the room left beside two buttons allows, so it never pushes a long name onto two lines */
+    .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) .bc-ico { padding-left: clamp(0px, calc(100% - 2 * var(--ibw) - var(--ibgap)), calc(var(--tw) / 2)); }
+    /* a row with three or more files (a checkpoint's versions) puts them on a line under its name, as a
+       wide card does, and its day under them; it leaves the shared button column to the others */
+    .bc-steps .bc-step:has(.bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid)) .bc-ico { grid-column: 2 / -1; grid-row: 2; justify-self: start; margin: 4px 0 0; padding-left: 0; }
+    .bc-step:has(.bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid)) .bc-due { grid-row: 3; margin-top: 2px; }
 }
 /* a phone: the card runs edge to edge, at its smallest sizes, and the episode's buttons ride on its video */
 @container (max-width: 439px) {
     .bc {
-        --prac: 216px; --gap: 5px; --tw: 42px; --th: 24px; --nf: 16px; --pb: 30px;
+        --prac: clamp(220px, 56.5cqi, 248px); --gap: 5px; --tw: 42px; --th: 24px;   /* grows with the names' type, up to the 250 above */
         margin: 0 calc(-1 * var(--page-gutter, 0px));
         border-left: 0; border-right: 0; border-radius: 0;
     }
-    .bc-checkpoint, .bc-named { --prac: 226px; }
-    .bc-steps { padding: 6px 6px 6px calc(6px + var(--gap)); }
-    .bc-label { font-size: 10px; }
-    .bc-name { column-gap: 6px; }
+    .bc { --ibw: 24px; --ibgap: 3px; }
     .bc-chips { margin-top: 3px; column-gap: 8px; }
-    .bc-ico { gap: 3px; }
-    .bc-ib { width: 24px; }
     .bc-step > .bc-thumb { border-radius: 4px; }
-    .bc-due { font-size: 11.5px; line-height: 1.25; }
-    .bc-episode { padding-bottom: 8px; }
-    .bc-episode .bc-epico { display: none; }
-    .bc-episode .bc-over { display: flex; position: absolute; right: 6px; bottom: 6px; gap: 4px; }
-    .bc-over .bc-ib { background: rgba(20, 20, 20, 0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-    .bc-over .bc-ib:hover { background: var(--link); }
-    .bc-ephead { display: block; margin: 7px 8px 0 10px; }
-    .bc-epname { font-size: 18px; }
-    .bc-block .bc-epdesc { display: block; font-size: 14.5px; line-height: 1.25; }
-    .bc-checkpoint .bc-epdesc { font-size: 13.5px; }
 }
 /* the smallest phones: E V H for the names, a ▶ button for each walkthrough */
 @container (max-width: 309px) {
-    .bc { --prac: 150px; }
+    .bc { --prac: 160px; }
+    .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) .bc-ico { padding-left: 0; }   /* no thumbnails here to make room for */
     .bc-prac .bc-full { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
     .bc-prac .bc-letter { display: inline; }
     .bc-where { display: none; }
     .bc-step > .bc-thumb { display: none; }
-    .bc-steps { grid-template-columns: 12px auto minmax(max-content, 1fr); }   /* no thumbnail column */
+    .bc-steps, .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) { grid-template-columns: 12px auto minmax(min-content, 1fr); }   /* no thumbnail column */
     .bc-ib.bc-vid { display: inline-flex; }
     .bc-step:has(.bc-vid) .bc-name { grid-column: 2; }   /* its video button joins the column */
 }
@@ -961,31 +971,23 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* narrower: the closed column floats (course.js places it), and opens into a card */
 @media (max-width: 1333px) {
     html.has-course-column .cc {
-        position: fixed; z-index: 1003; left: 6px; top: 0; width: 36px; padding: 8px 4px; overflow: hidden; touch-action: none;
+        position: fixed; z-index: 1003; left: 2px; top: 0; width: 26px; padding: 8px 2px; overflow: hidden; touch-action: none;
         border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(var(--p) * 0.15));
         background: rgba(36, 36, 36, var(--bg)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
     }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
     .cc-wordmark { display: none; }
 }
-@media (min-width: 651px) and (max-width: 1333px) {
-    /* room beside the page for the column, matched on the right when the window allows so the page is
-       centered; the page's own margins trimmed so the cards keep their width */
-    html.has-course-column .wrapper { padding-left: 64px; padding-right: clamp(14px, calc(100vw - 704px), 64px); }
-    html.has-course-column .content { padding-left: 16px; padding-right: 16px; }
-}
-@media (min-width: 651px) and (max-width: 1000px) {
-    html.has-course-column main[data-course-part] { max-width: 640px; }   /* a part page; the course page keeps its own width */
-}
-/* a phone: the column has a gutter of its own, so it never covers the start of a line */
-@media (max-width: 650px) {
-    /* a slim closed column, 2 px from the screen's edge (2 + 2 + 22 + 2 = 28 px; course.js knows it), the page
-       4 px past it and 6 px from the right edge; with a gutter on the left, the cards keep their border
-       and corners instead of running edge to edge */
-    html.has-course-column .wrapper { padding-left: 0; padding-right: 6px; }
-    html.has-course-column .content { padding-left: 32px; padding-right: 0; }
+/* Every window without the sidebar, phone to 1333 px, lays the page out by one rule, so a card only ever
+   grows as the window does: the page is the column's width at most, centered, with at least 32 px on
+   its left for the closed column and 6 px on its right. The closed column is the same slim one at
+   every such width (2 + 22 + 2 px; course.js knows it), set just left of the page where there is room
+   and in the 32 px gutter where there isn't. The cards keep their border and corners. */
+@media (max-width: 1333px) {
+    html.has-course-column .wrapper { padding-left: max(32px, calc((100vw - var(--column)) / 2)); padding-right: max(6px, calc((100vw - var(--column)) / 2)); }
+    html.has-course-column .content { max-width: var(--column); padding-left: 0; padding-right: 0; }
     html.has-course-column .bc { margin: 0; border: 1px solid var(--mid); border-radius: 12px; }
-    html.has-course-column .cc { left: 2px; padding-left: 2px; padding-right: 2px; }
+    html.has-course-column .cc { padding-left: 2px; padding-right: 2px; }
     .cc-g { width: 22px; }
     .cc-l { left: 28px; }
     .cc-mark { left: 1px; width: 20px; }

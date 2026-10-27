@@ -18,6 +18,38 @@ function courseRefreshContent() {
   setupActiveCardHighlighting();
   setupTopicToggles();
   setupPathDates();
+  setupEpisodeMore();
+}
+
+// A long episode description is held to a few lines (course.css: five on a wide card, three on a
+// smaller one). Where it is cut short, a More button under it opens it, and Less closes it again;
+// checked again when the window's width changes.
+function setupEpisodeMore() {
+  const panels = Array.from(document.querySelectorAll('.bc-episode')).filter(panel => panel.querySelector('.bc-epdesc'));
+  if (!panels.length) return;
+  const check = () => panels.forEach(panel => {
+    const desc = panel.querySelector('.bc-epdesc');
+    const open = panel.classList.contains('bc-open');
+    const cut = !open && desc.scrollHeight > desc.clientHeight + 1;
+    let button = panel.querySelector('.bc-more');
+    if (!button && (cut || open)) {
+      button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'bc-more';
+      button.addEventListener('click', () => { panel.classList.toggle('bc-open'); check(); });
+      panel.querySelector('.bc-ephead').append(button);
+    }
+    if (!button) return;
+    button.hidden = !cut && !open;
+    button.textContent = open ? 'Less' : 'More';
+    button.setAttribute('aria-expanded', String(open));
+  });
+  let width = innerWidth;
+  const onResize = () => { if (innerWidth !== width) { width = innerWidth; check(); } };
+  window.addEventListener('resize', onResize);
+  courseContentCleanup.push(() => window.removeEventListener('resize', onResize));
+  check();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(check);
 }
 // A course with the course column has no bottom bar on a phone: the column is its navigation there too.
 function courseInit() { courseRefreshContent(); if (!setupCourseColumn()) setupMobileNav(); }
@@ -355,7 +387,7 @@ function setupCourseColumn() {
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
-  const G = 28, PAD = 4, PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
+  const PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
   const OPEN = { wordmark: 0, home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
@@ -420,11 +452,13 @@ function setupCourseColumn() {
       return;
     }
     // a narrow window: the closed column sits just left of the page's text; a phone: in its gutter
-    const shut = mode === 'phone' ? 26 : G + 2 * PAD;   // a phone's closed column is a little slimmer (course.css)
-    let left = mode === 'phone' ? 2 : 4;
-    if (mode === 'narrow' && content) {
+    // the slim closed column (course.css): 12 px left of the page's text where there is room, else in the
+    // page's 32 px gutter, 2 px from the screen's edge
+    const shut = 26;
+    let left = 2;
+    if (content) {
       const box = content.getBoundingClientRect();
-      left = Math.max(6, box.left + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
+      left = Math.max(2, box.left + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
     }
     card.style.left = `${left}px`;
     const wide = Math.min(310, innerWidth - left - 10);
