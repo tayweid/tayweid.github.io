@@ -928,7 +928,7 @@
     // ---------- the course column ----------
 
     // A course on the row card gets all its navigation in one column, in the left slot: the
-    // wordmark, home, a letter for each part, a dash for each
+    // wordmark and home, a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
     // and a long dash closing the semester, named for the last checkpoint. On a wide window the
     // names sit beside it; course.js sizes it, follows the reader down the page, and on narrow
@@ -993,14 +993,12 @@
         const homeLink = onHome ? { href: '#' } : home ? { href: home } : {};   // '#': the top of this page
         const brandText = items(meta.brand).join(' ');
 
-        const wordmark = columnRow('wordmark', onHome ? {} : homeLink);
-        wordmark.querySelector('.cc-l').append(brand());
         const homeRow = columnRow('home', { ...homeLink, here: onHome, mine: onHome, tip: `${brandText} · course page` });
         homeRow.querySelector('.cc-g').innerHTML = HOUSE;
         homeRow.querySelector('.cc-l').append(brand());
         const start = columnRow('start');
         start.querySelector('.cc-l').append(element('span', 'cc-sep'));
-        list.append(wordmark, homeRow, start);
+        list.append(homeRow, start);
 
         if (onHome) {
             document.querySelectorAll('main [data-course-nav]').forEach(heading => {

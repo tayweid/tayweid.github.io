@@ -352,7 +352,7 @@ function setupCourseColumn() {
   const root = document.documentElement;
   const list = card.querySelector('.cc-rows');
   const content = document.querySelector('main.content') || document.querySelector('.content');
-  const KINDS = ['wordmark', 'home', 'start', 'part', 'block', 'cp', 'faint', 'end'];
+  const KINDS = ['home', 'start', 'part', 'block', 'cp', 'faint', 'end'];
   const rows = Array.from(list.querySelectorAll('.cc-r')).map(node => {
     const target = node.dataset.target;
     const href = node.getAttribute('href');
@@ -381,16 +381,18 @@ function setupCourseColumn() {
   // The rail is the same at every width: a wide sidebar, a narrow window's closed column and a phone's
   // all space their rows alike, so it keeps its length when the names go. The part letters space alike
   // and the long dash like the faint ones; home's row is a letter's and 5 px more, the house standing
-  // at its foot (the start row under it has no height left, and only carries the wordmark's line);
+  // at its foot (the start row under it has no height left, and only carries the line under MICRO ECON);
   // this page's blocks sit close together, set apart by a little room. Opened into a card, the blocks
-  // spread to OPEN's height, room for a finger. The wordmark shows only on a wide window, a little
-  // shorter than itself so the house sits beside the foot of it.
-  const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
+  // spread to OPEN's height, room for a finger. On a wide window home's row is MICRO ECON, the house
+  // beside its foot, and keeps its height.
+  const WIDE = 1334;   // the window that fits the sidebar beside the centered stripe (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
-  const PADV = 8, WORDMARK = 44;
-  let wideInset = 0;   // a wide sidebar's card: its sticky top and bottom, and its padding (course.css; read in measure)
-  const OPEN = { wordmark: 0, home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
+  const PADV = 8;
+  const HEAD = 64;     // home's row on a wide window: MICRO ECON and the house
+  const SEP = 2.5;     // the line under it, this far above the row's floor (course.css, .cc-sep)
+  let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
+  const OPEN = { home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
@@ -414,7 +416,7 @@ function setupCourseColumn() {
   };
 
   const heightAt = (row, q) => {
-    if (mode === 'wide' && row.kind === 'wordmark') return WORDMARK;
+    if (mode === 'wide' && row.kind === 'home') return HEAD;
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
@@ -424,12 +426,12 @@ function setupCourseColumn() {
   const roomBefore = i => i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
   // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
   // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
-  // the window to the bottom, 8 px in from each (a wide sidebar: below its wordmark, inside its card the
-  // window's height, and it only stretches, its names needing their rows).
+  // the window to the bottom, 8 px in from each (a wide sidebar: from under MICRO ECON to its bottom
+  // padding, and it only stretches, its names needing their rows).
   // The letters, ticks and house keep their size.
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
-    const kept = row => mode === 'wide' && row.kind === 'wordmark';
+    const kept = row => mode === 'wide' && row.kind === 'home';
     rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
     const avail = mode === 'wide' ? windowHeight() - wideInset - fixed : windowHeight() - 16 - 2 * PADV;
     const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(1.8, avail / full));
@@ -481,15 +483,12 @@ function setupCourseColumn() {
       card.classList.remove('opening');
       return;
     }
-    // a narrow window: the closed column sits just left of the page's text; a phone: in its gutter
-    // the slim closed column (course.css): up to 28 px left of the page's text where there is room, else
-    // in the page's 32 px gutter, 2 px from the screen's edge
+    // the slim closed column (course.css), on the ground beside the stripe: its ticks 16 px from the
+    // stripe's edge where there is room, as a wide sidebar's are, else in the 30 px gutter, 2 px from
+    // the screen's edge
     const shut = 26;
     let left = 2;
-    if (content) {
-      const box = content.getBoundingClientRect();
-      left = Math.max(2, box.left / rectScale() + parseFloat(getComputedStyle(content).paddingLeft) - 28 - shut);
-    }
+    if (content) left = Math.max(2, content.getBoundingClientRect().left / rectScale() - 16 - (shut - 2));
     card.style.left = `${left}px`;
     const wide = Math.min(310, pageWidth() - left - 10);
     card.style.width = `${shut + (wide - shut) * ease(p)}px`;
@@ -531,8 +530,17 @@ function setupCourseColumn() {
     mode = width >= WIDE ? 'wide' : width > 650 ? 'narrow' : 'phone';
     ['wide', 'narrow', 'phone'].forEach(name => root.classList.toggle(`cc-${name}`, name === mode));
     if (mode === 'wide') ['width', 'top', 'left'].forEach(prop => { card.style[prop] = ''; });
+    card.style.paddingTop = '';
+    // A wide sidebar starts where the line under MICRO ECON is level with the rule under the page's
+    // title (the course page: the rule over its first section). Sticky at the window's top, it is
+    // there whenever the page is at its top.
+    const rule = mode === 'wide' && content && content.querySelector('.title-rule, .guide-section');
+    if (rule) {
+      const from = card.parentElement.getBoundingClientRect().top;
+      card.style.paddingTop = `${Math.max(12, (rule.getBoundingClientRect().top - from) / rectScale() - (HEAD - SEP))}px`;
+    }
     const cs = getComputedStyle(card);
-    wideInset = 2 * (parseFloat(cs.top) || 0) + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    wideInset = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
     if (previous !== mode) { p = 0; target = 0; scrim.hidden = true; card.classList.remove('is-open'); anchorY = null; }
     mineRows.forEach(row => { row.yd = row === headRow ? 0 : row.el ? row.el.getBoundingClientRect().top + scrollY : undefined; });
     paint();
