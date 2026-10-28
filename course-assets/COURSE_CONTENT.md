@@ -72,7 +72,7 @@ A section is exactly one of a **block**, a **checkpoint**, or a **project**.
 ```yaml
 - block: A2
   folder: A2_Advantage             # with course.materials: the block's directory under Blocks/
-  nav: Advantage                   # right-nav label, shown as "A2 | Advantage" (the course column uses the title)
+  nav: Advantage                   # the block's short name: right nav "A2 | Advantage", or the course column's (its tooltip shows the title)
   title: Comparative advantage
   description: Why we specialize.  # *asterisks* italicize; no HTML anywhere
   episode:

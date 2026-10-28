@@ -939,12 +939,14 @@
     // What a section adds to the column: a block, the checkpoint, or a project.
     function columnEntry(id, section) {
         if (section.block !== undefined) {
-            return { kind: 'block', id: String(section.block), title: section.title || section.nav, anchor: schema.blockElementId(section.block) };
+            // the column shows a block's short nav name; its tooltip, the full title
+            return { kind: 'block', id: String(section.block), title: section.title || section.nav, label: section.nav || section.title, anchor: schema.blockElementId(section.block) };
         }
         if (section.checkpoint !== undefined) {
-            return { kind: 'cp', id: '', title: `${schema.checkpointWord(course)} ${id}`, anchor: schema.checkpointElementId(course) };
+            const name = `${schema.checkpointWord(course)} ${id}`;
+            return { kind: 'cp', id: '', title: name, label: name, anchor: schema.checkpointElementId(course) };
         }
-        if (section.project !== undefined) return { kind: 'block', id: '', title: section.project.nav, anchor: section.project.id };
+        if (section.project !== undefined) return { kind: 'block', id: '', title: section.project.nav, label: section.project.nav, anchor: section.project.id };
         return null;
     }
 
@@ -1022,7 +1024,7 @@
                 const entry = columnEntry(id, section);
                 if (!entry) return;
                 const tip = entry.id ? `${entry.id}  ${entry.title}` : entry.title;
-                if (here) list.append(columnLine(columnRow(entry.kind, { target: entry.anchor, mine: true, tip }), entry.id, entry.title));
+                if (here) list.append(columnLine(columnRow(entry.kind, { target: entry.anchor, mine: true, tip }), entry.id, entry.label));
                 else {
                     const faint = columnRow('faint', { href: `${partPage(id)}#${entry.anchor}`, tip });
                     faint.querySelector('.cc-g').append(element('i'));

@@ -791,10 +791,10 @@ img.placeholder-bg { display: none; }
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
-/* a wide card's practice sits in from the panel's edge, about where the old place-label column put it;
-   the indent shrinks with the card and is gone by the time the card turns compact */
+/* a wide card's practice is a group sized to its rows, set in the middle of its panel, across and down,
+   whatever the card's width or what its rows hold (a smaller card's practice fills its panel) */
 @container (min-width: 600px) {
-    .bc-steps { padding-left: calc(clamp(12px, 2cqi, 18px) + var(--gap) + clamp(0px, 14cqi - 56px, 64px)); }
+    .bc-steps { align-self: center; justify-self: center; width: fit-content; max-width: 100%; }
 }
 
 /* a smaller card (a narrow window, a phone): the practice would grow taller than the video beside it,
