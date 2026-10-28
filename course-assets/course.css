@@ -911,7 +911,7 @@ span.cc-r { cursor: default; }
 .cc-home .cc-g i { position: absolute; left: 50%; bottom: 0; margin-left: -10px; }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home.cc-here .cc-g { color: var(--link); }
-.cc-home.cc-here .cc-g i { background: var(--link); }
+.cc-home.cc-here .cc-g i, .cc-end[data-mine] .cc-g i { background: var(--link); }   /* a bracket where it closes this page */
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
 /* the brackets: course.js sets each one's place, hugging its part */
 .cc-brk { pointer-events: none; }
@@ -928,6 +928,9 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* the semester's closing dash is no part of the page: its name stays as quiet as the other parts' */
 .cc-end .cc-line .cc-t { color: #8f8f8f; }
 .cc-end:hover .cc-line .cc-t, .cc-end.hot .cc-line .cc-t { color: var(--white); }
+/* on the last part's page it is that part's checkpoint, named like the part's other rows */
+.cc-end[data-mine] .cc-line .cc-t { color: #D6D6D6; }
+.cc-end[data-mine].cc-cur .cc-line .cc-t { color: var(--white); }
 .cc-line { display: flex; align-items: baseline; gap: 7px; max-width: 100%; font: 400 15.5px/20px var(--font-heading); }
 .cc-id { color: #8a8a8a; }
 .cc-line .cc-t { color: #D6D6D6; overflow: hidden; text-overflow: ellipsis; }

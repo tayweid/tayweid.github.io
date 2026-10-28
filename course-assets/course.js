@@ -388,6 +388,9 @@ function setupCourseColumn() {
   // The upper bracket's row: the part's letter has too little room above its capitals for the bracket
   // and the room outside it. The lower bracket takes none; its last tick's row holds it.
   const BRK = 4.5;
+  // The closing row on a wide window, when it follows the last part's faint dashes: room for its long
+  // dash only, its name rising beside the last of those dashes, which is that checkpoint's own.
+  const TUCK = 8;
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
@@ -422,8 +425,9 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
+    if (mode === 'wide' && row.kind === 'end' && tucked) return TUCK;
     if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') ? BRK : 0;
-    const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
+    const rail = row.kind === 'block' || row.kind === 'cp' || (row.kind === 'end' && row.mine) ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
   // this page's own rows (not its letter or home), and the brackets around them (the course page has
@@ -431,6 +435,8 @@ function setupCourseColumn() {
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const brkTop = rows.findIndex(row => row.node.classList.contains('cc-brk-top'));
   const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
+  const endAt = rows.findIndex(row => row.kind === 'end');
+  const tucked = endAt > 0 && rows[endAt - 1].kind === 'faint';
   const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
   // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
   // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
@@ -439,7 +445,7 @@ function setupCourseColumn() {
   // The letters and dashes keep their size.
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
-    const kept = row => mode === 'wide' && row.kind === 'home';
+    const kept = row => mode === 'wide' && (row.kind === 'home' || (row.kind === 'end' && tucked));
     rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
     const avail = mode === 'wide' ? windowHeight() - wideInset - fixed : windowHeight() - 16 - 2 * PADV;
     const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(1.8, avail / full));
@@ -447,7 +453,8 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
+  // where a bracket's dash sits on the column (home's, on the course page, is its upper one, and the
+  // closing dash, on the last part's page, its lower one)
   const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - GAP - 1
     : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
     : o[i].top + o[i].h - DASH;
@@ -458,7 +465,9 @@ function setupCourseColumn() {
   function placeBand(o) {
     const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
     const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow));
-    const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
+    const lower = brkEnd >= 0 ? dashAt(brkEnd)
+      : endAt >= 0 && rows[endAt].mine ? o[endAt].top + o[endAt].h - DASH
+      : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
       .concat([{ y: lower, yd: Math.max(1, root.scrollHeight) }]);
@@ -572,6 +581,7 @@ function setupCourseColumn() {
   function showTip(row) {
     const closed = mode !== 'wide' && target === 0;
     if (!row.tip || down || (!closed && row.kind !== 'faint')) return;
+    if (mode === 'wide' && tucked && row === rows[endAt - 1]) return;   // the closing name beside it says it
     const glyph = row.node.querySelector('.cc-g').getBoundingClientRect();
     const box = card.getBoundingClientRect();
     const k = rectScale();
@@ -602,7 +612,7 @@ function setupCourseColumn() {
     close();
   }
   // what a mouse click on the closed column follows without opening it: the rows it names on sight
-  const direct = row => row.kind === 'home' || row.kind === 'part' || (row.mine && (row.kind === 'block' || row.kind === 'cp'));
+  const direct = row => row.kind === 'home' || row.kind === 'part' || (row.mine && (row.kind === 'block' || row.kind === 'cp' || row.kind === 'end'));
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
 

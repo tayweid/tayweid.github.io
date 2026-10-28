@@ -1021,6 +1021,11 @@
         }
 
         const ids = Object.keys(course.parts);
+        // the closing dash: the last checkpoint, when the last part has one; on that part's own page
+        // it is the part's checkpoint row and its lower bracket
+        const lastId = ids[ids.length - 1];
+        const closing = lastId !== undefined && items(course.parts[lastId].sections).some(section => section.checkpoint !== undefined);
+        const closesHere = closing && lastId === currentId;
         ids.forEach(id => {
             const part = course.parts[id];
             const here = id === currentId;
@@ -1033,6 +1038,7 @@
             items(part.sections).forEach(section => {
                 const entry = columnEntry(id, section);
                 if (!entry) return;
+                if (here && closesHere && entry.kind === 'cp') return;   // the closing row is this one
                 const tip = entry.id ? `${entry.id}  ${entry.title}` : entry.title;
                 if (here) list.append(columnLine(columnRow(entry.kind, { target: entry.anchor, mine: true, tip }), entry.id, entry.label));
                 else {
@@ -1042,15 +1048,12 @@
                     list.append(faint);
                 }
             });
-            if (here) list.append(bracket('end'));
+            if (here && !closesHere) list.append(bracket('end'));
         });
 
-        // the closing dash: the last checkpoint, when the last part has one
-        const lastId = ids[ids.length - 1];
-        const closing = lastId !== undefined && items(course.parts[lastId].sections).some(section => section.checkpoint !== undefined);
         const anchor = schema.checkpointElementId(course);
         const endTitle = closing ? `${schema.checkpointWord(course)} ${lastId}` : '';
-        const end = columnRow('end', !closing ? {} : lastId === currentId ? { target: anchor } : { href: `${partPage(lastId)}#${anchor}` });
+        const end = columnRow('end', !closing ? {} : closesHere ? { target: anchor, mine: true } : { href: `${partPage(lastId)}#${anchor}` });
         if (endTitle) end.dataset.tip = endTitle;
         columnLine(end, '', endTitle);
         list.append(end);
