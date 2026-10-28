@@ -914,16 +914,15 @@ span.cc-r { cursor: default; }
 .cc-home.cc-here .cc-g i { background: var(--link); }
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
 /* the brackets: course.js sets each one's place, hugging its part; at the rail's edge each turns a
-   little toward it, the upper one down and the lower one up (on the course page home's dash is the
-   upper one, and on the last part's page the long closing dash the lower one) */
+   little toward it, the upper one down and the lower one up (on the last part's page the lower one is
+   the long closing dash) */
 .cc-brk { pointer-events: none; }
-.cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 6px; border: 0 solid var(--link); border-right-width: 2px; border-radius: 0; background: none; }
-.cc-brk-top .cc-g i, .cc-home.cc-here .cc-g i { border-top-width: 2px; border-top-right-radius: 2px; }
+.cc-brk .cc-g i { height: 6px; border: 0 solid var(--link); border-right-width: 2px; border-radius: 0; background: none; }
+.cc-brk-top .cc-g i { border-top-width: 2px; border-top-right-radius: 2px; }
 .cc-brk-end .cc-g i { border-bottom-width: 2px; border-bottom-right-radius: 2px; }
 .cc-brk .cc-g i { width: 20px; position: relative; }
 .cc-brk-top .cc-g i { top: 2px; }    /* its line, not its corner, on the place course.js sets */
 .cc-brk-end .cc-g i { top: -2px; }
-.cc-home.cc-here .cc-g i { bottom: -4px; }
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
 .cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
@@ -987,12 +986,12 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-end .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
     .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; bottom: 0; width: 52px; margin-left: 0; }
     .cc-end .cc-l { top: auto; bottom: 3.8px; height: 20px; }
-    /* the brackets reach left past the ticks, to the names' edge; the long one closing the last part is
-       the closing dash's length */
-    .cc-brk .cc-g i { position: absolute; right: 6px; width: 28px; }
+    /* the brackets reach left past the ticks, to the names' edge, and right to the sidebar's edge, their
+       corners clear of the band; the long one closing the last part is the closing dash's length */
+    .cc-brk .cc-g i { position: absolute; right: 1px; width: 33px; }
     .cc-brk-top .cc-g i { top: 9px; }
     .cc-brk-end .cc-g i { top: 5px; }
-    .cc-brk-long .cc-g i { right: 4px; width: 52px; }
+    .cc-brk-long .cc-g i { width: 55px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
     .cc-end .cc-line .cc-t { color: #6c6c6c; }

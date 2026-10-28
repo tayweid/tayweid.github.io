@@ -398,6 +398,11 @@ function setupCourseColumn() {
   // letter above (15 px CMU Serif, reaching 5.75 px above the letter's middle) and from the baseline
   // of its last name below (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
   const GAP = 10, CAP = 5.75, BASE = 5;
+  // On the course page the upper bracket sits over home's row: above MICRO ECON's capitals on a wide
+  // window (36 px CMU Serif at line-height 0.8, starting 1.9 px below the row's top), above the house
+  // on a narrow one (its top 25 px above the row's floor; course.css).
+  const MARK = 1.9, ROOF = 25;
+  const KMAX = 1.8;    // the most the rail's rows stretch; past it, the room goes between the parts
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
   const OPEN = { home: 30, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -425,7 +430,7 @@ function setupCourseColumn() {
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
     if (mode === 'wide' && row.kind === 'end' && tucked) return TUCK;
-    if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') ? BRK : 0;
+    if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') && rows[rows.indexOf(row) + 1].kind !== 'home' ? BRK : 0;
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
@@ -436,24 +441,31 @@ function setupCourseColumn() {
   const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
   const endAt = rows.findIndex(row => row.kind === 'end');
   const tucked = endAt > 0 && rows[endAt - 1].kind === 'faint';
+  // where one part's group of rows ends and the next begins (this page's group at its upper bracket)
+  const groupStarts = rows.map((row, i) => i === brkTop || (row.kind === 'part' && !(row.here && brkTop >= 0)) ? i : -1)
+    .filter(i => i >= 0).slice(1);
   const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
-  // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
-  // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
-  // the window to the bottom, 8 px in from each (a wide sidebar: from under MICRO ECON to its bottom
-  // padding, and it only stretches, its names needing their rows).
-  // The letters and dashes keep their size.
+  // The rail runs the window's height: its spacing stretches or squeezes (to half, on a short window: a
+  // phone turned sideways) so that it reaches from the top of the window to the bottom, 8 px in from
+  // each (a wide sidebar: from under MICRO ECON to its bottom padding, and it only stretches, its names
+  // needing their rows). Its rows stretch to 1.8 times at most; on a taller window the room left goes
+  // evenly between the parts' groups, so every page's rail reaches the bottom and this page's group
+  // stays together. The letters and dashes keep their size.
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
     const kept = row => mode === 'wide' && (row.kind === 'home' || (row.kind === 'end' && tucked));
     rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
     const avail = mode === 'wide' ? windowHeight() - wideInset - fixed : windowHeight() - 16 - 2 * PADV;
-    const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(1.8, avail / full));
-    return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk; y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
+    const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(KMAX, avail / full));
+    const spare = groupStarts.length ? Math.max(0, avail - KMAX * full) / groupStarts.length : 0;
+    return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk + (groupStarts.includes(i) ? spare : 0); y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
       .concat([{ top: y }]);
   }
 
   // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
-  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - GAP - 1
+  const bracketAt = (o, i) => i === brkTop && rows[i + 1].kind === 'home'
+      ? (mode === 'wide' ? o[i + 1].top + MARK : o[i + 1].top + o[i + 1].h - ROOF) - GAP - 1
+    : i === brkTop ? o[i + 1].mid - CAP - GAP - 1
     : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
     : o[i].top + o[i].h - DASH;
 
@@ -462,7 +474,8 @@ function setupCourseColumn() {
   // at its own tick.
   function placeBand(o) {
     const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
-    const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow));
+    // (the course page's band starts under home's dash, clear of MICRO ECON)
+    const upper = dashAt(headRow.kind === 'home' || brkTop < 0 ? rows.indexOf(headRow) : brkTop);
     const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
