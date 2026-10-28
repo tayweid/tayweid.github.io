@@ -915,7 +915,7 @@ span.cc-r { cursor: default; }
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
 /* the brackets: course.js sets each one's place, hugging its part */
 .cc-brk { pointer-events: none; }
-.cc-brk .cc-g i { width: 18px; background: var(--link); }
+.cc-brk .cc-g i { width: 20px; background: var(--link); }
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
 .cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
@@ -970,16 +970,17 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-view { left: auto; right: 5px; }
     .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
-    /* MICRO ECON and Checkpoint F each sit on a long dash at the foot of their rows, flush with the
-       rail's edge (the dashes' right end), the names' baselines 5.8 px above their dashes */
+    /* MICRO ECON and Checkpoint F each sit on a long dash at the foot of their rows, the names'
+       baselines 5.8 px above their dashes: MICRO ECON flush with the rail's edge (the dashes' right
+       end), Checkpoint F at the names' edge, its dash reaching under it */
     .cc-home .cc-l { top: 0; right: 4px; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
     .cc-home .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
     .cc-home .cc-g svg { display: none; }
     .cc-end .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
     .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; bottom: 0; width: 52px; margin-left: 0; }
-    .cc-end .cc-l { top: auto; right: 4px; bottom: 3.8px; height: 20px; }
-    /* the brackets reach left past the ticks, toward the names */
-    .cc-brk .cc-g i { position: absolute; top: 9px; right: 6px; width: 22px; }
+    .cc-end .cc-l { top: auto; bottom: 3.8px; height: 20px; }
+    /* the brackets reach left past the ticks, to the names' edge */
+    .cc-brk .cc-g i { position: absolute; top: 9px; right: 6px; width: 28px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
     .cc-end .cc-line .cc-t { color: #6c6c6c; }

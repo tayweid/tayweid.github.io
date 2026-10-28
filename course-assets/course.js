@@ -380,21 +380,24 @@ function setupCourseColumn() {
   // The rail is the same at every width: a wide sidebar, a narrow window's closed column and a phone's
   // all space their rows alike, so it keeps its length when the names go. The part letters space alike,
   // and home's long dash at the top like the long dash closing it at the foot; this page's blocks sit
-  // close together, a little room under their letter, the brackets just outside them and more room
-  // outside those. Opened into a card, the blocks spread to OPEN's height, room for a finger. On a wide
+  // close together, a little room under their letter, the brackets just outside them. Opened into a card, the blocks spread to OPEN's height, room for a finger. On a wide
   // window home's row is MICRO ECON with its dash at the foot, and keeps its height.
   const WIDE = 1334;   // the window that fits the sidebar beside the centered page column (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // the room between the part's letter and its blocks
-  const APART = 20;    // and outside its brackets, setting the part apart from its neighbours
+  // The upper bracket's row: the part's letter has too little room above its capitals for the bracket
+  // and the room outside it. The lower bracket takes none; its last tick's row holds it.
+  const BRK = 4.5;
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
-  // The brackets hug their part, each the same gap from it: the upper from the capitals of its letter
-  // (15 px CMU Serif, reaching 5.75 px above the letter's middle), the lower from its last tick.
-  const HUG = 15, CAP = 5.75;
+  // The brackets sit just outside their part's names, as home's dash sits under MICRO ECON: the same
+  // 5.8 px from the capitals of the part's letter above (15 px CMU Serif, reaching 5.75 px above the
+  // letter's middle) and from the baseline of its last name below (15.5 px CMU Serif in a 20 px line,
+  // 5 px below the row's middle).
+  const GAP = 5.8, CAP = 5.75, BASE = 5;
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
-  const OPEN = { home: 30, brk: 8, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
+  const OPEN = { home: 30, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
@@ -419,6 +422,7 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
+    if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') ? BRK : 0;
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
@@ -427,7 +431,7 @@ function setupCourseColumn() {
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const brkTop = rows.findIndex(row => row.node.classList.contains('cc-brk-top'));
   const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
-  const roomBefore = i => (i === brkTop || (brkEnd >= 0 && i === brkEnd + 1)) ? APART : own.length && i === own[0] ? ROOM : 0;
+  const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
   // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
   // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
   // the window to the bottom, 8 px in from each (a wide sidebar: from under MICRO ECON to its bottom
@@ -444,8 +448,8 @@ function setupCourseColumn() {
   }
 
   // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
-  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - 1 - HUG
-    : i === brkEnd ? o[i - 1].mid + 1 + HUG + 1
+  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - GAP - 1
+    : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
     : o[i].top + o[i].h - DASH;
 
   // The band: a clear glass over what the window shows, running between the brackets as the page
