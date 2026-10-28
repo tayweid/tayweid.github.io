@@ -421,14 +421,18 @@ function setupCourseColumn() {
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
   const headAt = headRow.kind === 'part' ? rows.indexOf(headRow) : -1;
   const roomBefore = i => i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
-  // A window too short for the rail (a phone turned sideways) squeezes its spacing to fit, to half at
-  // most; the letters, ticks and house keep their size. A wide sidebar never squeezes: its names need
-  // their rows.
+  // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
+  // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
+  // the window to the bottom, 8 px in from each (a wide sidebar: from under its wordmark, level with
+  // the page's title, to 8 px from the bottom, and it only stretches, its names needing their rows).
+  // The letters, ticks and house keep their size.
   function offsets(q) {
-    let y = 0, full = 0;
-    rows.forEach((row, i) => { full += roomBefore(i) + heightAt(row, q); });
-    const k = mode === 'wide' ? 1 : Math.max(0.5, Math.min(1, (windowHeight() - 16 - 2 * PADV) / full));
-    return rows.map((row, i) => { const room = roomBefore(i) * k; y += room; const h = heightAt(row, q) * k; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
+    let y = 0, full = 0, fixed = 0;
+    const kept = row => mode === 'wide' && row.kind === 'wordmark';
+    rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
+    const avail = windowHeight() - 16 - 2 * PADV - (mode === 'wide' ? TOP - 8 + fixed : 0);
+    const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(1.8, avail / full));
+    return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk; y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
       .concat([{ top: y }]);
   }
 
@@ -493,11 +497,9 @@ function setupCourseColumn() {
     const total = o[o.length - 1].top + 2 * PADV;
     if (p === 0 || anchorY === null) {
       anchorRow = Math.max(0, rows.indexOf(cur || headRow));
-      // closed, it sits where a wide window's sidebar does, at the top; on a phone's touch screen a
-      // little below the middle, where a thumb reaches it
+      // closed, it runs the window's height, from 8 px under its top
       const closed = offsets(0);
-      const top0 = mode === 'phone' && touch.matches ? windowHeight() * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
-      anchorY = top0 + PADV + closed[anchorRow].mid;
+      anchorY = 8 + PADV + closed[anchorRow].mid;
     }
     const top = anchorY - PADV - o[anchorRow].mid;
     card.style.top = `${Math.max(8, Math.min(windowHeight() - total - 8, top))}px`;

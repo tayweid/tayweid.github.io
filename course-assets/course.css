@@ -977,8 +977,9 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 @media (max-width: 1333px) {
     html.has-course-column .cc {
         position: fixed; z-index: 1003; left: 2px; top: 0; width: 26px; padding: 8px 2px; overflow: hidden; touch-action: none;
-        border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(var(--p) * 0.15));
-        background: rgba(36, 36, 36, var(--bg)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
+        /* closed, a tall card the window's height (course.js stretches the rail to it); open, the card grows */
+        border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(0.08 + var(--p) * 0.07));
+        background: rgba(44, 44, 44, calc(0.9 - var(--p) * 0.9)); box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
     }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
     .cc-wordmark { display: none; }
