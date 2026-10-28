@@ -920,6 +920,7 @@ span.cc-r { cursor: default; }
 .cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 6px; border: 0 solid var(--link); border-right-width: 2px; border-radius: 0; background: none; }
 .cc-brk-top .cc-g i, .cc-home.cc-here .cc-g i { border-top-width: 2px; border-top-right-radius: 2px; }
 .cc-home.cc-here .cc-g i { bottom: -4px; }   /* its line where home's dash is, the corner under it */
+.cc-home.cc-here:hover .cc-g i, .cc-home.cc-here.hot .cc-g i { background: none; border-color: var(--white); }   /* lit as a line, not filled */
 .cc-brk-end .cc-g i { border-bottom-width: 2px; border-bottom-right-radius: 2px; }
 .cc-brk .cc-g i { width: 20px; position: relative; }
 .cc-brk-top .cc-g i { top: 2px; }    /* its line, not its corner, on the place course.js sets */
