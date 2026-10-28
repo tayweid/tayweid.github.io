@@ -859,26 +859,26 @@ img.placeholder-bg { display: none; }
 }
 
 /* ---------- course column (course-page.js draws it, course.js lays it out) ----------
-   All of a row-card course's navigation in one column, in the left slot: MICRO ECON and home, a
-   letter for each part (its name in small capitals), a tick for
-   each block of the part on screen, faint dashes for the other parts' blocks, and a long dash
-   closing the semester, named for the last checkpoint. A wide window shows it as the sidebar,
-   names right-aligned beside the ticks; the page stays centered on the window, the sidebar beside it.
-   A narrow window keeps only the ticks and letters, just left of the page's text; a phone keeps
-   them in a gutter. Opened, it becomes a card with the names to the right of the ticks. course.js
-   sets each row's height (--gy is the middle of it), the open state (--p, --q) and, when
-   floating, the card's place. This page's stretch of the column is tinted blue, with a brighter band
-   over what the window shows. The page's column is a stripe of the page's color, top to bottom,
-   on a ground a shade lighter; the rail sits on the ground beside it, with no card of its own. */
+   All of a row-card course's navigation in one column, in the left slot: a long dash opening it for
+   home (MICRO ECON), a letter for each part (its name in small capitals), a tick for each block of
+   the part on screen, faint dashes for the other parts' blocks, and a long dash closing the
+   semester, named for the last checkpoint. Two short blue dashes bracket this page's stretch of it,
+   whose ticks are blue, and a clear band runs between them over what the window shows. A wide window
+   shows it as the sidebar, names right-aligned beside the ticks; the page stays centered on the
+   window, the sidebar beside it. A narrow window keeps only the ticks and letters, a little left of
+   the page; a phone keeps them in a gutter. Opened, it becomes a card with the names to the right of
+   the ticks. course.js sets each row's height (--gy is the middle of it), the open state (--p, --q)
+   and, when floating, the card's place. A faint line down either side marks the page's column. */
 html.has-course-column .right_div { display: none; }
 html.has-course-column {
     --column: 780px;                                  /* a calmer line for the text and the cards beside the column */
-    --stripe-pad: 24px;                               /* the stripe's margin either side of the text */
-    --stripe: calc(var(--column) + 2 * var(--stripe-pad));
-    --ground: #252525;                                /* either side of the stripe, under the rail */
+    --page-pad: 24px;                                 /* from the text to the column's edge lines */
+    --page-width: calc(var(--column) + 2 * var(--page-pad));
 }
-html.has-course-column body { background: var(--ground); }
-html.has-course-column .content { max-width: var(--stripe); padding-left: var(--stripe-pad); padding-right: var(--stripe-pad); background: var(--bg); }
+html.has-course-column .content {
+    max-width: var(--page-width); padding-left: var(--page-pad); padding-right: var(--page-pad);
+    box-shadow: -1px 0 0 rgba(255, 255, 255, 0.07), 1px 0 0 rgba(255, 255, 255, 0.07);   /* the edge lines, the page's height */
+}
 html.has-course-column .wrapper { gap: 0; }
 /* below a wide window the column does the scrollbar's job; the page scrolls as before, and the
    bar's width goes to the page */
@@ -896,17 +896,20 @@ span.cc-r { cursor: default; }
 .cc-g { position: absolute; left: 0; top: var(--gy, 50%); width: 28px; height: 20px; display: flex; align-items: center; justify-content: center; transform: translateY(-50%); }
 .cc-l { position: absolute; left: 36px; right: 4px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; opacity: var(--q); overflow: hidden; white-space: nowrap; }
 
-/* the glyphs: letters, ticks, faint dashes, the house, the two long dashes */
+/* the glyphs: letters, ticks, faint dashes, the long dashes at either end, the brackets */
 .cc-part .cc-g { font: 400 15px/1 var(--font-heading); color: #8f8f8f; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
+.cc-r[data-mine] .cc-g i { background: var(--link); }   /* this page's ticks (the course page: and home's dash) */
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
-.cc-end .cc-g i { width: 20px; background: #8f8f8f; }
-.cc-cur .cc-g i { width: 16px; background: var(--link); }
-.cc-home .cc-g { color: #8a8a8a; }
-.cc-home .cc-g svg { width: 20px; height: 18px; overflow: visible; }   /* as wide as the long dash under it */
-.cc-home.cc-here .cc-g { color: var(--link); }
+.cc-home .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
+.cc-home.cc-here .cc-g i { background: var(--link); }
+/* the brackets, each hugging the part it closes (course.js knows how closely: NOTCH) */
+.cc-brk { pointer-events: none; }
+.cc-brk .cc-g i { width: 16px; background: var(--link); }
+.cc-brk-top .cc-g { top: calc(100% - 2px); }
+.cc-brk-end .cc-g { top: 2px; }
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
 .cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
@@ -925,18 +928,9 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-cur .cc-id, .cc-cur .cc-line .cc-t { color: var(--white); }
 .cc-r:hover .cc-t, .cc-r.hot .cc-t { color: var(--white); }
 .cc-brand { display: flex; gap: 0.32em; font: 400 17px/1 var(--font-heading); letter-spacing: 0.05em; color: var(--white); }
-/* the house stands at the foot of its row, its base 1.5 px above the row's floor (on a wide window,
-   level with the line under MICRO ECON), so the row it answers the pointer in is where it is drawn;
-   its name stays level with it */
-.cc-home .cc-g { top: auto; bottom: 1.5px; height: 18px; transform: none; align-items: flex-end; }
-.cc-home .cc-l { top: calc(100% - 20.5px); bottom: auto; height: 20px; }
-.cc-start .cc-g, .cc-sep { display: none; }
 
-/* this page's stretch of the column, faintly tinted */
-.cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.10); }
-/* and inside it, a brighter band over what the window shows; its ticks, and the block on screen's, white */
-.cc-mark.cc-view { margin-left: 2px; width: 18px; border-radius: 6px; background: rgba(74, 143, 240, 0.38); }
-.cc-in .cc-g i, .cc-cur .cc-g i { background: var(--white); }
+/* the band: a clear glass over what the window shows, between the brackets; the ticks under it stay blue */
+.cc-view { position: absolute; z-index: 0; left: 5px; width: 18px; border-radius: 6px; pointer-events: none; background: rgba(255, 255, 255, 0.11); }
 
 /* a name at once under the pointer, and the bubble that follows a finger along the closed column */
 .cc-tip, .cc-bubble { position: fixed; z-index: 1005; display: none; transform: translateY(-50%); border: 0.5px solid rgba(255, 255, 255, 0.16); background: rgba(38, 38, 38, 0.96); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); white-space: pre; pointer-events: none; }
@@ -949,16 +943,16 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-scrim { position: fixed; inset: 0; z-index: 1001; background: rgba(0, 0, 0, 0.35); }
 .cc-scrim[hidden] { display: none; }
 
-/* a wide window: the column is the left sidebar beside the page, whose stripe stays centered on the
-   window (the wrapper's right padding mirrors the sidebar). Home's row is MICRO ECON, right above the
-   line, with the house beside its foot standing on the line; course.js sets the sidebar's top padding
-   so the line is level with the rule under the page's title. It starts where a 221 px sidebar, 16 px
-   from the window's edge and 16 px from the stripe, fits beside the centered 828 px stripe:
+/* a wide window: the column is the left sidebar beside the page, whose column stays centered on the
+   window (the wrapper's right padding mirrors the sidebar). Home's row is MICRO ECON with its long
+   dash at the foot, reaching a little under it; course.js sets the sidebar's top padding so the dash
+   is level with the rule under the page's title. It starts where a 221 px sidebar, 16 px from the
+   window's edge and 16 px from the column's edge, fits beside the centered 828 px column:
    828 + 2 × (16 + 221 + 16) = 1334 px (course.js knows it). From there the sidebar grows to 272 px, and
-   then the gap to the stripe takes what room is left, up to 40 px. */
+   then the gap to the column takes what room is left, up to 40 px. */
 @media (min-width: 1334px) {
     html.has-course-column {
-        --gut: calc((100vw - var(--stripe)) / 2);   /* each side of the stripe */
+        --gut: calc((100vw - var(--page-width)) / 2);   /* each side of the column */
         --rail-gap: clamp(16px, calc(var(--gut) - 16px - 272px), 40px);
         --side: clamp(221px, calc(var(--gut) - 16px - var(--rail-gap)), 272px);
     }
@@ -967,16 +961,15 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     html.has-course-column .content { margin-left: 0; margin-right: 0; }
     html.has-course-column .cc { position: sticky; top: 0; padding: 16px 0 24px; }   /* course.js sets the top and reads both */
     .cc-g { left: auto; right: 0; }
-    .cc-mark { left: auto; right: 3px; }
-    .cc-mark.cc-view { margin-left: 0; right: 5px; }
+    .cc-view { left: auto; right: 5px; }
     .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
     .cc-home .cc-l { top: 0; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
     .cc-home .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
-    .cc-home .cc-g { color: var(--fg); }
-    .cc-home.cc-here .cc-g { color: var(--link); }
-    .cc-start .cc-l { overflow: visible; }
-    .cc-sep { display: block; flex-shrink: 0; position: relative; top: -2px; width: 118px; height: 1px; background: #8f8f8f; }   /* level with the house's base: 2.5 px above the row's floor, centered on it */
+    /* its dash 2 px above the row's floor (course.js: DASH), its right end the closing dash's, and
+       long enough to run a little under ECON */
+    .cc-home .cc-g { top: calc(100% - 2px); }
+    .cc-home .cc-g i { position: absolute; top: 9px; right: 4px; width: 52px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
     .cc-end .cc-line .cc-t { color: #6c6c6c; }
@@ -985,30 +978,29 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 @media (max-width: 1333px) {
     html.has-course-column .cc {
         position: fixed; z-index: 1003; left: 2px; top: 0; width: 26px; padding: 8px 2px; overflow: hidden; touch-action: none;
-        /* closed, the rail on the ground beside the stripe (course.js stretches it to the window's
-           height); open, a card of frosted glass over the page */
+        /* closed, the rail beside the page (course.js stretches it to the window's height); open, a
+           card of frosted glass over the page */
         border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, calc(var(--p) * 0.15));
         box-shadow: 0 14px 36px rgba(0, 0, 0, calc(var(--p) * 0.5));
     }
     html.has-course-column .cc.opening { -webkit-backdrop-filter: blur(22px) saturate(1.6); backdrop-filter: blur(22px) saturate(1.6); }
 }
 /* Every window without the sidebar, phone to 1333 px, lays the page out by one rule, so a card only ever
-   grows as the window does: the stripe is its full width at most, centered, with at least 30 px on
-   its left for the closed column and 4 px on its right; its margin either side of the text narrows
-   with a phone. The closed column is the same slim one at every such width (2 + 22 + 2 px;
-   course.js knows it), set a little left of the stripe where there is room and in the 30 px gutter
-   where there isn't. The cards keep their border and corners. */
+   grows as the window does: the column is its full width at most, centered, with at least 30 px on
+   its left for the closed rail and 4 px on its right; its margin either side of the text narrows
+   with a phone. The closed rail is the same slim one at every such width (2 + 22 + 2 px;
+   course.js knows it), set a little left of the column's edge where there is room and in the 30 px
+   gutter where there isn't. The cards keep their border and corners. */
 @media (max-width: 1333px) {
     html.has-course-column {
-        --stripe-pad: clamp(8px, calc(8px + (100vw - 400px) * 0.1), 24px);
+        --page-pad: clamp(8px, calc(8px + (100vw - 400px) * 0.1), 24px);
     }
-    html.has-course-column .wrapper { padding-left: max(30px, calc((100vw - var(--stripe)) / 2)); padding-right: max(4px, calc((100vw - var(--stripe)) / 2)); }
+    html.has-course-column .wrapper { padding-left: max(30px, calc((100vw - var(--page-width)) / 2)); padding-right: max(4px, calc((100vw - var(--page-width)) / 2)); }
     html.has-course-column .bc { margin: 0; border: 1px solid var(--mid); border-radius: 12px; }
     html.has-course-column .cc { padding-left: 2px; padding-right: 2px; }
     .cc-g { width: 22px; }
     .cc-l { left: 28px; }
-    .cc-mark { left: 1px; width: 20px; }
-    .cc-mark.cc-view { width: 16px; }
+    .cc-view { left: 3px; width: 16px; }
     .cc-part .cc-g { font-size: 15px; }
 }
 

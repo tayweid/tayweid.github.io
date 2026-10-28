@@ -927,14 +927,13 @@
 
     // ---------- the course column ----------
 
-    // A course on the row card gets all its navigation in one column, in the left slot: the
-    // wordmark and home, a letter for each part, a dash for each
+    // A course on the row card gets all its navigation in one column, in the left slot: a long
+    // dash opening it for home (MICRO ECON), a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
-    // and a long dash closing the semester, named for the last checkpoint. On a wide window the
-    // names sit beside it; course.js sizes it, follows the reader down the page, and on narrow
-    // windows and phones keeps it to the dashes and letters until it is opened into a card.
-    // the house is drawn as wide as the long dashes (20 px) in the ticks' 2 px stroke
-    const HOUSE = '<svg viewBox="0 0 20 18" aria-hidden="true"><path d="M1 8.2L10 1l9 7.2V17H1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+    // and a long dash closing the semester, named for the last checkpoint. Two short blue dashes
+    // bracket the page's own stretch of it. On a wide window the names sit beside it; course.js
+    // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
+    // dashes and letters until it is opened into a card.
 
     // What a section adds to the column: a block, the checkpoint, or a project.
     function columnEntry(id, section) {
@@ -994,11 +993,18 @@
         const brandText = items(meta.brand).join(' ');
 
         const homeRow = columnRow('home', { ...homeLink, here: onHome, mine: onHome, tip: `${brandText} · course page` });
-        homeRow.querySelector('.cc-g').innerHTML = HOUSE;
+        homeRow.querySelector('.cc-g').append(element('i'));
         homeRow.querySelector('.cc-l').append(brand());
-        const start = columnRow('start');
-        start.querySelector('.cc-l').append(element('span', 'cc-sep'));
-        list.append(homeRow, start);
+        list.append(homeRow);
+        // the brackets around this page's stretch of the column: above its part's letter (the course
+        // page has home's dash for that) and below its last row
+        const bracket = place => {
+            const row = columnRow('brk');
+            row.classList.add(`cc-brk-${place}`);
+            row.setAttribute('aria-hidden', 'true');
+            row.querySelector('.cc-g').append(element('i'));
+            return row;
+        };
 
         if (onHome) {
             document.querySelectorAll('main [data-course-nav]').forEach(heading => {
@@ -1007,6 +1013,7 @@
                 const title = heading.dataset.courseNav || heading.textContent.trim();
                 list.append(columnLine(columnRow('block', { target: holder.id, mine: true, tip: title }), '', title));
             });
+            list.append(bracket('end'));
         }
 
         const ids = Object.keys(course.parts);
@@ -1017,6 +1024,7 @@
             letter.dataset.tip = `Part ${id}  ${part.title}`;
             letter.querySelector('.cc-g').textContent = id;
             letter.querySelector('.cc-l').append(element('span', 'cc-t', part.title));
+            if (here) list.append(bracket('top'));
             list.append(letter);
             items(part.sections).forEach(section => {
                 const entry = columnEntry(id, section);
@@ -1030,6 +1038,7 @@
                     list.append(faint);
                 }
             });
+            if (here) list.append(bracket('end'));
         });
 
         // the closing dash: the last checkpoint, when the last part has one

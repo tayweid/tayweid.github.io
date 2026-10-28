@@ -45,7 +45,7 @@ course:
   code: ECON 0100                  # page titles, and the wrapper class course-econ-0100
   title: Microeconomics
   brand: [MICRO, ECON]             # nameplate lines in the left nav (atop the course column on a row-card course)
-  home: econ-0150.html             # optional; the nameplate links here, and the mobile nav or the course column's house
+  home: econ-0150.html             # optional; the nameplate links here, and the mobile nav or the course column's opening dash
   nav:                             # optional extra left-nav entries (path-card courses; the course column has no place for them)
     - label: Office Hours          # a note: text lines above the buttons, nothing to click
       lines: ['*Taylor* Wed 2:30-3:30, Posvar 4702']   # quote a line that has a colon; *asterisks* italicise
@@ -155,10 +155,10 @@ pieces at every width and scales them with its own width, running edge to edge o
 steps carry many named files) keeps the path card.
 
 **The course column.** A row-card course also trades both side navs, and the phone's bottom
-bar, for one column: the `brand` nameplate and a house for `home`, a letter for each part with
-its title in small capitals, a tick for each block of the part on screen, faint dashes for the
-other parts' blocks (each links to its block), and a long dash closing the semester, named for
-the last part's checkpoint. A wide window shows it as the sidebar with the names beside it,
+bar, for one column: a long dash opening it for `home`, named by the `brand` nameplate, a letter
+for each part with its title in small capitals, a tick for each block of the part on screen
+(bracketed by two short blue dashes), faint dashes for the other parts' blocks (each links to its
+block), and a long dash closing the semester, named for the last part's checkpoint. A wide window shows it as the sidebar with the names beside it,
 the page centered on the window; narrower, it keeps to the ticks and letters and opens into a
 card when tapped. It has no place for `nav:` entries, so a row-card course leaves `nav:` out.
 The course's home page (`home:`) can show the same column: give its `<main>` the attribute
