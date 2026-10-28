@@ -867,7 +867,8 @@ img.placeholder-bg { display: none; }
    A narrow window keeps only the ticks and letters, just left of the page's text; a phone keeps
    them in a gutter. Opened, it becomes a card with the names to the right of the ticks. course.js
    sets each row's height (--gy is the middle of it), the open state (--p, --q, --bg) and, when
-   floating, the card's place. This page's stretch of the column is tinted blue. */
+   floating, the card's place. This page's stretch of the column is tinted blue, with a brighter band
+   over what the window shows. */
 html.has-course-column .right_div { display: none; }
 html.has-course-column { --column: 780px; }   /* a calmer line for the text and the cards beside the column */
 html.has-course-column .wrapper { gap: 0; }
@@ -925,8 +926,11 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 .cc-home .cc-l { top: calc(100% - 20.5px); bottom: auto; height: 20px; }
 .cc-wordmark .cc-g, .cc-start .cc-g, .cc-sep { display: none; }
 
-/* this page's stretch of the column, tinted */
-.cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.15); box-shadow: inset 0 0 0 0.5px rgba(74, 143, 240, 0.35); }
+/* this page's stretch of the column, faintly tinted */
+.cc-mark { position: absolute; z-index: 0; left: 3px; width: 22px; border-radius: 8px; pointer-events: none; background: rgba(74, 143, 240, 0.10); }
+/* and inside it, a brighter band over what the window shows; its ticks, and the block on screen's, white */
+.cc-mark.cc-view { margin-left: 2px; width: 18px; border-radius: 6px; background: rgba(74, 143, 240, 0.38); }
+.cc-in .cc-g i, .cc-cur .cc-g i { background: var(--white); }
 
 /* a name at once under the pointer, and the bubble that follows a finger along the closed column */
 .cc-tip, .cc-bubble { position: fixed; z-index: 1005; display: none; transform: translateY(-50%); border: 0.5px solid rgba(255, 255, 255, 0.16); background: rgba(38, 38, 38, 0.96); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45); white-space: pre; pointer-events: none; }
@@ -955,6 +959,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     html.has-course-column .cc { position: sticky; top: 46px; }
     .cc-g { left: auto; right: 0; }
     .cc-mark { left: auto; right: 3px; }
+    .cc-mark.cc-view { margin-left: 0; right: 5px; }
     .cc-l { left: 12px; right: 34px; align-items: flex-end; text-align: right; }   /* never to the window's edge */
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
     .cc-home .cc-l { display: none; }   /* the wordmark above names it */
@@ -991,6 +996,7 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-g { width: 22px; }
     .cc-l { left: 28px; }
     .cc-mark { left: 1px; width: 20px; }
+    .cc-mark.cc-view { width: 16px; }
     .cc-part .cc-g { font-size: 15px; }
 }
 

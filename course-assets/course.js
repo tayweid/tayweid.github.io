@@ -341,8 +341,8 @@ function setupMobileNav() {
 // rows spread, the names fade in, and the row the card opened around stays put. A mouse goes straight
 // to what the closed column shows by name (the house, a letter, this part's ticks); a click on another
 // part's faint dashes opens the card like a tap. It marks
-// the block on screen, tints the stretch of the column this page covers, names any dash at once
-// under a pointer, and a finger sliding along the closed column moves
+// the block on screen, tints the stretch of the column this page covers with a brighter band over what
+// the window shows, names any dash at once under a pointer, and a finger sliding along the closed column moves
 // through the page, or, onto another part, opens that part on release.
 function setupCourseColumn() {
   const card = document.querySelector('.cc');
@@ -374,7 +374,8 @@ function setupCourseColumn() {
   const bubbleSub = el('span');
   bubble.append(bubbleTitle, bubbleSub);
   const pageMark = el('span', { className: 'cc-mark' });
-  list.prepend(pageMark);
+  const viewMark = el('span', { className: 'cc-mark cc-view' });
+  list.prepend(pageMark, viewMark);
   document.body.append(scrim, tip, bubble);
 
   // The rail is the same at every width: a wide sidebar, a narrow window's closed column and a phone's
@@ -431,8 +432,9 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // This page's stretch of the column, from a little above its first block to a little below its last,
-  // tinted; the part's letter (or the house) sits above it.
+  // Two lenses (after ManimLive's and Plass's rails): this page's stretch of the column, from a little
+  // above its first block to a little below its last, faintly tinted, the part's letter (or the house)
+  // above it; and inside it a brighter band over what the window shows, gliding as the page scrolls.
   function placeMarks(o) {
     const first = own.length ? own[0] : rows.indexOf(headRow);
     const last = own.length ? own[own.length - 1] : first;
@@ -440,6 +442,22 @@ function setupCourseColumn() {
     const padBottom = Math.min(13, o[last].h / 2 + 1);
     pageMark.style.top = `${o[first].mid - padTop}px`;
     pageMark.style.height = `${Math.max(4, o[last].mid + padBottom - (o[first].mid - padTop))}px`;
+    // where the window is, as a place on the column: between two of this page's rows as the page
+    // runs between their sections
+    const at = docY => {
+      const measured = mineRows.filter(row => row.yd !== undefined);
+      let k = 0;
+      while (k + 1 < measured.length && measured[k + 1].yd <= docY) k += 1;
+      const from = measured[k], next = measured[k + 1];
+      const a = o[rows.indexOf(from)], b = next ? o[rows.indexOf(next)] : null;
+      const end = next ? next.yd : Math.max(from.yd + 1, root.scrollHeight);
+      const t = Math.min(1, Math.max(0, (docY - from.yd) / Math.max(1, end - from.yd)));
+      return b ? a.mid + t * (b.mid - a.mid) : a.mid + t * (a.h / 2 + 4);
+    };
+    const top = Math.max(o[first].mid - padTop, at(scrollY) - padTop);
+    const bottom = Math.min(o[last].mid + padBottom, at(scrollY + innerHeight) + padBottom);
+    viewMark.style.top = `${top}px`;
+    viewMark.style.height = `${Math.max(8, bottom - top)}px`;
   }
 
   function layout() {
@@ -519,7 +537,15 @@ function setupCourseColumn() {
     const line = scrollY + innerHeight * 0.3;
     cur = null;
     mineRows.forEach(row => { if (row !== headRow && row.yd !== undefined && row.yd <= line) cur = row; });
+    // this page's rows whose sections are on screen
+    const shown = new Set();
+    const measured = mineRows.filter(row => row !== headRow && row.yd !== undefined);
+    measured.forEach((row, k) => {
+      const end = k + 1 < measured.length ? measured[k + 1].yd : root.scrollHeight;
+      if (row.yd < scrollY + innerHeight && end > scrollY) shown.add(row);
+    });
     rows.forEach(row => {
+      row.node.classList.toggle('cc-in', shown.has(row));
       row.node.classList.toggle('cc-cur', row === cur);
       row.node.classList.toggle('hot', row === hot);
     });
