@@ -945,22 +945,26 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 
 /* a wide window: the column is the left sidebar beside the page, which stays centered on the window
    (the wrapper's right padding mirrors the sidebar); the wordmark sits on top with the house beside
-   its foot, standing on the line under it. It starts where a 250 px sidebar and a 12 px gap fit beside
-   a centered 810 px page: 810 + 2 × (250 + 12) = 1334 px (course.js knows it). From there the gap grows
-   to 28 px and the sidebar to 272 px. */
+   its foot, standing on the line under it, all on a card the window's height, as the closed column's.
+   It starts where a 236 px sidebar, a 12 px gap and a 12 px margin outside the card fit beside a
+   centered 810 px page: 810 + 2 × (236 + 12 + 12) = 1330 px, so 1334 (course.js knows it). From there the
+   sidebar grows to 272 px, and then the gap takes what room is left, up to 56 px. */
 @media (min-width: 1334px) {
     html.has-course-column {
-        --rail-gap: clamp(12px, calc((100vw - 1334px) / 3 + 12px), 28px);
-        --side: clamp(250px, calc((100vw - var(--column) - 30px) / 2 - var(--rail-gap)), 272px);
+        --rail-gap: clamp(12px, calc((100vw - var(--column) - 30px) / 2 - 284px), 56px);
+        --side: clamp(236px, calc((100vw - var(--column) - 30px) / 2 - var(--rail-gap) - 12px), 272px);
     }
-    html.has-course-column .wrapper { justify-content: center; gap: var(--rail-gap); padding-right: calc(var(--side) + var(--rail-gap)); }
+    html.has-course-column .wrapper { max-width: none; justify-content: center; gap: var(--rail-gap); padding-left: 12px; padding-right: calc(var(--side) + var(--rail-gap) + 12px); }
     html.has-course-column .left_div { width: var(--side); }
     html.has-course-column .content { margin-left: 0; margin-right: 0; }
-    html.has-course-column .cc { position: sticky; top: 46px; }
+    html.has-course-column .cc {
+        position: sticky; top: 16px; min-height: calc(100vh - 32px); padding: 18px 12px;   /* course.js reads these */
+        border-radius: 16px; border: 0.5px solid rgba(255, 255, 255, 0.08); background: rgba(44, 44, 44, 0.9);
+    }
     .cc-g { left: auto; right: 0; }
     .cc-mark { left: auto; right: 3px; }
     .cc-mark.cc-view { margin-left: 0; right: 5px; }
-    .cc-l { left: 12px; right: 34px; align-items: flex-end; text-align: right; }   /* never to the window's edge */
+    .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
     .cc-home .cc-l { display: none; }   /* the wordmark above names it */
     .cc-home .cc-g { color: var(--fg); }

@@ -388,7 +388,8 @@ function setupCourseColumn() {
   const WIDE = 1334;   // the window that fits the sidebar beside a centered page (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 10;     // and the room that sets the part apart: above its name, around its group of blocks
-  const PADV = 8, WORDMARK = 44, TOP = 46;   // TOP: the wide sidebar's sticky top (course.css)
+  const PADV = 8, WORDMARK = 44;
+  let wideInset = 0;   // a wide sidebar's card: its sticky top and bottom, and its padding (course.css; read in measure)
   const OPEN = { wordmark: 0, home: 35, start: 0, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
@@ -423,14 +424,14 @@ function setupCourseColumn() {
   const roomBefore = i => i === headAt || (own.length && (i === own[0] || i === own[own.length - 1] + 1)) ? ROOM : 0;
   // The rail runs the window's height: its spacing stretches (to 1.8 times at most, on a tall window)
   // or squeezes (to half, on a short one: a phone turned sideways) so that it reaches from the top of
-  // the window to the bottom, 8 px in from each (a wide sidebar: from under its wordmark, level with
-  // the page's title, to 8 px from the bottom, and it only stretches, its names needing their rows).
+  // the window to the bottom, 8 px in from each (a wide sidebar: below its wordmark, inside its card the
+  // window's height, and it only stretches, its names needing their rows).
   // The letters, ticks and house keep their size.
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
     const kept = row => mode === 'wide' && row.kind === 'wordmark';
     rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
-    const avail = windowHeight() - 16 - 2 * PADV - (mode === 'wide' ? TOP - 8 + fixed : 0);
+    const avail = mode === 'wide' ? windowHeight() - wideInset - fixed : windowHeight() - 16 - 2 * PADV;
     const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(1.8, avail / full));
     return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk; y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
       .concat([{ top: y }]);
@@ -481,13 +482,13 @@ function setupCourseColumn() {
       return;
     }
     // a narrow window: the closed column sits just left of the page's text; a phone: in its gutter
-    // the slim closed column (course.css): 12 px left of the page's text where there is room, else in the
-    // page's 32 px gutter, 2 px from the screen's edge
+    // the slim closed column (course.css): up to 28 px left of the page's text where there is room, else
+    // in the page's 32 px gutter, 2 px from the screen's edge
     const shut = 26;
     let left = 2;
     if (content) {
       const box = content.getBoundingClientRect();
-      left = Math.max(2, box.left / rectScale() + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
+      left = Math.max(2, box.left / rectScale() + parseFloat(getComputedStyle(content).paddingLeft) - 28 - shut);
     }
     card.style.left = `${left}px`;
     const wide = Math.min(310, pageWidth() - left - 10);
@@ -529,6 +530,9 @@ function setupCourseColumn() {
     const width = pageWidth();
     mode = width >= WIDE ? 'wide' : width > 650 ? 'narrow' : 'phone';
     ['wide', 'narrow', 'phone'].forEach(name => root.classList.toggle(`cc-${name}`, name === mode));
+    if (mode === 'wide') ['width', 'top', 'left'].forEach(prop => { card.style[prop] = ''; });
+    const cs = getComputedStyle(card);
+    wideInset = 2 * (parseFloat(cs.top) || 0) + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
     if (previous !== mode) { p = 0; target = 0; scrim.hidden = true; card.classList.remove('is-open'); anchorY = null; }
     mineRows.forEach(row => { row.yd = row === headRow ? 0 : row.el ? row.el.getBoundingClientRect().top + scrollY : undefined; });
     paint();
