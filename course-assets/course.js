@@ -389,8 +389,10 @@ function setupCourseColumn() {
   const APART = 20;    // and outside its brackets, setting the part apart from its neighbours
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
-  const DASH = 2;      // the middle of that dash, this far above the row's floor (course.css)
-  const NOTCH = 2;     // a bracket's dash, this far inside its row from the side toward its part (course.css)
+  const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
+  // The brackets hug their part, each the same gap from it: the upper from the capitals of its letter
+  // (15 px CMU Serif, reaching 5.75 px above the letter's middle), the lower from its last tick.
+  const HUG = 15, CAP = 5.75;
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
   const OPEN = { home: 30, brk: 8, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -441,13 +443,16 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
+  // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
+  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - 1 - HUG
+    : i === brkEnd ? o[i - 1].mid + 1 + HUG + 1
+    : o[i].top + o[i].h - DASH;
+
   // The band: a clear glass over what the window shows, running between the brackets as the page
   // scrolls. The page's top is at the upper bracket, its end at the lower one, and each section starts
   // at its own tick.
   function placeBand(o) {
-    const dashAt = i => i === brkTop ? o[i].top + o[i].h - NOTCH
-      : i === brkEnd ? o[i].top + NOTCH
-      : rows[i].kind === 'home' && mode === 'wide' ? o[i].top + o[i].h - DASH : o[i].mid;
+    const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
     const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow));
     const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
@@ -472,7 +477,7 @@ function setupCourseColumn() {
     rows.forEach((row, i) => {
       row.node.style.height = `${o[i].h}px`;
       row.node.style.marginTop = `${o[i].room}px`;
-      row.node.style.setProperty('--gy', `${o[i].h / 2}px`);
+      row.node.style.setProperty('--gy', `${row.kind === 'brk' ? bracketAt(o, i) - o[i].top : o[i].h / 2}px`);
     });
     card.style.setProperty('--q', mode === 'wide' ? 1 : Math.max(0, Math.min(1, (p - 0.35) / 0.65)));
     card.style.setProperty('--p', mode === 'wide' ? 0 : p);

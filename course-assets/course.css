@@ -901,15 +901,21 @@ span.cc-r { cursor: default; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
-.cc-r[data-mine] .cc-g i { background: var(--link); }   /* this page's ticks (the course page: and home's dash) */
+.cc-r[data-mine] .cc-g i { background: #A5C7F8; }   /* this page's ticks: halfway from the blue to white */
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
 .cc-home .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
+/* home: its dash at the foot of its row (its middle 2 px above the floor; course.js: DASH), and on a
+   narrow window the house standing on it; on the course page both in the blue, the dash its upper bracket */
+.cc-home .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
+.cc-home .cc-g svg { position: absolute; left: 50%; bottom: 6px; width: 20px; height: 18px; margin-left: -10px; overflow: visible; }
+.cc-home .cc-g i { position: absolute; left: 50%; bottom: 0; margin-left: -10px; }
+.cc-home .cc-g { color: #8a8a8a; }
+.cc-home.cc-here .cc-g { color: var(--link); }
 .cc-home.cc-here .cc-g i { background: var(--link); }
-/* the brackets, each hugging the part it closes (course.js knows how closely: NOTCH) */
+.cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
+/* the brackets: course.js sets each one's place, hugging its part */
 .cc-brk { pointer-events: none; }
-.cc-brk .cc-g i { width: 16px; background: var(--link); }
-.cc-brk-top .cc-g { top: calc(100% - 2px); }
-.cc-brk-end .cc-g { top: 2px; }
+.cc-brk .cc-g i { width: 18px; background: var(--link); }
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
 .cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
@@ -964,12 +970,16 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-view { left: auto; right: 5px; }
     .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
-    .cc-home .cc-l { top: 0; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
+    /* MICRO ECON and Checkpoint F each sit on a long dash at the foot of their rows, flush with the
+       rail's edge (the dashes' right end), the names' baselines 5.8 px above their dashes */
+    .cc-home .cc-l { top: 0; right: 4px; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
     .cc-home .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
-    /* its dash 2 px above the row's floor (course.js: DASH), its right end the closing dash's, and
-       long enough to run a little under ECON */
-    .cc-home .cc-g { top: calc(100% - 2px); }
-    .cc-home .cc-g i { position: absolute; top: 9px; right: 4px; width: 52px; }
+    .cc-home .cc-g svg { display: none; }
+    .cc-end .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
+    .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; bottom: 0; width: 52px; margin-left: 0; }
+    .cc-end .cc-l { top: auto; right: 4px; bottom: 3.8px; height: 20px; }
+    /* the brackets reach left past the ticks, toward the names */
+    .cc-brk .cc-g i { position: absolute; top: 9px; right: 6px; width: 22px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
     .cc-end .cc-line .cc-t { color: #6c6c6c; }

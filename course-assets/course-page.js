@@ -934,6 +934,9 @@
     // bracket the page's own stretch of it. On a wide window the names sit beside it; course.js
     // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
     // dashes and letters until it is opened into a card.
+    // On a narrow window the house stands on home's dash in place of MICRO ECON, drawn as wide as the
+    // dash (20 px) in the ticks' 2 px stroke.
+    const HOUSE = '<svg viewBox="0 0 20 18" aria-hidden="true"><path d="M1 8.2L10 1l9 7.2V17H1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 
     // What a section adds to the column: a block, the checkpoint, or a project.
     function columnEntry(id, section) {
@@ -993,6 +996,7 @@
         const brandText = items(meta.brand).join(' ');
 
         const homeRow = columnRow('home', { ...homeLink, here: onHome, mine: onHome, tip: `${brandText} · course page` });
+        homeRow.querySelector('.cc-g').innerHTML = HOUSE;
         homeRow.querySelector('.cc-g').append(element('i'));
         homeRow.querySelector('.cc-l').append(brand());
         list.append(homeRow);
