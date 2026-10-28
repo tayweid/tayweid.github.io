@@ -999,8 +999,8 @@
         homeRow.querySelector('.cc-g').innerHTML = HOUSE;
         homeRow.querySelector('.cc-g').append(element('i'));
         homeRow.querySelector('.cc-l').append(brand());
-        // the brackets around this page's stretch of the column: above its part's letter (on the course
-        // page, above MICRO ECON) and below its last row
+        // the brackets around this page's stretch of the column: above its part's letter (the course
+        // page has home's dash for that) and below its last row
         const bracket = (place, long = false) => {
             const row = columnRow('brk');
             row.classList.add(`cc-brk-${place}`);
@@ -1009,7 +1009,6 @@
             row.querySelector('.cc-g').append(element('i'));
             return row;
         };
-        if (onHome) list.append(bracket('top'));
         list.append(homeRow);
 
         if (onHome) {
