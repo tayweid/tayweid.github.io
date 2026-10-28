@@ -399,6 +399,7 @@ function setupCourseColumn() {
   // of its last name below (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
   const GAP = 10, CAP = 5.75, BASE = 5;
   const KMAX = 1.8;    // the most the rail's rows stretch; past it, the room goes between the parts
+  const TALL = 840;    // the longest the rail grows, from the top of home's row to its foot: a taller window leaves room under it
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
   const OPEN = { home: 30, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -442,17 +443,17 @@ function setupCourseColumn() {
   const groupStarts = rows.map((row, i) => i === brkTop || (row.kind === 'part' && !(row.here && brkTop >= 0)) ? i : -1)
     .filter(i => i >= 0);
   const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
-  // The rail runs the window's height: its spacing stretches or squeezes (to half, on a short window: a
-  // phone turned sideways) so that it reaches from the top of the window to the bottom, 8 px in from
-  // each (a wide sidebar: from under MICRO ECON to its bottom padding, and it only stretches, its names
-  // needing their rows). Its rows stretch to 1.8 times at most; on a taller window the room left goes
-  // evenly between the parts' groups, so every page's rail reaches the bottom and this page's group
-  // stays together. The letters and dashes keep their size.
+  // The rail runs the window's height, up to TALL: its spacing stretches or squeezes (to half, on a
+  // short window: a phone turned sideways) so that it reaches from the top of the window to the bottom,
+  // 8 px in from each (a wide sidebar: from under MICRO ECON to its bottom padding, and it only
+  // stretches, its names needing their rows). Its rows stretch to 1.8 times at most; a page with too few
+  // rows to reach that far spreads the room left evenly between the parts' groups, so every page's rail
+  // is the same length and this page's group stays together. The letters and dashes keep their size.
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
     const kept = row => mode === 'wide' && (row.kind === 'home' || (row.kind === 'end' && tucked));
     rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
-    const avail = mode === 'wide' ? windowHeight() - wideInset - fixed : windowHeight() - 16 - 2 * PADV;
+    const avail = mode === 'wide' ? Math.min(windowHeight() - wideInset, TALL) - fixed : Math.min(windowHeight() - 16 - 2 * PADV, TALL);
     const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(KMAX, avail / full));
     const spare = groupStarts.length ? Math.max(0, avail - KMAX * full) / groupStarts.length : 0;
     return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk + (groupStarts.includes(i) ? spare : 0); y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
