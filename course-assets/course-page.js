@@ -548,8 +548,8 @@
         });
     }
 
-    // The episode side: the video (with the episode's buttons riding on it, shown on a phone),
-    // then one line: its name, a short description, and the same buttons.
+    // The episode side: the video, then under it the title row: its name with the episode's buttons
+    // (animations, reading) at the end of the name's line, and a short description below.
     function rowEpisode({ name, description, video, buttons, classes = '' }) {
         const panel = element('div', `bc-episode${classes ? ` ${classes}` : ''}`);
         const media = element('div', 'bc-media');
@@ -570,9 +570,7 @@
         } else {
             still = element('div', 'bc-still bc-none', 'Video not yet available');
         }
-        const over = element('span', 'bc-ico bc-over');
-        buttons().forEach(button => over.append(button));
-        media.append(still, over);
+        media.append(still);
         const head = element('div', 'bc-ephead');
         const title = element('p', 'bc-epname');
         title.append(element('span', 'bc-eptitle', name));
