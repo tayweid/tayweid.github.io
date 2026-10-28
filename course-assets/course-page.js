@@ -1002,9 +1002,10 @@
         list.append(homeRow);
         // the brackets around this page's stretch of the column: above its part's letter (the course
         // page has home's dash for that) and below its last row
-        const bracket = place => {
+        const bracket = (place, long = false) => {
             const row = columnRow('brk');
             row.classList.add(`cc-brk-${place}`);
+            if (long) row.classList.add('cc-brk-long');
             row.setAttribute('aria-hidden', 'true');
             row.querySelector('.cc-g').append(element('i'));
             return row;
@@ -1022,7 +1023,7 @@
 
         const ids = Object.keys(course.parts);
         // the closing dash: the last checkpoint, when the last part has one; on that part's own page
-        // it is the part's checkpoint row and its lower bracket
+        // the checkpoint has its own row, and the long dash closing the column is the part's lower bracket
         const lastId = ids[ids.length - 1];
         const closing = lastId !== undefined && items(course.parts[lastId].sections).some(section => section.checkpoint !== undefined);
         const closesHere = closing && lastId === currentId;
@@ -1038,7 +1039,6 @@
             items(part.sections).forEach(section => {
                 const entry = columnEntry(id, section);
                 if (!entry) return;
-                if (here && closesHere && entry.kind === 'cp') return;   // the closing row is this one
                 const tip = entry.id ? `${entry.id}  ${entry.title}` : entry.title;
                 if (here) list.append(columnLine(columnRow(entry.kind, { target: entry.anchor, mine: true, tip }), entry.id, entry.label));
                 else {
@@ -1048,15 +1048,17 @@
                     list.append(faint);
                 }
             });
-            if (here && !closesHere) list.append(bracket('end'));
+            if (here) list.append(bracket('end', closesHere));
         });
 
         const anchor = schema.checkpointElementId(course);
         const endTitle = closing ? `${schema.checkpointWord(course)} ${lastId}` : '';
-        const end = columnRow('end', !closing ? {} : closesHere ? { target: anchor, mine: true } : { href: `${partPage(lastId)}#${anchor}` });
-        if (endTitle) end.dataset.tip = endTitle;
-        columnLine(end, '', endTitle);
-        list.append(end);
+        if (!closesHere) {
+            const end = columnRow('end', !closing ? {} : { href: `${partPage(lastId)}#${anchor}` });
+            if (endTitle) end.dataset.tip = endTitle;
+            columnLine(end, '', endTitle);
+            list.append(end);
+        }
 
         nav.append(list);
         leftSlot.replaceChildren(nav);

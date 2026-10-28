@@ -384,7 +384,7 @@ function setupCourseColumn() {
   // window home's row is MICRO ECON with its dash at the foot, and keeps its height.
   const WIDE = 1334;   // the window that fits the sidebar beside the centered page column (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
-  const ROOM = 10;     // the room between the part's letter and its blocks
+  const ROOM = 2;      // the room between the part's letter and its blocks
   // The upper bracket's row: the part's letter has too little room above its capitals for the bracket
   // and the room outside it. The lower bracket takes none; its last tick's row holds it.
   const BRK = 4.5;
@@ -394,11 +394,10 @@ function setupCourseColumn() {
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
-  // The brackets sit just outside their part's names, as home's dash sits under MICRO ECON: the same
-  // 5.8 px from the capitals of the part's letter above (15 px CMU Serif, reaching 5.75 px above the
-  // letter's middle) and from the baseline of its last name below (15.5 px CMU Serif in a 20 px line,
-  // 5 px below the row's middle).
-  const GAP = 5.8, CAP = 5.75, BASE = 5;
+  // The brackets sit just outside their part's names, the same 10 px from the capitals of the part's
+  // letter above (15 px CMU Serif, reaching 5.75 px above the letter's middle) and from the baseline
+  // of its last name below (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
+  const GAP = 10, CAP = 5.75, BASE = 5;
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
   const OPEN = { home: 30, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -427,7 +426,7 @@ function setupCourseColumn() {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
     if (mode === 'wide' && row.kind === 'end' && tucked) return TUCK;
     if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') ? BRK : 0;
-    const rail = row.kind === 'block' || row.kind === 'cp' || (row.kind === 'end' && row.mine) ? CLUMP : OPEN[row.kind];
+    const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
   // this page's own rows (not its letter or home), and the brackets around them (the course page has
@@ -453,8 +452,7 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // where a bracket's dash sits on the column (home's, on the course page, is its upper one, and the
-  // closing dash, on the last part's page, its lower one)
+  // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
   const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - GAP - 1
     : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
     : o[i].top + o[i].h - DASH;
@@ -465,9 +463,7 @@ function setupCourseColumn() {
   function placeBand(o) {
     const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
     const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow));
-    const lower = brkEnd >= 0 ? dashAt(brkEnd)
-      : endAt >= 0 && rows[endAt].mine ? o[endAt].top + o[endAt].h - DASH
-      : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
+    const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
       .concat([{ y: lower, yd: Math.max(1, root.scrollHeight) }]);
@@ -612,7 +608,7 @@ function setupCourseColumn() {
     close();
   }
   // what a mouse click on the closed column follows without opening it: the rows it names on sight
-  const direct = row => row.kind === 'home' || row.kind === 'part' || (row.mine && (row.kind === 'block' || row.kind === 'cp' || row.kind === 'end'));
+  const direct = row => row.kind === 'home' || row.kind === 'part' || (row.mine && (row.kind === 'block' || row.kind === 'cp'));
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', event => { if (event.key === 'Escape') close(); });
 
