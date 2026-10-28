@@ -1047,6 +1047,13 @@
         nav.append(list);
         leftSlot.replaceChildren(nav);
         document.documentElement.classList.add('has-course-column');
+        // Framed (Canvas), a page zooms itself out to show its desktop layout whole (the inline script
+        // in each page's head). A row-card course reads well at any width, so it takes the frame's own
+        // width instead: the zoom comes off and stays off.
+        if (document.documentElement.classList.contains('embedded')) {
+            if (typeof window.fitEmbed === 'function') window.removeEventListener('resize', window.fitEmbed);
+            document.documentElement.style.zoom = '';
+        }
     }
 
     // ---------- conventional files ----------

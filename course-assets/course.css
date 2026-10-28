@@ -1379,7 +1379,8 @@ i.fa-play              { --icon-file: var(--icon-play); }
    and zoom the page so the full desktop layout fits the frame (see the
    inline head script in each course's pages). Media queries fire on the
    frame's real width, so the narrow-width rules are overridden here to
-   keep the desktop layout while zoomed. */
+   keep the desktop layout while zoomed. A row-card course takes the zoom
+   off again (course-page.js) and shows its own layout at the frame's width. */
 .embedded .left_div { display: block; }
 .embedded .right_div { display: block; }
 .embedded .content { max-width: calc(var(--column) + 30px); }

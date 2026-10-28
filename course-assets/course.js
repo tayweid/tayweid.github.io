@@ -475,10 +475,10 @@ function setupCourseColumn() {
     const total = o[o.length - 1].top + 2 * PADV;
     if (p === 0 || anchorY === null) {
       anchorRow = Math.max(0, rows.indexOf(cur || headRow));
-      // closed, it sits where a wide window's sidebar does, at the top; on a phone a little below the
-      // middle, where a thumb reaches it
+      // closed, it sits where a wide window's sidebar does, at the top; on a phone's touch screen a
+      // little below the middle, where a thumb reaches it
       const closed = offsets(0);
-      const top0 = mode === 'phone' ? windowHeight() * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
+      const top0 = mode === 'phone' && touch.matches ? windowHeight() * 0.55 - (closed[closed.length - 1].top + 2 * PADV) / 2 : TOP;
       anchorY = top0 + PADV + closed[anchorRow].mid;
     }
     const top = anchorY - PADV - o[anchorRow].mid;
