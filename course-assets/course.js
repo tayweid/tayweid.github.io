@@ -394,13 +394,20 @@ function setupCourseColumn() {
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
   let cur = null, hot = null, down = null, pending = null, swallowClick = false;
 
+  // Framed (in Canvas, say), a page zooms itself out to show its 1240 px layout (the inline script in
+  // each page). The browser then measures the window, boxes and scrolling in the frame's pixels, while
+  // the column's own lengths are in the page's: these convert. Unframed, they change nothing.
+  const zoom = () => parseFloat(root.style.zoom) || 1;
+  const rectScale = () => { const el = content || root; return el.offsetWidth ? el.getBoundingClientRect().width / el.offsetWidth : 1; };
+  const pageWidth = () => innerWidth / zoom();
+
   // The window's height the closed column is placed against. On a touch screen it is the height the
   // page was laid out at, kept until the width changes (the phone turns): Safari and Brave on a phone
   // grow and shrink their toolbars as you scroll, and following them would move the rail.
   const touch = window.matchMedia('(pointer: coarse)');
-  let tall = innerHeight, tallAt = innerWidth;
+  let tall = innerHeight / zoom(), tallAt = innerWidth;
   const windowHeight = () => {
-    if (!touch.matches || innerWidth !== tallAt) { tall = innerHeight; tallAt = innerWidth; }
+    if (!touch.matches || innerWidth !== tallAt) { tall = innerHeight / zoom(); tallAt = innerWidth; }
     return tall;
   };
 
@@ -458,10 +465,10 @@ function setupCourseColumn() {
     let left = 2;
     if (content) {
       const box = content.getBoundingClientRect();
-      left = Math.max(2, box.left + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
+      left = Math.max(2, box.left / rectScale() + parseFloat(getComputedStyle(content).paddingLeft) - 12 - shut);
     }
     card.style.left = `${left}px`;
-    const wide = Math.min(310, innerWidth - left - 10);
+    const wide = Math.min(310, pageWidth() - left - 10);
     card.style.width = `${shut + (wide - shut) * ease(p)}px`;
     // The row the card opens around is chosen while it is closed and then held, so scrolling with the
     // card open changes what is marked on it, never where it sits.
@@ -499,7 +506,8 @@ function setupCourseColumn() {
 
   function measure() {
     const previous = mode;
-    mode = innerWidth >= WIDE ? 'wide' : innerWidth > 650 ? 'narrow' : 'phone';
+    const width = pageWidth();
+    mode = width >= WIDE ? 'wide' : width > 650 ? 'narrow' : 'phone';
     ['wide', 'narrow', 'phone'].forEach(name => root.classList.toggle(`cc-${name}`, name === mode));
     if (previous !== mode) { p = 0; target = 0; scrim.hidden = true; card.classList.remove('is-open'); anchorY = null; }
     mineRows.forEach(row => { row.yd = row === headRow ? 0 : row.el ? row.el.getBoundingClientRect().top + scrollY : undefined; });
@@ -526,12 +534,13 @@ function setupCourseColumn() {
     if (!row.tip || down || (!closed && row.kind !== 'faint')) return;
     const glyph = row.node.querySelector('.cc-g').getBoundingClientRect();
     const box = card.getBoundingClientRect();
+    const k = rectScale();
     tip.textContent = row.tip;
     tip.classList.add('vis');
-    tip.style.top = `${glyph.top + glyph.height / 2}px`;
+    tip.style.top = `${(glyph.top + glyph.height / 2) / k}px`;
     const toLeft = !closed && mode === 'wide';   // a wide window's names sit left of the column
-    if (toLeft) { tip.style.left = 'auto'; tip.style.right = `${innerWidth - glyph.left + 6}px`; }
-    else { tip.style.right = 'auto'; tip.style.left = `${(closed ? box.right : glyph.right) + 6}px`; }
+    if (toLeft) { tip.style.left = 'auto'; tip.style.right = `${pageWidth() - glyph.left / k + 6}px`; }
+    else { tip.style.right = 'auto'; tip.style.left = `${(closed ? box.right : glyph.right) / k + 6}px`; }
   }
   function hideTip() { tip.classList.remove('vis'); }
   rows.forEach(row => {
@@ -548,7 +557,7 @@ function setupCourseColumn() {
     });
   });
   function scrollToRow(row) {
-    const top = row === headRow || !row.el ? 0 : Math.max(0, row.el.getBoundingClientRect().top + scrollY - 24);
+    const top = row === headRow || !row.el ? 0 : Math.max(0, row.el.getBoundingClientRect().top + scrollY - 24 * rectScale());
     window.scrollTo({ top, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
     close();
   }
@@ -561,13 +570,14 @@ function setupCourseColumn() {
   // part (or one of its blocks) offers to open it on release.
   const rowAt = y => { const o = offsets(p); let best = rows[0]; rows.forEach((row, i) => { if (y >= o[i].top) best = row; }); return best; };
   const midOf = row => offsets(p)[rows.indexOf(row)].mid;
-  const localY = event => event.clientY - card.getBoundingClientRect().top - PADV;
+  const localY = event => (event.clientY - card.getBoundingClientRect().top) / rectScale() - PADV;
   function showBubble(row, title, sub, opens) {
     const box = card.getBoundingClientRect();
     bubble.classList.add('vis');
     bubble.classList.toggle('opens', opens);
-    bubble.style.top = `${box.top + PADV + midOf(row)}px`;
-    bubble.style.left = `${box.right + 8}px`;
+    const k = rectScale();
+    bubble.style.top = `${box.top / k + PADV + midOf(row)}px`;
+    bubble.style.left = `${box.right / k + 8}px`;
     bubbleTitle.textContent = title;
     bubbleSub.textContent = sub;
   }
