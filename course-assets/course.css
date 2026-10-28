@@ -901,17 +901,16 @@ span.cc-r { cursor: default; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
-.cc-r[data-mine] .cc-g i { background: #A5C7F8; }   /* this page's ticks: halfway from the blue to white */
+.cc-r[data-mine]:not(.cc-home) .cc-g i { background: #A5C7F8; }   /* this page's ticks: halfway from the blue to white */
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
 .cc-home .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
 /* home: its dash at the foot of its row (its middle 2 px above the floor; course.js: DASH), and on a
-   narrow window the house standing on it; on the course page both in the blue, the dash its upper bracket */
+   narrow window the house standing on it; on the course page the house in the blue, the dash grey */
 .cc-home .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
 .cc-home .cc-g svg { position: absolute; left: 50%; bottom: 6px; width: 20px; height: 18px; margin-left: -10px; overflow: visible; }
 .cc-home .cc-g i { position: absolute; left: 50%; bottom: 0; margin-left: -10px; }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home.cc-here .cc-g { color: var(--link); }
-.cc-home.cc-here .cc-g i { background: var(--link); }
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
 /* the brackets: course.js sets each one's place, hugging its part; at the rail's edge each turns a
    little toward it, the upper one down and the lower one up (on the last part's page the lower one is
