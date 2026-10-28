@@ -437,10 +437,10 @@ function setupCourseColumn() {
   const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
   const endAt = rows.findIndex(row => row.kind === 'end');
   const tucked = endAt > 0 && rows[endAt - 1].kind === 'faint';
-  // where one part's group of rows ends and the next begins (this page's group at its upper bracket;
-  // the course page's at home)
-  const groupStarts = rows.map((row, i) => i === brkTop || (row.kind === 'home' && row === headRow) || (row.kind === 'part' && !(row.here && brkTop >= 0)) ? i : -1)
-    .filter(i => i >= 0).slice(1);
+  // where each part's group of rows begins (this page's at its upper bracket), after home's row (on the
+  // course page, after home's group): the gaps a tall window's spare room goes into, evenly
+  const groupStarts = rows.map((row, i) => i === brkTop || (row.kind === 'part' && !(row.here && brkTop >= 0)) ? i : -1)
+    .filter(i => i >= 0);
   const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
   // The rail runs the window's height: its spacing stretches or squeezes (to half, on a short window: a
   // phone turned sideways) so that it reaches from the top of the window to the bottom, 8 px in from
