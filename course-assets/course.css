@@ -709,7 +709,6 @@ img.placeholder-bg { display: none; }
     --pad: clamp(8px, 2cqi, 16px);                       /* the panels' inner margin */
     --ibw: 26px; --ibgap: 4px;                           /* a file button, and the space between two */
     --chip: 26px; --seg: 20px; --eat: 8px;               /* the header chip's height; a segment's visible width, and how far the pill before it overlaps it */
-    --nf: var(--t-title);
     --pb: clamp(30px, 6cqi, 52px);                       /* the play button */
     display: grid;
     grid-template-columns: min(420px, calc(100% - var(--prac))) minmax(0, 1fr);
@@ -756,16 +755,15 @@ img.placeholder-bg { display: none; }
 .bc-ib.bc-wait, .bc-ib.bc-wait:hover { background: none; border: 1px dashed rgba(255, 255, 255, 0.26); color: #777; cursor: default; }
 .bc-ib.bc-sol.bc-wait, .bc-ib.bc-sol.bc-wait:hover { border-color: transparent; color: rgba(226, 92, 103, 0.4); }
 
-/* the header chip: the row's name on the card's own ground inside a hairline, rounded at both ends and
-   lying over one grey pill holding the download arrow (the name and this arrow are one link to the
-   sheet) and, after it, the solutions' quiet red arrow, each half lighting on its own; a file held back
-   until its day is a dashed outline whose tooltip says when. A checkpoint's versions stay a line of
-   small buttons under the name, each a grey pill naming its version (V1, V2 ...) beside its arrow. */
-.bc-hdr { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.5em; row-gap: 2px; }
-.bc-hdr .bc-where { margin-left: 0; }
-.bc-chip { display: inline-flex; align-items: stretch; height: var(--chip); }
-.bc-hd { position: relative; z-index: 2; display: inline-flex; align-items: stretch; color: var(--white); text-decoration: none; }
-.bc-hd .bc-nm { position: relative; z-index: 2; display: inline-flex; align-items: center; padding: 0 10px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px; background: var(--bg); line-height: 1; white-space: nowrap; }
+/* the header chip: every row's name on the card's own ground inside a hairline, rounded at both ends;
+   a posted sheet adds one grey pill lying under the name's right end holding the download arrow (the
+   name and this arrow are one link to the sheet) and, after it, the solutions' quiet red arrow, each
+   half lighting on its own; a file held back until its day is a dashed outline whose tooltip says when.
+   A checkpoint's versions stay a line of small buttons under the name, each a grey pill naming its
+   version (V1, V2 ...) beside its arrow. */
+.bc-chip { display: inline-flex; align-items: stretch; min-height: var(--chip); }   /* a name too long for its column wraps inside a taller pill */
+.bc-hd { position: relative; z-index: 2; display: inline-flex; align-items: stretch; color: inherit; text-decoration: none; }   /* an optional row's grey name stays grey */
+.bc-hd .bc-nm { position: relative; z-index: 2; display: inline-flex; align-items: center; padding: 0 9px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px; background: var(--bg); line-height: 1.15; }
 .bc-dl { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: calc(var(--seg) + var(--eat)); margin-left: calc(-1 * var(--eat)); padding-left: var(--eat); border-radius: 6px; background: var(--mid); color: #D6D6D6; transition: background 0.2s ease, color 0.2s ease; }
 .bc-chip:has(> .bc-dl.bc-sol) .bc-hd .bc-dl { border-radius: 6px 0 0 6px; }   /* the sheet's half of the pill */
 .bc-chip > .bc-dl.bc-sol { z-index: 0; width: var(--seg); margin-left: 0; padding-left: 0; border-radius: 0 6px 6px 0; }   /* the solutions' half */
@@ -786,14 +784,12 @@ a.bc-ib.bc-ver:hover { background: var(--link); color: var(--white); }
 a.bc-ib.bc-ver:hover svg { color: var(--white); }
 .bc-ib.bc-ver.bc-wait { background: none; outline: 1px dashed rgba(255, 255, 255, 0.26); outline-offset: -1px; color: #777; }
 .bc-ib.bc-ver.bc-wait svg { color: rgba(226, 92, 103, 0.35); }
-.bc-step.bc-hdr-row { --dot: calc(5px + var(--chip) / 2); }   /* the middle of the chip */
-.bc-hdr-row .bc-chips:not(:has(.bc-due)) { margin-top: 0; }
 
 /* the practice rows: a dot, then the name and where it happens, then the buttons and day under it */
 .bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--gap)); list-style: none; }
 .bc-label { padding: 4px 0 calc(var(--pad) * 0.5); font: 600 var(--t-label)/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
 .bc-step {
-    --dot: calc(5px + var(--nf) * 0.65);   /* the middle of the name's line */
+    --dot: calc(5px + var(--chip) / 2);   /* the middle of the name's chip */
     position: relative;
     display: grid;
     grid-template-columns: 12px minmax(0, 1fr) var(--tw);
@@ -805,11 +801,10 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
 .bc-head { grid-column: 2; grid-row: 1; min-width: 0; }
 .bc-step.bc-novid .bc-head { grid-column: 2 / -1; }
 .bc-step > .bc-thumb { grid-column: 3; grid-row: 1; }
-/* the name and its place run as one line of text, so a long name wraps with its place at the end of
-   it rather than on a line of its own */
-.bc-name { margin: 0; font: 400 var(--t-title)/1.3 var(--font-heading); color: var(--white); }
+/* the name's chip and its place sit on one line, the place dropping under the chip when the room runs out */
+.bc-name { display: flex; flex-wrap: wrap; align-items: center; column-gap: 8px; row-gap: 2px; margin: 0; font: 400 var(--t-title)/1.3 var(--font-heading); color: var(--white); }
 .bc-letter { display: none; }
-.bc-where { margin-left: 0.5em; font: 300 var(--t-label)/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: #8a8a8a; }
+.bc-where { font: 300 var(--t-label)/1 var(--font-body); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; color: #8a8a8a; }
 .bc-chips { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 2px; margin: 5px 0 0 6px; }
 .bc-due { font: italic 300 var(--t-meta)/1.3 var(--font-body); color: #8a8a8a; }
 .bc-dot { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: calc(var(--dot) - 11px); border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.55); background: var(--bg); }
@@ -845,8 +840,7 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
     .bc-chips .bc-due { margin-top: 0; line-height: 1.15; }
     .bc { --desc-lines: 3; }
     /* closer rows; one with a day line is no taller than one without, so the dots stay evenly spaced */
-    .bc-step { --dot: calc(2px + var(--nf) * 0.65); padding: 2px 0; min-height: calc(var(--nf) * 1.3 + 18px); }
-    .bc-step.bc-hdr-row { --dot: calc(2px + var(--chip) / 2); min-height: calc(var(--chip) + 18px); }
+    .bc-step { --dot: calc(2px + var(--chip) / 2); padding: 2px 0; min-height: calc(var(--chip) + 18px); }
     /* the rows share one grid, so the file buttons line up in a column just past the longest name, the
        way the thumbnails line up at the right; a row without files (Checkpoint D) doesn't push it out */
     /* the button column takes what the names leave (a row with more files than fit puts them under its
@@ -858,7 +852,7 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
     .bc-head, .bc-chips { display: contents; }
     .bc-name { grid-column: 2; grid-row: 1; }
     .bc-step:not(:has(.bc-ib:not(.bc-vid))) .bc-name { grid-column: 2 / 4; }
-    .bc-ico { grid-column: 3; grid-row: 1; justify-self: start; margin: calc((var(--nf) * 1.3 - 22px) / 2) 0 0 max(0px, calc(8px - var(--gap))); }
+    .bc-ico { grid-column: 3; grid-row: 1; justify-self: start; margin: calc((var(--chip) - 22px) / 2) 0 0 max(0px, calc(8px - var(--gap))); }   /* centred on the chip */
     .bc-chips .bc-due { grid-column: 2 / 4; grid-row: 2; }
     .bc-step > .bc-thumb { grid-column: 4; grid-row: 1 / span 2; }
     /* no walkthroughs in the card: the button column moves over a little into the room they'd take, as
@@ -877,7 +871,7 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
         border-left: 0; border-right: 0; border-radius: 0;
     }
     .bc { --ibw: 24px; --ibgap: 3px; --chip: 24px; --seg: 18px; --eat: 7px; }
-    .bc-hd .bc-nm { padding: 0 9px; }
+    .bc-hd .bc-nm { padding: 0 8px; }
     .bc-dl svg { width: 12px; height: 12px; }
     .bc-chips { margin-top: 3px; column-gap: 8px; }
     /* the episode's column is too narrow for its name and buttons on one line (the name would break

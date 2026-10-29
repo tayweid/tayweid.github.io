@@ -420,9 +420,9 @@
         return buttons;
     }
 
-    // A row's own sheet, and its solutions, join the name as one header chip: the name and a download
-    // arrow (one link to the sheet), then the solutions' arrow beside it. Solutions alone make the chip
-    // too; several (a checkpoint's versions) stay a line of pills under the name, each named inside
+    // A row's own sheet, and its solutions, join the name's chip: a download arrow after the name (one
+    // link to the sheet), then the solutions' arrow beside it. Solutions alone join the chip too;
+    // several (a checkpoint's versions) stay a line of pills under the name, each named inside
     // (V1, V2 ...) with its arrow. Any other set of buttons (a demo's several links), and any button
     // that is not a sheet (a deck, a page), stays a line of small buttons under the name.
     function headerFiles(buttons) {
@@ -481,27 +481,22 @@
         short.title = name;
         nm.append(element('span', 'bc-full', name), short);
         const { sheet, sols, versions } = headerFiles(buttons);
-        if (sheet || sols) {
-            // the header chip: the name and its arrow are one link to the sheet, the solutions' arrow beside it
-            title.classList.add('bc-hdr');
-            step.classList.add('bc-hdr-row');
-            const chip = element('span', 'bc-chip');
-            const main = sheet ? segment(sheet, 'bc-hd') : element('span', 'bc-hd');
-            main.append(nm);
-            if (sheet) main.append(arrow());
-            chip.append(main);
-            if (sols) { const seg = segment(sols, 'bc-dl'); seg.innerHTML = ARROW; chip.append(seg); }
-            title.append(chip);
-            buttons = buttons.filter(button => button !== sheet && button !== sols);
-        } else {
-            title.append(nm);
-            // the versions: the same small buttons, each named inside with its arrow
-            (versions || []).forEach(button => {
-                button.classList.add('bc-ver');
-                button.replaceChildren(element('span', 'bc-ver-l', versionLabel(button)));
-                button.insertAdjacentHTML('beforeend', ARROW);
-            });
-        }
+        // the header chip: every row's name sits in its pill; a posted sheet adds its download arrow
+        // (the name and the arrow are one link to the sheet), and the solutions' arrow follows
+        const chip = element('span', 'bc-chip');
+        const main = sheet ? segment(sheet, 'bc-hd') : element('span', 'bc-hd');
+        main.append(nm);
+        if (sheet) main.append(arrow());
+        chip.append(main);
+        if (sols) { const seg = segment(sols, 'bc-dl'); seg.innerHTML = ARROW; chip.append(seg); }
+        title.append(chip);
+        buttons = buttons.filter(button => button !== sheet && button !== sols);
+        // the versions: the same small buttons, each named inside with its arrow
+        (versions || []).forEach(button => {
+            button.classList.add('bc-ver');
+            button.replaceChildren(element('span', 'bc-ver-l', versionLabel(button)));
+            button.insertAdjacentHTML('beforeend', ARROW);
+        });
         if (where) title.append(element('span', 'bc-where', where));
         head.append(title);
         const chips = element('div', 'bc-chips');
