@@ -992,8 +992,8 @@
     // dash opening it for home (MICRO ECON), a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
     // and a long dash closing the semester (a mark, not a link). Each letter sits in a faint box; the
-    // page's own is blue and stands on legs, and a blue bracket closes its stretch of the column. On a
-    // wide window the names sit beside it; course.js
+    // page's own is white and stands on legs, and a white bracket closes its stretch of the column. On
+    // a wide window the names sit beside it; course.js
     // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
     // dashes and letters until it is opened into a card.
     // On a narrow window the house stands on home's dash in place of MICRO ECON: a roof with eaves
