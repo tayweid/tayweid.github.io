@@ -928,13 +928,13 @@
     // A course on the row card gets all its navigation in one column, in the left slot: a long
     // dash opening it for home (MICRO ECON), a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
-    // and a long dash closing the semester, named for the last checkpoint. Two short blue dashes
+    // and a long dash closing the semester (a mark, not a link). Two short blue dashes
     // bracket the page's own stretch of it. On a wide window the names sit beside it; course.js
     // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
     // dashes and letters until it is opened into a card.
-    // On a narrow window the house stands on home's dash in place of MICRO ECON, drawn as wide as the
-    // dash (20 px) in the ticks' 2 px stroke.
-    const HOUSE = '<svg viewBox="0 0 20 18" aria-hidden="true"><path d="M1 8.2L10 1l9 7.2V17H1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+    // On a narrow window the house stands on home's dash in place of MICRO ECON: a roof with eaves
+    // over walls with a doorway, as wide as the dash (20 px) in the ticks' 2 px stroke, round-ended.
+    const HOUSE = '<svg viewBox="0 0 20 18" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 8.5 10 1.5l8.5 7"/><path d="M3.5 8.3V16h4v-3.6a2.5 2.5 0 0 1 5 0V16h4V8.3"/></g></svg>';
 
     // What a section adds to the column: a block, the checkpoint, or a project.
     function columnEntry(id, section) {
@@ -999,10 +999,9 @@
         homeRow.querySelector('.cc-l').append(brand());
         // the brackets around this page's stretch of the column: above its part's letter (the course
         // page has home's dash for that) and below its last row
-        const bracket = (place, long = false) => {
+        const bracket = place => {
             const row = columnRow('brk');
             row.classList.add(`cc-brk-${place}`);
-            if (long) row.classList.add('cc-brk-long');
             row.setAttribute('aria-hidden', 'true');
             row.querySelector('.cc-g').append(element('i'));
             return row;
@@ -1019,13 +1018,7 @@
             list.append(bracket('end'));
         }
 
-        const ids = Object.keys(course.parts);
-        // the closing dash: the last checkpoint, when the last part has one; on that part's own page
-        // the checkpoint has its own row, and the long dash closing the column is the part's lower bracket
-        const lastId = ids[ids.length - 1];
-        const closing = lastId !== undefined && items(course.parts[lastId].sections).some(section => section.checkpoint !== undefined);
-        const closesHere = closing && lastId === currentId;
-        ids.forEach(id => {
+        Object.keys(course.parts).forEach(id => {
             const part = course.parts[id];
             const here = id === currentId;
             const letter = columnRow('part', here ? { href: '#', here: true, mine: true } : { href: partPage(id) });
@@ -1046,17 +1039,14 @@
                     list.append(faint);
                 }
             });
-            if (here) list.append(bracket('end', closesHere));
+            if (here) list.append(bracket('end'));
         });
 
-        const anchor = schema.checkpointElementId(course);
-        const endTitle = closing ? `${schema.checkpointWord(course)} ${lastId}` : '';
-        if (!closesHere) {
-            const end = columnRow('end', !closing ? {} : { href: `${partPage(lastId)}#${anchor}` });
-            if (endTitle) end.dataset.tip = endTitle;
-            columnLine(end, '', endTitle);
-            list.append(end);
-        }
+        // the long dash closing the semester: the twin of home's, with nothing to name or open
+        const end = columnRow('end');
+        end.setAttribute('aria-hidden', 'true');
+        end.querySelector('.cc-g').append(element('i'));
+        list.append(end);
 
         nav.append(list);
         leftSlot.replaceChildren(nav);

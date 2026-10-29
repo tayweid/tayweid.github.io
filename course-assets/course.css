@@ -867,7 +867,7 @@ img.placeholder-bg { display: none; }
    All of a row-card course's navigation in one column, in the left slot: a long dash opening it for
    home (MICRO ECON), a letter for each part (its name in small capitals), a tick for each block of
    the part on screen, faint dashes for the other parts' blocks, and a long dash closing the
-   semester, named for the last checkpoint. Two short blue dashes bracket this page's stretch of it,
+   semester. Two short blue dashes bracket this page's stretch of it,
    whose ticks are blue, and a clear band runs between them over what the window shows. A wide window
    shows it as the sidebar, names right-aligned beside the ticks; the page stays centered on the
    window, the sidebar beside it. A narrow window keeps only the ticks and letters, a little left of
@@ -920,7 +920,7 @@ span.cc-r { cursor: default; }
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
 /* the brackets: course.js sets each one's place, hugging its part; at the rail's edge each turns a
    little toward it, the upper one down and the lower one up (on the course page the upper one is
-   home's dash, and on the last part's page the lower one is the long closing dash) */
+   home's dash) */
 .cc-brk { pointer-events: none; }
 .cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 6px; border: 0 solid var(--link); border-right-width: 2px; border-radius: 0; background: none; }
 .cc-brk-top .cc-g i, .cc-home.cc-here .cc-g i { border-top-width: 2px; border-top-right-radius: 2px; }
@@ -939,9 +939,6 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
    the block on screen in white */
 .cc-part .cc-t { font: 600 11.5px/1.2 var(--font-body); letter-spacing: 0.13em; text-transform: uppercase; color: #8f8f8f; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .cc-part.cc-here .cc-t { font-size: 13px; color: var(--link); }
-/* the semester's closing dash is no part of the page: its name stays as quiet as the other parts' */
-.cc-end .cc-line .cc-t { color: #8f8f8f; }
-.cc-end:hover .cc-line .cc-t, .cc-end.hot .cc-line .cc-t { color: var(--white); }
 .cc-line { display: flex; align-items: baseline; gap: 7px; max-width: 100%; font: 400 15.5px/20px var(--font-heading); }
 .cc-id { color: #8a8a8a; }
 .cc-line .cc-t { color: #D6D6D6; overflow: hidden; text-overflow: ellipsis; }
@@ -984,24 +981,23 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-view { left: auto; right: 5px; }
     .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
-    /* MICRO ECON and Checkpoint F each sit on a long dash at the foot of their rows, the names'
-       baselines 5.8 px above their dashes: MICRO ECON flush with the rail's edge (the dashes' right
-       end), Checkpoint F at the names' edge, its dash reaching under it */
+    /* MICRO ECON sits on a long dash at the foot of its row, its baseline 5.8 px above the dash, flush
+       with the rail's edge (the dashes' right end); the long dash closing the column is as long, in
+       the middle of its row like the ticks */
     .cc-home .cc-l { top: 0; right: 4px; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
     .cc-home .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
     .cc-home .cc-g svg { display: none; }
-    .cc-end .cc-g { top: auto; bottom: 1px; height: 26px; transform: none; }
-    .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; bottom: 0; width: 52px; margin-left: 0; }
-    .cc-end .cc-l { top: auto; bottom: 3.8px; height: 20px; }
+    .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; width: 52px; margin-left: 0; }
+    .cc-home .cc-g i { bottom: 0; }
+    .cc-end .cc-g i { top: 9px; }
     /* the brackets reach left past the ticks, to the names' edge, and right to the sidebar's edge, their
-       corners clear of the band; the long one closing the last part is the closing dash's length */
+       corners clear of the band */
     .cc-brk .cc-g i { position: absolute; right: 1px; width: 33px; }
     .cc-brk-top .cc-g i { top: 9px; }
     .cc-brk-end .cc-g i { top: 5px; }
-    .cc-brk-long .cc-g i, .cc-home.cc-here .cc-g i { right: 1px; width: 55px; }
+    .cc-home.cc-here .cc-g i { right: 1px; width: 55px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }
-    .cc-end .cc-line .cc-t { color: #6c6c6c; }
 }
 /* narrower: the closed column floats (course.js places it), and opens into a card */
 @media (max-width: 1333px) {

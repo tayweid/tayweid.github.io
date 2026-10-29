@@ -158,7 +158,7 @@ steps carry many named files) keeps the path card.
 bar, for one column: a long dash opening it for `home`, named by the `brand` nameplate, a letter
 for each part with its title in small capitals, a tick for each block of the part on screen
 (bracketed by two short blue dashes), faint dashes for the other parts' blocks (each links to its
-block), and a long dash closing the semester, named for the last part's checkpoint. A wide window shows it as the sidebar with the names beside it,
+block), and a long dash closing the semester. A wide window shows it as the sidebar with the names beside it,
 the page centered on the window; narrower, it keeps to the ticks and letters and opens into a
 card when tapped. It has no place for `nav:` entries, so a row-card course leaves `nav:` out.
 The course's home page (`home:`) can show the same column: give its `<main>` the attribute
