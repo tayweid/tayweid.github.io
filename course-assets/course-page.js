@@ -360,6 +360,8 @@
         link.rel = 'noopener';
         const title = item.optional ? `${label} (optional)` : label;
         link.title = title;
+        link.dataset.label = label;
+        if (solutions || iconFor(item) === 'fa fa-file-pdf-o') link.dataset.sheet = '';   // a sheet to download, not a deck or a page
         link.setAttribute('aria-label', owner ? `${owner}: ${title}` : title);
         link.append(hiddenIcon(solutions ? 'fa fa-file-text-o' : iconFor(item)));
         return link;
@@ -371,6 +373,8 @@
         const text = `${label} ${solutions ? 'post' : 'posts'} ${shortDate(day)}`;
         const span = element('span', `bc-ib bc-wait${solutions ? ' bc-sol' : ''}`);
         span.title = text;
+        span.dataset.label = label;
+        span.dataset.sheet = '';
         span.setAttribute('role', 'img');
         span.setAttribute('aria-label', owner ? `${owner}: ${text}` : text);
         span.append(hiddenIcon('fa fa-file-text-o'));
@@ -416,14 +420,52 @@
         return buttons;
     }
 
+    // A row's own sheet, and its solutions, join the name as one header chip: the name and a download
+    // arrow (one link to the sheet), then the solutions' arrow beside it. Solutions alone make the chip
+    // too; several (a checkpoint's versions) stay a line of pills under the name, each named inside
+    // (V1, V2 ...) with its arrow. Any other set of buttons (a demo's several links), and any button
+    // that is not a sheet (a deck, a page), stays a line of small buttons under the name.
+    function headerFiles(buttons) {
+        const files = buttons.filter(button => button.dataset.sheet !== undefined);
+        const solutions = button => button.classList.contains('bc-sol');
+        if (!files.length) return {};
+        if (files.every(solutions)) return files.length === 1 ? { sols: files[0] } : { versions: files };
+        if (solutions(files[0]) || files.length > 2 || (files[1] && !solutions(files[1]))) return {};
+        return { sheet: files[0], sols: files[1] };
+    }
+    // a version's short name: "Solutions V1" → "V1"
+    function versionLabel(button) {
+        const label = String(button.dataset.label || '');
+        return label.replace(SOLUTIONS_LABEL, '').trim() || label;
+    }
+    const ARROW = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.8v8.4M3.6 6.6 7 10l3.4-3.4M2.4 12.6h9.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    // A chip segment standing for a file button: the same link (or, held back, the same note), the
+    // same states, drawn as a download arrow.
+    function segment(button, className) {
+        const link = button.tagName === 'A';
+        const seg = element(link ? 'a' : 'span', className);
+        ['bc-sol', 'bc-wait', 'bc-optional'].forEach(state => { if (button.classList.contains(state)) seg.classList.add(state); });
+        if (link) { seg.href = button.href; seg.target = '_blank'; seg.rel = 'noopener'; }
+        if (button.title) seg.title = button.title;
+        const label = button.getAttribute('aria-label');
+        if (label) seg.setAttribute('aria-label', label);
+        return seg;
+    }
+    function arrow() {
+        const span = element('span', 'bc-dl');
+        span.innerHTML = ARROW;
+        return span;
+    }
+
     // A row's date line is just the day ("Sun Oct 18"): no "Due" in front and no time of day.
     function dayOnly(text) {
         if (!text) return null;
         return String(text).replace(/^\s*due\s+/i, '').replace(/,?\s*(at\s+)?\d{1,2}(:\d{2})?\s*(am|pm)\b.*$/i, '').trim() || null;
     }
 
-    // A row: a dot on the dashed line, the name with where it happens after it (Exercise IN CLASS),
-    // then a line of its own with the file buttons and the day, under the name and a little in.
+    // A row: a dot on the dashed line, the name with where it happens after it (Exercise IN CLASS);
+    // the row's sheet and solutions join the name as a header chip (headerFiles), other buttons and
+    // the day go on a line of their own under the name, a little in.
     function rowStep({ name, letter, owner, where, buttons = [], due, sub, date, video, image, href, classes = '', dotClasses = '' }) {
         const step = element('li', `bc-step${classes ? ` ${classes}` : ''}`);
         const last = schema.lastDate(date);
@@ -438,7 +480,28 @@
         short.setAttribute('aria-hidden', 'true');
         short.title = name;
         nm.append(element('span', 'bc-full', name), short);
-        title.append(nm);
+        const { sheet, sols, versions } = headerFiles(buttons);
+        if (sheet || sols) {
+            // the header chip: the name and its arrow are one link to the sheet, the solutions' arrow beside it
+            title.classList.add('bc-hdr');
+            step.classList.add('bc-hdr-row');
+            const chip = element('span', 'bc-chip');
+            const main = sheet ? segment(sheet, 'bc-hd') : element('span', 'bc-hd');
+            main.append(nm);
+            if (sheet) main.append(arrow());
+            chip.append(main);
+            if (sols) { const seg = segment(sols, 'bc-dl'); seg.innerHTML = ARROW; chip.append(seg); }
+            title.append(chip);
+            buttons = buttons.filter(button => button !== sheet && button !== sols);
+        } else {
+            title.append(nm);
+            // the versions: the same small buttons, each named inside with its arrow
+            (versions || []).forEach(button => {
+                button.classList.add('bc-ver');
+                button.replaceChildren(element('span', 'bc-ver-l', versionLabel(button)));
+                button.insertAdjacentHTML('beforeend', ARROW);
+            });
+        }
         if (where) title.append(element('span', 'bc-where', where));
         head.append(title);
         const chips = element('div', 'bc-chips');
@@ -928,8 +991,9 @@
     // A course on the row card gets all its navigation in one column, in the left slot: a long
     // dash opening it for home (MICRO ECON), a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
-    // and a long dash closing the semester (a mark, not a link). Two short blue dashes
-    // bracket the page's own stretch of it. On a wide window the names sit beside it; course.js
+    // and a long dash closing the semester (a mark, not a link). Each letter sits in a faint box; the
+    // page's own is blue and stands on legs, and a blue bracket closes its stretch of the column. On a
+    // wide window the names sit beside it; course.js
     // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
     // dashes and letters until it is opened into a card.
     // On a narrow window the house stands on home's dash in place of MICRO ECON: a roof with eaves

@@ -708,6 +708,7 @@ img.placeholder-bg { display: none; }
     --t-label: clamp(9.5px, calc(8.6px + 0.3cqi), 11px);
     --pad: clamp(8px, 2cqi, 16px);                       /* the panels' inner margin */
     --ibw: 26px; --ibgap: 4px;                           /* a file button, and the space between two */
+    --chip: 26px; --seg: 20px; --eat: 8px;               /* the header chip's height; a segment's visible width, and how far the pill before it overlaps it */
     --nf: var(--t-title);
     --pb: clamp(30px, 6cqi, 52px);                       /* the play button */
     display: grid;
@@ -755,6 +756,39 @@ img.placeholder-bg { display: none; }
 .bc-ib.bc-wait, .bc-ib.bc-wait:hover { background: none; border: 1px dashed rgba(255, 255, 255, 0.26); color: #777; cursor: default; }
 .bc-ib.bc-sol.bc-wait, .bc-ib.bc-sol.bc-wait:hover { border-color: transparent; color: rgba(226, 92, 103, 0.4); }
 
+/* the header chip: the row's name on the card's own ground inside a hairline, rounded at both ends and
+   lying over one grey pill holding the download arrow (the name and this arrow are one link to the
+   sheet) and, after it, the solutions' quiet red arrow, each half lighting on its own; a file held back
+   until its day is a dashed outline whose tooltip says when. A checkpoint's versions stay a line of
+   small buttons under the name, each a grey pill naming its version (V1, V2 ...) beside its arrow. */
+.bc-hdr { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.5em; row-gap: 2px; }
+.bc-hdr .bc-where { margin-left: 0; }
+.bc-chip { display: inline-flex; align-items: stretch; height: var(--chip); }
+.bc-hd { position: relative; z-index: 2; display: inline-flex; align-items: stretch; color: var(--white); text-decoration: none; }
+.bc-hd .bc-nm { position: relative; z-index: 2; display: inline-flex; align-items: center; padding: 0 10px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px; background: var(--bg); line-height: 1; white-space: nowrap; }
+.bc-dl { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: calc(var(--seg) + var(--eat)); margin-left: calc(-1 * var(--eat)); padding-left: var(--eat); border-radius: 6px; background: var(--mid); color: #D6D6D6; transition: background 0.2s ease, color 0.2s ease; }
+.bc-chip:has(> .bc-dl.bc-sol) .bc-hd .bc-dl { border-radius: 6px 0 0 6px; }   /* the sheet's half of the pill */
+.bc-chip > .bc-dl.bc-sol { z-index: 0; width: var(--seg); margin-left: 0; padding-left: 0; border-radius: 0 6px 6px 0; }   /* the solutions' half */
+.bc-dl svg { width: 13px; height: 13px; }
+a.bc-hd:hover .bc-dl, a.bc-dl:hover { background: var(--link); color: var(--white); }
+.bc-dl.bc-sol { color: rgba(226, 92, 103, 0.65); }
+a.bc-dl.bc-sol:hover { background: var(--link); color: var(--white); }
+.bc-dl.bc-wait, .bc-hd.bc-wait .bc-dl { background: none; color: #777; outline: 1px dashed rgba(255, 255, 255, 0.26); outline-offset: -1px; }
+.bc-dl.bc-sol.bc-wait { color: rgba(226, 92, 103, 0.35); }   /* held back: its half stays grey, the arrow faint */
+.bc-hd.bc-wait + .bc-dl.bc-sol { background: none; outline: 0; }   /* both held back: a bare faint arrow after the dashed half */
+.bc-hd.bc-wait, .bc-ver.bc-wait { cursor: default; }
+.bc-dl.bc-optional { opacity: 0.55; }
+/* the version pills: a grey pill like the chip's, its version's name inside beside a red arrow */
+.bc-ico:has(.bc-ver) { flex-wrap: wrap; gap: 4px 6px; }
+.bc-ib.bc-ver { width: auto; gap: 5px; padding: 0 7px 0 8px; border: 0; border-radius: 6px; background: var(--mid); color: #D6D6D6; font: 400 14px/1 var(--font-heading); }
+.bc-ib.bc-ver svg { width: 12px; height: 12px; color: rgba(226, 92, 103, 0.65); }
+a.bc-ib.bc-ver:hover { background: var(--link); color: var(--white); }
+a.bc-ib.bc-ver:hover svg { color: var(--white); }
+.bc-ib.bc-ver.bc-wait { background: none; outline: 1px dashed rgba(255, 255, 255, 0.26); outline-offset: -1px; color: #777; }
+.bc-ib.bc-ver.bc-wait svg { color: rgba(226, 92, 103, 0.35); }
+.bc-step.bc-hdr-row { --dot: calc(5px + var(--chip) / 2); }   /* the middle of the chip */
+.bc-hdr-row .bc-chips:not(:has(.bc-due)) { margin-top: 0; }
+
 /* the practice rows: a dot, then the name and where it happens, then the buttons and day under it */
 .bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--gap)); list-style: none; }
 .bc-label { padding: 4px 0 calc(var(--pad) * 0.5); font: 600 var(--t-label)/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; color: #9E9E9E; }
@@ -787,7 +821,7 @@ img.placeholder-bg { display: none; }
 .bc-to-next::after, .bc-to-alt::after, .bc-to-extra::after { content: ""; position: absolute; left: 5px; top: var(--dot); bottom: calc(0px - var(--dot)); }
 .bc-to-next::after { border-left: 2px dashed rgba(255, 255, 255, 0.24); }
 .bc-to-alt::after, .bc-to-extra::after { width: 2px; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 3px, transparent 3px 9px); }
-.bc-thumb { position: relative; display: block; width: var(--tw); height: var(--th); border-radius: 6px; overflow: hidden; background: var(--mid); opacity: 0.8; transition: opacity 0.2s ease; }
+.bc-thumb { position: relative; display: block; width: var(--tw); height: var(--th); border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 6px; overflow: hidden; background: var(--mid); opacity: 0.8; transition: opacity 0.2s ease; }   /* the chip's hairline edge */
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
@@ -812,6 +846,7 @@ img.placeholder-bg { display: none; }
     .bc { --desc-lines: 3; }
     /* closer rows; one with a day line is no taller than one without, so the dots stay evenly spaced */
     .bc-step { --dot: calc(2px + var(--nf) * 0.65); padding: 2px 0; min-height: calc(var(--nf) * 1.3 + 18px); }
+    .bc-step.bc-hdr-row { --dot: calc(2px + var(--chip) / 2); min-height: calc(var(--chip) + 18px); }
     /* the rows share one grid, so the file buttons line up in a column just past the longest name, the
        way the thumbnails line up at the right; a row without files (Checkpoint D) doesn't push it out */
     /* the button column takes what the names leave (a row with more files than fit puts them under its
@@ -831,7 +866,7 @@ img.placeholder-bg { display: none; }
     .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) .bc-ico { padding-left: clamp(0px, calc(100% - 2 * var(--ibw) - var(--ibgap)), calc(var(--tw) / 2)); }
     /* a row with three or more files (a checkpoint's versions) puts them on a line under its name, as a
        wide card does, and its day under them; it leaves the shared button column to the others */
-    .bc-steps .bc-step:has(.bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid)) .bc-ico { grid-column: 2 / -1; grid-row: 2; justify-self: start; margin: 4px 0 0; padding-left: 0; }
+    .bc-steps .bc-step:has(.bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid)) .bc-ico { grid-column: 2 / -1; grid-row: 2; justify-self: stretch; flex-wrap: wrap; margin: 4px 0 0; padding-left: 0; }   /* the line fills the room and wraps when it must */
     .bc-step:has(.bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid) ~ .bc-ib:not(.bc-vid)) .bc-due { grid-row: 3; margin-top: 2px; }
 }
 /* a phone: the card runs edge to edge, at its smallest sizes */
@@ -841,7 +876,9 @@ img.placeholder-bg { display: none; }
         margin: 0 calc(-1 * var(--page-gutter, 0px));
         border-left: 0; border-right: 0; border-radius: 0;
     }
-    .bc { --ibw: 24px; --ibgap: 3px; }
+    .bc { --ibw: 24px; --ibgap: 3px; --chip: 24px; --seg: 18px; --eat: 7px; }
+    .bc-hd .bc-nm { padding: 0 9px; }
+    .bc-dl svg { width: 12px; height: 12px; }
     .bc-chips { margin-top: 3px; column-gap: 8px; }
     /* the episode's column is too narrow for its name and buttons on one line (the name would break
        mid-word): the buttons go on a line of their own under the description, and More under them */
@@ -860,15 +897,16 @@ img.placeholder-bg { display: none; }
     .bc-step > .bc-thumb { display: none; }
     .bc-steps, .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) { grid-template-columns: 12px auto minmax(min-content, 1fr); }   /* no thumbnail column */
     .bc-ib.bc-vid { display: inline-flex; }
-    .bc-step:has(.bc-vid) .bc-name { grid-column: 2; }   /* its video button joins the column */
+    .bc-steps .bc-step:has(.bc-vid) .bc-name { grid-column: 2; }   /* its video button joins the column (outweighs the no-buttons span above) */
 }
 
 /* ---------- course column (course-page.js draws it, course.js lays it out) ----------
    All of a row-card course's navigation in one column, in the left slot: a long dash opening it for
    home (MICRO ECON), a letter for each part (its name in small capitals), a tick for each block of
    the part on screen, faint dashes for the other parts' blocks, and a long dash closing the
-   semester. Two short blue dashes bracket this page's stretch of it,
-   whose ticks are blue, and a clear band runs between them over what the window shows. A wide window
+   semester. Every part letter sits in a faint hairline box; this page's is blue and stands on two legs,
+   and a thin blue bracket turned up at both ends closes its stretch of the column, whose ticks are
+   blue; a clear band runs between them over what the window shows. A wide window
    shows it as the sidebar, names right-aligned beside the ticks; the page stays centered on the
    window, the sidebar beside it. A narrow window keeps only the ticks and letters, a little left of
    the page; a phone keeps them in a gutter. Opened, it becomes a card with the names to the right of
@@ -906,7 +944,7 @@ span.cc-r { cursor: default; }
 .cc-part.cc-here .cc-g { color: var(--link); }
 .cc-g i { display: block; height: 2px; border-radius: 1px; }
 .cc-block .cc-g i, .cc-cp .cc-g i { width: 12px; background: #9a9a9a; }
-.cc-r[data-mine]:not(.cc-home) .cc-g i { background: #A5C7F8; }   /* this page's ticks: halfway from the blue to white */
+.cc-r[data-mine]:not(.cc-home) .cc-g i { background: var(--link); }   /* this page's ticks: the blue */
 .cc-faint .cc-g i { width: 7px; height: 1.5px; background: rgba(255, 255, 255, 0.2); }
 .cc-home .cc-g i, .cc-end .cc-g i { width: 20px; background: #8f8f8f; }
 /* home: its dash at the foot of its row (its middle 2 px above the floor; course.js: DASH), and on a
@@ -918,18 +956,23 @@ span.cc-r { cursor: default; }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home.cc-here .cc-g { color: var(--link); }
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
-/* the brackets: course.js sets each one's place, hugging its part; at the rail's edge each turns a
-   little toward it, the upper one down and the lower one up (on the course page the upper one is
-   home's dash) */
+/* the boxes around the part letters: the brackets' width, 22 px tall, a hairline on the letter's row,
+   brighter under the pointer; this page's is blue, sits a little lower in its row (course.js: DROP) and
+   its sides run on below it as two legs (the upper bracket, course.js: BOX). The lower bracket is a
+   thin line turned up at both ends under the page's last row (on the course page the upper one is
+   home's dash, turned down at both ends). */
+.cc-part.cc-here .cc-g, .cc-part.cc-here .cc-l { translate: 0 5px; }
+.cc-part .cc-g::before { content: ""; position: absolute; left: 1px; top: -1px; width: 20px; height: 22px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 3px; }
+.cc-part:hover .cc-g::before, .cc-part.hot .cc-g::before { border-color: rgba(255, 255, 255, 0.4); }
+.cc-part.cc-here .cc-g::before, .cc-part.cc-here:hover .cc-g::before, .cc-part.cc-here.hot .cc-g::before { border-color: var(--link); border-radius: 3px 3px 0 0; }
 .cc-brk { pointer-events: none; }
-.cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 6px; border: 0 solid var(--link); border-right-width: 2px; border-radius: 0; background: none; }
-.cc-brk-top .cc-g i, .cc-home.cc-here .cc-g i { border-top-width: 2px; border-top-right-radius: 2px; }
-.cc-home.cc-here .cc-g i { bottom: -4px; }   /* its line where home's dash is, the corner under it */
+.cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 4px; border: 0 solid var(--link); border-left-width: 1px; border-right-width: 1px; border-radius: 0; background: none; }
+.cc-home.cc-here .cc-g i { border-top-width: 1px; border-top-left-radius: 2px; border-top-right-radius: 2px; bottom: -2.5px; }   /* its line where home's dash is, the corners under it */
 .cc-home.cc-here:hover .cc-g i, .cc-home.cc-here.hot .cc-g i { background: none; border-color: var(--white); }   /* lit as a line, not filled */
-.cc-brk-end .cc-g i { border-bottom-width: 2px; border-bottom-right-radius: 2px; }
+.cc-brk-end .cc-g i { border-bottom-width: 1px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
 .cc-brk .cc-g i { width: 20px; position: relative; }
-.cc-brk-top .cc-g i { top: 2px; }    /* its line, not its corner, on the place course.js sets */
-.cc-brk-end .cc-g i { top: -2px; }
+.cc-brk-top .cc-g i { top: 1px; }    /* the legs' top at the place course.js sets: the box's foot */
+.cc-brk-end .cc-g i { top: -1.5px; }   /* its line, not its corners, on the place course.js sets */
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
 .cc-faint:hover .cc-g i, .cc-faint.hot .cc-g i { width: 10px; background: rgba(255, 255, 255, 0.6); }
@@ -990,11 +1033,12 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; width: 52px; margin-left: 0; }
     .cc-home .cc-g i { bottom: 0; }
     .cc-end .cc-g i { top: 9px; }
-    /* the brackets reach left past the ticks, to the names' edge, and right to the sidebar's edge, their
-       corners clear of the band */
-    .cc-brk .cc-g i { position: absolute; right: 1px; width: 33px; }
+    /* the boxes and the brackets are the letter's glyph box wide (28 px), centred on the ticks like the
+       band, whose edges their corners clear; the course page's upper bracket is home's long dash */
+    .cc-part .cc-g::before { left: 0; width: 28px; }
+    .cc-brk .cc-g i { position: absolute; right: 0; width: 28px; }
     .cc-brk-top .cc-g i { top: 9px; }
-    .cc-brk-end .cc-g i { top: 5px; }
+    .cc-brk-end .cc-g i { top: 6.5px; }
     .cc-home.cc-here .cc-g i { right: 1px; width: 55px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */
     .cc-part:not(.cc-here) .cc-t { font-size: 10px; font-weight: 500; letter-spacing: 0.12em; color: #6c6c6c; }

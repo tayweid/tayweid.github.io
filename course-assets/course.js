@@ -391,10 +391,11 @@ function setupCourseColumn() {
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
-  // The brackets sit just outside their part's names, the same 10 px from the capitals of the part's
-  // letter above (15 px CMU Serif, reaching 5.75 px above the letter's middle) and from the baseline
-  // of its last name below (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
-  const GAP = 10, CAP = 5.75, BASE = 5;
+  // The part's letter sits in a box (course.css: 22 px tall, centred on its row); the upper bracket is the
+  // box's two legs, hanging from its foot. The lower bracket sits just outside the part's names, 10 px
+  // from the baseline of its last name (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
+  const BOX = 22, GAP = 10, BASE = 5;
+  const DROP = 5;      // this page's letter, its box and name sit this much lower in the row (course.css)
   const KMAX = 1.8;    // the most the rail's rows stretch; past it, the room goes between the parts
   const TALL = 840;    // the longest the rail grows, from the top of home's row to its foot: a taller window leaves room under it
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
@@ -454,17 +455,20 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // where a bracket's dash sits on the column (home's, on the course page, is its upper one)
-  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid - CAP - GAP - 1
+  // where a bracket's line sits on the column: the upper one's legs hang from there (their top is 1 px
+  // above it; course.css), home's dash on the course page is its upper one
+  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid + DROP + BOX / 2 + 1
     : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
     : o[i].top + o[i].h - DASH;
 
   // The band: a clear glass over what the window shows, running between the brackets as the page
-  // scrolls. The page's top is at the upper bracket, its end at the lower one, and each section starts
-  // at its own tick.
+  // scrolls. The page's top is at the foot of the upper bracket's legs (home's corners, on the course
+  // page), its end at the lower one, and each section starts at its own tick. At either end the band
+  // just meets the bracket's turned ends: the legs' feet above, the corners' tips below.
+  const LEGS = 3;   // from the upper bracket's line to the foot of its legs (4 px tall, from 1 px above it)
   function placeBand(o) {
     const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
-    const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow));
+    const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow)) + LEGS;
     const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
@@ -476,7 +480,7 @@ function setupCourseColumn() {
       return a.y + Math.min(1, Math.max(0, (docY - a.yd) / Math.max(1, b.yd - a.yd))) * (b.y - a.y);
     };
     const pad = own.length ? Math.min(13, o[own[0]].h / 2 + 1) : 10;
-    const top = Math.max(upper + 4, at(scrollY) - pad);
+    const top = Math.max(upper - 1, at(scrollY) - pad);
     const bottom = Math.min(lower - 4, at(scrollY + innerHeight) + pad);
     band.style.top = `${top}px`;
     band.style.height = `${Math.max(8, bottom - top)}px`;
