@@ -546,9 +546,16 @@ function setupCourseColumn() {
     // title (the course page: the rule over its first section). Sticky at the window's top, it is
     // there whenever the page is at its top.
     const rule = mode === 'wide' && content && content.querySelector('.title-rule, .guide-section');
+    card.style.removeProperty('--lift');
     if (rule) {
       const from = card.parentElement.getBoundingClientRect().top;
-      card.style.paddingTop = `${Math.max(12, (rule.getBoundingClientRect().top - from) / rectScale() + 0.5 - (HEAD - DASH))}px`;
+      const padding = Math.max(12, (rule.getBoundingClientRect().top - from) / rectScale() + 0.5 - (HEAD - DASH));
+      card.style.paddingTop = `${padding}px`;
+      // MICRO ECON is lifted out of its row (course.css: --lift) to put its top level with the page
+      // title's: its capitals start 2.5 px nearer the top of its row than the title's do to the top of
+      // the title's box (36 px CMU Serif on 0.8 lines, 6 px above the row's floor, against 40 px on 1.1)
+      const title = content.querySelector('.title');
+      if (title) card.style.setProperty('--lift', `${Math.max(0, Math.min(padding - 8, padding - (title.getBoundingClientRect().top - from) / rectScale() - 2.5))}px`);
     }
     const cs = getComputedStyle(card);
     wideInset = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);

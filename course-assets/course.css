@@ -999,7 +999,8 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
 /* a wide window: the column is the left sidebar beside the page, whose column stays centered on the
    window (the wrapper's right padding mirrors the sidebar). Home's row is MICRO ECON with its long
    dash at the foot, reaching a little under it; course.js sets the sidebar's top padding so the dash
-   is level with the rule under the page's title. It starts where a 221 px sidebar, 16 px from the
+   is level with the rule under the page's title, and lifts MICRO ECON out of its row so that its top
+   is level with the title's. It starts where a 221 px sidebar, 16 px from the
    window's edge and 16 px from the column's edge, fits beside the centered 828 px column:
    828 + 2 × (16 + 221 + 16) = 1334 px (course.js knows it). From there the sidebar grows to 272 px, and
    then the gap to the column takes what room is left, up to 40 px. */
@@ -1017,10 +1018,10 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
     .cc-view { left: auto; right: 5px; }
     .cc-l { left: 0; right: 34px; align-items: flex-end; text-align: right; }
     .cc-line { flex-direction: row-reverse; }   /* Game Theory D1: the number beside its tick */
-    /* MICRO ECON sits on a long dash at the foot of its row, its baseline 5.8 px above the dash, flush
-       with the rail's edge (the dashes' right end); the long dash closing the column is as long, in
-       the middle of its row like the ticks */
-    .cc-home .cc-l { top: 0; right: 4px; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; }
+    /* MICRO ECON stands flush with the rail's edge (the dashes' right end), lifted out of its row by
+       --lift (course.js) to the page title's level; its long dash stays at the foot of the row, level with
+       the title's rule; the long dash closing the column is as long, in the middle of its row like the ticks */
+    .cc-home .cc-l { top: 0; right: 4px; bottom: 6px; height: auto; justify-content: flex-end; overflow: visible; translate: 0 calc(-1 * var(--lift, 0px)); }
     .cc-home .cc-brand { flex-direction: column; align-items: flex-end; gap: 0; font-size: 36px; line-height: 0.8; letter-spacing: 0; }
     .cc-home .cc-g svg { display: none; }
     .cc-home .cc-g i, .cc-end .cc-g i { position: absolute; left: auto; right: 4px; width: 52px; margin-left: 0; }
