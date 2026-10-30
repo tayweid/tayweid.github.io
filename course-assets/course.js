@@ -385,15 +385,12 @@ function setupCourseColumn() {
   const WIDE = 1334;   // the window that fits the sidebar beside the centered page column (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
   const ROOM = 2;      // the room between the part's letter and its blocks
-  // The upper bracket's row: the part's letter has too little room above its capitals for the bracket
-  // and the room outside it. The lower bracket takes none; its last tick's row holds it.
-  const BRK = 4.5;
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
-  // The part's letter sits in a box (course.css: 22 px tall, centred on its row); the upper bracket is the
-  // box's two legs, hanging from its foot. The lower bracket sits just outside the part's names, 10 px
-  // from the baseline of its last name (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
+  // The part's letter sits in a box (course.css: 22 px tall, centred on its row); this page's is lit, and
+  // the band starts just under its foot. The bracket closing the page sits just outside the part's names,
+  // 10 px from the baseline of its last name (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
   const BOX = 22, GAP = 10, BASE = 5;
   const DROP = 5;      // this page's letter, its box and name sit this much lower in the row (course.css)
   const KMAX = 1.8;    // the most the rail's rows stretch; past it, the room goes between the parts
@@ -424,19 +421,16 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
-    if (row.kind === 'brk') return row.node.classList.contains('cc-brk-top') ? BRK : 0;
+    if (row.kind === 'brk') return 0;   // the bracket takes no row of its own: its last tick's row holds it
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
-  // this page's own rows (not its letter or home), and the brackets around them (the course page has
-  // home's dash in place of the upper one)
+  // this page's own rows (not its letter or home), and the bracket closing them
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
-  const brkTop = rows.findIndex(row => row.node.classList.contains('cc-brk-top'));
   const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
-  // where each part's group of rows begins (this page's at its upper bracket), after home's row (on the
-  // course page, after home's group): the gaps a tall window's spare room goes into, evenly
-  const groupStarts = rows.map((row, i) => i === brkTop || (row.kind === 'part' && !(row.here && brkTop >= 0)) ? i : -1)
-    .filter(i => i >= 0);
+  // where each part's group of rows begins, after home's row (on the course page, after home's group):
+  // the gaps a tall window's spare room goes into, evenly
+  const groupStarts = rows.map((row, i) => row.kind === 'part' ? i : -1).filter(i => i >= 0);
   const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
   // The rail runs the window's height, up to TALL: its spacing stretches or squeezes (to half, on a
   // short window: a phone turned sideways) so that it reaches from the top of the window to the bottom,
@@ -455,20 +449,18 @@ function setupCourseColumn() {
       .concat([{ top: y }]);
   }
 
-  // where a bracket's line sits on the column: the upper one's legs hang from there (their top is 1 px
-  // above it; course.css), home's dash on the course page is its upper one
-  const bracketAt = (o, i) => i === brkTop ? o[i + 1].mid + DROP + BOX / 2 + 1
-    : i === brkEnd ? o[i - 1].mid + BASE + GAP + 1
-    : o[i].top + o[i].h - DASH;
+  // where the bracket's line sits on the column, and home's dash (the course page's upper bracket)
+  const bracketAt = (o, i) => i === brkEnd ? o[i - 1].mid + BASE + GAP + 1 : o[i].top + o[i].h - DASH;
 
-  // The band: a clear glass over what the window shows, running between the brackets as the page
-  // scrolls. The page's top is at the foot of the upper bracket's legs (home's corners, on the course
-  // page), its end at the lower one, and each section starts at its own tick. At either end the band
-  // just meets the bracket's turned ends: the legs' feet above, the corners' tips below.
-  const LEGS = 3;   // from the upper bracket's line to the foot of its legs (4 px tall, from 1 px above it)
+  // The band: a clear glass over what the window shows, running from this page's letter to its bracket
+  // as the page scrolls. The page's top is just under the letter's box (under home's corners, on the
+  // course page), its end at the bracket, and each section starts at its own tick. At either end the
+  // band just clears the mark: the box's foot above, the bracket's turned ends below.
+  const FOOT = 3;   // from the box's foot (home's dash, on the course page) to the band's top
   function placeBand(o) {
-    const dashAt = i => i === brkTop || i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
-    const upper = dashAt(brkTop >= 0 ? brkTop : rows.indexOf(headRow)) + LEGS;
+    const dashAt = i => i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
+    const head = rows.indexOf(headRow);
+    const upper = (headRow.kind === 'home' ? bracketAt(o, head) : o[head].mid + DROP + BOX / 2 + 1) + FOOT;
     const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
@@ -624,7 +616,6 @@ function setupCourseColumn() {
     const o = offsets(p);
     let at = 0;
     rows.forEach((row, i) => { if (y >= o[i].top) at = i; });
-    if (at === brkTop) at += 1;
     if (at === brkEnd) at -= 1;
     return rows[at];
   };

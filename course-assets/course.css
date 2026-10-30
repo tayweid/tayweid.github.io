@@ -950,22 +950,21 @@ span.cc-r { cursor: default; }
 .cc-home .cc-g { color: #8a8a8a; }
 .cc-home.cc-here .cc-g { color: var(--white); }   /* the house on the course page, like a page's letter */
 .cc-home .cc-l { top: auto; bottom: 7px; height: 18px; }   /* opened, MICRO ECON level with the house */
-/* the boxes around the part letters: the brackets' width, 22 px tall, a hairline on the letter's row,
-   brighter under the pointer; this page's is white and filled with the band's glass, sits a little lower in its row (course.js: DROP)
-   and its sides run on below it as two legs (the upper bracket, course.js: BOX). The lower bracket is
-   a thin white line turned up at both ends under the page's last row (on the course page the upper one
-   is home's dash, turned down at both ends). */
+/* the boxes around the part letters: the bracket's width, 22 px tall, a hairline on the letter's row,
+   brighter under the pointer; this page's is white, filled with the band's glass, and sits a little lower
+   in its row (course.js: DROP), the band starting just under it. The bracket closing the page is a thin
+   white line turned up at both ends under its last row (on the course page home's dash, turned down at
+   both ends, opens it). */
 .cc-part.cc-here .cc-g, .cc-part.cc-here .cc-l { translate: 0 5px; }
 .cc-part .cc-g::before { content: ""; position: absolute; z-index: -1; left: 1px; top: -1px; width: 20px; height: 22px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 3px; }
 .cc-part:hover .cc-g::before, .cc-part.hot .cc-g::before { border-color: rgba(255, 255, 255, 0.4); }
-.cc-part.cc-here .cc-g::before, .cc-part.cc-here:hover .cc-g::before, .cc-part.cc-here.hot .cc-g::before { border-color: var(--white); border-radius: 3px 3px 0 0; background: rgba(255, 255, 255, 0.11); }   /* filled with the band's glass, under the letter */
+.cc-part.cc-here .cc-g::before, .cc-part.cc-here:hover .cc-g::before, .cc-part.cc-here.hot .cc-g::before { border-color: var(--white); background: rgba(255, 255, 255, 0.11); }   /* this page's: lit, and filled with the band's glass under the letter */
 .cc-brk { pointer-events: none; }
 .cc-brk .cc-g i, .cc-home.cc-here .cc-g i { height: 4px; border: 0 solid var(--white); border-left-width: 1px; border-right-width: 1px; border-radius: 0; background: none; }
 .cc-home.cc-here .cc-g i { border-top-width: 1px; border-top-left-radius: 2px; border-top-right-radius: 2px; bottom: -2.5px; }   /* its line where home's dash is, the corners under it */
 .cc-home.cc-here:hover .cc-g i, .cc-home.cc-here.hot .cc-g i { background: none; border-color: var(--white); }   /* lit as a line, not filled */
 .cc-brk-end .cc-g i { border-bottom-width: 1px; border-bottom-left-radius: 2px; border-bottom-right-radius: 2px; }
 .cc-brk .cc-g i { width: 20px; position: relative; }
-.cc-brk-top .cc-g i { top: 1px; }    /* the legs' top at the place course.js sets: the box's foot */
 .cc-brk-end .cc-g i { top: -1.5px; }   /* its line, not its corners, on the place course.js sets */
 .cc-r:hover .cc-g, .cc-r.hot .cc-g { color: var(--white); }
 .cc-r:hover .cc-g i, .cc-r.hot .cc-g i { background: var(--white); }
@@ -1031,7 +1030,6 @@ span.cc-r:hover .cc-g i { background: #8f8f8f; }
        band, whose edges their corners clear; the course page's upper bracket is home's long dash */
     .cc-part .cc-g::before { left: 0; width: 28px; }
     .cc-brk .cc-g i { position: absolute; right: 0; width: 28px; }
-    .cc-brk-top .cc-g i { top: 9px; }
     .cc-brk-end .cc-g i { top: 6.5px; }
     .cc-home.cc-here .cc-g i { right: 1px; width: 55px; }
     /* the other parts' names step back, so this page's blocks read as the page's contents */

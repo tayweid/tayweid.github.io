@@ -1056,8 +1056,8 @@
         homeRow.querySelector('.cc-g').innerHTML = HOUSE;
         homeRow.querySelector('.cc-g').append(element('i'));
         homeRow.querySelector('.cc-l').append(brand());
-        // the brackets around this page's stretch of the column: above its part's letter (the course
-        // page has home's dash for that) and below its last row
+        // the bracket closing this page's stretch of the column, below its last row (the course page
+        // has home's dash, turned down at its ends, opening it)
         const bracket = place => {
             const row = columnRow('brk');
             row.classList.add(`cc-brk-${place}`);
@@ -1084,7 +1084,6 @@
             letter.dataset.tip = `Part ${id}  ${part.title}`;
             letter.querySelector('.cc-g').textContent = id;
             letter.querySelector('.cc-l').append(element('span', 'cc-t', part.title));
-            if (here) list.append(bracket('top'));
             list.append(letter);
             items(part.sections).forEach(section => {
                 const entry = columnEntry(id, section);
