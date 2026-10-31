@@ -88,7 +88,11 @@ A section is exactly one of a **block**, a **checkpoint**, or a **project**.
 
 An animation deck needs no link: with `folder` set, `<materials>/<folder>/media/<BLOCK>_present/`
 (or the older `Episode<BLOCK>_present/`) gets an Animations chip on the episode as soon as its
-`index.html` is there. A link the YAML already gives to the same folder is not doubled.
+`index.html` is there. A link the YAML already gives to the same folder is not doubled. On a row
+card, an episode with no `video` but a deck shows "Open the animations" in the video's frame,
+and the frame opens the deck. A 16:9 still saved beside the deck folder with the same name
+(`media/<BLOCK>_present.jpg`) fills that frame as its thumbnail. Keep it outside the folder:
+re-exporting a deck replaces the whole folder.
 
 Then the practice path, in one of two forms.
 

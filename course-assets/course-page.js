@@ -608,7 +608,8 @@
 
     // The episode side: the video, then under it the title row: its name with the episode's buttons
     // (animations, reading) at the end of the name's line, and a short description below.
-    function rowEpisode({ name, description, video, buttons, classes = '' }) {
+    // With no video but an animation deck, the frame opens the deck instead, showing the deck's still.
+    function rowEpisode({ name, description, video, deck, buttons, classes = '' }) {
         const panel = element('div', `bc-episode${classes ? ` ${classes}` : ''}`);
         const media = element('div', 'bc-media');
         let still;
@@ -624,6 +625,21 @@
             img.onerror = () => { img.onerror = null; img.src = `https://img.youtube.com/vi/${video}/hqdefault.jpg`; };
             const play = element('span', 'bc-play');
             play.setAttribute('aria-hidden', 'true');
+            still.append(img, play);
+        } else if (deck) {
+            still = element('a', 'bc-still bc-none bc-deck');
+            still.href = deck;
+            still.target = '_blank';
+            still.rel = 'noopener';
+            still.setAttribute('aria-label', `${name}: open the animations`);
+            still.append(hiddenIcon('fa fa-desktop'), element('span', null, 'Open the animations'));
+            // A still saved beside the deck (media/<deck>.jpg) covers the note; without one the note shows.
+            const img = element('img');
+            img.src = `${deck.replace(/\/$/, '')}.jpg`;
+            img.alt = '';
+            const play = element('span', 'bc-play');
+            play.setAttribute('aria-hidden', 'true');
+            img.onerror = () => { img.remove(); play.remove(); };
             still.append(img, play);
         } else {
             still = element('div', 'bc-still bc-none', 'Video not yet available');
@@ -645,13 +661,18 @@
         return panel;
     }
 
+    // The block's animation deck found on disk, as its folder, or '' when there is none.
+    function deckOf(blockId) {
+        const blockFiles = discoveredFiles[blockId] || {};
+        return (blockFiles.animations || blockFiles.animations_episode || '').replace(/index\.html$/, '');
+    }
+
     // The episode's own links: its animation deck (found on disk), anything listed, and the reading.
     function episodeButtons(blockId, block) {
         const episode = block.episode || {};
         const reading = block.reading || {};
         const list = items(episode.links).slice();
-        const blockFiles = discoveredFiles[blockId] || {};
-        const deck = (blockFiles.animations || blockFiles.animations_episode || '').replace(/index\.html$/, '');
+        const deck = deckOf(blockId);
         const folderOf = file => String(file).replace(/^\.\//, '').replace(/(index\.html)?$/, '').replace(/\/?$/, '/');
         if (deck && !list.some(item => folderOf(item.file) === folderOf(deck))) {
             list.unshift({ label: 'Animations', file: deck, icon: 'fa fa-desktop' });
@@ -680,6 +701,7 @@
             name: episode.name || `Episode ${block.block}`,
             description: episode.description,
             video: episode.video,
+            deck: deckOf(block.block),
             buttons: episodeButtons(block.block, block)
         }));
         if (block.practice !== false) {
