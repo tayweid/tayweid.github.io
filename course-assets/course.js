@@ -352,7 +352,7 @@ function setupCourseColumn() {
   const root = document.documentElement;
   const list = card.querySelector('.cc-rows');
   const content = document.querySelector('main.content') || document.querySelector('.content');
-  const KINDS = ['home', 'brk', 'part', 'block', 'cp', 'faint', 'end'];
+  const KINDS = ['home', 'part', 'block', 'cp', 'faint', 'end'];
   const rows = Array.from(list.querySelectorAll('.cc-r')).map(node => {
     const target = node.dataset.target;
     const href = node.getAttribute('href');
@@ -364,6 +364,8 @@ function setupCourseColumn() {
       tip: node.dataset.tip || ''
     };
   });
+  // the first part sits right under home's row, whose dash is DASH above its floor (offsets allows for it)
+  rows.forEach((row, i) => { row.first = row.kind === 'part' && i > 0 && rows[i - 1].kind === 'home'; });
   const headRow = rows.find(row => row.here) || rows[0];
   const mineRows = rows.filter(row => row.mine);
 
@@ -373,30 +375,32 @@ function setupCourseColumn() {
   const bubbleTitle = el('b');
   const bubbleSub = el('span');
   bubble.append(bubbleTitle, bubbleSub);
+  const tube = el('span', { className: 'cc-tube' });
   const band = el('span', { className: 'cc-view' });
-  list.prepend(band);
+  list.prepend(tube, band);
   document.body.append(scrim, tip, bubble);
 
   // The rail is the same at every width: a wide sidebar, a narrow window's closed column and a phone's
-  // all space their rows alike, so it keeps its length when the names go. The part letters space alike,
-  // and home's long dash at the top like the long dash closing it at the foot; this page's blocks sit
-  // close together, a little room under their letter, the brackets just outside them. Opened into a card, the blocks spread to OPEN's height, room for a finger. On a wide
-  // window home's row is MICRO ECON with its dash at the foot, and keeps its height.
+  // all space their rows alike, so it keeps its length when the names go. Each part's row is its letter
+  // with OUT above and below, so a part's blocks sit as far under the letter as the next part's letter
+  // sits under them; home's long dash at the top and the long dash closing the rail at the foot keep
+  // that distance too. This
+  // page's blocks sit close together. Opened into a card, the blocks spread to OPEN's height, room for a
+  // finger. On a wide window home's row is MICRO ECON with its dash at the foot, and keeps its height.
   const WIDE = 1334;   // the window that fits the sidebar beside the centered page column (course.css)
   const CLUMP = 20;    // the rows for this page's blocks: close together, one group under the part's name
-  const ROOM = 2;      // the room between the part's letter and its blocks
   const PADV = 8;
   const HEAD = 64;     // home's row on a wide window: MICRO ECON and its dash
   const DASH = 2;      // the middle of home's dash, this far above its row's floor (course.css)
-  // The part's letter sits in a box (course.css: 22 px tall, centred on its row); this page's is lit, and
-  // the band starts just under its foot. The bracket closing the page sits just outside the part's names,
-  // 10 px from the baseline of its last name (15.5 px CMU Serif in a 20 px line, 5 px below the row's middle).
-  const BOX = 22, GAP = 10, BASE = 5;
-  const DROP = 5;      // this page's letter, its box and name sit this much lower in the row (course.css)
+  // a part's row: OUT, its letter, OUT. This page's stretch is a tube (course.css: .cc-tube) from NEAR
+  // above its letter to as far below its last row's tick; on the course page it hangs from home's dash,
+  // its foot as far below the last tick as its top is above the first
+  const NEAR = 7, OUT = 12;
   const KMAX = 1.8;    // the most the rail's rows stretch; past it, the room goes between the parts
   const TALL = 840;    // the longest the rail grows, from the top of home's row to its foot: a taller window leaves room under it
   let wideInset = 0;   // a wide sidebar's top and bottom padding (course.css; set and read in measure)
-  const OPEN = { home: 30, part: 30, block: 30, cp: 30, faint: 5, end: 30 };
+  // the long dash at the foot sits as far below the last faint dash as a part's letter would
+  const OPEN = { home: 30, part: 2 * OUT, block: 30, cp: 30, faint: 5, end: 2 * OUT };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const ease = k => 1 - Math.pow(1 - k, 3);
   let mode = '', p = 0, target = 0, anim = 0, anchorY = null, anchorRow = 0, frame = 0;
@@ -421,17 +425,17 @@ function setupCourseColumn() {
 
   const heightAt = (row, q) => {
     if (mode === 'wide' && row.kind === 'home') return HEAD;
-    if (row.kind === 'brk') return 0;   // the bracket takes no row of its own: its last tick's row holds it
+    if (row.kind === 'part') return OPEN.part;
     const rail = row.kind === 'block' || row.kind === 'cp' ? CLUMP : OPEN[row.kind];
     return mode === 'wide' ? rail : rail + (OPEN[row.kind] - rail) * q;
   };
-  // this page's own rows (not its letter or home), and the bracket closing them
+  // this page's own rows (not its letter or home), and the last of them
   const own = rows.map((row, i) => row.mine && row !== headRow ? i : -1).filter(i => i >= 0);
-  const brkEnd = rows.findIndex(row => row.node.classList.contains('cc-brk-end'));
+  const head = rows.indexOf(headRow);
+  const last = own.length ? own[own.length - 1] : head;
   // where each part's group of rows begins, after home's row (on the course page, after home's group):
   // the gaps a tall window's spare room goes into, evenly
   const groupStarts = rows.map((row, i) => row.kind === 'part' ? i : -1).filter(i => i >= 0);
-  const roomBefore = i => own.length && i === own[0] ? ROOM : 0;
   // The rail runs the window's height, up to TALL: its spacing stretches or squeezes (to half, on a
   // short window: a phone turned sideways) so that it reaches from the top of the window to the bottom,
   // 8 px in from each (a wide sidebar: from under MICRO ECON to its bottom padding, and it only
@@ -441,27 +445,41 @@ function setupCourseColumn() {
   function offsets(q) {
     let y = 0, full = 0, fixed = 0;
     const kept = row => mode === 'wide' && row.kind === 'home';
-    rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += roomBefore(i) + heightAt(row, q); });
+    rows.forEach((row, i) => { if (kept(row)) fixed += heightAt(row, q); else full += heightAt(row, q); });
     const avail = mode === 'wide' ? Math.min(windowHeight() - wideInset, TALL) - fixed : Math.min(windowHeight() - 16 - 2 * PADV, TALL);
     const k = Math.max(mode === 'wide' ? 1 : 0.5, Math.min(KMAX, avail / full));
     const spare = groupStarts.length ? Math.max(0, avail - KMAX * full) / groupStarts.length : 0;
-    return rows.map((row, i) => { const kk = kept(row) ? 1 : k; const room = roomBefore(i) * kk + (groupStarts.includes(i) ? spare : 0); y += room; const h = heightAt(row, q) * kk; const top = y; y += h; return { top, h, mid: top + h / 2, room }; })
+    return rows.map((row, i) => {
+      const kk = kept(row) ? 1 : k; const room = groupStarts.includes(i) ? spare : 0; y += room;
+      // (the first part's row is DASH shorter: its letter sits OUT under home's dash, which is DASH above
+      // the floor of home's row, and the room under its tick stays OUT)
+      const h = heightAt(row, q) * kk - (row.first ? DASH : 0); const top = y; y += h;
+      // the glyph's place in its row (a part's letter OUT from the top), and where the tube's end sits
+      // above it, NEAR up
+      const gy = row.kind !== 'part' ? h / 2 : OUT * kk - (row.first ? DASH : 0);
+      return { top, h, mid: top + gy, room, gy, ba: gy - NEAR * kk };
+    })
       .concat([{ top: y }]);
   }
 
-  // where the bracket's line sits on the column, and home's dash (the course page's upper bracket)
-  const bracketAt = (o, i) => i === brkEnd ? o[i - 1].mid + BASE + GAP + 1 : o[i].top + o[i].h - DASH;
+  // the middle of home's dash, at the foot of its row
+  const dashAt = (o, i) => o[i].top + o[i].h - DASH;
 
-  // The band: a clear glass over what the window shows, running from this page's letter to its bracket
-  // as the page scrolls. The page's top is just under the letter's box (under home's corners, on the
-  // course page), its end at the bracket, and each section starts at its own tick. At either end the
-  // band just clears the mark: the box's foot above, the bracket's turned ends below.
-  const FOOT = 3;   // from the box's foot (home's dash, on the course page) to the band's top
+  // The tube and the band: the tube (a hairline pill, course.css) holds this page's stretch, its top NEAR
+  // above its letter (just under home's dash, on the course page) and its foot as far below the last
+  // tick as its top is above the first mark it holds (the letter, or the course page's first tick), so
+  // it hugs what it holds; the band, a clear glass over what the window shows, slides inside it as the
+  // page scrolls. The page's top is at the tube's top, so the band covers the letter when the head is on
+  // screen; its end is at the tube's foot, and each section starts at its own tick.
+  const INSET = 2;   // the band's ends inside the tube's
   function placeBand(o) {
-    const dashAt = i => i === brkEnd || rows[i].kind === 'home' ? bracketAt(o, i) : o[i].mid;
-    const head = rows.indexOf(headRow);
-    const upper = (headRow.kind === 'home' ? bracketAt(o, head) : o[head].mid + DROP + BOX / 2 + 1) + FOOT;
-    const lower = brkEnd >= 0 ? dashAt(brkEnd) : o[own.length ? own[own.length - 1] : rows.indexOf(headRow)].mid;
+    const tubeTop = headRow.kind === 'home' ? dashAt(o, head) + 2 : o[head].top + o[head].ba;
+    const first = headRow.kind === 'home' && own.length ? o[own[0]].mid : o[head].mid;
+    const tubeEnd = o[last].mid + (first - tubeTop);
+    tube.style.top = `${tubeTop}px`;
+    tube.style.height = `${Math.max(8, tubeEnd - tubeTop)}px`;
+    const upper = tubeTop + INSET;
+    const lower = tubeEnd - INSET;
     const marks = [{ y: upper, yd: 0 }]
       .concat(own.filter(i => rows[i].yd !== undefined).map(i => ({ y: o[i].mid, yd: rows[i].yd })))
       .concat([{ y: lower, yd: Math.max(1, root.scrollHeight) }]);
@@ -472,8 +490,8 @@ function setupCourseColumn() {
       return a.y + Math.min(1, Math.max(0, (docY - a.yd) / Math.max(1, b.yd - a.yd))) * (b.y - a.y);
     };
     const pad = own.length ? Math.min(13, o[own[0]].h / 2 + 1) : 10;
-    const top = Math.max(upper - 1, at(scrollY) - pad);
-    const bottom = Math.min(lower - 4, at(scrollY + innerHeight) + pad);
+    const top = Math.max(upper, at(scrollY) - pad);
+    const bottom = Math.min(lower, at(scrollY + innerHeight) + pad);
     band.style.top = `${top}px`;
     band.style.height = `${Math.max(8, bottom - top)}px`;
   }
@@ -484,7 +502,7 @@ function setupCourseColumn() {
     rows.forEach((row, i) => {
       row.node.style.height = `${o[i].h}px`;
       row.node.style.marginTop = `${o[i].room}px`;
-      row.node.style.setProperty('--gy', `${row.kind === 'brk' ? bracketAt(o, i) - o[i].top : o[i].h / 2}px`);
+      row.node.style.setProperty('--gy', `${o[i].gy}px`);
     });
     card.style.setProperty('--q', mode === 'wide' ? 1 : Math.max(0, Math.min(1, (p - 0.35) / 0.65)));
     card.style.setProperty('--p', mode === 'wide' ? 0 : p);
@@ -600,7 +618,7 @@ function setupCourseColumn() {
       if (swallowClick) { event.preventDefault(); return; }
       // a closed column acts on release (a key press still follows the link)
       if (mode !== 'wide' && target === 0 && event.detail !== 0) { event.preventDefault(); return; }
-      if (row.kind === 'brk' || row.kind === 'end') { event.preventDefault(); return; }
+      if (row.kind === 'end') { event.preventDefault(); return; }
       if (row.href) return;   // another part, its blocks, or the course page: an ordinary link
       event.preventDefault();
       scrollToRow(row);
@@ -618,12 +636,10 @@ function setupCourseColumn() {
 
   // A press on the closed column: a tap opens it; a slide moves through this page, and onto another
   // part (or one of its blocks) offers to open it on release.
-  // (a bracket answers for the row it hugs)
   const rowAt = y => {
     const o = offsets(p);
     let at = 0;
     rows.forEach((row, i) => { if (y >= o[i].top) at = i; });
-    if (at === brkEnd) at -= 1;
     return rows[at];
   };
   const midOf = row => offsets(p)[rows.indexOf(row)].mid;

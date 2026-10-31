@@ -156,8 +156,8 @@ steps carry many named files) keeps the path card.
 
 **The course column.** A row-card course also trades both side navs, and the phone's bottom
 bar, for one column: a long dash opening it for `home`, named by the `brand` nameplate, a letter
-for each part with its title in small capitals (this page's lit), a tick for each block of the part
-on screen (a short bracket closing them), faint dashes for the other parts' blocks (each links to its
+for each part with its title in small capitals (this page's in white, a hairline tube running down
+its blocks), a tick for each block of the part on screen, faint dashes for the other parts' blocks (each links to its
 block), and a long dash closing the semester. A wide window shows it as the sidebar with the names beside it,
 the page centered on the window; narrower, it keeps to the ticks and letters and opens into a
 card when tapped. It has no place for `nav:` entries, so a row-card course leaves `nav:` out.

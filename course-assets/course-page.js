@@ -986,9 +986,10 @@
     // A course on the row card gets all its navigation in one column, in the left slot: a long
     // dash opening it for home (MICRO ECON), a letter for each part, a dash for each
     // block of the part on screen (faint dashes for the other parts' blocks, which link to them),
-    // and a long dash closing the semester (a mark, not a link). Each letter sits in a faint box; the
-    // page's own is white and stands on legs, and a white bracket closes its stretch of the column. On
-    // a wide window the names sit beside it; course.js
+    // and a long dash closing the semester (a mark, not a link). The page's own letter is white, and a
+    // hairline tube runs down its stretch, from above its letter to above the next part's, a clear band
+    // sliding inside it over what the window shows (course.js). On a wide window the names sit beside
+    // it; course.js
     // sizes it, follows the reader down the page, and on narrow windows and phones keeps it to the
     // dashes and letters until it is opened into a card.
     // On a narrow window the house stands on home's dash in place of MICRO ECON: a roof with eaves
@@ -1056,15 +1057,6 @@
         homeRow.querySelector('.cc-g').innerHTML = HOUSE;
         homeRow.querySelector('.cc-g').append(element('i'));
         homeRow.querySelector('.cc-l').append(brand());
-        // the bracket closing this page's stretch of the column, below its last row (the course page
-        // has home's dash, turned down at its ends, opening it)
-        const bracket = place => {
-            const row = columnRow('brk');
-            row.classList.add(`cc-brk-${place}`);
-            row.setAttribute('aria-hidden', 'true');
-            row.querySelector('.cc-g').append(element('i'));
-            return row;
-        };
         list.append(homeRow);
 
         if (onHome) {
@@ -1074,7 +1066,6 @@
                 const title = heading.dataset.courseNav || heading.textContent.trim();
                 list.append(columnLine(columnRow('block', { target: holder.id, mine: true, tip: title }), '', title));
             });
-            list.append(bracket('end'));
         }
 
         Object.keys(course.parts).forEach(id => {
@@ -1097,7 +1088,6 @@
                     list.append(faint);
                 }
             });
-            if (here) list.append(bracket('end'));
         });
 
         // the long dash closing the semester: the twin of home's, with nothing to name or open
