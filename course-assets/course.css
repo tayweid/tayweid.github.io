@@ -746,7 +746,7 @@ img.placeholder-bg { display: none; }
 .bc-ephead .bc-epico { grid-column: 2; grid-row: 1; justify-self: end; margin: calc((var(--t-title) * 1.3 - 22px) / 2) 0 0; padding: 0; }
 
 /* the small file buttons: a sheet in grey, solutions in a dashed red frame with a trace of red;
-   held back until their day, a sheet is a dashed outline and solutions just a faint red icon */
+   a file that is not out yet has no button */
 .bc-ico { display: inline-flex; gap: var(--ibgap); }
 .bc-ib { display: inline-flex; align-items: center; justify-content: center; width: var(--ibw); height: 22px; border-radius: 5px; background: var(--mid); color: var(--fg); font-size: 14px; line-height: 1; transition: background 0.2s ease, color 0.2s ease; }
 .bc-ib:hover { background: var(--link); color: var(--white); }
@@ -755,13 +755,11 @@ img.placeholder-bg { display: none; }
 .bc-ib.bc-vid { display: none; }
 .bc-ib.bc-sol { background: rgba(226, 92, 103, 0.12); border: 1px dashed rgba(226, 92, 103, 0.6); color: #F07882; }
 .bc-ib.bc-sol:hover { background: var(--link); border-color: transparent; color: var(--white); }
-.bc-ib.bc-wait, .bc-ib.bc-wait:hover { background: none; border: 1px dashed rgba(255, 255, 255, 0.26); color: #777; cursor: default; }
-.bc-ib.bc-sol.bc-wait, .bc-ib.bc-sol.bc-wait:hover { border-color: transparent; color: rgba(226, 92, 103, 0.4); }
 
 /* the header chip: every row's name on the card's own ground inside a hairline, rounded at both ends;
    a posted sheet adds one grey pill lying under the name's right end holding the download arrow (the
    name and this arrow are one link to the sheet) and, after it, the solutions' quiet red arrow, each
-   half lighting on its own; a file held back until its day is a dashed outline whose tooltip says when.
+   half lighting on its own; a file that is not out yet adds nothing to the chip.
    A checkpoint's versions stay a line of small buttons under the name, each a grey pill naming its
    version (V1, V2 ...) beside its arrow. */
 .bc-chip { display: inline-flex; align-items: stretch; min-height: var(--chip); }   /* a name too long for its column wraps inside a taller pill */
@@ -774,10 +772,6 @@ img.placeholder-bg { display: none; }
 a.bc-hd:hover .bc-dl, a.bc-dl:hover { background: var(--link); color: var(--white); }
 .bc-dl.bc-sol { color: rgba(226, 92, 103, 0.65); }
 a.bc-dl.bc-sol:hover { background: var(--link); color: var(--white); }
-.bc-dl.bc-wait, .bc-hd.bc-wait .bc-dl { background: none; color: #777; outline: 1px dashed rgba(255, 255, 255, 0.26); outline-offset: -1px; }
-.bc-dl.bc-sol.bc-wait { color: rgba(226, 92, 103, 0.35); }   /* held back: its half stays grey, the arrow faint */
-.bc-hd.bc-wait + .bc-dl.bc-sol { background: none; outline: 0; }   /* both held back: a bare faint arrow after the dashed half */
-.bc-hd.bc-wait, .bc-ver.bc-wait { cursor: default; }
 .bc-dl.bc-optional { opacity: 0.55; }
 /* the version pills: a grey pill like the chip's, its version's name inside beside a red arrow */
 .bc-ico:has(.bc-ver) { flex-wrap: wrap; gap: 4px 6px; }
@@ -785,8 +779,6 @@ a.bc-dl.bc-sol:hover { background: var(--link); color: var(--white); }
 .bc-ib.bc-ver svg { width: 12px; height: 12px; color: rgba(226, 92, 103, 0.65); }
 a.bc-ib.bc-ver:hover { background: var(--link); color: var(--white); }
 a.bc-ib.bc-ver:hover svg { color: var(--white); }
-.bc-ib.bc-ver.bc-wait { background: none; outline: 1px dashed rgba(255, 255, 255, 0.26); outline-offset: -1px; color: #777; }
-.bc-ib.bc-ver.bc-wait svg { color: rgba(226, 92, 103, 0.35); }
 
 /* the practice rows: a dot, then the name and where it happens, then the buttons and day under it */
 .bc-steps { min-width: 0; display: flex; flex-direction: column; margin: 0; padding: var(--pad) var(--pad) var(--pad) calc(var(--pad) + var(--gap)); list-style: none; }

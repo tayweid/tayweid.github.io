@@ -367,20 +367,6 @@
         return link;
     }
 
-    // A file that is on disk but held back until its day: a faint button that says when.
-    function waitButton(label, day, owner) {
-        const solutions = SOLUTIONS_LABEL.test(label);
-        const text = `${label} ${solutions ? 'post' : 'posts'} ${shortDate(day)}`;
-        const span = element('span', `bc-ib bc-wait${solutions ? ' bc-sol' : ''}`);
-        span.title = text;
-        span.dataset.label = label;
-        span.dataset.sheet = '';
-        span.setAttribute('role', 'img');
-        span.setAttribute('aria-label', owner ? `${owner}: ${text}` : text);
-        span.append(hiddenIcon('fa fa-file-text-o'));
-        return span;
-    }
-
     // The walkthrough as a ▶ button, for the widths where its thumbnail gives way.
     function videoButton(video, owner) {
         const link = element('a', 'bc-ib bc-vid');
@@ -393,31 +379,10 @@
         return link;
     }
 
-    // The day a held-back file appears: on_date its (first) day, after_date the day after the last.
-    function releaseDay(mode, date) {
-        if (mode === 'on_date') return schema.firstDate(date) || null;
-        if (mode !== 'after_date') return null;
-        const last = schema.lastDate(date);
-        if (!last) return null;
-        const day = new Date(`${last}T00:00:00Z`);
-        day.setUTCDate(day.getUTCDate() + 1);
-        return day.toISOString().slice(0, 10);
-    }
-
-    // A conventional file and its solutions as buttons: posted ones as links, held-back ones
-    // (on disk, waiting for their day) as faint buttons; links: in the YAML replaces both.
+    // A conventional file and its solutions as buttons, each only once it is out: a file that is
+    // missing, or on disk but held back until its day, shows nothing. links: in the YAML replaces both.
     function rowFiles(kind, label, node, date, file, sols, owner, defaults) {
-        if (node.links) return shown('post', kind, node, date, defaults) ? items(node.links).map(item => rowButton(item, owner)) : [];
-        const buttons = [];
-        [['post', label, file], ['solutions', 'Solutions', sols]].forEach(([key, name, path]) => {
-            if (!path) return;
-            if (shown(key, kind, node, date, defaults)) buttons.push(rowButton({ label: name, file: path }, owner));
-            else {
-                const day = releaseDay(schema.releaseMode(course, key, kind, node, defaults), date);
-                if (day) buttons.push(waitButton(name, day, owner));
-            }
-        });
-        return buttons;
+        return stepLinks(kind, label, node, date, file, sols, defaults).map(item => rowButton(item, owner));
     }
 
     // A row's own sheet, and its solutions, join the name's chip: a download arrow after the name (one
@@ -439,13 +404,12 @@
         return label.replace(SOLUTIONS_LABEL, '').trim() || label;
     }
     const ARROW = '<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.8v8.4M3.6 6.6 7 10l3.4-3.4M2.4 12.6h9.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    // A chip segment standing for a file button: the same link (or, held back, the same note), the
-    // same states, drawn as a download arrow.
+    // A chip segment standing for a file button: the same link and the same states, drawn as a
+    // download arrow.
     function segment(button, className) {
-        const link = button.tagName === 'A';
-        const seg = element(link ? 'a' : 'span', className);
-        ['bc-sol', 'bc-wait', 'bc-optional'].forEach(state => { if (button.classList.contains(state)) seg.classList.add(state); });
-        if (link) { seg.href = button.href; seg.target = '_blank'; seg.rel = 'noopener'; }
+        const seg = element('a', className);
+        ['bc-sol', 'bc-optional'].forEach(state => { if (button.classList.contains(state)) seg.classList.add(state); });
+        seg.href = button.href; seg.target = '_blank'; seg.rel = 'noopener';
         if (button.title) seg.title = button.title;
         const label = button.getAttribute('aria-label');
         if (label) seg.setAttribute('aria-label', label);

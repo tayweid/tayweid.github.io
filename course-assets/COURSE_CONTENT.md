@@ -152,8 +152,8 @@ always 16:9, its animation deck and reading as small buttons on its title line; 
 practice on the right as rows, each a dot on the dashed line, the name with where it
 happens after it (Exercise IN CLASS), a line below with its files as small buttons
 (solutions in a dashed red frame) and, for homework, its day (just the day: no "Due", no
-time), and a walkthrough's thumbnail. A file already on disk but held back by `post:` or
-`solutions:` shows as a faint button that says the day it posts. The card keeps the same
+time), and a walkthrough's thumbnail. A file that is missing, or on disk but held back by
+`post:` or `solutions:`, has no button until it is out. The card keeps the same
 pieces at every width and scales them with its own width, running edge to edge on a phone
 (course.css has the details). A course built only from explicit steps (ECON 0150, whose
 steps carry many named files) keeps the path card.
