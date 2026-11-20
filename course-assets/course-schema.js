@@ -482,7 +482,7 @@
         function validateCheckpoint(value, path) {
             const checkpoint = record(value, path);
             if (!checkpoint) return;
-            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'reattempt_date', 'reattempt_when', 'next', 'extras']);
+            keys(checkpoint, path, ['description', 'demo'], ['steps', 'links', 'date', 'when', 'reattempt', 'reattempt_date', 'reattempt_when', 'next', 'extras', 'extras_tiles']);
             steps(checkpoint.steps, `${path}.steps`);
             text(checkpoint.description, `${path}.description`, { allowEmpty: true });
             const demo = record(checkpoint.demo, `${path}.demo`);
@@ -506,6 +506,7 @@
                 fail(`${path}.next`, `names Part ${checkpoint.next}, which is not in parts`);
             }
             extras(checkpoint.extras, `${path}.extras`);
+            boolean(checkpoint.extras_tiles, `${path}.extras_tiles`);
         }
 
         function validateProject(value, path) {

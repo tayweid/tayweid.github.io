@@ -815,6 +815,26 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
 .bc-thumb:hover { opacity: 1; }
 .bc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
+/* a checkpoint's optional extras (earlier demos): small tiles under its walkthrough, past a hairline,
+   each a thumbnail over its name and its two download arrows (under the name when the tile is narrow); four across. They are the
+   card's second row, the practice beside them running the card's whole height. A smaller card
+   (under 600) leaves them out, as it does the optional rows */
+.bc > .bc-xtra { grid-column: 1; grid-row: 2; min-width: 0; padding: 0 var(--pad) var(--pad); border-right: 1px solid var(--mid); }
+.bc > .bc-xtra::before { content: ""; display: block; margin-bottom: calc(var(--pad) * 0.75); border-top: 1px solid var(--mid); }
+.bc:has(> .bc-xtra) > .bc-steps { grid-column: 2; grid-row: 1 / span 2; }
+.bc-xtra .bc-label { margin: 0; padding: 0 0 calc(var(--pad) * 0.6); }
+.bc-xts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 6px; margin: 0; padding: 0; list-style: none; }
+.bc-xt { --pb: 20px; --chip: 20px; --seg: 15px; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.bc-xt .bc-thumb { width: 100%; height: auto; aspect-ratio: 16 / 9; }
+.bc-xt .bc-thumb img { position: absolute; inset: 0; }
+.bc-xt-cap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 3px 2px; }
+.bc-xt-nm { font: 400 calc(var(--t-meta) - 1px)/1.2 var(--font-heading); color: #B4B4B4; text-decoration: none; white-space: nowrap; }
+a.bc-xt-nm:hover { color: var(--white); }
+.bc-xt .bc-chip > .bc-dl { width: var(--seg); margin-left: 0; padding-left: 0; border-radius: 6px 0 0 6px; }
+.bc-xt .bc-chip > .bc-dl:only-child { border-radius: 6px; }
+.bc-xt .bc-chip > .bc-dl.bc-sol { border-radius: 0 6px 6px 0; }
+.bc-xt .bc-dl svg { width: 11px; height: 11px; }
+
 /* a wide card's practice is a group sized to its rows, set in the middle of its panel, across and down,
    whatever the card's width or what its rows hold (a smaller card's practice fills its panel) */
 @container (min-width: 600px) {
@@ -829,6 +849,9 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
     /* short rows need less room and the episode takes it; enough stays for Homework and its two buttons on one line */
     .bc { --prac: clamp(250px, 44cqi, 300px); }
     .bc-opt { display: none; }
+    /* a checkpoint's extras tiles go with them, and the practice is the card's one row again */
+    .bc > .bc-xtra { display: none; }
+    .bc:has(> .bc-xtra) > .bc-steps { grid-row: 1; }
     .bc-to-extra::after { display: none; }
     .bc-step:has(+ .bc-opt):not(.bc-to-extra)::after { width: auto; background: none; border-left: 2px dashed rgba(255, 255, 255, 0.24); }
     .bc-where { display: none; }
@@ -841,6 +864,8 @@ a.bc-ib.bc-ver:hover svg { color: var(--white); }
     /* the button column takes what the names leave (a row with more files than fit puts them under its
        name, below); a card with no walkthroughs keeps no column for them */
     .bc-steps { display: grid; grid-template-columns: 12px auto minmax(min-content, 1fr) var(--tw); column-gap: var(--gap); align-content: start; }
+    /* shorter than the episode beside it, the practice sits in the middle of its panel, across and down, as on a wide card */
+    .bc-steps { align-self: center; justify-self: center; width: fit-content; max-width: 100%; }
     .bc-steps:not(:has(.bc-step:not(.bc-opt) > .bc-thumb)) { grid-template-columns: 12px auto minmax(min-content, 1fr); }
     .bc-steps > * { grid-column: 1 / -1; }
     .bc-step { grid-template-columns: subgrid; align-content: start; }

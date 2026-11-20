@@ -26,7 +26,7 @@ const KEY_ORDER = [
     'date', 'when', 'due', 'reattempt', 'reattempt_date', 'reattempt_when', 'next', 'practice', 'steps',
     'episode', 'reading', 'chapter', 'topic', 'video', 'links', 'animations', 'materials',
     'exercise', 'vignette', 'homework', 'post', 'solutions', 'solution_file', 'empty', 'demo',
-    'homework_defaults', 'sections', 'dates', 'class', 'recitation', 'extras'
+    'homework_defaults', 'sections', 'dates', 'class', 'recitation', 'extras', 'extras_tiles'
 ];
 
 const STRINGIFY = { version: '1.1', lineWidth: 0, minContentWidth: 0, flowCollectionPadding: false, singleQuote: true, doubleQuotedAsJSON: true };

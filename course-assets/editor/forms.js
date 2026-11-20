@@ -122,7 +122,8 @@ export const CHECKPOINT = [
     ] },
     { key: 'links', type: 'links' },
     { key: 'steps', type: 'records', fields: STEP, title: step => step.name, blank: { name: 'New step', where: 'home' } },
-    { key: 'extras', type: 'records', fields: EXTRA, title: extra => extra.name, blank: { name: 'New extra' } }
+    { key: 'extras', type: 'records', fields: EXTRA, title: extra => extra.name, blank: { name: 'New extra' } },
+    { key: 'extras_tiles', type: 'bool', label: 'Show the extras as tiles under the video' }
 ];
 
 export const PROJECT = [

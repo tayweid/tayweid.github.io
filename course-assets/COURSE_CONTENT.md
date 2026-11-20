@@ -222,6 +222,8 @@ preview another day.
     reattempt_when: Thu Oct 8 and Fri Oct 9   # optional; overrides the date's label, as when: does for the checkpoint
     next: 2                        # optional; adds a faint "Part 2" step after the checkpoint
     extras: [...]                  # optional material between the demo and the checkpoint
+    extras_tiles: true             # optional, row cards only; draws the extras as small tiles under the walkthrough
+                                   # (thumbnail, name, sheet and solutions arrows) instead of rows on the path; a card under 600 px leaves them out
 ```
 
 The heading and the right-nav entry use `course.checkpoint`, so `MiniExam 1` on one site and

@@ -570,6 +570,61 @@
         });
     }
 
+    // A checkpoint's optional extras (earlier demos), as small tiles under its walkthrough: each a
+    // thumbnail of its video, then its name (a link to its sheet) and the arrows for its sheet and
+    // solutions. A smaller card leaves them out (course.css).
+    function extraTiles(extras) {
+        const box = element('div', 'bc-xtra');
+        box.append(element('p', 'bc-label', 'More practice'));
+        const list = element('ul', 'bc-xts');
+        extras.forEach(extra => {
+            const tile = element('li', 'bc-xt');
+            const links = items(extra.links);
+            const target = extra.video ? `https://www.youtube.com/watch?v=${extra.video}`
+                : (extra.image && links.length ? String(links[0].file) : null);
+            if (target) {
+                const thumb = element('a', 'bc-thumb');
+                thumb.href = target;
+                thumb.target = '_blank';
+                thumb.rel = 'noopener';
+                thumb.setAttribute('aria-label', extra.video ? `${extra.name}: walkthrough video` : String(extra.name));
+                const img = element('img');
+                img.src = extra.video ? `https://img.youtube.com/vi/${extra.video}/mqdefault.jpg` : String(extra.image);
+                img.alt = '';
+                img.loading = 'lazy';
+                thumb.append(img);
+                if (extra.video) {
+                    const play = element('span', 'bc-play');
+                    play.setAttribute('aria-hidden', 'true');
+                    thumb.append(play);
+                }
+                tile.append(thumb);
+            }
+            const buttons = links.map(item => rowButton(item, extra.name));
+            const { sheet, sols } = headerFiles(buttons);
+            const caption = element('div', 'bc-xt-cap');
+            const name = sheet ? segment(sheet, 'bc-xt-nm') : element('span', 'bc-xt-nm');
+            name.append(document.createTextNode(String(extra.name)));
+            caption.append(name);
+            const icons = element('span', 'bc-ico');
+            buttons.filter(button => button !== sheet && button !== sols).forEach(button => icons.append(button));
+            if (sheet || sols) {
+                const chip = element('span', 'bc-chip');
+                [sheet, sols].filter(Boolean).forEach(button => {
+                    const seg = segment(button, 'bc-dl');
+                    seg.innerHTML = ARROW;
+                    chip.append(seg);
+                });
+                icons.append(chip);
+            }
+            if (icons.childNodes.length) caption.append(icons);
+            tile.append(caption);
+            list.append(tile);
+        });
+        box.append(list);
+        return box;
+    }
+
     // The episode side: the video, then under it the title row: its name with the episode's buttons
     // (animations, reading) at the end of the name's line, and a short description below.
     // With no video but an animation deck, the frame opens the deck instead, showing the deck's still.
@@ -696,17 +751,21 @@
 
         const wrap = element('div', 'bc-wrap');
         const card = element('div', 'bc bc-checkpoint');
-        card.append(rowEpisode({
+        const episode = rowEpisode({
             name: demo.name || `Demo ${partId} Walkthrough`,
             description: demo.description || `Attempt Demo ${partId} first, then walk through with me.`,
             video: demo.video,
             buttons: () => []
-        }));
+        });
+        card.append(episode);
+        // extras_tiles: true puts the optional extras under the walkthrough, off the path to the checkpoint.
+        const tiles = config.extras_tiles === true;
+        if (tiles && items(config.extras).length) card.append(extraTiles(items(config.extras)));
         const list = element('ol', 'bc-steps');
         const rows = items(config.steps).map(step => explicitRow(step));
         const demoName = `Demo ${partId}`;
         rows.push(rowStep({ name: demoName, owner: demoName, where: 'home', buttons: items(demo.links).map(item => rowButton(item, demoName)) }));
-        items(config.extras).forEach(extra => rows.push(extraRow(extra, 'bc-alt')));
+        if (!tiles) items(config.extras).forEach(extra => rows.push(extraRow(extra, 'bc-alt')));
         const checkpointName = `${word} ${partId}`;
         rows.push(rowStep({
             name: checkpointName, owner: checkpointName, where: 'in class',
