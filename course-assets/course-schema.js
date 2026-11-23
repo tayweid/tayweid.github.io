@@ -389,7 +389,7 @@
 
         function validateBlock(section, path, partId) {
             keys(section, path, ['block', 'nav', 'title', 'description', 'episode'],
-                ['folder', 'reading', 'steps', 'exercise', 'vignette', 'homework', 'dates', 'practice', 'extras']);
+                ['folder', 'reading', 'steps', 'exercise', 'vignette', 'homework', 'dates', 'practice', 'extras', 'extras_tiles']);
             if (text(section.block, `${path}.block`)) {
                 const id = String(section.block);
                 if (!/^[A-Za-z0-9.]+$/.test(id)) fail(`${path}.block`, 'block IDs are letters, digits, and dots');
@@ -477,6 +477,7 @@
                 ['class', 'recitation', 'homework'].forEach(key => date(section.dates[key], `${path}.dates.${key}`));
             }
             extras(section.extras, `${path}.extras`);
+            boolean(section.extras_tiles, `${path}.extras_tiles`);
         }
 
         function validateCheckpoint(value, path) {

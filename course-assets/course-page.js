@@ -570,9 +570,10 @@
         });
     }
 
-    // A checkpoint's optional extras (earlier demos), as small tiles under its walkthrough: each a
-    // thumbnail of its video, then its name (a link to its sheet) and the arrows for its sheet and
-    // solutions. A smaller card leaves them out (course.css).
+    // More practice: a card's optional extras (earlier demos) as a band under the whole card, when
+    // the block or checkpoint sets extras_tiles: true. Each is a small tile: a thumbnail of its video,
+    // then its name (a link to its sheet) and the arrows for its sheet and solutions. They sit in
+    // one row, which scrolls sideways when the card is too narrow for them (course.css).
     function extraTiles(extras) {
         const box = element('div', 'bc-xtra');
         box.append(element('p', 'bc-label', 'More practice'));
@@ -730,10 +731,11 @@
             const steps = block.steps
                 ? items(block.steps).map((step, index) => explicitRow(step, blockFiles[`step_${index}_sols`]))
                 : practiceRows(part, block);
-            const extras = items(block.extras).map(extra => extraRow(extra, 'bc-alt bc-extra'));
+            const extras = block.extras_tiles === true ? [] : items(block.extras).map(extra => extraRow(extra, 'bc-alt bc-extra'));
             linkRows(steps.concat(extras)).forEach(row => list.append(row));
             card.append(list);
         }
+        if (block.extras_tiles === true && items(block.extras).length) card.append(extraTiles(items(block.extras)));
         wrap.append(card);
         section.append(wrap);
         return section;
@@ -758,9 +760,8 @@
             buttons: () => []
         });
         card.append(episode);
-        // extras_tiles: true puts the optional extras under the walkthrough, off the path to the checkpoint.
+        // extras_tiles: true takes the optional extras off the path to the checkpoint, into a band under the card.
         const tiles = config.extras_tiles === true;
-        if (tiles && items(config.extras).length) card.append(extraTiles(items(config.extras)));
         const list = element('ol', 'bc-steps');
         const rows = items(config.steps).map(step => explicitRow(step));
         const demoName = `Demo ${partId}`;
@@ -783,6 +784,7 @@
         }
         linkRows(rows).forEach(row => list.append(row));
         card.append(list);
+        if (tiles && items(config.extras).length) card.append(extraTiles(items(config.extras)));
         wrap.append(card);
         section.append(wrap);
         return section;
